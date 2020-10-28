@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<genmodel:GenModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
+    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/rhea.metamodels/src/main/java" modelPluginID="rhea.metamodels"
+    modelName="BasicFMs" rootExtendsClass="org.eclipse.emf.ecore.impl.MinimalEObjectImpl$Container"
+    importerID="org.eclipse.emf.importer.ecore" complianceLevel="5.0" copyrightFields="false"
+    operationReflection="true" importOrganizing="true">
+  <foreignModel>BasicFMs.ecore</foreignModel>
+  <genPackages prefix="BasicFMs" basePackage="uma.caosd.rhea.metamodels" disposableProviderFactory="true"
+      ecorePackage="BasicFMs.ecore#/">
+    <genClasses ecoreClass="BasicFMs.ecore#//FeatureModel">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute BasicFMs.ecore#//FeatureModel/name"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference BasicFMs.ecore#//FeatureModel/root"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference BasicFMs.ecore#//FeatureModel/features"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference BasicFMs.ecore#//FeatureModel/crosstreeconstraints"/>
+      <genOperations ecoreOperation="BasicFMs.ecore#//FeatureModel/getFeature">
+        <genParameters ecoreParameter="BasicFMs.ecore#//FeatureModel/getFeature/id"/>
+      </genOperations>
+    </genClasses>
+    <genClasses ecoreClass="BasicFMs.ecore#//Feature">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute BasicFMs.ecore#//Feature/id"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute BasicFMs.ecore#//Feature/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute BasicFMs.ecore#//Feature/mandatory"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference BasicFMs.ecore#//Feature/children"/>
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference BasicFMs.ecore#//Feature/parent"/>
+      <genOperations ecoreOperation="BasicFMs.ecore#//Feature/isLeaf"/>
+      <genOperations ecoreOperation="BasicFMs.ecore#//Feature/isRoot"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="BasicFMs.ecore#//CrossTreeConstraint"/>
+    <genClasses image="false" ecoreClass="BasicFMs.ecore#//FeatureGroup"/>
+    <genClasses ecoreClass="BasicFMs.ecore#//AlternativeGroup"/>
+    <genClasses ecoreClass="BasicFMs.ecore#//SelectionGroup"/>
+  </genPackages>
+</genmodel:GenModel>

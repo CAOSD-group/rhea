@@ -11,7 +11,23 @@
       <package
             uri="metamodels.M0"
             class="uma.caosd.rhea.metamodels.M0.M0Package"
-            genModel="src/main/resources/metamodels/M0/M0.genmodel"/>
+            genModel="src/main/resources/metamodels/BasicFMs/BasicFMs.genmodel"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated BasicFMs -->
+      <package
+            uri="metamodels.BasicFMs"
+            class="uma.caosd.rhea.metamodels.BasicFMs.BasicFMsPackage"
+            genModel="src/main/resources/metamodels/BasicFMs/BasicFMs.genmodel"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated BasicCTCs -->
+      <package
+            uri="metamodels.BasicCTCs"
+            class="uma.caosd.rhea.metamodels.BasicCTCs.BasicCTCsPackage"
+            genModel="src/main/resources/metamodels/BasicCTCs/BasicCTCs.genmodel"/>
    </extension>
 
 </plugin>
