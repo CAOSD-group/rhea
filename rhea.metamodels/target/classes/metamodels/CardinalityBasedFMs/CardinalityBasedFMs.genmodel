@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<genmodel:GenModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
+    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/rhea.metamodels/src/main/java" modelPluginID="rhea.metamodels"
+    modelName="CardinalityBasedFMs" rootExtendsClass="org.eclipse.emf.ecore.impl.MinimalEObjectImpl$Container"
+    importerID="org.eclipse.emf.importer.ecore" complianceLevel="5.0" copyrightFields="false"
+    usedGenPackages="../BasicFMs/BasicFMs.genmodel#//BasicFMs" operationReflection="true"
+    importOrganizing="true">
+  <foreignModel>CardinalityBasedFMs.ecore</foreignModel>
+  <genPackages prefix="CardinalityBasedFMs" basePackage="uma.caosd.rhea.metamodels"
+      disposableProviderFactory="true" ecorePackage="CardinalityBasedFMs.ecore#/">
+    <genClasses ecoreClass="CardinalityBasedFMs.ecore#//Multiplicity">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute CardinalityBasedFMs.ecore#//Multiplicity/lower"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute CardinalityBasedFMs.ecore#//Multiplicity/upper"/>
+    </genClasses>
+    <genClasses ecoreClass="CardinalityBasedFMs.ecore#//GroupCardinality">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference CardinalityBasedFMs.ecore#//GroupCardinality/multiplicity"/>
+    </genClasses>
+  </genPackages>
+</genmodel:GenModel>

@@ -23,4 +23,12 @@
             genModel="src/main/resources/metamodels/BasicCTCs/BasicCTCs.genmodel"/>
    </extension>
 
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated CardinalityBasedFMs -->
+      <package
+            uri="metamodels.CardinalityBasedFMs"
+            class="uma.caosd.rhea.metamodels.CardinalityBasedFMs.CardinalityBasedFMsPackage"
+            genModel="src/main/resources/metamodels/CardinalityBasedFMs/CardinalityBasedFMs.genmodel"/>
+   </extension>
+
 </plugin>

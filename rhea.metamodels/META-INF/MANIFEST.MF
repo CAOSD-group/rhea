@@ -13,7 +13,10 @@ Export-Package: uma.caosd.rhea.metamodels.BasicFMs,
  uma.caosd.rhea.metamodels.BasicFMs.util,
  uma.caosd.rhea.metamodels.BasicCTCs,
  uma.caosd.rhea.metamodels.BasicCTCs.impl,
- uma.caosd.rhea.metamodels.BasicCTCs.util
+ uma.caosd.rhea.metamodels.BasicCTCs.util,
+ uma.caosd.rhea.metamodels.CardinalityBasedFMs,
+ uma.caosd.rhea.metamodels.CardinalityBasedFMs.impl,
+ uma.caosd.rhea.metamodels.CardinalityBasedFMs.util
 Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.emf.ecore;visibility:=reexport,
  rhea.metamodels;visibility:=reexport
