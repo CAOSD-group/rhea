@@ -18,4 +18,9 @@
 	</build>
   
 	<packaging>pom</packaging>
+	<modules>
+		<module>rhea.modeltransformations</module>
+		<module>rhea.metamodels</module>
+		<module>rhea.parsers</module>
+	</modules>
 </project>
