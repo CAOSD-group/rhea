@@ -6,13 +6,6 @@
 
 <plugin>
 
-   <extension point="org.eclipse.emf.ecore.generated_package">
-      <!-- @generated M0 -->
-      <package
-            uri="metamodels.M0"
-            class="uma.caosd.rhea.metamodels.M0.M0Package"
-            genModel="src/main/resources/metamodels/BasicFMs/BasicFMs.genmodel"/>
-   </extension>
 
    <extension point="org.eclipse.emf.ecore.generated_package">
       <!-- @generated BasicFMs -->
