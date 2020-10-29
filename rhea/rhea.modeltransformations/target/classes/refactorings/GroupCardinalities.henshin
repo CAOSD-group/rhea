@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<henshin:Module xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:henshin="http://www.eclipse.org/emf/2011/Henshin" xmi:id="_expWEBnpEeuQ-pd1BKGsdg">
+  <imports href="../../../../../rhea.metamodels/src/main/resources/metamodels/CardinalityBasedFMs/CardinalityBasedFMs.ecore#/"/>
+  <imports href="../../../../../rhea.metamodels/src/main/resources/metamodels/BasicFMs/BasicFMs.ecore#/"/>
+  <units xsi:type="henshin:Rule" xmi:id="_gZ5GQBnpEeuQ-pd1BKGsdg" name="GroupCardinality_XOR">
+    <parameters xmi:id="_CCVz0Bn7EeuQ-pd1BKGsdg" name="id" kind="VAR">
+      <type xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    </parameters>
+    <parameters xmi:id="_CCVz0Rn7EeuQ-pd1BKGsdg" name="name" kind="VAR">
+      <type xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    </parameters>
+    <parameters xmi:id="_RE7h4Bn-EeuC96Lf3JWjDg" name="opt" kind="VAR">
+      <type xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+    </parameters>
+    <parameters xmi:id="_QbzMsBn7EeuQ-pd1BKGsdg" name="childrenId" kind="VAR">
+      <type xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    </parameters>
+    <parameters xmi:id="_QbzzwBn7EeuQ-pd1BKGsdg" name="childrenName" kind="VAR">
+      <type xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    </parameters>
+    <lhs xmi:id="_gbJDcBnpEeuQ-pd1BKGsdg" name="Lhs">
+      <nodes xmi:id="_il8HEBnpEeuQ-pd1BKGsdg" incoming="_EAadUBnrEeuQ-pd1BKGsdg" outgoing="_wCoVsBnpEeuQ-pd1BKGsdg _FcbvYBnrEeuQ-pd1BKGsdg">
+        <type href="../../../../../rhea.metamodels/src/main/resources/metamodels/CardinalityBasedFMs/CardinalityBasedFMs.ecore#//GroupCardinality"/>
+        <attributes xmi:id="_FW1DYBn7EeuQ-pd1BKGsdg" value="id">
+          <type href="../../../../../rhea.metamodels/src/main/resources/metamodels/BasicFMs/BasicFMs.ecore#//Feature/id"/>
+        </attributes>
+        <attributes xmi:id="_Fn7acBn7EeuQ-pd1BKGsdg" value="id">
+          <type href="../../../../../rhea.metamodels/src/main/resources/metamodels/BasicFMs/BasicFMs.ecore#//Feature/name"/>
+        </attributes>
+        <attributes xmi:id="_OPmTgBn-EeuC96Lf3JWjDg" value="opt">
+          <type href="../../../../../rhea.metamodels/src/main/resources/metamodels/BasicFMs/BasicFMs.ecore#//Feature/mandatory"/>
+        </attributes>
+      </nodes>
+      <nodes xmi:id="_jT-40BnpEeuQ-pd1BKGsdg" incoming="_wCoVsBnpEeuQ-pd1BKGsdg">
+        <type href="../../../../../rhea.metamodels/src/main/resources/metamodels/CardinalityBasedFMs/CardinalityBasedFMs.ecore#//Multiplicity"/>
+        <attributes xmi:id="_7v3Y4BnpEeuQ-pd1BKGsdg" value="1">
+          <type href="../../../../../rhea.metamodels/src/main/resources/metamodels/CardinalityBasedFMs/CardinalityBasedFMs.ecore#//Multiplicity/lower"/>
+        </attributes>
+        <attributes xmi:id="_8C1YMBnpEeuQ-pd1BKGsdg" value="1">
+          <type href="../../../../../rhea.metamodels/src/main/resources/metamodels/CardinalityBasedFMs/CardinalityBasedFMs.ecore#//Multiplicity/upper"/>
+        </attributes>
+      </nodes>
+      <nodes xmi:id="_CXCrwBnrEeuQ-pd1BKGsdg" name="parent" incoming="_FcbvYBnrEeuQ-pd1BKGsdg" outgoing="_EAadUBnrEeuQ-pd1BKGsdg">
+        <type href="../../../../../rhea.metamodels/src/main/resources/metamodels/BasicFMs/BasicFMs.ecore#//Feature"/>
+      </nodes>
+      <edges xmi:id="_wCoVsBnpEeuQ-pd1BKGsdg" source="_il8HEBnpEeuQ-pd1BKGsdg" target="_jT-40BnpEeuQ-pd1BKGsdg">
+        <type href="../../../../../rhea.metamodels/src/main/resources/metamodels/CardinalityBasedFMs/CardinalityBasedFMs.ecore#//GroupCardinality/multiplicity"/>
+      </edges>
+      <edges xmi:id="_EAadUBnrEeuQ-pd1BKGsdg" source="_CXCrwBnrEeuQ-pd1BKGsdg" target="_il8HEBnpEeuQ-pd1BKGsdg">
+        <type href="../../../../../rhea.metamodels/src/main/resources/metamodels/BasicFMs/BasicFMs.ecore#//Feature/children"/>
+      </edges>
+      <edges xmi:id="_FcbvYBnrEeuQ-pd1BKGsdg" source="_il8HEBnpEeuQ-pd1BKGsdg" target="_CXCrwBnrEeuQ-pd1BKGsdg">
+        <type href="../../../../../rhea.metamodels/src/main/resources/metamodels/BasicFMs/BasicFMs.ecore#//Feature/parent"/>
+      </edges>
+    </lhs>
+    <rhs xmi:id="_gbJqgBnpEeuQ-pd1BKGsdg" name="Rhs">
+      <nodes xmi:id="_CrSS4BnqEeuQ-pd1BKGsdg" incoming="_F3SfYBnrEeuQ-pd1BKGsdg" outgoing="_GI6a4BnrEeuQ-pd1BKGsdg">
+        <type href="../../../../../rhea.metamodels/src/main/resources/metamodels/BasicFMs/BasicFMs.ecore#//AlternativeGroup"/>
+        <attributes xmi:id="_EoTJcBn7EeuQ-pd1BKGsdg" value="id">
+          <type href="../../../../../rhea.metamodels/src/main/resources/metamodels/BasicFMs/BasicFMs.ecore#//Feature/id"/>
+        </attributes>
+        <attributes xmi:id="_E5K3ABn7EeuQ-pd1BKGsdg" value="id">
+          <type href="../../../../../rhea.metamodels/src/main/resources/metamodels/BasicFMs/BasicFMs.ecore#//Feature/name"/>
+        </attributes>
+        <attributes xmi:id="_PbDaABn-EeuC96Lf3JWjDg" value="opt">
+          <type href="../../../../../rhea.metamodels/src/main/resources/metamodels/BasicFMs/BasicFMs.ecore#//Feature/mandatory"/>
+        </attributes>
+      </nodes>
+      <nodes xmi:id="_CXCrwRnrEeuQ-pd1BKGsdg" name="parent" incoming="_GI6a4BnrEeuQ-pd1BKGsdg" outgoing="_F3SfYBnrEeuQ-pd1BKGsdg">
+        <type href="../../../../../rhea.metamodels/src/main/resources/metamodels/BasicFMs/BasicFMs.ecore#//Feature"/>
+      </nodes>
+      <edges xmi:id="_F3SfYBnrEeuQ-pd1BKGsdg" source="_CXCrwRnrEeuQ-pd1BKGsdg" target="_CrSS4BnqEeuQ-pd1BKGsdg">
+        <type href="../../../../../rhea.metamodels/src/main/resources/metamodels/BasicFMs/BasicFMs.ecore#//Feature/children"/>
+      </edges>
+      <edges xmi:id="_GI6a4BnrEeuQ-pd1BKGsdg" source="_CrSS4BnqEeuQ-pd1BKGsdg" target="_CXCrwRnrEeuQ-pd1BKGsdg">
+        <type href="../../../../../rhea.metamodels/src/main/resources/metamodels/BasicFMs/BasicFMs.ecore#//Feature/parent"/>
+      </edges>
+    </rhs>
+    <mappings xmi:id="_CXCrwhnrEeuQ-pd1BKGsdg" origin="_CXCrwBnrEeuQ-pd1BKGsdg" image="_CXCrwRnrEeuQ-pd1BKGsdg"/>
+    <multiRules xmi:id="_uYKX8xnpEeuQ-pd1BKGsdg">
+      <parameters xmi:id="_CCWa4Bn7EeuQ-pd1BKGsdg" name="id" kind="VAR">
+        <type xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      </parameters>
+      <parameters xmi:id="_CCWa4Rn7EeuQ-pd1BKGsdg" name="name" kind="VAR">
+        <type xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      </parameters>
+      <parameters xmi:id="_QbzzwRn7EeuQ-pd1BKGsdg" name="opt" kind="VAR">
+        <type xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+      </parameters>
+      <parameters xmi:id="_Qbzzwhn7EeuQ-pd1BKGsdg" name="childrenId" kind="VAR">
+        <type xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      </parameters>
+      <parameters xmi:id="_RE7h4Rn-EeuC96Lf3JWjDg" name="childrenName" kind="VAR">
+        <type xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      </parameters>
+      <lhs xmi:id="_uYK_ABnpEeuQ-pd1BKGsdg" name="Lhs">
+        <nodes xmi:id="_uYK_BBnpEeuQ-pd1BKGsdg" incoming="_EAbEYhnrEeuQ-pd1BKGsdg _8nct4Bn5EeuQ-pd1BKGsdg" outgoing="_wCo8whnpEeuQ-pd1BKGsdg _FcbvYxnrEeuQ-pd1BKGsdg _8VcX4Bn5EeuQ-pd1BKGsdg">
+          <type href="../../../../../rhea.metamodels/src/main/resources/metamodels/CardinalityBasedFMs/CardinalityBasedFMs.ecore#//GroupCardinality"/>
+        </nodes>
+        <nodes xmi:id="_uYLmFBnpEeuQ-pd1BKGsdg" incoming="_wCo8whnpEeuQ-pd1BKGsdg">
+          <type href="../../../../../rhea.metamodels/src/main/resources/metamodels/CardinalityBasedFMs/CardinalityBasedFMs.ecore#//Multiplicity"/>
+        </nodes>
+        <nodes xmi:id="_uYKX8BnpEeuQ-pd1BKGsdg" name="children" incoming="_8VcX4Bn5EeuQ-pd1BKGsdg" outgoing="_8nct4Bn5EeuQ-pd1BKGsdg">
+          <type href="../../../../../rhea.metamodels/src/main/resources/metamodels/BasicFMs/BasicFMs.ecore#//Feature"/>
+          <attributes xmi:id="_AeQnYBn6EeuQ-pd1BKGsdg" value="childrenId">
+            <type href="../../../../../rhea.metamodels/src/main/resources/metamodels/BasicFMs/BasicFMs.ecore#//Feature/id"/>
+          </attributes>
+          <attributes xmi:id="_A-52UBn6EeuQ-pd1BKGsdg" value="childrenName">
+            <type href="../../../../../rhea.metamodels/src/main/resources/metamodels/BasicFMs/BasicFMs.ecore#//Feature/name"/>
+          </attributes>
+          <attributes xmi:id="_VvsIMBn7EeuQ-pd1BKGsdg" value="false">
+            <type href="../../../../../rhea.metamodels/src/main/resources/metamodels/BasicFMs/BasicFMs.ecore#//Feature/mandatory"/>
+          </attributes>
+        </nodes>
+        <nodes xmi:id="_CXCrxRnrEeuQ-pd1BKGsdg" incoming="_FcbvYxnrEeuQ-pd1BKGsdg" outgoing="_EAbEYhnrEeuQ-pd1BKGsdg">
+          <type href="../../../../../rhea.metamodels/src/main/resources/metamodels/BasicFMs/BasicFMs.ecore#//Feature"/>
+        </nodes>
+        <edges xmi:id="_wCo8whnpEeuQ-pd1BKGsdg" source="_uYK_BBnpEeuQ-pd1BKGsdg" target="_uYLmFBnpEeuQ-pd1BKGsdg">
+          <type href="../../../../../rhea.metamodels/src/main/resources/metamodels/CardinalityBasedFMs/CardinalityBasedFMs.ecore#//GroupCardinality/multiplicity"/>
+        </edges>
+        <edges xmi:id="_EAbEYhnrEeuQ-pd1BKGsdg" source="_CXCrxRnrEeuQ-pd1BKGsdg" target="_uYK_BBnpEeuQ-pd1BKGsdg">
+          <type href="../../../../../rhea.metamodels/src/main/resources/metamodels/BasicFMs/BasicFMs.ecore#//Feature/children"/>
+        </edges>
+        <edges xmi:id="_FcbvYxnrEeuQ-pd1BKGsdg" source="_uYK_BBnpEeuQ-pd1BKGsdg" target="_CXCrxRnrEeuQ-pd1BKGsdg">
+          <type href="../../../../../rhea.metamodels/src/main/resources/metamodels/BasicFMs/BasicFMs.ecore#//Feature/parent"/>
+        </edges>
+        <edges xmi:id="_8VcX4Bn5EeuQ-pd1BKGsdg" source="_uYK_BBnpEeuQ-pd1BKGsdg" target="_uYKX8BnpEeuQ-pd1BKGsdg">
+          <type href="../../../../../rhea.metamodels/src/main/resources/metamodels/BasicFMs/BasicFMs.ecore#//Feature/children"/>
+        </edges>
+        <edges xmi:id="_8nct4Bn5EeuQ-pd1BKGsdg" source="_uYKX8BnpEeuQ-pd1BKGsdg" target="_uYK_BBnpEeuQ-pd1BKGsdg">
+          <type href="../../../../../rhea.metamodels/src/main/resources/metamodels/BasicFMs/BasicFMs.ecore#//Feature/parent"/>
+        </edges>
+      </lhs>
+      <rhs xmi:id="_uYK_ARnpEeuQ-pd1BKGsdg" name="Rhs">
+        <nodes xmi:id="_oL3_YBnqEeuQ-pd1BKGsdg" incoming="_pHlZsBnqEeuQ-pd1BKGsdg _F3TGcBnrEeuQ-pd1BKGsdg" outgoing="_p_wX0BnqEeuQ-pd1BKGsdg _GI6a4RnrEeuQ-pd1BKGsdg">
+          <type href="../../../../../rhea.metamodels/src/main/resources/metamodels/BasicFMs/BasicFMs.ecore#//AlternativeGroup"/>
+        </nodes>
+        <nodes xmi:id="_kXhkABnqEeuQ-pd1BKGsdg" name="children" incoming="_p_wX0BnqEeuQ-pd1BKGsdg" outgoing="_pHlZsBnqEeuQ-pd1BKGsdg">
+          <type href="../../../../../rhea.metamodels/src/main/resources/metamodels/BasicFMs/BasicFMs.ecore#//Feature"/>
+          <attributes xmi:id="_Cn9CUBn7EeuQ-pd1BKGsdg" value="childrenId">
+            <type href="../../../../../rhea.metamodels/src/main/resources/metamodels/BasicFMs/BasicFMs.ecore#//Feature/id"/>
+          </attributes>
+          <attributes xmi:id="_C64lYBn7EeuQ-pd1BKGsdg" value="childrenName">
+            <type href="../../../../../rhea.metamodels/src/main/resources/metamodels/BasicFMs/BasicFMs.ecore#//Feature/name"/>
+          </attributes>
+          <attributes xmi:id="_DLWqUBn7EeuQ-pd1BKGsdg" value="false">
+            <type href="../../../../../rhea.metamodels/src/main/resources/metamodels/BasicFMs/BasicFMs.ecore#//Feature/mandatory"/>
+          </attributes>
+        </nodes>
+        <nodes xmi:id="_CXCrwxnrEeuQ-pd1BKGsdg" incoming="_GI6a4RnrEeuQ-pd1BKGsdg" outgoing="_F3TGcBnrEeuQ-pd1BKGsdg">
+          <type href="../../../../../rhea.metamodels/src/main/resources/metamodels/BasicFMs/BasicFMs.ecore#//Feature"/>
+        </nodes>
+        <edges xmi:id="_pHlZsBnqEeuQ-pd1BKGsdg" source="_kXhkABnqEeuQ-pd1BKGsdg" target="_oL3_YBnqEeuQ-pd1BKGsdg">
+          <type href="../../../../../rhea.metamodels/src/main/resources/metamodels/BasicFMs/BasicFMs.ecore#//Feature/parent"/>
+        </edges>
+        <edges xmi:id="_p_wX0BnqEeuQ-pd1BKGsdg" source="_oL3_YBnqEeuQ-pd1BKGsdg" target="_kXhkABnqEeuQ-pd1BKGsdg">
+          <type href="../../../../../rhea.metamodels/src/main/resources/metamodels/BasicFMs/BasicFMs.ecore#//Feature/children"/>
+        </edges>
+        <edges xmi:id="_F3TGcBnrEeuQ-pd1BKGsdg" source="_CXCrwxnrEeuQ-pd1BKGsdg" target="_oL3_YBnqEeuQ-pd1BKGsdg">
+          <type href="../../../../../rhea.metamodels/src/main/resources/metamodels/BasicFMs/BasicFMs.ecore#//Feature/children"/>
+        </edges>
+        <edges xmi:id="_GI6a4RnrEeuQ-pd1BKGsdg" source="_oL3_YBnqEeuQ-pd1BKGsdg" target="_CXCrwxnrEeuQ-pd1BKGsdg">
+          <type href="../../../../../rhea.metamodels/src/main/resources/metamodels/BasicFMs/BasicFMs.ecore#//Feature/parent"/>
+        </edges>
+      </rhs>
+      <mappings xmi:id="_CXDS0BnrEeuQ-pd1BKGsdg" origin="_CXCrxRnrEeuQ-pd1BKGsdg" image="_CXCrwxnrEeuQ-pd1BKGsdg"/>
+      <multiMappings xmi:id="_uYLmEBnpEeuQ-pd1BKGsdg" origin="_il8HEBnpEeuQ-pd1BKGsdg" image="_uYK_BBnpEeuQ-pd1BKGsdg"/>
+      <multiMappings xmi:id="_uYLmFRnpEeuQ-pd1BKGsdg" origin="_jT-40BnpEeuQ-pd1BKGsdg" image="_uYLmFBnpEeuQ-pd1BKGsdg"/>
+      <multiMappings xmi:id="_oL3_YRnqEeuQ-pd1BKGsdg" origin="_CrSS4BnqEeuQ-pd1BKGsdg" image="_oL3_YBnqEeuQ-pd1BKGsdg"/>
+      <multiMappings xmi:id="_CXCrxBnrEeuQ-pd1BKGsdg" origin="_CXCrwRnrEeuQ-pd1BKGsdg" image="_CXCrwxnrEeuQ-pd1BKGsdg"/>
+      <multiMappings xmi:id="_CXCrxhnrEeuQ-pd1BKGsdg" origin="_CXCrwBnrEeuQ-pd1BKGsdg" image="_CXCrxRnrEeuQ-pd1BKGsdg"/>
+    </multiRules>
+  </units>
+  <units xsi:type="henshin:LoopUnit" xmi:id="_kMQYEBn-EeuC96Lf3JWjDg" name="GroupCardinalities" description="Refactor all group cardinalities." subUnit="_gZ5GQBnpEeuQ-pd1BKGsdg"/>
+</henshin:Module>
