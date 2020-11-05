@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <henshin:Module xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:henshin="http://www.eclipse.org/emf/2011/Henshin" xmi:id="_expWEBnpEeuQ-pd1BKGsdg">
-  <annotations xmi:id="_57-fkB6uEeuMC9hDCZU3dA" key="featureModel" value="xor(xorgroup,orgroup)"/>
+  <annotations xmi:id="_57-fkB6uEeuMC9hDCZU3dA" key="featureModel" value="root &amp; xor(xorgroup,orgroup) | !root &amp; xor(xorgroup,orgroup)"/>
   <annotations xmi:id="_8FZDIB6uEeuMC9hDCZU3dA" key="injectiveMatchingPresenceCondition"/>
   <annotations xmi:id="_-sKREB6uEeuMC9hDCZU3dA" key="features"/>
   <imports href="../../../../../rhea.metamodels/src/main/resources/metamodels/BasicFMs/BasicFMs.ecore#/"/>
@@ -23,8 +23,8 @@
         <annotations xmi:id="_jR77IB6vEeuMC9hDCZU3dA" key="presenceCondition" value="!root"/>
         <type href="../../../../../rhea.metamodels/src/main/resources/metamodels/BasicFMs/BasicFMs.ecore#//Feature"/>
       </nodes>
-      <nodes xmi:id="_xjv-cB6wEeuMC9hDCZU3dA" incoming="_vxI74B6xEeuMC9hDCZU3dA _Ly9n4B6yEeuMC9hDCZU3dA _MnSAwB6yEeuMC9hDCZU3dA _fXohYB6yEeuMC9hDCZU3dA" outgoing="_FGuO0B6xEeuMC9hDCZU3dA _FdnE0B6xEeuMC9hDCZU3dA _xE_JYB6xEeuMC9hDCZU3dA">
-        <annotations xmi:id="_MSuigB6xEeuMC9hDCZU3dA" key="presenceCondition" value=""/>
+      <nodes xmi:id="_xjv-cB6wEeuMC9hDCZU3dA" name="" incoming="_vxI74B6xEeuMC9hDCZU3dA _Ly9n4B6yEeuMC9hDCZU3dA _MnSAwB6yEeuMC9hDCZU3dA _fXohYB6yEeuMC9hDCZU3dA" outgoing="_FGuO0B6xEeuMC9hDCZU3dA _FdnE0B6xEeuMC9hDCZU3dA _xE_JYB6xEeuMC9hDCZU3dA">
+        <annotations xmi:id="_MSuigB6xEeuMC9hDCZU3dA" key="presenceCondition" value="root | !root"/>
         <type href="../../../../../rhea.metamodels/src/main/resources/metamodels/CardinalityBasedFMs/CardinalityBasedFMs.ecore#//GroupCardinality"/>
         <attributes xmi:id="_k2-e8B6yEeuMC9hDCZU3dA" value="id">
           <type href="../../../../../rhea.metamodels/src/main/resources/metamodels/BasicFMs/BasicFMs.ecore#//Feature/id"/>
@@ -192,7 +192,7 @@
           <annotations xmi:id="_6ENHLh6xEeuMC9hDCZU3dA" key="presenceCondition" value="!root"/>
           <type href="../../../../../rhea.metamodels/src/main/resources/metamodels/BasicFMs/BasicFMs.ecore#//Feature"/>
         </nodes>
-        <nodes xmi:id="_6ENHMB6xEeuMC9hDCZU3dA" incoming="_6ENHNB6xEeuMC9hDCZU3dA _745-8B6xEeuMC9hDCZU3dA _Ly9n4R6yEeuMC9hDCZU3dA _MnSn0B6yEeuMC9hDCZU3dA _fXohYR6yEeuMC9hDCZU3dA" outgoing="_6ENHMx6xEeuMC9hDCZU3dA _6ENHPR6xEeuMC9hDCZU3dA _6ENuMR6xEeuMC9hDCZU3dA _69e4gB6xEeuMC9hDCZU3dA">
+        <nodes xmi:id="_6ENHMB6xEeuMC9hDCZU3dA" name="" incoming="_6ENHNB6xEeuMC9hDCZU3dA _745-8B6xEeuMC9hDCZU3dA _Ly9n4R6yEeuMC9hDCZU3dA _MnSn0B6yEeuMC9hDCZU3dA _fXohYR6yEeuMC9hDCZU3dA" outgoing="_6ENHMx6xEeuMC9hDCZU3dA _6ENHPR6xEeuMC9hDCZU3dA _6ENuMR6xEeuMC9hDCZU3dA _69e4gB6xEeuMC9hDCZU3dA">
           <annotations xmi:id="_6ENHMR6xEeuMC9hDCZU3dA" key="presenceCondition" value=""/>
           <type href="../../../../../rhea.metamodels/src/main/resources/metamodels/CardinalityBasedFMs/CardinalityBasedFMs.ecore#//GroupCardinality"/>
         </nodes>

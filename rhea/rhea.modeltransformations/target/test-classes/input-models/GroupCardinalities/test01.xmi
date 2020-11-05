@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<uma.caosd.rhea:FeatureModel
+    xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:uma.caosd.rhea="metamodels.BasicFMs"
+    xmlns:uma.caosd.rhea_1="metamodels.CardinalityBasedFMs"
+    xsi:schemaLocation="metamodels.BasicFMs ../../../../../../rhea.metamodels/src/main/resources/metamodels/BasicFMs/BasicFMs.ecore metamodels.CardinalityBasedFMs ../../../../../../rhea.metamodels/src/main/resources/metamodels/CardinalityBasedFMs/CardinalityBasedFMs.ecore"
+    name="MyFM"
+    features="//@root //@root/@children.0 //@root/@children.1 //@root/@children.0/@children.0 //@root/@children.0/@children.1 //@root/@children.0/@children.2 //@root/@children.1/@children.0 //@root/@children.1/@children.1 //@root/@children.1/@children.2">
+  <root id="Root"
+      name="Root"
+      mandatory="true">
+    <children
+        xsi:type="uma.caosd.rhea_1:GroupCardinality"
+        id="A1"
+        name="A1"
+        mandatory="true">
+      <children
+          id="B1"
+          name="B1"/>
+      <children
+          id="C1"
+          name="C1"/>
+      <children
+          id="D1"
+          name="D1"/>
+      <multiplicity
+          lower="1"/>
+    </children>
+    <children
+        xsi:type="uma.caosd.rhea_1:GroupCardinality"
+        id="A2"
+        name="A2">
+      <children
+          id="B2"
+          name="B2"/>
+      <children
+          id="C2"
+          name="C2"/>
+      <children
+          id="D2"
+          name="D2"/>
+      <multiplicity
+          lower="1"/>
+    </children>
+  </root>
+</uma.caosd.rhea:FeatureModel>

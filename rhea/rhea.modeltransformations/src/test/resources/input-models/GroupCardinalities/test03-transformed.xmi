@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="ASCII"?>
+<uma.caosd.rhea:FeatureModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:uma.caosd.rhea="metamodels.BasicFMs" name="MyFM" features="//@root/@children.2 //@root/@children.1 //@root/@children.0 //@root">
+  <root xsi:type="uma.caosd.rhea:SelectionGroup" id="A" name="A" mandatory="true">
+    <children id="D" name="D"/>
+    <children id="C" name="C"/>
+    <children id="B" name="B"/>
+  </root>
+</uma.caosd.rhea:FeatureModel>
