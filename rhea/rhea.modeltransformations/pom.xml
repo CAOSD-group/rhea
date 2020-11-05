@@ -6,4 +6,16 @@
     <version>0.0.1</version>
   </parent>
   <artifactId>rhea.modeltransformations</artifactId>
+  <dependencies>
+  	<dependency>
+  		<groupId>uma.caosd</groupId>
+  		<artifactId>rhea.metamodels</artifactId>
+  		<version>${project.version}</version>
+  	</dependency>
+  	<dependency>
+  		<groupId>uma.caosd</groupId>
+  		<artifactId>rhea</artifactId>
+  		<version>${project.version}</version>
+  	</dependency>
+  </dependencies>
 </project>

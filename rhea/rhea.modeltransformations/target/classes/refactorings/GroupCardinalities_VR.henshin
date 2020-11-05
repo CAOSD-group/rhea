@@ -1,0 +1,342 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<henshin:Module xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:henshin="http://www.eclipse.org/emf/2011/Henshin" xmi:id="_expWEBnpEeuQ-pd1BKGsdg">
+  <annotations xmi:id="_57-fkB6uEeuMC9hDCZU3dA" key="featureModel" value="xor(xorgroup,orgroup)"/>
+  <annotations xmi:id="_8FZDIB6uEeuMC9hDCZU3dA" key="injectiveMatchingPresenceCondition"/>
+  <annotations xmi:id="_-sKREB6uEeuMC9hDCZU3dA" key="features"/>
+  <imports href="../../../../../rhea.metamodels/src/main/resources/metamodels/BasicFMs/BasicFMs.ecore#/"/>
+  <imports href="../../../../../rhea.metamodels/src/main/resources/metamodels/CardinalityBasedFMs/CardinalityBasedFMs.ecore#/"/>
+  <units xsi:type="henshin:Rule" xmi:id="_T-V1QB6vEeuMC9hDCZU3dA" name="GroupCardinality">
+    <annotations xmi:id="_tzUZwB6wEeuMC9hDCZU3dA" key="featureConstraint" value=""/>
+    <annotations xmi:id="_tzUZwR6wEeuMC9hDCZU3dA" key="injectiveMatchingPresenceCondition" value=""/>
+    <annotations xmi:id="_tzUZwh6wEeuMC9hDCZU3dA" key="features" value="root, orgroup, xorgroup"/>
+    <parameters xmi:id="_kWBG8B6yEeuMC9hDCZU3dA" name="id" kind="VAR">
+      <type xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    </parameters>
+    <parameters xmi:id="_kWCVEB6yEeuMC9hDCZU3dA" name="name" kind="VAR">
+      <type xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    </parameters>
+    <parameters xmi:id="_kWCVER6yEeuMC9hDCZU3dA" name="opt" kind="VAR">
+      <type xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+    </parameters>
+    <lhs xmi:id="_T-YRgB6vEeuMC9hDCZU3dA" name="Lhs">
+      <nodes xmi:id="_hBJkQB6vEeuMC9hDCZU3dA" name="parent" incoming="_xE_JYB6xEeuMC9hDCZU3dA" outgoing="_vxI74B6xEeuMC9hDCZU3dA">
+        <annotations xmi:id="_jR77IB6vEeuMC9hDCZU3dA" key="presenceCondition" value="!root"/>
+        <type href="../../../../../rhea.metamodels/src/main/resources/metamodels/BasicFMs/BasicFMs.ecore#//Feature"/>
+      </nodes>
+      <nodes xmi:id="_xjv-cB6wEeuMC9hDCZU3dA" incoming="_vxI74B6xEeuMC9hDCZU3dA _Ly9n4B6yEeuMC9hDCZU3dA _MnSAwB6yEeuMC9hDCZU3dA _fXohYB6yEeuMC9hDCZU3dA" outgoing="_FGuO0B6xEeuMC9hDCZU3dA _FdnE0B6xEeuMC9hDCZU3dA _xE_JYB6xEeuMC9hDCZU3dA">
+        <annotations xmi:id="_MSuigB6xEeuMC9hDCZU3dA" key="presenceCondition" value=""/>
+        <type href="../../../../../rhea.metamodels/src/main/resources/metamodels/CardinalityBasedFMs/CardinalityBasedFMs.ecore#//GroupCardinality"/>
+        <attributes xmi:id="_k2-e8B6yEeuMC9hDCZU3dA" value="id">
+          <type href="../../../../../rhea.metamodels/src/main/resources/metamodels/BasicFMs/BasicFMs.ecore#//Feature/id"/>
+        </attributes>
+        <attributes xmi:id="_lfepYB6yEeuMC9hDCZU3dA" value="name">
+          <type href="../../../../../rhea.metamodels/src/main/resources/metamodels/BasicFMs/BasicFMs.ecore#//Feature/name"/>
+        </attributes>
+        <attributes xmi:id="_mmbDUB6yEeuMC9hDCZU3dA" value="opt">
+          <type href="../../../../../rhea.metamodels/src/main/resources/metamodels/BasicFMs/BasicFMs.ecore#//Feature/mandatory"/>
+        </attributes>
+      </nodes>
+      <nodes xmi:id="_yEsIUB6wEeuMC9hDCZU3dA" name="xorCard" incoming="_FGuO0B6xEeuMC9hDCZU3dA">
+        <annotations xmi:id="_AD4AAB6xEeuMC9hDCZU3dA" key="presenceCondition" value="xorgroup"/>
+        <type href="../../../../../rhea.metamodels/src/main/resources/metamodels/CardinalityBasedFMs/CardinalityBasedFMs.ecore#//Multiplicity"/>
+        <attributes xmi:id="_SxShYB6xEeuMC9hDCZU3dA" value="1">
+          <annotations xmi:id="_uzm8oB6xEeuMC9hDCZU3dA" key="presenceCondition" value=""/>
+          <type href="../../../../../rhea.metamodels/src/main/resources/metamodels/CardinalityBasedFMs/CardinalityBasedFMs.ecore#//Multiplicity/lower"/>
+        </attributes>
+        <attributes xmi:id="_S6Q3MB6xEeuMC9hDCZU3dA" value="1">
+          <annotations xmi:id="_u4vUQB6xEeuMC9hDCZU3dA" key="presenceCondition" value=""/>
+          <type href="../../../../../rhea.metamodels/src/main/resources/metamodels/CardinalityBasedFMs/CardinalityBasedFMs.ecore#//Multiplicity/upper"/>
+        </attributes>
+      </nodes>
+      <nodes xmi:id="_10aiYB6wEeuMC9hDCZU3dA" name="orCard" incoming="_FdnE0B6xEeuMC9hDCZU3dA">
+        <annotations xmi:id="_Aii5AB6xEeuMC9hDCZU3dA" key="presenceCondition" value="orgroup"/>
+        <type href="../../../../../rhea.metamodels/src/main/resources/metamodels/CardinalityBasedFMs/CardinalityBasedFMs.ecore#//Multiplicity"/>
+        <attributes xmi:id="_Tuty8B6xEeuMC9hDCZU3dA" value="1">
+          <annotations xmi:id="_u4vUQR6xEeuMC9hDCZU3dA" key="presenceCondition" value=""/>
+          <type href="../../../../../rhea.metamodels/src/main/resources/metamodels/CardinalityBasedFMs/CardinalityBasedFMs.ecore#//Multiplicity/lower"/>
+        </attributes>
+        <attributes xmi:id="_UMvywB6xEeuMC9hDCZU3dA" value="-1">
+          <annotations xmi:id="_u4vUQh6xEeuMC9hDCZU3dA" key="presenceCondition" value=""/>
+          <type href="../../../../../rhea.metamodels/src/main/resources/metamodels/CardinalityBasedFMs/CardinalityBasedFMs.ecore#//Multiplicity/upper"/>
+        </attributes>
+      </nodes>
+      <nodes xmi:id="_GOBYoB6yEeuMC9hDCZU3dA" outgoing="_Ly9n4B6yEeuMC9hDCZU3dA _MnSAwB6yEeuMC9hDCZU3dA">
+        <annotations xmi:id="_W-d3AB6yEeuMC9hDCZU3dA" key="presenceCondition" value="root"/>
+        <type href="../../../../../rhea.metamodels/src/main/resources/metamodels/BasicFMs/BasicFMs.ecore#//FeatureModel"/>
+      </nodes>
+      <nodes xmi:id="_bDiO8B6yEeuMC9hDCZU3dA" outgoing="_fXohYB6yEeuMC9hDCZU3dA">
+        <annotations xmi:id="_bfM3QB6yEeuMC9hDCZU3dA" key="presenceCondition" value="!root"/>
+        <type href="../../../../../rhea.metamodels/src/main/resources/metamodels/BasicFMs/BasicFMs.ecore#//FeatureModel"/>
+      </nodes>
+      <edges xmi:id="_FGuO0B6xEeuMC9hDCZU3dA" source="_xjv-cB6wEeuMC9hDCZU3dA" target="_yEsIUB6wEeuMC9hDCZU3dA">
+        <annotations xmi:id="_MSuigR6xEeuMC9hDCZU3dA" key="presenceCondition" value=""/>
+        <type href="../../../../../rhea.metamodels/src/main/resources/metamodels/CardinalityBasedFMs/CardinalityBasedFMs.ecore#//GroupCardinality/multiplicity"/>
+      </edges>
+      <edges xmi:id="_FdnE0B6xEeuMC9hDCZU3dA" source="_xjv-cB6wEeuMC9hDCZU3dA" target="_10aiYB6wEeuMC9hDCZU3dA">
+        <annotations xmi:id="_MSvJkB6xEeuMC9hDCZU3dA" key="presenceCondition" value=""/>
+        <type href="../../../../../rhea.metamodels/src/main/resources/metamodels/CardinalityBasedFMs/CardinalityBasedFMs.ecore#//GroupCardinality/multiplicity"/>
+      </edges>
+      <edges xmi:id="_vxI74B6xEeuMC9hDCZU3dA" source="_hBJkQB6vEeuMC9hDCZU3dA" target="_xjv-cB6wEeuMC9hDCZU3dA">
+        <annotations xmi:id="_bfM3QR6yEeuMC9hDCZU3dA" key="presenceCondition" value=""/>
+        <type href="../../../../../rhea.metamodels/src/main/resources/metamodels/BasicFMs/BasicFMs.ecore#//Feature/children"/>
+      </edges>
+      <edges xmi:id="_xE_JYB6xEeuMC9hDCZU3dA" source="_xjv-cB6wEeuMC9hDCZU3dA" target="_hBJkQB6vEeuMC9hDCZU3dA">
+        <annotations xmi:id="_bfM3Qh6yEeuMC9hDCZU3dA" key="presenceCondition" value=""/>
+        <type href="../../../../../rhea.metamodels/src/main/resources/metamodels/BasicFMs/BasicFMs.ecore#//Feature/parent"/>
+      </edges>
+      <edges xmi:id="_Ly9n4B6yEeuMC9hDCZU3dA" source="_GOBYoB6yEeuMC9hDCZU3dA" target="_xjv-cB6wEeuMC9hDCZU3dA">
+        <annotations xmi:id="_bfM3Qx6yEeuMC9hDCZU3dA" key="presenceCondition" value=""/>
+        <type href="../../../../../rhea.metamodels/src/main/resources/metamodels/BasicFMs/BasicFMs.ecore#//FeatureModel/root"/>
+      </edges>
+      <edges xmi:id="_MnSAwB6yEeuMC9hDCZU3dA" source="_GOBYoB6yEeuMC9hDCZU3dA" target="_xjv-cB6wEeuMC9hDCZU3dA">
+        <annotations xmi:id="_bfM3RB6yEeuMC9hDCZU3dA" key="presenceCondition" value=""/>
+        <type href="../../../../../rhea.metamodels/src/main/resources/metamodels/BasicFMs/BasicFMs.ecore#//FeatureModel/features"/>
+      </edges>
+      <edges xmi:id="_fXohYB6yEeuMC9hDCZU3dA" source="_bDiO8B6yEeuMC9hDCZU3dA" target="_xjv-cB6wEeuMC9hDCZU3dA">
+        <type href="../../../../../rhea.metamodels/src/main/resources/metamodels/BasicFMs/BasicFMs.ecore#//FeatureModel/features"/>
+      </edges>
+    </lhs>
+    <rhs xmi:id="_T-YRgR6vEeuMC9hDCZU3dA" name="Rhs">
+      <nodes xmi:id="_hBKyYB6vEeuMC9hDCZU3dA" name="parent" incoming="_y0Tx8B6xEeuMC9hDCZU3dA _06Hn4B6xEeuMC9hDCZU3dA" outgoing="_x-XocB6xEeuMC9hDCZU3dA _z9PI4B6xEeuMC9hDCZU3dA">
+        <annotations xmi:id="_tzTLoB6wEeuMC9hDCZU3dA" key="presenceCondition" value=""/>
+        <type href="../../../../../rhea.metamodels/src/main/resources/metamodels/BasicFMs/BasicFMs.ecore#//Feature"/>
+      </nodes>
+      <nodes xmi:id="_aDQ6MB6xEeuMC9hDCZU3dA" incoming="_z9PI4B6xEeuMC9hDCZU3dA _PsIR0B6yEeuMC9hDCZU3dA _Qrmx0B6yEeuMC9hDCZU3dA _ddaQYB6yEeuMC9hDCZU3dA" outgoing="_06Hn4B6xEeuMC9hDCZU3dA">
+        <annotations xmi:id="_pw3bgB6xEeuMC9hDCZU3dA" key="presenceCondition" value="orgroup"/>
+        <type href="../../../../../rhea.metamodels/src/main/resources/metamodels/BasicFMs/BasicFMs.ecore#//SelectionGroup"/>
+        <attributes xmi:id="_pu7FUB6yEeuMC9hDCZU3dA" value="id">
+          <type href="../../../../../rhea.metamodels/src/main/resources/metamodels/BasicFMs/BasicFMs.ecore#//Feature/id"/>
+        </attributes>
+        <attributes xmi:id="_qZu84B6yEeuMC9hDCZU3dA" value="name">
+          <type href="../../../../../rhea.metamodels/src/main/resources/metamodels/BasicFMs/BasicFMs.ecore#//Feature/name"/>
+        </attributes>
+        <attributes xmi:id="_rY4swB6yEeuMC9hDCZU3dA" value="opt">
+          <type href="../../../../../rhea.metamodels/src/main/resources/metamodels/BasicFMs/BasicFMs.ecore#//Feature/mandatory"/>
+        </attributes>
+      </nodes>
+      <nodes xmi:id="_bOnTAB6xEeuMC9hDCZU3dA" incoming="_x-XocB6xEeuMC9hDCZU3dA _NxE6YB6yEeuMC9hDCZU3dA _OyEdUB6yEeuMC9hDCZU3dA _eYPg8B6yEeuMC9hDCZU3dA" outgoing="_y0Tx8B6xEeuMC9hDCZU3dA">
+        <annotations xmi:id="_rdlcAB6xEeuMC9hDCZU3dA" key="presenceCondition" value="xorgroup"/>
+        <type href="../../../../../rhea.metamodels/src/main/resources/metamodels/BasicFMs/BasicFMs.ecore#//AlternativeGroup"/>
+        <attributes xmi:id="_nKNs4B6yEeuMC9hDCZU3dA" value="id">
+          <type href="../../../../../rhea.metamodels/src/main/resources/metamodels/BasicFMs/BasicFMs.ecore#//Feature/id"/>
+        </attributes>
+        <attributes xmi:id="_nx5_AB6yEeuMC9hDCZU3dA" value="name">
+          <type href="../../../../../rhea.metamodels/src/main/resources/metamodels/BasicFMs/BasicFMs.ecore#//Feature/name"/>
+        </attributes>
+        <attributes xmi:id="_o0e2UB6yEeuMC9hDCZU3dA" value="opt">
+          <type href="../../../../../rhea.metamodels/src/main/resources/metamodels/BasicFMs/BasicFMs.ecore#//Feature/mandatory"/>
+        </attributes>
+      </nodes>
+      <nodes xmi:id="_GOCmwB6yEeuMC9hDCZU3dA" outgoing="_NxE6YB6yEeuMC9hDCZU3dA _OyEdUB6yEeuMC9hDCZU3dA _PsIR0B6yEeuMC9hDCZU3dA _Qrmx0B6yEeuMC9hDCZU3dA">
+        <annotations xmi:id="_bfM3RR6yEeuMC9hDCZU3dA" key="presenceCondition" value=""/>
+        <type href="../../../../../rhea.metamodels/src/main/resources/metamodels/BasicFMs/BasicFMs.ecore#//FeatureModel"/>
+      </nodes>
+      <nodes xmi:id="_bDjdEB6yEeuMC9hDCZU3dA" outgoing="_ddaQYB6yEeuMC9hDCZU3dA _eYPg8B6yEeuMC9hDCZU3dA">
+        <annotations xmi:id="_bfM3Rh6yEeuMC9hDCZU3dA" key="presenceCondition" value=""/>
+        <type href="../../../../../rhea.metamodels/src/main/resources/metamodels/BasicFMs/BasicFMs.ecore#//FeatureModel"/>
+      </nodes>
+      <edges xmi:id="_x-XocB6xEeuMC9hDCZU3dA" source="_hBKyYB6vEeuMC9hDCZU3dA" target="_bOnTAB6xEeuMC9hDCZU3dA">
+        <annotations xmi:id="_bfM3Rx6yEeuMC9hDCZU3dA" key="presenceCondition" value=""/>
+        <type href="../../../../../rhea.metamodels/src/main/resources/metamodels/BasicFMs/BasicFMs.ecore#//Feature/children"/>
+      </edges>
+      <edges xmi:id="_y0Tx8B6xEeuMC9hDCZU3dA" source="_bOnTAB6xEeuMC9hDCZU3dA" target="_hBKyYB6vEeuMC9hDCZU3dA">
+        <annotations xmi:id="_bfM3SB6yEeuMC9hDCZU3dA" key="presenceCondition" value=""/>
+        <type href="../../../../../rhea.metamodels/src/main/resources/metamodels/BasicFMs/BasicFMs.ecore#//Feature/parent"/>
+      </edges>
+      <edges xmi:id="_z9PI4B6xEeuMC9hDCZU3dA" source="_hBKyYB6vEeuMC9hDCZU3dA" target="_aDQ6MB6xEeuMC9hDCZU3dA">
+        <annotations xmi:id="_bfM3SR6yEeuMC9hDCZU3dA" key="presenceCondition" value=""/>
+        <type href="../../../../../rhea.metamodels/src/main/resources/metamodels/BasicFMs/BasicFMs.ecore#//Feature/children"/>
+      </edges>
+      <edges xmi:id="_06Hn4B6xEeuMC9hDCZU3dA" source="_aDQ6MB6xEeuMC9hDCZU3dA" target="_hBKyYB6vEeuMC9hDCZU3dA">
+        <annotations xmi:id="_bfM3Sh6yEeuMC9hDCZU3dA" key="presenceCondition" value=""/>
+        <type href="../../../../../rhea.metamodels/src/main/resources/metamodels/BasicFMs/BasicFMs.ecore#//Feature/parent"/>
+      </edges>
+      <edges xmi:id="_NxE6YB6yEeuMC9hDCZU3dA" source="_GOCmwB6yEeuMC9hDCZU3dA" target="_bOnTAB6xEeuMC9hDCZU3dA">
+        <annotations xmi:id="_bfM3Sx6yEeuMC9hDCZU3dA" key="presenceCondition" value=""/>
+        <type href="../../../../../rhea.metamodels/src/main/resources/metamodels/BasicFMs/BasicFMs.ecore#//FeatureModel/root"/>
+      </edges>
+      <edges xmi:id="_OyEdUB6yEeuMC9hDCZU3dA" source="_GOCmwB6yEeuMC9hDCZU3dA" target="_bOnTAB6xEeuMC9hDCZU3dA">
+        <annotations xmi:id="_bfM3TB6yEeuMC9hDCZU3dA" key="presenceCondition" value=""/>
+        <type href="../../../../../rhea.metamodels/src/main/resources/metamodels/BasicFMs/BasicFMs.ecore#//FeatureModel/features"/>
+      </edges>
+      <edges xmi:id="_PsIR0B6yEeuMC9hDCZU3dA" source="_GOCmwB6yEeuMC9hDCZU3dA" target="_aDQ6MB6xEeuMC9hDCZU3dA">
+        <annotations xmi:id="_bfM3TR6yEeuMC9hDCZU3dA" key="presenceCondition" value=""/>
+        <type href="../../../../../rhea.metamodels/src/main/resources/metamodels/BasicFMs/BasicFMs.ecore#//FeatureModel/root"/>
+      </edges>
+      <edges xmi:id="_Qrmx0B6yEeuMC9hDCZU3dA" source="_GOCmwB6yEeuMC9hDCZU3dA" target="_aDQ6MB6xEeuMC9hDCZU3dA">
+        <annotations xmi:id="_bfM3Th6yEeuMC9hDCZU3dA" key="presenceCondition" value=""/>
+        <type href="../../../../../rhea.metamodels/src/main/resources/metamodels/BasicFMs/BasicFMs.ecore#//FeatureModel/features"/>
+      </edges>
+      <edges xmi:id="_ddaQYB6yEeuMC9hDCZU3dA" source="_bDjdEB6yEeuMC9hDCZU3dA" target="_aDQ6MB6xEeuMC9hDCZU3dA">
+        <type href="../../../../../rhea.metamodels/src/main/resources/metamodels/BasicFMs/BasicFMs.ecore#//FeatureModel/features"/>
+      </edges>
+      <edges xmi:id="_eYPg8B6yEeuMC9hDCZU3dA" source="_bDjdEB6yEeuMC9hDCZU3dA" target="_bOnTAB6xEeuMC9hDCZU3dA">
+        <type href="../../../../../rhea.metamodels/src/main/resources/metamodels/BasicFMs/BasicFMs.ecore#//FeatureModel/features"/>
+      </edges>
+    </rhs>
+    <mappings xmi:id="_hBKyYR6vEeuMC9hDCZU3dA" origin="_hBJkQB6vEeuMC9hDCZU3dA" image="_hBKyYB6vEeuMC9hDCZU3dA"/>
+    <mappings xmi:id="_GOCmwR6yEeuMC9hDCZU3dA" origin="_GOBYoB6yEeuMC9hDCZU3dA" image="_GOCmwB6yEeuMC9hDCZU3dA"/>
+    <mappings xmi:id="_bDjdER6yEeuMC9hDCZU3dA" origin="_bDiO8B6yEeuMC9hDCZU3dA" image="_bDjdEB6yEeuMC9hDCZU3dA"/>
+    <multiRules xmi:id="_6EMgEx6xEeuMC9hDCZU3dA">
+      <parameters xmi:id="_kWCVEh6yEeuMC9hDCZU3dA" name="id" kind="VAR">
+        <type xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      </parameters>
+      <parameters xmi:id="_kWCVEx6yEeuMC9hDCZU3dA" name="name" kind="VAR">
+        <type xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      </parameters>
+      <parameters xmi:id="_kWCVFB6yEeuMC9hDCZU3dA" name="opt" kind="VAR">
+        <type xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+      </parameters>
+      <lhs xmi:id="_6EMgFB6xEeuMC9hDCZU3dA" name="Lhs">
+        <nodes xmi:id="_6ENHLR6xEeuMC9hDCZU3dA" name="parent" incoming="_6ENHMx6xEeuMC9hDCZU3dA" outgoing="_6ENHNB6xEeuMC9hDCZU3dA">
+          <annotations xmi:id="_6ENHLh6xEeuMC9hDCZU3dA" key="presenceCondition" value="!root"/>
+          <type href="../../../../../rhea.metamodels/src/main/resources/metamodels/BasicFMs/BasicFMs.ecore#//Feature"/>
+        </nodes>
+        <nodes xmi:id="_6ENHMB6xEeuMC9hDCZU3dA" incoming="_6ENHNB6xEeuMC9hDCZU3dA _745-8B6xEeuMC9hDCZU3dA _Ly9n4R6yEeuMC9hDCZU3dA _MnSn0B6yEeuMC9hDCZU3dA _fXohYR6yEeuMC9hDCZU3dA" outgoing="_6ENHMx6xEeuMC9hDCZU3dA _6ENHPR6xEeuMC9hDCZU3dA _6ENuMR6xEeuMC9hDCZU3dA _69e4gB6xEeuMC9hDCZU3dA">
+          <annotations xmi:id="_6ENHMR6xEeuMC9hDCZU3dA" key="presenceCondition" value=""/>
+          <type href="../../../../../rhea.metamodels/src/main/resources/metamodels/CardinalityBasedFMs/CardinalityBasedFMs.ecore#//GroupCardinality"/>
+        </nodes>
+        <nodes xmi:id="_6ENHNh6xEeuMC9hDCZU3dA" name="xorCard" incoming="_6ENHPR6xEeuMC9hDCZU3dA">
+          <annotations xmi:id="_6ENHNx6xEeuMC9hDCZU3dA" key="presenceCondition" value="xorgroup"/>
+          <type href="../../../../../rhea.metamodels/src/main/resources/metamodels/CardinalityBasedFMs/CardinalityBasedFMs.ecore#//Multiplicity"/>
+          <attributes xmi:id="_6ENHOB6xEeuMC9hDCZU3dA" value="1">
+            <annotations xmi:id="_6ENHOR6xEeuMC9hDCZU3dA" key="presenceCondition" value=""/>
+            <type href="../../../../../rhea.metamodels/src/main/resources/metamodels/CardinalityBasedFMs/CardinalityBasedFMs.ecore#//Multiplicity/lower"/>
+          </attributes>
+          <attributes xmi:id="_6ENHOh6xEeuMC9hDCZU3dA" value="1">
+            <annotations xmi:id="_6ENHOx6xEeuMC9hDCZU3dA" key="presenceCondition" value=""/>
+            <type href="../../../../../rhea.metamodels/src/main/resources/metamodels/CardinalityBasedFMs/CardinalityBasedFMs.ecore#//Multiplicity/upper"/>
+          </attributes>
+        </nodes>
+        <nodes xmi:id="_6ENHPh6xEeuMC9hDCZU3dA" name="orCard" incoming="_6ENuMR6xEeuMC9hDCZU3dA">
+          <annotations xmi:id="_6ENHPx6xEeuMC9hDCZU3dA" key="presenceCondition" value="orgroup"/>
+          <type href="../../../../../rhea.metamodels/src/main/resources/metamodels/CardinalityBasedFMs/CardinalityBasedFMs.ecore#//Multiplicity"/>
+          <attributes xmi:id="_6ENHQB6xEeuMC9hDCZU3dA" value="1">
+            <annotations xmi:id="_6ENHQR6xEeuMC9hDCZU3dA" key="presenceCondition" value=""/>
+            <type href="../../../../../rhea.metamodels/src/main/resources/metamodels/CardinalityBasedFMs/CardinalityBasedFMs.ecore#//Multiplicity/lower"/>
+          </attributes>
+          <attributes xmi:id="_6ENHQh6xEeuMC9hDCZU3dA" value="-1">
+            <annotations xmi:id="_6ENHQx6xEeuMC9hDCZU3dA" key="presenceCondition" value=""/>
+            <type href="../../../../../rhea.metamodels/src/main/resources/metamodels/CardinalityBasedFMs/CardinalityBasedFMs.ecore#//Multiplicity/upper"/>
+          </attributes>
+        </nodes>
+        <nodes xmi:id="_6EMgEB6xEeuMC9hDCZU3dA" name="children" incoming="_69e4gB6xEeuMC9hDCZU3dA" outgoing="_745-8B6xEeuMC9hDCZU3dA">
+          <type href="../../../../../rhea.metamodels/src/main/resources/metamodels/BasicFMs/BasicFMs.ecore#//Feature"/>
+        </nodes>
+        <nodes xmi:id="_GOCmxB6yEeuMC9hDCZU3dA" outgoing="_Ly9n4R6yEeuMC9hDCZU3dA _MnSn0B6yEeuMC9hDCZU3dA">
+          <type href="../../../../../rhea.metamodels/src/main/resources/metamodels/BasicFMs/BasicFMs.ecore#//FeatureModel"/>
+        </nodes>
+        <nodes xmi:id="_bDjdFB6yEeuMC9hDCZU3dA" outgoing="_fXohYR6yEeuMC9hDCZU3dA">
+          <type href="../../../../../rhea.metamodels/src/main/resources/metamodels/BasicFMs/BasicFMs.ecore#//FeatureModel"/>
+        </nodes>
+        <edges xmi:id="_6ENHMx6xEeuMC9hDCZU3dA" source="_6ENHMB6xEeuMC9hDCZU3dA" target="_6ENHLR6xEeuMC9hDCZU3dA">
+          <type href="../../../../../rhea.metamodels/src/main/resources/metamodels/BasicFMs/BasicFMs.ecore#//Feature/parent"/>
+        </edges>
+        <edges xmi:id="_6ENHNB6xEeuMC9hDCZU3dA" source="_6ENHLR6xEeuMC9hDCZU3dA" target="_6ENHMB6xEeuMC9hDCZU3dA">
+          <type href="../../../../../rhea.metamodels/src/main/resources/metamodels/BasicFMs/BasicFMs.ecore#//Feature/children"/>
+        </edges>
+        <edges xmi:id="_6ENHPR6xEeuMC9hDCZU3dA" source="_6ENHMB6xEeuMC9hDCZU3dA" target="_6ENHNh6xEeuMC9hDCZU3dA">
+          <type href="../../../../../rhea.metamodels/src/main/resources/metamodels/CardinalityBasedFMs/CardinalityBasedFMs.ecore#//GroupCardinality/multiplicity"/>
+        </edges>
+        <edges xmi:id="_6ENuMR6xEeuMC9hDCZU3dA" source="_6ENHMB6xEeuMC9hDCZU3dA" target="_6ENHPh6xEeuMC9hDCZU3dA">
+          <type href="../../../../../rhea.metamodels/src/main/resources/metamodels/CardinalityBasedFMs/CardinalityBasedFMs.ecore#//GroupCardinality/multiplicity"/>
+        </edges>
+        <edges xmi:id="_69e4gB6xEeuMC9hDCZU3dA" source="_6ENHMB6xEeuMC9hDCZU3dA" target="_6EMgEB6xEeuMC9hDCZU3dA">
+          <type href="../../../../../rhea.metamodels/src/main/resources/metamodels/BasicFMs/BasicFMs.ecore#//Feature/children"/>
+        </edges>
+        <edges xmi:id="_745-8B6xEeuMC9hDCZU3dA" source="_6EMgEB6xEeuMC9hDCZU3dA" target="_6ENHMB6xEeuMC9hDCZU3dA">
+          <type href="../../../../../rhea.metamodels/src/main/resources/metamodels/BasicFMs/BasicFMs.ecore#//Feature/parent"/>
+        </edges>
+        <edges xmi:id="_Ly9n4R6yEeuMC9hDCZU3dA" source="_GOCmxB6yEeuMC9hDCZU3dA" target="_6ENHMB6xEeuMC9hDCZU3dA">
+          <type href="../../../../../rhea.metamodels/src/main/resources/metamodels/BasicFMs/BasicFMs.ecore#//FeatureModel/root"/>
+        </edges>
+        <edges xmi:id="_MnSn0B6yEeuMC9hDCZU3dA" source="_GOCmxB6yEeuMC9hDCZU3dA" target="_6ENHMB6xEeuMC9hDCZU3dA">
+          <type href="../../../../../rhea.metamodels/src/main/resources/metamodels/BasicFMs/BasicFMs.ecore#//FeatureModel/features"/>
+        </edges>
+        <edges xmi:id="_fXohYR6yEeuMC9hDCZU3dA" source="_bDjdFB6yEeuMC9hDCZU3dA" target="_6ENHMB6xEeuMC9hDCZU3dA">
+          <type href="../../../../../rhea.metamodels/src/main/resources/metamodels/BasicFMs/BasicFMs.ecore#//FeatureModel/features"/>
+        </edges>
+      </lhs>
+      <rhs xmi:id="_6EMgFR6xEeuMC9hDCZU3dA" name="Rhs">
+        <nodes xmi:id="_6ENHIB6xEeuMC9hDCZU3dA" name="parent" incoming="_6ENHJh6xEeuMC9hDCZU3dA _6ENHKh6xEeuMC9hDCZU3dA" outgoing="_6ENHKx6xEeuMC9hDCZU3dA _6ENHLB6xEeuMC9hDCZU3dA">
+          <annotations xmi:id="_6ENHIR6xEeuMC9hDCZU3dA" key="presenceCondition" value=""/>
+          <type href="../../../../../rhea.metamodels/src/main/resources/metamodels/BasicFMs/BasicFMs.ecore#//Feature"/>
+        </nodes>
+        <nodes xmi:id="_6ENHIx6xEeuMC9hDCZU3dA" incoming="_6ENHKx6xEeuMC9hDCZU3dA __l0VkB6xEeuMC9hDCZU3dA _NxE6YR6yEeuMC9hDCZU3dA _OyEdUR6yEeuMC9hDCZU3dA _eYPg8R6yEeuMC9hDCZU3dA" outgoing="_6ENHJh6xEeuMC9hDCZU3dA _-ux_4B6xEeuMC9hDCZU3dA">
+          <annotations xmi:id="_6ENHJB6xEeuMC9hDCZU3dA" key="presenceCondition" value="xorgroup"/>
+          <type href="../../../../../rhea.metamodels/src/main/resources/metamodels/BasicFMs/BasicFMs.ecore#//AlternativeGroup"/>
+        </nodes>
+        <nodes xmi:id="_6ENHJx6xEeuMC9hDCZU3dA" incoming="_6ENHLB6xEeuMC9hDCZU3dA _Be5-IB6yEeuMC9hDCZU3dA _PsI44B6yEeuMC9hDCZU3dA _Qrmx0R6yEeuMC9hDCZU3dA _ddaQYR6yEeuMC9hDCZU3dA" outgoing="_6ENHKh6xEeuMC9hDCZU3dA _Alzy8B6yEeuMC9hDCZU3dA">
+          <annotations xmi:id="_6ENHKB6xEeuMC9hDCZU3dA" key="presenceCondition" value="orgroup"/>
+          <type href="../../../../../rhea.metamodels/src/main/resources/metamodels/BasicFMs/BasicFMs.ecore#//SelectionGroup"/>
+        </nodes>
+        <nodes xmi:id="_6EMgER6xEeuMC9hDCZU3dA" name="children" incoming="_-ux_4B6xEeuMC9hDCZU3dA _Alzy8B6yEeuMC9hDCZU3dA" outgoing="__l0VkB6xEeuMC9hDCZU3dA _Be5-IB6yEeuMC9hDCZU3dA">
+          <type href="../../../../../rhea.metamodels/src/main/resources/metamodels/BasicFMs/BasicFMs.ecore#//Feature"/>
+        </nodes>
+        <nodes xmi:id="_GOCmwh6yEeuMC9hDCZU3dA" outgoing="_NxE6YR6yEeuMC9hDCZU3dA _OyEdUR6yEeuMC9hDCZU3dA _PsI44B6yEeuMC9hDCZU3dA _Qrmx0R6yEeuMC9hDCZU3dA">
+          <type href="../../../../../rhea.metamodels/src/main/resources/metamodels/BasicFMs/BasicFMs.ecore#//FeatureModel"/>
+        </nodes>
+        <nodes xmi:id="_bDjdEh6yEeuMC9hDCZU3dA" outgoing="_ddaQYR6yEeuMC9hDCZU3dA _eYPg8R6yEeuMC9hDCZU3dA">
+          <type href="../../../../../rhea.metamodels/src/main/resources/metamodels/BasicFMs/BasicFMs.ecore#//FeatureModel"/>
+        </nodes>
+        <edges xmi:id="_6ENHJh6xEeuMC9hDCZU3dA" source="_6ENHIx6xEeuMC9hDCZU3dA" target="_6ENHIB6xEeuMC9hDCZU3dA">
+          <type href="../../../../../rhea.metamodels/src/main/resources/metamodels/BasicFMs/BasicFMs.ecore#//Feature/parent"/>
+        </edges>
+        <edges xmi:id="_6ENHKh6xEeuMC9hDCZU3dA" source="_6ENHJx6xEeuMC9hDCZU3dA" target="_6ENHIB6xEeuMC9hDCZU3dA">
+          <type href="../../../../../rhea.metamodels/src/main/resources/metamodels/BasicFMs/BasicFMs.ecore#//Feature/parent"/>
+        </edges>
+        <edges xmi:id="_6ENHKx6xEeuMC9hDCZU3dA" source="_6ENHIB6xEeuMC9hDCZU3dA" target="_6ENHIx6xEeuMC9hDCZU3dA">
+          <type href="../../../../../rhea.metamodels/src/main/resources/metamodels/BasicFMs/BasicFMs.ecore#//Feature/children"/>
+        </edges>
+        <edges xmi:id="_6ENHLB6xEeuMC9hDCZU3dA" source="_6ENHIB6xEeuMC9hDCZU3dA" target="_6ENHJx6xEeuMC9hDCZU3dA">
+          <type href="../../../../../rhea.metamodels/src/main/resources/metamodels/BasicFMs/BasicFMs.ecore#//Feature/children"/>
+        </edges>
+        <edges xmi:id="_-ux_4B6xEeuMC9hDCZU3dA" source="_6ENHIx6xEeuMC9hDCZU3dA" target="_6EMgER6xEeuMC9hDCZU3dA">
+          <type href="../../../../../rhea.metamodels/src/main/resources/metamodels/BasicFMs/BasicFMs.ecore#//Feature/children"/>
+        </edges>
+        <edges xmi:id="__l0VkB6xEeuMC9hDCZU3dA" source="_6EMgER6xEeuMC9hDCZU3dA" target="_6ENHIx6xEeuMC9hDCZU3dA">
+          <type href="../../../../../rhea.metamodels/src/main/resources/metamodels/BasicFMs/BasicFMs.ecore#//Feature/parent"/>
+        </edges>
+        <edges xmi:id="_Alzy8B6yEeuMC9hDCZU3dA" source="_6ENHJx6xEeuMC9hDCZU3dA" target="_6EMgER6xEeuMC9hDCZU3dA">
+          <type href="../../../../../rhea.metamodels/src/main/resources/metamodels/BasicFMs/BasicFMs.ecore#//Feature/children"/>
+        </edges>
+        <edges xmi:id="_Be5-IB6yEeuMC9hDCZU3dA" source="_6EMgER6xEeuMC9hDCZU3dA" target="_6ENHJx6xEeuMC9hDCZU3dA">
+          <type href="../../../../../rhea.metamodels/src/main/resources/metamodels/BasicFMs/BasicFMs.ecore#//Feature/parent"/>
+        </edges>
+        <edges xmi:id="_NxE6YR6yEeuMC9hDCZU3dA" source="_GOCmwh6yEeuMC9hDCZU3dA" target="_6ENHIx6xEeuMC9hDCZU3dA">
+          <type href="../../../../../rhea.metamodels/src/main/resources/metamodels/BasicFMs/BasicFMs.ecore#//FeatureModel/root"/>
+        </edges>
+        <edges xmi:id="_OyEdUR6yEeuMC9hDCZU3dA" source="_GOCmwh6yEeuMC9hDCZU3dA" target="_6ENHIx6xEeuMC9hDCZU3dA">
+          <type href="../../../../../rhea.metamodels/src/main/resources/metamodels/BasicFMs/BasicFMs.ecore#//FeatureModel/features"/>
+        </edges>
+        <edges xmi:id="_PsI44B6yEeuMC9hDCZU3dA" source="_GOCmwh6yEeuMC9hDCZU3dA" target="_6ENHJx6xEeuMC9hDCZU3dA">
+          <type href="../../../../../rhea.metamodels/src/main/resources/metamodels/BasicFMs/BasicFMs.ecore#//FeatureModel/root"/>
+        </edges>
+        <edges xmi:id="_Qrmx0R6yEeuMC9hDCZU3dA" source="_GOCmwh6yEeuMC9hDCZU3dA" target="_6ENHJx6xEeuMC9hDCZU3dA">
+          <type href="../../../../../rhea.metamodels/src/main/resources/metamodels/BasicFMs/BasicFMs.ecore#//FeatureModel/features"/>
+        </edges>
+        <edges xmi:id="_ddaQYR6yEeuMC9hDCZU3dA" source="_bDjdEh6yEeuMC9hDCZU3dA" target="_6ENHJx6xEeuMC9hDCZU3dA">
+          <type href="../../../../../rhea.metamodels/src/main/resources/metamodels/BasicFMs/BasicFMs.ecore#//FeatureModel/features"/>
+        </edges>
+        <edges xmi:id="_eYPg8R6yEeuMC9hDCZU3dA" source="_bDjdEh6yEeuMC9hDCZU3dA" target="_6ENHIx6xEeuMC9hDCZU3dA">
+          <type href="../../../../../rhea.metamodels/src/main/resources/metamodels/BasicFMs/BasicFMs.ecore#//FeatureModel/features"/>
+        </edges>
+      </rhs>
+      <mappings xmi:id="_6ENHNR6xEeuMC9hDCZU3dA" origin="_6ENHLR6xEeuMC9hDCZU3dA" image="_6ENHIB6xEeuMC9hDCZU3dA"/>
+      <mappings xmi:id="_6EMgEh6xEeuMC9hDCZU3dA" origin="_6EMgEB6xEeuMC9hDCZU3dA" image="_6EMgER6xEeuMC9hDCZU3dA"/>
+      <mappings xmi:id="_GOCmxh6yEeuMC9hDCZU3dA" origin="_GOCmxB6yEeuMC9hDCZU3dA" image="_GOCmwh6yEeuMC9hDCZU3dA"/>
+      <mappings xmi:id="_bDjdFh6yEeuMC9hDCZU3dA" origin="_bDjdFB6yEeuMC9hDCZU3dA" image="_bDjdEh6yEeuMC9hDCZU3dA"/>
+      <multiMappings xmi:id="_6ENHIh6xEeuMC9hDCZU3dA" origin="_hBKyYB6vEeuMC9hDCZU3dA" image="_6ENHIB6xEeuMC9hDCZU3dA"/>
+      <multiMappings xmi:id="_6ENHJR6xEeuMC9hDCZU3dA" origin="_bOnTAB6xEeuMC9hDCZU3dA" image="_6ENHIx6xEeuMC9hDCZU3dA"/>
+      <multiMappings xmi:id="_6ENHKR6xEeuMC9hDCZU3dA" origin="_aDQ6MB6xEeuMC9hDCZU3dA" image="_6ENHJx6xEeuMC9hDCZU3dA"/>
+      <multiMappings xmi:id="_6ENHLx6xEeuMC9hDCZU3dA" origin="_hBJkQB6vEeuMC9hDCZU3dA" image="_6ENHLR6xEeuMC9hDCZU3dA"/>
+      <multiMappings xmi:id="_6ENHMh6xEeuMC9hDCZU3dA" origin="_xjv-cB6wEeuMC9hDCZU3dA" image="_6ENHMB6xEeuMC9hDCZU3dA"/>
+      <multiMappings xmi:id="_6ENHPB6xEeuMC9hDCZU3dA" origin="_yEsIUB6wEeuMC9hDCZU3dA" image="_6ENHNh6xEeuMC9hDCZU3dA"/>
+      <multiMappings xmi:id="_6ENuMB6xEeuMC9hDCZU3dA" origin="_10aiYB6wEeuMC9hDCZU3dA" image="_6ENHPh6xEeuMC9hDCZU3dA"/>
+      <multiMappings xmi:id="_GOCmwx6yEeuMC9hDCZU3dA" origin="_GOCmwB6yEeuMC9hDCZU3dA" image="_GOCmwh6yEeuMC9hDCZU3dA"/>
+      <multiMappings xmi:id="_GOCmxR6yEeuMC9hDCZU3dA" origin="_GOBYoB6yEeuMC9hDCZU3dA" image="_GOCmxB6yEeuMC9hDCZU3dA"/>
+      <multiMappings xmi:id="_bDjdEx6yEeuMC9hDCZU3dA" origin="_bDjdEB6yEeuMC9hDCZU3dA" image="_bDjdEh6yEeuMC9hDCZU3dA"/>
+      <multiMappings xmi:id="_bDjdFR6yEeuMC9hDCZU3dA" origin="_bDiO8B6yEeuMC9hDCZU3dA" image="_bDjdFB6yEeuMC9hDCZU3dA"/>
+    </multiRules>
+  </units>
+</henshin:Module>

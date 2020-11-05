@@ -1,0 +1,10 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Modeltransformations
+Bundle-SymbolicName: rhea.modeltransformations
+Bundle-Version: 1.0.0.qualifier
+Export-Package: .
+Require-Bundle: org.eclipse.emf.henshin.variability;bundle-version="1.7.0",
+ org.eclipse.emf.ecore.xmi;bundle-version="2.16.0",
+ org.eclipse.emf.henshin.interpreter;bundle-version="1.7.0",
+ org.eclipse.emf.henshin.model.source;bundle-version="1.7.0"
