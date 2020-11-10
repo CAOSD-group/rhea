@@ -1,8 +1,7 @@
 # rhea
 
 ## Requirements
-- [Java JDK 1.8+](https://www.oracle.com/java/)
-- [Maven](https://maven.apache.org/)
+- [Java JDK 11+](https://www.oracle.com/java/)
 - [Git](https://git-scm.com/)
 - [Eclipse for Java & DSL](https://www.eclipse.org/):
   - [Henshin](https://www.eclipse.org/henshin/) (Nightly builds)
