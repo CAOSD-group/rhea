@@ -8,7 +8,8 @@ Bundle-Vendor: %providerName
 Bundle-Localization: plugin
 Automatic-Module-Name: rhea.metamodels
 Bundle-RequiredExecutionEnvironment: JavaSE-11
-Export-Package: rhea.metamodels.BasicCTCs,
+Export-Package: rhea.metamodels,
+ rhea.metamodels.BasicCTCs,
  rhea.metamodels.BasicCTCs.impl,
  rhea.metamodels.BasicCTCs.util,
  rhea.metamodels.BasicFMs,

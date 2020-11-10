@@ -4,12 +4,12 @@
     nsPrefix="rhea">
   <eClassifiers xsi:type="ecore:EClass" name="Multiplicity">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="lower" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"
-        defaultValueLiteral="0"/>
+        defaultValueLiteral="1"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="upper" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"
         defaultValueLiteral="-1"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="GroupCardinality" eSuperTypes="../BasicFMs/BasicFMs.ecore#//FeatureGroup">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="multiplicity" lowerBound="1"
+    <eStructuralFeatures xsi:type="ecore:EReference" name="multiplicity" upperBound="-1"
         eType="#//Multiplicity" containment="true"/>
   </eClassifiers>
 </ecore:EPackage>

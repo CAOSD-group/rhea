@@ -2,6 +2,8 @@
  */
 package rhea.metamodels.CardinalityBasedFMs;
 
+import org.eclipse.emf.common.util.EList;
+
 import rhea.metamodels.BasicFMs.FeatureGroup;
 
 /**
@@ -22,25 +24,15 @@ import rhea.metamodels.BasicFMs.FeatureGroup;
  */
 public interface GroupCardinality extends FeatureGroup {
 	/**
-	 * Returns the value of the '<em><b>Multiplicity</b></em>' containment reference.
+	 * Returns the value of the '<em><b>Multiplicity</b></em>' containment reference list.
+	 * The list contents are of type {@link rhea.metamodels.CardinalityBasedFMs.Multiplicity}.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Multiplicity</em>' containment reference.
-	 * @see #setMultiplicity(Multiplicity)
+	 * @return the value of the '<em>Multiplicity</em>' containment reference list.
 	 * @see rhea.metamodels.CardinalityBasedFMs.CardinalityBasedFMsPackage#getGroupCardinality_Multiplicity()
-	 * @model containment="true" required="true"
+	 * @model containment="true"
 	 * @generated
 	 */
-	Multiplicity getMultiplicity();
-
-	/**
-	 * Sets the value of the '{@link rhea.metamodels.CardinalityBasedFMs.GroupCardinality#getMultiplicity <em>Multiplicity</em>}' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Multiplicity</em>' containment reference.
-	 * @see #getMultiplicity()
-	 * @generated
-	 */
-	void setMultiplicity(Multiplicity value);
+	EList<Multiplicity> getMultiplicity();
 
 } // GroupCardinality

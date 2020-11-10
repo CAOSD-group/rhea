@@ -24,13 +24,13 @@ import org.eclipse.emf.ecore.EObject;
 public interface Multiplicity extends EObject {
 	/**
 	 * Returns the value of the '<em><b>Lower</b></em>' attribute.
-	 * The default value is <code>"0"</code>.
+	 * The default value is <code>"1"</code>.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Lower</em>' attribute.
 	 * @see #setLower(int)
 	 * @see rhea.metamodels.CardinalityBasedFMs.CardinalityBasedFMsPackage#getMultiplicity_Lower()
-	 * @model default="0" required="true"
+	 * @model default="1" required="true"
 	 * @generated
 	 */
 	int getLower();

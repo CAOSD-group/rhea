@@ -35,7 +35,7 @@ public class MultiplicityImpl extends MinimalEObjectImpl.Container implements Mu
 	 * @generated
 	 * @ordered
 	 */
-	protected static final int LOWER_EDEFAULT = 0;
+	protected static final int LOWER_EDEFAULT = 1;
 
 	/**
 	 * The cached value of the '{@link #getLower() <em>Lower</em>}' attribute.
