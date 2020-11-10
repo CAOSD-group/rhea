@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="ASCII"?>
-<uma.caosd.rhea:FeatureModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:uma.caosd.rhea="metamodels.BasicFMs" xmlns:uma.caosd.rhea_1="metamodels.CardinalityBasedFMs" xsi:schemaLocation="metamodels.BasicFMs ../../../../../../rhea.metamodels/src/main/resources/metamodels/BasicFMs/BasicFMs.ecore metamodels.CardinalityBasedFMs ../../../../../../rhea.metamodels/src/main/resources/metamodels/CardinalityBasedFMs/CardinalityBasedFMs.ecore" name="MyFM">
-  <root xsi:type="uma.caosd.rhea_1:GroupCardinality" id="A" name="A" mandatory="true">
-    <children id="B" name="B"/>
-    <children id="C" name="C"/>
-    <children id="D" name="D"/>
-    <multiplicity lower="1"/>
-  </root>
-</uma.caosd.rhea:FeatureModel>

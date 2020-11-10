@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+
+<!--
+-->
+
+<plugin>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated BasicFMs -->
+      <package
+            uri="metamodels.BasicFMs"
+            class="rhea.metamodels.BasicFMs.BasicFMsPackage"
+            genModel="metamodels/BasicFMs/BasicFMs.genmodel"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated BasicCTCs -->
+      <package
+            uri="metamodels.BasicCTCs"
+            class="rhea.metamodels.BasicCTCs.BasicCTCsPackage"
+            genModel="metamodels/BasicCTCs/BasicCTCs.genmodel"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated CardinalityBasedFMs -->
+      <package
+            uri="metamodels.CardinalityBasedFMs"
+            class="rhea.metamodels.CardinalityBasedFMs.CardinalityBasedFMsPackage"
+            genModel="metamodels/CardinalityBasedFMs/CardinalityBasedFMs.genmodel"/>
+   </extension>
+
+</plugin>
