@@ -8,5 +8,6 @@
 	<classpathentry kind="con" path="org.eclipse.pde.core.requiredPlugins"/>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry exported="true" kind="lib" path="lib/uvl-parser.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/antlr-4.8-complete.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

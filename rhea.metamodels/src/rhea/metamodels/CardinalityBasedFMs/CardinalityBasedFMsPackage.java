@@ -160,7 +160,7 @@ public interface CardinalityBasedFMsPackage extends EPackage {
 	int GROUP_CARDINALITY__PARENT = BasicFMsPackage.FEATURE_GROUP__PARENT;
 
 	/**
-	 * The feature id for the '<em><b>Multiplicity</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Multiplicity</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -248,10 +248,10 @@ public interface CardinalityBasedFMsPackage extends EPackage {
 	EClass getGroupCardinality();
 
 	/**
-	 * Returns the meta object for the containment reference list '{@link rhea.metamodels.CardinalityBasedFMs.GroupCardinality#getMultiplicity <em>Multiplicity</em>}'.
+	 * Returns the meta object for the containment reference '{@link rhea.metamodels.CardinalityBasedFMs.GroupCardinality#getMultiplicity <em>Multiplicity</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference list '<em>Multiplicity</em>'.
+	 * @return the meta object for the containment reference '<em>Multiplicity</em>'.
 	 * @see rhea.metamodels.CardinalityBasedFMs.GroupCardinality#getMultiplicity()
 	 * @see #getGroupCardinality()
 	 * @generated
@@ -318,7 +318,7 @@ public interface CardinalityBasedFMsPackage extends EPackage {
 		EClass GROUP_CARDINALITY = eINSTANCE.getGroupCardinality();
 
 		/**
-		 * The meta object literal for the '<em><b>Multiplicity</b></em>' containment reference list feature.
+		 * The meta object literal for the '<em><b>Multiplicity</b></em>' containment reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated

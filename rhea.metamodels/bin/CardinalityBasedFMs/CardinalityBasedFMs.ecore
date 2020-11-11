@@ -9,7 +9,7 @@
         defaultValueLiteral="-1"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="GroupCardinality" eSuperTypes="../BasicFMs/BasicFMs.ecore#//FeatureGroup">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="multiplicity" upperBound="-1"
+    <eStructuralFeatures xsi:type="ecore:EReference" name="multiplicity" lowerBound="1"
         eType="#//Multiplicity" containment="true"/>
   </eClassifiers>
 </ecore:EPackage>

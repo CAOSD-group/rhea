@@ -1,0 +1,15 @@
+abstract telematicsSystem
+    xor channel
+        single
+        dual
+        	two ?
+
+    extraDisplay ?
+
+    1..2 size
+        small
+        large
+        
+[single => small]
+
+config: telematicsSystem

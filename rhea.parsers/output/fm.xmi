@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rhea:FeatureModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:rhea="metamodels.BasicFMs" xmlns:rhea_1="metamodels.CardinalityBasedFMs" features="//@root //@root/@children.0 //@root/@children.0/@children.0 //@root/@children.0/@children.1 //@root/@children.0/@children.1/@children.0 //@root/@children.1 //@root/@children.2 //@root/@children.2/@children.0 //@root/@children.2/@children.1">
+  <root name="telematicsSystem" mandatory="true">
+    <children xsi:type="rhea:AlternativeGroup" name="channel" mandatory="true">
+      <children name="single" mandatory="false"/>
+      <children name="dual" mandatory="false">
+        <children name="two" mandatory="false"/>
+      </children>
+    </children>
+    <children name="extraDisplay" mandatory="false"/>
+    <children xsi:type="rhea_1:GroupCardinality" name="size" mandatory="true">
+      <children name="small" mandatory="false"/>
+      <children name="large" mandatory="false"/>
+      <multiplicity lower="1" upper="2"/>
+    </children>
+  </root>
+</rhea:FeatureModel>

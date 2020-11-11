@@ -1,10 +1,14 @@
 abstract telematicsSystem
-    xor channel
-        single
-        dual
+	xor channel
+		single
+		dual
+			two ?
 
-    extraDisplay ?
+	extraDisplay ?
+	
+	1..2 size
+		small
+		large
 
-    xor size
-        small
-        large
+[single => small]
+

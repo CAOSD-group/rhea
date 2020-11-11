@@ -11,9 +11,26 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
+import org.antlr.v4.runtime.CharStream;
+import org.antlr.v4.runtime.CharStreams;
+import org.antlr.v4.runtime.CommonTokenStream;
+import org.antlr.v4.runtime.tree.ParseTree;
+import org.antlr.v4.runtime.tree.ParseTreeVisitor;
+import org.antlr.v4.runtime.tree.ParseTreeWalker;
+import org.antlr.v4.runtime.tree.Trees;
+
+import clafer.AbstractVisitor;
+import clafer.PrettyPrinter;
+import clafer.claferLexer;
+import clafer.claferParser;
+import clafer.claferParserBaseListener;
+import clafer.claferParserListener;
 import rhea.metamodels.FMGenerator;
+import rhea.metamodels.BasicFMs.BasicFMsPackage;
 import rhea.metamodels.BasicFMs.Feature;
 import rhea.metamodels.BasicFMs.FeatureModel;
+import rhea.metamodels.CardinalityBasedFMs.CardinalityBasedFMsPackage;
+import rhea.metamodels.utils.EMFIO;
 
 public class ClaferParser implements FMParser {
 	private static String ROOT_REGEX = "(abstract )?(.+)$";
@@ -26,9 +43,70 @@ public class ClaferParser implements FMParser {
 		Path filepath = Path.of(filename);
 		String text = Files.readString(filepath);
 		System.out.println(text);
+        
+		var indentations = getIndentationMap(filename);
+		System.out.println(indentations);
 		
-		FMParser parser = new ClaferParser();
-		parser.readFeatureModel(filename);
+        CharStream codePointCharStream = CharStreams.fromFileName(filename);
+        claferLexer lexer = new claferLexer(codePointCharStream);
+        claferParser parser = new claferParser(new CommonTokenStream(lexer));
+        parser.addParseListener(new claferParserBaseListener());
+        
+        // Start parsing
+       /*
+        claferParser.Start_ModuleContext pc = parser.start_Module();
+        clafer.Absyn.Module ast = pc.result;
+        System.out.println();
+        System.out.println("Parse Succesful!");
+        System.out.println();
+        System.out.println("[Abstract Syntax]");
+        System.out.println();
+        System.out.println(PrettyPrinter.show(ast));
+        System.out.println();
+        System.out.println("[Linearized Tree]");
+        System.out.println();
+        System.out.println(PrettyPrinter.print(ast));
+       */
+        //ParseTree tree = parser.module();
+        
+        /*
+        System.out.println(tree.toStringTree(parser)); // print LISP-style tree
+        System.out.println(tree.getClass());
+        System.out.println(tree.getText());
+        
+        */
+
+        //ParseTree tree = parser.clafer();
+        /*
+        System.out.println(tree);
+        System.out.println(tree.getParent());
+        System.out.println(tree.getChildCount());
+        for (int i = 0; i < tree.getChildCount(); i++) {
+        	System.out.println(tree.getChild(i));	
+        }
+        
+        */
+       // System.out.println(tree);
+       // System.out.println(Trees.toStringTree(tree));
+                
+        System.out.println("****");
+        ParseTree tree = parser.module();
+        ParseTreeWalker walker = new ParseTreeWalker();
+        MyClaferParserListener listener = new MyClaferParserListener(indentations);
+        walker.walk(listener, tree);
+        
+        FeatureModel fm = listener.getFeatureModel();
+        System.out.println("Feature Model: " + fm);
+        System.out.println("Root: " + fm.getRoot());
+        System.out.println("N features: " + listener.getFeatures());
+        System.out.println(fm.getRoot().getChildren());
+        
+        EMFIO.saveModel(fm, List.of(BasicFMsPackage.eINSTANCE, CardinalityBasedFMsPackage.eINSTANCE), "output/fm.xmi");
+        /*
+        ClaferVisitor classVisitor = new ClaferVisitor();
+        parser.module().accept(classVisitor);
+        */
+        
 	}
 	
 	public ClaferParser() {
@@ -72,8 +150,29 @@ public class ClaferParser implements FMParser {
 		return null;
 	}
 	
-	private int getIndentation(String line) {
-		Pattern r = Pattern.compile("([ \t]+)");	
+	private static Map<Integer, Integer> getIndentationMap(String filepath) {
+		Path path = Path.of(filepath);
+		var indentations = new HashMap<Integer, Integer>();
+		try {
+			List<String> lines = Files.readAllLines(path);
+			
+			// Remove comments and blank lines
+			lines = lines.stream().filter(l -> !l.startsWith("//") && !l.isBlank()).collect(Collectors.toList());
+			
+			int n = 0;
+			for (String line : lines) {
+				int tabs = getIndentation(line);
+				indentations.put(n, tabs);
+				n++;
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return indentations;
+	}
+	
+	private static int getIndentation(String line) {
+		Pattern r = Pattern.compile("([\t]+)");	
 		Matcher m = r.matcher(line);
 		
 		int tabs = 0;

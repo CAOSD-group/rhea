@@ -17,8 +17,10 @@ Export-Package: rhea.metamodels,
  rhea.metamodels.BasicFMs.util,
  rhea.metamodels.CardinalityBasedFMs,
  rhea.metamodels.CardinalityBasedFMs.impl,
- rhea.metamodels.CardinalityBasedFMs.util
+ rhea.metamodels.CardinalityBasedFMs.util,
+ rhea.metamodels.utils
 Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.emf.ecore;visibility:=reexport,
- rhea.metamodels;visibility:=reexport
+ rhea.metamodels;visibility:=reexport,
+ org.eclipse.emf.ecore.xmi;bundle-version="2.16.0"
 Bundle-ActivationPolicy: lazy

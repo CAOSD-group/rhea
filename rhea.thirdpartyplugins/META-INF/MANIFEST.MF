@@ -6,6 +6,12 @@ Bundle-Version: 1.0.0.qualifier
 Automatic-Module-Name: rhea.thirdpartyplugins
 Bundle-RequiredExecutionEnvironment: JavaSE-11
 Bundle-ClassPath: lib/uvl-parser.jar,
- .
+ .,
+ lib/antlr-4.8-complete.jar
 Export-Package: de.neominik.uvl,
- de.neominik.uvl.ast
+ de.neominik.uvl.ast,
+ org.antlr.v4.parse,
+ org.antlr.v4.runtime,
+ org.antlr.v4.runtime.atn,
+ org.antlr.v4.runtime.dfa,
+ org.antlr.v4.runtime.tree
