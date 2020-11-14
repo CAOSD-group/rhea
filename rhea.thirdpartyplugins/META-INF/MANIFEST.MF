@@ -7,11 +7,17 @@ Automatic-Module-Name: rhea.thirdpartyplugins
 Bundle-RequiredExecutionEnvironment: JavaSE-11
 Bundle-ClassPath: lib/uvl-parser.jar,
  .,
- lib/antlr-4.8-complete.jar
-Export-Package: de.neominik.uvl,
+ lib/antlr-4.8-complete.jar,
+ lib/gson-2.8.6.jar,
+ lib/guava-30.0-jre.jar
+Export-Package: com.google.common.collect,
+ com.google.common.math,
+ de.neominik.uvl,
  de.neominik.uvl.ast,
  org.antlr.v4.parse,
  org.antlr.v4.runtime,
  org.antlr.v4.runtime.atn,
  org.antlr.v4.runtime.dfa,
- org.antlr.v4.runtime.tree
+ org.antlr.v4.runtime.tree,
+ rhea.thirdpartyplugins.clafer,
+ rhea.thirdpartyplugins.utils

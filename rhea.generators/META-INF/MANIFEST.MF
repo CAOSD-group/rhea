@@ -1,0 +1,14 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Generators
+Bundle-SymbolicName: rhea.generators
+Bundle-Version: 1.0.0.qualifier
+Automatic-Module-Name: rhea.generators
+Bundle-RequiredExecutionEnvironment: JavaSE-11
+Import-Package: org.eclipse.emf.common.util,
+ rhea.metamodels.BasicCTCs,
+ rhea.metamodels.BasicFMs
+Export-Package: rhea.generators,
+ rhea.generators.clafer
+Require-Bundle: rhea.metamodels;bundle-version="1.0.0",
+ rhea.thirdpartyplugins;bundle-version="1.0.0"

@@ -1,4 +1,4 @@
-package rhea.parsers;
+package rhea.parsers.clafer;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -25,12 +25,13 @@ import clafer.claferLexer;
 import clafer.claferParser;
 import clafer.claferParserBaseListener;
 import clafer.claferParserListener;
-import rhea.metamodels.FMGenerator;
 import rhea.metamodels.BasicFMs.BasicFMsPackage;
 import rhea.metamodels.BasicFMs.Feature;
 import rhea.metamodels.BasicFMs.FeatureModel;
 import rhea.metamodels.CardinalityBasedFMs.CardinalityBasedFMsPackage;
 import rhea.metamodels.utils.EMFIO;
+import rhea.metamodels.utils.FMGenerator;
+import rhea.parsers.FMParser;
 
 public class ClaferParser implements FMParser {
 	private static String ROOT_REGEX = "(abstract )?(.+)$";
@@ -191,7 +192,7 @@ public class ClaferParser implements FMParser {
 			parent = indentParent.get(tabs);
 		}
 		System.out.println(tabs);
-		
+		sc.close();
 		//System.out.println(line + " -> " + line.split("\t").length);
 		/*
 				

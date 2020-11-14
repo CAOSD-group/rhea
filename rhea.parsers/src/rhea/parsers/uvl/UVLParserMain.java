@@ -1,4 +1,4 @@
-package rhea.parsers;
+package rhea.parsers.uvl;
 
 import java.io.IOException;
 import java.nio.file.Files;

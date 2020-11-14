@@ -1,4 +1,4 @@
-package rhea.parsers;
+package rhea.parsers.clafer;
 
 import java.util.HashMap;
 import java.util.Map;

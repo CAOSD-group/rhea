@@ -8,3 +8,4 @@ Bundle-RequiredExecutionEnvironment: JavaSE-11
 Require-Bundle: rhea.metamodels;bundle-version="1.0.0",
  org.eclipse.emf.henshin.model,
  org.eclipse.emf.henshin.interpreter
+Export-Package: rhea.transformations.engine
