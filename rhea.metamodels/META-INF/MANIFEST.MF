@@ -8,8 +8,7 @@ Bundle-Vendor: %providerName
 Bundle-Localization: plugin
 Automatic-Module-Name: rhea.metamodels
 Bundle-RequiredExecutionEnvironment: JavaSE-11
-Export-Package: rhea.metamodels,
- rhea.metamodels.BasicCTCs,
+Export-Package: rhea.metamodels.BasicCTCs,
  rhea.metamodels.BasicCTCs.impl,
  rhea.metamodels.BasicCTCs.util,
  rhea.metamodels.BasicFMs,
@@ -18,6 +17,9 @@ Export-Package: rhea.metamodels,
  rhea.metamodels.CardinalityBasedFMs,
  rhea.metamodels.CardinalityBasedFMs.impl,
  rhea.metamodels.CardinalityBasedFMs.util,
+ rhea.metamodels.PropLogicCTCs,
+ rhea.metamodels.PropLogicCTCs.impl,
+ rhea.metamodels.PropLogicCTCs.util,
  rhea.metamodels.utils
 Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.emf.ecore;visibility:=reexport,

@@ -1,4 +1,4 @@
-package rhea.metamodels;
+package rhea.metamodels.utils;
 
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;

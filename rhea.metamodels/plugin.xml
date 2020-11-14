@@ -30,4 +30,12 @@
             genModel="metamodels/CardinalityBasedFMs/CardinalityBasedFMs.genmodel"/>
    </extension>
 
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated PropLogicCTCs -->
+      <package
+            uri="metamodels.PropLogicCTCs"
+            class="rhea.metamodels.PropLogicCTCs.PropLogicCTCsPackage"
+            genModel="metamodels/PropLogicCTCs/PropLogicCTCs.genmodel"/>
+   </extension>
+
 </plugin>

@@ -22,6 +22,14 @@ import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
  */
 public class EMFIO {
 
+	/**
+	 * Write/Serialize a model in a .xmi file.
+	 * 
+	 * @param model			Model instance to be serialized.
+	 * @param metamodels	List of metamodels used by the model instance.
+	 * @param filepath		Filepath of the target .xmi file.
+	 * @throws IOException
+	 */
 	public static void saveModel(EObject model, List<EPackage> metamodels, String filepath) throws IOException {
 		// Create a resource set to hold the resources.
 		ResourceSet resourceSet = new ResourceSetImpl();
@@ -48,6 +56,13 @@ public class EMFIO {
 		resource.save(opts);
 	}
 	
+	/**
+	 * Read/Load a model instance stored in a .xmi file.
+	 * 
+	 * @param metamodels	List of metamodels used by the model.
+	 * @param filepath		File path of the model to be loaded.
+	 * @return				Model instance (the root element).
+	 */
 	public static EObject loadModel(List<EPackage> metamodels, String filepath) {
 		// Create a resource set to hold the resources.
 		ResourceSet resourceSet = new ResourceSetImpl();
@@ -69,6 +84,13 @@ public class EMFIO {
 		return model;
 	}
 	
+	/**
+	 * Write/Serialize a metamodel in a .ecore file.
+	 * 
+	 * @param metamodel		Metamodel to be serialized.
+	 * @param filepath		Filepath of the target .ecore file.
+	 * @throws IOException
+	 */
 	public static void saveMetamodel(EObject metamodel, String filepath) throws IOException {
 		// Create a resource set to hold the resources.
 		ResourceSet resourceSet = new ResourceSetImpl();
@@ -95,6 +117,13 @@ public class EMFIO {
 		resource.save(null);
 	}
 	
+	/**
+	 * Read/Load a metamodel from a .ecore file.
+	 * 
+	 * 
+	 * @param filepath	Filepath of the metamodel to be loaded.
+	 * @return
+	 */
 	public static EObject loadMetamodel(String filepath) {
 		// Create a resource set to hold the resources.
 		ResourceSet resourceSet = new ResourceSetImpl();

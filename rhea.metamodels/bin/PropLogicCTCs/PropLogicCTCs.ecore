@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="PropLogicCTCs" nsURI="metamodels.PropLogicCTCs" nsPrefix="rhea">
+  <eClassifiers xsi:type="ecore:EClass" name="AdvancedConstraint" eSuperTypes="../BasicFMs/BasicFMs.ecore#//CrossTreeConstraint">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="term" lowerBound="1" eType="#//Term"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Term">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="type" eType="#//TermType"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="term" eType="ecore:EClass ../BasicFMs/BasicFMs.ecore#//Feature"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="operands" upperBound="-1"
+        eType="#//Term" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="TermType">
+    <eLiterals name="feature"/>
+    <eLiterals name="not" value="1"/>
+    <eLiterals name="and" value="2"/>
+    <eLiterals name="or" value="3"/>
+    <eLiterals name="xor" value="4"/>
+    <eLiterals name="implies" value="5"/>
+    <eLiterals name="excludes" value="6"/>
+    <eLiterals name="equiv" value="7"/>
+  </eClassifiers>
+</ecore:EPackage>
