@@ -1,0 +1,7 @@
+abstract MyRoot
+	0..1 A	// 0 ó 1, también mux A
+		B
+		C
+		D
+		
+config: MyRoot

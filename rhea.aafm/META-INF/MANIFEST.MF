@@ -1,0 +1,11 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Aafm
+Bundle-SymbolicName: rhea.aafm
+Bundle-Version: 1.0.0.qualifier
+Automatic-Module-Name: rhea.aafm
+Bundle-RequiredExecutionEnvironment: JavaSE-13
+Require-Bundle: rhea.metamodels;bundle-version="1.0.0",
+ rhea.thirdpartyplugins;bundle-version="1.0.0",
+ rhea.generators;bundle-version="1.0.0"
+Export-Package: rhea.aafm

@@ -5,3 +5,8 @@ Bundle-SymbolicName: rhea.evaluation
 Bundle-Version: 1.0.0.qualifier
 Automatic-Module-Name: rhea.evaluation
 Bundle-RequiredExecutionEnvironment: JavaSE-11
+Require-Bundle: rhea.parsers;bundle-version="1.0.0",
+ rhea.metamodels;bundle-version="1.0.0",
+ rhea.generators;bundle-version="1.0.0",
+ rhea.thirdpartyplugins;bundle-version="1.0.0",
+ rhea.aafm;bundle-version="1.0.0"

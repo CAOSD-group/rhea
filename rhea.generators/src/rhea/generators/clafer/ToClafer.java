@@ -13,8 +13,11 @@ import rhea.metamodels.BasicCTCs.Requires;
 import rhea.metamodels.BasicFMs.AlternativeGroup;
 import rhea.metamodels.BasicFMs.CrossTreeConstraint;
 import rhea.metamodels.BasicFMs.Feature;
+import rhea.metamodels.BasicFMs.FeatureGroup;
 import rhea.metamodels.BasicFMs.FeatureModel;
 import rhea.metamodels.BasicFMs.SelectionGroup;
+import rhea.metamodels.CardinalityBasedFMs.GroupCardinality;
+import rhea.thirdpartyplugins.utils.Utils;
 
 /**
  * Transform a feature model (from its abstract syntax) to a Clafer model.
@@ -35,7 +38,7 @@ public class ToClafer implements FMGenerator {
 		addConstraints(claferFM, fm.getCrosstreeconstraints());
 		
 		// Add the initial instance
-		claferFM.append(fmName).append(": ").append(fm.getRoot().getName());
+		claferFM.append("config").append(": ").append(fm.getRoot().getName());
 		
 		return claferFM.toString();
 	}
@@ -50,9 +53,12 @@ public class ToClafer implements FMGenerator {
 				claferFM.append("xor ");
 			} else if (feature instanceof SelectionGroup) {
 				claferFM.append("or " );
+			} else if (feature instanceof GroupCardinality) {
+				var mul = ((GroupCardinality) feature).getMultiplicity();
+				claferFM.append(mul.getLower()).append("..").append(mul.getUpper()).append(" ");
 			}
 			claferFM.append(feature.getName());
-			if (!feature.isMandatory()) {	// Optional feature
+			if (!feature.isMandatory() && !(feature.getParent() instanceof FeatureGroup)) {	// Optional feature
 				claferFM.append(" ?");
 			}
 		}
@@ -87,6 +93,7 @@ public class ToClafer implements FMGenerator {
 		}
 	}
 	
+	/*
 	public void serialize(String content, String outputFilepath) {
 		try {
 			Path path = Paths.get(outputFilepath);
@@ -101,9 +108,10 @@ public class ToClafer implements FMGenerator {
 			e.printStackTrace();
 		}
 	}
+	*/
 	
 	/**
-	 * Given a feature model, it translates it to Clafer notation.
+	 * Given a feature model, it translates it to Clafer notation and serialize it.
 	 * 
 	 * @param fm	Feature model.
 	 * @return		Filepath of the Clafer model generated (.txt).
@@ -112,7 +120,7 @@ public class ToClafer implements FMGenerator {
 		ToClafer toClafer = new ToClafer();
 		String claferModel = toClafer.fm2text(fm);
 		String modelPath = basedir + fm.getName() + ".txt";
-		toClafer.serialize(claferModel, modelPath);
+		Utils.serialize(claferModel, modelPath);
 		
 		return modelPath;
 	}

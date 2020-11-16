@@ -6,31 +6,18 @@ import java.io.Reader;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
+import java.nio.file.StandardOpenOption;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 import com.google.gson.Gson;
 
 public class Utils {
-
-	/**
-	 * Read a file as a list of strings.
-	 * 
-	 * @param filepath	Filepath.
-	 * @return			List of strings.
-	 */
-	public static List<String> readFile(String filepath) {
-		Path path = Paths.get(filepath);
-		try {
-			return Files.readAllLines(path);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		return new ArrayList<String>();
-	}
 	
 	/**
 	 * Read a JSON file as a map object.
@@ -58,6 +45,73 @@ public class Utils {
 		}
 		
 		return map;
+	}
+	
+	/**
+	 * Serialize the contents of the string in a file.
+	 * 
+	 * @param contents		Content in a string format.
+	 * @param filepath		File path.
+	 */
+	public static void serialize(String contents, String filepath) {
+		Path path = Paths.get(filepath);
+		try {
+			if (!Files.exists(path)) {
+				Files.createDirectories(path.getParent());
+				Files.createFile(path);
+			}
+			Files.write(path, contents.getBytes(), StandardOpenOption.CREATE);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	/**
+	 * Remove comments and blank lines from the source code contents.
+	 * 
+	 * @param lines		Source code content as list of strings.
+	 * @param comments	Character used for comments.
+	 * @return
+	 */
+	public static List<String> cleanSourceCode(List<String> lines, String comments) {
+		// Remove comments and blank lines
+		lines = lines.stream().filter(l -> !l.startsWith(comments) && !l.isBlank()).collect(Collectors.toList());
+		
+		return lines;
+	}
+	
+	/**
+	 * Build a map with the indentation for each line.
+	 * 
+	 * @param lines		Source code content as list of strings.
+	 * @return			Map with the indentations per line (line -> tabs).
+	 */
+	public static Map<Integer, Integer> getIndentationMap(List<String> lines) {
+		var indentations = new HashMap<Integer, Integer>();			
+		int n = 0;
+		for (String line : lines) {
+			int tabs = getIndentation(line);
+			indentations.put(n, tabs);
+			n++;
+		}
+		return indentations;
+	}
+	
+	/**
+	 * Count the indentations (tabs) for a string line.
+	 * 
+	 * @param line	String line.
+	 * @return		Number of indentations (tabs).
+	 */
+	public static int getIndentation(String line) {
+		Pattern r = Pattern.compile("([\t]+)");	
+		Matcher m = r.matcher(line);
+		
+		int tabs = 0;
+		if (m.find()) {
+			tabs = m.group(1).length();
+		}
+		return tabs;
 	}
 	
 	/**

@@ -18,11 +18,9 @@ import rhea.thirdpartyplugins.utils.Utils;
  *
  */
 public class ClaferUtils {
-	public static final String WORKING_DIR = "E:/Software/clafer-tools-0.4.5/";
+	public static final String WORKING_DIR = "../rhea.thirdpartyplugins/lib/clafer-tools-0.4.5/";
 	public static final String CLAFER_EXE = "clafer.exe";
 	public static final String CHOCO_EXE = "chocosolver.jar";
-	
-
 	
 	/**
 	 * Compile the Clafer model to Choco mode.
@@ -31,8 +29,10 @@ public class ClaferUtils {
 	 * @return						Filepath of the compiled file (.js)
 	 */
 	public static String compileClafer(String claferModelFilepath) {
+		Path workingDir = Paths.get(WORKING_DIR);
 		Path p = Paths.get(claferModelFilepath);
-		Utils.runCLI(new File(WORKING_DIR), new String[]{CLAFER_EXE, "-m", "choco", p.toAbsolutePath().toString()});
+		
+		Utils.runCLI(new File(workingDir.toAbsolutePath().toString()), new String[]{CLAFER_EXE, "-m", "choco", p.toAbsolutePath().toString()});
 		String outputFile = p.toString().substring(0, p.toString().lastIndexOf('.')) + ".js";
 		
 		return outputFile;

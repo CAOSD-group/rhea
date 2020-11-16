@@ -90,8 +90,10 @@ public class MyClaferParserListener implements claferParserListener {
 	private Feature currentFeature;
 	private Boolean mandatory;
 	private int nFeatures;
+	private boolean isValidFeature;
 	private Map<Integer, Integer> indentations;
 	private Map<Integer, Feature> indentParent;
+	
 	
 	public MyClaferParserListener(Map<Integer, Integer> indentations) {
 		this.indentations = indentations;
@@ -220,44 +222,51 @@ public class MyClaferParserListener implements claferParserListener {
 	public void enterClafer(ClaferContext ctx) {
 		currentFeature = null;
 		mandatory = true;
+		isValidFeature = true;
+		if (fm.getRoot() != null && this.indentations.get(nFeatures) == 0) {
+			isValidFeature = false;
+		}
 	}
 
 	@Override
 	public void exitClafer(ClaferContext ctx) {
-		// Create simple feature if not has been created (e.g., because of a group)
-		if (currentFeature == null) 
-			currentFeature = BasicFMsFactory.eINSTANCE.createFeature();
-		
-		// Set feature name
-		String featureName = ctx.getChild(3).getText();
-		currentFeature.setName(featureName);
-		
-		// Set mandatory/optional
-		currentFeature.setMandatory(mandatory);
-		
-		// Set root feature
-		if (nFeatures == 0) {
-			fm.setRoot(currentFeature);
-			this.indentParent.put(1, currentFeature);
-		} else {
-			// Set parent feature
-			int indent = this.indentations.get(nFeatures);
-			System.out.println(indent);
-			Feature parent = this.indentParent.get(indent);
-			System.out.println("Feature -> parent: " + featureName + " -> " + parent);
-			this.indentParent.put(indent+1, currentFeature);
+		if (isValidFeature) {
+			// Create simple feature if not has been created (e.g., because of a group)
+			if (currentFeature == null) 
+				currentFeature = BasicFMsFactory.eINSTANCE.createFeature();
 			
-			if (parent != null) {
-				parent.getChildren().add(currentFeature);
-				if (parent instanceof FeatureGroup) {		// BE CAREFUL! we do not allow mandatory feature inside a group, but we should?
-					currentFeature.setMandatory(false);
+			// Set feature name
+			String featureName = ctx.getChild(3).getText();
+			currentFeature.setName(featureName);
+			
+			// Set mandatory/optional
+			currentFeature.setMandatory(mandatory);
+			
+			// Set root feature
+			if (nFeatures == 0) {
+				fm.setRoot(currentFeature);
+				this.indentParent.put(1, currentFeature);
+			} else {
+				// Set parent feature
+				int indent = this.indentations.get(nFeatures);
+				System.out.println(indent);
+				Feature parent = this.indentParent.get(indent);
+				System.out.println("Feature -> parent: " + featureName + " -> " + parent);
+				this.indentParent.put(indent+1, currentFeature);
+				
+				if (parent != null) {
+					parent.getChildren().add(currentFeature);
+					if (parent instanceof FeatureGroup) {		// BE CAREFUL! we do not allow mandatory feature inside a group, but we should?
+						currentFeature.setMandatory(false);
+					}
 				}
+				currentFeature.setParent(parent);
 			}
-			currentFeature.setParent(parent);
+			
+			fm.getFeatures().add(currentFeature);
 		}
-		
-		fm.getFeatures().add(currentFeature);
 		nFeatures++;
+		
 	}
 
 	@Override
