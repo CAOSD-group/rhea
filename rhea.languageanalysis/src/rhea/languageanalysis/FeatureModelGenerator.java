@@ -54,7 +54,7 @@ public class FeatureModelGenerator {
 		
 		this.dynamicMetamodels = new ArrayList<EPackage>();
 		for (String mm : dynamicMetamodelsPaths) {
-			EPackage metamodel = henshin.registerMetamodel(mm);
+			EPackage metamodel = henshin.registerDynamicMetamodel(mm);
 			this.dynamicMetamodels.add(metamodel);
 		}
 		

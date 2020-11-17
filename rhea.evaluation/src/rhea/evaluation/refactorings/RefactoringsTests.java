@@ -69,16 +69,22 @@ public class RefactoringsTests {
 				
 		// Do the transformation
 		HenshinEngine henshin = new HenshinEngine(BASEDIR);
+		/*
 		for (String metamodelPath : dynamicMetamodels) {
 			System.out.println("mm: " + metamodelPath);
 			henshin.registerDynamicMetamodel(metamodelPath);	
 		}
-		
+		*/
+		for (EPackage mm : staticMetamodels) {
+			henshin.registerStaticMetamodel(mm);	
+		}
 		// Load the model
 		//EObject model = henshin.loadModel(BASEDIR_INPUT_MODELS_AS + fm.getName() + ".xmi");
 				
 		// Execute the transformation
 		EObject model = henshin.executeTransformation(transformationFilepath, ruleName,  Map.of(), BASEDIR_INPUT_MODELS_AS + fm.getName() + ".xmi");
+		FeatureModel fmD = (FeatureModel) model;
+		System.out.println("Feature model transformed: " + fmD.getName());
 		
 		// Serialize the abstract syntax
 		henshin.saveModel(model, BASEDIR_OUTPUT_MODELS_AS +  fm.getName() + ".xmi");

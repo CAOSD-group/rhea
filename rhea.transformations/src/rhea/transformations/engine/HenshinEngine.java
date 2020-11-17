@@ -92,24 +92,6 @@ public class HenshinEngine {
 	}
 	
 	/**
-	 * Unload a model of the Henshin resource set.
-	 * 
-	 * @param model		Model instance.
-	 */
-	public void unloadModel(EObject model) {
-		((Resource) model).unload();
-	}
-	
-	/**
-	 * Unload a Henshin module of the Henshin resource set.
-	 * 
-	 * @param module	Module instance.
-	 */
-	public void unloadModule(Module module) {
-		((Resource) module).unload();
-	}
-	
-	/**
 	 * Save the model instance in the specified filepath.
 	 * 
 	 * @param model		Model instance.
