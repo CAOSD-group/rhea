@@ -13,10 +13,10 @@ import rhea.metamodels.BasicFMs.BasicFMsPackage;
 import rhea.metamodels.CardinalityBasedFMs.CardinalityBasedFMsPackage;
 import rhea.transformations.engine.HenshinEngine;
 
-public class ApplyRefactoring {
-	public static final String BASEDIR = "D:/Workspaces/RHEA-ws/rhea/rhea/";
-	public static final String BASEDIR_METAMODELS = BASEDIR + "rhea.metamodels/src/main/resources/metamodels/";
-	public static final String BASEDIR_TRANSFORMATIONS = BASEDIR + "rhea.modeltransformations/src/main/resources/refactorings/";
+public class ApplyRefactoringDynamic {
+	public static final String BASEDIR = "E:/Workspaces/RHEA-ws/rhea/";
+	public static final String BASEDIR_METAMODELS = "rhea.metamodels/src/main/resources/metamodels/";
+	public static final String BASEDIR_TRANSFORMATIONS = "rhea.modeltransformations/src/main/resources/refactorings/";
 	public static final String BASEDIR_INPUT_MODELS = BASEDIR + "rhea.modeltransformations/src/test/resources/input-models/";
 	
 	
@@ -32,7 +32,7 @@ public class ApplyRefactoring {
 		
 		// Load and register the metamodels
 		for (String mm : dynamicMetamodels) {
-			henshin.registerMetamodel(mm);
+			henshin.registerDynamicMetamodel(mm);
 		}
 		
 		// Load the model

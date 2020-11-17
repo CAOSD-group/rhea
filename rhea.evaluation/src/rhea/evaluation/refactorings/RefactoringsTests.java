@@ -32,9 +32,9 @@ import rhea.transformations.engine.HenshinEngine;
 @RunWith(Suite.class)
 @SuiteClasses({})
 public class RefactoringsTests {
-	public static final String BASEDIR = "D:/Workspaces/RHEA-ws/rhea/";
+	public static final String BASEDIR = "E:/Workspaces/RHEA-ws/rhea/";
 	public static final String BASEDIR_METAMODELS = BASEDIR + "rhea.metamodels/metamodels/";
-	public static final String BASEDIR_TRANSFORMATIONS = BASEDIR + "rhea.transformations/modeltransformations/refactorings/";
+	public static final String BASEDIR_TRANSFORMATIONS = BASEDIR + "rhea.transformations/refactorings/";
 	public static final String BASEDIR_INPUT_MODELS_CLAFER = BASEDIR + "rhea.evaluation/inputs/clafer/";
 	public static final String BASEDIR_OUTPUT_MODELS_CLAFER = BASEDIR + "rhea.evaluation/outputs/clafer/";
 	public static final String BASEDIR_INPUT_MODELS_AS = BASEDIR + "rhea.evaluation/inputs/AS/";
@@ -48,7 +48,7 @@ public class RefactoringsTests {
 	@ValueSource(strings = {"FM-TelematicsSystem.txt", "casoBase0-1.txt"})
 	void groupCardinalitiesXOR(String filepath) {
 		String inputFile = BASEDIR_INPUT_MODELS_CLAFER + filepath;
-		String transformationFilepath = BASEDIR_TRANSFORMATIONS + "groupcardinalities/GroupCardinalitiesStaticMetamodel.henshin";
+		String transformationFilepath = BASEDIR_TRANSFORMATIONS + "GroupCardinalities.henshin";
 		String ruleName = "GroupCardinality_XOR";
 		
 		System.out.println("Parsing Clafer feature model " + inputFile);
@@ -71,14 +71,14 @@ public class RefactoringsTests {
 		HenshinEngine henshin = new HenshinEngine(BASEDIR);
 		for (String metamodelPath : dynamicMetamodels) {
 			System.out.println("mm: " + metamodelPath);
-			henshin.registerMetamodel(metamodelPath);	
+			henshin.registerDynamicMetamodel(metamodelPath);	
 		}
 		
 		// Load the model
-		EObject model = henshin.loadModel(BASEDIR_INPUT_MODELS_AS + fm.getName() + ".xmi");
+		//EObject model = henshin.loadModel(BASEDIR_INPUT_MODELS_AS + fm.getName() + ".xmi");
 				
 		// Execute the transformation
-		henshin.executeTransformation(transformationFilepath, ruleName,  Map.of(), model);
+		EObject model = henshin.executeTransformation(transformationFilepath, ruleName,  Map.of(), BASEDIR_INPUT_MODELS_AS + fm.getName() + ".xmi");
 		
 		// Serialize the abstract syntax
 		henshin.saveModel(model, BASEDIR_OUTPUT_MODELS_AS +  fm.getName() + ".xmi");
