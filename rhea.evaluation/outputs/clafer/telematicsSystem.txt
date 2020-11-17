@@ -3,15 +3,11 @@ abstract telematicsSystem
 		single
 		dual
 			two ?
-
 	extraDisplay ?
-	
 	1..2 size
 		small
 		large
-		
-	1..1 pan
-		integral
+	xor pan
 		normal
-
-config: telematicsSystem
+		integral
+config: telematicsSystemm

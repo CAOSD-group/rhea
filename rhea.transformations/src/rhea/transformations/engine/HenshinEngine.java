@@ -167,8 +167,9 @@ public class HenshinEngine {
 	 * @param unit			Unit/rule.
 	 * @param parameters	Parameters of the unit/rule: name -> value.
 	 * @param model			Model to be transformed.
+	 * @return				Model transformed.
 	 */
-	public void executeTransformation(Unit unit, Map<String,String> parameters, EObject model) {						
+	public EObject executeTransformation(Unit unit, Map<String,String> parameters, EObject model) {						
 		// Initialize the graph
 		EGraph graph = new EGraphImpl(model);
 		
@@ -188,6 +189,23 @@ public class HenshinEngine {
 		// Execute the unit/rule
 		//ApplicationMonitor monitor = new LoggingApplicationMonitor();
 		application.execute(null);
+		
+		return model;
+	}
+	
+	/**
+	 * Execute a Henshin unit/rule.
+	 * 
+	 * @param modulePath	Path of the .henshin module file.
+	 * @param ruleName		Name of the unit/rule contained in the module.
+	 * @param parameters	Parameters of the unit/rule: name -> value.
+	 * @param model			Model to be transformed.
+	 * @return				Model transformed.
+	 */
+	public EObject executeTransformation(String modulePath, String ruleName, Map<String,String> parameters, EObject model) {
+		Module module = getModule(modulePath);
+		Unit rule = module.getUnit(ruleName);
+		return executeTransformation(rule, parameters, model);
 	}
 	
 	

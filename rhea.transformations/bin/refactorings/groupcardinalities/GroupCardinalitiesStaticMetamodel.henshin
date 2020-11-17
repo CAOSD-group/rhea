@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<henshin:Module xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:henshin="http://www.eclipse.org/emf/2011/Henshin" xmi:id="_u2LOYCj3Eeu8hoBkbMYZnA">
+  <imports href="metamodels.BasicFMs#/"/>
+  <imports href="metamodels.CardinalityBasedFMs#/"/>
+  <units xsi:type="henshin:Rule" xmi:id="_za_dYCj3Eeu8hoBkbMYZnA" name="GroupCardinalities_XOR">
+    <parameters xmi:id="_2Vb1QCj3Eeu8hoBkbMYZnA" name="id" kind="VAR">
+      <type xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    </parameters>
+    <parameters xmi:id="_2Vb1QSj3Eeu8hoBkbMYZnA" name="name" kind="VAR">
+      <type xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    </parameters>
+    <parameters xmi:id="_2Vb1Qij3Eeu8hoBkbMYZnA" name="opt" kind="VAR">
+      <type xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+    </parameters>
+    <lhs xmi:id="_zbB5oCj3Eeu8hoBkbMYZnA" name="Lhs">
+      <nodes xmi:id="_3NRcMCj3Eeu8hoBkbMYZnA">
+        <type href="metamodels.BasicFMs#//FeatureModel"/>
+      </nodes>
+      <nodes xmi:id="_3lxbwCj3Eeu8hoBkbMYZnA">
+        <type href="metamodels.BasicFMs#//Feature"/>
+      </nodes>
+      <nodes xmi:id="_4UzE8Cj3Eeu8hoBkbMYZnA" outgoing="_72eb8Cj3Eeu8hoBkbMYZnA">
+        <type href="metamodels.CardinalityBasedFMs#//GroupCardinality"/>
+        <attributes xmi:id="_FkO6sCj4Eeu8hoBkbMYZnA" value="id">
+          <type href="../../../../rhea.metamodels/metamodels/BasicFMs/BasicFMs.ecore#//Feature/id"/>
+        </attributes>
+        <attributes xmi:id="_F3hqICj4Eeu8hoBkbMYZnA" value="name">
+          <type href="../../../../rhea.metamodels/metamodels/BasicFMs/BasicFMs.ecore#//Feature/name"/>
+        </attributes>
+        <attributes xmi:id="_GCVL8Cj4Eeu8hoBkbMYZnA" value="opt">
+          <type href="../../../../rhea.metamodels/metamodels/BasicFMs/BasicFMs.ecore#//Feature/mandatory"/>
+        </attributes>
+      </nodes>
+      <nodes xmi:id="_4ryooCj3Eeu8hoBkbMYZnA" incoming="_72eb8Cj3Eeu8hoBkbMYZnA">
+        <type href="metamodels.CardinalityBasedFMs#//Multiplicity"/>
+      </nodes>
+      <edges xmi:id="_72eb8Cj3Eeu8hoBkbMYZnA" source="_4UzE8Cj3Eeu8hoBkbMYZnA" target="_4ryooCj3Eeu8hoBkbMYZnA">
+        <type href="metamodels.CardinalityBasedFMs#//GroupCardinality/multiplicity"/>
+      </edges>
+    </lhs>
+    <rhs xmi:id="_zbB5oSj3Eeu8hoBkbMYZnA" name="Rhs">
+      <nodes xmi:id="_3NRcMSj3Eeu8hoBkbMYZnA">
+        <type href="metamodels.BasicFMs#//FeatureModel"/>
+      </nodes>
+      <nodes xmi:id="_3lxbwSj3Eeu8hoBkbMYZnA">
+        <type href="metamodels.BasicFMs#//Feature"/>
+      </nodes>
+    </rhs>
+    <mappings xmi:id="_3NRcMij3Eeu8hoBkbMYZnA" origin="_3NRcMCj3Eeu8hoBkbMYZnA" image="_3NRcMSj3Eeu8hoBkbMYZnA"/>
+    <mappings xmi:id="_3lxbwij3Eeu8hoBkbMYZnA" origin="_3lxbwCj3Eeu8hoBkbMYZnA" image="_3lxbwSj3Eeu8hoBkbMYZnA"/>
+    <multiRules xmi:id="_6BepMyj3Eeu8hoBkbMYZnA">
+      <parameters xmi:id="_6BjhsCj3Eeu8hoBkbMYZnA" name="id" kind="VAR">
+        <type xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      </parameters>
+      <parameters xmi:id="_6BjhsSj3Eeu8hoBkbMYZnA" name="name" kind="VAR">
+        <type xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      </parameters>
+      <parameters xmi:id="_6Bjhsij3Eeu8hoBkbMYZnA" name="opt" kind="VAR">
+        <type xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+      </parameters>
+      <lhs xmi:id="_6BepNCj3Eeu8hoBkbMYZnA" name="Lhs">
+        <nodes xmi:id="_6BepOCj3Eeu8hoBkbMYZnA">
+          <type href="metamodels.BasicFMs#//FeatureModel"/>
+        </nodes>
+        <nodes xmi:id="_6BepPSj3Eeu8hoBkbMYZnA">
+          <type href="metamodels.BasicFMs#//Feature"/>
+        </nodes>
+        <nodes xmi:id="_6BepQCj3Eeu8hoBkbMYZnA" outgoing="_72eb8Sj3Eeu8hoBkbMYZnA">
+          <type href="metamodels.CardinalityBasedFMs#//GroupCardinality"/>
+        </nodes>
+        <nodes xmi:id="_6BepQij3Eeu8hoBkbMYZnA" incoming="_72eb8Sj3Eeu8hoBkbMYZnA">
+          <type href="metamodels.CardinalityBasedFMs#//Multiplicity"/>
+        </nodes>
+        <nodes xmi:id="_6BepMCj3Eeu8hoBkbMYZnA">
+          <type href="metamodels.BasicFMs#//Feature"/>
+        </nodes>
+        <edges xmi:id="_72eb8Sj3Eeu8hoBkbMYZnA" source="_6BepQCj3Eeu8hoBkbMYZnA" target="_6BepQij3Eeu8hoBkbMYZnA">
+          <type href="metamodels.CardinalityBasedFMs#//GroupCardinality/multiplicity"/>
+        </edges>
+      </lhs>
+      <rhs xmi:id="_6BepNSj3Eeu8hoBkbMYZnA" name="Rhs">
+        <nodes xmi:id="_6BepNij3Eeu8hoBkbMYZnA">
+          <type href="metamodels.BasicFMs#//FeatureModel"/>
+        </nodes>
+        <nodes xmi:id="_6BepOyj3Eeu8hoBkbMYZnA">
+          <type href="metamodels.BasicFMs#//Feature"/>
+        </nodes>
+        <nodes xmi:id="_6BepMSj3Eeu8hoBkbMYZnA">
+          <type href="metamodels.BasicFMs#//Feature"/>
+        </nodes>
+      </rhs>
+      <mappings xmi:id="_6BepOij3Eeu8hoBkbMYZnA" origin="_6BepOCj3Eeu8hoBkbMYZnA" image="_6BepNij3Eeu8hoBkbMYZnA"/>
+      <mappings xmi:id="_6BepPyj3Eeu8hoBkbMYZnA" origin="_6BepPSj3Eeu8hoBkbMYZnA" image="_6BepOyj3Eeu8hoBkbMYZnA"/>
+      <mappings xmi:id="_6BepMij3Eeu8hoBkbMYZnA" origin="_6BepMCj3Eeu8hoBkbMYZnA" image="_6BepMSj3Eeu8hoBkbMYZnA"/>
+      <multiMappings xmi:id="_6BepNyj3Eeu8hoBkbMYZnA" origin="_3NRcMSj3Eeu8hoBkbMYZnA" image="_6BepNij3Eeu8hoBkbMYZnA"/>
+      <multiMappings xmi:id="_6BepOSj3Eeu8hoBkbMYZnA" origin="_3NRcMCj3Eeu8hoBkbMYZnA" image="_6BepOCj3Eeu8hoBkbMYZnA"/>
+      <multiMappings xmi:id="_6BepPCj3Eeu8hoBkbMYZnA" origin="_3lxbwSj3Eeu8hoBkbMYZnA" image="_6BepOyj3Eeu8hoBkbMYZnA"/>
+      <multiMappings xmi:id="_6BepPij3Eeu8hoBkbMYZnA" origin="_3lxbwCj3Eeu8hoBkbMYZnA" image="_6BepPSj3Eeu8hoBkbMYZnA"/>
+      <multiMappings xmi:id="_6BepQSj3Eeu8hoBkbMYZnA" origin="_4UzE8Cj3Eeu8hoBkbMYZnA" image="_6BepQCj3Eeu8hoBkbMYZnA"/>
+      <multiMappings xmi:id="_6BfQQCj3Eeu8hoBkbMYZnA" origin="_4ryooCj3Eeu8hoBkbMYZnA" image="_6BepQij3Eeu8hoBkbMYZnA"/>
+    </multiRules>
+  </units>
+</henshin:Module>

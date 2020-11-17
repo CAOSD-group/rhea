@@ -1,0 +1,6 @@
+abstract MyRoot
+	0..1 A
+		B
+		C
+		D
+config: MyRoot
