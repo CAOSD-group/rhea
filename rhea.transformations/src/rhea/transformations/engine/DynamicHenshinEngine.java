@@ -27,7 +27,6 @@ import org.eclipse.emf.henshin.model.resource.HenshinResourceSet;
 
 /**
  * Helper to register metamodels in Henshin, load/save model instances, and execute rules.
- * It uses static model instances and metamodels.
  * 
  * @author Jose Miguel Horcas
  *
@@ -39,6 +38,7 @@ public class HenshinEngine {
 	
 	public HenshinEngine(String basedir) {
 		this.rs = new HenshinResourceSet(basedir);
+		System.out.println(rs.getBaseDir());
 		this.engine = new EngineImpl();
 		
 		// Determine number of threads to be used:
@@ -48,32 +48,27 @@ public class HenshinEngine {
 	}
 	
 	/**
-	 * Load and register a metamodel from its .ecore file (dynamic metamodel).
+	 * Load and register a metamodel from its .ecore file (dynamic metamodels).
 	 * 
 	 * @param metamodelPath	Filepath of the metamodel
 	 * @return				Metamodel as an EPackage instance.
 	 */
-	public EPackage registerDynamicMetamodel(String metamodelPath) {
+	public EPackage registerMetamodel(String metamodelPath) {
 		Resource res = rs.getResource(metamodelPath);
 		EPackage metamodel = (EPackage) res.getContents().get(0);
 		rs.getPackageRegistry().put(metamodel.getNsURI(), metamodel);
 		EcoreUtil.resolveAll(rs);
 		
+		/*System.out.println("**********");
+		for (Resource r : rs.getResources()) {
+			System.out.println("Resource: " + r);
+		}
+		System.out.println("**********");*/
 		return metamodel;
 	}
 	
 	/**
-	 * Load and register a metamodel from its EPackage (static metamodel).
-	 * 
-	 * @param metamodel		EPackage of the metamodel.
-	 */
-	public void registerStaticMetamodel(EPackage metamodel) {
-		rs.getPackageRegistry().put(metamodel.getNsURI(), metamodel);
-		EcoreUtil.resolveAll(rs);
-	}
-	
-	/**
-	 * Load a model in the Henshin resource set from its filepath.
+	 * Load a model from its filepath.
 	 * 
 	 * @param modelPath Filepath of the model.
 	 * @return			Model instance as an EObject pointing to the root element.
@@ -89,24 +84,6 @@ public class HenshinEngine {
 		EObject modelRoot = res.getContents().get(0);
 		EcoreUtil.resolveAll(rs);
 		return modelRoot;
-	}
-	
-	/**
-	 * Unload a model of the Henshin resource set.
-	 * 
-	 * @param model		Model instance.
-	 */
-	public void unloadModel(EObject model) {
-		((Resource) model).unload();
-	}
-	
-	/**
-	 * Unload a Henshin module of the Henshin resource set.
-	 * 
-	 * @param module	Module instance.
-	 */
-	public void unloadModule(Module module) {
-		((Resource) module).unload();
 	}
 	
 	/**
@@ -225,8 +202,7 @@ public class HenshinEngine {
 	 * @param model			Model to be transformed.
 	 * @return				Model transformed.
 	 */
-	public EObject executeTransformation(String modulePath, String ruleName, Map<String,String> parameters, String modelPath) {
-		EObject model = loadModel(modelPath);
+	public EObject executeTransformation(String modulePath, String ruleName, Map<String,String> parameters, EObject model) {
 		Module module = getModule(modulePath);
 		Unit rule = module.getUnit(ruleName);
 		return executeTransformation(rule, parameters, model);
