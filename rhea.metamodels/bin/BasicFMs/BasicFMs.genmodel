@@ -22,6 +22,7 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute BasicFMs.ecore#//Feature/mandatory"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference BasicFMs.ecore#//Feature/children"/>
       <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference BasicFMs.ecore#//Feature/parent"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute BasicFMs.ecore#//Feature/abstract"/>
       <genOperations ecoreOperation="BasicFMs.ecore#//Feature/isLeaf"/>
       <genOperations ecoreOperation="BasicFMs.ecore#//Feature/isRoot"/>
     </genClasses>

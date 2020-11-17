@@ -9,7 +9,7 @@
    <extension point="org.eclipse.emf.ecore.generated_package">
       <!-- @generated BasicFMs -->
       <package
-            uri="metamodels.BasicFMs"
+            uri="rhea.metamodels.BasicFMs"
             class="rhea.metamodels.BasicFMs.BasicFMsPackage"
             genModel="metamodels/BasicFMs/BasicFMs.genmodel"/>
    </extension>

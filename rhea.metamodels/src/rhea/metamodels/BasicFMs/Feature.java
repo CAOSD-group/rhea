@@ -20,6 +20,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link rhea.metamodels.BasicFMs.Feature#isMandatory <em>Mandatory</em>}</li>
  *   <li>{@link rhea.metamodels.BasicFMs.Feature#getChildren <em>Children</em>}</li>
  *   <li>{@link rhea.metamodels.BasicFMs.Feature#getParent <em>Parent</em>}</li>
+ *   <li>{@link rhea.metamodels.BasicFMs.Feature#isAbstract <em>Abstract</em>}</li>
  * </ul>
  *
  * @see rhea.metamodels.BasicFMs.BasicFMsPackage#getFeature()
@@ -131,6 +132,29 @@ public interface Feature extends EObject {
 	 * @generated
 	 */
 	void setParent(Feature value);
+
+	/**
+	 * Returns the value of the '<em><b>Abstract</b></em>' attribute.
+	 * The default value is <code>"false"</code>.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Abstract</em>' attribute.
+	 * @see #setAbstract(boolean)
+	 * @see rhea.metamodels.BasicFMs.BasicFMsPackage#getFeature_Abstract()
+	 * @model default="false"
+	 * @generated
+	 */
+	boolean isAbstract();
+
+	/**
+	 * Sets the value of the '{@link rhea.metamodels.BasicFMs.Feature#isAbstract <em>Abstract</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Abstract</em>' attribute.
+	 * @see #isAbstract()
+	 * @generated
+	 */
+	void setAbstract(boolean value);
 
 	/**
 	 * <!-- begin-user-doc -->

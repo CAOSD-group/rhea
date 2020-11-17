@@ -39,7 +39,7 @@ public interface BasicFMsPackage extends EPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	String eNS_URI = "metamodels.BasicFMs";
+	String eNS_URI = "rhea.metamodels.BasicFMs";
 
 	/**
 	 * The package namespace name.
@@ -186,13 +186,22 @@ public interface BasicFMsPackage extends EPackage {
 	int FEATURE__PARENT = 4;
 
 	/**
+	 * The feature id for the '<em><b>Abstract</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FEATURE__ABSTRACT = 5;
+
+	/**
 	 * The number of structural features of the '<em>Feature</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int FEATURE_FEATURE_COUNT = 5;
+	int FEATURE_FEATURE_COUNT = 6;
 
 	/**
 	 * The operation id for the '<em>Is Leaf</em>' operation.
@@ -305,6 +314,15 @@ public interface BasicFMsPackage extends EPackage {
 	int FEATURE_GROUP__PARENT = FEATURE__PARENT;
 
 	/**
+	 * The feature id for the '<em><b>Abstract</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FEATURE_GROUP__ABSTRACT = FEATURE__ABSTRACT;
+
+	/**
 	 * The number of structural features of the '<em>Feature Group</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -396,6 +414,15 @@ public interface BasicFMsPackage extends EPackage {
 	int ALTERNATIVE_GROUP__PARENT = FEATURE_GROUP__PARENT;
 
 	/**
+	 * The feature id for the '<em><b>Abstract</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ALTERNATIVE_GROUP__ABSTRACT = FEATURE_GROUP__ABSTRACT;
+
+	/**
 	 * The number of structural features of the '<em>Alternative Group</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -485,6 +512,15 @@ public interface BasicFMsPackage extends EPackage {
 	 * @ordered
 	 */
 	int SELECTION_GROUP__PARENT = FEATURE_GROUP__PARENT;
+
+	/**
+	 * The feature id for the '<em><b>Abstract</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SELECTION_GROUP__ABSTRACT = FEATURE_GROUP__ABSTRACT;
 
 	/**
 	 * The number of structural features of the '<em>Selection Group</em>' class.
@@ -651,6 +687,17 @@ public interface BasicFMsPackage extends EPackage {
 	 * @generated
 	 */
 	EReference getFeature_Parent();
+
+	/**
+	 * Returns the meta object for the attribute '{@link rhea.metamodels.BasicFMs.Feature#isAbstract <em>Abstract</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Abstract</em>'.
+	 * @see rhea.metamodels.BasicFMs.Feature#isAbstract()
+	 * @see #getFeature()
+	 * @generated
+	 */
+	EAttribute getFeature_Abstract();
 
 	/**
 	 * Returns the meta object for the '{@link rhea.metamodels.BasicFMs.Feature#isLeaf() <em>Is Leaf</em>}' operation.
@@ -834,6 +881,14 @@ public interface BasicFMsPackage extends EPackage {
 		 * @generated
 		 */
 		EReference FEATURE__PARENT = eINSTANCE.getFeature_Parent();
+
+		/**
+		 * The meta object literal for the '<em><b>Abstract</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute FEATURE__ABSTRACT = eINSTANCE.getFeature_Abstract();
 
 		/**
 		 * The meta object literal for the '<em><b>Is Leaf</b></em>' operation.

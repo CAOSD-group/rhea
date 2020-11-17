@@ -242,6 +242,15 @@ public class BasicFMsPackageImpl extends EPackageImpl implements BasicFMsPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EAttribute getFeature_Abstract() {
+		return (EAttribute)featureEClass.getEStructuralFeatures().get(5);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EOperation getFeature__IsLeaf() {
 		return featureEClass.getEOperations().get(0);
 	}
@@ -332,6 +341,7 @@ public class BasicFMsPackageImpl extends EPackageImpl implements BasicFMsPackage
 		createEAttribute(featureEClass, FEATURE__MANDATORY);
 		createEReference(featureEClass, FEATURE__CHILDREN);
 		createEReference(featureEClass, FEATURE__PARENT);
+		createEAttribute(featureEClass, FEATURE__ABSTRACT);
 		createEOperation(featureEClass, FEATURE___IS_LEAF);
 		createEOperation(featureEClass, FEATURE___IS_ROOT);
 
@@ -392,6 +402,7 @@ public class BasicFMsPackageImpl extends EPackageImpl implements BasicFMsPackage
 		initEAttribute(getFeature_Mandatory(), ecorePackage.getEBoolean(), "mandatory", "false", 1, 1, Feature.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getFeature_Children(), this.getFeature(), this.getFeature_Parent(), "children", null, 0, -1, Feature.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getFeature_Parent(), this.getFeature(), this.getFeature_Children(), "parent", null, 0, 1, Feature.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getFeature_Abstract(), ecorePackage.getEBoolean(), "abstract", "false", 0, 1, Feature.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEOperation(getFeature__IsLeaf(), ecorePackage.getEBoolean(), "isLeaf", 0, 1, IS_UNIQUE, IS_ORDERED);
 

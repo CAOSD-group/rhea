@@ -37,6 +37,7 @@ import rhea.metamodels.BasicFMs.Feature;
  *   <li>{@link rhea.metamodels.BasicFMs.impl.FeatureImpl#isMandatory <em>Mandatory</em>}</li>
  *   <li>{@link rhea.metamodels.BasicFMs.impl.FeatureImpl#getChildren <em>Children</em>}</li>
  *   <li>{@link rhea.metamodels.BasicFMs.impl.FeatureImpl#getParent <em>Parent</em>}</li>
+ *   <li>{@link rhea.metamodels.BasicFMs.impl.FeatureImpl#isAbstract <em>Abstract</em>}</li>
  * </ul>
  *
  * @generated
@@ -111,6 +112,26 @@ public class FeatureImpl extends MinimalEObjectImpl.Container implements Feature
 	 * @ordered
 	 */
 	protected EList<Feature> children;
+
+	/**
+	 * The default value of the '{@link #isAbstract() <em>Abstract</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isAbstract()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final boolean ABSTRACT_EDEFAULT = false;
+
+	/**
+	 * The cached value of the '{@link #isAbstract() <em>Abstract</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isAbstract()
+	 * @generated
+	 * @ordered
+	 */
+	protected boolean abstract_ = ABSTRACT_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -250,6 +271,27 @@ public class FeatureImpl extends MinimalEObjectImpl.Container implements Feature
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean isAbstract() {
+		return abstract_;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setAbstract(boolean newAbstract) {
+		boolean oldAbstract = abstract_;
+		abstract_ = newAbstract;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, BasicFMsPackage.FEATURE__ABSTRACT, oldAbstract, abstract_));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
 	public boolean isLeaf() {
@@ -332,6 +374,8 @@ public class FeatureImpl extends MinimalEObjectImpl.Container implements Feature
 				return getChildren();
 			case BasicFMsPackage.FEATURE__PARENT:
 				return getParent();
+			case BasicFMsPackage.FEATURE__ABSTRACT:
+				return isAbstract();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -361,6 +405,9 @@ public class FeatureImpl extends MinimalEObjectImpl.Container implements Feature
 			case BasicFMsPackage.FEATURE__PARENT:
 				setParent((Feature)newValue);
 				return;
+			case BasicFMsPackage.FEATURE__ABSTRACT:
+				setAbstract((Boolean)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -388,6 +435,9 @@ public class FeatureImpl extends MinimalEObjectImpl.Container implements Feature
 			case BasicFMsPackage.FEATURE__PARENT:
 				setParent((Feature)null);
 				return;
+			case BasicFMsPackage.FEATURE__ABSTRACT:
+				setAbstract(ABSTRACT_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -410,6 +460,8 @@ public class FeatureImpl extends MinimalEObjectImpl.Container implements Feature
 				return children != null && !children.isEmpty();
 			case BasicFMsPackage.FEATURE__PARENT:
 				return getParent() != null;
+			case BasicFMsPackage.FEATURE__ABSTRACT:
+				return abstract_ != ABSTRACT_EDEFAULT;
 		}
 		return super.eIsSet(featureID);
 	}
@@ -446,6 +498,8 @@ public class FeatureImpl extends MinimalEObjectImpl.Container implements Feature
 		result.append(name);
 		result.append(", mandatory: ");
 		result.append(mandatory);
+		result.append(", abstract: ");
+		result.append(abstract_);
 		result.append(')');
 		return result.toString();
 	}
