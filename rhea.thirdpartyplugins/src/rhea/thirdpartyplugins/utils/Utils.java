@@ -74,8 +74,11 @@ public class Utils {
 	 * @return
 	 */
 	public static List<String> cleanSourceCode(List<String> lines, String comments) {
-		// Remove comments and blank lines
+		// Remove line comments and blank lines
 		lines = lines.stream().filter(l -> !l.startsWith(comments) && !l.isBlank()).collect(Collectors.toList());
+		
+		// Remove rest of comments
+		lines = lines.stream().map(l -> l.contains(comments) ? l.substring(0, l.indexOf(comments)) : l).collect(Collectors.toList());
 		
 		return lines;
 	}

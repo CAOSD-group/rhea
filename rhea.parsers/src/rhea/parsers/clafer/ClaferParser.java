@@ -1,6 +1,7 @@
 package rhea.parsers.clafer;
 
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
@@ -30,13 +31,10 @@ public class ClaferParser implements FMParser {
 		FeatureModel fm = null;
 		Path path = Path.of(filepath);
 		try {	
-			List<String> lines = Files.readAllLines(path);
+			List<String> lines = Files.readAllLines(path, StandardCharsets.UTF_8);
 			
 			// Remove comments and blank lines
-			lines = lines.stream().filter(l -> !l.startsWith(CLAFER_COMMENTS) && !l.isBlank()).collect(Collectors.toList());
-			
-			// Remove configurations (to avoid the parser consider them as features)
-			//lines = lines.stream().filter(l -> !l.startsWith(CLAFER_COMMENTS) && !l.isBlank()).collect(Collectors.toList());
+			lines = Utils.cleanSourceCode(lines, CLAFER_COMMENTS);
 			
 			// Build the indentations map (line -> tabs)
 			var indentations = Utils.getIndentationMap(lines);

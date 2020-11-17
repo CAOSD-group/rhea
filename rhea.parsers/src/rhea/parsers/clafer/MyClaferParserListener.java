@@ -249,9 +249,9 @@ public class MyClaferParserListener implements claferParserListener {
 			} else {
 				// Set parent feature
 				int indent = this.indentations.get(nFeatures);
-				System.out.println(indent);
+				//System.out.println(indent);
 				Feature parent = this.indentParent.get(indent);
-				System.out.println("Feature -> parent: " + featureName + " -> " + parent);
+				//System.out.println("Feature -> parent: " + featureName + " -> " + parent);
 				this.indentParent.put(indent+1, currentFeature);
 				
 				if (parent != null) {
@@ -331,7 +331,7 @@ public class MyClaferParserListener implements claferParserListener {
 
 	@Override
 	public void enterAbstract_(Abstract_Context ctx) {
-		System.out.println("Abstract: " + ctx.getText());
+		//System.out.println("Abstract: " + ctx.getText());
 	}
 
 	@Override
