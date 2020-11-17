@@ -17,7 +17,7 @@
    <extension point="org.eclipse.emf.ecore.generated_package">
       <!-- @generated BasicCTCs -->
       <package
-            uri="metamodels.BasicCTCs"
+            uri="rhea.metamodels.BasicCTCs"
             class="rhea.metamodels.BasicCTCs.BasicCTCsPackage"
             genModel="metamodels/BasicCTCs/BasicCTCs.genmodel"/>
    </extension>
@@ -25,7 +25,7 @@
    <extension point="org.eclipse.emf.ecore.generated_package">
       <!-- @generated CardinalityBasedFMs -->
       <package
-            uri="metamodels.CardinalityBasedFMs"
+            uri="rhea.metamodels.CardinalityBasedFMs"
             class="rhea.metamodels.CardinalityBasedFMs.CardinalityBasedFMsPackage"
             genModel="metamodels/CardinalityBasedFMs/CardinalityBasedFMs.genmodel"/>
    </extension>
@@ -33,7 +33,7 @@
    <extension point="org.eclipse.emf.ecore.generated_package">
       <!-- @generated PropLogicCTCs -->
       <package
-            uri="metamodels.PropLogicCTCs"
+            uri="rhea.metamodels.PropLogicCTCs"
             class="rhea.metamodels.PropLogicCTCs.PropLogicCTCsPackage"
             genModel="metamodels/PropLogicCTCs/PropLogicCTCs.genmodel"/>
    </extension>

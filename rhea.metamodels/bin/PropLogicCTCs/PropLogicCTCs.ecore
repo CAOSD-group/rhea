@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="PropLogicCTCs" nsURI="metamodels.PropLogicCTCs" nsPrefix="rhea">
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="PropLogicCTCs" nsURI="rhea.metamodels.PropLogicCTCs" nsPrefix="rhea">
   <eClassifiers xsi:type="ecore:EClass" name="AdvancedConstraint" eSuperTypes="../BasicFMs/BasicFMs.ecore#//CrossTreeConstraint">
     <eStructuralFeatures xsi:type="ecore:EReference" name="term" lowerBound="1" eType="#//Term"
         containment="true"/>

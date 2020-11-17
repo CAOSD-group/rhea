@@ -41,7 +41,7 @@ public interface PropLogicCTCsPackage extends EPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	String eNS_URI = "metamodels.PropLogicCTCs";
+	String eNS_URI = "rhea.metamodels.PropLogicCTCs";
 
 	/**
 	 * The package namespace name.

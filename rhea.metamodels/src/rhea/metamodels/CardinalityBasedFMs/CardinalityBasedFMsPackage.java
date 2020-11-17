@@ -40,7 +40,7 @@ public interface CardinalityBasedFMsPackage extends EPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	String eNS_URI = "metamodels.CardinalityBasedFMs";
+	String eNS_URI = "rhea.metamodels.CardinalityBasedFMs";
 
 	/**
 	 * The package namespace name.
@@ -158,6 +158,15 @@ public interface CardinalityBasedFMsPackage extends EPackage {
 	 * @ordered
 	 */
 	int GROUP_CARDINALITY__PARENT = BasicFMsPackage.FEATURE_GROUP__PARENT;
+
+	/**
+	 * The feature id for the '<em><b>Abstract</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GROUP_CARDINALITY__ABSTRACT = BasicFMsPackage.FEATURE_GROUP__ABSTRACT;
 
 	/**
 	 * The feature id for the '<em><b>Multiplicity</b></em>' containment reference.

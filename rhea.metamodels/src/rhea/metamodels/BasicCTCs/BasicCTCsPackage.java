@@ -37,7 +37,7 @@ public interface BasicCTCsPackage extends EPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	String eNS_URI = "metamodels.BasicCTCs";
+	String eNS_URI = "rhea.metamodels.BasicCTCs";
 
 	/**
 	 * The package namespace name.
