@@ -45,7 +45,7 @@ public class FMHelper {
 	 * @param features
 	 * @return
 	 */
-	public static boolean isComplete(FeatureModel fm, List<String> features) {
+	public static boolean isComplete(FeatureModel fm, Set<String> features) {
 		for (String name : features) {
 			if (!fm.getFeatures().stream().anyMatch(f -> f.getName().equals(name))) {
 				return false;
@@ -65,10 +65,16 @@ public class FMHelper {
 		return fm.getFeatures().stream().filter(f -> f.getName().equalsIgnoreCase(name)).collect(Collectors.toList());
 	}
 	
-	public static Set<Set<String>> productsToString(Set<Set<Feature>> products) {
+	/**
+	 * Convert a set of configurations/products of features into a set of configurations/products of features' names.
+	 * 
+	 * @param products	
+	 * @return
+	 */
+	public static Set<Set<String>> configurationsToString(Set<Set<Feature>> configurations) {
 		// Convert from string to Feature
 		var configs = new HashSet<Set<String>>();
-		for (Set<Feature> config : products) {
+		for (Set<Feature> config : configurations) {
 			configs.add(config.stream().map(c -> c.getName()).collect(Collectors.toSet()));
 		}
 		return configs;

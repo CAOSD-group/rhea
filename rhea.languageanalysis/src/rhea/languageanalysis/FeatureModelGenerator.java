@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.Stack;
 import java.util.stream.Collectors;
 
@@ -82,7 +83,7 @@ public class FeatureModelGenerator {
 		
 		List<FeatureModel> fms = generateAllPossibleModels(prefixName, features);
 		for (FeatureModel m : fms) {
-			if (FMHelper.isComplete(m, features)) {
+			if (FMHelper.isComplete(m, (Set<String>) features)) {
 				completeFMs.add(m);
 			}
 		}
@@ -145,7 +146,7 @@ public class FeatureModelGenerator {
 		for (Module module : this.generators) {
 			for (Unit unit : module.getUnits()) {
 				for (String featureName : features) {
-					Map<String, String> parameters = Map.of("name", featureName);
+					Map<String, Object> parameters = Map.of("name", featureName);
 					
 					List<EObject> modelsTransformed = this.henshin.executeRuleForAllMatches(unit, parameters, model);
 					fms.addAll(modelsTransformed);

@@ -44,10 +44,10 @@ public class MutexGroupTest {
 		// Test parameters
 		String inputFile = Rhea.CLAFER_INPUTS_DIR + inputModel + ".txt";
 		String outputFile = Rhea.CLAFER_OUTPUTS_DIR + inputModel + ".txt";
-		String inputFileAS = Rhea.ABSTRACTSYNTAX_INPUTS_DIR + inputModel + ".xmi";
+		//String inputFileAS = Rhea.ABSTRACTSYNTAX_INPUTS_DIR + inputModel + ".xmi";
 		String outputFileAS = Rhea.ABSTRACTSYNTAX_OUTPUTS_DIR + inputModel + ".xmi";
 		
-		String transformationFilepath = Rhea.TRANSFORMATIONS_DIR + "MutexGroup.henshin";
+		String transformationFilepath = Rhea.REFACTORINGS_DIR + "MutexGroup.henshin";
 		String ruleName = "MutexGroup_Refactoring";
 		
 		// Load the feature model input
@@ -100,8 +100,8 @@ public class MutexGroupTest {
 		Utils.serialize(contents, outputFile);
 
 		
-		var expectedProductsIDs = FMHelper.productsToString(expectedProducts);
-		var productsIDs = FMHelper.productsToString(products);
+		var expectedProductsIDs = FMHelper.configurationsToString(expectedProducts);
+		var productsIDs = FMHelper.configurationsToString(products);
 		
 		System.out.println("FM configs (expected): " + expectedProductsIDs.size() + " -> " + expectedProductsIDs);
 		System.out.println("FM configs: " + productsIDs.size() + " -> " + productsIDs);

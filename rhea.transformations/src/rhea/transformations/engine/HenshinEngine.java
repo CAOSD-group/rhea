@@ -44,8 +44,8 @@ public class HenshinEngine {
 		this.engine = new EngineImpl();
 		
 		// Determine number of threads to be used:
-		//this.threads = Math.max(Runtime.getRuntime().availableProcessors() / 2, 1);
-		//engine.getOptions().put(Engine.OPTION_WORKER_THREADS, threads);
+		this.threads = Math.max(Runtime.getRuntime().availableProcessors() / 2, 1);
+		engine.getOptions().put(Engine.OPTION_WORKER_THREADS, threads);
 		//engine.getOptions().put(Engine.OPTION_DESTROY_MATCHES, true);
 	}
 	
@@ -112,28 +112,28 @@ public class HenshinEngine {
 	}
 	
 	public Module getModule(String modulePath) {
-		System.out.println("Modulepath: " + modulePath);
+		//System.out.println("Modulepath: " + modulePath);
 		return rs.getModule(modulePath, true);
 	}
 	
-	public List<EObject> executeRuleForAllMatches(Unit rule, Map<String,String> parameters, EObject model) {
+	public List<EObject> executeRuleForAllMatches(Unit rule, Map<String, Object> parameters, EObject model) {
 		return executeRuleForAllMatches((Rule) rule, parameters, model);
 	}
 	
-	public List<EObject> executeRuleForAllMatches(String modulePath, String ruleName, Map<String,String> parameters, String modelPath) {
+	public List<EObject> executeRuleForAllMatches(String modulePath, String ruleName, Map<String, Object> parameters, String modelPath) {
 		EObject model = loadModel(modelPath);
 		Module module = rs.getModule(modulePath, true);
 		Unit rule = module.getUnit(ruleName);
 		return executeRuleForAllMatches((Rule) rule, parameters, model);
 	}
 	
-	public List<EObject> executeRuleForAllMatches(String modulePath, String ruleName, Map<String,String> parameters, EObject model) {
+	public List<EObject> executeRuleForAllMatches(String modulePath, String ruleName, Map<String, Object> parameters, EObject model) {
 		Module module = rs.getModule(modulePath, true);
 		Unit rule = module.getUnit(ruleName);
 		return executeRuleForAllMatches((Rule) rule, parameters, model);
 	}
 	
-	private List<EObject> executeRuleForAllMatches(Rule rule, Map<String,String> parameters, EObject model) {						
+	private List<EObject> executeRuleForAllMatches(Rule rule, Map<String, Object> parameters, EObject model) {						
 		//EObject modelCopy = EcoreUtil.copy(model);
 		
 		// Initialize the graph
@@ -162,8 +162,12 @@ public class HenshinEngine {
 			//RuleApplication application = new RuleApplicationImpl(engine, g, match.getRule(), match);
 			//application.setCompleteMatch(match);
 			//application.execute(new LoggingApplicationMonitor());
-			application.execute(null);
+			
+			// Set engine options
 			engine.getOptions().put(Engine.OPTION_CHECK_DANGLING, false);
+			engine.getOptions().put(Engine.OPTION_DETERMINISTIC, false);
+			application.execute(null);
+
 			results.add(m);
 		}
 		return results;
@@ -177,7 +181,7 @@ public class HenshinEngine {
 	 * @param model			Model to be transformed.
 	 * @return				True if the transformation was successfully applied.
 	 */
-	public boolean executeTransformation(Unit unit, Map<String,String> parameters, EObject model) {						
+	public boolean executeTransformation(Unit unit, Map<String, Object> parameters, EObject model) {						
 		// Initialize the graph
 		EGraph graph = new EGraphImpl(model);
 		
@@ -193,6 +197,7 @@ public class HenshinEngine {
 		
 		// Set engine options
 		engine.getOptions().put(Engine.OPTION_CHECK_DANGLING, false);
+		engine.getOptions().put(Engine.OPTION_DETERMINISTIC, false);
 		
 		// Execute the unit/rule
 		//ApplicationMonitor monitor = new LoggingApplicationMonitor();
@@ -210,7 +215,7 @@ public class HenshinEngine {
 	 * @param modelPath		Path of the model to be transformed.
 	 * @return				Model object transformed.
 	 */
-	public EObject executeTransformation(String modulePath, String ruleName, Map<String,String> parameters, String modelPath) {
+	public EObject executeTransformation(String modulePath, String ruleName, Map<String, Object> parameters, String modelPath) {
 		EObject model = loadModel(modelPath);
 		Module module = getModule(modulePath);
 		Unit rule = module.getUnit(ruleName);

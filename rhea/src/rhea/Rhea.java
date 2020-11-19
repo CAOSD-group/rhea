@@ -10,7 +10,8 @@ import rhea.metamodels.CardinalityBasedFMs.CardinalityBasedFMsPackage;
 public class Rhea {
 	public static final String BASEDIR = "D:/Workspaces/RHEA-ws/rhea/";
 	public static final String METAMODELS_DIR = BASEDIR + "rhea.metamodels/metamodels/";
-	public static final String TRANSFORMATIONS_DIR = BASEDIR + "rhea.transformations/refactorings/";
+	public static final String REFACTORINGS_DIR = BASEDIR + "rhea.transformations/refactorings/";
+	public static final String LANGUAGEGENERATOR_DIR = BASEDIR + "rhea.transformations/languagegenerators/";
 	public static final String INPUTS_DIR = BASEDIR + "rhea.evaluation/inputs/";
 	public static final String OUTPUTS_DIR = BASEDIR + "rhea.evaluation/outputs/";
 	
