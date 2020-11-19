@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<notation:Diagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:henshin="http://www.eclipse.org/emf/2011/Henshin" xmlns:notation="http://www.eclipse.org/gmf/runtime/1.0.3/notation" xmi:id="_SPztwSpeEeu-3NVSHGSY7g" type="Henshin" name="TransFeature.henshin_diagram" measurementUnit="Pixel">
+  <children xmi:type="notation:Shape" xmi:id="_wIvsYCpeEeu-3NVSHGSY7g" type="2001" fontName="Segoe UI" italic="true" lineColor="0">
+    <children xmi:type="notation:DecorationNode" xmi:id="_wIwTcCpeEeu-3NVSHGSY7g" type="5001"/>
+    <children xmi:type="notation:DecorationNode" xmi:id="_wIwTcSpeEeu-3NVSHGSY7g" type="7001"/>
+    <element xmi:type="henshin:Rule" href="TransFeature.henshin#_wIt3MCpeEeu-3NVSHGSY7g"/>
+    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_wIvsYSpeEeu-3NVSHGSY7g" x="118" y="85" width="377" height="333"/>
+  </children>
+  <children xmi:type="notation:Shape" xmi:id="_zcAM4CpeEeu-3NVSHGSY7g" type="Note" fontName="Segoe UI" description="Continuar por aquí" fillColor="13369343" transparency="0" lineColor="6737151" lineWidth="1">
+    <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_zcAM4SpeEeu-3NVSHGSY7g" source="specificStyles">
+      <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_zcAM4ipeEeu-3NVSHGSY7g" key="verticalAlignment" value="8"/>
+    </eAnnotations>
+    <children xmi:type="notation:BasicDecorationNode" xmi:id="_zcBbACpeEeu-3NVSHGSY7g" type="DiagramName">
+      <element xsi:nil="true"/>
+    </children>
+    <children xmi:type="notation:BasicDecorationNode" xmi:id="_zcBbASpeEeu-3NVSHGSY7g" type="Description">
+      <element xsi:nil="true"/>
+    </children>
+    <styles xmi:type="notation:TextStyle" xmi:id="_zcAM4ypeEeu-3NVSHGSY7g" textAlignment="Center"/>
+    <styles xmi:type="notation:LineTypeStyle" xmi:id="_zcAM5CpeEeu-3NVSHGSY7g"/>
+    <element xsi:nil="true"/>
+    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_zcAM5SpeEeu-3NVSHGSY7g" x="610" y="176"/>
+  </children>
+  <styles xmi:type="notation:DiagramStyle" xmi:id="_SPztwipeEeu-3NVSHGSY7g"/>
+  <element xmi:type="henshin:Module" href="TransFeature.henshin#_SPztwCpeEeu-3NVSHGSY7g"/>
+</notation:Diagram>

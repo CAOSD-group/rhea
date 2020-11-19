@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<henshin:Module xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:henshin="http://www.eclipse.org/emf/2011/Henshin" xmi:id="_SPztwCpeEeu-3NVSHGSY7g">
+  <imports href="../../../rhea.metamodels/metamodels/BasicFMs/BasicFMs.ecore#/"/>
+  <units xsi:type="henshin:Rule" xmi:id="_wIt3MCpeEeu-3NVSHGSY7g" name="TransFeatureToSelectionGroup">
+    <annotations xmi:id="_wJCAQCpeEeu-3NVSHGSY7g" key="featureConstraint" value=""/>
+    <annotations xmi:id="_wJCAQSpeEeu-3NVSHGSY7g" key="injectiveMatchingPresenceCondition" value=""/>
+    <annotations xmi:id="_wJCAQipeEeu-3NVSHGSY7g" key="features" value=""/>
+    <lhs xmi:id="_wIw6gCpeEeu-3NVSHGSY7g" name="Lhs"/>
+    <rhs xmi:id="_wIw6gSpeEeu-3NVSHGSY7g" name="Rhs"/>
+  </units>
+</henshin:Module>

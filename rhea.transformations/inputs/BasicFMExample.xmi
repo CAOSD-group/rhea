@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="ASCII"?>
+<rhea:FeatureModel
+    xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:rhea="rhea.metamodels.BasicFMs"
+    xsi:schemaLocation="rhea.metamodels.BasicFMs ../../rhea.metamodels/metamodels/BasicFMs/BasicFMs.ecore"
+    features="//@root //@root/@children.0">
+  <root id="F1"
+      name="F1"
+      mandatory="true">
+    <children
+        id="F1.F2"
+        name="F2">
+      <children
+          id="F2.F3"
+          name="F3"/>
+      <children
+          id="F2.F4"
+          name="F4"/>
+    </children>
+    <children
+        id="F1.F5"
+        name="F5"/>
+  </root>
+</rhea:FeatureModel>
