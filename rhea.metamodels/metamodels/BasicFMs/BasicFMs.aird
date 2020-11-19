@@ -5,7 +5,7 @@
     <semanticResources>BasicFMs.genmodel</semanticResources>
     <ownedViews xmi:type="viewpoint:DView" uid="_F6zFACNwEeuRsqssTJysKA">
       <viewpoint xmi:type="description:Viewpoint" href="platform:/plugin/org.eclipse.emf.ecoretools.design/description/ecore.odesign#//@ownedViewpoints[name='Design']"/>
-      <ownedRepresentationDescriptors xmi:type="viewpoint:DRepresentationDescriptor" uid="_GhtUACNwEeuRsqssTJysKA" name="BasicFMs class diagram" repPath="#_GhOL0CNwEeuRsqssTJysKA" changeId="140b5429-1746-4a1f-8f63-d78504562e02">
+      <ownedRepresentationDescriptors xmi:type="viewpoint:DRepresentationDescriptor" uid="_GhtUACNwEeuRsqssTJysKA" name="BasicFMs class diagram" repPath="#_GhOL0CNwEeuRsqssTJysKA" changeId="1d3a5e21-b660-467d-bdc8-7f0c0855eaf0">
         <description xmi:type="description_1:DiagramDescription" href="platform:/plugin/org.eclipse.emf.ecoretools.design/description/ecore.odesign#//@ownedViewpoints[name='Design']/@ownedRepresentations[name='Entities']"/>
         <target xmi:type="ecore:EPackage" href="BasicFMs.ecore#/"/>
       </ownedRepresentationDescriptors>
@@ -144,7 +144,7 @@
         </edges>
         <edges xmi:type="notation:Edge" xmi:id="_HGHooiNwEeuRsqssTJysKA" type="4001" element="_HFnSUyNwEeuRsqssTJysKA" source="_HFzfkCNwEeuRsqssTJysKA" target="_HF2i4CNwEeuRsqssTJysKA">
           <children xmi:type="notation:Node" xmi:id="_HGHopiNwEeuRsqssTJysKA" type="6001">
-            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_HGHopyNwEeuRsqssTJysKA" x="-54" y="-10"/>
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_HGHopyNwEeuRsqssTJysKA" x="-7" y="-19"/>
           </children>
           <children xmi:type="notation:Node" xmi:id="_HGHoqCNwEeuRsqssTJysKA" type="6002">
             <layoutConstraint xmi:type="notation:Bounds" xmi:id="_HGHoqSNwEeuRsqssTJysKA" y="10"/>

@@ -1,0 +1,12 @@
+abstract Root
+	A
+		mux A1
+			A12
+			A13
+		A2	
+	B
+		B1
+		B2
+		B3
+		
+config: Root

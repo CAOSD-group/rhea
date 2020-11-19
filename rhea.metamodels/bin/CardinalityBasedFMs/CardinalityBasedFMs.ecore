@@ -12,4 +12,5 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="multiplicity" lowerBound="1"
         eType="#//Multiplicity" containment="true"/>
   </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="MutexGroup" eSuperTypes="../BasicFMs/BasicFMs.ecore#//FeatureGroup"/>
 </ecore:EPackage>

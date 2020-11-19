@@ -79,6 +79,10 @@ public class CardinalityBasedFMsAdapterFactory extends AdapterFactoryImpl {
 				return createGroupCardinalityAdapter();
 			}
 			@Override
+			public Adapter caseMutexGroup(MutexGroup object) {
+				return createMutexGroupAdapter();
+			}
+			@Override
 			public Adapter caseFeature(Feature object) {
 				return createFeatureAdapter();
 			}
@@ -131,6 +135,20 @@ public class CardinalityBasedFMsAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createGroupCardinalityAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link rhea.metamodels.CardinalityBasedFMs.MutexGroup <em>Mutex Group</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see rhea.metamodels.CardinalityBasedFMs.MutexGroup
+	 * @generated
+	 */
+	public Adapter createMutexGroupAdapter() {
 		return null;
 	}
 

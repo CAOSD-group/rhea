@@ -83,6 +83,14 @@ public class CardinalityBasedFMsSwitch<T> extends Switch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
+			case CardinalityBasedFMsPackage.MUTEX_GROUP: {
+				MutexGroup mutexGroup = (MutexGroup)theEObject;
+				T result = caseMutexGroup(mutexGroup);
+				if (result == null) result = caseFeatureGroup(mutexGroup);
+				if (result == null) result = caseFeature(mutexGroup);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
 			default: return defaultCase(theEObject);
 		}
 	}
@@ -114,6 +122,21 @@ public class CardinalityBasedFMsSwitch<T> extends Switch<T> {
 	 * @generated
 	 */
 	public T caseGroupCardinality(GroupCardinality object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Mutex Group</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Mutex Group</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseMutexGroup(MutexGroup object) {
 		return null;
 	}
 

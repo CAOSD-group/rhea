@@ -17,6 +17,7 @@ import org.eclipse.emf.henshin.interpreter.impl.EGraphImpl;
 import org.eclipse.emf.henshin.interpreter.impl.EngineImpl;
 import org.eclipse.emf.henshin.interpreter.impl.MatchImpl;
 import org.eclipse.emf.henshin.interpreter.impl.PartitionedEGraphImpl;
+import org.eclipse.emf.henshin.interpreter.impl.RuleApplicationImpl;
 import org.eclipse.emf.henshin.interpreter.impl.UnitApplicationImpl;
 import org.eclipse.emf.henshin.model.Module;
 import org.eclipse.emf.henshin.model.Parameter;
@@ -24,6 +25,7 @@ import org.eclipse.emf.henshin.model.ParameterKind;
 import org.eclipse.emf.henshin.model.Rule;
 import org.eclipse.emf.henshin.model.Unit;
 import org.eclipse.emf.henshin.model.resource.HenshinResourceSet;
+import org.eclipse.emf.henshin.variability.VarRuleApplicationImpl;
 
 /**
  * Helper to register metamodels in Henshin, load/save model instances, and execute rules.
@@ -110,6 +112,7 @@ public class HenshinEngine {
 	}
 	
 	public Module getModule(String modulePath) {
+		System.out.println("Modulepath: " + modulePath);
 		return rs.getModule(modulePath, true);
 	}
 	
@@ -172,9 +175,9 @@ public class HenshinEngine {
 	 * @param unit			Unit/rule.
 	 * @param parameters	Parameters of the unit/rule: name -> value.
 	 * @param model			Model to be transformed.
-	 * @return				Model transformed.
+	 * @return				True if the transformation was successfully applied.
 	 */
-	public EObject executeTransformation(Unit unit, Map<String,String> parameters, EObject model) {						
+	public boolean executeTransformation(Unit unit, Map<String,String> parameters, EObject model) {						
 		// Initialize the graph
 		EGraph graph = new EGraphImpl(model);
 		
@@ -193,9 +196,9 @@ public class HenshinEngine {
 		
 		// Execute the unit/rule
 		//ApplicationMonitor monitor = new LoggingApplicationMonitor();
-		application.execute(null);
+		boolean status = application.execute(null);
 		
-		return model;
+		return status;
 	}
 	
 	/**
@@ -204,15 +207,65 @@ public class HenshinEngine {
 	 * @param modulePath	Path of the .henshin module file.
 	 * @param ruleName		Name of the unit/rule contained in the module.
 	 * @param parameters	Parameters of the unit/rule: name -> value.
-	 * @param model			Model to be transformed.
-	 * @return				Model transformed.
+	 * @param modelPath		Path of the model to be transformed.
+	 * @return				Model object transformed.
 	 */
 	public EObject executeTransformation(String modulePath, String ruleName, Map<String,String> parameters, String modelPath) {
 		EObject model = loadModel(modelPath);
 		Module module = getModule(modulePath);
 		Unit rule = module.getUnit(ruleName);
-		return executeTransformation(rule, parameters, model);
+		executeTransformation(rule, parameters, model);
+		return model;
 	}
 	
+//	/**
+//	 * Execute a variability Henshin unit/rule.
+//	 * 
+//	 * @param unit			Unit/rule.
+//	 * @param parameters	Parameters of the unit/rule: name -> value.
+//	 * @param configuration	Configuration of the variability rule.
+//	 * @param model			Model to be transformed.
+//	 * @return				True if the transformation was successfully applied.
+//	 */
+//	public boolean executeVariableTransformation(Unit unit, Map<String,String> parameters, Map<String, Boolean> configuration, EObject model) {						
+//		// Initialize the graph
+//		EGraph graph = new EGraphImpl(model);
+//		
+//		// Prepare application of the unit/rule
+//		RuleApplicationImpl vbRuleApp = new VarRuleApplicationImpl(engine, graph, (Rule) unit, configuration, null);
+//		
+//		// Assign parameters values before execution
+//		for (Parameter p : unit.getParameters()) {
+//			if (p.getKind().equals(ParameterKind.IN)) {
+//				vbRuleApp.setParameterValue(p.getName(), parameters.get(p.getName()));
+//			}
+//		}
+//		
+//		// Set engine options
+//		engine.getOptions().put(Engine.OPTION_CHECK_DANGLING, false);
+//		
+//		// Execute the unit/rule
+//		//ApplicationMonitor monitor = new LoggingApplicationMonitor();
+//		boolean status = vbRuleApp.execute(null);
+//		
+//		return status;
+//	}
+//	
+//	/**
+//	 * Execute a variability Henshin unit/rule.
+//	 * 
+//	 * @param modulePath	Path of the .henshin module file.
+//	 * @param ruleName		Name of the unit/rule contained in the module.
+//	 * @param parameters	Parameters of the unit/rule: name -> value.
+//	 * @param configuration	Configuration of the variability rule.
+//	 * @param model			Model to be transformed.
+//	 * @return				Model transformed.
+//	 */
+//	public boolean executeVariableTransformation(String modulePath, String ruleName, Map<String,String> parameters, Map<String, Boolean> configuration, String modelPath) {
+//		EObject model = loadModel(modelPath);
+//		Module module = getModule(modulePath);
+//		Unit rule = module.getUnit(ruleName);
+//		return executeVariableTransformation(rule, parameters, configuration, model);
+//	}
 	
 }

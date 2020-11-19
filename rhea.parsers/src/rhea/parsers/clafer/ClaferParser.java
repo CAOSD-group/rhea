@@ -50,7 +50,9 @@ public class ClaferParser implements FMParser {
 	        walker.walk(listener, tree);
 	        
 	        fm = listener.getFeatureModel();
-	        fm.setName(fm.getRoot().getName());
+	        //fm.setName(fm.getRoot().getName());
+	        String name = path.getFileName().toString();
+	        fm.setName(name.substring(0, name.indexOf(".")));
 	        
 		} catch (IOException e) {
 			e.printStackTrace();

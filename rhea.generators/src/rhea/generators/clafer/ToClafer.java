@@ -17,6 +17,7 @@ import rhea.metamodels.BasicFMs.FeatureGroup;
 import rhea.metamodels.BasicFMs.FeatureModel;
 import rhea.metamodels.BasicFMs.SelectionGroup;
 import rhea.metamodels.CardinalityBasedFMs.GroupCardinality;
+import rhea.metamodels.CardinalityBasedFMs.MutexGroup;
 import rhea.thirdpartyplugins.utils.Utils;
 
 /**
@@ -56,6 +57,8 @@ public class ToClafer implements FMGenerator {
 			} else if (feature instanceof GroupCardinality) {
 				var mul = ((GroupCardinality) feature).getMultiplicity();
 				claferFM.append(mul.getLower()).append("..").append(mul.getUpper()).append(" ");
+			} else if (feature instanceof MutexGroup) {
+				claferFM.append("mux " );
 			}
 			claferFM.append(feature.getName());
 			if (!feature.isMandatory() && !(feature.getParent() instanceof FeatureGroup)) {	// Optional feature

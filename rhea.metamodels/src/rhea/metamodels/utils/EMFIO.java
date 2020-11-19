@@ -11,7 +11,6 @@ import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
-import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.xmi.XMIResource;
 import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
 
@@ -30,7 +29,7 @@ public class EMFIO {
 	 * @param filepath		Filepath of the target .xmi file.
 	 * @throws IOException
 	 */
-	public static void saveModel(EObject model, List<EPackage> metamodels, String filepath) throws IOException {
+	public static void saveDynamicModel(EObject model, List<String> metamodels, String filepath) throws IOException {
 		// Create a resource set to hold the resources.
 		ResourceSet resourceSet = new ResourceSetImpl();
 		
@@ -38,8 +37,10 @@ public class EMFIO {
 		resourceSet.getResourceFactoryRegistry().getExtensionToFactoryMap().put(Resource.Factory.Registry.DEFAULT_EXTENSION, new XMIResourceFactoryImpl());
 		
 		// Register the package to make it available during loading.
-		for (EPackage mm : metamodels) {
+		for (String metamodel : metamodels) {
+			EPackage mm = (EPackage) loadMetamodel(metamodel);
 			resourceSet.getPackageRegistry().put(mm.getNsURI(), mm);
+			//EcoreUtil.resolveAll(resourceSet);
 		}
 		
 		// Create a new empty resource.
@@ -53,6 +54,43 @@ public class EMFIO {
 		
 		// Add the root object to a resource and save it.
 		resource.getContents().add(model);
+		//EcoreUtil.resolveAll(resource);
+		resource.save(opts);
+	}
+	
+	/**
+	 * Write/Serialize a model in a .xmi file.
+	 * 
+	 * @param model			Model instance to be serialized.
+	 * @param metamodels	List of metamodels used by the model instance.
+	 * @param filepath		Filepath of the target .xmi file.
+	 * @throws IOException
+	 */
+	public static void saveModel(EObject model, List<EPackage> metamodels, String filepath) throws IOException {
+		// Create a resource set to hold the resources.
+		ResourceSet resourceSet = new ResourceSetImpl();
+		
+		// Register the appropriate resource factory to handle all file extensions.
+		resourceSet.getResourceFactoryRegistry().getExtensionToFactoryMap().put(Resource.Factory.Registry.DEFAULT_EXTENSION, new XMIResourceFactoryImpl());
+		
+		// Register the package to make it available during loading.
+		for (EPackage mm : metamodels) {
+			resourceSet.getPackageRegistry().put(mm.getNsURI(), mm);
+			//EcoreUtil.resolveAll(resourceSet);
+		}
+		
+		// Create a new empty resource.
+		Resource resource = resourceSet.createResource(URI.createFileURI(filepath));		
+		
+		// Set options for the resource
+		((XMIResource) resource).getDefaultSaveOptions().put(XMIResource.OPTION_KEEP_DEFAULT_CONTENT, Boolean.TRUE);
+		((XMIResource) resource).getDefaultSaveOptions().put(XMIResource.OPTION_ENCODING, "UTF-8");
+		HashMap<String, Object> opts = new HashMap<String, Object>();
+		opts.put(XMIResource.OPTION_SCHEMA_LOCATION, true);
+		
+		// Add the root object to a resource and save it.
+		resource.getContents().add(model);
+		//EcoreUtil.resolveAll(resource);
 		resource.save(opts);
 	}
 	
@@ -77,7 +115,8 @@ public class EMFIO {
 		
 		// Demand load the resource into the resource set.
 		Resource resource = resourceSet.getResource(URI.createFileURI(filepath), true);
-				
+		//EcoreUtil.resolveAll(resource);
+		
 		// Extract the root object from the resource.
 		EObject model = resource.getContents().get(0);
 		
@@ -113,7 +152,7 @@ public class EMFIO {
 		// Add the root object to a resource and save it.
 		resource.getContents().add(metamodel);
 		
-		EcoreUtil.resolveAll(resourceSet);
+		//EcoreUtil.resolveAll(resourceSet);
 		resource.save(null);
 	}
 	
@@ -139,7 +178,7 @@ public class EMFIO {
 		// Extract the root object from the resource.
 		EObject model = resource.getContents().get(0);
 		
-		EcoreUtil.resolveAll(resourceSet);
+		//EcoreUtil.resolveAll(resourceSet);
 		return model;
 	}
 }

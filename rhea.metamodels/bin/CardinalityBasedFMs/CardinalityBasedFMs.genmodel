@@ -15,5 +15,6 @@
     <genClasses ecoreClass="CardinalityBasedFMs.ecore#//GroupCardinality">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference CardinalityBasedFMs.ecore#//GroupCardinality/multiplicity"/>
     </genClasses>
+    <genClasses ecoreClass="CardinalityBasedFMs.ecore#//MutexGroup"/>
   </genPackages>
 </genmodel:GenModel>

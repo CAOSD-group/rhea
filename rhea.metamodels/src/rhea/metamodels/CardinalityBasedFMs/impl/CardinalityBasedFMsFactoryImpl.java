@@ -58,6 +58,7 @@ public class CardinalityBasedFMsFactoryImpl extends EFactoryImpl implements Card
 		switch (eClass.getClassifierID()) {
 			case CardinalityBasedFMsPackage.MULTIPLICITY: return createMultiplicity();
 			case CardinalityBasedFMsPackage.GROUP_CARDINALITY: return createGroupCardinality();
+			case CardinalityBasedFMsPackage.MUTEX_GROUP: return createMutexGroup();
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -81,6 +82,16 @@ public class CardinalityBasedFMsFactoryImpl extends EFactoryImpl implements Card
 	public GroupCardinality createGroupCardinality() {
 		GroupCardinalityImpl groupCardinality = new GroupCardinalityImpl();
 		return groupCardinality;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public MutexGroup createMutexGroup() {
+		MutexGroupImpl mutexGroup = new MutexGroupImpl();
+		return mutexGroup;
 	}
 
 	/**

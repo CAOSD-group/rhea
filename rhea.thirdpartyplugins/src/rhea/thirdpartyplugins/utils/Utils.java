@@ -15,6 +15,8 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
+import org.apache.commons.io.FileUtils;
+
 import com.google.gson.Gson;
 
 public class Utils {
@@ -153,16 +155,13 @@ public class Utils {
      * @param baseDir	Base dir.
      * @param folder	Folder name to be cleaned.
      */
-	public static void cleanUp(String folder) {
+	public static void cleanDirectory(String folder) { 
 		try {
 			Path resourceSetRoot = Paths.get(folder);
 			File file = resourceSetRoot.toFile();
-		
+			
 			if(file.exists()) {
-				Files.walk(file.toPath())
-				    .sorted(Comparator.reverseOrder())
-				    .map(Path::toFile)
-				    .forEach(File::delete);
+				FileUtils.cleanDirectory(file);
 			}
 		} catch (IOException e) {
 			e.printStackTrace();

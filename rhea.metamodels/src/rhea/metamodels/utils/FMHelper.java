@@ -1,7 +1,10 @@
 package rhea.metamodels.utils;
 
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import rhea.metamodels.BasicFMs.Feature;
 import rhea.metamodels.BasicFMs.FeatureGroup;
@@ -49,6 +52,26 @@ public class FMHelper {
 			}
 		}
 		return true;
+	}
+	
+	/**
+	 * Search for feature with the provided name (name is not unique).
+	 * 
+	 * @param fm		Feature model.
+	 * @param name		Name of the feature.
+	 * @return			List of feature with the given name.
+	 */
+	public static List<Feature> getFeatures(FeatureModel fm, String name) {
+		return fm.getFeatures().stream().filter(f -> f.getName().equalsIgnoreCase(name)).collect(Collectors.toList());
+	}
+	
+	public static Set<Set<String>> productsToString(Set<Set<Feature>> products) {
+		// Convert from string to Feature
+		var configs = new HashSet<Set<String>>();
+		for (Set<Feature> config : products) {
+			configs.add(config.stream().map(c -> c.getName()).collect(Collectors.toSet()));
+		}
+		return configs;
 	}
 	
 //	public FeatureModel createEmptyFeatureModel() {

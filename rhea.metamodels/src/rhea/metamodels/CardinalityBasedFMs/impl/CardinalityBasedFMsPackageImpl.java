@@ -15,6 +15,7 @@ import rhea.metamodels.CardinalityBasedFMs.CardinalityBasedFMsFactory;
 import rhea.metamodels.CardinalityBasedFMs.CardinalityBasedFMsPackage;
 import rhea.metamodels.CardinalityBasedFMs.GroupCardinality;
 import rhea.metamodels.CardinalityBasedFMs.Multiplicity;
+import rhea.metamodels.CardinalityBasedFMs.MutexGroup;
 
 /**
  * <!-- begin-user-doc -->
@@ -36,6 +37,13 @@ public class CardinalityBasedFMsPackageImpl extends EPackageImpl implements Card
 	 * @generated
 	 */
 	private EClass groupCardinalityEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass mutexGroupEClass = null;
 
 	/**
 	 * Creates an instance of the model <b>Package</b>, registered with
@@ -151,6 +159,15 @@ public class CardinalityBasedFMsPackageImpl extends EPackageImpl implements Card
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EClass getMutexGroup() {
+		return mutexGroupEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public CardinalityBasedFMsFactory getCardinalityBasedFMsFactory() {
 		return (CardinalityBasedFMsFactory)getEFactoryInstance();
 	}
@@ -180,6 +197,8 @@ public class CardinalityBasedFMsPackageImpl extends EPackageImpl implements Card
 
 		groupCardinalityEClass = createEClass(GROUP_CARDINALITY);
 		createEReference(groupCardinalityEClass, GROUP_CARDINALITY__MULTIPLICITY);
+
+		mutexGroupEClass = createEClass(MUTEX_GROUP);
 	}
 
 	/**
@@ -214,6 +233,7 @@ public class CardinalityBasedFMsPackageImpl extends EPackageImpl implements Card
 
 		// Add supertypes to classes
 		groupCardinalityEClass.getESuperTypes().add(theBasicFMsPackage.getFeatureGroup());
+		mutexGroupEClass.getESuperTypes().add(theBasicFMsPackage.getFeatureGroup());
 
 		// Initialize classes, features, and operations; add parameters
 		initEClass(multiplicityEClass, Multiplicity.class, "Multiplicity", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -222,6 +242,8 @@ public class CardinalityBasedFMsPackageImpl extends EPackageImpl implements Card
 
 		initEClass(groupCardinalityEClass, GroupCardinality.class, "GroupCardinality", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getGroupCardinality_Multiplicity(), this.getMultiplicity(), null, "multiplicity", null, 1, 1, GroupCardinality.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(mutexGroupEClass, MutexGroup.class, "MutexGroup", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
 		// Create resource
 		createResource(eNS_URI);

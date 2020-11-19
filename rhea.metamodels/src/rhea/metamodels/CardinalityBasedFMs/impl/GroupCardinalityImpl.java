@@ -4,10 +4,12 @@ package rhea.metamodels.CardinalityBasedFMs.impl;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
+
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
+
 import rhea.metamodels.BasicFMs.impl.FeatureGroupImpl;
 
 import rhea.metamodels.CardinalityBasedFMs.CardinalityBasedFMsPackage;
@@ -133,7 +135,6 @@ public class GroupCardinalityImpl extends FeatureGroupImpl implements GroupCardi
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@SuppressWarnings("unchecked")
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {

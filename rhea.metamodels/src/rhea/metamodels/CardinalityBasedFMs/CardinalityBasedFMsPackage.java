@@ -213,6 +213,106 @@ public interface CardinalityBasedFMsPackage extends EPackage {
 	 */
 	int GROUP_CARDINALITY_OPERATION_COUNT = BasicFMsPackage.FEATURE_GROUP_OPERATION_COUNT + 0;
 
+	/**
+	 * The meta object id for the '{@link rhea.metamodels.CardinalityBasedFMs.impl.MutexGroupImpl <em>Mutex Group</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see rhea.metamodels.CardinalityBasedFMs.impl.MutexGroupImpl
+	 * @see rhea.metamodels.CardinalityBasedFMs.impl.CardinalityBasedFMsPackageImpl#getMutexGroup()
+	 * @generated
+	 */
+	int MUTEX_GROUP = 2;
+
+	/**
+	 * The feature id for the '<em><b>Id</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MUTEX_GROUP__ID = BasicFMsPackage.FEATURE_GROUP__ID;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MUTEX_GROUP__NAME = BasicFMsPackage.FEATURE_GROUP__NAME;
+
+	/**
+	 * The feature id for the '<em><b>Mandatory</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MUTEX_GROUP__MANDATORY = BasicFMsPackage.FEATURE_GROUP__MANDATORY;
+
+	/**
+	 * The feature id for the '<em><b>Children</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MUTEX_GROUP__CHILDREN = BasicFMsPackage.FEATURE_GROUP__CHILDREN;
+
+	/**
+	 * The feature id for the '<em><b>Parent</b></em>' container reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MUTEX_GROUP__PARENT = BasicFMsPackage.FEATURE_GROUP__PARENT;
+
+	/**
+	 * The feature id for the '<em><b>Abstract</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MUTEX_GROUP__ABSTRACT = BasicFMsPackage.FEATURE_GROUP__ABSTRACT;
+
+	/**
+	 * The number of structural features of the '<em>Mutex Group</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MUTEX_GROUP_FEATURE_COUNT = BasicFMsPackage.FEATURE_GROUP_FEATURE_COUNT + 0;
+
+	/**
+	 * The operation id for the '<em>Is Leaf</em>' operation.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MUTEX_GROUP___IS_LEAF = BasicFMsPackage.FEATURE_GROUP___IS_LEAF;
+
+	/**
+	 * The operation id for the '<em>Is Root</em>' operation.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MUTEX_GROUP___IS_ROOT = BasicFMsPackage.FEATURE_GROUP___IS_ROOT;
+
+	/**
+	 * The number of operations of the '<em>Mutex Group</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MUTEX_GROUP_OPERATION_COUNT = BasicFMsPackage.FEATURE_GROUP_OPERATION_COUNT + 0;
+
 
 	/**
 	 * Returns the meta object for class '{@link rhea.metamodels.CardinalityBasedFMs.Multiplicity <em>Multiplicity</em>}'.
@@ -266,6 +366,16 @@ public interface CardinalityBasedFMsPackage extends EPackage {
 	 * @generated
 	 */
 	EReference getGroupCardinality_Multiplicity();
+
+	/**
+	 * Returns the meta object for class '{@link rhea.metamodels.CardinalityBasedFMs.MutexGroup <em>Mutex Group</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Mutex Group</em>'.
+	 * @see rhea.metamodels.CardinalityBasedFMs.MutexGroup
+	 * @generated
+	 */
+	EClass getMutexGroup();
 
 	/**
 	 * Returns the factory that creates the instances of the model.
@@ -333,6 +443,16 @@ public interface CardinalityBasedFMsPackage extends EPackage {
 		 * @generated
 		 */
 		EReference GROUP_CARDINALITY__MULTIPLICITY = eINSTANCE.getGroupCardinality_Multiplicity();
+
+		/**
+		 * The meta object literal for the '{@link rhea.metamodels.CardinalityBasedFMs.impl.MutexGroupImpl <em>Mutex Group</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see rhea.metamodels.CardinalityBasedFMs.impl.MutexGroupImpl
+		 * @see rhea.metamodels.CardinalityBasedFMs.impl.CardinalityBasedFMsPackageImpl#getMutexGroup()
+		 * @generated
+		 */
+		EClass MUTEX_GROUP = eINSTANCE.getMutexGroup();
 
 	}
 

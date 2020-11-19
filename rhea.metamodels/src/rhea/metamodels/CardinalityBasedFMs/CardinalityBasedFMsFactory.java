@@ -40,6 +40,15 @@ public interface CardinalityBasedFMsFactory extends EFactory {
 	GroupCardinality createGroupCardinality();
 
 	/**
+	 * Returns a new object of class '<em>Mutex Group</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Mutex Group</em>'.
+	 * @generated
+	 */
+	MutexGroup createMutexGroup();
+
+	/**
 	 * Returns the package supported by this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

@@ -503,5 +503,6 @@ public class FeatureImpl extends MinimalEObjectImpl.Container implements Feature
 		result.append(')');
 		return result.toString();
 	}
+	
 
 } //FeatureImpl

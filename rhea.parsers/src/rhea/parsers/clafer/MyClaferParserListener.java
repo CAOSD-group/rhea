@@ -244,6 +244,8 @@ public class MyClaferParserListener implements claferParserListener {
 			
 			// Set root feature
 			if (nFeatures == 0) {
+				currentFeature.setId(featureName);
+				currentFeature.setAbstract(true);
 				fm.setRoot(currentFeature);
 				this.indentParent.put(1, currentFeature);
 			} else {
@@ -256,6 +258,7 @@ public class MyClaferParserListener implements claferParserListener {
 				
 				if (parent != null) {
 					parent.getChildren().add(currentFeature);
+					currentFeature.setId(parent.getId() + "_" + featureName);
 					if (parent instanceof FeatureGroup) {		// BE CAREFUL! we do not allow mandatory feature inside a group, but we should?
 						currentFeature.setMandatory(false);
 					}
@@ -419,6 +422,8 @@ public class MyClaferParserListener implements claferParserListener {
 		case "or":
 			currentFeature = BasicFMsFactory.eINSTANCE.createSelectionGroup();
 			break;
+		case "mux":
+			currentFeature = CardinalityBasedFMsFactory.eINSTANCE.createMutexGroup();
 		}
 		if (type.contains("..")) {
 			currentFeature = CardinalityBasedFMsFactory.eINSTANCE.createGroupCardinality();

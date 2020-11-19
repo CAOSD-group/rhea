@@ -203,12 +203,11 @@ public class FeatureModelImpl extends MinimalEObjectImpl.Container implements Fe
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	public Feature getFeature(String id) {
-		// TODO: implement this method
-		// Ensure that you remove @generated or mark it @generated NOT
-		throw new UnsupportedOperationException();
+		var optFeature = getFeatures().stream().filter(f -> f.getId().equalsIgnoreCase(id)).findAny();
+		return optFeature.isPresent() ? optFeature.get() : null;
 	}
 
 	/**

@@ -11,5 +11,10 @@
 	<classpathentry exported="true" kind="lib" path="lib/antlr-4.8-complete.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/gson-2.8.6.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/guava-30.0-jre.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/commons-io-2.8.0.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="jar:platform:/resource/rhea.thirdpartyplugins/doc/commons-io-2.8.0-javadoc.jar!/"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

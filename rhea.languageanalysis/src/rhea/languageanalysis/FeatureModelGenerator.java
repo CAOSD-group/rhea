@@ -133,7 +133,7 @@ public class FeatureModelGenerator {
 				}
 			}
 		}
-		Utils.cleanUp(basedir + TEMPORAL_FOLDER);
+		Utils.cleanDirectory(basedir + TEMPORAL_FOLDER);
 		System.out.println("allModels: " + allModels.size());
 		System.out.println("allFMs: " + allFMs.size());
 		return allFMs;
