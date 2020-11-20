@@ -131,4 +131,134 @@
     <mappings xmi:id="_0iQ-MisKEeuFF6r1K-eyIQ" origin="_0iQ-MCsKEeuFF6r1K-eyIQ" image="_0iQ-MSsKEeuFF6r1K-eyIQ"/>
     <mappings xmi:id="_02sWEisKEeuFF6r1K-eyIQ" origin="_02sWECsKEeuFF6r1K-eyIQ" image="_02sWESsKEeuFF6r1K-eyIQ"/>
   </units>
+  <units xsi:type="henshin:Rule" xmi:id="_TMd9gCsSEeum47Mc36rsRg" name="TransFeatureToAlternativeGroup">
+    <annotations xmi:id="_TMd9gSsSEeum47Mc36rsRg" key="featureConstraint" value=""/>
+    <annotations xmi:id="_TMekkCsSEeum47Mc36rsRg" key="injectiveMatchingPresenceCondition" value=""/>
+    <annotations xmi:id="_TMekkSsSEeum47Mc36rsRg" key="features" value=""/>
+    <parameters xmi:id="_TMekkisSEeum47Mc36rsRg" name="id" kind="IN">
+      <type xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    </parameters>
+    <parameters xmi:id="_TMekkysSEeum47Mc36rsRg" name="name" kind="VAR">
+      <type xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    </parameters>
+    <parameters xmi:id="_TMeklCsSEeum47Mc36rsRg" name="mandatory" kind="VAR">
+      <type xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+    </parameters>
+    <parameters xmi:id="_TMeklSsSEeum47Mc36rsRg" name="abs" kind="VAR">
+      <type xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+    </parameters>
+    <parameters xmi:id="_TMeklisSEeum47Mc36rsRg" name="parentId" kind="VAR">
+      <type xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    </parameters>
+    <lhs xmi:id="_TMeklysSEeum47Mc36rsRg" name="Lhs">
+      <nodes xmi:id="_TMekmCsSEeum47Mc36rsRg" outgoing="_TMekoisSEeum47Mc36rsRg">
+        <type href="../../../rhea.metamodels/metamodels/BasicFMs/BasicFMs.ecore#//FeatureModel"/>
+      </nodes>
+      <nodes xmi:id="_TMekmSsSEeum47Mc36rsRg" incoming="_TMekpCsSEeum47Mc36rsRg" outgoing="_TMekoysSEeum47Mc36rsRg">
+        <type href="../../../rhea.metamodels/metamodels/BasicFMs/BasicFMs.ecore#//Feature"/>
+        <attributes xmi:id="_TMekmisSEeum47Mc36rsRg" value="parentId">
+          <type href="../../../rhea.metamodels/metamodels/BasicFMs/BasicFMs.ecore#//Feature/id"/>
+        </attributes>
+      </nodes>
+      <nodes xmi:id="_TMekmysSEeum47Mc36rsRg" incoming="_TMekpSsSEeum47Mc36rsRg" outgoing="_TMekpisSEeum47Mc36rsRg">
+        <type href="../../../rhea.metamodels/metamodels/BasicFMs/BasicFMs.ecore#//Feature"/>
+      </nodes>
+      <nodes xmi:id="_TMeknCsSEeum47Mc36rsRg" incoming="_TMekpysSEeum47Mc36rsRg" outgoing="_TMekqCsSEeum47Mc36rsRg">
+        <type href="../../../rhea.metamodels/metamodels/BasicFMs/BasicFMs.ecore#//Feature"/>
+      </nodes>
+      <nodes xmi:id="_TMeknSsSEeum47Mc36rsRg" incoming="_TMekoisSEeum47Mc36rsRg _TMekoysSEeum47Mc36rsRg _TMekpisSEeum47Mc36rsRg _TMekqCsSEeum47Mc36rsRg" outgoing="_TMekpCsSEeum47Mc36rsRg _TMekpSsSEeum47Mc36rsRg _TMekpysSEeum47Mc36rsRg">
+        <type href="../../../rhea.metamodels/metamodels/BasicFMs/BasicFMs.ecore#//Feature"/>
+        <attributes xmi:id="_TMeknisSEeum47Mc36rsRg" value="id">
+          <type href="../../../rhea.metamodels/metamodels/BasicFMs/BasicFMs.ecore#//Feature/id"/>
+        </attributes>
+        <attributes xmi:id="_TMeknysSEeum47Mc36rsRg" value="name">
+          <type href="../../../rhea.metamodels/metamodels/BasicFMs/BasicFMs.ecore#//Feature/name"/>
+        </attributes>
+        <attributes xmi:id="_TMekoCsSEeum47Mc36rsRg" value="mandatory">
+          <type href="../../../rhea.metamodels/metamodels/BasicFMs/BasicFMs.ecore#//Feature/mandatory"/>
+        </attributes>
+        <attributes xmi:id="_TMekoSsSEeum47Mc36rsRg" value="abs">
+          <type href="../../../rhea.metamodels/metamodels/BasicFMs/BasicFMs.ecore#//Feature/abstract"/>
+        </attributes>
+      </nodes>
+      <edges xmi:id="_TMekoisSEeum47Mc36rsRg" source="_TMekmCsSEeum47Mc36rsRg" target="_TMeknSsSEeum47Mc36rsRg">
+        <type href="../../../rhea.metamodels/metamodels/BasicFMs/BasicFMs.ecore#//FeatureModel/features"/>
+      </edges>
+      <edges xmi:id="_TMekoysSEeum47Mc36rsRg" source="_TMekmSsSEeum47Mc36rsRg" target="_TMeknSsSEeum47Mc36rsRg">
+        <type href="../../../rhea.metamodels/metamodels/BasicFMs/BasicFMs.ecore#//Feature/children"/>
+      </edges>
+      <edges xmi:id="_TMekpCsSEeum47Mc36rsRg" source="_TMeknSsSEeum47Mc36rsRg" target="_TMekmSsSEeum47Mc36rsRg">
+        <type href="../../../rhea.metamodels/metamodels/BasicFMs/BasicFMs.ecore#//Feature/parent"/>
+      </edges>
+      <edges xmi:id="_TMekpSsSEeum47Mc36rsRg" source="_TMeknSsSEeum47Mc36rsRg" target="_TMekmysSEeum47Mc36rsRg">
+        <type href="../../../rhea.metamodels/metamodels/BasicFMs/BasicFMs.ecore#//Feature/children"/>
+      </edges>
+      <edges xmi:id="_TMekpisSEeum47Mc36rsRg" source="_TMekmysSEeum47Mc36rsRg" target="_TMeknSsSEeum47Mc36rsRg">
+        <type href="../../../rhea.metamodels/metamodels/BasicFMs/BasicFMs.ecore#//Feature/parent"/>
+      </edges>
+      <edges xmi:id="_TMekpysSEeum47Mc36rsRg" source="_TMeknSsSEeum47Mc36rsRg" target="_TMeknCsSEeum47Mc36rsRg">
+        <type href="../../../rhea.metamodels/metamodels/BasicFMs/BasicFMs.ecore#//Feature/children"/>
+      </edges>
+      <edges xmi:id="_TMekqCsSEeum47Mc36rsRg" source="_TMeknCsSEeum47Mc36rsRg" target="_TMeknSsSEeum47Mc36rsRg">
+        <type href="../../../rhea.metamodels/metamodels/BasicFMs/BasicFMs.ecore#//Feature/parent"/>
+      </edges>
+    </lhs>
+    <rhs xmi:id="_TMekqSsSEeum47Mc36rsRg" name="Rhs">
+      <nodes xmi:id="_TMekqisSEeum47Mc36rsRg" outgoing="_TMektCsSEeum47Mc36rsRg">
+        <type href="../../../rhea.metamodels/metamodels/BasicFMs/BasicFMs.ecore#//FeatureModel"/>
+      </nodes>
+      <nodes xmi:id="_TMekqysSEeum47Mc36rsRg" incoming="_TMektCsSEeum47Mc36rsRg _TMektSsSEeum47Mc36rsRg _TMekuCsSEeum47Mc36rsRg _TMekuisSEeum47Mc36rsRg" outgoing="_TMektisSEeum47Mc36rsRg _TMektysSEeum47Mc36rsRg _TMekuSsSEeum47Mc36rsRg">
+        <type href="../../../rhea.metamodels/metamodels/BasicFMs/BasicFMs.ecore#//AlternativeGroup"/>
+        <attributes xmi:id="_TMekrCsSEeum47Mc36rsRg" value="id">
+          <type href="../../../rhea.metamodels/metamodels/BasicFMs/BasicFMs.ecore#//Feature/id"/>
+        </attributes>
+        <attributes xmi:id="_TMekrSsSEeum47Mc36rsRg" value="name">
+          <type href="../../../rhea.metamodels/metamodels/BasicFMs/BasicFMs.ecore#//Feature/name"/>
+        </attributes>
+        <attributes xmi:id="_TMekrisSEeum47Mc36rsRg" value="mandatory">
+          <type href="../../../rhea.metamodels/metamodels/BasicFMs/BasicFMs.ecore#//Feature/mandatory"/>
+        </attributes>
+        <attributes xmi:id="_TMekrysSEeum47Mc36rsRg" value="abs">
+          <type href="../../../rhea.metamodels/metamodels/BasicFMs/BasicFMs.ecore#//Feature/abstract"/>
+        </attributes>
+      </nodes>
+      <nodes xmi:id="_TMeksCsSEeum47Mc36rsRg" incoming="_TMektisSEeum47Mc36rsRg" outgoing="_TMektSsSEeum47Mc36rsRg">
+        <type href="../../../rhea.metamodels/metamodels/BasicFMs/BasicFMs.ecore#//Feature"/>
+        <attributes xmi:id="_TMeksSsSEeum47Mc36rsRg" value="parentId">
+          <type href="../../../rhea.metamodels/metamodels/BasicFMs/BasicFMs.ecore#//Feature/id"/>
+        </attributes>
+      </nodes>
+      <nodes xmi:id="_TMeksisSEeum47Mc36rsRg" incoming="_TMektysSEeum47Mc36rsRg" outgoing="_TMekuCsSEeum47Mc36rsRg">
+        <type href="../../../rhea.metamodels/metamodels/BasicFMs/BasicFMs.ecore#//Feature"/>
+      </nodes>
+      <nodes xmi:id="_TMeksysSEeum47Mc36rsRg" incoming="_TMekuSsSEeum47Mc36rsRg" outgoing="_TMekuisSEeum47Mc36rsRg">
+        <type href="../../../rhea.metamodels/metamodels/BasicFMs/BasicFMs.ecore#//AlternativeGroup"/>
+      </nodes>
+      <edges xmi:id="_TMektCsSEeum47Mc36rsRg" source="_TMekqisSEeum47Mc36rsRg" target="_TMekqysSEeum47Mc36rsRg">
+        <type href="../../../rhea.metamodels/metamodels/BasicFMs/BasicFMs.ecore#//FeatureModel/features"/>
+      </edges>
+      <edges xmi:id="_TMektSsSEeum47Mc36rsRg" source="_TMeksCsSEeum47Mc36rsRg" target="_TMekqysSEeum47Mc36rsRg">
+        <type href="../../../rhea.metamodels/metamodels/BasicFMs/BasicFMs.ecore#//Feature/children"/>
+      </edges>
+      <edges xmi:id="_TMektisSEeum47Mc36rsRg" source="_TMekqysSEeum47Mc36rsRg" target="_TMeksCsSEeum47Mc36rsRg">
+        <type href="../../../rhea.metamodels/metamodels/BasicFMs/BasicFMs.ecore#//Feature/parent"/>
+      </edges>
+      <edges xmi:id="_TMektysSEeum47Mc36rsRg" source="_TMekqysSEeum47Mc36rsRg" target="_TMeksisSEeum47Mc36rsRg">
+        <type href="../../../rhea.metamodels/metamodels/BasicFMs/BasicFMs.ecore#//Feature/children"/>
+      </edges>
+      <edges xmi:id="_TMekuCsSEeum47Mc36rsRg" source="_TMeksisSEeum47Mc36rsRg" target="_TMekqysSEeum47Mc36rsRg">
+        <type href="../../../rhea.metamodels/metamodels/BasicFMs/BasicFMs.ecore#//Feature/parent"/>
+      </edges>
+      <edges xmi:id="_TMekuSsSEeum47Mc36rsRg" source="_TMekqysSEeum47Mc36rsRg" target="_TMeksysSEeum47Mc36rsRg">
+        <type href="../../../rhea.metamodels/metamodels/BasicFMs/BasicFMs.ecore#//Feature/children"/>
+      </edges>
+      <edges xmi:id="_TMekuisSEeum47Mc36rsRg" source="_TMeksysSEeum47Mc36rsRg" target="_TMekqysSEeum47Mc36rsRg">
+        <type href="../../../rhea.metamodels/metamodels/BasicFMs/BasicFMs.ecore#//Feature/parent"/>
+      </edges>
+    </rhs>
+    <mappings xmi:id="_TMekuysSEeum47Mc36rsRg" origin="_TMekmCsSEeum47Mc36rsRg" image="_TMekqisSEeum47Mc36rsRg"/>
+    <mappings xmi:id="_TMekvCsSEeum47Mc36rsRg" origin="_TMekmSsSEeum47Mc36rsRg" image="_TMeksCsSEeum47Mc36rsRg"/>
+    <mappings xmi:id="_TMekvSsSEeum47Mc36rsRg" origin="_TMekmysSEeum47Mc36rsRg" image="_TMeksisSEeum47Mc36rsRg"/>
+    <mappings xmi:id="_TMekvisSEeum47Mc36rsRg" origin="_TMeknCsSEeum47Mc36rsRg" image="_TMeksysSEeum47Mc36rsRg"/>
+  </units>
 </henshin:Module>
