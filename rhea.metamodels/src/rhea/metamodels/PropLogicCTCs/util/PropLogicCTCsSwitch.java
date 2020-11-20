@@ -81,6 +81,56 @@ public class PropLogicCTCsSwitch<T> extends Switch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
+			case PropLogicCTCsPackage.FEATURE_TERM: {
+				FeatureTerm featureTerm = (FeatureTerm)theEObject;
+				T result = caseFeatureTerm(featureTerm);
+				if (result == null) result = caseTerm(featureTerm);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case PropLogicCTCsPackage.NOT: {
+				Not not = (Not)theEObject;
+				T result = caseNot(not);
+				if (result == null) result = caseTerm(not);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case PropLogicCTCsPackage.AND: {
+				And and = (And)theEObject;
+				T result = caseAnd(and);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case PropLogicCTCsPackage.OR: {
+				Or or = (Or)theEObject;
+				T result = caseOr(or);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case PropLogicCTCsPackage.XOR: {
+				Xor xor = (Xor)theEObject;
+				T result = caseXor(xor);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case PropLogicCTCsPackage.EQUIV: {
+				Equiv equiv = (Equiv)theEObject;
+				T result = caseEquiv(equiv);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case PropLogicCTCsPackage.IMPLIES: {
+				Implies implies = (Implies)theEObject;
+				T result = caseImplies(implies);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case PropLogicCTCsPackage.EXCLUDES: {
+				Excludes excludes = (Excludes)theEObject;
+				T result = caseExcludes(excludes);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
 			default: return defaultCase(theEObject);
 		}
 	}
@@ -112,6 +162,126 @@ public class PropLogicCTCsSwitch<T> extends Switch<T> {
 	 * @generated
 	 */
 	public T caseTerm(Term object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Feature Term</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Feature Term</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseFeatureTerm(FeatureTerm object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Not</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Not</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseNot(Not object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>And</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>And</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseAnd(And object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Or</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Or</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseOr(Or object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Xor</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Xor</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseXor(Xor object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Equiv</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Equiv</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseEquiv(Equiv object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Implies</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Implies</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseImplies(Implies object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Excludes</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Excludes</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseExcludes(Excludes object) {
 		return null;
 	}
 

@@ -13,7 +13,7 @@ import rhea.metamodels.BasicFMs.CrossTreeConstraint;
  * The following features are supported:
  * </p>
  * <ul>
- *   <li>{@link rhea.metamodels.PropLogicCTCs.AdvancedConstraint#getTerm <em>Term</em>}</li>
+ *   <li>{@link rhea.metamodels.PropLogicCTCs.AdvancedConstraint#getExpr <em>Expr</em>}</li>
  * </ul>
  *
  * @see rhea.metamodels.PropLogicCTCs.PropLogicCTCsPackage#getAdvancedConstraint()
@@ -22,25 +22,25 @@ import rhea.metamodels.BasicFMs.CrossTreeConstraint;
  */
 public interface AdvancedConstraint extends CrossTreeConstraint {
 	/**
-	 * Returns the value of the '<em><b>Term</b></em>' containment reference.
+	 * Returns the value of the '<em><b>Expr</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Term</em>' containment reference.
-	 * @see #setTerm(Term)
-	 * @see rhea.metamodels.PropLogicCTCs.PropLogicCTCsPackage#getAdvancedConstraint_Term()
+	 * @return the value of the '<em>Expr</em>' containment reference.
+	 * @see #setExpr(Term)
+	 * @see rhea.metamodels.PropLogicCTCs.PropLogicCTCsPackage#getAdvancedConstraint_Expr()
 	 * @model containment="true" required="true"
 	 * @generated
 	 */
-	Term getTerm();
+	Term getExpr();
 
 	/**
-	 * Sets the value of the '{@link rhea.metamodels.PropLogicCTCs.AdvancedConstraint#getTerm <em>Term</em>}' containment reference.
+	 * Sets the value of the '{@link rhea.metamodels.PropLogicCTCs.AdvancedConstraint#getExpr <em>Expr</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Term</em>' containment reference.
-	 * @see #getTerm()
+	 * @param value the new value of the '<em>Expr</em>' containment reference.
+	 * @see #getExpr()
 	 * @generated
 	 */
-	void setTerm(Term value);
+	void setExpr(Term value);
 
 } // AdvancedConstraint

@@ -3,7 +3,6 @@
 package rhea.metamodels.PropLogicCTCs.impl;
 
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EDataType;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 
@@ -59,38 +58,16 @@ public class PropLogicCTCsFactoryImpl extends EFactoryImpl implements PropLogicC
 		switch (eClass.getClassifierID()) {
 			case PropLogicCTCsPackage.ADVANCED_CONSTRAINT: return createAdvancedConstraint();
 			case PropLogicCTCsPackage.TERM: return createTerm();
+			case PropLogicCTCsPackage.FEATURE_TERM: return createFeatureTerm();
+			case PropLogicCTCsPackage.NOT: return createNot();
+			case PropLogicCTCsPackage.AND: return createAnd();
+			case PropLogicCTCsPackage.OR: return createOr();
+			case PropLogicCTCsPackage.XOR: return createXor();
+			case PropLogicCTCsPackage.EQUIV: return createEquiv();
+			case PropLogicCTCsPackage.IMPLIES: return createImplies();
+			case PropLogicCTCsPackage.EXCLUDES: return createExcludes();
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
-		}
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public Object createFromString(EDataType eDataType, String initialValue) {
-		switch (eDataType.getClassifierID()) {
-			case PropLogicCTCsPackage.TERM_TYPE:
-				return createTermTypeFromString(eDataType, initialValue);
-			default:
-				throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
-		}
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public String convertToString(EDataType eDataType, Object instanceValue) {
-		switch (eDataType.getClassifierID()) {
-			case PropLogicCTCsPackage.TERM_TYPE:
-				return convertTermTypeToString(eDataType, instanceValue);
-			default:
-				throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
 		}
 	}
 
@@ -119,10 +96,9 @@ public class PropLogicCTCsFactoryImpl extends EFactoryImpl implements PropLogicC
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public TermType createTermTypeFromString(EDataType eDataType, String initialValue) {
-		TermType result = TermType.get(initialValue);
-		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
-		return result;
+	public FeatureTerm createFeatureTerm() {
+		FeatureTermImpl featureTerm = new FeatureTermImpl();
+		return featureTerm;
 	}
 
 	/**
@@ -130,8 +106,69 @@ public class PropLogicCTCsFactoryImpl extends EFactoryImpl implements PropLogicC
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public String convertTermTypeToString(EDataType eDataType, Object instanceValue) {
-		return instanceValue == null ? null : instanceValue.toString();
+	public Not createNot() {
+		NotImpl not = new NotImpl();
+		return not;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public And createAnd() {
+		AndImpl and = new AndImpl();
+		return and;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Or createOr() {
+		OrImpl or = new OrImpl();
+		return or;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Xor createXor() {
+		XorImpl xor = new XorImpl();
+		return xor;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Equiv createEquiv() {
+		EquivImpl equiv = new EquivImpl();
+		return equiv;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Implies createImplies() {
+		ImpliesImpl implies = new ImpliesImpl();
+		return implies;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Excludes createExcludes() {
+		ExcludesImpl excludes = new ExcludesImpl();
+		return excludes;
 	}
 
 	/**
