@@ -21,6 +21,13 @@
     </children>
     <children
         id="F1.F5"
-        name="F5"/>
+        name="F5">
+      <children
+          id="F1.F5.F6"
+          name="F6"/>
+      <children
+          id="F1.F5.F7"
+          name="F7"/>
+    </children>
   </root>
 </rhea:FeatureModel>
