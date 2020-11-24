@@ -1,6 +1,7 @@
 package rhea.transformations.engine;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -67,7 +68,7 @@ public class FeatureModelGenerator {
 	}
 	
 	public boolean addFeature(FeatureModel fm, String featureName) {
-		LanguageGeneratorType lc = LanguageGeneratorType.Feature;
+		LanguageGeneratorType lc = LanguageGeneratorType.OptionalFeature;
 		Map<String, Object> params = Map.of("name", featureName);
 		return executeLanguageGenerator(fm, lc, params);
 	}
@@ -181,7 +182,9 @@ public class FeatureModelGenerator {
 			Module module = getHenshinModule(lc);
 			Unit unit = module.getUnit(lc.getHenshinRule());
 			for (String fName : featureNames) {
-				Map<String, Object> parameters = Map.of("name", fName, "abs", false);
+				Map<String, Object> parameters = new HashMap<String, Object>(lc.getParams());
+				parameters.put(LanguageGeneratorParam.NAME.getName(), fName);
+				parameters.put(LanguageGeneratorParam.ABSTRACT.getName(), false);
 				List<EObject> modelsTransformed = henshin.executeRuleForAllMatches(unit, parameters, fm);
 				//System.out.println("MODELS TRANSFORMED1: " + modelsTransformed);	
 				/************/

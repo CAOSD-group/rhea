@@ -1,19 +1,24 @@
 package rhea.transformations.engine;
 
-public enum LanguageGeneratorType {
-	Root("Root", "deterministic/GenRoot", "GenSimpleRoot"),
-	Feature("Feature", "nondeterministic/GenFeatureRandomly", "GenSimpleFeatureRandomly"),
-	
-	SelectionGroup("Selection Group", "GenFeatureRandomly", "GenSelectionGroupRandomly");
+import java.util.Map;
+
+public enum LanguageGeneratorType { 
+	Root("Root", "deterministic/GenRoot", "GenSimpleRoot", Map.of()),
+	OptionalFeature("Optional Feature", "nondeterministic/GenFeatureRandomly", "GenSimpleFeatureRandomly", Map.of(LanguageGeneratorParam.MANDATORY.getName(), false)),
+	MandatoryFeature("Mandatory Feature", "nondeterministic/GenFeatureRandomly", "GenSimpleFeatureRandomly", Map.of(LanguageGeneratorParam.MANDATORY.getName(), true)),
+	SelectionGroup("Selection Group", "GenFeatureRandomly", "GenSelectionGroupRandomly", Map.of()),
+	AlternativeGroup("Selection Group", "GenFeatureRandomly", "GenSelectionGroupRandomly", Map.of());
 	
 	private String name;
 	private String henshinModule;
 	private String henshinRule;
+	private Map<String, Object> params;
 	
-	LanguageGeneratorType(String name, String henshinModule, String henshinRule) {
+	LanguageGeneratorType(String name, String henshinModule, String henshinRule, Map<String, Object> params) {
 		this.name = name;
 		this.henshinModule = henshinModule;
 		this.henshinRule = henshinRule;
+		this.params = params;
 	}
 
 	public String getName() {
@@ -27,4 +32,9 @@ public enum LanguageGeneratorType {
 	public String getHenshinRule() {
 		return henshinRule;
 	}
+
+	public Map<String, Object> getParams() {
+		return params;
+	}
+	
 }

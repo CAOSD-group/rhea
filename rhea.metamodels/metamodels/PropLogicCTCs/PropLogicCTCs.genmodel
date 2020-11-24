@@ -8,23 +8,35 @@
   <foreignModel>PropLogicCTCs.ecore</foreignModel>
   <genPackages prefix="PropLogicCTCs" basePackage="rhea.metamodels" disposableProviderFactory="true"
       ecorePackage="PropLogicCTCs.ecore#/">
-    <genEnums typeSafeEnumCompatible="false" ecoreEnum="PropLogicCTCs.ecore#//TermType">
-      <genEnumLiterals ecoreEnumLiteral="PropLogicCTCs.ecore#//TermType/feature"/>
-      <genEnumLiterals ecoreEnumLiteral="PropLogicCTCs.ecore#//TermType/not"/>
-      <genEnumLiterals ecoreEnumLiteral="PropLogicCTCs.ecore#//TermType/and"/>
-      <genEnumLiterals ecoreEnumLiteral="PropLogicCTCs.ecore#//TermType/or"/>
-      <genEnumLiterals ecoreEnumLiteral="PropLogicCTCs.ecore#//TermType/xor"/>
-      <genEnumLiterals ecoreEnumLiteral="PropLogicCTCs.ecore#//TermType/implies"/>
-      <genEnumLiterals ecoreEnumLiteral="PropLogicCTCs.ecore#//TermType/excludes"/>
-      <genEnumLiterals ecoreEnumLiteral="PropLogicCTCs.ecore#//TermType/equiv"/>
-    </genEnums>
     <genClasses ecoreClass="PropLogicCTCs.ecore#//AdvancedConstraint">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference PropLogicCTCs.ecore#//AdvancedConstraint/term"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference PropLogicCTCs.ecore#//AdvancedConstraint/expr"/>
     </genClasses>
-    <genClasses ecoreClass="PropLogicCTCs.ecore#//Term">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute PropLogicCTCs.ecore#//Term/type"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference PropLogicCTCs.ecore#//Term/term"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference PropLogicCTCs.ecore#//Term/operands"/>
+    <genClasses ecoreClass="PropLogicCTCs.ecore#//Term"/>
+    <genClasses ecoreClass="PropLogicCTCs.ecore#//FeatureTerm">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference PropLogicCTCs.ecore#//FeatureTerm/feature"/>
+    </genClasses>
+    <genClasses ecoreClass="PropLogicCTCs.ecore#//Not">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference PropLogicCTCs.ecore#//Not/term"/>
+    </genClasses>
+    <genClasses ecoreClass="PropLogicCTCs.ecore#//And">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference PropLogicCTCs.ecore#//And/terms"/>
+    </genClasses>
+    <genClasses ecoreClass="PropLogicCTCs.ecore#//Or">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference PropLogicCTCs.ecore#//Or/terms"/>
+    </genClasses>
+    <genClasses ecoreClass="PropLogicCTCs.ecore#//Xor">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference PropLogicCTCs.ecore#//Xor/terms"/>
+    </genClasses>
+    <genClasses ecoreClass="PropLogicCTCs.ecore#//Equiv">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference PropLogicCTCs.ecore#//Equiv/terms"/>
+    </genClasses>
+    <genClasses ecoreClass="PropLogicCTCs.ecore#//Implies">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference PropLogicCTCs.ecore#//Implies/left"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference PropLogicCTCs.ecore#//Implies/right"/>
+    </genClasses>
+    <genClasses ecoreClass="PropLogicCTCs.ecore#//Excludes">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference PropLogicCTCs.ecore#//Excludes/left"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference PropLogicCTCs.ecore#//Excludes/right"/>
     </genClasses>
   </genPackages>
 </genmodel:GenModel>

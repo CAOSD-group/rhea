@@ -1,10 +1,5 @@
 package rhea.generators.clafer;
 
-import java.io.FileWriter;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import org.eclipse.emf.common.util.EList;
 
 import rhea.generators.FMGenerator;
@@ -28,18 +23,17 @@ import rhea.thirdpartyplugins.utils.Utils;
  */
 public class ToClafer implements FMGenerator {
 	public static final String TAB = "\t";
-	private String fmName;	
 	
 	public String fm2text(FeatureModel fm) {
-		fmName = fm.getName();
-		
 		StringBuffer claferFM = new StringBuffer();
 		
-		traverseTree(claferFM, fm.getRoot(), 0);
-		addConstraints(claferFM, fm.getCrosstreeconstraints());
-		
-		// Add the initial instance
-		claferFM.append("config").append(": ").append(fm.getRoot().getName());
+		if (fm.getRoot() != null) {
+			traverseTree(claferFM, fm.getRoot(), 0);
+			addConstraints(claferFM, fm.getCrosstreeconstraints());	
+			
+			// Add the initial instance
+			claferFM.append("config").append(": ").append(fm.getRoot().getName());
+		}
 		
 		return claferFM.toString();
 	}

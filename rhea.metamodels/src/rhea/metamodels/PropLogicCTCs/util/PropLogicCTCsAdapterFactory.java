@@ -78,6 +78,38 @@ public class PropLogicCTCsAdapterFactory extends AdapterFactoryImpl {
 				return createTermAdapter();
 			}
 			@Override
+			public Adapter caseFeatureTerm(FeatureTerm object) {
+				return createFeatureTermAdapter();
+			}
+			@Override
+			public Adapter caseNot(Not object) {
+				return createNotAdapter();
+			}
+			@Override
+			public Adapter caseAnd(And object) {
+				return createAndAdapter();
+			}
+			@Override
+			public Adapter caseOr(Or object) {
+				return createOrAdapter();
+			}
+			@Override
+			public Adapter caseXor(Xor object) {
+				return createXorAdapter();
+			}
+			@Override
+			public Adapter caseEquiv(Equiv object) {
+				return createEquivAdapter();
+			}
+			@Override
+			public Adapter caseImplies(Implies object) {
+				return createImpliesAdapter();
+			}
+			@Override
+			public Adapter caseExcludes(Excludes object) {
+				return createExcludesAdapter();
+			}
+			@Override
 			public Adapter caseCrossTreeConstraint(CrossTreeConstraint object) {
 				return createCrossTreeConstraintAdapter();
 			}
@@ -126,6 +158,118 @@ public class PropLogicCTCsAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createTermAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link rhea.metamodels.PropLogicCTCs.FeatureTerm <em>Feature Term</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see rhea.metamodels.PropLogicCTCs.FeatureTerm
+	 * @generated
+	 */
+	public Adapter createFeatureTermAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link rhea.metamodels.PropLogicCTCs.Not <em>Not</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see rhea.metamodels.PropLogicCTCs.Not
+	 * @generated
+	 */
+	public Adapter createNotAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link rhea.metamodels.PropLogicCTCs.And <em>And</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see rhea.metamodels.PropLogicCTCs.And
+	 * @generated
+	 */
+	public Adapter createAndAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link rhea.metamodels.PropLogicCTCs.Or <em>Or</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see rhea.metamodels.PropLogicCTCs.Or
+	 * @generated
+	 */
+	public Adapter createOrAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link rhea.metamodels.PropLogicCTCs.Xor <em>Xor</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see rhea.metamodels.PropLogicCTCs.Xor
+	 * @generated
+	 */
+	public Adapter createXorAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link rhea.metamodels.PropLogicCTCs.Equiv <em>Equiv</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see rhea.metamodels.PropLogicCTCs.Equiv
+	 * @generated
+	 */
+	public Adapter createEquivAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link rhea.metamodels.PropLogicCTCs.Implies <em>Implies</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see rhea.metamodels.PropLogicCTCs.Implies
+	 * @generated
+	 */
+	public Adapter createImpliesAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link rhea.metamodels.PropLogicCTCs.Excludes <em>Excludes</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see rhea.metamodels.PropLogicCTCs.Excludes
+	 * @generated
+	 */
+	public Adapter createExcludesAdapter() {
 		return null;
 	}
 

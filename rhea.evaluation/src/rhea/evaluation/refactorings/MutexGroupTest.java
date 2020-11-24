@@ -55,6 +55,7 @@ public class MutexGroupTest {
 		FMParser p = new ClaferParser();
 		FeatureModel fm = p.readFeatureModel(inputFile);
 				
+		System.out.println("FM: " + fm.getRoot());
 		// Calculate expected configurations
 		System.out.println("Calculating expected products...");
 		AutomatedAnalysisFM aafm = new AAFMClafer();

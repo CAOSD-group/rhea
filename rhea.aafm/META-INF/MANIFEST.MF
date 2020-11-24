@@ -9,3 +9,4 @@ Require-Bundle: rhea.metamodels;bundle-version="1.0.0",
  rhea.thirdpartyplugins;bundle-version="1.0.0",
  rhea.generators;bundle-version="1.0.0"
 Export-Package: rhea.aafm
+Import-Package: aima.core.logic.propositional.parsing.ast

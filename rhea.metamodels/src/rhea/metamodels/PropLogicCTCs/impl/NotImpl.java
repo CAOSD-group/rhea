@@ -10,42 +10,40 @@ import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
-import rhea.metamodels.BasicFMs.impl.CrossTreeConstraintImpl;
-
-import rhea.metamodels.PropLogicCTCs.AdvancedConstraint;
+import rhea.metamodels.PropLogicCTCs.Not;
 import rhea.metamodels.PropLogicCTCs.PropLogicCTCsPackage;
 import rhea.metamodels.PropLogicCTCs.Term;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Advanced Constraint</b></em>'.
+ * An implementation of the model object '<em><b>Not</b></em>'.
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link rhea.metamodels.PropLogicCTCs.impl.AdvancedConstraintImpl#getExpr <em>Expr</em>}</li>
+ *   <li>{@link rhea.metamodels.PropLogicCTCs.impl.NotImpl#getTerm <em>Term</em>}</li>
  * </ul>
  *
  * @generated
  */
-public class AdvancedConstraintImpl extends CrossTreeConstraintImpl implements AdvancedConstraint {
+public class NotImpl extends TermImpl implements Not {
 	/**
-	 * The cached value of the '{@link #getExpr() <em>Expr</em>}' containment reference.
+	 * The cached value of the '{@link #getTerm() <em>Term</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getExpr()
+	 * @see #getTerm()
 	 * @generated
 	 * @ordered
 	 */
-	protected Term expr;
+	protected Term term;
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected AdvancedConstraintImpl() {
+	protected NotImpl() {
 		super();
 	}
 
@@ -56,7 +54,7 @@ public class AdvancedConstraintImpl extends CrossTreeConstraintImpl implements A
 	 */
 	@Override
 	protected EClass eStaticClass() {
-		return PropLogicCTCsPackage.Literals.ADVANCED_CONSTRAINT;
+		return PropLogicCTCsPackage.Literals.NOT;
 	}
 
 	/**
@@ -64,8 +62,8 @@ public class AdvancedConstraintImpl extends CrossTreeConstraintImpl implements A
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Term getExpr() {
-		return expr;
+	public Term getTerm() {
+		return term;
 	}
 
 	/**
@@ -73,11 +71,11 @@ public class AdvancedConstraintImpl extends CrossTreeConstraintImpl implements A
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain basicSetExpr(Term newExpr, NotificationChain msgs) {
-		Term oldExpr = expr;
-		expr = newExpr;
+	public NotificationChain basicSetTerm(Term newTerm, NotificationChain msgs) {
+		Term oldTerm = term;
+		term = newTerm;
 		if (eNotificationRequired()) {
-			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, PropLogicCTCsPackage.ADVANCED_CONSTRAINT__EXPR, oldExpr, newExpr);
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, PropLogicCTCsPackage.NOT__TERM, oldTerm, newTerm);
 			if (msgs == null) msgs = notification; else msgs.add(notification);
 		}
 		return msgs;
@@ -88,18 +86,18 @@ public class AdvancedConstraintImpl extends CrossTreeConstraintImpl implements A
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setExpr(Term newExpr) {
-		if (newExpr != expr) {
+	public void setTerm(Term newTerm) {
+		if (newTerm != term) {
 			NotificationChain msgs = null;
-			if (expr != null)
-				msgs = ((InternalEObject)expr).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - PropLogicCTCsPackage.ADVANCED_CONSTRAINT__EXPR, null, msgs);
-			if (newExpr != null)
-				msgs = ((InternalEObject)newExpr).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - PropLogicCTCsPackage.ADVANCED_CONSTRAINT__EXPR, null, msgs);
-			msgs = basicSetExpr(newExpr, msgs);
+			if (term != null)
+				msgs = ((InternalEObject)term).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - PropLogicCTCsPackage.NOT__TERM, null, msgs);
+			if (newTerm != null)
+				msgs = ((InternalEObject)newTerm).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - PropLogicCTCsPackage.NOT__TERM, null, msgs);
+			msgs = basicSetTerm(newTerm, msgs);
 			if (msgs != null) msgs.dispatch();
 		}
 		else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, PropLogicCTCsPackage.ADVANCED_CONSTRAINT__EXPR, newExpr, newExpr));
+			eNotify(new ENotificationImpl(this, Notification.SET, PropLogicCTCsPackage.NOT__TERM, newTerm, newTerm));
 	}
 
 	/**
@@ -110,8 +108,8 @@ public class AdvancedConstraintImpl extends CrossTreeConstraintImpl implements A
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
-			case PropLogicCTCsPackage.ADVANCED_CONSTRAINT__EXPR:
-				return basicSetExpr(null, msgs);
+			case PropLogicCTCsPackage.NOT__TERM:
+				return basicSetTerm(null, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -124,8 +122,8 @@ public class AdvancedConstraintImpl extends CrossTreeConstraintImpl implements A
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case PropLogicCTCsPackage.ADVANCED_CONSTRAINT__EXPR:
-				return getExpr();
+			case PropLogicCTCsPackage.NOT__TERM:
+				return getTerm();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -138,8 +136,8 @@ public class AdvancedConstraintImpl extends CrossTreeConstraintImpl implements A
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case PropLogicCTCsPackage.ADVANCED_CONSTRAINT__EXPR:
-				setExpr((Term)newValue);
+			case PropLogicCTCsPackage.NOT__TERM:
+				setTerm((Term)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -153,8 +151,8 @@ public class AdvancedConstraintImpl extends CrossTreeConstraintImpl implements A
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case PropLogicCTCsPackage.ADVANCED_CONSTRAINT__EXPR:
-				setExpr((Term)null);
+			case PropLogicCTCsPackage.NOT__TERM:
+				setTerm((Term)null);
 				return;
 		}
 		super.eUnset(featureID);
@@ -168,10 +166,10 @@ public class AdvancedConstraintImpl extends CrossTreeConstraintImpl implements A
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case PropLogicCTCsPackage.ADVANCED_CONSTRAINT__EXPR:
-				return expr != null;
+			case PropLogicCTCsPackage.NOT__TERM:
+				return term != null;
 		}
 		return super.eIsSet(featureID);
 	}
 
-} //AdvancedConstraintImpl
+} //NotImpl
