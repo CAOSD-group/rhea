@@ -75,7 +75,7 @@
         <attributes xmi:id="_m-VX0CpJEeu-3NVSHGSY7g" value="name">
           <type href="../../../rhea.metamodels/metamodels/BasicFMs/BasicFMs.ecore#//Feature/name"/>
         </attributes>
-        <attributes xmi:id="_nit3QCpJEeu-3NVSHGSY7g" value="parentId+&quot;.&quot;+name">
+        <attributes xmi:id="_nit3QCpJEeu-3NVSHGSY7g" value="name">
           <type href="../../../rhea.metamodels/metamodels/BasicFMs/BasicFMs.ecore#//Feature/id"/>
         </attributes>
         <attributes xmi:id="_jV21MCsNEeuFF6r1K-eyIQ" value="mandatory">
@@ -194,7 +194,7 @@
           <annotations xmi:id="_v4UlZipLEeu-3NVSHGSY7g" key="presenceCondition" value=""/>
           <type href="../../../rhea.metamodels/metamodels/BasicFMs/BasicFMs.ecore#//Feature/name"/>
         </attributes>
-        <attributes xmi:id="_v2hOsypLEeu-3NVSHGSY7g" value="parentId+&quot;.&quot;+name">
+        <attributes xmi:id="_v2hOsypLEeu-3NVSHGSY7g" value="name">
           <annotations xmi:id="_v4UlZypLEeu-3NVSHGSY7g" key="presenceCondition" value=""/>
           <type href="../../../rhea.metamodels/metamodels/BasicFMs/BasicFMs.ecore#//Feature/id"/>
         </attributes>
@@ -316,7 +316,7 @@
           <annotations xmi:id="_Jnjj2ipMEeu-3NVSHGSY7g" key="presenceCondition" value=""/>
           <type href="../../../rhea.metamodels/metamodels/BasicFMs/BasicFMs.ecore#//Feature/name"/>
         </attributes>
-        <attributes xmi:id="_Jnjj2ypMEeu-3NVSHGSY7g" value="parentId+&quot;.&quot;+name">
+        <attributes xmi:id="_Jnjj2ypMEeu-3NVSHGSY7g" value="name">
           <annotations xmi:id="_Jnjj3CpMEeu-3NVSHGSY7g" key="presenceCondition" value=""/>
           <type href="../../../rhea.metamodels/metamodels/BasicFMs/BasicFMs.ecore#//Feature/id"/>
         </attributes>

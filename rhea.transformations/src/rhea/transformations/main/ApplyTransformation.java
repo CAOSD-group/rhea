@@ -20,15 +20,16 @@ public class ApplyTransformation {
 	
 	public static void main(String[] args) {
 		// Arguments
-		String modelName = "BasicFMExample";
+		String modelName = "Model";
 		
 		String inputModel = INPUTS_MODELS + modelName + ".txt";
 		String inputModelAS = INPUTS_MODELS + modelName + ".xmi";
 		String outputModelTransformed = INPUTS_MODELS + modelName + "-transformed.xmi";
 		String outputModelTransformed2 = INPUTS_MODELS + modelName + "-transformed2.xmi";
 		
-		String transformationFilepath = Rhea.LANGUAGEGENERATOR_DIR + "nondeterministic/" + "TransFeatureRandomly.henshin";
-		String ruleName = "TransFeatureToAlternativeGroupRandomly";
+		//String transformationFilepath = Rhea.LANGUAGEGENERATOR_DIR + "nondeterministic/" + "GroupCardinalities.henshin";
+		String transformationFilepath = Rhea.REFACTORINGS_DIR + "GroupCardinalities.henshin";
+		String ruleName = "GroupCardinalitiesRefactor";
 		
 		
 		// Parse the input model
