@@ -1,10 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<rhea:FeatureModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:rhea="rhea.metamodels.BasicFMs" xmlns:rhea_1="rhea.metamodels.CardinalityBasedFMs" name="gc_ab" features="//@root //@root/@children.0 //@root/@children.0/@children.0 //@root/@children.0/@children.1 //@root/@children.0/@children.2">
+<rhea:FeatureModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:rhea="rhea.metamodels.BasicFMs" xmlns:rhea_1="rhea.metamodels.CardinalityBasedFMs" name="gc_ab" features="//@root //@root/@children.0 //@root/@children.0/@children.0 //@root/@children.0/@children.1 //@root/@children.0/@children.2 //@root/@children.0/@children.3 //@root/@children.1 //@root/@children.1/@children.0 //@root/@children.1/@children.1 //@root/@children.1/@children.2">
   <root id="Root" name="Root" mandatory="true" abstract="true">
     <children xsi:type="rhea_1:GroupCardinality" id="Root_F1" name="F1" mandatory="true" abstract="false">
       <children id="Root_F1_F2" name="F2" mandatory="false" abstract="false"/>
       <children id="Root_F1_F3" name="F3" mandatory="false" abstract="false"/>
       <children id="Root_F1_F4" name="F4" mandatory="false" abstract="false"/>
+      <children id="Root_F1_F41" name="F41" mandatory="false" abstract="false"/>
+      <multiplicity lower="1" upper="2"/>
+    </children>
+    <children xsi:type="rhea_1:GroupCardinality" id="Root_F5" name="F5" mandatory="true" abstract="false">
+      <children id="Root_F5_F6" name="F6" mandatory="false" abstract="false"/>
+      <children id="Root_F5_F7" name="F7" mandatory="false" abstract="false"/>
+      <children id="Root_F5_F8" name="F8" mandatory="false" abstract="false"/>
       <multiplicity lower="1" upper="2"/>
     </children>
   </root>
