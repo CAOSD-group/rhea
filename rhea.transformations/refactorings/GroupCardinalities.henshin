@@ -648,11 +648,11 @@
       <nodes xmi:id="_thRTly4yEeuteIR14qXzZg" incoming="_thRTnC4yEeuteIR14qXzZg _u1Z_cC4zEeuteIR14qXzZg _NbFQwC8PEeuwx9Oj713Nhw _ODulIC8PEeuwx9Oj713Nhw" outgoing="_ug-AgC4zEeuteIR14qXzZg _Nqha8C8PEeuwx9Oj713Nhw _OTYKsC8PEeuwx9Oj713Nhw">
         <annotations xmi:id="_DuIiAi8dEeuh37M3ijRfjQ" key="presenceCondition" value=""/>
         <type href="../../rhea.metamodels/metamodels/BasicFMs/BasicFMs.ecore#//AlternativeGroup"/>
-        <attributes xmi:id="_thRTmC4yEeuteIR14qXzZg" value="id">
+        <attributes xmi:id="_thRTmC4yEeuteIR14qXzZg" value="id+&quot;P&quot;">
           <annotations xmi:id="_DuIiAy8dEeuh37M3ijRfjQ" key="presenceCondition" value=""/>
           <type href="../../rhea.metamodels/metamodels/BasicFMs/BasicFMs.ecore#//Feature/id"/>
         </attributes>
-        <attributes xmi:id="_thRTmS4yEeuteIR14qXzZg" value="id">
+        <attributes xmi:id="_thRTmS4yEeuteIR14qXzZg" value="id+&quot;P&quot;">
           <annotations xmi:id="_DuIiBC8dEeuh37M3ijRfjQ" key="presenceCondition" value=""/>
           <type href="../../rhea.metamodels/metamodels/BasicFMs/BasicFMs.ecore#//Feature/name"/>
         </attributes>
@@ -994,11 +994,11 @@
       <nodes xmi:id="_TF2rFy46Eeu3u49aq2v4EA" incoming="_TF2rIS46Eeu3u49aq2v4EA _TF2rIy46Eeu3u49aq2v4EA _XBdVIC8PEeuwx9Oj713Nhw _brbJ4C8PEeuwx9Oj713Nhw" outgoing="_TF2rIi46Eeu3u49aq2v4EA _XSnWkC8PEeuwx9Oj713Nhw _cNJW4C8PEeuwx9Oj713Nhw">
         <annotations xmi:id="_7WynJS8dEeuh37M3ijRfjQ" key="presenceCondition" value=""/>
         <type href="../../rhea.metamodels/metamodels/BasicFMs/BasicFMs.ecore#//SelectionGroup"/>
-        <attributes xmi:id="_TF2rGC46Eeu3u49aq2v4EA" value="id">
+        <attributes xmi:id="_TF2rGC46Eeu3u49aq2v4EA" value="id+&quot;P&quot;">
           <annotations xmi:id="_7WynJi8dEeuh37M3ijRfjQ" key="presenceCondition" value=""/>
           <type href="../../rhea.metamodels/metamodels/BasicFMs/BasicFMs.ecore#//Feature/id"/>
         </attributes>
-        <attributes xmi:id="_TF2rGS46Eeu3u49aq2v4EA" value="id">
+        <attributes xmi:id="_TF2rGS46Eeu3u49aq2v4EA" value="id+&quot;P&quot;">
           <annotations xmi:id="_7WynJy8dEeuh37M3ijRfjQ" key="presenceCondition" value=""/>
           <type href="../../rhea.metamodels/metamodels/BasicFMs/BasicFMs.ecore#//Feature/name"/>
         </attributes>
