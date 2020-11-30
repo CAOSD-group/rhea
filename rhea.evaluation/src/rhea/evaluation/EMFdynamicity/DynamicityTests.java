@@ -11,7 +11,7 @@ import org.eclipse.emf.ecore.EPackage;
 
 import rhea.metamodels.BasicFMs.BasicFMsPackage;
 import rhea.metamodels.BasicFMs.FeatureModel;
-import rhea.metamodels.utils.EMFIO;
+import rhea.metamodels.helpers.EMFIO;
 
 public class DynamicityTests {
 	public static final String BASEDIR = "D:/Workspaces/RHEA-ws/rhea/";

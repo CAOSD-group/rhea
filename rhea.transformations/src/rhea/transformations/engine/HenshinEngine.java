@@ -101,6 +101,7 @@ public class HenshinEngine {
 	 */
 	public void saveModel(EObject model, String modelPath) {
 		Resource res = rs.createResource(modelPath);
+		//res.getContents().addAll(model.eContents());
 		res.getContents().add(model);
 		//EcoreUtil.resolveAll(rs);
 		
@@ -112,7 +113,7 @@ public class HenshinEngine {
 	}
 	
 	public Module getModule(String modulePath) {
-		//System.out.println("Modulepath: " + modulePath);
+		System.out.println("Modulepath: " + modulePath);
 		return rs.getModule(modulePath, true);
 	}
 	
@@ -203,6 +204,7 @@ public class HenshinEngine {
 		//ApplicationMonitor monitor = new LoggingApplicationMonitor();
 		boolean status = application.execute(null);
 		
+		System.out.println("Roots: " + graph.getRoots());
 		return status;
 	}
 	

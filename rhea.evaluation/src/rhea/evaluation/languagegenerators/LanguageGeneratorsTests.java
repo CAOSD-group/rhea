@@ -8,7 +8,7 @@ import rhea.aafm.AAFMClafer;
 import rhea.aafm.AutomatedAnalysisFM;
 import rhea.generators.clafer.ToClafer;
 import rhea.metamodels.BasicFMs.FeatureModel;
-import rhea.metamodels.utils.FMHelper;
+import rhea.metamodels.helpers.FMHelper;
 import rhea.transformations.engine.FeatureModelGenerator;
 import rhea.transformations.engine.LanguageGeneratorType;
 

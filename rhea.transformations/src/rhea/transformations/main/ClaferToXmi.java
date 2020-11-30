@@ -4,14 +4,14 @@ import java.io.IOException;
 
 import rhea.Rhea;
 import rhea.metamodels.BasicFMs.FeatureModel;
-import rhea.metamodels.utils.EMFIO;
+import rhea.metamodels.helpers.EMFIO;
 import rhea.parsers.FMParser;
 import rhea.parsers.clafer.ClaferParser;
 
 public class ClaferToXmi {
 
 	public static void main(String[] args) {
-		String inputModel = "Model";
+		String inputModel = "gc_ab";
 		
 		String inputFile = "inputs/" + inputModel + ".txt";
 		String outputFile = "inputs/" + inputModel + ".xmi";

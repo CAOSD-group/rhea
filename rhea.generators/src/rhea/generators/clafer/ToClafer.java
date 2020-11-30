@@ -13,6 +13,7 @@ import rhea.metamodels.BasicFMs.FeatureModel;
 import rhea.metamodels.BasicFMs.SelectionGroup;
 import rhea.metamodels.CardinalityBasedFMs.GroupCardinality;
 import rhea.metamodels.CardinalityBasedFMs.MutexGroup;
+import rhea.metamodels.PropLogicCTCs.AdvancedConstraint;
 import rhea.thirdpartyplugins.utils.Utils;
 
 /**
@@ -79,6 +80,8 @@ public class ToClafer implements FMGenerator {
 				Feature left = ((Excludes) ctc).getLeftFeature();
 				Feature right = ((Excludes) ctc).getRightFeature();
 				claferFM.append("[").append(left.getName()).append(" xor ").append(right.getName()).append("]");
+			} else if (ctc instanceof AdvancedConstraint) {
+				
 			}
 			claferFM.append(System.lineSeparator());	// End of line
 		}
@@ -106,6 +109,14 @@ public class ToClafer implements FMGenerator {
 		}
 	}
 	*/
+	
+	private String advancedCTC2String(AdvancedConstraint ctc) {
+		
+		
+		//((AdvancedConstraint) ctc).getTerm()
+		
+		return "";
+	}
 	
 	/**
 	 * Given a feature model, it translates it to Clafer notation and serialize it.

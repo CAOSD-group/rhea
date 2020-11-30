@@ -17,7 +17,7 @@ import org.eclipse.emf.henshin.model.Unit;
 import rhea.Rhea;
 import rhea.metamodels.BasicFMs.BasicFMsFactory;
 import rhea.metamodels.BasicFMs.FeatureModel;
-import rhea.metamodels.utils.FMHelper;
+import rhea.metamodels.helpers.FMHelper;
 
 /**
  * Helper to generate feature models with Henshin.

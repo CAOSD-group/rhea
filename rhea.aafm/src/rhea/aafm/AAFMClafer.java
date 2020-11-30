@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
 import rhea.generators.clafer.ToClafer;
 import rhea.metamodels.BasicFMs.Feature;
 import rhea.metamodels.BasicFMs.FeatureModel;
-import rhea.metamodels.utils.FMHelper;
+import rhea.metamodels.helpers.FMHelper;
 import rhea.thirdpartyplugins.clafer.ClaferUtils;
 import rhea.thirdpartyplugins.utils.Utils;
 

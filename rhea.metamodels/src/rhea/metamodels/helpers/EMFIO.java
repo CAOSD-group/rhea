@@ -1,4 +1,4 @@
-package rhea.metamodels.utils;
+package rhea.metamodels.helpers;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -20,43 +20,6 @@ import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
  * @author Jose Miguel Horcas
  */
 public class EMFIO {
-
-	/**
-	 * Write/Serialize a model in a .xmi file.
-	 * 
-	 * @param model			Model instance to be serialized.
-	 * @param metamodels	List of metamodels used by the model instance.
-	 * @param filepath		Filepath of the target .xmi file.
-	 * @throws IOException
-	 */
-	public static void saveDynamicModel(EObject model, List<String> metamodels, String filepath) throws IOException {
-		// Create a resource set to hold the resources.
-		ResourceSet resourceSet = new ResourceSetImpl();
-		
-		// Register the appropriate resource factory to handle all file extensions.
-		resourceSet.getResourceFactoryRegistry().getExtensionToFactoryMap().put(Resource.Factory.Registry.DEFAULT_EXTENSION, new XMIResourceFactoryImpl());
-		
-		// Register the package to make it available during loading.
-		for (String metamodel : metamodels) {
-			EPackage mm = (EPackage) loadMetamodel(metamodel);
-			resourceSet.getPackageRegistry().put(mm.getNsURI(), mm);
-			//EcoreUtil.resolveAll(resourceSet);
-		}
-		
-		// Create a new empty resource.
-		Resource resource = resourceSet.createResource(URI.createFileURI(filepath));		
-		
-		// Set options for the resource
-		((XMIResource) resource).getDefaultSaveOptions().put(XMIResource.OPTION_KEEP_DEFAULT_CONTENT, Boolean.TRUE);
-		((XMIResource) resource).getDefaultSaveOptions().put(XMIResource.OPTION_ENCODING, "UTF-8");
-		HashMap<String, Object> opts = new HashMap<String, Object>();
-		opts.put(XMIResource.OPTION_SCHEMA_LOCATION, true);
-		
-		// Add the root object to a resource and save it.
-		resource.getContents().add(model);
-		//EcoreUtil.resolveAll(resource);
-		resource.save(opts);
-	}
 	
 	/**
 	 * Write/Serialize a model in a .xmi file.
@@ -85,6 +48,7 @@ public class EMFIO {
 		// Set options for the resource
 		((XMIResource) resource).getDefaultSaveOptions().put(XMIResource.OPTION_KEEP_DEFAULT_CONTENT, Boolean.TRUE);
 		((XMIResource) resource).getDefaultSaveOptions().put(XMIResource.OPTION_ENCODING, "UTF-8");
+		((XMIResource) resource).getDefaultSaveOptions().put(XMIResource.OPTION_SCHEMA_LOCATION, true);
 		HashMap<String, Object> opts = new HashMap<String, Object>();
 		opts.put(XMIResource.OPTION_SCHEMA_LOCATION, true);
 		

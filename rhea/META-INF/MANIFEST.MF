@@ -7,3 +7,4 @@ Automatic-Module-Name: rhea
 Bundle-RequiredExecutionEnvironment: JavaSE-11
 Export-Package: rhea
 Require-Bundle: rhea.metamodels;bundle-version="1.0.0"
+Import-Package: org.eclipse.emf.henshin.trace

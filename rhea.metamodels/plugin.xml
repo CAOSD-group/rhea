@@ -38,4 +38,12 @@
             genModel="metamodels/PropLogicCTCs/PropLogicCTCs.genmodel"/>
    </extension>
 
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated Utils -->
+      <package
+            uri="rhea.metamodels.Utils"
+            class="rhea.metamodels.Utils.UtilsPackage"
+            genModel="metamodels/Utils/Utils.genmodel"/>
+   </extension>
+
 </plugin>

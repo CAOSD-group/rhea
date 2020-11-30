@@ -1,4 +1,4 @@
-package rhea.metamodels.utils;
+package rhea.metamodels.helpers;
 
 import rhea.metamodels.BasicFMs.BasicFMsFactory;
 import rhea.metamodels.BasicFMs.Feature;

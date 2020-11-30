@@ -1,4 +1,4 @@
-package rhea.metamodels.utils;
+package rhea.metamodels.helpers;
 
 import java.util.HashSet;
 import java.util.Iterator;

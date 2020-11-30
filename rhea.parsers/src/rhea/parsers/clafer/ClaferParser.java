@@ -19,7 +19,7 @@ import clafer.claferParserBaseListener;
 import rhea.metamodels.BasicFMs.BasicFMsPackage;
 import rhea.metamodels.BasicFMs.FeatureModel;
 import rhea.metamodels.CardinalityBasedFMs.CardinalityBasedFMsPackage;
-import rhea.metamodels.utils.EMFIO;
+import rhea.metamodels.helpers.EMFIO;
 import rhea.parsers.FMParser;
 import rhea.thirdpartyplugins.utils.Utils;
 

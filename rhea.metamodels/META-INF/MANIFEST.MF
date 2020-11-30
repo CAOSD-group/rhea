@@ -20,7 +20,10 @@ Export-Package: rhea.metamodels.BasicCTCs,
  rhea.metamodels.PropLogicCTCs,
  rhea.metamodels.PropLogicCTCs.impl,
  rhea.metamodels.PropLogicCTCs.util,
- rhea.metamodels.utils
+ rhea.metamodels.helpers,
+ rhea.metamodels.Utils,
+ rhea.metamodels.Utils.impl,
+ rhea.metamodels.Utils.util
 Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.emf.ecore;visibility:=reexport,
  rhea.metamodels;visibility:=reexport,

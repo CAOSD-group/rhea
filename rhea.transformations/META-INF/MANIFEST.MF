@@ -11,5 +11,9 @@ Require-Bundle: rhea.metamodels;bundle-version="1.0.0",
  rhea.parsers,
  rhea;bundle-version="1.0.0"
 Export-Package: rhea.transformations.engine
-Import-Package: org.eclipse.emf.henshin.variability,
+Import-Package: org.eclipse.emf.ecore.xmi.impl,
+ org.eclipse.emf.henshin.trace,
+ org.eclipse.emf.henshin.trace.impl,
+ org.eclipse.emf.henshin.trace.util,
+ org.eclipse.emf.henshin.variability,
  rhea.parsers

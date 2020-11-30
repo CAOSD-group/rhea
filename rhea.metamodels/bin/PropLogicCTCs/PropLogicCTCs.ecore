@@ -14,29 +14,29 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="term" lowerBound="1" eType="#//Term"
         containment="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="And">
+  <eClassifiers xsi:type="ecore:EClass" name="And" eSuperTypes="#//Term">
     <eStructuralFeatures xsi:type="ecore:EReference" name="terms" lowerBound="2" upperBound="-1"
         eType="#//Term" containment="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="Or">
+  <eClassifiers xsi:type="ecore:EClass" name="Or" eSuperTypes="#//Term">
     <eStructuralFeatures xsi:type="ecore:EReference" name="terms" lowerBound="2" upperBound="-1"
         eType="#//Term" containment="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="Xor">
+  <eClassifiers xsi:type="ecore:EClass" name="Xor" eSuperTypes="#//Term">
     <eStructuralFeatures xsi:type="ecore:EReference" name="terms" lowerBound="2" upperBound="-1"
         eType="#//Term" containment="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="Equiv">
+  <eClassifiers xsi:type="ecore:EClass" name="Equiv" eSuperTypes="#//Term">
     <eStructuralFeatures xsi:type="ecore:EReference" name="terms" lowerBound="2" upperBound="-1"
         eType="#//Term" containment="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="Implies">
+  <eClassifiers xsi:type="ecore:EClass" name="Implies" eSuperTypes="#//Term">
     <eStructuralFeatures xsi:type="ecore:EReference" name="left" lowerBound="1" eType="#//Term"
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="right" lowerBound="1" eType="#//Term"
         containment="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="Excludes">
+  <eClassifiers xsi:type="ecore:EClass" name="Excludes" eSuperTypes="#//Term">
     <eStructuralFeatures xsi:type="ecore:EReference" name="left" lowerBound="1" eType="#//Term"
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="right" lowerBound="1" eType="#//Term"

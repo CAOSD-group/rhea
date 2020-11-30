@@ -19,8 +19,8 @@ import com.google.common.math.BigIntegerMath;
 
 import rhea.generators.clafer.ToClafer;
 import rhea.metamodels.BasicFMs.FeatureModel;
-import rhea.metamodels.utils.FMConfig;
-import rhea.metamodels.utils.FMProductLine;
+import rhea.metamodels.helpers.FMConfig;
+import rhea.metamodels.helpers.FMProductLine;
 import rhea.thirdpartyplugins.clafer.ClaferUtils;
 
 

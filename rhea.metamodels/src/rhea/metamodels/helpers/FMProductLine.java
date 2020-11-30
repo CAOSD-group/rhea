@@ -1,4 +1,4 @@
-package rhea.metamodels.utils;
+package rhea.metamodels.helpers;
 
 import java.util.Collection;
 import java.util.HashSet;

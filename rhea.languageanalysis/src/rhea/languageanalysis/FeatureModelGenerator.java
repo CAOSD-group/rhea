@@ -20,8 +20,8 @@ import org.eclipse.emf.henshin.model.Unit;
 import rhea.metamodels.BasicFMs.BasicFMsPackage;
 import rhea.metamodels.BasicFMs.FeatureGroup;
 import rhea.metamodels.BasicFMs.FeatureModel;
-import rhea.metamodels.utils.EMFIO;
-import rhea.metamodels.utils.FMHelper;
+import rhea.metamodels.helpers.EMFIO;
+import rhea.metamodels.helpers.FMHelper;
 import rhea.thirdpartyplugins.utils.Utils;
 import rhea.transformations.engine.HenshinEngine;
 
