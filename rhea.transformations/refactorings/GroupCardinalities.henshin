@@ -931,6 +931,9 @@
         <attributes xmi:id="_GuankC_XEeu5vf7oUZSVbw" value="id">
           <type href="../../rhea.metamodels/metamodels/BasicFMs/BasicFMs.ecore#//Feature/id"/>
         </attributes>
+        <attributes xmi:id="_xV7i4C_dEeu5vf7oUZSVbw" value="nChild">
+          <type href="../../rhea.metamodels/metamodels/BasicFMs/BasicFMs.ecore#//Feature/name"/>
+        </attributes>
       </nodes>
       <nodes xmi:id="_ZALHsC_XEeu5vf7oUZSVbw" incoming="_ZjDyUC_XEeu5vf7oUZSVbw">
         <type href="../../rhea.metamodels/metamodels/CardinalityBasedFMs/CardinalityBasedFMs.ecore#//Multiplicity"/>
@@ -950,6 +953,9 @@
         <type href="../../rhea.metamodels/metamodels/CardinalityBasedFMs/CardinalityBasedFMs.ecore#//GroupCardinality"/>
         <attributes xmi:id="_GuankS_XEeu5vf7oUZSVbw" value="id">
           <type href="../../rhea.metamodels/metamodels/BasicFMs/BasicFMs.ecore#//Feature/id"/>
+        </attributes>
+        <attributes xmi:id="_xV9YEC_dEeu5vf7oUZSVbw" value="Aggregations.COUNT(f)">
+          <type href="../../rhea.metamodels/metamodels/BasicFMs/BasicFMs.ecore#//Feature/name"/>
         </attributes>
       </nodes>
       <nodes xmi:id="_ZALHsS_XEeu5vf7oUZSVbw" incoming="_ZjDyUS_XEeu5vf7oUZSVbw">
@@ -987,7 +993,7 @@
             <type href="../../rhea.metamodels/metamodels/BasicFMs/BasicFMs.ecore#//Feature/id"/>
           </attributes>
         </nodes>
-        <nodes xmi:id="_VRfPcC_XEeu5vf7oUZSVbw" incoming="_WYRRUC_XEeu5vf7oUZSVbw" outgoing="_WxEL0C_XEeu5vf7oUZSVbw">
+        <nodes xmi:id="_VRfPcC_XEeu5vf7oUZSVbw" name="f" incoming="_WYRRUC_XEeu5vf7oUZSVbw" outgoing="_WxEL0C_XEeu5vf7oUZSVbw">
           <type href="../../rhea.metamodels/metamodels/BasicFMs/BasicFMs.ecore#//Feature"/>
         </nodes>
         <nodes xmi:id="_bplZ9S_XEeu5vf7oUZSVbw" incoming="_bplZ-S_XEeu5vf7oUZSVbw">
@@ -1016,7 +1022,7 @@
             <type href="../../rhea.metamodels/metamodels/BasicFMs/BasicFMs.ecore#//Feature/id"/>
           </attributes>
         </nodes>
-        <nodes xmi:id="_VRf2gC_XEeu5vf7oUZSVbw" incoming="_WYR4YC_XEeu5vf7oUZSVbw" outgoing="_WxEL0S_XEeu5vf7oUZSVbw">
+        <nodes xmi:id="_VRf2gC_XEeu5vf7oUZSVbw" name="f" incoming="_WYR4YC_XEeu5vf7oUZSVbw" outgoing="_WxEL0S_XEeu5vf7oUZSVbw">
           <type href="../../rhea.metamodels/metamodels/BasicFMs/BasicFMs.ecore#//Feature"/>
         </nodes>
         <nodes xmi:id="_bplZ8C_XEeu5vf7oUZSVbw" incoming="_bplZ9C_XEeu5vf7oUZSVbw">
@@ -1047,4 +1053,5 @@
       <multiMappings xmi:id="_bplZ-C_XEeu5vf7oUZSVbw" origin="_ZALHsC_XEeu5vf7oUZSVbw" image="_bplZ9S_XEeu5vf7oUZSVbw"/>
     </multiRules>
   </units>
+  <units xsi:type="henshin:SequentialUnit" xmi:id="_HsSoQC_bEeu5vf7oUZSVbw" name="NM" subUnits="_3faGwC_WEeu5vf7oUZSVbw"/>
 </henshin:Module>
