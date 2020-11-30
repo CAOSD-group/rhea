@@ -1,5 +1,7 @@
 package rhea.generators.clafer;
 
+import java.util.stream.Collectors;
+
 import org.eclipse.emf.common.util.EList;
 
 import rhea.generators.FMGenerator;
@@ -14,6 +16,14 @@ import rhea.metamodels.BasicFMs.SelectionGroup;
 import rhea.metamodels.CardinalityBasedFMs.GroupCardinality;
 import rhea.metamodels.CardinalityBasedFMs.MutexGroup;
 import rhea.metamodels.PropLogicCTCs.AdvancedConstraint;
+import rhea.metamodels.PropLogicCTCs.And;
+import rhea.metamodels.PropLogicCTCs.Equiv;
+import rhea.metamodels.PropLogicCTCs.FeatureTerm;
+import rhea.metamodels.PropLogicCTCs.Implies;
+import rhea.metamodels.PropLogicCTCs.Not;
+import rhea.metamodels.PropLogicCTCs.Or;
+import rhea.metamodels.PropLogicCTCs.Term;
+import rhea.metamodels.PropLogicCTCs.Xor;
 import rhea.thirdpartyplugins.utils.Utils;
 
 /**
@@ -81,10 +91,51 @@ public class ToClafer implements FMGenerator {
 				Feature right = ((Excludes) ctc).getRightFeature();
 				claferFM.append("[").append(left.getName()).append(" xor ").append(right.getName()).append("]");
 			} else if (ctc instanceof AdvancedConstraint) {
-				
+				String advancedCTC = addAdvanceConstraint(((AdvancedConstraint) ctc).getExpr());
+				claferFM.append("[").append(advancedCTC).append("]");
 			}
 			claferFM.append(System.lineSeparator());	// End of line
 		}
+	}
+	
+	private String addAdvanceConstraint(Term t) {
+		StringBuffer constraint = new StringBuffer(); 
+		if (t instanceof FeatureTerm) {
+			constraint.append(((FeatureTerm) t).getFeature().getName());
+		} else if (t instanceof Not) {
+			Not not = (Not) t;
+			String n = not.getTerm() instanceof FeatureTerm ? ((FeatureTerm) not).getFeature().getName() : "(" + addAdvanceConstraint(not) + ")";
+			constraint.append("not").append(n);
+		} else if (t instanceof Implies) {
+			Term left = ((Implies) t).getLeft();
+			Term right = ((Implies) t).getRight();
+			String l = left instanceof FeatureTerm ? ((FeatureTerm) left).getFeature().getName() : "(" + addAdvanceConstraint(left) + ")";
+			String r = right instanceof FeatureTerm ? ((FeatureTerm) right).getFeature().getName() : "(" + addAdvanceConstraint(right) + ")";
+			constraint.append(l).append(" => ").append(r);
+		} else if (t instanceof Excludes) {
+			Term left = ((Implies) t).getLeft();
+			Term right = ((Implies) t).getRight();
+			String l = left instanceof FeatureTerm ? ((FeatureTerm) left).getFeature().getName() : "(" + addAdvanceConstraint(left) + ")";
+			String r = right instanceof FeatureTerm ? "!" + ((FeatureTerm) right).getFeature().getName() : "!(" + addAdvanceConstraint(right) + ")";
+			constraint.append(l).append(" => ").append(r);
+		} else if (t instanceof Xor) {
+			Xor xor = (Xor) t;
+			String x = xor.getTerms().stream().map(tx -> addAdvanceConstraint(tx)).collect(Collectors.joining(","));
+			constraint.append("xor(").append(x).append(")");
+		} else if (t instanceof And) {
+			And and = (And) t;
+			String a = and.getTerms().stream().map(ta -> addAdvanceConstraint(ta)).collect(Collectors.joining(" && "));
+			constraint.append(a);
+		} else if (t instanceof Or) {
+			Or or = (Or) t;
+			String o = or.getTerms().stream().map(to -> addAdvanceConstraint(to)).collect(Collectors.joining(" || "));
+			constraint.append(o);
+		} else if (t instanceof Equiv) {
+			Equiv equiv = (Equiv) t;
+			String e = equiv.getTerms().stream().map(te -> addAdvanceConstraint(te)).collect(Collectors.joining(" <=> "));
+			constraint.append(e);
+		}
+		return constraint.toString();
 	}
 	
 	private void addTabs(StringBuffer claferFM, int tab) {
@@ -92,6 +143,8 @@ public class ToClafer implements FMGenerator {
 			claferFM.append(TAB);
 		}
 	}
+	
+	
 	
 	/*
 	public void serialize(String content, String outputFilepath) {
