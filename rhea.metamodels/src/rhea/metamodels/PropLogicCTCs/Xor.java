@@ -4,8 +4,6 @@ package rhea.metamodels.PropLogicCTCs;
 
 import org.eclipse.emf.common.util.EList;
 
-import org.eclipse.emf.ecore.EObject;
-
 /**
  * <!-- begin-user-doc -->
  * A representation of the model object '<em><b>Xor</b></em>'.
@@ -22,7 +20,7 @@ import org.eclipse.emf.ecore.EObject;
  * @model
  * @generated
  */
-public interface Xor extends EObject {
+public interface Xor extends Term {
 	/**
 	 * Returns the value of the '<em><b>Terms</b></em>' containment reference list.
 	 * The list contents are of type {@link rhea.metamodels.PropLogicCTCs.Term}.

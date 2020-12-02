@@ -447,12 +447,18 @@ public class PropLogicCTCsPackageImpl extends EPackageImpl implements PropLogicC
 		advancedConstraintEClass.getESuperTypes().add(theBasicFMsPackage.getCrossTreeConstraint());
 		featureTermEClass.getESuperTypes().add(this.getTerm());
 		notEClass.getESuperTypes().add(this.getTerm());
+		andEClass.getESuperTypes().add(this.getTerm());
+		orEClass.getESuperTypes().add(this.getTerm());
+		xorEClass.getESuperTypes().add(this.getTerm());
+		equivEClass.getESuperTypes().add(this.getTerm());
+		impliesEClass.getESuperTypes().add(this.getTerm());
+		excludesEClass.getESuperTypes().add(this.getTerm());
 
 		// Initialize classes, features, and operations; add parameters
 		initEClass(advancedConstraintEClass, AdvancedConstraint.class, "AdvancedConstraint", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getAdvancedConstraint_Expr(), this.getTerm(), null, "expr", null, 1, 1, AdvancedConstraint.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-		initEClass(termEClass, Term.class, "Term", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEClass(termEClass, Term.class, "Term", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
 		initEClass(featureTermEClass, FeatureTerm.class, "FeatureTerm", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getFeatureTerm_Feature(), theBasicFMsPackage.getFeature(), null, "feature", null, 1, 1, FeatureTerm.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

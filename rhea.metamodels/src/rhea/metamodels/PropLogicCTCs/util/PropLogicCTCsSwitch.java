@@ -98,36 +98,42 @@ public class PropLogicCTCsSwitch<T> extends Switch<T> {
 			case PropLogicCTCsPackage.AND: {
 				And and = (And)theEObject;
 				T result = caseAnd(and);
+				if (result == null) result = caseTerm(and);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case PropLogicCTCsPackage.OR: {
 				Or or = (Or)theEObject;
 				T result = caseOr(or);
+				if (result == null) result = caseTerm(or);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case PropLogicCTCsPackage.XOR: {
 				Xor xor = (Xor)theEObject;
 				T result = caseXor(xor);
+				if (result == null) result = caseTerm(xor);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case PropLogicCTCsPackage.EQUIV: {
 				Equiv equiv = (Equiv)theEObject;
 				T result = caseEquiv(equiv);
+				if (result == null) result = caseTerm(equiv);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case PropLogicCTCsPackage.IMPLIES: {
 				Implies implies = (Implies)theEObject;
 				T result = caseImplies(implies);
+				if (result == null) result = caseTerm(implies);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case PropLogicCTCsPackage.EXCLUDES: {
 				Excludes excludes = (Excludes)theEObject;
 				T result = caseExcludes(excludes);
+				if (result == null) result = caseTerm(excludes);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}

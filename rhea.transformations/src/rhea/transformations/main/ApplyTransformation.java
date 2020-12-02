@@ -21,7 +21,7 @@ public class ApplyTransformation {
 	
 	public static void main(String[] args) {
 		// Arguments
-		String modelName = "gc_ab";
+		String modelName = "GroupCardinalityNMTest";
 		
 		String inputModel = INPUTS_MODELS + modelName + ".txt";
 		String inputModelAS = INPUTS_MODELS + modelName + ".xmi";
@@ -29,8 +29,8 @@ public class ApplyTransformation {
 		String outputModelTransformed2 = INPUTS_MODELS + modelName + "-transformed2.xmi";
 		
 		//String transformationFilepath = Rhea.LANGUAGEGENERATOR_DIR + "nondeterministic/" + "GroupCardinalities.henshin";
-		String transformationFilepath = Rhea.REFACTORINGS_DIR + "pruebas.henshin";
-		String ruleName = "CountChildren";
+		String transformationFilepath = Rhea.REFACTORINGS_DIR + "GroupCardinalitiesNM.henshin";
+		String ruleName = "GroupCardinalityNM";
 		
 		
 		// Parse the input model

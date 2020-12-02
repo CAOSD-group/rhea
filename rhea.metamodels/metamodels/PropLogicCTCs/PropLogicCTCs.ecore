@@ -5,7 +5,7 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="expr" lowerBound="1" eType="#//Term"
         containment="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="Term"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Term" abstract="true"/>
   <eClassifiers xsi:type="ecore:EClass" name="FeatureTerm" eSuperTypes="#//Term">
     <eStructuralFeatures xsi:type="ecore:EReference" name="feature" lowerBound="1"
         eType="ecore:EClass ../BasicFMs/BasicFMs.ecore#//Feature"/>

@@ -6,10 +6,12 @@ import org.eclipse.emf.ecore.EPackage;
 
 import rhea.metamodels.BasicFMs.BasicFMsPackage;
 import rhea.metamodels.CardinalityBasedFMs.CardinalityBasedFMsPackage;
+import rhea.metamodels.PropLogicCTCs.PropLogicCTCsPackage;
 
 public class Rhea {
 	//public static final String BASEDIR = "D:/Workspaces/RHEA-ws/rhea/";
-	public static final String BASEDIR = "B:/Trabajo/Investigación/Proyectos/RHEA/rhea/";
+	//public static final String BASEDIR = "B:/Trabajo/Investigación/Proyectos/RHEA/rhea/";
+	public static final String BASEDIR = "D:/Users/caosd/Desktop/Proyectos/RHEA/rhea/";
 	
 	public static final String METAMODELS_DIR = BASEDIR + "rhea.metamodels/metamodels/";
 	public static final String REFACTORINGS_DIR = BASEDIR + "rhea.transformations/refactorings/";
@@ -27,6 +29,7 @@ public class Rhea {
 																  METAMODELS_DIR + "CardinalityBasedFMs/CardinalityBasedFMs.ecore");
 	
 	public static final List<EPackage> STATIC_METAMODELS = List.of(BasicFMsPackage.eINSTANCE, 
-																   CardinalityBasedFMsPackage.eINSTANCE);
+																   CardinalityBasedFMsPackage.eINSTANCE, 
+																   PropLogicCTCsPackage.eINSTANCE);
 
 }

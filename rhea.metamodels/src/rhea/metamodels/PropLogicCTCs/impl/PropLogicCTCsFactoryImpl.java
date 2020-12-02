@@ -57,7 +57,6 @@ public class PropLogicCTCsFactoryImpl extends EFactoryImpl implements PropLogicC
 	public EObject create(EClass eClass) {
 		switch (eClass.getClassifierID()) {
 			case PropLogicCTCsPackage.ADVANCED_CONSTRAINT: return createAdvancedConstraint();
-			case PropLogicCTCsPackage.TERM: return createTerm();
 			case PropLogicCTCsPackage.FEATURE_TERM: return createFeatureTerm();
 			case PropLogicCTCsPackage.NOT: return createNot();
 			case PropLogicCTCsPackage.AND: return createAnd();
@@ -79,16 +78,6 @@ public class PropLogicCTCsFactoryImpl extends EFactoryImpl implements PropLogicC
 	public AdvancedConstraint createAdvancedConstraint() {
 		AdvancedConstraintImpl advancedConstraint = new AdvancedConstraintImpl();
 		return advancedConstraint;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public Term createTerm() {
-		TermImpl term = new TermImpl();
-		return term;
 	}
 
 	/**

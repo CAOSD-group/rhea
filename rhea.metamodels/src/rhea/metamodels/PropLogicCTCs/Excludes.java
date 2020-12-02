@@ -2,8 +2,6 @@
  */
 package rhea.metamodels.PropLogicCTCs;
 
-import org.eclipse.emf.ecore.EObject;
-
 /**
  * <!-- begin-user-doc -->
  * A representation of the model object '<em><b>Excludes</b></em>'.
@@ -21,7 +19,7 @@ import org.eclipse.emf.ecore.EObject;
  * @model
  * @generated
  */
-public interface Excludes extends EObject {
+public interface Excludes extends Term {
 	/**
 	 * Returns the value of the '<em><b>Left</b></em>' containment reference.
 	 * <!-- begin-user-doc -->

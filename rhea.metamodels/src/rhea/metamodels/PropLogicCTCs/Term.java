@@ -11,7 +11,7 @@ import org.eclipse.emf.ecore.EObject;
  *
  *
  * @see rhea.metamodels.PropLogicCTCs.PropLogicCTCsPackage#getTerm()
- * @model
+ * @model abstract="true"
  * @generated
  */
 public interface Term extends EObject {
