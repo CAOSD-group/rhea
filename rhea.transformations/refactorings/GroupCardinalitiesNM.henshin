@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <henshin:Module xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:henshin="http://www.eclipse.org/emf/2011/Henshin" xmi:id="_hQ2OEDLwEeu7ucmNbQjYpg">
-  <imports href="../../rhea.metamodels/metamodels/CardinalityBasedFMs/CardinalityBasedFMs.ecore#/"/>
-  <imports href="../../rhea.metamodels/metamodels/PropLogicCTCs/PropLogicCTCs.ecore#/"/>
   <imports href="http://www.eclipse.org/emf/2011/Henshin/Trace#/"/>
   <imports href="../../rhea.metamodels/metamodels/Utils/Utils.ecore#/"/>
+  <imports href="../../rhea.metamodels/metamodels/CardinalityBasedFMs/CardinalityBasedFMs.ecore#/"/>
+  <imports href="../../rhea.metamodels/metamodels/PropLogicCTCs/PropLogicCTCs.ecore#/"/>
   <imports href="../../rhea.metamodels/metamodels/BasicFMs/BasicFMs.ecore#/"/>
   <units xsi:type="henshin:Rule" xmi:id="_klPXADLwEeu7ucmNbQjYpg" name="CreatePositiveLiteral">
     <parameters xmi:id="_3Q6zADLwEeu7ucmNbQjYpg" name="id" kind="IN"/>
@@ -244,9 +244,15 @@
     <parameters xmi:id="_tVDYEDL2Eeu7ucmNbQjYpg" name="k" kind="IN"/>
     <parameters xmi:id="_tVFNQDL2Eeu7ucmNbQjYpg" name="c" kind="IN"/>
     <lhs xmi:id="_DN1esDL2Eeu7ucmNbQjYpg" name="Lhs">
-      <nodes xmi:id="_WR7BYDL7Eeu7ucmNbQjYpg">
+      <nodes xmi:id="_WR7BYDL7Eeu7ucmNbQjYpg" incoming="_rWj84DR8EeuECdQwtY8HnA">
         <type href="../../rhea.metamodels/metamodels/PropLogicCTCs/PropLogicCTCs.ecore#//Or"/>
       </nodes>
+      <nodes xmi:id="_qxtjYDR8EeuECdQwtY8HnA" outgoing="_rWj84DR8EeuECdQwtY8HnA">
+        <type href="http://www.eclipse.org/emf/2011/Henshin/Trace#//Trace"/>
+      </nodes>
+      <edges xmi:id="_rWj84DR8EeuECdQwtY8HnA" source="_qxtjYDR8EeuECdQwtY8HnA" target="_WR7BYDL7Eeu7ucmNbQjYpg">
+        <type href="http://www.eclipse.org/emf/2011/Henshin/Trace#//Trace/source"/>
+      </edges>
     </lhs>
     <rhs xmi:id="_DN1esTL2Eeu7ucmNbQjYpg" name="Rhs">
       <nodes xmi:id="_uFRUEDL2Eeu7ucmNbQjYpg" incoming="_yxi18DL2Eeu7ucmNbQjYpg" outgoing="_W_YkUDL7Eeu7ucmNbQjYpg">
@@ -282,8 +288,11 @@
           <type href="../../rhea.metamodels/metamodels/Utils/Utils.ecore#//IntResult/result"/>
         </attributes>
       </nodes>
-      <nodes xmi:id="_WR7BYTL7Eeu7ucmNbQjYpg" incoming="_W_YkUDL7Eeu7ucmNbQjYpg">
+      <nodes xmi:id="_WR7BYTL7Eeu7ucmNbQjYpg" incoming="_W_YkUDL7Eeu7ucmNbQjYpg _rWj84TR8EeuECdQwtY8HnA">
         <type href="../../rhea.metamodels/metamodels/PropLogicCTCs/PropLogicCTCs.ecore#//Or"/>
+      </nodes>
+      <nodes xmi:id="_qxtjYTR8EeuECdQwtY8HnA" outgoing="_rWj84TR8EeuECdQwtY8HnA">
+        <type href="http://www.eclipse.org/emf/2011/Henshin/Trace#//Trace"/>
       </nodes>
       <edges xmi:id="_yxi18DL2Eeu7ucmNbQjYpg" source="_wO8WUDL2Eeu7ucmNbQjYpg" target="_uFRUEDL2Eeu7ucmNbQjYpg">
         <type href="http://www.eclipse.org/emf/2011/Henshin/Trace#//Trace/source"/>
@@ -297,8 +306,12 @@
       <edges xmi:id="_W_YkUDL7Eeu7ucmNbQjYpg" source="_uFRUEDL2Eeu7ucmNbQjYpg" target="_WR7BYTL7Eeu7ucmNbQjYpg">
         <type href="../../rhea.metamodels/metamodels/PropLogicCTCs/PropLogicCTCs.ecore#//And/terms"/>
       </edges>
+      <edges xmi:id="_rWj84TR8EeuECdQwtY8HnA" source="_qxtjYTR8EeuECdQwtY8HnA" target="_WR7BYTL7Eeu7ucmNbQjYpg">
+        <type href="http://www.eclipse.org/emf/2011/Henshin/Trace#//Trace/source"/>
+      </edges>
     </rhs>
     <mappings xmi:id="_WR7ocDL7Eeu7ucmNbQjYpg" origin="_WR7BYDL7Eeu7ucmNbQjYpg" image="_WR7BYTL7Eeu7ucmNbQjYpg"/>
+    <mappings xmi:id="_qxtjYjR8EeuECdQwtY8HnA" origin="_qxtjYDR8EeuECdQwtY8HnA" image="_qxtjYTR8EeuECdQwtY8HnA"/>
   </units>
   <units xsi:type="henshin:Rule" xmi:id="_OH67wDL4Eeu7ucmNbQjYpg" name="CreateNegativeLiteral">
     <parameters xmi:id="_OH67wTL4Eeu7ucmNbQjYpg" name="id" kind="IN"/>
@@ -499,10 +512,10 @@
     <mappings xmi:id="_OH68GzL4Eeu7ucmNbQjYpg" origin="_OH67zjL4Eeu7ucmNbQjYpg" image="_OH68BjL4Eeu7ucmNbQjYpg"/>
   </units>
   <units xsi:type="henshin:Rule" xmi:id="_lKeRYDL4Eeu7ucmNbQjYpg" name="CreateConstraints">
-    <parameters xmi:id="_DxJtgDL-Eeu7ucmNbQjYpg" name="id" kind="IN"/>
+    <parameters xmi:id="_DxJtgDL-Eeu7ucmNbQjYpg" name="id" kind="OUT"/>
     <lhs xmi:id="_lKhUsDL4Eeu7ucmNbQjYpg" name="Lhs">
       <nodes xmi:id="_2JnoMDL6Eeu7ucmNbQjYpg">
-        <type href="../../rhea.metamodels/metamodels/BasicFMs/BasicFMs.ecore#//Feature"/>
+        <type href="../../rhea.metamodels/metamodels/CardinalityBasedFMs/CardinalityBasedFMs.ecore#//GroupCardinality"/>
         <attributes xmi:id="_GTH7ADL-Eeu7ucmNbQjYpg" value="id">
           <type href="../../rhea.metamodels/metamodels/BasicFMs/BasicFMs.ecore#//Feature/id"/>
         </attributes>
@@ -521,8 +534,11 @@
           <type href="../../rhea.metamodels/metamodels/BasicFMs/BasicFMs.ecore#//Feature/id"/>
         </attributes>
       </nodes>
-      <nodes xmi:id="_K4sfUDL7Eeu7ucmNbQjYpg" incoming="_MNSTsDL7Eeu7ucmNbQjYpg">
+      <nodes xmi:id="_K4sfUDL7Eeu7ucmNbQjYpg" incoming="_MNSTsDL7Eeu7ucmNbQjYpg _l1vYoDR8EeuECdQwtY8HnA">
         <type href="../../rhea.metamodels/metamodels/PropLogicCTCs/PropLogicCTCs.ecore#//Or"/>
+      </nodes>
+      <nodes xmi:id="_lN4ucDR8EeuECdQwtY8HnA" outgoing="_l1vYoDR8EeuECdQwtY8HnA">
+        <type href="http://www.eclipse.org/emf/2011/Henshin/Trace#//Trace"/>
       </nodes>
       <edges xmi:id="_yN09gDL5Eeu7ucmNbQjYpg" source="_n7o8ADL5Eeu7ucmNbQjYpg" target="_pJlV0DL5Eeu7ucmNbQjYpg">
         <type href="../../rhea.metamodels/metamodels/PropLogicCTCs/PropLogicCTCs.ecore#//Implies/left"/>
@@ -533,6 +549,9 @@
       <edges xmi:id="_MNSTsDL7Eeu7ucmNbQjYpg" source="_n7o8ADL5Eeu7ucmNbQjYpg" target="_K4sfUDL7Eeu7ucmNbQjYpg">
         <type href="../../rhea.metamodels/metamodels/PropLogicCTCs/PropLogicCTCs.ecore#//Implies/right"/>
       </edges>
+      <edges xmi:id="_l1vYoDR8EeuECdQwtY8HnA" source="_lN4ucDR8EeuECdQwtY8HnA" target="_K4sfUDL7Eeu7ucmNbQjYpg">
+        <type href="http://www.eclipse.org/emf/2011/Henshin/Trace#//Trace/source"/>
+      </edges>
     </rhs>
     <mappings xmi:id="_2q6-cTL6Eeu7ucmNbQjYpg" origin="_2JnoMDL6Eeu7ucmNbQjYpg" image="_2q6-cDL6Eeu7ucmNbQjYpg"/>
   </units>
@@ -540,44 +559,35 @@
     <parameters xmi:id="_1LVlkDL7Eeu7ucmNbQjYpg" name="id" kind="IN"/>
     <parameters xmi:id="_1LVlkTL7Eeu7ucmNbQjYpg" name="k" kind="IN"/>
     <parameters xmi:id="_1LVlkjL7Eeu7ucmNbQjYpg" name="c" kind="IN"/>
-    <parameters xmi:id="_1LVlkzL7Eeu7ucmNbQjYpg" name="i" kind="VAR"/>
-    <parameterMappings xmi:id="_3O3jkDL7Eeu7ucmNbQjYpg" source="_1LVlkDL7Eeu7ucmNbQjYpg" target="_3Q6zADLwEeu7ucmNbQjYpg"/>
-    <parameterMappings xmi:id="_3O4KoDL7Eeu7ucmNbQjYpg" source="_3Q6zADLwEeu7ucmNbQjYpg" target="_1LVlkDL7Eeu7ucmNbQjYpg"/>
-    <parameterMappings xmi:id="_3O4KoTL7Eeu7ucmNbQjYpg" source="_1LVlkTL7Eeu7ucmNbQjYpg" target="_pqxtcDLwEeu7ucmNbQjYpg"/>
-    <parameterMappings xmi:id="_3O4KojL7Eeu7ucmNbQjYpg" source="_pqxtcDLwEeu7ucmNbQjYpg" target="_1LVlkTL7Eeu7ucmNbQjYpg"/>
-    <parameterMappings xmi:id="_3O4KozL7Eeu7ucmNbQjYpg" source="_1LVlkjL7Eeu7ucmNbQjYpg" target="_pqxtcTLwEeu7ucmNbQjYpg"/>
-    <parameterMappings xmi:id="_3O4KpDL7Eeu7ucmNbQjYpg" source="_pqxtcTLwEeu7ucmNbQjYpg" target="_1LVlkjL7Eeu7ucmNbQjYpg"/>
-    <parameterMappings xmi:id="_3O4KpTL7Eeu7ucmNbQjYpg" source="_1LVlkzL7Eeu7ucmNbQjYpg" target="_pqxtcjLwEeu7ucmNbQjYpg"/>
-    <parameterMappings xmi:id="_3O4KpjL7Eeu7ucmNbQjYpg" source="_pqxtcjLwEeu7ucmNbQjYpg" target="_1LVlkzL7Eeu7ucmNbQjYpg"/>
+    <parameterMappings xmi:id="_1G1BQDR1EeuECdQwtY8HnA" source="_1LVlkDL7Eeu7ucmNbQjYpg" target="_3Q6zADLwEeu7ucmNbQjYpg"/>
+    <parameterMappings xmi:id="_1G1BQTR1EeuECdQwtY8HnA" source="_3Q6zADLwEeu7ucmNbQjYpg" target="_1LVlkDL7Eeu7ucmNbQjYpg"/>
+    <parameterMappings xmi:id="_1G1oUDR1EeuECdQwtY8HnA" source="_1LVlkjL7Eeu7ucmNbQjYpg" target="_pqxtcTLwEeu7ucmNbQjYpg"/>
+    <parameterMappings xmi:id="_1G1oUTR1EeuECdQwtY8HnA" source="_pqxtcTLwEeu7ucmNbQjYpg" target="_1LVlkjL7Eeu7ucmNbQjYpg"/>
+    <parameterMappings xmi:id="_1G1oUjR1EeuECdQwtY8HnA" source="_1LVlkTL7Eeu7ucmNbQjYpg" target="_pqxtcDLwEeu7ucmNbQjYpg"/>
+    <parameterMappings xmi:id="_1G1oUzR1EeuECdQwtY8HnA" source="_pqxtcDLwEeu7ucmNbQjYpg" target="_1LVlkTL7Eeu7ucmNbQjYpg"/>
   </units>
   <units xsi:type="henshin:SequentialUnit" xmi:id="_vMfokDL7Eeu7ucmNbQjYpg" name="CreateORLiteral" subUnits="_hIoqYDP6EeufOYgah0VhQg _DNxNQDL2Eeu7ucmNbQjYpg _gClDIDL7Eeu7ucmNbQjYpg _5KgJ0DL7Eeu7ucmNbQjYpg _DP2MsDL9Eeu7ucmNbQjYpg _TkfswDP2EeurRqeA8FkUXQ">
     <parameters xmi:id="_3kJlIDL9Eeu7ucmNbQjYpg" name="id" kind="IN"/>
-    <parameters xmi:id="_pML2gDL8Eeu7ucmNbQjYpg" name="k" kind="VAR"/>
+    <parameters xmi:id="_pML2gDL8Eeu7ucmNbQjYpg" name="k" kind="IN"/>
     <parameters xmi:id="_pML2gTL8Eeu7ucmNbQjYpg" name="c" kind="VAR"/>
-    <parameters xmi:id="_Y3w64DL-Eeu7ucmNbQjYpg" name="i" kind="VAR"/>
-    <parameters xmi:id="_KFKnYDP9EeufOYgah0VhQg" name="result" kind="VAR"/>
     <parameterMappings xmi:id="_V3yg4DP9EeufOYgah0VhQg" source="_pML2gTL8Eeu7ucmNbQjYpg" target="_iUrmwDP6EeufOYgah0VhQg"/>
     <parameterMappings xmi:id="_V3yg4TP9EeufOYgah0VhQg" source="_iUrmwDP6EeufOYgah0VhQg" target="_pML2gTL8Eeu7ucmNbQjYpg"/>
     <parameterMappings xmi:id="_XNKYYDP9EeufOYgah0VhQg" source="_pML2gDL8Eeu7ucmNbQjYpg" target="_tVDYEDL2Eeu7ucmNbQjYpg"/>
     <parameterMappings xmi:id="_XNKYYTP9EeufOYgah0VhQg" source="_tVDYEDL2Eeu7ucmNbQjYpg" target="_pML2gDL8Eeu7ucmNbQjYpg"/>
     <parameterMappings xmi:id="_XNKYYjP9EeufOYgah0VhQg" source="_pML2gTL8Eeu7ucmNbQjYpg" target="_tVFNQDL2Eeu7ucmNbQjYpg"/>
     <parameterMappings xmi:id="_XNKYYzP9EeufOYgah0VhQg" source="_tVFNQDL2Eeu7ucmNbQjYpg" target="_pML2gTL8Eeu7ucmNbQjYpg"/>
-    <parameterMappings xmi:id="_aCr0ADP9EeufOYgah0VhQg" source="_3kJlIDL9Eeu7ucmNbQjYpg" target="_1LVlkDL7Eeu7ucmNbQjYpg"/>
-    <parameterMappings xmi:id="_aCr0ATP9EeufOYgah0VhQg" source="_1LVlkDL7Eeu7ucmNbQjYpg" target="_3kJlIDL9Eeu7ucmNbQjYpg"/>
-    <parameterMappings xmi:id="_aCr0AjP9EeufOYgah0VhQg" source="_pML2gDL8Eeu7ucmNbQjYpg" target="_1LVlkTL7Eeu7ucmNbQjYpg"/>
-    <parameterMappings xmi:id="_aCr0AzP9EeufOYgah0VhQg" source="_1LVlkTL7Eeu7ucmNbQjYpg" target="_pML2gDL8Eeu7ucmNbQjYpg"/>
-    <parameterMappings xmi:id="_aCr0BDP9EeufOYgah0VhQg" source="_pML2gTL8Eeu7ucmNbQjYpg" target="_1LVlkjL7Eeu7ucmNbQjYpg"/>
-    <parameterMappings xmi:id="_aCr0BTP9EeufOYgah0VhQg" source="_1LVlkjL7Eeu7ucmNbQjYpg" target="_pML2gTL8Eeu7ucmNbQjYpg"/>
-    <parameterMappings xmi:id="_aCr0BjP9EeufOYgah0VhQg" source="_Y3w64DL-Eeu7ucmNbQjYpg" target="_1LVlkzL7Eeu7ucmNbQjYpg"/>
-    <parameterMappings xmi:id="_aCr0BzP9EeufOYgah0VhQg" source="_1LVlkzL7Eeu7ucmNbQjYpg" target="_Y3w64DL-Eeu7ucmNbQjYpg"/>
     <parameterMappings xmi:id="_fjqwUDP9EeufOYgah0VhQg" source="_3kJlIDL9Eeu7ucmNbQjYpg" target="_8FO1kDL7Eeu7ucmNbQjYpg"/>
     <parameterMappings xmi:id="_fjqwUTP9EeufOYgah0VhQg" source="_8FO1kDL7Eeu7ucmNbQjYpg" target="_3kJlIDL9Eeu7ucmNbQjYpg"/>
     <parameterMappings xmi:id="_fjrXYDP9EeufOYgah0VhQg" source="_pML2gDL8Eeu7ucmNbQjYpg" target="_8FO1kTL7Eeu7ucmNbQjYpg"/>
     <parameterMappings xmi:id="_fjrXYTP9EeufOYgah0VhQg" source="_8FO1kTL7Eeu7ucmNbQjYpg" target="_pML2gDL8Eeu7ucmNbQjYpg"/>
     <parameterMappings xmi:id="_fjrXYjP9EeufOYgah0VhQg" source="_pML2gTL8Eeu7ucmNbQjYpg" target="_8FO1kjL7Eeu7ucmNbQjYpg"/>
     <parameterMappings xmi:id="_fjrXYzP9EeufOYgah0VhQg" source="_8FO1kjL7Eeu7ucmNbQjYpg" target="_pML2gTL8Eeu7ucmNbQjYpg"/>
-    <parameterMappings xmi:id="_mLzh8DP9EeufOYgah0VhQg" source="_KFKnYDP9EeufOYgah0VhQg" target="_nLe6cDP2EeurRqeA8FkUXQ"/>
-    <parameterMappings xmi:id="_mLzh8TP9EeufOYgah0VhQg" source="_nLe6cDP2EeurRqeA8FkUXQ" target="_KFKnYDP9EeufOYgah0VhQg"/>
+    <parameterMappings xmi:id="_xjVsYDR1EeuECdQwtY8HnA" source="_3kJlIDL9Eeu7ucmNbQjYpg" target="_1LVlkDL7Eeu7ucmNbQjYpg"/>
+    <parameterMappings xmi:id="_xjVsYTR1EeuECdQwtY8HnA" source="_1LVlkDL7Eeu7ucmNbQjYpg" target="_3kJlIDL9Eeu7ucmNbQjYpg"/>
+    <parameterMappings xmi:id="_xjVsYjR1EeuECdQwtY8HnA" source="_pML2gDL8Eeu7ucmNbQjYpg" target="_1LVlkTL7Eeu7ucmNbQjYpg"/>
+    <parameterMappings xmi:id="_xjVsYzR1EeuECdQwtY8HnA" source="_1LVlkTL7Eeu7ucmNbQjYpg" target="_pML2gDL8Eeu7ucmNbQjYpg"/>
+    <parameterMappings xmi:id="_xjVsZDR1EeuECdQwtY8HnA" source="_pML2gTL8Eeu7ucmNbQjYpg" target="_1LVlkjL7Eeu7ucmNbQjYpg"/>
+    <parameterMappings xmi:id="_xjVsZTR1EeuECdQwtY8HnA" source="_1LVlkjL7Eeu7ucmNbQjYpg" target="_pML2gTL8Eeu7ucmNbQjYpg"/>
   </units>
   <units xsi:type="henshin:LoopUnit" xmi:id="_5KgJ0DL7Eeu7ucmNbQjYpg" name="CreateNegativeLiteralLoop" subUnit="_OH67wDL4Eeu7ucmNbQjYpg">
     <parameters xmi:id="_8FO1kDL7Eeu7ucmNbQjYpg" name="id" kind="IN"/>
@@ -648,40 +658,20 @@
     <mappings xmi:id="_2h4aYTL-Eeu7ucmNbQjYpg" origin="_2h3MQDL-Eeu7ucmNbQjYpg" image="_2h4aYDL-Eeu7ucmNbQjYpg"/>
     <mappings xmi:id="_50id8jL-Eeu7ucmNbQjYpg" origin="_50id8DL-Eeu7ucmNbQjYpg" image="_50id8TL-Eeu7ucmNbQjYpg"/>
   </units>
-  <units xsi:type="henshin:SequentialUnit" xmi:id="_KnIfIDMEEeu7ucmNbQjYpg" name="GroupCardinalityNM" subUnits="_lKeRYDL4Eeu7ucmNbQjYpg _w-1okDL-Eeu7ucmNbQjYpg _xg3Z4DP2EeurRqeA8FkUXQ _E_AHEDMGEeu7ucmNbQjYpg">
-    <parameters xmi:id="_XD3FkDMEEeu7ucmNbQjYpg" name="id" kind="IN"/>
-    <parameters xmi:id="_iAoVIDMEEeu7ucmNbQjYpg" name="lower" kind="VAR"/>
-    <parameters xmi:id="_iApjQDMEEeu7ucmNbQjYpg" name="upper" kind="VAR"/>
-    <parameters xmi:id="_4VhzMDMHEeu7ucmNbQjYpg" name="i" kind="VAR"/>
-    <parameters xmi:id="_RviIYDMIEeu7ucmNbQjYpg" name="k" kind="VAR"/>
-    <parameters xmi:id="_RvjWgDMIEeu7ucmNbQjYpg" name="c" kind="VAR"/>
-    <parameters xmi:id="_ol1w4DP8EeufOYgah0VhQg" name="result" kind="VAR"/>
+  <units xsi:type="henshin:SequentialUnit" xmi:id="_KnIfIDMEEeu7ucmNbQjYpg" name="GroupCardinalityNM" subUnits="_lKeRYDL4Eeu7ucmNbQjYpg _w-1okDL-Eeu7ucmNbQjYpg _xg3Z4DP2EeurRqeA8FkUXQ _E_AHEDMGEeu7ucmNbQjYpg _BH3S4DMFEeu7ucmNbQjYpg">
+    <parameters xmi:id="_XD3FkDMEEeu7ucmNbQjYpg" name="id" kind="VAR"/>
+    <parameters xmi:id="_W1_gADR1EeuECdQwtY8HnA" name="lower" kind="VAR"/>
+    <parameters xmi:id="_W2AuIDR1EeuECdQwtY8HnA" name="upper" kind="VAR"/>
     <parameterMappings xmi:id="_Xn8qEDMEEeu7ucmNbQjYpg" source="_XD3FkDMEEeu7ucmNbQjYpg" target="_DxJtgDL-Eeu7ucmNbQjYpg"/>
     <parameterMappings xmi:id="_Xn8qETMEEeu7ucmNbQjYpg" source="_DxJtgDL-Eeu7ucmNbQjYpg" target="_XD3FkDMEEeu7ucmNbQjYpg"/>
     <parameterMappings xmi:id="_j5Z0oDMEEeu7ucmNbQjYpg" source="_XD3FkDMEEeu7ucmNbQjYpg" target="_33Zb0DL-Eeu7ucmNbQjYpg"/>
     <parameterMappings xmi:id="_j5Z0oTMEEeu7ucmNbQjYpg" source="_33Zb0DL-Eeu7ucmNbQjYpg" target="_XD3FkDMEEeu7ucmNbQjYpg"/>
-    <parameterMappings xmi:id="_j5Z0ojMEEeu7ucmNbQjYpg" source="_iAoVIDMEEeu7ucmNbQjYpg" target="_zHU_EDL-Eeu7ucmNbQjYpg"/>
-    <parameterMappings xmi:id="_j5Z0ozMEEeu7ucmNbQjYpg" source="_zHU_EDL-Eeu7ucmNbQjYpg" target="_iAoVIDMEEeu7ucmNbQjYpg"/>
-    <parameterMappings xmi:id="_j5Z0pDMEEeu7ucmNbQjYpg" source="_iApjQDMEEeu7ucmNbQjYpg" target="_zHU_ETL-Eeu7ucmNbQjYpg"/>
-    <parameterMappings xmi:id="_j5Z0pTMEEeu7ucmNbQjYpg" source="_zHU_ETL-Eeu7ucmNbQjYpg" target="_iApjQDMEEeu7ucmNbQjYpg"/>
-    <parameterMappings xmi:id="_NciakDP3EeurRqeA8FkUXQ" source="_iAoVIDMEEeu7ucmNbQjYpg" target="_2V4BADP2EeurRqeA8FkUXQ"/>
-    <parameterMappings xmi:id="_NciakTP3EeurRqeA8FkUXQ" source="_2V4BADP2EeurRqeA8FkUXQ" target="_iAoVIDMEEeu7ucmNbQjYpg"/>
-    <parameterMappings xmi:id="_NciakjP3EeurRqeA8FkUXQ" source="_iApjQDMEEeu7ucmNbQjYpg" target="_2V4BATP2EeurRqeA8FkUXQ"/>
-    <parameterMappings xmi:id="_NciakzP3EeurRqeA8FkUXQ" source="_2V4BATP2EeurRqeA8FkUXQ" target="_iApjQDMEEeu7ucmNbQjYpg"/>
-    <parameterMappings xmi:id="_u1i0YDP8EeufOYgah0VhQg" source="_iAoVIDMEEeu7ucmNbQjYpg" target="_WLqAUDMGEeu7ucmNbQjYpg"/>
-    <parameterMappings xmi:id="_u1i0YTP8EeufOYgah0VhQg" source="_WLqAUDMGEeu7ucmNbQjYpg" target="_iAoVIDMEEeu7ucmNbQjYpg"/>
-    <parameterMappings xmi:id="_u1i0YjP8EeufOYgah0VhQg" source="_iApjQDMEEeu7ucmNbQjYpg" target="_WLsckDMGEeu7ucmNbQjYpg"/>
-    <parameterMappings xmi:id="_u1i0YzP8EeufOYgah0VhQg" source="_WLsckDMGEeu7ucmNbQjYpg" target="_iApjQDMEEeu7ucmNbQjYpg"/>
-    <parameterMappings xmi:id="_u1i0ZDP8EeufOYgah0VhQg" source="_XD3FkDMEEeu7ucmNbQjYpg" target="_7LLnIDMGEeu7ucmNbQjYpg"/>
-    <parameterMappings xmi:id="_u1i0ZTP8EeufOYgah0VhQg" source="_7LLnIDMGEeu7ucmNbQjYpg" target="_XD3FkDMEEeu7ucmNbQjYpg"/>
-    <parameterMappings xmi:id="_u1i0ZjP8EeufOYgah0VhQg" source="_4VhzMDMHEeu7ucmNbQjYpg" target="_CfBBIDMHEeu7ucmNbQjYpg"/>
-    <parameterMappings xmi:id="_u1i0ZzP8EeufOYgah0VhQg" source="_CfBBIDMHEeu7ucmNbQjYpg" target="_4VhzMDMHEeu7ucmNbQjYpg"/>
-    <parameterMappings xmi:id="_u1i0aDP8EeufOYgah0VhQg" source="_RviIYDMIEeu7ucmNbQjYpg" target="_RTXI4DP8EeufOYgah0VhQg"/>
-    <parameterMappings xmi:id="_u1i0aTP8EeufOYgah0VhQg" source="_RTXI4DP8EeufOYgah0VhQg" target="_RviIYDMIEeu7ucmNbQjYpg"/>
-    <parameterMappings xmi:id="_u1i0ajP8EeufOYgah0VhQg" source="_RvjWgDMIEeu7ucmNbQjYpg" target="_O3Gh0DP8EeufOYgah0VhQg"/>
-    <parameterMappings xmi:id="_u1i0azP8EeufOYgah0VhQg" source="_O3Gh0DP8EeufOYgah0VhQg" target="_RvjWgDMIEeu7ucmNbQjYpg"/>
-    <parameterMappings xmi:id="_u1i0bDP8EeufOYgah0VhQg" source="_ol1w4DP8EeufOYgah0VhQg" target="_uTIq4DP8EeufOYgah0VhQg"/>
-    <parameterMappings xmi:id="_u1i0bTP8EeufOYgah0VhQg" source="_uTIq4DP8EeufOYgah0VhQg" target="_ol1w4DP8EeufOYgah0VhQg"/>
+    <parameterMappings xmi:id="_X7cFIDR1EeuECdQwtY8HnA" source="_W1_gADR1EeuECdQwtY8HnA" target="_WLqAUDMGEeu7ucmNbQjYpg"/>
+    <parameterMappings xmi:id="_X7cFITR1EeuECdQwtY8HnA" source="_WLqAUDMGEeu7ucmNbQjYpg" target="_W1_gADR1EeuECdQwtY8HnA"/>
+    <parameterMappings xmi:id="_X7cFIjR1EeuECdQwtY8HnA" source="_W2AuIDR1EeuECdQwtY8HnA" target="_WLsckDMGEeu7ucmNbQjYpg"/>
+    <parameterMappings xmi:id="_X7cFIzR1EeuECdQwtY8HnA" source="_WLsckDMGEeu7ucmNbQjYpg" target="_W2AuIDR1EeuECdQwtY8HnA"/>
+    <parameterMappings xmi:id="_X7cFJDR1EeuECdQwtY8HnA" source="_XD3FkDMEEeu7ucmNbQjYpg" target="_7LLnIDMGEeu7ucmNbQjYpg"/>
+    <parameterMappings xmi:id="_X7cFJTR1EeuECdQwtY8HnA" source="_7LLnIDMGEeu7ucmNbQjYpg" target="_XD3FkDMEEeu7ucmNbQjYpg"/>
   </units>
   <units xsi:type="henshin:Rule" xmi:id="_BH3S4DMFEeu7ucmNbQjYpg" name="CleanTrace">
     <lhs xmi:id="_BH5vIDMFEeu7ucmNbQjYpg" name="Lhs"/>
@@ -695,66 +685,27 @@
       <rhs xmi:id="_DDqRMTMFEeu7ucmNbQjYpg" name="Rhs"/>
     </multiRules>
   </units>
-  <units xsi:type="henshin:IteratedUnit" xmi:id="_E_AHEDMGEeu7ucmNbQjYpg" name="GenerateAllKLoop" subUnit="_wH4DIDP1EeurRqeA8FkUXQ" iterations="upper-lower">
+  <units xsi:type="henshin:IteratedUnit" xmi:id="_E_AHEDMGEeu7ucmNbQjYpg" name="GenerateAllKLoop" subUnit="_wH4DIDP1EeurRqeA8FkUXQ" iterations="upper-lower+1">
+    <parameters xmi:id="_7LLnIDMGEeu7ucmNbQjYpg" name="id" kind="IN"/>
     <parameters xmi:id="_WLqAUDMGEeu7ucmNbQjYpg" name="lower" kind="IN"/>
     <parameters xmi:id="_WLsckDMGEeu7ucmNbQjYpg" name="upper" kind="IN"/>
-    <parameters xmi:id="_7LLnIDMGEeu7ucmNbQjYpg" name="id" kind="IN"/>
-    <parameters xmi:id="_CfBBIDMHEeu7ucmNbQjYpg" name="i" kind="VAR"/>
-    <parameters xmi:id="_RTXI4DP8EeufOYgah0VhQg" name="k" kind="VAR"/>
-    <parameters xmi:id="_O3Gh0DP8EeufOYgah0VhQg" name="c" kind="VAR"/>
-    <parameters xmi:id="_uTIq4DP8EeufOYgah0VhQg" name="result" kind="VAR"/>
-    <parameterMappings xmi:id="_zX7acDP8EeufOYgah0VhQg" source="_WLqAUDMGEeu7ucmNbQjYpg" target="_yfsPEDP1EeurRqeA8FkUXQ"/>
-    <parameterMappings xmi:id="_zX7acTP8EeufOYgah0VhQg" source="_yfsPEDP1EeurRqeA8FkUXQ" target="_WLqAUDMGEeu7ucmNbQjYpg"/>
-    <parameterMappings xmi:id="_zX7acjP8EeufOYgah0VhQg" source="_WLsckDMGEeu7ucmNbQjYpg" target="_yfsPETP1EeurRqeA8FkUXQ"/>
-    <parameterMappings xmi:id="_zX7aczP8EeufOYgah0VhQg" source="_yfsPETP1EeurRqeA8FkUXQ" target="_WLsckDMGEeu7ucmNbQjYpg"/>
     <parameterMappings xmi:id="_zX7adDP8EeufOYgah0VhQg" source="_7LLnIDMGEeu7ucmNbQjYpg" target="_yfsPEjP1EeurRqeA8FkUXQ"/>
-    <parameterMappings xmi:id="_zX7adTP8EeufOYgah0VhQg" source="_yfsPEjP1EeurRqeA8FkUXQ" target="_7LLnIDMGEeu7ucmNbQjYpg"/>
-    <parameterMappings xmi:id="_zX7adjP8EeufOYgah0VhQg" source="_CfBBIDMHEeu7ucmNbQjYpg" target="_yfsPEzP1EeurRqeA8FkUXQ"/>
-    <parameterMappings xmi:id="_zX7adzP8EeufOYgah0VhQg" source="_yfsPEzP1EeurRqeA8FkUXQ" target="_CfBBIDMHEeu7ucmNbQjYpg"/>
-    <parameterMappings xmi:id="_zX7aeDP8EeufOYgah0VhQg" source="_RTXI4DP8EeufOYgah0VhQg" target="_108hYDP6EeufOYgah0VhQg"/>
-    <parameterMappings xmi:id="_zX7aeTP8EeufOYgah0VhQg" source="_108hYDP6EeufOYgah0VhQg" target="_RTXI4DP8EeufOYgah0VhQg"/>
-    <parameterMappings xmi:id="_zX7aejP8EeufOYgah0VhQg" source="_O3Gh0DP8EeufOYgah0VhQg" target="_NVPGcDP8EeufOYgah0VhQg"/>
-    <parameterMappings xmi:id="_zX7aezP8EeufOYgah0VhQg" source="_NVPGcDP8EeufOYgah0VhQg" target="_O3Gh0DP8EeufOYgah0VhQg"/>
-    <parameterMappings xmi:id="_zX7afDP8EeufOYgah0VhQg" source="_uTIq4DP8EeufOYgah0VhQg" target="_y5ZrYDP8EeufOYgah0VhQg"/>
-    <parameterMappings xmi:id="_zX7afTP8EeufOYgah0VhQg" source="_y5ZrYDP8EeufOYgah0VhQg" target="_uTIq4DP8EeufOYgah0VhQg"/>
   </units>
   <units xsi:type="henshin:LoopUnit" xmi:id="_uI6DoDMGEeu7ucmNbQjYpg" name="GenerateAllCombinationsForK" subUnit="_vMfokDL7Eeu7ucmNbQjYpg">
     <parameters xmi:id="_3N9jojMGEeu7ucmNbQjYpg" name="id" kind="IN"/>
-    <parameters xmi:id="_3N9joDMGEeu7ucmNbQjYpg" name="k" kind="VAR"/>
-    <parameters xmi:id="_3N9jozMGEeu7ucmNbQjYpg" name="i" kind="VAR"/>
-    <parameters xmi:id="_3N9joTMGEeu7ucmNbQjYpg" name="c" kind="VAR"/>
-    <parameters xmi:id="_PjQaADP4EeurRqeA8FkUXQ" name="result" kind="VAR"/>
-    <parameterMappings xmi:id="_QTT98DP4EeurRqeA8FkUXQ" source="_3N9jojMGEeu7ucmNbQjYpg" target="_3kJlIDL9Eeu7ucmNbQjYpg"/>
-    <parameterMappings xmi:id="_QTT98TP4EeurRqeA8FkUXQ" source="_3kJlIDL9Eeu7ucmNbQjYpg" target="_3N9jojMGEeu7ucmNbQjYpg"/>
-    <parameterMappings xmi:id="_QTT98jP4EeurRqeA8FkUXQ" source="_3N9joDMGEeu7ucmNbQjYpg" target="_pML2gDL8Eeu7ucmNbQjYpg"/>
-    <parameterMappings xmi:id="_QTT98zP4EeurRqeA8FkUXQ" source="_pML2gDL8Eeu7ucmNbQjYpg" target="_3N9joDMGEeu7ucmNbQjYpg"/>
-    <parameterMappings xmi:id="_QTT99DP4EeurRqeA8FkUXQ" source="_3N9joTMGEeu7ucmNbQjYpg" target="_pML2gTL8Eeu7ucmNbQjYpg"/>
-    <parameterMappings xmi:id="_QTT99TP4EeurRqeA8FkUXQ" source="_pML2gTL8Eeu7ucmNbQjYpg" target="_3N9joTMGEeu7ucmNbQjYpg"/>
-    <parameterMappings xmi:id="_QTT99jP4EeurRqeA8FkUXQ" source="_3N9jozMGEeu7ucmNbQjYpg" target="_Y3w64DL-Eeu7ucmNbQjYpg"/>
-    <parameterMappings xmi:id="_QTT99zP4EeurRqeA8FkUXQ" source="_Y3w64DL-Eeu7ucmNbQjYpg" target="_3N9jozMGEeu7ucmNbQjYpg"/>
+    <parameters xmi:id="_p0JzIDR1EeuECdQwtY8HnA" name="k" kind="IN"/>
+    <parameterMappings xmi:id="_rG2xIDR1EeuECdQwtY8HnA" source="_3N9jojMGEeu7ucmNbQjYpg" target="_3kJlIDL9Eeu7ucmNbQjYpg"/>
+    <parameterMappings xmi:id="_rG2xITR1EeuECdQwtY8HnA" source="_3kJlIDL9Eeu7ucmNbQjYpg" target="_3N9jojMGEeu7ucmNbQjYpg"/>
+    <parameterMappings xmi:id="_rG2xIjR1EeuECdQwtY8HnA" source="_p0JzIDR1EeuECdQwtY8HnA" target="_pML2gDL8Eeu7ucmNbQjYpg"/>
+    <parameterMappings xmi:id="_rG2xIzR1EeuECdQwtY8HnA" source="_pML2gDL8Eeu7ucmNbQjYpg" target="_p0JzIDR1EeuECdQwtY8HnA"/>
   </units>
   <units xsi:type="henshin:SequentialUnit" xmi:id="_wH4DIDP1EeurRqeA8FkUXQ" name="GenerateAllK" subUnits="_CsRjsDP8EeufOYgah0VhQg _uI6DoDMGEeu7ucmNbQjYpg _SYWpwDP2EeurRqeA8FkUXQ">
-    <parameters xmi:id="_yfsPEDP1EeurRqeA8FkUXQ" name="lower" kind="IN"/>
-    <parameters xmi:id="_yfsPETP1EeurRqeA8FkUXQ" name="upper" kind="IN"/>
     <parameters xmi:id="_yfsPEjP1EeurRqeA8FkUXQ" name="id" kind="IN"/>
-    <parameters xmi:id="_yfsPEzP1EeurRqeA8FkUXQ" name="i" kind="VAR"/>
-    <parameters xmi:id="_108hYDP6EeufOYgah0VhQg" name="k" kind="VAR"/>
-    <parameters xmi:id="_NVPGcDP8EeufOYgah0VhQg" name="c" kind="VAR"/>
-    <parameters xmi:id="_y5ZrYDP8EeufOYgah0VhQg" name="result" kind="VAR"/>
-    <parameterMappings xmi:id="_j2pd4DP8EeufOYgah0VhQg" source="_108hYDP6EeufOYgah0VhQg" target="_ER3BcDP8EeufOYgah0VhQg"/>
-    <parameterMappings xmi:id="_j2pd4TP8EeufOYgah0VhQg" source="_ER3BcDP8EeufOYgah0VhQg" target="_108hYDP6EeufOYgah0VhQg"/>
-    <parameterMappings xmi:id="_03qH0DP8EeufOYgah0VhQg" source="_y5ZrYDP8EeufOYgah0VhQg" target="_c84YcDP2EeurRqeA8FkUXQ"/>
-    <parameterMappings xmi:id="_03qH0TP8EeufOYgah0VhQg" source="_c84YcDP2EeurRqeA8FkUXQ" target="_y5ZrYDP8EeufOYgah0VhQg"/>
-    <parameterMappings xmi:id="_FbMyoDP9EeufOYgah0VhQg" source="_yfsPEjP1EeurRqeA8FkUXQ" target="_3N9jojMGEeu7ucmNbQjYpg"/>
-    <parameterMappings xmi:id="_FbMyoTP9EeufOYgah0VhQg" source="_3N9jojMGEeu7ucmNbQjYpg" target="_yfsPEjP1EeurRqeA8FkUXQ"/>
-    <parameterMappings xmi:id="_FbMyojP9EeufOYgah0VhQg" source="_108hYDP6EeufOYgah0VhQg" target="_3N9joDMGEeu7ucmNbQjYpg"/>
-    <parameterMappings xmi:id="_FbMyozP9EeufOYgah0VhQg" source="_3N9joDMGEeu7ucmNbQjYpg" target="_108hYDP6EeufOYgah0VhQg"/>
-    <parameterMappings xmi:id="_FbMypDP9EeufOYgah0VhQg" source="_yfsPEzP1EeurRqeA8FkUXQ" target="_3N9jozMGEeu7ucmNbQjYpg"/>
-    <parameterMappings xmi:id="_FbMypTP9EeufOYgah0VhQg" source="_3N9jozMGEeu7ucmNbQjYpg" target="_yfsPEzP1EeurRqeA8FkUXQ"/>
-    <parameterMappings xmi:id="_FbMypjP9EeufOYgah0VhQg" source="_NVPGcDP8EeufOYgah0VhQg" target="_3N9joTMGEeu7ucmNbQjYpg"/>
-    <parameterMappings xmi:id="_FbMypzP9EeufOYgah0VhQg" source="_3N9joTMGEeu7ucmNbQjYpg" target="_NVPGcDP8EeufOYgah0VhQg"/>
-    <parameterMappings xmi:id="_FbMyqDP9EeufOYgah0VhQg" source="_y5ZrYDP8EeufOYgah0VhQg" target="_PjQaADP4EeurRqeA8FkUXQ"/>
-    <parameterMappings xmi:id="_FbMyqTP9EeufOYgah0VhQg" source="_PjQaADP4EeurRqeA8FkUXQ" target="_y5ZrYDP8EeufOYgah0VhQg"/>
+    <parameters xmi:id="_Ty_pEDR1EeuECdQwtY8HnA" name="k" kind="VAR"/>
+    <parameterMappings xmi:id="_qZUVsDR1EeuECdQwtY8HnA" source="_yfsPEjP1EeurRqeA8FkUXQ" target="_3N9jojMGEeu7ucmNbQjYpg"/>
+    <parameterMappings xmi:id="_qZUVsTR1EeuECdQwtY8HnA" source="_3N9jojMGEeu7ucmNbQjYpg" target="_yfsPEjP1EeurRqeA8FkUXQ"/>
+    <parameterMappings xmi:id="_qZUVsjR1EeuECdQwtY8HnA" source="_Ty_pEDR1EeuECdQwtY8HnA" target="_p0JzIDR1EeuECdQwtY8HnA"/>
+    <parameterMappings xmi:id="_qZUVszR1EeuECdQwtY8HnA" source="_p0JzIDR1EeuECdQwtY8HnA" target="_Ty_pEDR1EeuECdQwtY8HnA"/>
   </units>
   <units xsi:type="henshin:Rule" xmi:id="_SYWpwDP2EeurRqeA8FkUXQ" name="IncrementK">
     <parameters xmi:id="_c84YcDP2EeurRqeA8FkUXQ" name="result" kind="VAR"/>
@@ -818,7 +769,7 @@
         <attributes xmi:id="_Ao6-IDP3EeurRqeA8FkUXQ" value="&quot;K&quot;">
           <type href="../../rhea.metamodels/metamodels/Utils/Utils.ecore#//NamedElement/id"/>
         </attributes>
-        <attributes xmi:id="_BdDJwDP3EeurRqeA8FkUXQ" value="upper-lower">
+        <attributes xmi:id="_BdDJwDP3EeurRqeA8FkUXQ" value="lower">
           <type href="../../rhea.metamodels/metamodels/Utils/Utils.ecore#//IntResult/result"/>
         </attributes>
       </nodes>
