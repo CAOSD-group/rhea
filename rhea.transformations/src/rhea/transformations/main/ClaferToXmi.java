@@ -11,7 +11,7 @@ import rhea.parsers.clafer.ClaferParser;
 public class ClaferToXmi {
 
 	public static void main(String[] args) {
-		String inputModel = "gc_ab";
+		String inputModel = "GroupCardinalityNMTest";
 		
 		String inputFile = "inputs/" + inputModel + ".txt";
 		String outputFile = "inputs/" + inputModel + ".xmi";

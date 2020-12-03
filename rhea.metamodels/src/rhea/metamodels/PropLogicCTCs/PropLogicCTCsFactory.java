@@ -31,15 +31,6 @@ public interface PropLogicCTCsFactory extends EFactory {
 	AdvancedConstraint createAdvancedConstraint();
 
 	/**
-	 * Returns a new object of class '<em>Term</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Term</em>'.
-	 * @generated
-	 */
-	Term createTerm();
-
-	/**
 	 * Returns a new object of class '<em>Feature Term</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

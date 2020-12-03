@@ -16,7 +16,7 @@ import rhea.metamodels.PropLogicCTCs.Term;
  *
  * @generated
  */
-public class TermImpl extends MinimalEObjectImpl.Container implements Term {
+public abstract class TermImpl extends MinimalEObjectImpl.Container implements Term {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
