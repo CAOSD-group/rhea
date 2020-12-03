@@ -16,4 +16,7 @@ Import-Package: org.eclipse.emf.ecore.xmi.impl,
  org.eclipse.emf.henshin.trace.impl,
  org.eclipse.emf.henshin.trace.util,
  org.eclipse.emf.henshin.variability,
- rhea.parsers
+ rhea.generators,
+ rhea.generators.clafer,
+ rhea.parsers,
+ rhea.thirdpartyplugins.utils
