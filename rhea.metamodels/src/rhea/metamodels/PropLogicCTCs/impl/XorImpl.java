@@ -10,9 +10,6 @@ import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
-
-import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
-
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
@@ -33,7 +30,7 @@ import rhea.metamodels.PropLogicCTCs.Xor;
  *
  * @generated
  */
-public class XorImpl extends MinimalEObjectImpl.Container implements Xor {
+public class XorImpl extends TermImpl implements Xor {
 	/**
 	 * The cached value of the '{@link #getTerms() <em>Terms</em>}' containment reference list.
 	 * <!-- begin-user-doc -->

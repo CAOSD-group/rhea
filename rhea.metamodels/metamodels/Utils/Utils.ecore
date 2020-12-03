@@ -15,4 +15,8 @@
   <eClassifiers xsi:type="ecore:EClass" name="StringResult" eSuperTypes="#//NamedElement">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="result" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ListFeatures" eSuperTypes="#//NamedElement">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="features" upperBound="-1"
+        eType="ecore:EClass ../BasicFMs/BasicFMs.ecore#//Feature"/>
+  </eClassifiers>
 </ecore:EPackage>

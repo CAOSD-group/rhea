@@ -213,7 +213,7 @@ public interface PropLogicCTCsPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int AND__TERMS = 0;
+	int AND__TERMS = TERM_FEATURE_COUNT + 0;
 
 	/**
 	 * The number of structural features of the '<em>And</em>' class.
@@ -222,7 +222,7 @@ public interface PropLogicCTCsPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int AND_FEATURE_COUNT = 1;
+	int AND_FEATURE_COUNT = TERM_FEATURE_COUNT + 1;
 
 	/**
 	 * The number of operations of the '<em>And</em>' class.
@@ -231,7 +231,7 @@ public interface PropLogicCTCsPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int AND_OPERATION_COUNT = 0;
+	int AND_OPERATION_COUNT = TERM_OPERATION_COUNT + 0;
 
 	/**
 	 * The meta object id for the '{@link rhea.metamodels.PropLogicCTCs.impl.OrImpl <em>Or</em>}' class.
@@ -250,7 +250,7 @@ public interface PropLogicCTCsPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int OR__TERMS = 0;
+	int OR__TERMS = TERM_FEATURE_COUNT + 0;
 
 	/**
 	 * The number of structural features of the '<em>Or</em>' class.
@@ -259,7 +259,7 @@ public interface PropLogicCTCsPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int OR_FEATURE_COUNT = 1;
+	int OR_FEATURE_COUNT = TERM_FEATURE_COUNT + 1;
 
 	/**
 	 * The number of operations of the '<em>Or</em>' class.
@@ -268,7 +268,7 @@ public interface PropLogicCTCsPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int OR_OPERATION_COUNT = 0;
+	int OR_OPERATION_COUNT = TERM_OPERATION_COUNT + 0;
 
 	/**
 	 * The meta object id for the '{@link rhea.metamodels.PropLogicCTCs.impl.XorImpl <em>Xor</em>}' class.
@@ -287,7 +287,7 @@ public interface PropLogicCTCsPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int XOR__TERMS = 0;
+	int XOR__TERMS = TERM_FEATURE_COUNT + 0;
 
 	/**
 	 * The number of structural features of the '<em>Xor</em>' class.
@@ -296,7 +296,7 @@ public interface PropLogicCTCsPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int XOR_FEATURE_COUNT = 1;
+	int XOR_FEATURE_COUNT = TERM_FEATURE_COUNT + 1;
 
 	/**
 	 * The number of operations of the '<em>Xor</em>' class.
@@ -305,7 +305,7 @@ public interface PropLogicCTCsPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int XOR_OPERATION_COUNT = 0;
+	int XOR_OPERATION_COUNT = TERM_OPERATION_COUNT + 0;
 
 	/**
 	 * The meta object id for the '{@link rhea.metamodels.PropLogicCTCs.impl.EquivImpl <em>Equiv</em>}' class.
@@ -324,7 +324,7 @@ public interface PropLogicCTCsPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int EQUIV__TERMS = 0;
+	int EQUIV__TERMS = TERM_FEATURE_COUNT + 0;
 
 	/**
 	 * The number of structural features of the '<em>Equiv</em>' class.
@@ -333,7 +333,7 @@ public interface PropLogicCTCsPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int EQUIV_FEATURE_COUNT = 1;
+	int EQUIV_FEATURE_COUNT = TERM_FEATURE_COUNT + 1;
 
 	/**
 	 * The number of operations of the '<em>Equiv</em>' class.
@@ -342,7 +342,7 @@ public interface PropLogicCTCsPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int EQUIV_OPERATION_COUNT = 0;
+	int EQUIV_OPERATION_COUNT = TERM_OPERATION_COUNT + 0;
 
 	/**
 	 * The meta object id for the '{@link rhea.metamodels.PropLogicCTCs.impl.ImpliesImpl <em>Implies</em>}' class.
@@ -361,7 +361,7 @@ public interface PropLogicCTCsPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int IMPLIES__LEFT = 0;
+	int IMPLIES__LEFT = TERM_FEATURE_COUNT + 0;
 
 	/**
 	 * The feature id for the '<em><b>Right</b></em>' containment reference.
@@ -370,7 +370,7 @@ public interface PropLogicCTCsPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int IMPLIES__RIGHT = 1;
+	int IMPLIES__RIGHT = TERM_FEATURE_COUNT + 1;
 
 	/**
 	 * The number of structural features of the '<em>Implies</em>' class.
@@ -379,7 +379,7 @@ public interface PropLogicCTCsPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int IMPLIES_FEATURE_COUNT = 2;
+	int IMPLIES_FEATURE_COUNT = TERM_FEATURE_COUNT + 2;
 
 	/**
 	 * The number of operations of the '<em>Implies</em>' class.
@@ -388,7 +388,7 @@ public interface PropLogicCTCsPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int IMPLIES_OPERATION_COUNT = 0;
+	int IMPLIES_OPERATION_COUNT = TERM_OPERATION_COUNT + 0;
 
 	/**
 	 * The meta object id for the '{@link rhea.metamodels.PropLogicCTCs.impl.ExcludesImpl <em>Excludes</em>}' class.
@@ -407,7 +407,7 @@ public interface PropLogicCTCsPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int EXCLUDES__LEFT = 0;
+	int EXCLUDES__LEFT = TERM_FEATURE_COUNT + 0;
 
 	/**
 	 * The feature id for the '<em><b>Right</b></em>' containment reference.
@@ -416,7 +416,7 @@ public interface PropLogicCTCsPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int EXCLUDES__RIGHT = 1;
+	int EXCLUDES__RIGHT = TERM_FEATURE_COUNT + 1;
 
 	/**
 	 * The number of structural features of the '<em>Excludes</em>' class.
@@ -425,7 +425,7 @@ public interface PropLogicCTCsPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int EXCLUDES_FEATURE_COUNT = 2;
+	int EXCLUDES_FEATURE_COUNT = TERM_FEATURE_COUNT + 2;
 
 	/**
 	 * The number of operations of the '<em>Excludes</em>' class.
@@ -434,7 +434,7 @@ public interface PropLogicCTCsPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int EXCLUDES_OPERATION_COUNT = 0;
+	int EXCLUDES_OPERATION_COUNT = TERM_OPERATION_COUNT + 0;
 
 
 	/**

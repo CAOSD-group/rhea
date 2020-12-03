@@ -61,6 +61,8 @@ public class Utils {
 			if (!Files.exists(path)) {
 				Files.createDirectories(path.getParent());
 				Files.createFile(path);
+			} else {
+				Files.deleteIfExists(path);
 			}
 			Files.write(path, contents.getBytes(), StandardOpenOption.CREATE);
 		} catch (IOException e) {

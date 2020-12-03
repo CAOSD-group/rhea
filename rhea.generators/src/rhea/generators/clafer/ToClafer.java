@@ -125,11 +125,11 @@ public class ToClafer implements FMGenerator {
 		} else if (t instanceof And) {
 			And and = (And) t;
 			String a = and.getTerms().stream().map(ta -> addAdvanceConstraint(ta)).collect(Collectors.joining(" && "));
-			constraint.append(a);
+			constraint.append("(").append(a).append(")");
 		} else if (t instanceof Or) {
 			Or or = (Or) t;
 			String o = or.getTerms().stream().map(to -> addAdvanceConstraint(to)).collect(Collectors.joining(" || "));
-			constraint.append(o);
+			constraint.append("(").append(o).append(")");
 		} else if (t instanceof Equiv) {
 			Equiv equiv = (Equiv) t;
 			String e = equiv.getTerms().stream().map(te -> addAdvanceConstraint(te)).collect(Collectors.joining(" <=> "));

@@ -9,8 +9,6 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
-
 import rhea.metamodels.PropLogicCTCs.Excludes;
 import rhea.metamodels.PropLogicCTCs.PropLogicCTCsPackage;
 import rhea.metamodels.PropLogicCTCs.Term;
@@ -29,7 +27,7 @@ import rhea.metamodels.PropLogicCTCs.Term;
  *
  * @generated
  */
-public class ExcludesImpl extends MinimalEObjectImpl.Container implements Excludes {
+public class ExcludesImpl extends TermImpl implements Excludes {
 	/**
 	 * The cached value of the '{@link #getLeft() <em>Left</em>}' containment reference.
 	 * <!-- begin-user-doc -->

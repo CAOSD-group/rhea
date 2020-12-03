@@ -1,19 +1,20 @@
 package rhea.transformations.main;
 
 import java.io.IOException;
-import java.util.List;
 import java.util.Map;
 
-import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
-import org.eclipse.emf.henshin.model.Unit;
-import org.eclipse.emf.henshin.trace.TracePackage;
 import org.eclipse.emf.henshin.model.Module;
+import org.eclipse.emf.henshin.model.Unit;
+
 import rhea.Rhea;
+import rhea.generators.FMGenerator;
+import rhea.generators.clafer.ToClafer;
 import rhea.metamodels.BasicFMs.FeatureModel;
 import rhea.metamodels.helpers.EMFIO;
 import rhea.parsers.FMParser;
 import rhea.parsers.clafer.ClaferParser;
+import rhea.thirdpartyplugins.utils.Utils;
 import rhea.transformations.engine.HenshinEngine;
 
 public class ApplyTransformation {
@@ -27,10 +28,11 @@ public class ApplyTransformation {
 		String inputModelAS = INPUTS_MODELS + modelName + ".xmi";
 		String outputModelTransformed = INPUTS_MODELS + modelName + "-transformed.xmi";
 		String outputModelTransformed2 = INPUTS_MODELS + modelName + "-transformed2.xmi";
+		String outputModelTransformedClafer = INPUTS_MODELS + modelName + "-transformed.txt";
 		
 		//String transformationFilepath = Rhea.LANGUAGEGENERATOR_DIR + "nondeterministic/" + "GroupCardinalities.henshin";
-		String transformationFilepath = Rhea.REFACTORINGS_DIR + "pruebas.henshin";
-		String ruleName = "CountChildren";
+		String transformationFilepath = Rhea.REFACTORINGS_DIR + "pruebas2.henshin";
+		String ruleName = "Main";
 		
 		
 		// Parse the input model
@@ -61,7 +63,7 @@ public class ApplyTransformation {
 		Unit unit = module.getUnit(ruleName);
 		
 		// Provide the parameters to the transformation
-		Map<String, Object> params = Map.of();
+		Map<String, Object> params = Map.of("k", 2);
 				
 		// Execute the transformation
 		System.out.println("Executing the transformation...");
@@ -73,10 +75,15 @@ public class ApplyTransformation {
 		//if (!modelsTransformed.isEmpty()) {
 		if (successTransformation) {
 			System.out.println("Transformation applied succesfully.");
+		
+			FMGenerator toClafer = new ToClafer();
+			String fmClafer = toClafer.fm2text(fm);
+			Utils.serialize(fmClafer, Rhea.BASEDIR + "rhea.transformations/" + outputModelTransformedClafer);
+			
 			
 			// Serialize the transformed model
-			System.out.println("Saving the transformed model in " + Rhea.BASEDIR + outputModelTransformed + "...");
-			henshin.saveModel(fm, Rhea.BASEDIR + outputModelTransformed);
+			System.out.println("Saving the transformed model in " + Rhea.BASEDIR + "rhea.transformations/" + outputModelTransformed + "...");
+			henshin.saveModel(fm, Rhea.BASEDIR + "rhea.transformations/" + outputModelTransformed);
 			try {
 				EMFIO.saveModel(fm, Rhea.STATIC_METAMODELS, outputModelTransformed2);
 			} catch (IOException e) {
