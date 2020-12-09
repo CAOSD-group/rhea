@@ -104,7 +104,7 @@ public class ToClafer implements FMGenerator {
 			constraint.append(((FeatureTerm) t).getFeature().getName());
 		} else if (t instanceof Not) {
 			Not not = (Not) t;
-			String n = not.getTerm() instanceof FeatureTerm ? ((FeatureTerm) not).getFeature().getName() : "(" + addAdvanceConstraint(not) + ")";
+			String n = not.getTerm() instanceof FeatureTerm ? ((FeatureTerm) not.getTerm()).getFeature().getName() : "(" + addAdvanceConstraint(not.getTerm()) + ")";
 			constraint.append("not").append(n);
 		} else if (t instanceof Implies) {
 			Term left = ((Implies) t).getLeft();
