@@ -19,7 +19,8 @@ import rhea.parsers.clafer.ClaferParser;
 import rhea.transformations.engine.HenshinEngine;
 
 public class ApplyRefactoring {
-	public static final String BASEDIR = "D:/Workspaces/RHEA-ws/rhea/";
+	public static final String BASEDIR = "B:/Trabajo/Investigación/Proyectos/RHEA/rhea/";
+	//public static final String BASEDIR = "D:/Workspaces/RHEA-ws/rhea/";
 	public static final String BASEDIR_METAMODELS = "rhea.metamodels/metamodels/";
 	public static final String BASEDIR_TRANSFORMATIONS = BASEDIR + "rhea.transformations/refactorings/";
 	public static final String BASEDIR_INPUT_MODELS = BASEDIR + "rhea.transformations/inputs/";
