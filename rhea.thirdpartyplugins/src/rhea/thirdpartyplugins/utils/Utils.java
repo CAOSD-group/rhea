@@ -7,6 +7,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
+import java.util.Arrays;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
@@ -131,6 +132,9 @@ public class Utils {
 		ProcessBuilder processBuilder = new ProcessBuilder();
 		processBuilder.command(arguments);
 		processBuilder.directory(directory);
+		
+		System.out.println(directory.toString());
+		System.out.println(Arrays.toString(arguments));
 		
 		try {			
 			Process process = processBuilder.start();
