@@ -8,6 +8,7 @@ import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
+import org.eclipse.emf.henshin.model.Action;
 import org.eclipse.emf.henshin.model.HenshinFactory;
 import org.eclipse.emf.henshin.model.Module;
 import org.eclipse.emf.henshin.model.Node;
@@ -114,11 +115,13 @@ public class GroupCardinalities {
 			Node nestedFeatureTermNode = HenshinRuleAnalysisUtilEx.createCreateNode(nestedRule.getRhs(), "", featureTermType);
 			HenshinRuleAnalysisUtilEx.createCreateEdge(nestedFeatureTermNode, nestedChild.getRhsNode(), (EReference) featureTermType.getEStructuralFeature("feature"));
 			
-			
 			// forbid
 			Node nestedFeatureTermForbidNode = HenshinRuleAnalysisUtilEx.createForbidNode(nestedRule, featureTermType);
-			nestedFeatureTermForbidNode.setAction(org.eclipse.emf.henshin.model.Action.parse("forbid*"));
-			Node imageChild = HenshinRuleAnalysisUtilEx.getNodeImage(childNode.getLhsNode(), nestedFeatureTermForbidNode.getGraph(), nestedRule.getMappings());
+			nestedFeatureTermForbidNode.setAction(Action.parse("forbid*"));
+			
+			//nestedFeatureTermForbidNode.getGraph().getNestedConditions().get(0).getMappings().add(childNode.getLhsNode(), nestedChild.getLhsNode());
+			Node imageChild = HenshinRuleAnalysisUtilEx.getNodeImage(nestedChild.getLhsNode(), nestedFeatureTermForbidNode.getGraph(), nestedRule.getAllMappings());
+			System.out.println("imageChild: " + imageChild);
 			HenshinRuleAnalysisUtilEx.createForbidEdge(nestedFeatureTermForbidNode, imageChild, (EReference) featureTermType.getEStructuralFeature("feature"), nestedRule);
 			//nestedRule.getLhs().getNestedConditions().get(0).getMappings().add(child.getLhsNode(), nestedForbidChild);	// Mapping between the nodes of the kernel and nested rules.
 			
