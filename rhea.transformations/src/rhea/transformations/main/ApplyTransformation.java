@@ -63,7 +63,7 @@ public class ApplyTransformation {
 		Unit unit = module.getUnit(ruleName);
 		
 		// Provide the parameters to the transformation
-		Map<String, Object> params = Map.of("k", 2);
+		Map<String, Object> params = Map.of("id", "Root_F1");
 				
 		// Execute the transformation
 		System.out.println("Executing the transformation...");
@@ -83,6 +83,7 @@ public class ApplyTransformation {
 			
 			// Serialize the transformed model
 			System.out.println("Saving the transformed model in " + Rhea.BASEDIR + "rhea.transformations/" + outputModelTransformed + "...");
+			System.out.println(fm.getFeatures().toString());
 			henshin.saveModel(fm, Rhea.BASEDIR + "rhea.transformations/" + outputModelTransformed);
 			try {
 				EMFIO.saveModel(fm, Rhea.STATIC_METAMODELS, outputModelTransformed2);

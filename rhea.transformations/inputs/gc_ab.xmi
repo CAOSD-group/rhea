@@ -12,7 +12,7 @@
       <children id="Root_F5_F6" name="F6" mandatory="false" abstract="false"/>
       <children id="Root_F5_F7" name="F7" mandatory="false" abstract="false"/>
       <children id="Root_F5_F8" name="F8" mandatory="false" abstract="false"/>
-      <multiplicity lower="1" upper="2"/>
+      <multiplicity lower="0" upper="2"/>
     </children>
   </root>
 </rhea:FeatureModel>
