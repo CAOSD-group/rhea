@@ -1,5 +1,6 @@
 package rhea.transformations.refactorings;
 
+import java.text.ParseException;
 import java.util.List;
 
 import rhea.Rhea;
@@ -14,7 +15,7 @@ import org.eclipse.emf.henshin.model.Module;
 public class CompleteHenshinTemplate {
 	private static final String INPUTS_MODELS = "inputs/";
 	
-	public static void main(String[] args) {
+	public static void main(String[] args) throws ParseException {
 		// Arguments
 		String modelName = "gc_ab";		
 		String inputModel = INPUTS_MODELS + modelName + ".txt";

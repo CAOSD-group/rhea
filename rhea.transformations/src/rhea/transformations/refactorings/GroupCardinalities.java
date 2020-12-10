@@ -1,5 +1,6 @@
 package rhea.transformations.refactorings;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,17 +10,15 @@ import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.henshin.model.HenshinFactory;
 import org.eclipse.emf.henshin.model.Module;
+import org.eclipse.emf.henshin.model.Node;
 import org.eclipse.emf.henshin.model.Rule;
 import org.eclipse.emf.henshin.model.Unit;
 import org.sidiff.common.henshin.HenshinRuleAnalysisUtilEx;
 import org.sidiff.common.henshin.NodePair;
 
 import rhea.Rhea;
-import rhea.metamodels.BasicFMs.BasicFMsPackage;
 import rhea.metamodels.BasicFMs.Feature;
 import rhea.metamodels.BasicFMs.FeatureModel;
-import rhea.metamodels.CardinalityBasedFMs.CardinalityBasedFMsFactory;
-import rhea.metamodels.CardinalityBasedFMs.CardinalityBasedFMsPackage;
 import rhea.metamodels.CardinalityBasedFMs.GroupCardinality;
 import rhea.metamodels.helpers.EMFIO;
 import rhea.transformations.engine.HenshinEngine;
@@ -28,6 +27,7 @@ public class GroupCardinalities {
 	public static final String GROUPCARDINALITYMN_REFACTORING_TEMPLATE_FILEPATH = Rhea.REFACTORINGS_DIR + "";
 	private static EPackage basicFMsMetamodel = (EPackage) EMFIO.loadMetamodel(Rhea.BASICFMS_METAMODEL);
 	private static EPackage groupCardinalityMetamodel = (EPackage) EMFIO.loadMetamodel(Rhea.CARDINALITYBASEDFMS_METAMODEL);
+	private static EPackage propLogicCTCsMetamodel = (EPackage) EMFIO.loadMetamodel(Rhea.PROPLOGICCTCS_METAMODEL);
 	
 	/**
 	 * Obtain all groups cardinalities from the feature model.
@@ -51,8 +51,9 @@ public class GroupCardinalities {
 	 * @param modulePath	Path of the module template for group cardinalities MN.
 	 * @param gc			Group cardinality.
 	 * @return				Henshin module completed.
+	 * @throws ParseException 
 	 */
-	public static Module completeModuleForGC(String modulePath, GroupCardinality gc) {
+	public static Module completeModuleForGC(String modulePath, GroupCardinality gc) throws ParseException {
 		HenshinEngine ee = new HenshinEngine(Rhea.BASEDIR);
 		
 		Module module = ee.getModule(modulePath);
@@ -76,36 +77,64 @@ public class GroupCardinalities {
 	 * @param k		Combinations.
 	 * @param gcID	ID of the group cardinality.
 	 * @return		Henshin rule.
+	 * @throws ParseException 
 	 */
-	public static Rule createRuleForK(int k, String gcID) {
+	public static Rule createRuleForK(int k, String gcID) throws ParseException {
+		// Create the kernel rule
 		Rule rule = HenshinFactory.eINSTANCE.createRule();
 		rule.setName(gcID + "_k" + k);
 		
-		// Create the node for the group cardinality
-		EClass gcType = (EClass) groupCardinalityMetamodel.getEClassifier("GroupCardinality");
-		NodePair node = HenshinRuleAnalysisUtilEx.createPreservedNodeWithAttribute(rule, "", gcType, (EAttribute) gcType.getEStructuralFeature("id"), gcID, false);
-		
-		// Create the nodes for the children of the group cardinality
-		EClass featureType = (EClass) basicFMsMetamodel.getEClassifier("Feature");
-		for (int i = 1; i <= k-1; i++) {
-			NodePair child = HenshinRuleAnalysisUtilEx.createPreservedNode(rule, "", featureType);
-			//Optional<EReference> reference = sourceEClass.getEAllReferences().stream().filter(ref -> ref.getEType().equals(targetEClass)).findAny();
-			HenshinRuleAnalysisUtilEx.createPreservedEdge(rule, node, child, (EReference) gcType.getEStructuralFeature("children"));
-			HenshinRuleAnalysisUtilEx.createPreservedEdge(rule, child, node, (EReference) featureType.getEStructuralFeature("parent"));
-		}
-		
-		// Create the multi-node
+		// Create the multi-rule (nestedrule)
 		Rule nestedRule = createNestedRule(rule);
+		
+		// Get the eClass type for the objects
+		EClass gcType = (EClass) groupCardinalityMetamodel.getEClassifier("GroupCardinality");
+		EClass featureType = (EClass) basicFMsMetamodel.getEClassifier("Feature");
+		EClass featureTermType = (EClass) propLogicCTCsMetamodel.getEClassifier("FeatureTerm");
+		
+		// Create the node for the group cardinality
+		NodePair gcNode = HenshinRuleAnalysisUtilEx.createPreservedNodeWithAttribute(rule, "", gcType, (EAttribute) gcType.getEStructuralFeature("id"), gcID, false);
+		// Create the node image node for the group cardinality in the nested rule
+		NodePair nestedGC = HenshinRuleAnalysisUtilEx.createPreservedNode(nestedRule, "", gcType);
+		nestedRule.getMultiMappings().add(gcNode.getLhsNode(), nestedGC.getLhsNode());
+		nestedRule.getMultiMappings().add(gcNode.getRhsNode(), nestedGC.getRhsNode());
+		
+		// Create the nodes for the children of the group cardinality (k children - 1)
+		for (int i = 1; i <= k-1; i++) {
+			// Create the node in the kernel and nested rule.
+			NodePair childNode = HenshinRuleAnalysisUtilEx.createPreservedNode(rule, "", featureType);
+			NodePair nestedChild = HenshinRuleAnalysisUtilEx.createPreservedNode(nestedRule, "", featureType);
+			nestedRule.getMultiMappings().add(childNode.getLhsNode(), nestedChild.getLhsNode());
+			nestedRule.getMultiMappings().add(childNode.getRhsNode(), nestedChild.getRhsNode());
+			HenshinRuleAnalysisUtilEx.createPreservedEdge(rule, gcNode, childNode, (EReference) gcType.getEStructuralFeature("children"));
+			HenshinRuleAnalysisUtilEx.createPreservedEdge(rule, childNode, gcNode, (EReference) featureType.getEStructuralFeature("parent"));
+			
+			
+			// For each child we create a multi-node FeatureTerm <<create>> and another <<forbid>>
+			Node nestedFeatureTermNode = HenshinRuleAnalysisUtilEx.createCreateNode(nestedRule.getRhs(), "", featureTermType);
+			HenshinRuleAnalysisUtilEx.createCreateEdge(nestedFeatureTermNode, nestedChild.getRhsNode(), (EReference) featureTermType.getEStructuralFeature("feature"));
+			
+			
+			// forbid
+			Node nestedFeatureTermForbidNode = HenshinRuleAnalysisUtilEx.createForbidNode(nestedRule, featureTermType);
+			nestedFeatureTermForbidNode.setAction(org.eclipse.emf.henshin.model.Action.parse("forbid*"));
+			Node imageChild = HenshinRuleAnalysisUtilEx.getNodeImage(childNode.getLhsNode(), nestedFeatureTermForbidNode.getGraph(), nestedRule.getMappings());
+			HenshinRuleAnalysisUtilEx.createForbidEdge(nestedFeatureTermForbidNode, imageChild, (EReference) featureTermType.getEStructuralFeature("feature"), nestedRule);
+			//nestedRule.getLhs().getNestedConditions().get(0).getMappings().add(child.getLhsNode(), nestedForbidChild);	// Mapping between the nodes of the kernel and nested rules.
+			
+			//HenshinRuleAnalysisUtilEx.createForbidEdge(nestedFeatureTermForbidNode, nestedForbidChild, (EReference) featureTermType.getEStructuralFeature("feature"), nestedRule);
+		}
+		/*
 		//NodePair childNode = HenshinRuleAnalysisUtilEx.createPreservedNode(rule, "", featureType); // Create the feature node in the kernel rule
 		NodePair nestedChildNode = HenshinRuleAnalysisUtilEx.createPreservedNode(nestedRule, "", featureType); // Create the feature node in the nested rule
 		NodePair gcNestedNode = HenshinRuleAnalysisUtilEx.createPreservedNode(nestedRule, "", gcType); // Create the feature node in the nested rule
 		
 		// Create the mapping between the nodes
-		nestedRule.getMultiMappings().add(node.getLhsNode(), gcNestedNode.getLhsNode());
+		nestedRule.getMultiMappings().add(gcNode.getLhsNode(), gcNestedNode.getLhsNode());
 		//nestedRule.getMultiMappings().add(childNode.getRhsNode(), nestedChildNode.getRhsNode());
 		HenshinRuleAnalysisUtilEx.createPreservedEdge(nestedRule, gcNestedNode, nestedChildNode, (EReference) gcType.getEStructuralFeature("children"));
 		HenshinRuleAnalysisUtilEx.createPreservedEdge(nestedRule, nestedChildNode, gcNestedNode, (EReference) featureType.getEStructuralFeature("parent"));
-		
+		*/
 		return rule;
 	}
 
