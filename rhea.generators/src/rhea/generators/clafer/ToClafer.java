@@ -61,7 +61,8 @@ public class ToClafer implements FMGenerator {
 				claferFM.append("or " );
 			} else if (feature instanceof GroupCardinality) {
 				var mul = ((GroupCardinality) feature).getMultiplicity();
-				claferFM.append(mul.getLower()).append("..").append(mul.getUpper()).append(" ");
+				String upper = mul.getUpper() == -1 ? "*" : String.valueOf(mul.getUpper());
+				claferFM.append(mul.getLower()).append("..").append(upper).append(" ");
 			} else if (feature instanceof MutexGroup) {
 				claferFM.append("mux " );
 			}
