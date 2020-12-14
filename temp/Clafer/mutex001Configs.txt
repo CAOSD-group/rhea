@@ -1,0 +1,34 @@
+=== Instance 1 Begin ===
+
+config
+  A
+
+--- Instance 1 End ---
+
+=== Instance 2 Begin ===
+
+config
+  A
+    AP
+      A3
+
+--- Instance 2 End ---
+
+=== Instance 3 Begin ===
+
+config
+  A
+    AP
+      A2
+
+--- Instance 3 End ---
+
+=== Instance 4 Begin ===
+
+config
+  A
+    AP
+      A1
+
+--- Instance 4 End ---
+

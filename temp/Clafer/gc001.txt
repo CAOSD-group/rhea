@@ -1,5 +1,6 @@
 abstract Root
-	1..* A
+	xor A
 		A1
 		A2
 		A3
+config: Root

@@ -60,7 +60,10 @@ public class MutexGroupTest {
 		System.out.println("Calculating expected products...");
 		AutomatedAnalysisFM aafm = new AAFMClafer();
 		var expectedProducts = aafm.products(fm);
-				
+		
+		System.out.print("Times begins!");
+		var timeBefore = System.currentTimeMillis();
+		
 		/********** REFACTORING **********/
 		// Prepare the transformation
 		System.out.println("Transforming model...");
@@ -81,6 +84,9 @@ public class MutexGroupTest {
 			System.out.println("Transformation was not applied.");
 		
 		/********** END REFACTORING **********/
+		
+		var timeAfter = System.currentTimeMillis();
+		System.out.println("Stop timer!");
 		
 		// Serialize the abstract syntax
 		System.out.println("Serialize abstract syntax of output model: " + outputFileAS);
@@ -107,7 +113,14 @@ public class MutexGroupTest {
 		System.out.println("FM configs (expected): " + expectedProductsIDs.size() + " -> " + expectedProductsIDs);
 		System.out.println("FM configs: " + productsIDs.size() + " -> " + productsIDs);
 		
+		var numberMutexGroup = FMHelper.getAllFeaturesOf(fm,"rhea.metamodels.CardinalityBasedFMs.MutexGroup").size();
+		
+		System.out.println("FM number of mutex remaining: " + numberMutexGroup);
+		
+		System.out.println("Performance: " + (timeAfter-timeBefore) + " milliseconds." );
+		
 		assertEquals(expectedProductsIDs, productsIDs);
+		assertEquals(0, numberMutexGroup);
 	}
 	
 	

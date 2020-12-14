@@ -1,0 +1,20 @@
+abstract Root
+	B ?
+		xor BP ?
+			B2
+				B21
+			B1
+				B11
+				B12
+			B3
+				B31 ?
+	A
+		xor AP ?
+			A1
+				A11
+				A12
+			A3
+				A31 ?
+			A2
+				A21
+config: Root

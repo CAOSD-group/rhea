@@ -1,0 +1,24 @@
+abstract Root
+	1..2 B
+		B1
+		B2
+		B3
+	1..-1 C
+		C1
+		C2
+		C3
+	or D
+		D1
+		D3
+		D2
+	E
+		xor EP ?
+			E3
+			E1
+			E2
+	A
+		1..2 AP ?
+			A1
+			A2
+			A3
+config: Root

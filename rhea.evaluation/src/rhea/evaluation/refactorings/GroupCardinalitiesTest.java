@@ -39,7 +39,8 @@ public class GroupCardinalitiesTest {
     }
 	
 	@ParameterizedTest
-	@ValueSource(strings = {"gc001", "gc002", "gc003", "gc004", "gc005", "gc006", "gc007", "gc008", "gc009", "gc010", "gc011", "gc012"})
+	//@ValueSource(strings = {"gc001", "gc002", "gc003", "gc004", "gc005", "gc006", "gc007", "gc008", "gc009", "gc010", "gc011", "gc012"})
+	@ValueSource(strings = {"gc002"})
 	void cardinalitiesGroup(String inputModel) throws IOException {
 		// Test parameters
 		String inputFile = Rhea.CLAFER_INPUTS_DIR + "GroupCardinalities/" + inputModel + ".txt";
@@ -60,6 +61,9 @@ public class GroupCardinalitiesTest {
 		System.out.println("Calculating expected products...");
 		AutomatedAnalysisFM aafm = new AAFMClafer();
 		var expectedProducts = aafm.products(fm);
+		
+		System.out.print("Times begins!");
+		var timeBefore = System.currentTimeMillis();
 				
 		/********** REFACTORING **********/
 		// Prepare the transformation
@@ -82,6 +86,9 @@ public class GroupCardinalitiesTest {
 		
 		/********** END REFACTORING **********/
 		
+		var timeAfter = System.currentTimeMillis();
+		System.out.println("Stop timer!");
+	
 		// Serialize the abstract syntax
 		System.out.println("Serialize abstract syntax of output model: " + outputFileAS);
 		henshin.saveModel(fm, outputFileAS);
@@ -107,7 +114,14 @@ public class GroupCardinalitiesTest {
 		System.out.println("FM configs (expected): " + expectedProductsIDs.size() + " -> " + expectedProductsIDs);
 		System.out.println("FM configs: " + productsIDs.size() + " -> " + productsIDs);
 		
+		var numberGroupCardinalities = FMHelper.getAllFeaturesOf(fm, "rhea.metamodels.CardinalityBasedFMs.GroupCardinality").size();
+		
+		System.out.println("FM number of group cardinalities remaining: " + numberGroupCardinalities);
+		
+		System.out.println("Performance: " + (timeAfter-timeBefore) + " milliseconds." );
+		
 		assertEquals(expectedProductsIDs, productsIDs);
+		assertEquals(0,numberGroupCardinalities);
 	}
 	
 	

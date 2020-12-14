@@ -151,7 +151,7 @@ public class Utils {
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
-			e.printStackTrace();
+			//e.printStackTrace();
 		}		
 	}
 	
