@@ -7,8 +7,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
-import java.util.Arrays;
-import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -20,6 +18,12 @@ import org.apache.commons.io.FileUtils;
 
 import com.google.gson.Gson;
 
+/**
+ * Utils to facilitate the usage of third-party plugins.
+ * 
+ * @author Jose-Miguel Horcas
+ * 
+ */
 public class Utils {
 	
 	/**
@@ -130,11 +134,8 @@ public class Utils {
 	 */
 	public static void runCLI(File directory, String... arguments) {
 		ProcessBuilder processBuilder = new ProcessBuilder();
-		processBuilder.command(arguments);
 		processBuilder.directory(directory);
-		
-		System.out.println(directory.toString());
-		System.out.println(Arrays.toString(arguments));
+		processBuilder.command(arguments);
 		
 		try {			
 			Process process = processBuilder.start();

@@ -428,7 +428,8 @@ public class MyClaferParserListener implements claferParserListener {
 		if (type.contains("..")) {
 			currentFeature = CardinalityBasedFMsFactory.eINSTANCE.createGroupCardinality();
 			int lower = Integer.parseInt(type.substring(0, type.indexOf(".")));
-			int upper = Integer.parseInt(type.substring(type.lastIndexOf(".")+1, type.length()));
+			String upperMult = type.substring(type.lastIndexOf(".")+1, type.length());
+			int upper = upperMult.equals("*") ? -1 : Integer.parseInt(upperMult); 
 			Multiplicity mul = CardinalityBasedFMsFactory.eINSTANCE.createMultiplicity();
 			mul.setLower(lower);
 			mul.setUpper(upper);

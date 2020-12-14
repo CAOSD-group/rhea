@@ -31,9 +31,7 @@ public class ClaferUtils {
 	 * @return						Filepath of the compiled file (.js)
 	 */
 	public static String compileClafer(String claferModelFilepath) {
-		Path workingDir = Paths.get(WORKING_DIR);
 		Path p = Paths.get(claferModelFilepath);
-		
 		Utils.runCLI(new File(WORKING_DIR), new String[]{CLAFER_EXE, "-m", "choco", p.toAbsolutePath().toString()});
 		String outputFile = p.toString().substring(0, p.toString().lastIndexOf('.')) + ".js";
 		
