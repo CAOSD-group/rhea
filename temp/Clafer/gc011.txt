@@ -8,17 +8,17 @@ abstract Root
 		C2
 		C3
 	or D
-		D1
-		D3
 		D2
+		D3
+		D1
 	E
 		xor EP ?
-			E3
 			E1
 			E2
+			E3
 	A
 		1..2 AP ?
 			A1
-			A2
 			A3
+			A2
 config: Root

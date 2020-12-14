@@ -18,7 +18,44 @@ config
 
 config
   A
-    A1
+    A2
+    A3
 
 --- Instance 3 End ---
+
+=== Instance 4 Begin ===
+
+config
+  A
+    A1
+
+--- Instance 4 End ---
+
+=== Instance 5 Begin ===
+
+config
+  A
+    A1
+    A3
+
+--- Instance 5 End ---
+
+=== Instance 6 Begin ===
+
+config
+  A
+    A1
+    A2
+
+--- Instance 6 End ---
+
+=== Instance 7 Begin ===
+
+config
+  A
+    A1
+    A2
+    A3
+
+--- Instance 7 End ---
 

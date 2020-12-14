@@ -1,10 +1,10 @@
 abstract Root
-	xor A
-		A1
-		A2
-		A3
 	xor B
-		B3
 		B2
 		B1
+		B3
+	xor A
+		A2
+		A3
+		A1
 config: Root
