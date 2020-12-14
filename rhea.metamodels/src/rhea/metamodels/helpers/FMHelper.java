@@ -1,5 +1,6 @@
 package rhea.metamodels.helpers;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
@@ -9,6 +10,7 @@ import java.util.stream.Collectors;
 import rhea.metamodels.BasicFMs.Feature;
 import rhea.metamodels.BasicFMs.FeatureGroup;
 import rhea.metamodels.BasicFMs.FeatureModel;
+import rhea.metamodels.CardinalityBasedFMs.GroupCardinality;
 
 public class FMHelper {
 
@@ -78,6 +80,22 @@ public class FMHelper {
 			configs.add(config.stream().map(c -> c.getName()).collect(Collectors.toSet()));
 		}
 		return configs;
+	}
+	
+	/**
+	 * Obtain all groups cardinalities from the feature model.
+	 * 
+	 * @param fm	Feature model.
+	 * @return		List of groups cardinalities.
+	 */
+	public static List<GroupCardinality> getGroupsCardinalities(FeatureModel fm) {
+		List<GroupCardinality> groups = new ArrayList<GroupCardinality>();
+		for (Feature f : fm.getFeatures()) {
+			if (f instanceof GroupCardinality) {
+				groups.add((GroupCardinality) f);
+			}
+		}
+		return groups;
 	}
 	
 //	public FeatureModel createEmptyFeatureModel() {
