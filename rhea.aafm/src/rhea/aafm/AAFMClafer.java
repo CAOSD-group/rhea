@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import rhea.Rhea;
 import rhea.generators.clafer.ToClafer;
 import rhea.metamodels.BasicFMs.Feature;
 import rhea.metamodels.BasicFMs.FeatureModel;
@@ -22,7 +23,7 @@ import rhea.thirdpartyplugins.utils.Utils;
  *
  */
 public class AAFMClafer implements AutomatedAnalysisFM {
-	public static final String TEMP_DIR = "temp/Clafer/";
+	public static final String TEMP_DIR = Rhea.BASEDIR + "temp/Clafer/";
 	
 	@Override
 	public int numberOfConfigurations(FeatureModel fm) {
