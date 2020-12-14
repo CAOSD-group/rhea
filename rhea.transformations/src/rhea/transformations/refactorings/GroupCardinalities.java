@@ -8,12 +8,13 @@ import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
-import org.eclipse.emf.henshin.model.Edge;
 import org.eclipse.emf.henshin.model.HenshinFactory;
+import org.eclipse.emf.henshin.model.LoopUnit;
 import org.eclipse.emf.henshin.model.Module;
 import org.eclipse.emf.henshin.model.NestedCondition;
 import org.eclipse.emf.henshin.model.Node;
 import org.eclipse.emf.henshin.model.Rule;
+import org.eclipse.emf.henshin.model.SequentialUnit;
 import org.eclipse.emf.henshin.model.Unit;
 import org.eclipse.emf.henshin.trace.TracePackage;
 import org.sidiff.common.henshin.HenshinRuleAnalysisUtilEx;
@@ -65,11 +66,33 @@ public class GroupCardinalities {
 		int lower = gc.getMultiplicity().getLower();
 		int upper = gc.getMultiplicity().getUpper();
 		
+		// Create the main rule
+		SequentialUnit mainUnit = createSequentialUnit();
+		mainUnit.setRollback(true);
+		mainUnit.setStrict(true);
+
+		Unit u1 = module.getUnit("CreateConstraint");
+		
+		mainUnit.getSubUnits().add(u1);
+		
 		for (int k = lower; k <= upper; k++) {
+			// create the rule for K combi
 			Rule r = createRuleForK(k, gc.getId());
 			module.getUnits().add(r);
-			System.out.println("rule: " + r);
+			
+			// Create the loop unit
+			Unit unit = createLoopUnit(r);
+			module.getUnits().add(unit);
+			
+			// Add to the main sequential unit
+			mainUnit.getSubUnits().add(unit);
+			
+			mainUnit.getSubUnits().add(module.getUnit("CleanFeatureTrace"));
 		}
+		
+		mainUnit.getSubUnits().add(module.getUnit("MultiNegative"));
+		mainUnit.getSubUnits().add(module.getUnit("TransformGroupCardinality"));
+		mainUnit.getSubUnits().add(module.getUnit("Clean"));
 		
 		return module;
 	}
@@ -213,81 +236,28 @@ public class GroupCardinalities {
 			
 			Node traceForbidChildNode = HenshinRuleAnalysisUtilEx.createForbidNode(rule, traceType);
 			HenshinRuleAnalysisUtilEx.createForbidEdge(traceForbidChildNode, childNACNode, (EReference) traceType.getEStructuralFeature("source"), rule);
-			
-			
-			
-			
-//			NodePair childNode = HenshinRuleAnalysisUtilEx.createPreservedNode(rule, "", featureType);
-//			NodePair nestedChild = HenshinRuleAnalysisUtilEx.createPreservedNode(nestedRule, "", featureType);
-//			nestedRule.getMultiMappings().add(childNode.getLhsNode(), nestedChild.getLhsNode());
-//			nestedRule.getMultiMappings().add(childNode.getRhsNode(), nestedChild.getRhsNode());
-//			HenshinRuleAnalysisUtilEx.createPreservedEdge(rule, gcNode, childNode, (EReference) gcType.getEStructuralFeature("children"));
-//			HenshinRuleAnalysisUtilEx.createPreservedEdge(rule, childNode, gcNode, (EReference) featureType.getEStructuralFeature("parent"));
-//				
-//			// For each child we create a multi-node FeatureTerm <<create>> and another <<forbid>>
-//			Node nestedFeatureTermNode = HenshinRuleAnalysisUtilEx.createCreateNode(nestedRule.getRhs(), "", featureTermType);
-//			HenshinRuleAnalysisUtilEx.createCreateEdge(nestedFeatureTermNode, nestedChild.getRhsNode(), (EReference) featureTermType.getEStructuralFeature("feature"));
-//			// Edge to the and
-//			HenshinRuleAnalysisUtilEx.createCreateEdge(nestedAndNode, nestedFeatureTermNode, (EReference) andType.getEStructuralFeature("terms"));
-//			
-//			// forbid multi
-//			Node nestedFeatureTermForbidNode = HenshinRuleAnalysisUtilEx.createForbidNode(nestedRule, featureTermType);
-//			nestedFeatureTermForbidNode.setAction(Action.parse("forbid*"));
-//			// Edge to the and
-//			HenshinRuleAnalysisUtilEx.createForbidEdge(nestedAndForbidNode, nestedFeatureTermForbidNode, (EReference) andType.getEStructuralFeature("terms"), nestedRule);
-//			
-//			// add node to the nac
-//			Node nacChildNode = HenshinRuleAnalysisUtilEx.copyNode(nac.getConclusion(), childNode.getLhsNode());
-//			nac.getMappings().add(childNode.getLhsNode(), nacChildNode);
-//			
-//			// Edge to the feature 
-//			HenshinRuleAnalysisUtilEx.createForbidEdge(nestedFeatureTermForbidNode, nacChildNode, (EReference) featureTermType.getEStructuralFeature("feature"), nestedRule);
 		}
 		
-		// Create the multinode for the child
-		//NodePair nestedmultiChildNode = HenshinRuleAnalysisUtilEx.createPreservedNode(nestedRule, "", featureType);
-		//nestedmultiChildNode.getLhsNode().setAction(Action.parse("preserve*"));
-		//nestedRule.getMultiMappings().add(multiChildNode.getLhsNode(), nestedmultiChildNode.getLhsNode());
-		//nestedRule.getMultiMappings().add(multiChildNode.getRhsNode(), nestedmultiChildNode.getRhsNode());
-		
-		//HenshinRuleAnalysisUtilEx.createPreservedEdge(rule, nestedGC, nestedmultiChildNode, (EReference) gcType.getEStructuralFeature("children"));
-		//HenshinRuleAnalysisUtilEx.createPreservedEdge(rule, nestedmultiChildNode, gcNode, (EReference) featureType.getEStructuralFeature("parent"));
-		
-		//nestedRule.getMultiMappings().add(multiChildNode.getLhsNode(), nestedmultiChildNode.getLhsNode());
-		//nestedRule.getMultiMappings().add(multiChildNode.getRhsNode(), nestedmultiChildNode.getRhsNode());
-		
-		//multiChildNode.getLhsNode().setAction(Action.parse("preserve*"));
-		
-		/*
-		NodePair nestedmultiChildNode = HenshinRuleAnalysisUtilEx.createPreservedNode(nestedRule, "", featureType);
-		nestedRule.getMultiMappings().add(multiChildNode.getLhsNode(), nestedmultiChildNode.getLhsNode());
-		nestedRule.getMultiMappings().add(multiChildNode.getRhsNode(), nestedmultiChildNode.getRhsNode());
-		HenshinRuleAnalysisUtilEx.createPreservedEdge(rule, nestedGC, multiChildNode, (EReference) gcType.getEStructuralFeature("children"));
-		HenshinRuleAnalysisUtilEx.createPreservedEdge(rule, multiChildNode, nestedGC, (EReference) featureType.getEStructuralFeature("parent"));
-		*/
-		// We create a multi-node FeatureTerm <<create>> and another <<forbid>>
-		//Node nestedFeatureTermNode = HenshinRuleAnalysisUtilEx.createCreateNode(nestedRule.getRhs(), "", featureTermType);
-		//HenshinRuleAnalysisUtilEx.createCreateEdge(nestedFeatureTermNode, nestedmultiChildNode.getRhsNode(), (EReference) featureTermType.getEStructuralFeature("feature"));
-		
-		// forbid multi
-		//Node nestedFeatureTermForbidNode = HenshinRuleAnalysisUtilEx.createForbidNode(nestedRule, featureTermType);
-		//nestedFeatureTermForbidNode.setAction(Action.parse("forbid*"));
-		
-		
-		/*
-		//NodePair childNode = HenshinRuleAnalysisUtilEx.createPreservedNode(rule, "", featureType); // Create the feature node in the kernel rule
-		NodePair nestedChildNode = HenshinRuleAnalysisUtilEx.createPreservedNode(nestedRule, "", featureType); // Create the feature node in the nested rule
-		NodePair gcNestedNode = HenshinRuleAnalysisUtilEx.createPreservedNode(nestedRule, "", gcType); // Create the feature node in the nested rule
-		
-		// Create the mapping between the nodes
-		nestedRule.getMultiMappings().add(gcNode.getLhsNode(), gcNestedNode.getLhsNode());
-		//nestedRule.getMultiMappings().add(childNode.getRhsNode(), nestedChildNode.getRhsNode());
-		HenshinRuleAnalysisUtilEx.createPreservedEdge(nestedRule, gcNestedNode, nestedChildNode, (EReference) gcType.getEStructuralFeature("children"));
-		HenshinRuleAnalysisUtilEx.createPreservedEdge(nestedRule, nestedChildNode, gcNestedNode, (EReference) featureType.getEStructuralFeature("parent"));
-		*/
 		return rule;
 	}
 
+	private static LoopUnit createLoopUnit(Rule rule) {
+		LoopUnit unit = HenshinFactory.eINSTANCE.createLoopUnit();
+		unit.setName("Multi" + rule.getName());
+		unit.setSubUnit(rule);
+		unit.setActivated(true);
+		
+		return unit;
+	}
+	
+	private static SequentialUnit createSequentialUnit() {
+		SequentialUnit unit = HenshinFactory.eINSTANCE.createSequentialUnit();
+		unit.setName("GroupCardinalitiesNM");
+		unit.setActivated(true);
+		
+		return unit;
+	}
+	
 	private static Rule createNestedRule(Rule rule) {
 		Rule nestedRule = HenshinFactory.eINSTANCE.createRule();
 		nestedRule.setActivated(true);
