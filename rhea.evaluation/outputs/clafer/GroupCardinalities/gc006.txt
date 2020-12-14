@@ -1,11 +1,9 @@
 abstract Root
-	A
+	xor A
 		A2
 		A1
-			xor A1P ?
-				A12
-				A13
-	B
+		A3
+	xor B
 		B1
 		B2
 		B3

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="ASCII"?>
+<rhea:FeatureModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:rhea="rhea.metamodels.BasicFMs" xmlns:rhea_1="rhea.metamodels.CardinalityBasedFMs" name="gc012" features="//@root //@root/@children.0 //@root/@children.0/@children.0 //@root/@children.0/@children.0/@children.0 //@root/@children.0/@children.0/@children.1 //@root/@children.0/@children.1 //@root/@children.0/@children.1/@children.0 //@root/@children.0/@children.1/@children.0/@children.0 //@root/@children.0/@children.2 //@root/@children.1 //@root/@children.1/@children.0 //@root/@children.1/@children.1 //@root/@children.1/@children.2 //@root/@children.1/@children.2/@children.0 //@root/@children.1/@children.2/@children.0/@children.0 //@root/@children.1/@children.2/@children.0/@children.1 //@root/@children.2 //@root/@children.2/@children.0 //@root/@children.2/@children.0/@children.0 //@root/@children.2/@children.0/@children.0/@children.0 //@root/@children.2/@children.0/@children.0/@children.0/@children.0 //@root/@children.2/@children.0/@children.0/@children.0/@children.1 //@root/@children.2/@children.0/@children.0/@children.0/@children.2 //@root/@children.2/@children.0/@children.0/@children.1 //@root/@children.2/@children.1 //@root/@children.2/@children.2 //@root/@children.4/@children.1 //@root/@children.4/@children.0 //@root/@children.4/@children.2 //@root/@children.3 //@root/@children.3/@children.0 //@root/@children.3/@children.1 //@root/@children.3/@children.2 //@root/@children.4">
+  <root id="Root" name="Root" mandatory="true" abstract="true">
+    <children xsi:type="rhea_1:GroupCardinality" id="Root_A" name="A" mandatory="true">
+      <children id="Root_A_A1" name="A1">
+        <children id="Root_A_A1_A5" name="A5" mandatory="true"/>
+        <children id="Root_A_A1_A6" name="A6" mandatory="true"/>
+      </children>
+      <children id="Root_A_A2" name="A2">
+        <children id="Root_A_A2_A7" name="A7" mandatory="true">
+          <children id="Root_A_A2_A7_A8" name="A8" mandatory="true"/>
+        </children>
+      </children>
+      <children id="Root_A_A3" name="A3"/>
+      <multiplicity lower="0" upper="2"/>
+    </children>
+    <children xsi:type="rhea_1:GroupCardinality" id="Root_B" name="B" mandatory="true">
+      <children id="Root_B_B1" name="B1"/>
+      <children id="Root_B_B2" name="B2"/>
+      <children id="Root_B_B3" name="B3">
+        <children xsi:type="rhea_1:GroupCardinality" id="Root_B_B3_B4" name="B4" mandatory="true">
+          <children id="Root_B_B3_B4_B5" name="B5"/>
+          <children id="Root_B_B3_B4_B6" name="B6"/>
+          <multiplicity upper="2"/>
+        </children>
+      </children>
+      <multiplicity upper="2"/>
+    </children>
+    <children xsi:type="rhea_1:GroupCardinality" id="Root_C" name="C" mandatory="true">
+      <children id="Root_C_C1" name="C1">
+        <children xsi:type="rhea_1:GroupCardinality" id="Root_C_C1_C4" name="C4" mandatory="true">
+          <children xsi:type="rhea_1:GroupCardinality" id="Root_C_C1_C4_C5" name="C5">
+            <children id="Root_C_C1_C4_C5_C7" name="C7"/>
+            <children id="Root_C_C1_C4_C5_C8" name="C8"/>
+            <children id="Root_C_C1_C4_C5_C9" name="C9"/>
+            <multiplicity upper="2"/>
+          </children>
+          <children id="Root_C_C1_C4_C6" name="C6"/>
+          <multiplicity lower="2" upper="3"/>
+        </children>
+      </children>
+      <children id="Root_C_C2" name="C2"/>
+      <children id="Root_C_C3" name="C3"/>
+      <multiplicity/>
+    </children>
+    <children xsi:type="rhea_1:GroupCardinality" id="Root_E" name="E" mandatory="true">
+      <children id="Root_E_E1" name="E1"/>
+      <children id="Root_E_E2" name="E2"/>
+      <children id="Root_E_E3" name="E3"/>
+      <multiplicity lower="0" upper="1"/>
+    </children>
+    <children xsi:type="rhea:SelectionGroup" id="Root_D" name="D" mandatory="true">
+      <children id="Root_D_D2" name="D2"/>
+      <children id="Root_D_D1" name="D1"/>
+      <children id="Root_D_D3" name="D3"/>
+    </children>
+  </root>
+</rhea:FeatureModel>
