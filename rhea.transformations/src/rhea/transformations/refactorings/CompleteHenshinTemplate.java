@@ -19,7 +19,7 @@ public class CompleteHenshinTemplate {
 		// Arguments
 		String modelName = "gc_ab";		
 		String inputModel = INPUTS_MODELS + modelName + ".txt";
-		String templateFilePath = Rhea.REFACTORINGS_DIR + "pruebas2.henshin";
+		String templateFilePath = Rhea.REFACTORINGS_DIR + "GroupCardinalitiesNM.henshin";
 		String completedRefactoringFilePath = Rhea.REFACTORINGS_DIR + "templateGC-completed.henshin";
 		
 		// Parse the input model
