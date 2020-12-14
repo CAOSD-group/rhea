@@ -37,7 +37,7 @@ public class AAFMClafer implements AutomatedAnalysisFM {
 		String configsFilepath = ClaferUtils.generateConfigurations(chocoFilepath);
 		var configs = ClaferUtils.parserConfigs(configsFilepath);
 		
-		Utils.cleanDirectory(TEMP_DIR);
+		//Utils.cleanDirectory(TEMP_DIR);
 		
 		// Convert from string to Feature
 		var featuresConfigs = new HashSet<Set<Feature>>();

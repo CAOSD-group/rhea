@@ -82,20 +82,22 @@ public class FMHelper {
 		return configs;
 	}
 	
+	
 	/**
-	 * Obtain all groups cardinalities from the feature model.
+	 * Obtain all Features of the same class from the feature model.
 	 * 
 	 * @param fm	Feature model.
-	 * @return		List of groups cardinalities.
+	 * @param name  The name of the class to get all features.
+	 * @return		List of features.
 	 */
-	public static List<GroupCardinality> getGroupsCardinalities(FeatureModel fm) {
-		List<GroupCardinality> groups = new ArrayList<GroupCardinality>();
+	public static List<Feature> getAllFeaturesOf(FeatureModel fm, String name) {
+		List<Feature> features = new ArrayList<Feature>();
 		for (Feature f : fm.getFeatures()) {
-			if (f instanceof GroupCardinality) {
-				groups.add((GroupCardinality) f);
-			}
+			try {
+				if (Class.forName(name).isInstance(f)) features.add(f);
+			} catch (ClassNotFoundException e) {e.printStackTrace();}
 		}
-		return groups;
+		return features;
 	}
 	
 //	public FeatureModel createEmptyFeatureModel() {

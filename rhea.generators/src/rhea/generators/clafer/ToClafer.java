@@ -182,6 +182,7 @@ public class ToClafer implements FMGenerator {
 		ToClafer toClafer = new ToClafer();
 		String claferModel = toClafer.fm2text(fm);
 		String modelPath = basedir + fm.getName() + ".txt";
+		System.out.println("ModelPath: " + modelPath);
 		Utils.serialize(claferModel, modelPath);
 		
 		return modelPath;

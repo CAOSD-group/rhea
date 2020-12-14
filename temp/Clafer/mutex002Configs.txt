@@ -1,0 +1,210 @@
+=== Instance 1 Begin ===
+
+config
+  A
+
+--- Instance 1 End ---
+
+=== Instance 2 Begin ===
+
+config
+  A
+  B
+
+--- Instance 2 End ---
+
+=== Instance 3 Begin ===
+
+config
+  A
+  B
+    BP
+      B1
+
+--- Instance 3 End ---
+
+=== Instance 4 Begin ===
+
+config
+  A
+  B
+    BP
+      B3
+
+--- Instance 4 End ---
+
+=== Instance 5 Begin ===
+
+config
+  A
+  B
+    BP
+      B2
+
+--- Instance 5 End ---
+
+=== Instance 6 Begin ===
+
+config
+  A
+    AP
+      A3
+
+--- Instance 6 End ---
+
+=== Instance 7 Begin ===
+
+config
+  A
+    AP
+      A2
+
+--- Instance 7 End ---
+
+=== Instance 8 Begin ===
+
+config
+  A
+    AP
+      A3
+  B
+
+--- Instance 8 End ---
+
+=== Instance 9 Begin ===
+
+config
+  A
+    AP
+      A2
+  B
+
+--- Instance 9 End ---
+
+=== Instance 10 Begin ===
+
+config
+  A
+    AP
+      A3
+  B
+    BP
+      B1
+
+--- Instance 10 End ---
+
+=== Instance 11 Begin ===
+
+config
+  A
+    AP
+      A3
+  B
+    BP
+      B3
+
+--- Instance 11 End ---
+
+=== Instance 12 Begin ===
+
+config
+  A
+    AP
+      A2
+  B
+    BP
+      B1
+
+--- Instance 12 End ---
+
+=== Instance 13 Begin ===
+
+config
+  A
+    AP
+      A2
+  B
+    BP
+      B3
+
+--- Instance 13 End ---
+
+=== Instance 14 Begin ===
+
+config
+  A
+    AP
+      A3
+  B
+    BP
+      B2
+
+--- Instance 14 End ---
+
+=== Instance 15 Begin ===
+
+config
+  A
+    AP
+      A2
+  B
+    BP
+      B2
+
+--- Instance 15 End ---
+
+=== Instance 16 Begin ===
+
+config
+  A
+    AP
+      A1
+
+--- Instance 16 End ---
+
+=== Instance 17 Begin ===
+
+config
+  A
+    AP
+      A1
+  B
+
+--- Instance 17 End ---
+
+=== Instance 18 Begin ===
+
+config
+  A
+    AP
+      A1
+  B
+    BP
+      B1
+
+--- Instance 18 End ---
+
+=== Instance 19 Begin ===
+
+config
+  A
+    AP
+      A1
+  B
+    BP
+      B3
+
+--- Instance 19 End ---
+
+=== Instance 20 Begin ===
+
+config
+  A
+    AP
+      A1
+  B
+    BP
+      B2
+
+--- Instance 20 End ---
+

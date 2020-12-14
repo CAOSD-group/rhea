@@ -1,0 +1,11 @@
+abstract Root
+	0..2 B
+		B1
+		B2
+		B3
+	A
+		1..2 AP ?
+			A1
+			A2
+			A3
+config: Root
