@@ -3,6 +3,7 @@ package rhea.evaluation.refactorings;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Map;
 
 import org.eclipse.emf.ecore.EPackage;
@@ -19,7 +20,9 @@ import rhea.aafm.AAFMClafer;
 import rhea.aafm.AutomatedAnalysisFM;
 import rhea.generators.FMGenerator;
 import rhea.generators.clafer.ToClafer;
+import rhea.metamodels.BasicFMs.Feature;
 import rhea.metamodels.BasicFMs.FeatureModel;
+import rhea.metamodels.CardinalityBasedFMs.GroupCardinality;
 import rhea.metamodels.helpers.EMFIO;
 import rhea.metamodels.helpers.FMHelper;
 import rhea.parsers.FMParser;
@@ -64,7 +67,7 @@ public class GroupCardinalitiesTest {
 		
 		System.out.print("Times begins!");
 		var timeBefore = System.currentTimeMillis();
-				
+		
 		/********** REFACTORING **********/
 		// Prepare the transformation
 		System.out.println("Transforming model...");

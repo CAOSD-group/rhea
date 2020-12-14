@@ -1,11 +1,12 @@
 abstract Root
-	0..2 B
-		B1
-		B2
-		B3
+	B
+		1..2 BP ?
+			B1
+			B3
+			B2
 	A
 		1..2 AP ?
-			A1
 			A2
+			A1
 			A3
 config: Root

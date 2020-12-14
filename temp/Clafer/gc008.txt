@@ -2,8 +2,8 @@ abstract Root
 	B
 		xor BP ?
 			B3
-			B2
 			B1
+			B2
 	A
 		xor AP ?
 			A2
