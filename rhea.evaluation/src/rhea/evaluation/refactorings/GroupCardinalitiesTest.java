@@ -43,7 +43,7 @@ public class GroupCardinalitiesTest {
 	
 	@ParameterizedTest
 	//@ValueSource(strings = {"gc001", "gc002", "gc003", "gc004", "gc005", "gc006", "gc007", "gc008", "gc009", "gc010", "gc011", "gc012"})
-	@ValueSource(strings = {"gc002"})
+	@ValueSource(strings = {"gc014"})
 	void cardinalitiesGroup(String inputModel) throws IOException {
 		// Test parameters
 		String inputFile = Rhea.CLAFER_INPUTS_DIR + "GroupCardinalities/" + inputModel + ".txt";
@@ -126,6 +126,4 @@ public class GroupCardinalitiesTest {
 		assertEquals(expectedProductsIDs, productsIDs);
 		assertEquals(0,numberGroupCardinalities);
 	}
-	
-	
 }

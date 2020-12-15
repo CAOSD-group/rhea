@@ -1,13 +1,13 @@
 abstract Root
 	A
 		xor AP ?
-			A3
-				A31 ?
 			A2
 				A21
 			A1
 				A11
 				A12
+			A3
+				A31 ?
 	B ?
 		xor BP ?
 			B1

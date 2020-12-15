@@ -2,6 +2,9 @@
 
 config
   A
+    A3
+  B
+    B1
 
 --- Instance 1 End ---
 
@@ -9,8 +12,9 @@ config
 
 config
   A
-    AP
-      A3
+    A3
+  B
+    B3
 
 --- Instance 2 End ---
 
@@ -18,8 +22,10 @@ config
 
 config
   A
-    AP
-      A2
+    A3
+  B
+    B1
+    B3
 
 --- Instance 3 End ---
 
@@ -27,9 +33,9 @@ config
 
 config
   A
-    AP
-      A3
-      A2
+    A3
+  B
+    B2
 
 --- Instance 4 End ---
 
@@ -37,8 +43,10 @@ config
 
 config
   A
-    AP
-      A1
+    A3
+  B
+    B1
+    B2
 
 --- Instance 5 End ---
 
@@ -46,9 +54,10 @@ config
 
 config
   A
-    AP
-      A1
-      A3
+    A3
+  B
+    B2
+    B3
 
 --- Instance 6 End ---
 
@@ -56,20 +65,11 @@ config
 
 config
   A
-    AP
-      A1
-      A2
+    A3
+  B
+    B1
+    B2
+    B3
 
 --- Instance 7 End ---
-
-=== Instance 8 Begin ===
-
-config
-  A
-    AP
-      A1
-      A3
-      A2
-
---- Instance 8 End ---
 

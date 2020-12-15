@@ -1,10 +1,12 @@
 abstract Root
-	or A
-		A3
-		A2
-		A1
-	or B
-		B2
-		B1
-		B3
+	A
+		or AP ?
+			A1
+			A2
+			A3
+	B
+		or BP ?
+			B2
+			B1
+			B3
 config: Root

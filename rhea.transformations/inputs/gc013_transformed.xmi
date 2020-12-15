@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="ASCII"?>
+<rhea:FeatureModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:rhea="rhea.metamodels.BasicFMs" xmlns:rhea_1="rhea.metamodels.CardinalityBasedFMs" xsi:schemaLocation="rhea.metamodels.BasicFMs ../../rhea.metamodels/metamodels/BasicFMs/BasicFMs.ecore rhea.metamodels.CardinalityBasedFMs ../../rhea.metamodels/metamodels/CardinalityBasedFMs/CardinalityBasedFMs.ecore" name="gc013" features="//@root //@root/@children.1/@children.3 //@root/@children.1/@children.2 //@root/@children.1/@children.1 //@root/@children.1/@children.0 //@root/@children.1/@children.0/@children.0 //@root/@children.1/@children.0/@children.1 //@root/@children.1/@children.0/@children.2 //@root/@children.0 //@root/@children.0/@children.0 //@root/@children.0/@children.1 //@root/@children.0/@children.2 //@root/@children.1">
+  <root id="Root" name="Root" mandatory="true" abstract="true">
+    <children xsi:type="rhea_1:GroupCardinality" id="Root_B" name="B" mandatory="true">
+      <children id="Root_B_B1" name="B1"/>
+      <children id="Root_B_B2" name="B2"/>
+      <children id="Root_B_B3" name="B3"/>
+      <multiplicity/>
+    </children>
+    <children xsi:type="rhea:AlternativeGroup" id="Root_A" name="A" mandatory="true">
+      <children xsi:type="rhea_1:GroupCardinality" id="Root_A_C" name="C">
+        <children id="Root_A_C_C1" name="C1"/>
+        <children id="Root_A_C_C2" name="C2"/>
+        <children id="Root_A_C_C3" name="C3"/>
+        <multiplicity upper="1"/>
+      </children>
+      <children id="Root_A_A3" name="A3"/>
+      <children id="Root_A_A2" name="A2"/>
+      <children id="Root_A_A1" name="A1"/>
+    </children>
+  </root>
+</rhea:FeatureModel>

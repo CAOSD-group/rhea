@@ -1,6 +1,6 @@
 abstract Root
-	1..* A
-		A1
+	or A
 		A2
 		A3
+		A1
 config: Root
