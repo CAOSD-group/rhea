@@ -116,7 +116,6 @@ public class MutexGroupTest {
 		var numberMutexGroup = FMHelper.getAllFeaturesOf(fm,"rhea.metamodels.CardinalityBasedFMs.MutexGroup").size();
 		
 		System.out.println("FM number of mutex remaining: " + numberMutexGroup);
-		
 		System.out.println("Performance: " + (timeAfter-timeBefore) + " milliseconds." );
 		
 		assertEquals(expectedProductsIDs, productsIDs);

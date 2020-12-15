@@ -1,602 +1,602 @@
 === Instance 1 Begin ===
 
 config
-  B
   A
+  B
 
 --- Instance 1 End ---
 
 === Instance 2 Begin ===
 
 config
-  B
   A
-    AP
-      A3
+  B
+    BP
+      B1
 
 --- Instance 2 End ---
 
 === Instance 3 Begin ===
 
 config
-  B
   A
-    AP
-      A2
+  B
+    BP
+      B3
 
 --- Instance 3 End ---
 
 === Instance 4 Begin ===
 
 config
-  B
   A
-    AP
-      A2
-      A3
+  B
+    BP
+      B1
+      B3
 
 --- Instance 4 End ---
 
 === Instance 5 Begin ===
 
 config
-  B
   A
-    AP
-      A1
+  B
+    BP
+      B2
 
 --- Instance 5 End ---
 
 === Instance 6 Begin ===
 
 config
-  B
   A
-    AP
-      A1
-      A3
+  B
+    BP
+      B1
+      B2
 
 --- Instance 6 End ---
 
 === Instance 7 Begin ===
 
 config
-  B
   A
-    AP
-      A2
-      A1
+  B
+    BP
+      B3
+      B2
 
 --- Instance 7 End ---
 
 === Instance 8 Begin ===
 
 config
-  B
-    BP
-      B1
   A
+    AP
+      A3
+  B
 
 --- Instance 8 End ---
 
 === Instance 9 Begin ===
 
 config
-  B
-    BP
-      B3
   A
+    AP
+      A2
+  B
 
 --- Instance 9 End ---
 
 === Instance 10 Begin ===
 
 config
-  B
-    BP
-      B1
-      B3
   A
+    AP
+      A2
+      A3
+  B
 
 --- Instance 10 End ---
 
 === Instance 11 Begin ===
 
 config
-  B
-    BP
-      B1
   A
     AP
       A3
+  B
+    BP
+      B1
 
 --- Instance 11 End ---
 
 === Instance 12 Begin ===
 
 config
-  B
-    BP
-      B1
   A
     AP
-      A2
+      A3
+  B
+    BP
+      B3
 
 --- Instance 12 End ---
 
 === Instance 13 Begin ===
 
 config
+  A
+    AP
+      A3
   B
     BP
       B1
-  A
-    AP
-      A2
-      A3
+      B3
 
 --- Instance 13 End ---
 
 === Instance 14 Begin ===
 
 config
-  B
-    BP
-      B3
   A
     AP
-      A3
+      A2
+  B
+    BP
+      B1
 
 --- Instance 14 End ---
 
 === Instance 15 Begin ===
 
 config
+  A
+    AP
+      A2
+      A3
   B
     BP
       B1
-      B3
-  A
-    AP
-      A3
 
 --- Instance 15 End ---
 
 === Instance 16 Begin ===
 
 config
-  B
-    BP
-      B3
   A
     AP
       A2
+  B
+    BP
+      B3
 
 --- Instance 16 End ---
 
 === Instance 17 Begin ===
 
 config
-  B
-    BP
-      B3
   A
     AP
       A2
       A3
+  B
+    BP
+      B3
 
 --- Instance 17 End ---
 
 === Instance 18 Begin ===
 
 config
+  A
+    AP
+      A2
   B
     BP
       B1
       B3
-  A
-    AP
-      A2
 
 --- Instance 18 End ---
 
 === Instance 19 Begin ===
 
 config
-  B
-    BP
-      B1
-      B3
   A
     AP
       A2
       A3
+  B
+    BP
+      B1
+      B3
 
 --- Instance 19 End ---
 
 === Instance 20 Begin ===
 
 config
-  B
-    BP
-      B1
   A
     AP
-      A1
+      A3
+  B
+    BP
+      B2
 
 --- Instance 20 End ---
 
 === Instance 21 Begin ===
 
 config
+  A
+    AP
+      A3
   B
     BP
       B1
-  A
-    AP
-      A1
-      A3
+      B2
 
 --- Instance 21 End ---
 
 === Instance 22 Begin ===
 
 config
-  B
-    BP
-      B1
   A
     AP
-      A2
-      A1
+      A3
+  B
+    BP
+      B3
+      B2
 
 --- Instance 22 End ---
 
 === Instance 23 Begin ===
 
 config
-  B
-    BP
-      B3
   A
     AP
-      A1
+      A2
+  B
+    BP
+      B2
 
 --- Instance 23 End ---
 
 === Instance 24 Begin ===
 
 config
-  B
-    BP
-      B3
   A
     AP
-      A1
+      A2
       A3
+  B
+    BP
+      B2
 
 --- Instance 24 End ---
 
 === Instance 25 Begin ===
 
 config
+  A
+    AP
+      A2
   B
     BP
       B1
-      B3
-  A
-    AP
-      A1
+      B2
 
 --- Instance 25 End ---
 
 === Instance 26 Begin ===
 
 config
+  A
+    AP
+      A2
+      A3
   B
     BP
       B1
-      B3
-  A
-    AP
-      A1
-      A3
+      B2
 
 --- Instance 26 End ---
 
 === Instance 27 Begin ===
 
 config
-  B
-    BP
-      B3
   A
     AP
       A2
-      A1
+  B
+    BP
+      B3
+      B2
 
 --- Instance 27 End ---
 
 === Instance 28 Begin ===
 
 config
-  B
-    BP
-      B1
-      B3
   A
     AP
       A2
-      A1
+      A3
+  B
+    BP
+      B3
+      B2
 
 --- Instance 28 End ---
 
 === Instance 29 Begin ===
 
 config
-  B
-    BP
-      B2
   A
+    AP
+      A1
+  B
 
 --- Instance 29 End ---
 
 === Instance 30 Begin ===
 
 config
-  B
-    BP
-      B1
-      B2
   A
+    AP
+      A3
+      A1
+  B
 
 --- Instance 30 End ---
 
 === Instance 31 Begin ===
 
 config
-  B
-    BP
-      B3
-      B2
   A
+    AP
+      A2
+      A1
+  B
 
 --- Instance 31 End ---
 
 === Instance 32 Begin ===
 
 config
-  B
-    BP
-      B2
   A
     AP
-      A3
+      A1
+  B
+    BP
+      B1
 
 --- Instance 32 End ---
 
 === Instance 33 Begin ===
 
 config
-  B
-    BP
-      B1
-      B2
   A
     AP
       A3
+      A1
+  B
+    BP
+      B1
 
 --- Instance 33 End ---
 
 === Instance 34 Begin ===
 
 config
-  B
-    BP
-      B2
   A
     AP
-      A2
+      A1
+  B
+    BP
+      B3
 
 --- Instance 34 End ---
 
 === Instance 35 Begin ===
 
 config
-  B
-    BP
-      B2
   A
     AP
-      A2
       A3
+      A1
+  B
+    BP
+      B3
 
 --- Instance 35 End ---
 
 === Instance 36 Begin ===
 
 config
+  A
+    AP
+      A1
   B
     BP
       B1
-      B2
-  A
-    AP
-      A2
+      B3
 
 --- Instance 36 End ---
 
 === Instance 37 Begin ===
 
 config
+  A
+    AP
+      A3
+      A1
   B
     BP
       B1
-      B2
-  A
-    AP
-      A2
-      A3
+      B3
 
 --- Instance 37 End ---
 
 === Instance 38 Begin ===
 
 config
-  B
-    BP
-      B3
-      B2
   A
     AP
-      A3
+      A2
+      A1
+  B
+    BP
+      B1
 
 --- Instance 38 End ---
 
 === Instance 39 Begin ===
 
 config
-  B
-    BP
-      B3
-      B2
   A
     AP
       A2
+      A1
+  B
+    BP
+      B3
 
 --- Instance 39 End ---
 
 === Instance 40 Begin ===
 
 config
-  B
-    BP
-      B3
-      B2
   A
     AP
       A2
-      A3
+      A1
+  B
+    BP
+      B1
+      B3
 
 --- Instance 40 End ---
 
 === Instance 41 Begin ===
 
 config
-  B
-    BP
-      B2
   A
     AP
       A1
+  B
+    BP
+      B2
 
 --- Instance 41 End ---
 
 === Instance 42 Begin ===
 
 config
+  A
+    AP
+      A3
+      A1
   B
     BP
       B2
-  A
-    AP
-      A1
-      A3
 
 --- Instance 42 End ---
 
 === Instance 43 Begin ===
 
 config
+  A
+    AP
+      A1
   B
     BP
       B1
       B2
-  A
-    AP
-      A1
 
 --- Instance 43 End ---
 
 === Instance 44 Begin ===
 
 config
+  A
+    AP
+      A3
+      A1
   B
     BP
       B1
       B2
-  A
-    AP
-      A1
-      A3
 
 --- Instance 44 End ---
 
 === Instance 45 Begin ===
 
 config
-  B
-    BP
-      B2
   A
     AP
-      A2
       A1
+  B
+    BP
+      B3
+      B2
 
 --- Instance 45 End ---
 
 === Instance 46 Begin ===
 
 config
-  B
-    BP
-      B1
-      B2
   A
     AP
-      A2
+      A3
       A1
+  B
+    BP
+      B3
+      B2
 
 --- Instance 46 End ---
 
 === Instance 47 Begin ===
 
 config
-  B
-    BP
-      B3
-      B2
   A
     AP
+      A2
       A1
+  B
+    BP
+      B2
 
 --- Instance 47 End ---
 
 === Instance 48 Begin ===
 
 config
-  B
-    BP
-      B3
-      B2
   A
     AP
+      A2
       A1
-      A3
+  B
+    BP
+      B1
+      B2
 
 --- Instance 48 End ---
 
 === Instance 49 Begin ===
 
 config
-  B
-    BP
-      B3
-      B2
   A
     AP
       A2
       A1
+  B
+    BP
+      B3
+      B2
 
 --- Instance 49 End ---
 

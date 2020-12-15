@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<henshin:Module xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:henshin="http://www.eclipse.org/emf/2011/Henshin" xmi:id="_nH4joCkQEeu4fNiXIohV-g">
+<henshin:Module xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:henshin="http://www.eclipse.org/emf/2011/Henshin" xmi:id="_nH4joCkQEeu4fNiXIohV-g" name="GroupCardinalities">
   <imports href="../../rhea.metamodels/metamodels/CardinalityBasedFMs/CardinalityBasedFMs.ecore#/"/>
   <imports href="../../rhea.metamodels/metamodels/BasicFMs/BasicFMs.ecore#/"/>
   <units xsi:type="henshin:Rule" xmi:id="_oPEOICkQEeu4fNiXIohV-g" name="GroupCardinality11">
@@ -245,7 +245,7 @@
       </nodes>
       <nodes xmi:id="_sX60LSskEeubrME2t4IcmQ" incoming="_sX60MyskEeubrME2t4IcmQ">
         <type href="../../rhea.metamodels/metamodels/CardinalityBasedFMs/CardinalityBasedFMs.ecore#//Multiplicity"/>
-        <attributes xmi:id="_sX60LiskEeubrME2t4IcmQ" value="0">
+        <attributes xmi:id="_sX60LiskEeubrME2t4IcmQ" value="1">
           <type href="../../rhea.metamodels/metamodels/CardinalityBasedFMs/CardinalityBasedFMs.ecore#//Multiplicity/lower"/>
         </attributes>
         <attributes xmi:id="_sX60LyskEeubrME2t4IcmQ" value="-1">
@@ -905,7 +905,7 @@
   <units xsi:type="henshin:LoopUnit" xmi:id="_uzc-AC47Eeu3u49aq2v4EA" name="AllGroupCardinality11" subUnit="_oPEOICkQEeu4fNiXIohV-g"/>
   <units xsi:type="henshin:LoopUnit" xmi:id="_HJPdIC48Eeu3u49aq2v4EA" name="AllGroupCardinality1N" subUnit="_sX60ICskEeubrME2t4IcmQ"/>
   <units xsi:type="henshin:LoopUnit" xmi:id="_ToX3UC48Eeu3u49aq2v4EA" name="AllGroupCardinality01" subUnit="_thRTgC4yEeuteIR14qXzZg"/>
-  <units xsi:type="henshin:Rule" xmi:id="_pEa3QC4-Eeu3u49aq2v4EA" name="GroupCardinality1B">
+  <units xsi:type="henshin:Rule" xmi:id="_pEa3QC4-Eeu3u49aq2v4EA" name="GroupCardinality0B">
     <parameters xmi:id="_wS1K0DrYEeuMN7qXPAVi1A" name="id" kind="VAR"/>
     <parameters xmi:id="_wS1K0TrYEeuMN7qXPAVi1A" name="name" kind="VAR"/>
     <parameters xmi:id="_wS1K0jrYEeuMN7qXPAVi1A" name="abs" kind="VAR"/>
@@ -1157,6 +1157,6 @@
     </multiRules>
   </units>
   <units xsi:type="henshin:LoopUnit" xmi:id="_5RIpgC8aEeuapvEgGr1xQQ" name="AllGroupCardinality0N" subUnit="_TF2rAC46Eeu3u49aq2v4EA"/>
-  <units xsi:type="henshin:LoopUnit" xmi:id="_CEJ-UC8bEeuapvEgGr1xQQ" name="AllGroupCardinality1B" subUnit="_pEa3QC4-Eeu3u49aq2v4EA"/>
+  <units xsi:type="henshin:LoopUnit" xmi:id="_CEJ-UC8bEeuapvEgGr1xQQ" name="AllGroupCardinality0B" subUnit="_pEa3QC4-Eeu3u49aq2v4EA"/>
   <units xsi:type="henshin:SequentialUnit" xmi:id="_Laro0C8bEeuapvEgGr1xQQ" name="GroupCardinalitiesRefactor" subUnits="_uzc-AC47Eeu3u49aq2v4EA _HJPdIC48Eeu3u49aq2v4EA _ToX3UC48Eeu3u49aq2v4EA _5RIpgC8aEeuapvEgGr1xQQ _CEJ-UC8bEeuapvEgGr1xQQ" strict="false"/>
 </henshin:Module>

@@ -1,12 +1,12 @@
 abstract Root
-	A
-		xor AP ?
-			A2
-			A1
-			A3
 	B ?
 		xor BP ?
 			B2
 			B3
 			B1
+	A
+		xor AP ?
+			A1
+			A3
+			A2
 config: Root
