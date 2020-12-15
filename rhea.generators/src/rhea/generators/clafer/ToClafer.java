@@ -145,33 +145,6 @@ public class ToClafer implements FMGenerator {
 		}
 	}
 	
-	
-	
-	/*
-	public void serialize(String content, String outputFilepath) {
-		try {
-			Path path = Paths.get(outputFilepath);
-			if (!Files.exists(path)) {
-				Files.createDirectories(path.getParent());
-				Files.createFile(path);
-			}
-			FileWriter writer = new FileWriter(path.toString());
-			writer.write(content);
-			writer.close();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
-	*/
-	
-	private String advancedCTC2String(AdvancedConstraint ctc) {
-		
-		
-		//((AdvancedConstraint) ctc).getTerm()
-		
-		return "";
-	}
-	
 	/**
 	 * Given a feature model, it translates it to Clafer notation and serialize it.
 	 * 
@@ -182,7 +155,6 @@ public class ToClafer implements FMGenerator {
 		ToClafer toClafer = new ToClafer();
 		String claferModel = toClafer.fm2text(fm);
 		String modelPath = basedir + fm.getName() + ".txt";
-		System.out.println("ModelPath: " + modelPath);
 		Utils.serialize(claferModel, modelPath);
 		
 		return modelPath;
