@@ -43,11 +43,11 @@ public class GroupCardinalitiesTest {
 	
 	@ParameterizedTest
 	//@ValueSource(strings = {"gc001", "gc002", "gc003", "gc004", "gc005", "gc006", "gc007", "gc008", "gc009", "gc010", "gc011", "gc012"})
-	@ValueSource(strings = {"gc014"})
-	void cardinalitiesGroup(String inputModel) throws IOException {
+	@ValueSource(strings = {"gc001"})
+	public static String cardinalitiesGroup(String inputModel) throws IOException {
 		// Test parameters
-		String inputFile = Rhea.CLAFER_INPUTS_DIR + "GroupCardinalities/" + inputModel + ".txt";
-		String outputFile = Rhea.CLAFER_OUTPUTS_DIR + "GroupCardinalities/" + inputModel + ".txt";
+		String inputFile = Rhea.INPUTS_DIR + "clafer/GroupCardinalities/" + inputModel + ".txt";
+		String outputFile = Rhea.OUTPUTS_DIR + "clafer/GroupCardinalities/" + inputModel + ".txt";
 		//String inputFileAS = Rhea.ABSTRACTSYNTAX_INPUTS_DIR + inputModel + ".xmi";
 		String outputFileAS = Rhea.ABSTRACTSYNTAX_OUTPUTS_DIR + "GroupCardinalities/" + inputModel + ".xmi";
 		
@@ -67,6 +67,8 @@ public class GroupCardinalitiesTest {
 		
 		System.out.print("Times begins!");
 		var timeBefore = System.currentTimeMillis();
+		
+		var numberGroupCardinalitiesBefore = FMHelper.getAllFeaturesOf(fm, "rhea.metamodels.CardinalityBasedFMs.GroupCardinality").size();
 		
 		/********** REFACTORING **********/
 		// Prepare the transformation
@@ -121,9 +123,12 @@ public class GroupCardinalitiesTest {
 		
 		System.out.println("FM number of group cardinalities remaining: " + numberGroupCardinalities);
 		
-		System.out.println("Performance: " + (timeAfter-timeBefore) + " milliseconds." );
+		var performance = timeAfter-timeBefore;
+		System.out.println("Performance: " + performance + " milliseconds." );
 		
 		assertEquals(expectedProductsIDs, productsIDs);
 		assertEquals(0,numberGroupCardinalities);
-	}
+		
+		return "GroupCardinalities," + ruleName + "," + inputModel + "," + fm.getFeatures().size() + "," + numberGroupCardinalitiesBefore + "," + performance;
+		}
 }

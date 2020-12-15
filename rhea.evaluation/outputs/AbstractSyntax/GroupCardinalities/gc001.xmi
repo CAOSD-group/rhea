@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="ASCII"?>
+<rhea:FeatureModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:rhea="rhea.metamodels.BasicFMs" name="gc001" features="//@root //@root/@children.0/@children.2 //@root/@children.0/@children.1 //@root/@children.0/@children.0 //@root/@children.0">
+  <root id="Root" name="Root" mandatory="true" abstract="true">
+    <children xsi:type="rhea:AlternativeGroup" id="Root_A" name="A" mandatory="true">
+      <children id="Root_A_A3" name="A3"/>
+      <children id="Root_A_A2" name="A2"/>
+      <children id="Root_A_A1" name="A1"/>
+    </children>
+  </root>
+</rhea:FeatureModel>

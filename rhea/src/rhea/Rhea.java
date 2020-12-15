@@ -21,7 +21,7 @@ public class Rhea {
 	public static final String ABSTRACTSYNTAX_INPUTS_DIR = INPUTS_DIR + "AbstractSyntax/";
 	public static final String ABSTRACTSYNTAX_OUTPUTS_DIR = OUTPUTS_DIR + "AbstractSyntax/";
 	
-	public static final String CLAFER_INPUTS_DIR = INPUTS_DIR + "clafer/MutexGroup/";
+	public static final String CLAFER_INPUTS_DIR = INPUTS_DIR + "clafer/MutexGroup";
 	public static final String CLAFER_OUTPUTS_DIR = OUTPUTS_DIR + "clafer/MutexGroup/";
 	
 	public static final List<String> DYNAMIC_METAMODELS = List.of(METAMODELS_DIR + "BasicFMs/BasicFMs.ecore",
