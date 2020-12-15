@@ -3,6 +3,7 @@ package rhea.transformations.refactorings;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
@@ -24,14 +25,17 @@ import rhea.Rhea;
 import rhea.metamodels.BasicFMs.Feature;
 import rhea.metamodels.BasicFMs.FeatureModel;
 import rhea.metamodels.CardinalityBasedFMs.GroupCardinality;
-import rhea.metamodels.helpers.EMFIO;
 import rhea.transformations.engine.HenshinEngine;
 
 public class GroupCardinalities {
 	public static final String GROUPCARDINALITYMN_REFACTORING_TEMPLATE_FILEPATH = Rhea.REFACTORINGS_DIR + "";
-	private static EPackage basicFMsMetamodel = (EPackage) EMFIO.loadMetamodel(Rhea.BASICFMS_METAMODEL);
-	private static EPackage groupCardinalityMetamodel = (EPackage) EMFIO.loadMetamodel(Rhea.CARDINALITYBASEDFMS_METAMODEL);
-	private static EPackage propLogicCTCsMetamodel = (EPackage) EMFIO.loadMetamodel(Rhea.PROPLOGICCTCS_METAMODEL);
+	//private static EPackage basicFMsMetamodel = (EPackage) EMFIO.loadMetamodel(Rhea.BASICFMS_METAMODEL);
+	//private static EPackage groupCardinalityMetamodel = (EPackage) EMFIO.loadMetamodel(Rhea.CARDINALITYBASEDFMS_METAMODEL);
+	//private static EPackage propLogicCTCsMetamodel = (EPackage) EMFIO.loadMetamodel(Rhea.PROPLOGICCTCS_METAMODEL);
+	//private static EPackage basicFMsMetamodel = null;
+	//private static EPackage groupCardinalityMetamodel = null;
+	//private static EPackage propLogicCTCsMetamodel = null;
+	private static List<EPackage> imports = null;
 	
 	/**
 	 * Obtain all groups cardinalities from the feature model.
@@ -49,6 +53,15 @@ public class GroupCardinalities {
 		return groups;
 	}
 	
+	private static EClass getEClass(String name, List<EPackage> metamodels) {
+		Optional<EPackage> optMM = metamodels.stream().filter(mm -> mm.getEClassifier(name) != null).findFirst();
+		if (optMM.isPresent()) {
+			return (EClass) optMM.get().getEClassifier(name);
+		} else {
+			return null;	
+		}
+	}
+	
 	/**
 	 * Complete the given Henshin module for a group cardinality based on the refactoring template for group cardinalities MN (generic case).
 	 * 
@@ -60,8 +73,16 @@ public class GroupCardinalities {
 	public static Module completeModuleForGC(String modulePath, GroupCardinality gc) throws ParseException {
 		HenshinEngine ee = new HenshinEngine(Rhea.BASEDIR);
 		
-		// get the module and the multiplicities
+		// Register metamodels
+//		basicFMsMetamodel = ee.registerDynamicMetamodel(Rhea.BASICFMS_METAMODEL);
+//		groupCardinalityMetamodel = ee.registerDynamicMetamodel(Rhea.CARDINALITYBASEDFMS_METAMODEL);
+//		propLogicCTCsMetamodel = ee.registerDynamicMetamodel(Rhea.PROPLOGICCTCS_METAMODEL);
+//		ee.registerStaticMetamodel(TracePackage.eINSTANCE);
+		
+		// get the module, the imports (metamodels), and the multiplicities
 		Module module = ee.getModule(modulePath);
+		module.setName(module.getName() + "-completed");
+		imports = module.getImports();
 		int lower = gc.getMultiplicity().getLower();
 		int upper = gc.getMultiplicity().getUpper();
 		
@@ -76,7 +97,7 @@ public class GroupCardinalities {
 		// Create the combis' rules
 		for (int k = lower; k <= upper; k++) {
 			// create the rule for K combi
-			Rule r = createRuleForK(k, gc.getId());
+			Rule r = createRuleForK(k, gc.getId(), imports);
 			module.getUnits().add(r);
 			
 			// Create the loop unit
@@ -97,7 +118,7 @@ public class GroupCardinalities {
 		
 		// Add  the negative rules
 		Rule negRule = (Rule) module.getUnit("AddNegative");
-		EClass gcType = (EClass) groupCardinalityMetamodel.getEClassifier("GroupCardinality");
+		EClass gcType = getEClass("GroupCardinality", imports);
 		Node gcLhsNode = negRule.getLhs().getNode("gc");
 		Node gcRhsNode = negRule.getRhs().getNode("gc");
 		HenshinFactory.eINSTANCE.createAttribute(gcLhsNode, (EAttribute) gcType.getEStructuralFeature("id"), "\"" + gc.getId() + "\"");
@@ -110,7 +131,7 @@ public class GroupCardinalities {
 		Rule tRule = (Rule) module.getUnit("TransformGroupCardinality");
 		Node gcDeleteNode = tRule.getLhs().getNode("gc");
 		HenshinFactory.eINSTANCE.createAttribute(gcDeleteNode, (EAttribute) gcType.getEStructuralFeature("id"), "\"" + gc.getId() + "\"");
-		EClass sgType = (EClass) basicFMsMetamodel.getEClassifier("SelectionGroup");
+		EClass sgType = getEClass("SelectionGroup", imports);
 		Node sgCreateNode = tRule.getRhs().getNode("sg");
 		HenshinFactory.eINSTANCE.createAttribute(sgCreateNode, (EAttribute) sgType.getEStructuralFeature("id"), "\"" + gc.getId() + "\"");
 		
@@ -130,7 +151,7 @@ public class GroupCardinalities {
 	 * @return		Henshin rule.
 	 * @throws ParseException 
 	 */
-	public static Rule createRuleForK(int k, String gcID) throws ParseException {
+	public static Rule createRuleForK(int k, String gcID, List<EPackage> metamodels) throws ParseException {
 		// Create the kernel rule
 		Rule rule = HenshinFactory.eINSTANCE.createRule();
 		rule.setName(gcID + "_k" + k);
@@ -145,6 +166,7 @@ public class GroupCardinalities {
 		NestedCondition nestedNAC = nestedRule.getLhs().createNAC(null);
 				
 		// Get the eClass type for the objects
+		/*
 		EClass gcType = (EClass) groupCardinalityMetamodel.getEClassifier("GroupCardinality");
 		EClass featureType = (EClass) basicFMsMetamodel.getEClassifier("Feature");
 		EClass featureTermType = (EClass) propLogicCTCsMetamodel.getEClassifier("FeatureTerm");
@@ -152,6 +174,15 @@ public class GroupCardinalities {
 		EClass impliesType = (EClass) propLogicCTCsMetamodel.getEClassifier("Implies");
 		EClass orType = (EClass) propLogicCTCsMetamodel.getEClassifier("Or");
 		EClass traceType = (EClass) TracePackage.eINSTANCE.getEClassifier("Trace");
+		*/
+		EClass gcType = getEClass("GroupCardinality", metamodels);
+		EClass featureType = getEClass("Feature", metamodels);
+		EClass featureTermType = getEClass("FeatureTerm", metamodels);
+		EClass andType = getEClass("And", metamodels);
+		EClass impliesType = getEClass("Implies", metamodels);
+		EClass orType = getEClass("Or", metamodels);
+		EClass traceType = getEClass("Trace", metamodels);
+		
 		
 		// Create gc node in the kernel rule, in the nested rule, in the NAC, and in the nested NAC
 		NodePair gcNode = HenshinRuleAnalysisUtilEx.createPreservedNodeWithAttribute(rule, "", gcType, (EAttribute) gcType.getEStructuralFeature("id"), gcID, false);
@@ -225,8 +256,8 @@ public class GroupCardinalities {
 		nestedNAC.getMappings().add(featureMultiNode.getLhsNode(), featureMultiNodeNestedNACNode);
 		
 		// Create the edges
-		HenshinRuleAnalysisUtilEx.createPreservedEdge(nestedRule, gcNestedNode, featureMultiNode, (EReference) gcType.getEStructuralFeature("children"));
-		HenshinRuleAnalysisUtilEx.createEdge(gcNestedNACNode, featureMultiNodeNestedNACNode, (EReference) gcType.getEStructuralFeature("children"), nestedNAC.getConclusion());
+		HenshinRuleAnalysisUtilEx.createPreservedEdge(nestedRule, gcNestedNode, featureMultiNode, (EReference) featureType.getEStructuralFeature("children"));
+		HenshinRuleAnalysisUtilEx.createEdge(gcNestedNACNode, featureMultiNodeNestedNACNode, (EReference) featureType.getEStructuralFeature("children"), nestedNAC.getConclusion());
 		HenshinRuleAnalysisUtilEx.createPreservedEdge(nestedRule, featureMultiNode, gcNestedNode, (EReference) featureType.getEStructuralFeature("parent"));
 		HenshinRuleAnalysisUtilEx.createEdge(featureMultiNodeNestedNACNode, gcNestedNACNode, (EReference) featureType.getEStructuralFeature("parent"), nestedNAC.getConclusion());
 		
@@ -246,10 +277,10 @@ public class GroupCardinalities {
 			nestedNAC.getMappings().add(childNestedNode.getLhsNode(), childNestedNACNode);
 			
 			// create the parent/child edges
-			HenshinRuleAnalysisUtilEx.createPreservedEdge(rule, gcNode, childNode, (EReference) gcType.getEStructuralFeature("children"));
-			HenshinRuleAnalysisUtilEx.createPreservedEdge(nestedRule, gcNestedNode, childNestedNode, (EReference) gcType.getEStructuralFeature("children"));
-			HenshinRuleAnalysisUtilEx.createEdge(gcNACNode, childNACNode, (EReference) gcType.getEStructuralFeature("children"), kernelNAC.getConclusion());
-			HenshinRuleAnalysisUtilEx.createEdge(gcNestedNACNode, childNestedNACNode, (EReference) gcType.getEStructuralFeature("children"), nestedNAC.getConclusion());
+			HenshinRuleAnalysisUtilEx.createPreservedEdge(rule, gcNode, childNode, (EReference) featureType.getEStructuralFeature("children"));
+			HenshinRuleAnalysisUtilEx.createPreservedEdge(nestedRule, gcNestedNode, childNestedNode, (EReference) featureType.getEStructuralFeature("children"));
+			HenshinRuleAnalysisUtilEx.createEdge(gcNACNode, childNACNode, (EReference) featureType.getEStructuralFeature("children"), kernelNAC.getConclusion());
+			HenshinRuleAnalysisUtilEx.createEdge(gcNestedNACNode, childNestedNACNode, (EReference) featureType.getEStructuralFeature("children"), nestedNAC.getConclusion());
 			HenshinRuleAnalysisUtilEx.createPreservedEdge(rule, childNode, gcNode, (EReference) featureType.getEStructuralFeature("parent"));
 			HenshinRuleAnalysisUtilEx.createPreservedEdge(nestedRule, childNestedNode, gcNestedNode, (EReference) featureType.getEStructuralFeature("parent"));
 			HenshinRuleAnalysisUtilEx.createEdge(childNACNode, gcNACNode, (EReference) featureType.getEStructuralFeature("parent"), kernelNAC.getConclusion());
