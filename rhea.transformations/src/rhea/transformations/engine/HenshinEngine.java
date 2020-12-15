@@ -113,7 +113,6 @@ public class HenshinEngine {
 	}
 	
 	public Module getModule(String modulePath) {
-		System.out.println("Modulepath: " + modulePath);
 		return rs.getModule(modulePath, true);
 	}
 	

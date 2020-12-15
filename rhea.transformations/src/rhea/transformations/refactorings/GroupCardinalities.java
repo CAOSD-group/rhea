@@ -81,10 +81,14 @@ public class GroupCardinalities {
 		
 		// get the module, the imports (metamodels), and the multiplicities
 		Module module = ee.getModule(modulePath);
-		module.setName(module.getName() + "-completed");
+		module.setName(module.getName() + "-" + gc.getId());
 		imports = module.getImports();
 		int lower = gc.getMultiplicity().getLower();
 		int upper = gc.getMultiplicity().getUpper();
+		
+		// EClass types
+		EClass gcType = getEClass("GroupCardinality", imports);
+		EClass sgType = getEClass("SelectionGroup", imports);
 		
 		// Create the main rule
 		SequentialUnit mainUnit = createSequentialUnit("GroupCardinalitiesNM");
@@ -93,6 +97,20 @@ public class GroupCardinalities {
 
 		Unit u1 = module.getUnit("CreateConstraint");
 		mainUnit.getSubUnits().add(u1);
+		
+		// Special case in template for K = 1, Create the combis' rules
+		if (lower == 1) {
+			Rule combiK1 = (Rule) module.getUnit("CombiK1");
+			Node gcLhsNode = combiK1.getLhs().getNode("gc");
+			Node gcRhsNode = combiK1.getRhs().getNode("gc");
+			HenshinFactory.eINSTANCE.createAttribute(gcLhsNode, (EAttribute) gcType.getEStructuralFeature("id"), "\"" + gc.getId() + "\"");
+			HenshinFactory.eINSTANCE.createAttribute(gcRhsNode, (EAttribute) gcType.getEStructuralFeature("id"), "\"" + gc.getId() + "\"");	
+			
+			Unit combiK1unit = module.getUnit("MultiCombiK1_Clean");
+			
+			mainUnit.getSubUnits().add(combiK1unit);
+			lower++;
+		}
 		
 		// Create the combis' rules
 		for (int k = lower; k <= upper; k++) {
@@ -118,7 +136,6 @@ public class GroupCardinalities {
 		
 		// Add  the negative rules
 		Rule negRule = (Rule) module.getUnit("AddNegative");
-		EClass gcType = getEClass("GroupCardinality", imports);
 		Node gcLhsNode = negRule.getLhs().getNode("gc");
 		Node gcRhsNode = negRule.getRhs().getNode("gc");
 		HenshinFactory.eINSTANCE.createAttribute(gcLhsNode, (EAttribute) gcType.getEStructuralFeature("id"), "\"" + gc.getId() + "\"");
@@ -131,7 +148,6 @@ public class GroupCardinalities {
 		Rule tRule = (Rule) module.getUnit("TransformGroupCardinality");
 		Node gcDeleteNode = tRule.getLhs().getNode("gc");
 		HenshinFactory.eINSTANCE.createAttribute(gcDeleteNode, (EAttribute) gcType.getEStructuralFeature("id"), "\"" + gc.getId() + "\"");
-		EClass sgType = getEClass("SelectionGroup", imports);
 		Node sgCreateNode = tRule.getRhs().getNode("sg");
 		HenshinFactory.eINSTANCE.createAttribute(sgCreateNode, (EAttribute) sgType.getEStructuralFeature("id"), "\"" + gc.getId() + "\"");
 		
