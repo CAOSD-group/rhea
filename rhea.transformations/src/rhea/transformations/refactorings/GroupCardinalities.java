@@ -60,39 +60,64 @@ public class GroupCardinalities {
 	public static Module completeModuleForGC(String modulePath, GroupCardinality gc) throws ParseException {
 		HenshinEngine ee = new HenshinEngine(Rhea.BASEDIR);
 		
+		// get the module and the multiplicities
 		Module module = ee.getModule(modulePath);
-		System.out.println("Module: " + module.getName());
-		
 		int lower = gc.getMultiplicity().getLower();
 		int upper = gc.getMultiplicity().getUpper();
 		
 		// Create the main rule
-		SequentialUnit mainUnit = createSequentialUnit();
+		SequentialUnit mainUnit = createSequentialUnit("GroupCardinalitiesNM");
 		mainUnit.setRollback(true);
 		mainUnit.setStrict(true);
 
 		Unit u1 = module.getUnit("CreateConstraint");
-		
 		mainUnit.getSubUnits().add(u1);
 		
+		// Create the combis' rules
 		for (int k = lower; k <= upper; k++) {
 			// create the rule for K combi
 			Rule r = createRuleForK(k, gc.getId());
 			module.getUnits().add(r);
 			
 			// Create the loop unit
-			Unit unit = createLoopUnit(r);
+			Unit unit = createLoopUnit(r, "Multi" + r.getName());
 			module.getUnits().add(unit);
 			
-			// Add to the main sequential unit
-			mainUnit.getSubUnits().add(unit);
+			// Create sequential unit with the loop and the clean
+			SequentialUnit seqUnit = createSequentialUnit(unit.getName() + "Clean");
+			seqUnit.setRollback(true);
+			seqUnit.setStrict(true);
+			seqUnit.getSubUnits().add(unit);
+			seqUnit.getSubUnits().add(module.getUnit("CleanFeatureTrace"));
+			module.getUnits().add(seqUnit);
 			
-			mainUnit.getSubUnits().add(module.getUnit("CleanFeatureTrace"));
+			// Add to the main sequential unit
+			mainUnit.getSubUnits().add(seqUnit);
 		}
 		
+		// Add  the negative rules
+		Rule negRule = (Rule) module.getUnit("AddNegative");
+		EClass gcType = (EClass) groupCardinalityMetamodel.getEClassifier("GroupCardinality");
+		Node gcLhsNode = negRule.getLhs().getNode("gc");
+		Node gcRhsNode = negRule.getRhs().getNode("gc");
+		HenshinFactory.eINSTANCE.createAttribute(gcLhsNode, (EAttribute) gcType.getEStructuralFeature("id"), "\"" + gc.getId() + "\"");
+		HenshinFactory.eINSTANCE.createAttribute(gcRhsNode, (EAttribute) gcType.getEStructuralFeature("id"), "\"" + gc.getId() + "\"");
+	
 		mainUnit.getSubUnits().add(module.getUnit("MultiNegative"));
+		
+		// Add the Transform group rule
+		
+		Rule tRule = (Rule) module.getUnit("TransformGroupCardinality");
+		Node gcDeleteNode = tRule.getLhs().getNode("gc");
+		HenshinFactory.eINSTANCE.createAttribute(gcDeleteNode, (EAttribute) gcType.getEStructuralFeature("id"), "\"" + gc.getId() + "\"");
+		EClass sgType = (EClass) basicFMsMetamodel.getEClassifier("SelectionGroup");
+		Node sgCreateNode = tRule.getRhs().getNode("sg");
+		HenshinFactory.eINSTANCE.createAttribute(sgCreateNode, (EAttribute) sgType.getEStructuralFeature("id"), "\"" + gc.getId() + "\"");
+		
 		mainUnit.getSubUnits().add(module.getUnit("TransformGroupCardinality"));
 		mainUnit.getSubUnits().add(module.getUnit("Clean"));
+		
+		module.getUnits().add(mainUnit);
 		
 		return module;
 	}
@@ -132,45 +157,51 @@ public class GroupCardinalities {
 		NodePair gcNode = HenshinRuleAnalysisUtilEx.createPreservedNodeWithAttribute(rule, "", gcType, (EAttribute) gcType.getEStructuralFeature("id"), gcID, false);
 		NodePair gcNestedNode = HenshinRuleAnalysisUtilEx.createPreservedNodeWithAttribute(nestedRule, "", gcType, (EAttribute) gcType.getEStructuralFeature("id"), gcID, false);
 		nestedRule.getMultiMappings().add(gcNode.getLhsNode(), gcNestedNode.getLhsNode());
-		nestedRule.getMultiMappings().add(gcNode.getLhsNode(), gcNestedNode.getRhsNode());
-		Node gcNACNode = HenshinRuleAnalysisUtilEx.copyNode(kernelNAC.getConclusion(), gcNode.getLhsNode());
+		nestedRule.getMultiMappings().add(gcNode.getRhsNode(), gcNestedNode.getRhsNode());
+		Node gcNACNode = HenshinRuleAnalysisUtilEx.createNode(kernelNAC.getConclusion(), gcType);
 		kernelNAC.getMappings().add(gcNode.getLhsNode(), gcNACNode);
-		Node gcNestedNACNode = HenshinRuleAnalysisUtilEx.copyNode(nestedNAC.getConclusion(), gcNode.getLhsNode());
-		nestedNAC.getMappings().add(gcNode.getLhsNode(), gcNestedNACNode);
+		Node gcNestedNACNode = HenshinRuleAnalysisUtilEx.createNode(nestedNAC.getConclusion(), gcType);
+		nestedNAC.getMappings().add(gcNestedNode.getLhsNode(), gcNestedNACNode);
 		
 		// Create implies node 
 		NodePair impliesNode = HenshinRuleAnalysisUtilEx.createPreservedNode(rule, "", impliesType);
 		NodePair impliesNested = HenshinRuleAnalysisUtilEx.createPreservedNode(nestedRule, "", impliesType);
 		nestedRule.getMultiMappings().add(impliesNode.getLhsNode(), impliesNested.getLhsNode());
-		nestedRule.getMultiMappings().add(impliesNode.getLhsNode(), impliesNested.getRhsNode());
-		Node impliesNACNode = HenshinRuleAnalysisUtilEx.copyNode(kernelNAC.getConclusion(), impliesNode.getLhsNode());
+		nestedRule.getMultiMappings().add(impliesNode.getRhsNode(), impliesNested.getRhsNode());
+		Node impliesNACNode = HenshinRuleAnalysisUtilEx.createNode(kernelNAC.getConclusion(), impliesType);
 		kernelNAC.getMappings().add(impliesNode.getLhsNode(), impliesNACNode);
-		Node impliesNestedNACNode = HenshinRuleAnalysisUtilEx.copyNode(nestedNAC.getConclusion(), impliesNode.getLhsNode());
-		nestedNAC.getMappings().add(impliesNode.getLhsNode(), impliesNestedNACNode);
+		Node impliesNestedNACNode = HenshinRuleAnalysisUtilEx.createNode(nestedNAC.getConclusion(), impliesType);
+		nestedNAC.getMappings().add(impliesNested.getLhsNode(), impliesNestedNACNode);
 		
 		// Create or node
 		NodePair orNode = HenshinRuleAnalysisUtilEx.createPreservedNode(rule, "", orType);
 		NodePair orNestedNode = HenshinRuleAnalysisUtilEx.createPreservedNode(nestedRule, "", orType);
 		nestedRule.getMultiMappings().add(orNode.getLhsNode(), orNestedNode.getLhsNode());
-		nestedRule.getMultiMappings().add(orNode.getLhsNode(), orNestedNode.getRhsNode());
-		Node orNACNode = HenshinRuleAnalysisUtilEx.copyNode(kernelNAC.getConclusion(), orNode.getLhsNode());
+		nestedRule.getMultiMappings().add(orNode.getRhsNode(), orNestedNode.getRhsNode());
+		Node orNACNode = HenshinRuleAnalysisUtilEx.createNode(kernelNAC.getConclusion(), orType);
 		kernelNAC.getMappings().add(orNode.getLhsNode(), orNACNode);
-		Node orNestedNACNode = HenshinRuleAnalysisUtilEx.copyNode(nestedNAC.getConclusion(), orNode.getLhsNode());
-		nestedNAC.getMappings().add(orNode.getLhsNode(), orNestedNACNode);
+		Node orNestedNACNode = HenshinRuleAnalysisUtilEx.createNode(nestedNAC.getConclusion(), orType);
+		nestedNAC.getMappings().add(orNestedNode.getLhsNode(), orNestedNACNode);
 		
 		// Create trace node 
 		NodePair traceNode = HenshinRuleAnalysisUtilEx.createPreservedNode(rule, "", traceType);
 		NodePair traceNestedNode = HenshinRuleAnalysisUtilEx.createPreservedNode(nestedRule, "", traceType);
 		nestedRule.getMultiMappings().add(traceNode.getLhsNode(), traceNestedNode.getLhsNode());
-		nestedRule.getMultiMappings().add(traceNode.getLhsNode(), traceNestedNode.getRhsNode());
-		Node traceNACNode = HenshinRuleAnalysisUtilEx.copyNode(kernelNAC.getConclusion(), traceNode.getLhsNode());
+		nestedRule.getMultiMappings().add(traceNode.getRhsNode(), traceNestedNode.getRhsNode());
+		Node traceNACNode = HenshinRuleAnalysisUtilEx.createNode(kernelNAC.getConclusion(), traceType);
 		kernelNAC.getMappings().add(traceNode.getLhsNode(), traceNACNode);
-		Node traceNestedNACNode = HenshinRuleAnalysisUtilEx.copyNode(nestedNAC.getConclusion(), traceNode.getLhsNode());
-		nestedNAC.getMappings().add(traceNode.getLhsNode(), traceNestedNACNode);
+		Node traceNestedNACNode = HenshinRuleAnalysisUtilEx.createNode(nestedNAC.getConclusion(), traceType);
+		nestedNAC.getMappings().add(traceNestedNode.getLhsNode(), traceNestedNACNode);
 		
 		// Create the edges
 		HenshinRuleAnalysisUtilEx.createPreservedEdge(rule, impliesNode, orNode, (EReference) impliesType.getEStructuralFeature("right"));
+		HenshinRuleAnalysisUtilEx.createPreservedEdge(nestedRule, impliesNested, orNestedNode, (EReference) impliesType.getEStructuralFeature("right"));
+		HenshinRuleAnalysisUtilEx.createEdge(impliesNACNode, orNACNode, (EReference) impliesType.getEStructuralFeature("right"), kernelNAC.getConclusion());
+		HenshinRuleAnalysisUtilEx.createEdge(impliesNestedNACNode, orNestedNACNode, (EReference) impliesType.getEStructuralFeature("right"), nestedNAC.getConclusion());
 		HenshinRuleAnalysisUtilEx.createPreservedEdge(rule, traceNode, impliesNode, (EReference) traceType.getEStructuralFeature("source"));
+		HenshinRuleAnalysisUtilEx.createPreservedEdge(nestedRule, traceNestedNode, impliesNested, (EReference) traceType.getEStructuralFeature("source"));
+		HenshinRuleAnalysisUtilEx.createEdge(traceNACNode, impliesNACNode, (EReference) traceType.getEStructuralFeature("source"), kernelNAC.getConclusion());
+		HenshinRuleAnalysisUtilEx.createEdge(traceNestedNACNode, impliesNestedNACNode, (EReference) traceType.getEStructuralFeature("source"), nestedNAC.getConclusion());
 		
 		// Create the multi-node And <<create>>
 		Node andMultiNode = HenshinRuleAnalysisUtilEx.createCreateNode(nestedRule.getRhs(), "", andType);
@@ -190,14 +221,14 @@ public class GroupCardinalities {
 		
 		// Create the basic feature multi-node <<preserve>>
 		NodePair featureMultiNode = HenshinRuleAnalysisUtilEx.createPreservedNode(nestedRule, "", featureType);
-		Node featureMultiNodeNACNode = HenshinRuleAnalysisUtilEx.copyNode(kernelNAC.getConclusion(), featureMultiNode.getLhsNode());
-		kernelNAC.getMappings().add(featureMultiNode.getLhsNode(), featureMultiNodeNACNode);
-		Node featureMultiNodeNestedNACNode = HenshinRuleAnalysisUtilEx.copyNode(nestedNAC.getConclusion(), featureMultiNode.getLhsNode());
+		Node featureMultiNodeNestedNACNode = HenshinRuleAnalysisUtilEx.createNode(nestedNAC.getConclusion(), featureType);
 		nestedNAC.getMappings().add(featureMultiNode.getLhsNode(), featureMultiNodeNestedNACNode);
 		
 		// Create the edges
 		HenshinRuleAnalysisUtilEx.createPreservedEdge(nestedRule, gcNestedNode, featureMultiNode, (EReference) gcType.getEStructuralFeature("children"));
+		HenshinRuleAnalysisUtilEx.createEdge(gcNestedNACNode, featureMultiNodeNestedNACNode, (EReference) gcType.getEStructuralFeature("children"), nestedNAC.getConclusion());
 		HenshinRuleAnalysisUtilEx.createPreservedEdge(nestedRule, featureMultiNode, gcNestedNode, (EReference) featureType.getEStructuralFeature("parent"));
+		HenshinRuleAnalysisUtilEx.createEdge(featureMultiNodeNestedNACNode, gcNestedNACNode, (EReference) featureType.getEStructuralFeature("parent"), nestedNAC.getConclusion());
 		
 		HenshinRuleAnalysisUtilEx.createCreateEdge(featuretermMultiNode, featureMultiNode.getRhsNode(), (EReference) featureTermType.getEStructuralFeature("feature"));
 		HenshinRuleAnalysisUtilEx.createForbidEdge(featureTermMultiNodeForbid, featureMultiNodeNestedNACNode, (EReference) featureTermType.getEStructuralFeature("feature"), nestedRule);
@@ -208,15 +239,21 @@ public class GroupCardinalities {
 			NodePair childNode = HenshinRuleAnalysisUtilEx.createPreservedNode(rule, "", featureType);
 			NodePair childNestedNode = HenshinRuleAnalysisUtilEx.createPreservedNode(nestedRule, "", featureType);
 			nestedRule.getMultiMappings().add(childNode.getLhsNode(), childNestedNode.getLhsNode());
-			nestedRule.getMultiMappings().add(childNode.getLhsNode(), childNestedNode.getRhsNode());
+			nestedRule.getMultiMappings().add(childNode.getRhsNode(), childNestedNode.getRhsNode());
 			Node childNACNode = HenshinRuleAnalysisUtilEx.copyNode(kernelNAC.getConclusion(), childNode.getLhsNode());
 			kernelNAC.getMappings().add(childNode.getLhsNode(), childNACNode);
 			Node childNestedNACNode = HenshinRuleAnalysisUtilEx.copyNode(nestedNAC.getConclusion(), childNode.getLhsNode());
-			nestedNAC.getMappings().add(childNode.getLhsNode(), childNestedNACNode);
+			nestedNAC.getMappings().add(childNestedNode.getLhsNode(), childNestedNACNode);
 			
 			// create the parent/child edges
 			HenshinRuleAnalysisUtilEx.createPreservedEdge(rule, gcNode, childNode, (EReference) gcType.getEStructuralFeature("children"));
+			HenshinRuleAnalysisUtilEx.createPreservedEdge(nestedRule, gcNestedNode, childNestedNode, (EReference) gcType.getEStructuralFeature("children"));
+			HenshinRuleAnalysisUtilEx.createEdge(gcNACNode, childNACNode, (EReference) gcType.getEStructuralFeature("children"), kernelNAC.getConclusion());
+			HenshinRuleAnalysisUtilEx.createEdge(gcNestedNACNode, childNestedNACNode, (EReference) gcType.getEStructuralFeature("children"), nestedNAC.getConclusion());
 			HenshinRuleAnalysisUtilEx.createPreservedEdge(rule, childNode, gcNode, (EReference) featureType.getEStructuralFeature("parent"));
+			HenshinRuleAnalysisUtilEx.createPreservedEdge(nestedRule, childNestedNode, gcNestedNode, (EReference) featureType.getEStructuralFeature("parent"));
+			HenshinRuleAnalysisUtilEx.createEdge(childNACNode, gcNACNode, (EReference) featureType.getEStructuralFeature("parent"), kernelNAC.getConclusion());
+			HenshinRuleAnalysisUtilEx.createEdge(childNestedNACNode, gcNestedNACNode, (EReference) featureType.getEStructuralFeature("parent"), nestedNAC.getConclusion());
 			
 			// Create the featureTerm <<create>>
 			Node childFeaturetermMultiNode = HenshinRuleAnalysisUtilEx.createCreateNode(nestedRule.getRhs(), "", featureTermType);
@@ -232,27 +269,29 @@ public class GroupCardinalities {
 			
 			// Create the traces <<create>> and <<forbid>> 
 			Node traceChildNode = HenshinRuleAnalysisUtilEx.createCreateNode(rule.getRhs(), "", traceType);
+			Node traceNestedChildNode = HenshinRuleAnalysisUtilEx.createCreateNode(nestedRule.getRhs(), "", traceType);
+			nestedRule.getMultiMappings().add(traceChildNode, traceNestedChildNode);
 			HenshinRuleAnalysisUtilEx.createCreateEdge(traceChildNode, childNode.getRhsNode(), (EReference) traceType.getEStructuralFeature("source"));
+			HenshinRuleAnalysisUtilEx.createCreateEdge(traceNestedChildNode, childNestedNode.getRhsNode(), (EReference) traceType.getEStructuralFeature("source"));
 			
 			Node traceForbidChildNode = HenshinRuleAnalysisUtilEx.createForbidNode(rule, traceType);
 			HenshinRuleAnalysisUtilEx.createForbidEdge(traceForbidChildNode, childNACNode, (EReference) traceType.getEStructuralFeature("source"), rule);
 		}
-		
 		return rule;
 	}
 
-	private static LoopUnit createLoopUnit(Rule rule) {
+	private static LoopUnit createLoopUnit(Rule rule, String name) {
 		LoopUnit unit = HenshinFactory.eINSTANCE.createLoopUnit();
-		unit.setName("Multi" + rule.getName());
+		unit.setName(name);
 		unit.setSubUnit(rule);
 		unit.setActivated(true);
 		
 		return unit;
 	}
 	
-	private static SequentialUnit createSequentialUnit() {
+	private static SequentialUnit createSequentialUnit(String name) {
 		SequentialUnit unit = HenshinFactory.eINSTANCE.createSequentialUnit();
-		unit.setName("GroupCardinalitiesNM");
+		unit.setName(name);
 		unit.setActivated(true);
 		
 		return unit;
