@@ -5,14 +5,17 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.Arrays;
 
 import org.opentest4j.AssertionFailedError;
 import rhea.Rhea;
+import rhea.metamodels.BasicFMs.FeatureModel;
 
 public class Test {
 
-	final static int NUMBER_OF_ITERATIONS = 2;
+	final static int NUMBER_OF_ITERATIONS = 30;
 	
 	public static void main(String[] args) {
 		
@@ -22,26 +25,46 @@ public class Test {
 	}
 	
 	public static void getData() {
-		String[] featureModels = {"gc001", "gc002"};
+		String[][] featureModels = {{"mutex001", "mutex002", "mutex003", "mutex004", "mutex005"}};
+		
+		String [] methodName = {"mutexGroup"};
+		String [] className = {"rhea.evaluation.refactorings.MutexGroupTest"};
 			
 		try 
 		{
 			FileWriter fw = new FileWriter(Rhea.BASEDIR + "temp/raw_data.csv");
 			fw.write("run,method,rule,inputModel,nFeatures,nRefactors,nTime \n");
-			var run = 1;
+			int run = 1, iter = 0;
 			
-			for (String fm : featureModels) 
+			Method method;
+			Class<?> c = null;
+			
+			for (String[] fms : featureModels)
 			{
-				for (int i = 0; i < NUMBER_OF_ITERATIONS; i++) 
+				c = Class.forName(className[iter]);
+				
+				for (String fm : fms) 
 				{
-					fw.write(run+"," + GroupCardinalitiesTest.cardinalitiesGroup(fm) + "\n");
-					run++;
+					for (int i = 0; i < NUMBER_OF_ITERATIONS; i++) 
+					{
+						method = c.getDeclaredMethod(methodName[iter], String.class);
+						fw.write(run+"," + method.invoke(c, fm) + "\n");
+						run++;
+					}
 				}
+				
+				iter++;
 			}
-			fw.close();
+				fw.close();
 		} 
 		catch (IOException e) {e.printStackTrace();}
-		catch (AssertionFailedError e) {System.err.println("No cumple las propiedades");}
+		catch (AssertionFailedError e) {System.err.println("No cumple las propiedades");} 
+		catch (NoSuchMethodException e) {e.printStackTrace();} 
+		catch (SecurityException e) {e.printStackTrace();} 
+		catch (IllegalAccessException e) {e.printStackTrace();}
+		catch (IllegalArgumentException e) {e.printStackTrace();} 
+		catch (InvocationTargetException e) {e.printStackTrace();} 
+		catch (ClassNotFoundException e) {e.printStackTrace();}
 	}
 	
 	public static void processData() {

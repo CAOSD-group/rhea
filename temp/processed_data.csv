@@ -1,3 +1,6 @@
 method,rule,inputModel,nFeatures,nRefactors,mean,median,sd 
-GroupCardinalities,GroupCardinalitiesRefactor,gc001,5,1,342.5,611.0,268.5
-GroupCardinalities,GroupCardinalitiesRefactor,gc002,5,1,57.5,71.0,13.5
+MutexGroup,MutexGroup_Refactoring,mutex001,6,1,48.0,27.0,103.71145870474808
+MutexGroup,MutexGroup_Refactoring,mutex002,11,2,20.333333333333332,20.0,2.3851391759997758
+MutexGroup,MutexGroup_Refactoring,mutex003,19,2,17.3,17.0,2.1625602111078126
+MutexGroup,MutexGroup_Refactoring,mutex004,11,1,15.766666666666667,15.0,2.5124136248281697
+MutexGroup,MutexGroup_Refactoring,mutex005,15,2,16.666666666666668,16.0,2.6246692913372702

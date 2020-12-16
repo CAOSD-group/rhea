@@ -44,7 +44,7 @@ public class GroupCardinalitiesTest {
 	@ParameterizedTest
 	//@ValueSource(strings = {"gc001", "gc002", "gc003", "gc004", "gc005", "gc006", "gc007", "gc008", "gc009", "gc010", "gc011", "gc012"})
 	@ValueSource(strings = {"gc001"})
-	public static String cardinalitiesGroup(String inputModel) throws IOException {
+	public static String groupCardinalities(String inputModel) throws IOException {
 		// Test parameters
 		String inputFile = Rhea.INPUTS_DIR + "clafer/GroupCardinalities/" + inputModel + ".txt";
 		String outputFile = Rhea.OUTPUTS_DIR + "clafer/GroupCardinalities/" + inputModel + ".txt";

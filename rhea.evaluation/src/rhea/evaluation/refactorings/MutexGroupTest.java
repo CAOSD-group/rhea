@@ -40,7 +40,7 @@ public class MutexGroupTest {
 	
 	@ParameterizedTest
 	@ValueSource(strings = {"mutex001", "mutex002", "mutex003", "mutex004", "mutex005"})
-	void mutexGroup(String inputModel) throws IOException {
+	public static String mutexGroup(String inputModel) throws IOException {
 		// Test parameters
 		String inputFile = Rhea.CLAFER_INPUTS_DIR + inputModel + ".txt";
 		String outputFile = Rhea.CLAFER_OUTPUTS_DIR + inputModel + ".txt";
@@ -63,6 +63,9 @@ public class MutexGroupTest {
 		
 		System.out.print("Times begins!");
 		var timeBefore = System.currentTimeMillis();
+		
+		var numberMutexGroupBefore = FMHelper.getAllFeaturesOf(fm,"rhea.metamodels.CardinalityBasedFMs.MutexGroup").size();
+		
 		
 		/********** REFACTORING **********/
 		// Prepare the transformation
@@ -114,12 +117,15 @@ public class MutexGroupTest {
 		System.out.println("FM configs: " + productsIDs.size() + " -> " + productsIDs);
 		
 		var numberMutexGroup = FMHelper.getAllFeaturesOf(fm,"rhea.metamodels.CardinalityBasedFMs.MutexGroup").size();
+		var performance = timeAfter-timeBefore;
 		
 		System.out.println("FM number of mutex remaining: " + numberMutexGroup);
-		System.out.println("Performance: " + (timeAfter-timeBefore) + " milliseconds." );
+		System.out.println("Performance: " + performance + " milliseconds." );
 		
 		assertEquals(expectedProductsIDs, productsIDs);
 		assertEquals(0, numberMutexGroup);
+		
+		return "MutexGroup," + ruleName + "," + inputModel + "," + fm.getFeatures().size() + "," + numberMutexGroupBefore + "," + performance;
 	}
 	
 	

@@ -68,8 +68,9 @@ public class GroupCardinalitiesTestNM {
 		AutomatedAnalysisFM aafm = new AAFMClafer();
 		var expectedProducts = aafm.products(fm);
 		
-		
 		List<GroupCardinality> gcs = GroupCardinalities.getGroupsCardinalities(fm);
+		
+	
 		System.out.println("Group Cardinality: " + gcs.get(0) + " -> " + gcs.get(0).getMultiplicity());
 		
 		Module module = null;
