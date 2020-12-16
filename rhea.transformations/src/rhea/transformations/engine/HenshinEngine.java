@@ -29,7 +29,7 @@ import org.eclipse.emf.henshin.model.resource.HenshinResourceSet;
 
 /**
  * Helper to register metamodels in Henshin, load/save model instances, and execute rules.
- * It uses static model instances and metamodels.
+ * It uses static or dynamic model instances and metamodels.
  * 
  * @author Jose Miguel Horcas
  *
@@ -39,6 +39,10 @@ public class HenshinEngine {
 	private Engine engine;
 	private int threads;
 	
+	/**
+	 * 
+	 * @param basedir Base directory.
+	 */
 	public HenshinEngine(String basedir) {
 		this.rs = new HenshinResourceSet(basedir);
 		this.engine = new EngineImpl();
@@ -200,10 +204,41 @@ public class HenshinEngine {
 		engine.getOptions().put(Engine.OPTION_DETERMINISTIC, false);
 		
 		// Execute the unit/rule
-		ApplicationMonitor monitor = new LoggingApplicationMonitor();
+		boolean status = application.execute(null);
+
+		return status;
+	}
+	
+	/**
+	 * Execute a Henshin unit/rule with a monitor.
+	 * 
+	 * @param unit			Unit/rule.
+	 * @param parameters	Parameters of the unit/rule: name -> value.
+	 * @param model			Model to be transformed.
+	 * @param monitor		Application monitor.
+	 * @return				True if the transformation was successfully applied.
+	 */
+	public boolean executeTransformation(Unit unit, Map<String, Object> parameters, EObject model, ApplicationMonitor monitor) {						
+		// Initialize the graph
+		EGraph graph = new EGraphImpl(model);
+		
+		// Prepare application of the unit/rule
+		UnitApplication application = new UnitApplicationImpl(engine, graph, unit, null);
+		
+		// Assign parameters values before execution
+		for (Parameter p : unit.getParameters()) {
+			if (p.getKind().equals(ParameterKind.IN)) {
+				application.setParameterValue(p.getName(), parameters.get(p.getName()));
+			}
+		}
+		
+		// Set engine options
+		engine.getOptions().put(Engine.OPTION_CHECK_DANGLING, false);
+		engine.getOptions().put(Engine.OPTION_DETERMINISTIC, false);
+		
+		// Execute the unit/rule
 		boolean status = application.execute(monitor);
 		
-		System.out.println("Roots: " + graph.getRoots());
 		return status;
 	}
 	
