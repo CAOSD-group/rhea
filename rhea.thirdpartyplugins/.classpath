@@ -7,15 +7,9 @@
 	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.pde.core.requiredPlugins"/>
 	<classpathentry kind="src" path="src"/>
-	<classpathentry exported="true" kind="lib" path="lib/uvl-parser.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/antlr-4.8-complete.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/gson-2.8.6.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/guava-30.0-jre.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/commons-io-2.8.0.jar">
-		<attributes>
-			<attribute name="javadoc_location" value="jar:platform:/resource/rhea.thirdpartyplugins/doc/commons-io-2.8.0-javadoc.jar!/"/>
-		</attributes>
-	</classpathentry>
 	<classpathentry exported="true" kind="lib" path="lib/org.sat4j.core-2.3.1.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/aima-core-3.0.0.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/beedeedee.jar"/>
@@ -23,5 +17,9 @@
 	<classpathentry exported="true" kind="lib" path="lib/org.sidiff.common.henshin-1.0.0.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/featureide/de.ovgu.featureide.fm.core-v3.6.3.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/splot/sxfm.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/apachecommons/commons-io-2.8.0.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/apachecommons/commons-math3-3.6.1.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/apachecommons/commons-math3-3.6.1-javadoc.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/uvl/uvl-parser.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
