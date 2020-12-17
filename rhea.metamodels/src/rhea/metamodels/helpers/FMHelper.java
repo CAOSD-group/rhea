@@ -10,7 +10,6 @@ import java.util.stream.Collectors;
 import rhea.metamodels.BasicFMs.Feature;
 import rhea.metamodels.BasicFMs.FeatureGroup;
 import rhea.metamodels.BasicFMs.FeatureModel;
-import rhea.metamodels.CardinalityBasedFMs.GroupCardinality;
 
 public class FMHelper {
 

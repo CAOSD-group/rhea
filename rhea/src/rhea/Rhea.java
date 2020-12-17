@@ -24,6 +24,11 @@ public class Rhea {
 	public static final String CLAFER_INPUTS_DIR = INPUTS_DIR + "clafer/";
 	public static final String CLAFER_OUTPUTS_DIR = OUTPUTS_DIR + "clafer/";
 	
+	public static final String EVALUATION_DIR = CLAFER_INPUTS_DIR + "MutexGroup/";
+	public static final String EVALUATION_PACKAGE = "rhea.evaluation.refactorings.";
+	
+	public static final int EVALUATION_ITERATIONS = 2;
+	
 	public static final List<String> DYNAMIC_METAMODELS = List.of(METAMODELS_DIR + "BasicFMs/BasicFMs.ecore",
 																  METAMODELS_DIR + "CardinalityBasedFMs/CardinalityBasedFMs.ecore");
 	

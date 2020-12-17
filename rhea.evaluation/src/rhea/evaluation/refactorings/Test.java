@@ -33,7 +33,7 @@ public class Test {
 		try 
 		{
 			FileWriter fw = new FileWriter(Rhea.BASEDIR + "temp/raw_data.csv");
-			fw.write("run,method,rule,inputModel,nFeatures,nRefactors,nTime \n");
+			fw.write("run,HenshinModule,HenshinRule,inputModel,nFeatures,nRefactors,nTime \n");
 			int run = 1, iter = 0;
 			
 			Method method;

@@ -29,6 +29,7 @@ import rhea.parsers.FMParser;
 import rhea.parsers.clafer.ClaferParser;
 import rhea.thirdpartyplugins.utils.Utils;
 import rhea.transformations.engine.HenshinEngine;
+import rhea.transformations.refactorings.GroupCardinalities;
 
 
 @RunWith(Suite.class)
@@ -68,7 +69,8 @@ public class GroupCardinalitiesTest {
 		System.out.print("Times begins!");
 		var timeBefore = System.currentTimeMillis();
 		
-		var numberGroupCardinalitiesBefore = FMHelper.getAllFeaturesOf(fm, "rhea.metamodels.CardinalityBasedFMs.GroupCardinality").size();
+		var numberGroupCardinalitiesBefore = GroupCardinalities.getGroupsCardinalities(fm).size();
+		System.out.println(numberGroupCardinalitiesBefore);
 		
 		/********** REFACTORING **********/
 		// Prepare the transformation

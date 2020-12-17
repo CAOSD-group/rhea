@@ -4,12 +4,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import rhea.metamodels.BasicFMs.FeatureModel;
-
 public class MutexGroupRefactoring extends HenshingRefactoring{
 
-	public MutexGroupRefactoring(FeatureModel fm) {
-		super(fm);
+	public MutexGroupRefactoring(Boolean debug) {
+		super(debug);
 	}
 
 	@Override

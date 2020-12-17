@@ -30,20 +30,6 @@ public class GroupCardinalitiesRefactoring extends HenshingRefactoring{
 		return hs;
 	}
 	
-	@Override
-	public void executeTransformation(FeatureModel fm, HenshinTransformation hs) {
-		executeTransformation(fm,getTransformations());
-	}
-	
-	public void executeTransformation(FeatureModel fm, List<HenshinTransformation> hss) {
-		
-		super(fm,hss.get(0));
-		generateTemplates();
-		hss.remove(0);
-		
-		for (HenshinTransformation hs : hss) super(fm,hs);
-	}
-	
 	public void generateTemplates() {
 		Module module = null;
 		String transformationFilepath = Rhea.REFACTORINGS_DIR + "GroupCardinalitiesNM.henshin";
