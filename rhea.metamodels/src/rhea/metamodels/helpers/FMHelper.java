@@ -93,7 +93,9 @@ public class FMHelper {
 		List<Feature> features = new ArrayList<Feature>();
 		for (Feature f : fm.getFeatures()) {
 			try {
-				if (Class.forName(name).isInstance(f)) features.add(f);
+				if (Class.forName(name).isInstance(f)) {
+					features.add(f);
+				}
 			} catch (ClassNotFoundException e) {e.printStackTrace();}
 		}
 		return features;

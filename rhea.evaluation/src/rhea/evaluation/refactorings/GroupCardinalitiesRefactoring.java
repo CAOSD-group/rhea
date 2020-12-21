@@ -4,9 +4,7 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
 
-import org.eclipse.emf.henshin.model.Unit;
 import org.eclipse.emf.henshin.model.Module;
 
 import rhea.Rhea;
@@ -18,9 +16,16 @@ import rhea.transformations.henshin.HenshinUtils;
 import rhea.transformations.refactorings.GroupCardinalities;
 
 public class GroupCardinalitiesRefactoring extends HenshingRefactoring{
+
+	FeatureModel fm;
 	
-	public GroupCardinalitiesRefactoring(FeatureModel fm) {
-		super(fm);
+	public GroupCardinalitiesRefactoring(Boolean debugMode) {
+		super(debugMode);
+	}
+	
+	public GroupCardinalitiesRefactoring(Boolean debugMode,FeatureModel fm) {
+		super(debugMode);
+		this.fm = fm;
 	}
 
 	@Override

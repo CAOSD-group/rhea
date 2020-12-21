@@ -23,6 +23,7 @@ public class MainTest {
 	
 	//String outputFileAS;
 	String outputFile;
+	String inputFile;
 	
 	public MainTest() {
 		tis = new ArrayList<>();
@@ -30,7 +31,7 @@ public class MainTest {
 	}
 	
 	public List<TransformationInformation> run(String model, List<Refactoring> mds) {
-		String inputFile = Rhea.EVALUATION_DIR + model + ".txt";
+		inputFile = Rhea.EVALUATION_DIR + model + ".txt";
 		outputFile = Rhea.EVALUATION_DIR + model + "-refactored.txt";
 		//outputFileAS = Rhea.ABSTRACTSYNTAX_OUTPUTS_DIR + model + "-refactored.xmi";
 	
@@ -59,6 +60,8 @@ public class MainTest {
 				// Luego hacemos todas las execuciones para obtener los tiempos.
 				for (int i = 0; i < Rhea.EVALUATION_ITERATIONS; i++) 
 				{
+					fm = p.readFeatureModel(inputFile);
+					
 					ti = new TransformationInformation();
 					ti.setInputModel(model);
 					ti.setHenshinModule(r.getClass().getName().substring(r.getClass().getName().lastIndexOf(".")+1));
