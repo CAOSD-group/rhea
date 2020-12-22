@@ -1,2 +1,3 @@
 HenshinModule,HenshinRule,inputModel,nFeatures,nRefactors,nRulesSucessExecuted,mean,median,sd 
-MutexGroupRefactoring,[MutexGroup_Refactoring],mutex001,6,1,3,4301900.0,4974500.0,672600.0
+GroupCardinalitiesRefactoring,[GroupCardinalitiesRefactor],gc001,5,0,7,3173600.0,3517700.0,344100.0
+GroupCardinalitiesNMRefactoring,[GroupCardinalitiesNM],gc001,5,0,8,3019900.0,3107700.0,87800.0

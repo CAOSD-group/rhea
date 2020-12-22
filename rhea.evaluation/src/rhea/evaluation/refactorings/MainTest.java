@@ -25,32 +25,40 @@ public class MainTest {
 	String outputFile;
 	String inputFile;
 	
+	//Cada vez que queramos comprobar un nuevo tipo de feature, debemos cambiar este path.
+	private String CLASS_PATH = "rhea.metamodels.CardinalityBasedFMs.GroupCardinality";
+	
 	public MainTest() {
 		tis = new ArrayList<>();
 		aafm = new AAFMClafer();
 	}
 	
 	public List<TransformationInformation> run(String model, List<Refactoring> mds) {
-		inputFile = Rhea.EVALUATION_DIR + model + ".txt";
-		outputFile = Rhea.EVALUATION_DIR + model + "-refactored.txt";
+		inputFile = Rhea.CLAFER_INPUTS_DIR + "GroupCardinalities/" + model + ".txt";
+		outputFile = Rhea.CLAFER_OUTPUTS_DIR + "GroupCardinalities/" + model + "-refactored.txt";
 		//outputFileAS = Rhea.ABSTRACTSYNTAX_OUTPUTS_DIR + model + "-refactored.xmi";
 	
 		FMParser p = new ClaferParser();
-		FeatureModel fm = p.readFeatureModel(inputFile);
+		
+		// fm es una variable auxiliar para almacenar el fm transformado, fmAux contiene el fm tal y como sale despues del anterior modulo.
+		FeatureModel fmAux = p.readFeatureModel(inputFile);
+		FeatureModel fm = fmAux;
 		
 		try 
 		{	
+			// Para cada modulo
 			for (Refactoring r : mds) {
+				
+				fmAux = fm; //CLONE, por que si no copia la referencia.
 				ti = new TransformationInformation();
 				
 				List<String> units = new ArrayList<>();
 				
-				for (HenshinTransformation ht : r.getTransformations()) {
-					units.add(ht.getUnitName());
-				}
+				for (HenshinTransformation ht : r.getTransformations()) units.add(ht.getUnitName());
 				
 				// Primero obtenemos los pasos.
 				r.executeTransformation(fm);
+				ti.setRun(-1);
 				ti.setRulesExecuted(((HenshingRefactoring) r).getMonitor().getSteps());
 				ti.setRulesSuccessExecuted(((HenshingRefactoring) r).getMonitor().getSuccessSteps());
 				((HenshingRefactoring) r).setDebugMode(false);
@@ -60,9 +68,10 @@ public class MainTest {
 				// Luego hacemos todas las execuciones para obtener los tiempos.
 				for (int i = 0; i < Rhea.EVALUATION_ITERATIONS; i++) 
 				{
-					fm = p.readFeatureModel(inputFile);
+					fm = fmAux;
 					
 					ti = new TransformationInformation();
+					ti.setRun(i);
 					ti.setInputModel(model);
 					ti.setHenshinModule(r.getClass().getName().substring(r.getClass().getName().lastIndexOf(".")+1));
 					ti.setHenshinUnits(units);
@@ -84,7 +93,7 @@ public class MainTest {
 	private void preTransformation(FeatureModel fm) {
 		// Save information
 		ti.setProductsBefore(aafm.products(fm));
-		ti.setNumberOfFeaturesTypeBefore(FMHelper.getAllFeaturesOf(fm,"rhea.metamodels.CardinalityBasedFMs.MutexGroup").size());
+		ti.setNumberOfFeaturesTypeBefore(FMHelper.getAllFeaturesOf(fm,this.CLASS_PATH).size()); //Cambiar con cada run
 		ti.setTimeBefore(System.nanoTime());
 	}
 	
@@ -92,7 +101,7 @@ public class MainTest {
 		// Save information
 		ti.setTimeAfter(System.nanoTime());
 		ti.setProductsAfter(aafm.products(fm));
-		ti.setNumberOfFeaturesTypeAfter(FMHelper.getAllFeaturesOf(fm,"rhea.metamodels.CardinalityBasedFMs.MutexGroup").size());
+		ti.setNumberOfFeaturesTypeAfter(FMHelper.getAllFeaturesOf(fm,this.CLASS_PATH).size()); //Cambiar con cada run
 		ti.setnFeatures(fm.getFeatures().size());
 	
 		tis.add(ti);

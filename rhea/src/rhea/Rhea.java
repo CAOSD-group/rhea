@@ -9,8 +9,8 @@ import rhea.metamodels.CardinalityBasedFMs.CardinalityBasedFMsPackage;
 import rhea.metamodels.PropLogicCTCs.PropLogicCTCsPackage;
 
 public class Rhea {
-	//public static final String BASEDIR = "D:/Workspaces/RHEA-ws/rhea/";
-	public static final String BASEDIR = "B:/Trabajo/Investigación/Proyectos/RHEA/rhea/";
+	public static final String BASEDIR = "D:/Workspaces/RHEA-ws/rhea/";
+	//public static final String BASEDIR = "B:/Trabajo/Investigación/Proyectos/RHEA/rhea/";
 	
 	public static final String METAMODELS_DIR = BASEDIR + "rhea.metamodels/metamodels/";
 	public static final String REFACTORINGS_DIR = BASEDIR + "rhea.transformations/refactorings/";
@@ -24,7 +24,6 @@ public class Rhea {
 	public static final String CLAFER_INPUTS_DIR = INPUTS_DIR + "clafer/";
 	public static final String CLAFER_OUTPUTS_DIR = OUTPUTS_DIR + "clafer/";
 	
-	public static final String EVALUATION_DIR = CLAFER_INPUTS_DIR + "MutexGroup/";
 	public static final String EVALUATION_PACKAGE = "rhea.evaluation.refactorings.";
 	
 	public static final int EVALUATION_ITERATIONS = 2;

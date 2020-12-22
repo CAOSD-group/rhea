@@ -10,16 +10,30 @@ import java.util.Arrays;
 import java.util.List;
 
 import rhea.Rhea;
+import rhea.metamodels.BasicFMs.FeatureModel;
+import rhea.parsers.FMParser;
+import rhea.parsers.clafer.ClaferParser;
 
 public class Main {
 	public static boolean DEBUG = true;
 	
 	public static void main(String[] args) {
+		
+		// Adicional, necesario para GroupCardinalities.
+		String inputFile = Rhea.CLAFER_INPUTS_DIR + "GroupCardinalities/" + "gc001" + ".txt";
+		FMParser p = new ClaferParser();
+		FeatureModel fm = p.readFeatureModel(inputFile);
+		// End 
+		
 		//Parametros
 		List<Refactoring> mds = new ArrayList<Refactoring>();
-		mds.add(new MutexGroupRefactoring(DEBUG));
+		//mds.add(new MutexGroupRefactoring(DEBUG));
+		mds.add(new GroupCardinalitiesRefactoring(DEBUG));
+		mds.add(new GroupCardinalitiesNMRefactoring(DEBUG,fm));
+		
 		List<String> fms = new ArrayList<String>();
-		fms.add("mutex001");
+		//fms.add("mutex001");
+		fms.add("gc001");
 		
 		List<List<TransformationInformation>> tiss = new ArrayList<>();
 		
@@ -36,17 +50,20 @@ public class Main {
 		{
 			FileWriter fw = new FileWriter(Rhea.BASEDIR + "temp/raw_data.csv");
 			fw.write("Run,HenshinModule,HenshinUnits,inputModel,nFeatures,nRefactors,nRulesSucessExecuted, Time(ns) \n");
+			
 			for (List<TransformationInformation> tis : tiss) {
-				int i = 1;
-				int rulesSuccessExecuted, rulesExecuted;
-				
-				TransformationInformation first = tis.remove(0);
-				rulesSuccessExecuted = first.getRulesSuccessExecuted();
-				rulesExecuted = first.getRulesExecuted();
-				
-				for (TransformationInformation ti : tis) { //El método para contar las features de un tipo no funciona, ni tampoco el de group cardinalities.
-					fw.write(i + "," + ti.getHenshinModule() + "," + ti.getHenshinUnits() + "," + ti.getInputModel() + "," + ti.getnFeatures() + "," + ti.getNumberOfFeaturesTypeBefore() + "," + rulesSuccessExecuted + "," + ti.getPerformance() + "\n");
-					i++;
+				int i = 1; // ¿Para todo los  GroupCardinalities o por un lado los casos base y por otro los NM?
+				int rulesSuccessExecuted=0, rulesExecuted;
+		
+				for (TransformationInformation ti : tis) {
+					if (ti.getRun()==-1) {
+						rulesSuccessExecuted = ti.getRulesSuccessExecuted();
+						rulesExecuted = ti.getRulesExecuted();
+					}
+					else
+					{
+						fw.write(ti.getRun() + "," + ti.getHenshinModule() + "," + ti.getHenshinUnits() + "," + ti.getInputModel() + "," + ti.getnFeatures() + "," + (ti.getNumberOfFeaturesTypeBefore() - ti.getNumberOfFeaturesTypeAfter()) + "," + rulesSuccessExecuted + "," + ti.getPerformance() + "\n");
+					}
 				}
 				
 			}

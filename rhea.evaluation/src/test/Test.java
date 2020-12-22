@@ -1,4 +1,4 @@
-package rhea.evaluation.refactorings;
+package test;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
