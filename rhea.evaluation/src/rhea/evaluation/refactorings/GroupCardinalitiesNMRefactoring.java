@@ -26,7 +26,9 @@ public class GroupCardinalitiesNMRefactoring extends HenshingRefactoring{
 
 	public List<HenshinTransformation> getTransformations() {
 		ArrayList<HenshinTransformation> hs = new ArrayList<>();
-		for ( Feature f : FMHelper.getAllFeaturesOf(fm, "rhea.metamodels.CardinalityBasedFMs.GroupCardinality")) hs.add(new HenshinTransformation("GroupCardinalitiesNM-"+f.getId(), "GroupCardinalitiesNM"));
+		for ( Feature f : FMHelper.getAllFeaturesOf(fm, "rhea.metamodels.CardinalityBasedFMs.GroupCardinality")) {
+			hs.add(new HenshinTransformation("GroupCardinalitiesNM-"+f.getId(), "GroupCardinalitiesNM"));
+		}
 		return hs;
 	}
 	
