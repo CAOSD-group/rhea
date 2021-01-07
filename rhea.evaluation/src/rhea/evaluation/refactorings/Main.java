@@ -19,8 +19,10 @@ public class Main {
 	
 	public static void main(String[] args) {
 		
+		String inputName = "gc005";
+		
 		// Adicional, necesario para GroupCardinalities.
-		String inputFile = Rhea.CLAFER_INPUTS_DIR + "GroupCardinalities/" + "gc001" + ".txt";
+		String inputFile = Rhea.CLAFER_INPUTS_DIR + "GroupCardinalities/" + inputName + ".txt";
 		FMParser p = new ClaferParser();
 		FeatureModel fm = p.readFeatureModel(inputFile);
 		// End 
@@ -33,7 +35,7 @@ public class Main {
 		
 		List<String> fms = new ArrayList<String>();
 		//fms.add("mutex001");
-		fms.add("gc001");
+		fms.add(inputName);
 		
 		List<List<TransformationInformation>> tiss = new ArrayList<>();
 		

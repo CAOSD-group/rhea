@@ -3,6 +3,8 @@ package rhea.evaluation.refactorings;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.eclipse.emf.ecore.util.EcoreUtil;
+
 import rhea.Rhea;
 import rhea.aafm.AAFMClafer;
 import rhea.aafm.AutomatedAnalysisFM;
@@ -41,17 +43,18 @@ public class MainTest {
 		FMParser p = new ClaferParser();
 		
 		// fm es una variable auxiliar para almacenar el fm transformado, fmAux contiene el fm tal y como sale despues del anterior modulo.
+		// Esto es necesario porque necesitamos reiniciar el modelo entre iteraciones, y poder almacenarlo de alguna manera. Además,
+		// necesitamos también una manera de reiniciar el modelo una vez hemos obtenido los números de pasos.
 		FeatureModel fmAux = p.readFeatureModel(inputFile);
-		FeatureModel fm = fmAux;
+		FeatureModel fm = EcoreUtil.copy(fmAux);
 		
 		try 
 		{	
 			// Para cada modulo
 			for (Refactoring r : mds) {
 				
-				fmAux = fm; //CLONE, por que si no copia la referencia.
+				fmAux = EcoreUtil.copy(fm);
 				ti = new TransformationInformation();
-				
 				List<String> units = new ArrayList<>();
 				
 				for (HenshinTransformation ht : r.getTransformations()) units.add(ht.getUnitName());
@@ -68,7 +71,7 @@ public class MainTest {
 				// Luego hacemos todas las execuciones para obtener los tiempos.
 				for (int i = 0; i < Rhea.EVALUATION_ITERATIONS; i++) 
 				{
-					fm = fmAux;
+					fm = EcoreUtil.copy(fmAux);
 					
 					ti = new TransformationInformation();
 					ti.setRun(i);

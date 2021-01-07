@@ -1,12 +1,8 @@
 abstract Root
-	0..2 A
+	2..3 A
 		A1
 		A2
 		A3
-	1..2 B
-		B1
-		B2
-		B3
 	1..* C
 		C1
 		C2
