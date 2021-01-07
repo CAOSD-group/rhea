@@ -1,0 +1,26 @@
+defaultScope(1);
+intRange(-8, 7);
+stringLength(16);
+
+c0_Root = Abstract("c0_Root");
+c0_C = c0_Root.addChild("c0_C").withCard(1, 1).withGroupCard(1);
+c0_C3 = c0_C.addChild("c0_C3").withCard(0, 1);
+c0_C1 = c0_C.addChild("c0_C1").withCard(0, 1);
+c0_C2 = c0_C.addChild("c0_C2").withCard(0, 1);
+c0_E = c0_Root.addChild("c0_E").withCard(1, 1);
+c0_EP = c0_E.addChild("c0_EP").withCard(0, 1).withGroupCard(1, 1);
+c0_E1 = c0_EP.addChild("c0_E1").withCard(0, 1);
+c0_E3 = c0_EP.addChild("c0_E3").withCard(0, 1);
+c0_E2 = c0_EP.addChild("c0_E2").withCard(0, 1);
+c0_D = c0_Root.addChild("c0_D").withCard(1, 1);
+c0_DP = c0_D.addChild("c0_DP").withCard(0, 1).withGroupCard(1);
+c0_D2 = c0_DP.addChild("c0_D2").withCard(0, 1);
+c0_D1 = c0_DP.addChild("c0_D1").withCard(0, 1);
+c0_D3 = c0_DP.addChild("c0_D3").withCard(0, 1);
+c0_A = c0_Root.addChild("c0_A").withCard(1, 1).withGroupCard(1);
+c0_A3 = c0_A.addChild("c0_A3").withCard(0, 1);
+c0_A2 = c0_A.addChild("c0_A2").withCard(0, 1);
+c0_A1 = c0_A.addChild("c0_A1").withCard(0, 1);
+c0_config = Clafer("c0_config").withCard(1, 1);
+Constraint(implies(some(join(global(c0_Root), c0_A)), or(or(or(and(and(some(join(join(global(c0_Root), c0_A), c0_A1)), some(join(join(global(c0_Root), c0_A), c0_A3))), none(join(join(global(c0_Root), c0_A), c0_A2))), and(and(some(join(join(global(c0_Root), c0_A), c0_A2)), some(join(join(global(c0_Root), c0_A), c0_A3))), none(join(join(global(c0_Root), c0_A), c0_A1)))), and(and(some(join(join(global(c0_Root), c0_A), c0_A2)), some(join(join(global(c0_Root), c0_A), c0_A1))), none(join(join(global(c0_Root), c0_A), c0_A3)))), and(and(some(join(join(global(c0_Root), c0_A), c0_A3)), some(join(join(global(c0_Root), c0_A), c0_A1))), some(join(join(global(c0_Root), c0_A), c0_A2))))));
+c0_config.extending(c0_Root);
