@@ -1,7 +1,8 @@
 abstract Root
 	A
-		1..2 AP ?
+		or AP ?
 			A1
-			A2
 			A3
+			A2
+[AP => (((A1 && !A2 && !A3) || (A2 && !A1 && !A3) || (A3 && !A2 && !A1) || (A3 && A2 && !A1) || (A1 && A2 && !A3) || (A3 && A1 && !A2)))]
 config: Root

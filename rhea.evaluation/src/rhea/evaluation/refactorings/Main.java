@@ -19,19 +19,19 @@ public class Main {
 	
 	public static void main(String[] args) {
 		
-		String inputName = "gc005";
+		String inputName = "mutex005";
 		
 		// Adicional, necesario para GroupCardinalities.
-		String inputFile = Rhea.CLAFER_INPUTS_DIR + "GroupCardinalities/" + inputName + ".txt";
+		String inputFile = Rhea.CLAFER_INPUTS_DIR + "MutexGroup/" + inputName + ".txt";
 		FMParser p = new ClaferParser();
 		FeatureModel fm = p.readFeatureModel(inputFile);
 		// End 
 		
 		//Parametros
 		List<Refactoring> mds = new ArrayList<Refactoring>();
-		//mds.add(new MutexGroupRefactoring(DEBUG));
-		mds.add(new GroupCardinalitiesRefactoring(DEBUG));
-		mds.add(new GroupCardinalitiesNMRefactoring(DEBUG,fm));
+		mds.add(new MutexGroupRefactoring(DEBUG));
+		//mds.add(new GroupCardinalitiesRefactoring(DEBUG));
+		//mds.add(new GroupCardinalitiesNMRefactoring(DEBUG));
 		
 		List<String> fms = new ArrayList<String>();
 		//fms.add("mutex001");

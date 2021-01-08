@@ -18,10 +18,8 @@ public class GroupCardinalitiesNMRefactoring extends HenshingRefactoring{
 
 	FeatureModel fm;
 	
-	public GroupCardinalitiesNMRefactoring(Boolean debugMode, FeatureModel fm) {
+	public GroupCardinalitiesNMRefactoring(Boolean debugMode) {
 		super(debugMode);
-		this.fm = fm;
-		generateTemplates();
 	}
 
 	public List<HenshinTransformation> getTransformations() {
@@ -48,5 +46,9 @@ public class GroupCardinalitiesNMRefactoring extends HenshingRefactoring{
 				e.printStackTrace();
 			}
 		}
+	}
+	
+	public void setFeatureModel(FeatureModel fm) {
+		this.fm = fm;
 	}
 }

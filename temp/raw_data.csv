@@ -1,5 +1,3 @@
 Run,HenshinModule,HenshinUnits,inputModel,nFeatures,nRefactors,nRulesSucessExecuted, Time(ns) 
-0,GroupCardinalitiesRefactoring,[GroupCardinalitiesRefactor],gc005,6,0,7,8076400
-1,GroupCardinalitiesRefactoring,[GroupCardinalitiesRefactor],gc005,6,0,7,7569300
-0,GroupCardinalitiesNMRefactoring,[GroupCardinalitiesNM],gc005,6,0,16,3650800
-1,GroupCardinalitiesNMRefactoring,[GroupCardinalitiesNM],gc005,6,0,16,4399500
+0,MutexGroupRefactoring,[MutexGroup_Refactoring],mutex005,15,2,4,5631400
+1,MutexGroupRefactoring,[MutexGroup_Refactoring],mutex005,15,2,4,4619300
