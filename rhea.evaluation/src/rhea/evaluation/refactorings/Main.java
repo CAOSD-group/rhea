@@ -19,19 +19,19 @@ public class Main {
 	
 	public static void main(String[] args) {
 		
-		String inputName = "mutex005";
+		String inputName = "gc005";
 		
 		// Adicional, necesario para GroupCardinalities.
-		String inputFile = Rhea.CLAFER_INPUTS_DIR + "MutexGroup/" + inputName + ".txt";
+		String inputFile = Rhea.CLAFER_INPUTS_DIR + Rhea.REFACTOR_PATH + inputName + ".txt";
 		FMParser p = new ClaferParser();
 		FeatureModel fm = p.readFeatureModel(inputFile);
 		// End 
 		
 		//Parametros
 		List<Refactoring> mds = new ArrayList<Refactoring>();
-		mds.add(new MutexGroupRefactoring(DEBUG));
-		//mds.add(new GroupCardinalitiesRefactoring(DEBUG));
-		//mds.add(new GroupCardinalitiesNMRefactoring(DEBUG));
+		//mds.add(new MutexGroupRefactoring(DEBUG));
+		mds.add(new GroupCardinalitiesRefactoring(DEBUG));
+		mds.add(new GroupCardinalitiesNMRefactoring(DEBUG));
 		
 		List<String> fms = new ArrayList<String>();
 		//fms.add("mutex001");
@@ -54,12 +54,12 @@ public class Main {
 			fw.write("Run,HenshinModule,HenshinUnits,inputModel,nFeatures,nRefactors,nRulesSucessExecuted, Time(ns) \n");
 			
 			for (List<TransformationInformation> tis : tiss) {
-				int i = 1; // ¿Para todo los  GroupCardinalities o por un lado los casos base y por otro los NM?
+				int i = 1;
 				int rulesSuccessExecuted=0, rulesExecuted;
 		
 				for (TransformationInformation ti : tis) {
 					if (ti.getRun()==-1) {
-						rulesSuccessExecuted = ti.getRulesSuccessExecuted();
+						rulesSuccessExecuted = ti.getRulesSuccessExecuted(); //NO FUNCIONA, COMPROBAR
 						rulesExecuted = ti.getRulesExecuted();
 					}
 					else

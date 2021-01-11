@@ -69,7 +69,11 @@ public class FeatureModelGenerator {
 	
 	public boolean addFeature(FeatureModel fm, String featureName) {
 		LanguageGeneratorType lc = LanguageGeneratorType.OptionalFeature;
-		Map<String, Object> params = Map.of("name", featureName);
+		return addFeature(fm, lc, featureName, false,false);
+	}
+	
+	public boolean addFeature(FeatureModel fm, LanguageGeneratorType lc ,String featureName, boolean mandatory, boolean abs) {
+		Map<String, Object> params = Map.of("name", featureName, "mandatory", mandatory, "abs", abs);
 		return executeLanguageGenerator(fm, lc, params);
 	}
 	

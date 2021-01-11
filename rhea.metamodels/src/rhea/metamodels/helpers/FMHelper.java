@@ -101,6 +101,22 @@ public class FMHelper {
 		return features;
 	}
 	
+	public static List<Feature> getAllOptionalFeaturesOf(FeatureModel fm) {
+		List<Feature> features = new ArrayList<Feature>();
+		for (Feature f : fm.getFeatures()) {
+			if(!f.isMandatory()) features.add(f);
+		}
+		return features;
+	}
+	
+	public static List<Feature> getAllMandatoryFeaturesOf(FeatureModel fm) {
+		List<Feature> features = new ArrayList<Feature>();
+		for (Feature f : fm.getFeatures()) {
+			if(f.isMandatory()) features.add(f);
+		}
+		return features;
+	}
+	
 //	public FeatureModel createEmptyFeatureModel() {
 //		EPackage initialMetamodel = BasicFMsPackage.eINSTANCE;
 //		EFactory mFactory = initialMetamodel.getEFactoryInstance();

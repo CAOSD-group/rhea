@@ -27,9 +27,9 @@ public class MainTest {
 	String outputFile;
 	String inputFile;
 	
-	//Cada vez que queramos comprobar un nuevo tipo de feature, debemos cambiar este path.
-	//private String CLASS_PATH = "rhea.metamodels.CardinalityBasedFMs.GroupCardinality";
-	private String CLASS_PATH = "rhea.metamodels.CardinalityBasedFMs.MutexGroup";
+	//Cambiar con cada run
+	private String CLASS_PATH = "rhea.metamodels.CardinalityBasedFMs.GroupCardinality";
+	//private String CLASS_PATH = "rhea.metamodels.CardinalityBasedFMs.MutexGroup";
 	
 	public MainTest() {
 		tis = new ArrayList<>();
@@ -37,8 +37,8 @@ public class MainTest {
 	}
 	
 	public List<TransformationInformation> run(String model, List<Refactoring> mds) {
-		inputFile = Rhea.CLAFER_INPUTS_DIR + "MutexGroup/" + model + ".txt";
-		outputFile = Rhea.CLAFER_OUTPUTS_DIR + "MutexGroup/" + model + "-refactored.txt";
+		inputFile = Rhea.CLAFER_INPUTS_DIR + Rhea.REFACTOR_PATH + model + ".txt";
+		outputFile = Rhea.CLAFER_OUTPUTS_DIR + Rhea.REFACTOR_PATH + model + "-refactored.txt";
 		//outputFileAS = Rhea.ABSTRACTSYNTAX_OUTPUTS_DIR + model + "-refactored.xmi";
 		
 		FMParser p = new ClaferParser();
