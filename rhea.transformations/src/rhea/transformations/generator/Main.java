@@ -10,9 +10,15 @@ public class Main {
 		
 		// <Class_Path,Porcentaje>
 		Map<String, Double> percentages = new HashMap<String,Double>();
-		FeatureModelGeneratorByInputs fmgi = new FeatureModelGeneratorByInputs(0.0,0.0,0.0,0.0);
+		percentages.put("rhea.metamodels.BasicFMs.AlternativeGroup", 0.20);
+		percentages.put("rhea.metamodels.BasicFMs.SelectionGroup", 0.30);
+		percentages.put("rhea.metamodels.BasicFMs.Feature", 0.50);
 		
-		FeatureModel fm = fmgi.generateFeatureModel("MyFeatureModel", 1, percentages);
+		FeatureModelGeneratorByPercentages fmgi = new FeatureModelGeneratorByPercentages();
+		
+		FeatureModel fm = fmgi.generateFeatureModel("MyFeatureModel", 10, percentages);
+		
+		System.out.println();
 	}
 
 }

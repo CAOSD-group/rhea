@@ -189,7 +189,7 @@
       </nodes>
       <nodes xmi:id="_v2hOsCpLEeu-3NVSHGSY7g" incoming="_v2hOuCpLEeu-3NVSHGSY7g _v2hOvCpLEeu-3NVSHGSY7g" outgoing="_v2hOuipLEeu-3NVSHGSY7g">
         <annotations xmi:id="_v2hOsSpLEeu-3NVSHGSY7g" key="presenceCondition" value=""/>
-        <type href="../../../rhea.metamodels/metamodels/BasicFMs/BasicFMs.ecore#//SelectionGroup"/>
+        <type href="../../../rhea.metamodels/metamodels/BasicFMs/BasicFMs.ecore#//AlternativeGroup"/>
         <attributes xmi:id="_v2hOsipLEeu-3NVSHGSY7g" value="name">
           <annotations xmi:id="_v4UlZipLEeu-3NVSHGSY7g" key="presenceCondition" value=""/>
           <type href="../../../rhea.metamodels/metamodels/BasicFMs/BasicFMs.ecore#//Feature/name"/>
@@ -311,7 +311,7 @@
       </nodes>
       <nodes xmi:id="_Jnjj1ypMEeu-3NVSHGSY7g" incoming="_Jnjj4ypMEeu-3NVSHGSY7g _Jnjj5ypMEeu-3NVSHGSY7g" outgoing="_Jnjj5SpMEeu-3NVSHGSY7g">
         <annotations xmi:id="_Jnjj2CpMEeu-3NVSHGSY7g" key="presenceCondition" value=""/>
-        <type href="../../../rhea.metamodels/metamodels/BasicFMs/BasicFMs.ecore#//AlternativeGroup"/>
+        <type href="../../../rhea.metamodels/metamodels/BasicFMs/BasicFMs.ecore#//SelectionGroup"/>
         <attributes xmi:id="_Jnjj2SpMEeu-3NVSHGSY7g" value="name">
           <annotations xmi:id="_Jnjj2ipMEeu-3NVSHGSY7g" key="presenceCondition" value=""/>
           <type href="../../../rhea.metamodels/metamodels/BasicFMs/BasicFMs.ecore#//Feature/name"/>

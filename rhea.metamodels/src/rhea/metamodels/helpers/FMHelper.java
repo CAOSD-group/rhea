@@ -101,21 +101,20 @@ public class FMHelper {
 		return features;
 	}
 	
-	public static List<Feature> getAllOptionalFeaturesOf(FeatureModel fm) {
+	//Como todas las features heredan de feature "base", si queremos ver cuantas features base existen, debemos contar las features que no sean de ninguna otra instancia.
+	public static List<Feature> getAllOrdinaryFeatures(FeatureModel fm) {
 		List<Feature> features = new ArrayList<Feature>();
 		for (Feature f : fm.getFeatures()) {
-			if(!f.isMandatory()) features.add(f);
+			try {
+				if (!Class.forName("rhea.metamodels.BasicFMs.AlternativeGroup").isInstance(f) && !Class.forName("rhea.metamodels.BasicFMs.SelectionGroup").isInstance(f)) {
+					features.add(f);
+				}
+			} catch (ClassNotFoundException e) {e.printStackTrace();}
 		}
 		return features;
 	}
 	
-	public static List<Feature> getAllMandatoryFeaturesOf(FeatureModel fm) {
-		List<Feature> features = new ArrayList<Feature>();
-		for (Feature f : fm.getFeatures()) {
-			if(f.isMandatory()) features.add(f);
-		}
-		return features;
-	}
+	
 	
 //	public FeatureModel createEmptyFeatureModel() {
 //		EPackage initialMetamodel = BasicFMsPackage.eINSTANCE;
