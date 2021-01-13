@@ -29,6 +29,8 @@ public class Rhea {
 	public static final int EVALUATION_ITERATIONS = 2;
 	public static final String REFACTOR_PATH = "GroupCardinalities\\";
 	
+	public static final String TRANSFORMATIONS_OUTPUT = BASEDIR + "rhea.transformations/output/";
+	
 	public static final List<String> DYNAMIC_METAMODELS = List.of(METAMODELS_DIR + "BasicFMs/BasicFMs.ecore",
 																  METAMODELS_DIR + "CardinalityBasedFMs/CardinalityBasedFMs.ecore");
 	

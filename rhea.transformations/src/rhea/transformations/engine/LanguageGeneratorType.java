@@ -6,6 +6,7 @@ public enum LanguageGeneratorType {
 	Root("Root", "deterministic/GenRoot", "GenSimpleRoot", Map.of()),
 	OptionalFeature("Optional Feature", "nondeterministic/GenFeatureRandomly", "GenSimpleFeatureRandomly", Map.of(LanguageGeneratorParam.MANDATORY.getName(), false)),
 	MandatoryFeature("Mandatory Feature", "nondeterministic/GenFeatureRandomly", "GenSimpleFeatureRandomly", Map.of(LanguageGeneratorParam.MANDATORY.getName(), true)),
+	OrdinaryFeature("Ordinary Feature", "nondeterministic/GenFeatureRandomly", "GenSimpleFeatureRandomly", Map.of()),
 	SelectionGroup("Selection Group", "nondeterministic/GenFeatureRandomly", "GenSelectionGroupRandomly", Map.of()),
 	AlternativeGroup("Alternative Group", "nondeterministic/GenFeatureRandomly", "GenAlternativeGroupRandomly", Map.of());
 	

@@ -19,52 +19,49 @@ public class FeatureModelGeneratorByPercentages {
 	public FeatureModel generateFeatureModel(String name, int nFeatures, Map<String,Double> percentages) {
 		FeatureModel fm = fmg.createEmptyFeatureModel(name);
 		
-		double percentage,lowestPercentage = 1;
-		String lowestFeature="";
-		int totalNFeatures;
+		double percentage=0;
+		Random rd = new Random();
 		
 		fmg.addFeature(fm, LanguageGeneratorType.Root ,"Root",true,false);
 		
-		for (int i = 0; i < nFeatures; i++) 
+		int i = 0;
+	
+		for (String f : percentages.keySet())
 		{
-			totalNFeatures = fm.getFeatures().size();
-			lowestPercentage = 1;
-			lowestFeature = "";
-
-			for (String f : percentages.keySet()) // CHECK
+			while(percentage<percentages.get(f) && i<nFeatures)
 			{
+				if(f.contains("Selection")) 
+				{
+					fmg.addFeature(fm, LanguageGeneratorType.SelectionGroup, Integer.toString(i), rd.nextBoolean(), rd.nextBoolean());
+					i++;
+				}
+				else if(f.contains("Alternative"))
+				{
+					fmg.addFeature(fm, LanguageGeneratorType.AlternativeGroup, Integer.toString(i), rd.nextBoolean(), rd.nextBoolean());
+					i++;
+				}
+				else if(f.contains("Feature")) //Si hay Algun Group con menos de 2 hijos, rellena ahí //TODO
+				{
+					fmg.addFeature(fm, LanguageGeneratorType.OrdinaryFeature, Integer.toString(i), rd.nextBoolean(), rd.nextBoolean());
+					i++;
+				}
 				
 				// Contamos las Features y comprobamos su porcentaje
 				if(f.contains("Feature"))
 				{
-					percentage = (double) FMHelper.getAllOrdinaryFeatures(fm).size()/(double) totalNFeatures;
+					percentage = (double) FMHelper.getAllOrdinaryFeatures(fm).size()/(double) nFeatures;
 				}
 				else
 				{
-					percentage = (double) FMHelper.getAllFeaturesOf(fm,f).size()/(double) totalNFeatures;
-				}
-				
-				// Si es la feature con menor porcentaje y aún no ha llegado a su porcentaje definido
-				if(percentage<lowestPercentage && percentage<percentages.get(f)) {
-					lowestPercentage = percentage;
-					lowestFeature = f;
+					percentage = (double) FMHelper.getAllFeaturesOf(fm,f).size()/(double) nFeatures;
 				}
 			}
 			
-			Random rd = new Random();
-			
-			if(lowestFeature.contains("Selection")) 
-			{
-				fmg.addFeature(fm, LanguageGeneratorType.SelectionGroup, Integer.toString(i), rd.nextBoolean(), rd.nextBoolean());
-			}
-			else if(lowestFeature.contains("Alternative"))
-			{
-				fmg.addFeature(fm, LanguageGeneratorType.AlternativeGroup, Integer.toString(i), rd.nextBoolean(), rd.nextBoolean());
-			}
-			else if(lowestFeature.contains("Feature")) // Cambiar por Feature normales
-			{
-				fmg.addFeature(fm, LanguageGeneratorType.OptionalFeature, Integer.toString(i), rd.nextBoolean(), rd.nextBoolean());
-			}
+		}		
+		
+		if(!FMHelper.isValid(fm))
+		{
+			System.out.println("EL FM NO ES VÁLIDO");
 		}
 		
 		return fm;
