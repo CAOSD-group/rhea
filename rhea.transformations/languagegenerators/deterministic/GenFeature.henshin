@@ -17,7 +17,7 @@
     <parameters xmi:id="_FKoi4CpAEeuf4tbfT4WWEA" name="parentName" kind="VAR">
       <type xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     </parameters>
-    <parameters xmi:id="_zeQsICpdEeu-3NVSHGSY7g" name="abs" kind="VAR">
+    <parameters xmi:id="_zeQsICpdEeu-3NVSHGSY7g" name="abs" kind="IN">
       <type xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
     </parameters>
     <lhs xmi:id="_s0kB0Co9Eeuf4tbfT4WWEA" name="Lhs">
@@ -141,7 +141,7 @@
     <parameters xmi:id="_tM2XQSpDEeuf4tbfT4WWEA" name="parentName" kind="VAR">
       <type xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     </parameters>
-    <parameters xmi:id="_3EDuICpdEeu-3NVSHGSY7g" name="abs" kind="VAR">
+    <parameters xmi:id="_3EDuICpdEeu-3NVSHGSY7g" name="abs" kind="IN">
       <type xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
     </parameters>
     <lhs xmi:id="_uvJfMCo9Eeuf4tbfT4WWEA" name="Lhs">
@@ -265,7 +265,7 @@
     <parameters xmi:id="_uBQsMCpCEeuf4tbfT4WWEA" name="parentName" kind="VAR">
       <type xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     </parameters>
-    <parameters xmi:id="_36r0ICpdEeu-3NVSHGSY7g" name="abs" kind="VAR">
+    <parameters xmi:id="_36r0ICpdEeu-3NVSHGSY7g" name="abs" kind="IN">
       <type xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
     </parameters>
     <lhs xmi:id="_xEEIICo9Eeuf4tbfT4WWEA" name="Lhs">
@@ -296,6 +296,9 @@
             <nodes xmi:id="_o6IaUCpCEeuf4tbfT4WWEA">
               <annotations xmi:id="_o6RkQCpCEeuf4tbfT4WWEA" key="presenceCondition" value=""/>
               <type href="../../../rhea.metamodels/metamodels/BasicFMs/BasicFMs.ecore#//Feature"/>
+              <attributes xmi:id="_70rlsFZpEeucKJ-Lp6CwJA" value="name">
+                <type href="../../../rhea.metamodels/metamodels/BasicFMs/BasicFMs.ecore#//Feature/name"/>
+              </attributes>
             </nodes>
             <nodes xmi:id="_qH9fYypCEeuf4tbfT4WWEA">
               <annotations xmi:id="_BeCbsSpIEeuXso9KahR33w" key="presenceCondition" value=""/>

@@ -16,6 +16,7 @@ import org.eclipse.emf.henshin.model.Unit;
 
 import rhea.Rhea;
 import rhea.metamodels.BasicFMs.BasicFMsFactory;
+import rhea.metamodels.BasicFMs.Feature;
 import rhea.metamodels.BasicFMs.FeatureModel;
 import rhea.metamodels.helpers.FMHelper;
 
@@ -74,6 +75,12 @@ public class FeatureModelGenerator {
 	
 	public boolean addFeature(FeatureModel fm, LanguageGeneratorType lc ,String featureName, boolean mandatory, boolean abs) {
 		Map<String, Object> params = Map.of("name", featureName, "mandatory", mandatory, "abs", abs);
+		return executeLanguageGenerator(fm, lc, params);
+	}
+	
+	public boolean addFeature(FeatureModel fm, LanguageGeneratorType lc ,String featureName, boolean mandatory, boolean abs, Feature parent) {
+		if(parent==null) return addFeature(fm, lc, featureName, mandatory, abs);
+		Map<String, Object> params = Map.of("name", featureName, "mandatory", mandatory, "abs", abs, "parentId", parent.getId());
 		return executeLanguageGenerator(fm, lc, params);
 	}
 	

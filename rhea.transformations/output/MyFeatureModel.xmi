@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="ASCII"?>
+<rhea:FeatureModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:rhea="rhea.metamodels.BasicFMs" name="MyFeatureModel" features="//@root //@root/@children.0 //@root/@children.0/@children.0 //@root/@children.0/@children.1 //@root/@children.0/@children.0/@children.0 //@root/@children.0/@children.0/@children.1 //@root/@children.0/@children.1/@children.0">
+  <root id="Root" name="Root" mandatory="true">
+    <children xsi:type="rhea:AlternativeGroup" id="0" name="0" mandatory="true">
+      <children xsi:type="rhea:AlternativeGroup" id="1" name="1" abstract="true">
+        <children xsi:type="rhea:SelectionGroup" id="3" name="3" mandatory="true" abstract="true"/>
+        <children id="4" name="4" abstract="true"/>
+      </children>
+      <children xsi:type="rhea:SelectionGroup" id="2" name="2">
+        <children id="5" name="5"/>
+      </children>
+    </children>
+  </root>
+</rhea:FeatureModel>

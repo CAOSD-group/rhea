@@ -3,6 +3,8 @@ package rhea.transformations.generator;
 import java.util.Map;
 import java.util.Random;
 
+import rhea.metamodels.BasicFMs.Feature;
+import rhea.metamodels.BasicFMs.FeatureGroup;
 import rhea.metamodels.BasicFMs.FeatureModel;
 import rhea.metamodels.helpers.FMHelper;
 import rhea.transformations.engine.FeatureModelGenerator;
@@ -19,8 +21,9 @@ public class FeatureModelGeneratorByPercentages {
 	public FeatureModel generateFeatureModel(String name, int nFeatures, Map<String,Double> percentages) {
 		FeatureModel fm = fmg.createEmptyFeatureModel(name);
 		
-		double percentage=0;
+		double percentage;
 		Random rd = new Random();
+		Feature parent;
 		
 		fmg.addFeature(fm, LanguageGeneratorType.Root ,"Root",true,false);
 		
@@ -28,23 +31,35 @@ public class FeatureModelGeneratorByPercentages {
 	
 		for (String f : percentages.keySet())
 		{
+			percentage = 0;
+			
 			while(percentage<percentages.get(f) && i<nFeatures)
 			{
-				if(f.contains("Selection")) 
+				parent = null;
+				
+				//Comprobamos si hay FeatureGroups que no cumplen que el modelo seá válido
+				for (Feature fet: fm.getFeatures()) 
 				{
-					fmg.addFeature(fm, LanguageGeneratorType.SelectionGroup, Integer.toString(i), rd.nextBoolean(), rd.nextBoolean());
-					i++;
+					if(fet instanceof FeatureGroup && (fet.getChildren()==null || fet.getChildren().size()<2))
+					{
+						parent = fet;
+						break;
+					}
 				}
-				else if(f.contains("Alternative"))
-				{
-					fmg.addFeature(fm, LanguageGeneratorType.AlternativeGroup, Integer.toString(i), rd.nextBoolean(), rd.nextBoolean());
-					i++;
-				}
-				else if(f.contains("Feature")) //Si hay Algun Group con menos de 2 hijos, rellena ahí //TODO
-				{
-					fmg.addFeature(fm, LanguageGeneratorType.OrdinaryFeature, Integer.toString(i), rd.nextBoolean(), rd.nextBoolean());
-					i++;
-				}
+				
+
+				LanguageGeneratorType lgt = null;
+				
+				//De no ser válido el modelo, añadimos los hijos a los FeatureGroups. Y si ya es válido, de manera aleatoria. COMPROBAR SI SOLO QUEDAN 2 FEATURES //TODO
+				if(f.contains("Selection") && parent==null) lgt = LanguageGeneratorType.SelectionGroupNonDeterministic;
+				else if (f.contains("Selection")) lgt = LanguageGeneratorType.SelectionGroupDeterministic;
+				else if(f.contains("Alternative") && parent==null) lgt = LanguageGeneratorType.AlternativeGroupNonDeterministic;
+				else if(f.contains("Alternative")) lgt = LanguageGeneratorType.AlternativeGroupDeterministic;
+				else if(f.contains("Feature") && parent==null) lgt = LanguageGeneratorType.OrdinaryFeatureNonDeterministic;
+				else if(f.contains("Feature")) lgt = LanguageGeneratorType.OrdinaryFeatureDeterministic;
+				
+				fmg.addFeature(fm, lgt, Integer.toString(i), rd.nextBoolean(), rd.nextBoolean(), parent);
+				i++;
 				
 				// Contamos las Features y comprobamos su porcentaje
 				if(f.contains("Feature"))

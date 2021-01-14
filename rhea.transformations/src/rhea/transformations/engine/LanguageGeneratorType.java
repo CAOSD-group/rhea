@@ -6,9 +6,12 @@ public enum LanguageGeneratorType {
 	Root("Root", "deterministic/GenRoot", "GenSimpleRoot", Map.of()),
 	OptionalFeature("Optional Feature", "nondeterministic/GenFeatureRandomly", "GenSimpleFeatureRandomly", Map.of(LanguageGeneratorParam.MANDATORY.getName(), false)),
 	MandatoryFeature("Mandatory Feature", "nondeterministic/GenFeatureRandomly", "GenSimpleFeatureRandomly", Map.of(LanguageGeneratorParam.MANDATORY.getName(), true)),
-	OrdinaryFeature("Ordinary Feature", "nondeterministic/GenFeatureRandomly", "GenSimpleFeatureRandomly", Map.of()),
-	SelectionGroup("Selection Group", "nondeterministic/GenFeatureRandomly", "GenSelectionGroupRandomly", Map.of()),
-	AlternativeGroup("Alternative Group", "nondeterministic/GenFeatureRandomly", "GenAlternativeGroupRandomly", Map.of());
+	OrdinaryFeatureNonDeterministic("ND Ordinary Feature", "nondeterministic/GenFeatureRandomly", "GenSimpleFeatureRandomly", Map.of()),
+	OrdinaryFeatureDeterministic("D Ordinary Feature", "deterministic/GenFeature", "GenSimpleFeature", Map.of()),
+	SelectionGroupNonDeterministic("ND Selection Group", "nondeterministic/GenFeatureRandomly", "GenSelectionGroupRandomly", Map.of()),
+	SelectionGroupDeterministic("D Selection Group", "deterministic/GenFeature", "GenSelectionGroup", Map.of()),
+	AlternativeGroupNonDeterministic("ND Alternative Group", "nondeterministic/GenFeatureRandomly", "GenAlternativeGroupRandomly", Map.of()),
+	AlternativeGroupDeterministic("D Alternative Group", "deterministic/GenFeature", "GenAlternativeGroup", Map.of());
 	
 	private String name;
 	private String henshinModule;
