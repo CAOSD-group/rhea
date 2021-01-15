@@ -14,7 +14,7 @@ public class Main {
 	public static void main(String[] args) {
 		
 		String modelName = "MyFeatureModel";
-		int nFeature = 10;
+		int nFeature = 100;
 		HenshinEngine henshin = new HenshinEngine(Rhea.BASEDIR);
 		
 		// <Class_Path,Porcentaje>
@@ -32,5 +32,4 @@ public class Main {
 		Utils.serialize(g.fm2text(fm), Rhea.TRANSFORMATIONS_OUTPUT + modelName + ".txt");
 		henshin.saveModel(fm, Rhea.TRANSFORMATIONS_OUTPUT + modelName + ".xmi");
 	}
-
 }

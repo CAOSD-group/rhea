@@ -24,6 +24,8 @@ public class FeatureModelGeneratorByPercentages {
 		double percentage;
 		Random rd = new Random();
 		Feature parent;
+		Boolean mandatory;
+		LanguageGeneratorType lgt = null;
 		
 		fmg.addFeature(fm, LanguageGeneratorType.Root ,"Root",true,false);
 		
@@ -35,31 +37,37 @@ public class FeatureModelGeneratorByPercentages {
 			
 			while(percentage<percentages.get(f) && i<nFeatures)
 			{
-				parent = null;
+				mandatory = rd.nextBoolean();
 				
-				//Comprobamos si hay FeatureGroups que no cumplen que el modelo seá válido
-				for (Feature fet: fm.getFeatures()) 
+				if(f.contains("Feature"))
 				{
-					if(fet instanceof FeatureGroup && (fet.getChildren()==null || fet.getChildren().size()<2))
-					{
-						parent = fet;
-						break;
-					}
+					lgt = LanguageGeneratorType.OrdinaryFeatureNonDeterministic;
+					fmg.addFeature(fm, lgt, Integer.toString(i), mandatory, rd.nextBoolean());
+					if(fm.getFeature(Integer.toString(i)).getParent() instanceof FeatureGroup) fm.getFeature(Integer.toString(i)).setMandatory(false);
+					i++;
 				}
 				
+				// Si puedo crear un FeatureGroup entero, lo creo.
+				if(i+3<=nFeatures)
+				{
+					if(f.contains("Selection")) lgt = LanguageGeneratorType.SelectionGroupNonDeterministic;
+					else if(f.contains("Alternative")) lgt = LanguageGeneratorType.AlternativeGroupNonDeterministic;
+					
+					fmg.addFeature(fm, lgt, Integer.toString(i), mandatory, rd.nextBoolean());
+					parent = fm.getFeature(Integer.toString(i));
+					if(parent.getParent() instanceof FeatureGroup) parent.setMandatory(false);
+					i++;
+					
+					fmg.addFeature(fm, LanguageGeneratorType.OrdinaryFeatureDeterministic, Integer.toString(i), false, rd.nextBoolean(), parent);
+					i++;
 
-				LanguageGeneratorType lgt = null;
-				
-				//De no ser válido el modelo, añadimos los hijos a los FeatureGroups. Y si ya es válido, de manera aleatoria. COMPROBAR SI SOLO QUEDAN 2 FEATURES //TODO
-				if(f.contains("Selection") && parent==null) lgt = LanguageGeneratorType.SelectionGroupNonDeterministic;
-				else if (f.contains("Selection")) lgt = LanguageGeneratorType.SelectionGroupDeterministic;
-				else if(f.contains("Alternative") && parent==null) lgt = LanguageGeneratorType.AlternativeGroupNonDeterministic;
-				else if(f.contains("Alternative")) lgt = LanguageGeneratorType.AlternativeGroupDeterministic;
-				else if(f.contains("Feature") && parent==null) lgt = LanguageGeneratorType.OrdinaryFeatureNonDeterministic;
-				else if(f.contains("Feature")) lgt = LanguageGeneratorType.OrdinaryFeatureDeterministic;
-				
-				fmg.addFeature(fm, lgt, Integer.toString(i), rd.nextBoolean(), rd.nextBoolean(), parent);
-				i++;
+					fmg.addFeature(fm, LanguageGeneratorType.OrdinaryFeatureDeterministic, Integer.toString(i), false, rd.nextBoolean(), parent);
+					i++;
+				}
+				else
+				{
+					break;
+				}
 				
 				// Contamos las Features y comprobamos su porcentaje
 				if(f.contains("Feature"))

@@ -1,14 +1,156 @@
 <?xml version="1.0" encoding="ASCII"?>
-<rhea:FeatureModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:rhea="rhea.metamodels.BasicFMs" name="MyFeatureModel" features="//@root //@root/@children.0 //@root/@children.0/@children.0 //@root/@children.0/@children.1 //@root/@children.0/@children.0/@children.0 //@root/@children.0/@children.0/@children.1 //@root/@children.0/@children.1/@children.0">
+<rhea:FeatureModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:rhea="rhea.metamodels.BasicFMs" name="MyFeatureModel" features="//@root //@root/@children.0 //@root/@children.0/@children.0 //@root/@children.0/@children.1 //@root/@children.0/@children.0/@children.0 //@root/@children.0/@children.0/@children.0/@children.0 //@root/@children.0/@children.0/@children.0/@children.1 //@root/@children.0/@children.0/@children.0/@children.1/@children.0 //@root/@children.0/@children.0/@children.0/@children.1/@children.0/@children.0 //@root/@children.0/@children.0/@children.0/@children.1/@children.0/@children.1 //@root/@children.0/@children.0/@children.0/@children.1/@children.0/@children.2 //@root/@children.0/@children.0/@children.0/@children.1/@children.0/@children.2/@children.0 //@root/@children.0/@children.0/@children.0/@children.1/@children.0/@children.2/@children.1 //@root/@children.0/@children.0/@children.0/@children.0/@children.0 //@root/@children.0/@children.0/@children.0/@children.0/@children.0/@children.0 //@root/@children.0/@children.0/@children.0/@children.0/@children.0/@children.1 //@root/@children.0/@children.0/@children.0/@children.0/@children.0/@children.1/@children.0 //@root/@children.0/@children.0/@children.0/@children.0/@children.0/@children.1/@children.0/@children.0 //@root/@children.0/@children.0/@children.0/@children.0/@children.0/@children.1/@children.0/@children.1 //@root/@children.0/@children.0/@children.0/@children.1/@children.0/@children.2/@children.0/@children.0 //@root/@children.0/@children.0/@children.0/@children.1/@children.0/@children.2/@children.0/@children.0/@children.0 //@root/@children.0/@children.0/@children.0/@children.1/@children.0/@children.2/@children.0/@children.0/@children.1 //@root/@children.0/@children.0/@children.0/@children.1/@children.0/@children.0/@children.0 //@root/@children.0/@children.0/@children.0/@children.1/@children.0/@children.0/@children.0/@children.0 //@root/@children.0/@children.0/@children.0/@children.1/@children.0/@children.0/@children.0/@children.1 //@root/@children.0/@children.0/@children.0/@children.1/@children.0/@children.2/@children.2 //@root/@children.0/@children.0/@children.0/@children.1/@children.0/@children.2/@children.2/@children.0 //@root/@children.0/@children.0/@children.0/@children.1/@children.0/@children.2/@children.2/@children.1 //@root/@children.0/@children.0/@children.0/@children.0/@children.0/@children.1/@children.0/@children.1/@children.0 //@root/@children.0/@children.0/@children.0/@children.0/@children.0/@children.1/@children.0/@children.1/@children.0/@children.0 //@root/@children.0/@children.0/@children.0/@children.0/@children.0/@children.1/@children.0/@children.1/@children.0/@children.1 //@root/@children.0/@children.0/@children.0/@children.0/@children.0/@children.1/@children.0/@children.2 //@root/@children.0/@children.0/@children.0/@children.0/@children.0/@children.1/@children.0/@children.2/@children.0 //@root/@children.0/@children.0/@children.0/@children.0/@children.0/@children.1/@children.0/@children.2/@children.1 //@root/@children.0/@children.0/@children.0/@children.1/@children.0/@children.1/@children.0 //@root/@children.0/@children.0/@children.0/@children.1/@children.0/@children.1/@children.0/@children.0 //@root/@children.0/@children.0/@children.0/@children.1/@children.0/@children.1/@children.0/@children.1 //@root/@children.0/@children.0/@children.0/@children.1/@children.0/@children.0/@children.0/@children.0/@children.0 //@root/@children.0/@children.0/@children.0/@children.1/@children.0/@children.0/@children.0/@children.0/@children.0/@children.0 //@root/@children.0/@children.0/@children.0/@children.1/@children.0/@children.0/@children.0/@children.0/@children.0/@children.1 //@root/@children.0/@children.0/@children.0/@children.0/@children.0/@children.1/@children.0/@children.2/@children.0/@children.0 //@root/@children.0/@children.0/@children.0/@children.0/@children.0/@children.1/@children.0/@children.2/@children.0/@children.0/@children.0 //@root/@children.0/@children.0/@children.0/@children.0/@children.0/@children.1/@children.0/@children.2/@children.0/@children.0/@children.1 //@root/@children.0/@children.0/@children.0/@children.1/@children.0/@children.2/@children.0/@children.1 //@root/@children.0/@children.0/@children.0/@children.1/@children.0/@children.2/@children.0/@children.1/@children.0 //@root/@children.0/@children.0/@children.0/@children.1/@children.0/@children.2/@children.0/@children.1/@children.1 //@root/@children.0/@children.0/@children.0/@children.1/@children.1 //@root/@children.0/@children.0/@children.0/@children.1/@children.1/@children.0 //@root/@children.0/@children.0/@children.0/@children.1/@children.1/@children.1 //@root/@children.0/@children.0/@children.0/@children.1/@children.0/@children.2/@children.0/@children.1/@children.0/@children.0 //@root/@children.0/@children.0/@children.0/@children.1/@children.0/@children.2/@children.0/@children.1/@children.0/@children.0/@children.0 //@root/@children.0/@children.0/@children.0/@children.1/@children.0/@children.2/@children.0/@children.1/@children.0/@children.0/@children.1 //@root/@children.0/@children.0/@children.0/@children.0/@children.0/@children.1/@children.0/@children.2/@children.0/@children.0/@children.2 //@root/@children.0/@children.0/@children.0/@children.0/@children.0/@children.1/@children.0/@children.2/@children.0/@children.0/@children.2/@children.0 //@root/@children.0/@children.0/@children.0/@children.0/@children.0/@children.1/@children.0/@children.2/@children.0/@children.0/@children.2/@children.1 //@root/@children.0/@children.0/@children.0/@children.0/@children.0/@children.0/@children.0 //@root/@children.0/@children.0/@children.0/@children.0/@children.0/@children.0/@children.0/@children.0 //@root/@children.0/@children.0/@children.0/@children.0/@children.0/@children.0/@children.0/@children.1 //@root/@children.0/@children.0/@children.0/@children.1/@children.0/@children.3 //@root/@children.0/@children.0/@children.0/@children.1/@children.0/@children.3/@children.0 //@root/@children.0/@children.0/@children.0/@children.1/@children.0/@children.3/@children.1 //@root/@children.0/@children.0/@children.0/@children.1/@children.1/@children.0/@children.0 //@root/@children.0/@children.0/@children.0/@children.1/@children.1/@children.0/@children.0/@children.0 //@root/@children.0/@children.0/@children.0/@children.1/@children.1/@children.0/@children.0/@children.1 //@root/@children.0/@children.0/@children.0/@children.1/@children.1/@children.0/@children.0/@children.0/@children.0 //@root/@children.0/@children.0/@children.0/@children.1/@children.1/@children.0/@children.0/@children.0/@children.0/@children.0 //@root/@children.0/@children.0/@children.0/@children.1/@children.1/@children.0/@children.0/@children.0/@children.0/@children.1 //@root/@children.0/@children.0/@children.0/@children.0/@children.0/@children.1/@children.0/@children.2/@children.0/@children.0/@children.2/@children.1/@children.0 //@root/@children.0/@children.0/@children.0/@children.0/@children.0/@children.1/@children.0/@children.2/@children.0/@children.0/@children.2/@children.1/@children.0/@children.0 //@root/@children.0/@children.0/@children.0/@children.0/@children.0/@children.1/@children.0/@children.2/@children.0/@children.0/@children.2/@children.1/@children.0/@children.1 //@root/@children.0/@children.0/@children.0/@children.0/@children.0/@children.2 //@root/@children.0/@children.0/@children.0/@children.0/@children.0/@children.2/@children.0 //@root/@children.0/@children.0/@children.0/@children.0/@children.0/@children.2/@children.1 //@root/@children.0/@children.0/@children.0/@children.1/@children.1/@children.1/@children.0 //@root/@children.0/@children.0/@children.0/@children.1/@children.1/@children.1/@children.0/@children.0 //@root/@children.0/@children.0/@children.0/@children.1/@children.1/@children.1/@children.0/@children.1 //@root/@children.0/@children.0/@children.0/@children.1/@children.1/@children.0/@children.0/@children.0/@children.1 //@root/@children.0/@children.0/@children.0/@children.1/@children.1/@children.0/@children.0/@children.0/@children.1/@children.0 //@root/@children.0/@children.0/@children.0/@children.1/@children.1/@children.0/@children.0/@children.0/@children.1/@children.1 //@root/@children.0/@children.0/@children.0/@children.1/@children.0/@children.2/@children.0/@children.2 //@root/@children.0/@children.0/@children.0/@children.1/@children.0/@children.2/@children.0/@children.2/@children.0 //@root/@children.0/@children.0/@children.0/@children.1/@children.0/@children.2/@children.0/@children.2/@children.1 //@root/@children.0/@children.0/@children.0/@children.0/@children.0/@children.2/@children.2 //@root/@children.0/@children.0/@children.0/@children.0/@children.0/@children.2/@children.2/@children.0 //@root/@children.0/@children.0/@children.0/@children.0/@children.0/@children.2/@children.2/@children.1 //@root/@children.0/@children.0/@children.0/@children.0/@children.0/@children.0/@children.1 //@root/@children.0/@children.0/@children.0/@children.0/@children.0/@children.0/@children.1/@children.0 //@root/@children.0/@children.0/@children.0/@children.0/@children.0/@children.0/@children.1/@children.1 //@root/@children.0/@children.0/@children.0/@children.0/@children.0/@children.1/@children.0/@children.2/@children.2 //@root/@children.0/@children.0/@children.0/@children.0/@children.0/@children.1/@children.0/@children.2/@children.2/@children.0 //@root/@children.0/@children.0/@children.0/@children.0/@children.0/@children.1/@children.0/@children.2/@children.2/@children.1 //@root/@children.0/@children.0/@children.0/@children.0/@children.0/@children.1/@children.1 //@root/@children.0/@children.0/@children.0/@children.0/@children.0/@children.1/@children.1/@children.0 //@root/@children.0/@children.0/@children.0/@children.0/@children.0/@children.1/@children.1/@children.1 //@root/@children.0/@children.0/@children.0/@children.1/@children.0/@children.2/@children.0/@children.2/@children.0/@children.0 //@root/@children.0/@children.0/@children.0/@children.1/@children.0/@children.2/@children.0/@children.2/@children.0/@children.0/@children.0 //@root/@children.0/@children.0/@children.0/@children.1/@children.0/@children.2/@children.0/@children.2/@children.0/@children.0/@children.1 //@root/@children.0/@children.0/@children.0/@children.1/@children.0/@children.2/@children.0/@children.0/@children.1/@children.0 //@root/@children.0/@children.0/@children.0/@children.1/@children.0/@children.2/@children.0/@children.0/@children.1/@children.0/@children.0 //@root/@children.0/@children.0/@children.0/@children.1/@children.0/@children.2/@children.0/@children.0/@children.1/@children.0/@children.1 //@root/@children.0/@children.0/@children.0/@children.1/@children.0/@children.0/@children.0/@children.0/@children.1">
   <root id="Root" name="Root" mandatory="true">
-    <children xsi:type="rhea:AlternativeGroup" id="0" name="0" mandatory="true">
-      <children xsi:type="rhea:AlternativeGroup" id="1" name="1" abstract="true">
-        <children xsi:type="rhea:SelectionGroup" id="3" name="3" mandatory="true" abstract="true"/>
-        <children id="4" name="4" abstract="true"/>
+    <children xsi:type="rhea:AlternativeGroup" id="0" name="0" mandatory="true" abstract="true">
+      <children id="1" name="1" abstract="true">
+        <children xsi:type="rhea:AlternativeGroup" id="3" name="3" abstract="true">
+          <children id="4" name="4" abstract="true">
+            <children xsi:type="rhea:AlternativeGroup" id="12" name="12" abstract="true">
+              <children id="13" name="13" abstract="true">
+                <children xsi:type="rhea:AlternativeGroup" id="54" name="54" mandatory="true" abstract="true">
+                  <children id="55" name="55"/>
+                  <children id="56" name="56" abstract="true"/>
+                </children>
+                <children xsi:type="rhea:SelectionGroup" id="84" name="84" mandatory="true" abstract="true">
+                  <children id="85" name="85"/>
+                  <children id="86" name="86"/>
+                </children>
+              </children>
+              <children id="14" name="14" abstract="true">
+                <children xsi:type="rhea:AlternativeGroup" id="15" name="15" abstract="true">
+                  <children id="16" name="16"/>
+                  <children id="17" name="17" abstract="true">
+                    <children xsi:type="rhea:AlternativeGroup" id="27" name="27" abstract="true">
+                      <children id="28" name="28" abstract="true"/>
+                      <children id="29" name="29" abstract="true"/>
+                    </children>
+                  </children>
+                  <children xsi:type="rhea:AlternativeGroup" id="30" name="30">
+                    <children id="31" name="31" abstract="true">
+                      <children xsi:type="rhea:AlternativeGroup" id="39" name="39" mandatory="true" abstract="true">
+                        <children id="40" name="40"/>
+                        <children id="41" name="41"/>
+                        <children xsi:type="rhea:AlternativeGroup" id="51" name="51">
+                          <children id="52" name="52" abstract="true"/>
+                          <children id="53" name="53">
+                            <children xsi:type="rhea:SelectionGroup" id="66" name="66">
+                              <children id="67" name="67" abstract="true"/>
+                              <children id="68" name="68"/>
+                            </children>
+                          </children>
+                        </children>
+                      </children>
+                    </children>
+                    <children id="32" name="32"/>
+                    <children xsi:type="rhea:SelectionGroup" id="87" name="87" abstract="true">
+                      <children id="88" name="88"/>
+                      <children id="89" name="89"/>
+                    </children>
+                  </children>
+                </children>
+                <children xsi:type="rhea:SelectionGroup" id="90" name="90" abstract="true">
+                  <children id="91" name="91"/>
+                  <children id="92" name="92" abstract="true"/>
+                </children>
+              </children>
+              <children xsi:type="rhea:SelectionGroup" id="69" name="69">
+                <children id="70" name="70"/>
+                <children id="71" name="71" abstract="true"/>
+                <children xsi:type="rhea:SelectionGroup" id="81" name="81">
+                  <children id="82" name="82" abstract="true"/>
+                  <children id="83" name="83"/>
+                </children>
+              </children>
+            </children>
+          </children>
+          <children id="5" name="5">
+            <children xsi:type="rhea:AlternativeGroup" id="6" name="6" mandatory="true" abstract="true">
+              <children id="7" name="7">
+                <children xsi:type="rhea:AlternativeGroup" id="21" name="21">
+                  <children id="22" name="22">
+                    <children xsi:type="rhea:AlternativeGroup" id="36" name="36" abstract="true">
+                      <children id="37" name="37" abstract="true"/>
+                      <children id="38" name="38"/>
+                    </children>
+                    <children id="99" name="99" mandatory="true"/>
+                  </children>
+                  <children id="23" name="23" abstract="true"/>
+                </children>
+              </children>
+              <children id="8" name="8">
+                <children xsi:type="rhea:AlternativeGroup" id="33" name="33" mandatory="true">
+                  <children id="34" name="34" abstract="true"/>
+                  <children id="35" name="35" abstract="true"/>
+                </children>
+              </children>
+              <children xsi:type="rhea:AlternativeGroup" id="9" name="9" abstract="true">
+                <children id="10" name="10" abstract="true">
+                  <children xsi:type="rhea:AlternativeGroup" id="18" name="18" abstract="true">
+                    <children id="19" name="19"/>
+                    <children id="20" name="20" abstract="true">
+                      <children xsi:type="rhea:SelectionGroup" id="96" name="96" mandatory="true" abstract="true">
+                        <children id="97" name="97"/>
+                        <children id="98" name="98" abstract="true"/>
+                      </children>
+                    </children>
+                  </children>
+                  <children xsi:type="rhea:AlternativeGroup" id="42" name="42">
+                    <children id="43" name="43" abstract="true">
+                      <children xsi:type="rhea:AlternativeGroup" id="48" name="48" abstract="true">
+                        <children id="49" name="49"/>
+                        <children id="50" name="50" abstract="true"/>
+                      </children>
+                    </children>
+                    <children id="44" name="44"/>
+                  </children>
+                  <children xsi:type="rhea:SelectionGroup" id="78" name="78" mandatory="true">
+                    <children id="79" name="79">
+                      <children xsi:type="rhea:SelectionGroup" id="93" name="93" mandatory="true" abstract="true">
+                        <children id="94" name="94"/>
+                        <children id="95" name="95"/>
+                      </children>
+                    </children>
+                    <children id="80" name="80"/>
+                  </children>
+                </children>
+                <children id="11" name="11"/>
+                <children xsi:type="rhea:AlternativeGroup" id="24" name="24">
+                  <children id="25" name="25" abstract="true"/>
+                  <children id="26" name="26"/>
+                </children>
+              </children>
+              <children xsi:type="rhea:AlternativeGroup" id="57" name="57">
+                <children id="58" name="58"/>
+                <children id="59" name="59" abstract="true"/>
+              </children>
+            </children>
+            <children xsi:type="rhea:AlternativeGroup" id="45" name="45">
+              <children id="46" name="46" abstract="true">
+                <children xsi:type="rhea:SelectionGroup" id="60" name="60" mandatory="true" abstract="true">
+                  <children id="61" name="61">
+                    <children xsi:type="rhea:SelectionGroup" id="63" name="63">
+                      <children id="64" name="64" abstract="true"/>
+                      <children id="65" name="65"/>
+                    </children>
+                    <children xsi:type="rhea:SelectionGroup" id="75" name="75" mandatory="true" abstract="true">
+                      <children id="76" name="76" abstract="true"/>
+                      <children id="77" name="77"/>
+                    </children>
+                  </children>
+                  <children id="62" name="62"/>
+                </children>
+              </children>
+              <children id="47" name="47">
+                <children xsi:type="rhea:SelectionGroup" id="72" name="72">
+                  <children id="73" name="73"/>
+                  <children id="74" name="74"/>
+                </children>
+              </children>
+            </children>
+          </children>
+        </children>
       </children>
-      <children xsi:type="rhea:SelectionGroup" id="2" name="2">
-        <children id="5" name="5"/>
-      </children>
+      <children id="2" name="2" abstract="true"/>
     </children>
   </root>
 </rhea:FeatureModel>
