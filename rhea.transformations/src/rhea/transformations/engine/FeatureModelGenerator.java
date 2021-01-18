@@ -84,6 +84,17 @@ public class FeatureModelGenerator {
 		return executeLanguageGenerator(fm, lc, params);
 	}
 	
+	public boolean addGroupCardinality(FeatureModel fm, LanguageGeneratorType lc ,String featureName, boolean mandatory, boolean abs, int lower, int upper) {
+		Map<String, Object> params = Map.of("name", featureName, "mandatory", mandatory, "abs", abs, "lower", lower, "upper", upper);
+		return executeLanguageGenerator(fm, lc, params);
+	}
+	
+	public boolean addGroupCardinality(FeatureModel fm, LanguageGeneratorType lc ,String featureName, boolean mandatory, boolean abs, Feature parent, int lower, int upper) {
+		if(parent==null) return addGroupCardinality(fm, lc, featureName, mandatory, abs, lower, upper);
+		Map<String, Object> params = Map.of("name", featureName, "mandatory", mandatory, "abs", abs, "parentId", parent.getId(), "lower", lower, "upper", upper);
+		return executeLanguageGenerator(fm, lc, params);
+	}
+	
 	/**
 	 * Generates all possible feature models with the set of features and the provided language generators.
 	 * 
