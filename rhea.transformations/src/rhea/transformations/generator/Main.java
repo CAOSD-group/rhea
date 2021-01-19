@@ -15,16 +15,15 @@ public class Main {
 		
 		String modelName = "MyFeatureModel";
 		
-		// Más de 10000 ya empieza a tardar. ¿Tiempo exponencial?
-		int nFeature = 100, nChildMax = 3;
+		int nFeature = 10, nChildMax = 3;
 		HenshinEngine henshin = new HenshinEngine(Rhea.BASEDIR);
 		
-		// <Class_Path,Porcentaje>
+		// <Class_Path,Porcentaje> Entorno a un 20% de feature groups es lo ideal (preferiblemente, menos).
 		LinkedHashMap<String, Double> percentages = new LinkedHashMap<String,Double>();
-		percentages.put("rhea.metamodels.BasicFMs.AlternativeGroup", 0.10);
-		percentages.put("rhea.metamodels.BasicFMs.SelectionGroup", 0.10);
-		percentages.put("rhea.metamodels.CardinalityBasedFMs.MutexGroup", 0.10);
-		percentages.put("rhea.metamodels.CardinalityBasedFMs.GroupCardinality", 0.10);
+		percentages.put("rhea.metamodels.CardinalityBasedFMs.MutexGroup", 0.05);
+		percentages.put("rhea.metamodels.CardinalityBasedFMs.GroupCardinality", 0.05);
+		percentages.put("rhea.metamodels.BasicFMs.AlternativeGroup", 0.05);
+		percentages.put("rhea.metamodels.BasicFMs.SelectionGroup", 0.05);
 		
 		FeatureModelGeneratorByPercentages fmgi = new FeatureModelGeneratorByPercentages();
 		
