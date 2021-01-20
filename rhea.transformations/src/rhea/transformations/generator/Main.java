@@ -15,10 +15,11 @@ public class Main {
 		
 		String modelName = "MyFeatureModel";
 		
-		int nFeature = 10, nChildMax = 3;
+		int nFeature = 100, nChildMax = 5, nChildMin = 3;
 		HenshinEngine henshin = new HenshinEngine(Rhea.BASEDIR);
 		
 		// <Class_Path,Porcentaje> Entorno a un 20% de feature groups es lo ideal (preferiblemente, menos).
+		// El último tiene siempre un 0.01 más, ¿porque?
 		LinkedHashMap<String, Double> percentages = new LinkedHashMap<String,Double>();
 		percentages.put("rhea.metamodels.CardinalityBasedFMs.MutexGroup", 0.05);
 		percentages.put("rhea.metamodels.CardinalityBasedFMs.GroupCardinality", 0.05);
@@ -27,7 +28,7 @@ public class Main {
 		
 		FeatureModelGeneratorByPercentages fmgi = new FeatureModelGeneratorByPercentages();
 		
-		FeatureModel fm = fmgi.generateFeatureModel(modelName, nFeature, percentages, nChildMax);
+		FeatureModel fm = fmgi.generateFeatureModel(modelName, nFeature, percentages, nChildMax, nChildMin);
 		
 		// Save models 
 		FMGenerator g = new ToClafer();

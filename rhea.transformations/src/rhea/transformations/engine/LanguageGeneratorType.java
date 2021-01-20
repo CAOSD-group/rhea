@@ -13,7 +13,9 @@ public enum LanguageGeneratorType {
 	AlternativeGroupNonDeterministic("ND Alternative Group", "nondeterministic/GenFeatureRandomly", "GenAlternativeGroupRandomly", Map.of()),
 	AlternativeGroupDeterministic("D Alternative Group", "deterministic/GenFeature", "GenAlternativeGroup", Map.of()),
 	MutexGroupNonDeterministic("ND Mutex Gorup", "nondeterministic/GenFeatureRandomly", "GenMutexGroupRandomly", Map.of()),
-	GroupCardinalityNonDeterministic("ND Group Cardinality", "nondeterministic/GenFeatureRandomly", "GenGroupCardinalityRandomly", Map.of());
+	GroupCardinalityNonDeterministic("ND Group Cardinality", "nondeterministic/GenFeatureRandomly", "GenGroupCardinalityRandomly", Map.of()),
+	
+	DeleteFeature("Delete Feature","others/DelFeature","DeleteFeature", Map.of());
 	
 	private String name;
 	private String henshinModule;

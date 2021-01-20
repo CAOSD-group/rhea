@@ -14,25 +14,25 @@ import rhea.transformations.engine.LanguageGeneratorType;
 
 public class FeatureModelGeneratorByPercentages {
 	private FeatureModelGenerator fmg;
-	private int nChildMin = 2;
 	
 	public FeatureModelGeneratorByPercentages() {
 		fmg = new FeatureModelGenerator();
 
 	}
 	
-	public FeatureModel generateFeatureModel(String name, int nFeatures, Map<String,Double> percentages, int nChildMax) {
+	public FeatureModel generateFeatureModel(String name, int nFeatures, Map<String,Double> percentages, int nChildMax, int nChildMin) {
+		
 		FeatureModel fm = fmg.createEmptyFeatureModel(name);
 		
-		double percentage;
 		Random rd = new Random();
+		double percentage;
+		int i = 1;
+
 		Feature parent;
 		Boolean mandatory;
 		LanguageGeneratorType lgt = null;
 		
-		fmg.addFeature(fm, LanguageGeneratorType.Root ,"Root",true,false);
-		
-		int i = 1;
+		fmg.addFeature(fm, LanguageGeneratorType.Root ,"0",true,false);
 		
 		//NEW CODE
 		//Este código genera las features en función de su porcentaje actual (siempre escoge el que tenga menor porcentaje actualmente).
@@ -47,7 +47,6 @@ public class FeatureModelGeneratorByPercentages {
 			{
 				percentage = (double) FMHelper.getAllFeaturesOf(fm,f).size()/(double) nFeatures;
 				
-				// Se podría hacer por defecto, si no llega pero al añadir uno se pasa, no crea más.
 				if(percentage<minPercentage && percentage<percentages.get(f)) // Por exceso, si no llega al porcentaje, crea uno nuevo.
 				{
 					minPercentage = percentage;
@@ -74,43 +73,10 @@ public class FeatureModelGeneratorByPercentages {
 		}
 		//END NEW CODE
 		
-		//OLD CODE
-		// Este código por el contrario, genera las Feature hasta llegar a su cupo. Crea FM menos heterogéneos.
-		/*
-		for (String f : percentages.keySet())
-		{
-			percentage = 0;
-			
-			while(percentage<percentages.get(f) && i<nFeatures)
-			{				
-				// Si puedo crear un FeatureGroup entero, lo creo.
-					mandatory = rd.nextBoolean();
-					
-					if(f.contains("Selection")) lgt = LanguageGeneratorType.SelectionGroupNonDeterministic;
-					else if(f.contains("Alternative")) lgt = LanguageGeneratorType.AlternativeGroupNonDeterministic;
-					else if(f.contains("Mutex")) lgt = LanguageGeneratorType.MutexGroupNonDeterministic;						
-					else if(f.contains("Cardinality")) lgt = LanguageGeneratorType.GroupCardinalityNonDeterministic;
-					
-					
-					if(f.contains("Cardinality")) fmg.addGroupCardinality(fm, lgt, Integer.toString(i), mandatory, rd.nextBoolean(), 0, 0);
-					else fmg.addFeature(fm, lgt, Integer.toString(i), mandatory, rd.nextBoolean());
-					
-					parent = fm.getFeature(Integer.toString(i));
-					if(parent.getParent() instanceof FeatureGroup) parent.setMandatory(false);
-					
-					//System.out.println("Feature: " + i);
-					i++;
-				
-					percentage = (double) FMHelper.getAllFeaturesOf(fm,f).size()/(double) nFeatures;
-			}
-			
-		}
-		*/
-		//END OLD CODE
-		
 		lgt = LanguageGeneratorType.OrdinaryFeatureDeterministic;
 		List<Feature> groups = FMHelper.getAllFeaturesOf(fm, "rhea.metamodels.BasicFMs.FeatureGroup");
 		
+		//REVISAR
 		// Completamos los FeatureGroups
 		for (Feature feature : groups) 
 		{
@@ -125,7 +91,37 @@ public class FeatureModelGeneratorByPercentages {
 					i++;
 				}
 			}
+		}		
+		
+		lgt = LanguageGeneratorType.OrdinaryFeatureNonDeterministic;
+		
+		// Rellenamos el resto del modelo
+		while(i<nFeatures)
+		{			
+			mandatory = rd.nextBoolean();
+			fmg.addFeature(fm, lgt, Integer.toString(i), mandatory, rd.nextBoolean());
+			if(fm.getFeature(Integer.toString(i)).getParent() instanceof FeatureGroup) fm.getFeature(Integer.toString(i)).setMandatory(false);
+			//System.out.println("Filling: " + i);
 			
+			//REVISAR
+			//Si tiene más hijos de los permitidos, lo elimino.
+			parent = fm.getFeature(Integer.toString(i)).getParent();
+			if(nChildMax<parent.getChildren().size())
+			{
+				fmg.deleteFeature(fm, i);
+			}
+			else
+			{
+				i++;
+			}
+		}
+		
+		//REVISAR
+		// Arreglamos las multiplicidades
+		groups = FMHelper.getAllFeaturesOf(fm, "rhea.metamodels.CardinalityBasedFMs.GroupCardinality");
+		
+		for(Feature feature : groups)
+		{
 			if(feature instanceof GroupCardinality) 
 			{
 				int lower,upper;
@@ -139,17 +135,6 @@ public class FeatureModelGeneratorByPercentages {
 			}
 		}
 		
-		lgt = LanguageGeneratorType.OrdinaryFeatureNonDeterministic;
-		
-		// Rellenamos el resto del modelo
-		while(i<nFeatures)
-		{			
-			mandatory = rd.nextBoolean();
-			fmg.addFeature(fm, lgt, Integer.toString(i), mandatory, rd.nextBoolean());
-			if(fm.getFeature(Integer.toString(i)).getParent() instanceof FeatureGroup) fm.getFeature(Integer.toString(i)).setMandatory(false);
-			//System.out.println("Filling: " + i);
-			i++;
-		}
 		
 		if(!FMHelper.isValid(fm))
 		{
@@ -165,3 +150,37 @@ public class FeatureModelGeneratorByPercentages {
 		return fm;
 	}
 }
+
+//OLD CODE
+// Este código por el contrario, genera las Feature hasta llegar a su cupo. Crea FM menos heterogéneos.
+/*
+for (String f : percentages.keySet())
+{
+	percentage = 0;
+	
+	while(percentage<percentages.get(f) && i<nFeatures)
+	{				
+		// Si puedo crear un FeatureGroup entero, lo creo.
+			mandatory = rd.nextBoolean();
+			
+			if(f.contains("Selection")) lgt = LanguageGeneratorType.SelectionGroupNonDeterministic;
+			else if(f.contains("Alternative")) lgt = LanguageGeneratorType.AlternativeGroupNonDeterministic;
+			else if(f.contains("Mutex")) lgt = LanguageGeneratorType.MutexGroupNonDeterministic;						
+			else if(f.contains("Cardinality")) lgt = LanguageGeneratorType.GroupCardinalityNonDeterministic;
+			
+			
+			if(f.contains("Cardinality")) fmg.addGroupCardinality(fm, lgt, Integer.toString(i), mandatory, rd.nextBoolean(), 0, 0);
+			else fmg.addFeature(fm, lgt, Integer.toString(i), mandatory, rd.nextBoolean());
+			
+			parent = fm.getFeature(Integer.toString(i));
+			if(parent.getParent() instanceof FeatureGroup) parent.setMandatory(false);
+			
+			//System.out.println("Feature: " + i);
+			i++;
+		
+			percentage = (double) FMHelper.getAllFeaturesOf(fm,f).size()/(double) nFeatures;
+	}
+	
+}
+*/
+//END OLD CODE

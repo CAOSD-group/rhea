@@ -95,6 +95,10 @@ public class FeatureModelGenerator {
 		return executeLanguageGenerator(fm, lc, params);
 	}
 	
+	public boolean deleteFeature(FeatureModel fm, int id) {
+		return executeLanguageGenerator(fm, LanguageGeneratorType.DeleteFeature, Map.of("Id", id));
+	}
+	
 	/**
 	 * Generates all possible feature models with the set of features and the provided language generators.
 	 * 
