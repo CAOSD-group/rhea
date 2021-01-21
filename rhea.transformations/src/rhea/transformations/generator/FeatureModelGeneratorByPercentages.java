@@ -76,20 +76,16 @@ public class FeatureModelGeneratorByPercentages {
 		lgt = LanguageGeneratorType.OrdinaryFeatureDeterministic;
 		List<Feature> groups = FMHelper.getAllFeaturesOf(fm, "rhea.metamodels.BasicFMs.FeatureGroup");
 		
-		//REVISAR
 		// Completamos los FeatureGroups
 		for (Feature feature : groups) 
 		{
-			int nChilds = feature.getChildren().size();
+			int nChilds = feature.getChildren().size();	
 			
-			if(nChilds<2)
-			{				
-				for (int j = nChilds; j <= nChildMin; j++) 
-				{
-					fmg.addFeature(fm, lgt, Integer.toString(i), false, rd.nextBoolean(), feature);
-					//System.out.println("Completing: " + i);
-					i++;
-				}
+			for (int j = nChilds; j <= nChildMin; j++) 
+			{
+				fmg.addFeature(fm, lgt, Integer.toString(i), false, rd.nextBoolean(), feature);
+				//System.out.println("Completing: " + i);
+				i++;
 			}
 		}		
 		
@@ -101,38 +97,42 @@ public class FeatureModelGeneratorByPercentages {
 			mandatory = rd.nextBoolean();
 			fmg.addFeature(fm, lgt, Integer.toString(i), mandatory, rd.nextBoolean());
 			if(fm.getFeature(Integer.toString(i)).getParent() instanceof FeatureGroup) fm.getFeature(Integer.toString(i)).setMandatory(false);
-			//System.out.println("Filling: " + i);
+			System.out.println("Filling: " + i);
 			
 			//REVISAR
 			//Si tiene más hijos de los permitidos, lo elimino.
 			parent = fm.getFeature(Integer.toString(i)).getParent();
-			if(nChildMax<parent.getChildren().size())
+			groups = FMHelper.getAllFeaturesOf(fm, "rhea.metamodels.BasicFMs.FeatureGroup"); //DEBUG PURPOSE
+			
+			if(nChildMax<parent.getChildren().size() && parent instanceof FeatureGroup)
 			{
-				fmg.deleteFeature(fm, i);
+				fmg.deleteFeature(fm, i); //NO SIGUE GENERANDO, SI TIENE DONDE, ¿POR QUE NO LO COGE?
+				System.out.println(parent.getId()); //DEBUG PURPOSE
 			}
 			else
 			{
 				i++;
 			}
+			
+			//i++;
 		}
 		
-		//REVISAR
 		// Arreglamos las multiplicidades
 		groups = FMHelper.getAllFeaturesOf(fm, "rhea.metamodels.CardinalityBasedFMs.GroupCardinality");
 		
 		for(Feature feature : groups)
 		{
-			if(feature instanceof GroupCardinality) 
+			int lower,upper;
+			
+			do
 			{
-				int lower,upper;
-				
-				do
-				{
-					lower = rd.nextInt(feature.getChildren().size()+1);
-					upper = rd.nextInt(feature.getChildren().size()+1);
-				}
-				while(upper<lower || (lower==upper && lower==0));
+				lower = rd.nextInt(feature.getChildren().size()-nChildMin) + nChildMin;
+				upper = rd.nextInt(feature.getChildren().size()-nChildMin) + nChildMin;
 			}
+			while(upper<lower || (lower==upper && lower==0));
+			
+			((GroupCardinality) feature).getMultiplicity().setLower(lower);
+			((GroupCardinality) feature).getMultiplicity().setUpper(upper);
 		}
 		
 		

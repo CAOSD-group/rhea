@@ -15,7 +15,7 @@ public class Main {
 		
 		String modelName = "MyFeatureModel";
 		
-		int nFeature = 100, nChildMax = 5, nChildMin = 3;
+		int nFeature = 300, nChildMax = 5, nChildMin = 2;
 		HenshinEngine henshin = new HenshinEngine(Rhea.BASEDIR);
 		
 		// <Class_Path,Porcentaje> Entorno a un 20% de feature groups es lo ideal (preferiblemente, menos).
