@@ -17,7 +17,6 @@ public class FeatureModelGeneratorByPercentages {
 	
 	public FeatureModelGeneratorByPercentages() {
 		fmg = new FeatureModelGenerator();
-
 	}
 	
 	public FeatureModel generateFeatureModel(String name, int nFeatures, Map<String,Double> percentages, int nChildMax, int nChildMin) {
@@ -39,9 +38,12 @@ public class FeatureModelGeneratorByPercentages {
 		double minPercentage = 0;
 		String minClassPath = "";
 		
-		while(minPercentage!=1 && i<nFeatures)
+		
+		while(minPercentage!=1 && i<=nFeatures)
 		{
 			minPercentage = 1;
+			minClassPath = "";
+			lgt = null;
 			
 			for (String f : percentages.keySet())
 			{
@@ -62,21 +64,26 @@ public class FeatureModelGeneratorByPercentages {
 			else if(minClassPath.contains("Cardinality")) lgt = LanguageGeneratorType.GroupCardinalityNonDeterministic;
 			
 			
-			if(minClassPath.contains("Cardinality")) fmg.addGroupCardinality(fm, lgt, Integer.toString(i), mandatory, rd.nextBoolean(), 0, 0);
-			else fmg.addFeature(fm, lgt, Integer.toString(i), mandatory, rd.nextBoolean());
-			
-			parent = fm.getFeature(Integer.toString(i));
-			if(parent.getParent() instanceof FeatureGroup) parent.setMandatory(false);
-			
-			//System.out.println("Feature: " + i);
-			i++;
+			if (lgt!=null)
+			{
+				if(minClassPath.contains("Cardinality")) fmg.addGroupCardinality(fm, lgt, Integer.toString(i), mandatory, rd.nextBoolean(), 0, 0);
+				else fmg.addFeature(fm, lgt, Integer.toString(i), mandatory, rd.nextBoolean());
+				
+				if(fm.getFeature(Integer.toString(i)).getParent() instanceof FeatureGroup) fm.getFeature(Integer.toString(i)).setMandatory(false);
+				
+				System.out.println("Feature: " + i);
+				i++;
+			}
 		}
+
+		
 		//END NEW CODE
 		
 		lgt = LanguageGeneratorType.OrdinaryFeatureDeterministic;
 		List<Feature> groups = FMHelper.getAllFeaturesOf(fm, "rhea.metamodels.BasicFMs.FeatureGroup");
 		
 		// Completamos los FeatureGroups
+		// ESTE BUCLE NO CUMPLE LAS RESTRICCIONES DE i<nFeatures, para que el modelo de salida siempre sea válido.
 		for (Feature feature : groups) 
 		{
 			int nChilds = feature.getChildren().size();	
@@ -84,52 +91,46 @@ public class FeatureModelGeneratorByPercentages {
 			for (int j = nChilds; j <= nChildMin; j++) 
 			{
 				fmg.addFeature(fm, lgt, Integer.toString(i), false, rd.nextBoolean(), feature);
-				//System.out.println("Completing: " + i);
+				System.out.println("Completing: " + i);
 				i++;
 			}
 		}		
 		
-		lgt = LanguageGeneratorType.OrdinaryFeatureNonDeterministic;
 		
-		// Rellenamos el resto del modelo
-		while(i<nFeatures)
+		List<Feature> features = fm.getFeatures();
+		
+		//Rellenamos el resto del modelo
+		while(i<=nFeatures)
 		{			
 			mandatory = rd.nextBoolean();
-			fmg.addFeature(fm, lgt, Integer.toString(i), mandatory, rd.nextBoolean());
-			if(fm.getFeature(Integer.toString(i)).getParent() instanceof FeatureGroup) fm.getFeature(Integer.toString(i)).setMandatory(false);
+			parent = features.get(rd.nextInt(features.size()));
+			
+			while(parent instanceof FeatureGroup && nChildMax==parent.getChildren().size())
+			{
+				features.remove(parent);
+				parent = features.get(rd.nextInt(features.size()));
+			}
+			
+			if(parent instanceof FeatureGroup) mandatory = false;
+			fmg.addFeature(fm, lgt, Integer.toString(i), mandatory, rd.nextBoolean(), parent);
 			System.out.println("Filling: " + i);
 			
-			//REVISAR
-			//Si tiene más hijos de los permitidos, lo elimino.
-			parent = fm.getFeature(Integer.toString(i)).getParent();
-			groups = FMHelper.getAllFeaturesOf(fm, "rhea.metamodels.BasicFMs.FeatureGroup"); //DEBUG PURPOSE
-			
-			if(nChildMax<parent.getChildren().size() && parent instanceof FeatureGroup)
-			{
-				fmg.deleteFeature(fm, i); //NO SIGUE GENERANDO, SI TIENE DONDE, ¿POR QUE NO LO COGE?
-				System.out.println(parent.getId()); //DEBUG PURPOSE
-			}
-			else
-			{
-				i++;
-			}
-			
-			//i++;
+			i++;
 		}
 		
 		// Arreglamos las multiplicidades
 		groups = FMHelper.getAllFeaturesOf(fm, "rhea.metamodels.CardinalityBasedFMs.GroupCardinality");
 		
+		int lower,upper;
+		
 		for(Feature feature : groups)
-		{
-			int lower,upper;
-			
+		{	
 			do
 			{
-				lower = rd.nextInt(feature.getChildren().size()-nChildMin) + nChildMin;
-				upper = rd.nextInt(feature.getChildren().size()-nChildMin) + nChildMin;
+				lower = rd.nextInt(feature.getChildren().size()+1);
+				upper = rd.nextInt(feature.getChildren().size()+1);
 			}
-			while(upper<lower || (lower==upper && lower==0));
+			while(upper<lower || upper==0);
 			
 			((GroupCardinality) feature).getMultiplicity().setLower(lower);
 			((GroupCardinality) feature).getMultiplicity().setUpper(upper);
@@ -158,7 +159,7 @@ for (String f : percentages.keySet())
 {
 	percentage = 0;
 	
-	while(percentage<percentages.get(f) && i<nFeatures)
+	while(percentage<percentages.get(f) && i<=nFeatures)
 	{				
 		// Si puedo crear un FeatureGroup entero, lo creo.
 			mandatory = rd.nextBoolean();
