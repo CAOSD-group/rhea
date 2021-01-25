@@ -16,15 +16,15 @@ public class Main {
 		String modelName = "MyFeatureModel";
 		
 		// 5000 Features empieza a costar generar modelos, al menos en mi pc.
-		int nFeature = 35, nChildMax = 7, nChildMin = 3;
+		int nFeature = 5000, nChildMax = 4, nChildMin = 2;
 		HenshinEngine henshin = new HenshinEngine(Rhea.BASEDIR);
 		
 		// <Class_Path,Porcentaje> Entorno a un 20% de feature groups es lo ideal (preferiblemente, menos).
 		LinkedHashMap<String, Double> percentages = new LinkedHashMap<String,Double>();
-		percentages.put("rhea.metamodels.BasicFMs.AlternativeGroup", 0.05);
-		percentages.put("rhea.metamodels.BasicFMs.SelectionGroup", 0.05);
-		percentages.put("rhea.metamodels.CardinalityBasedFMs.MutexGroup", 0.05);
-		percentages.put("rhea.metamodels.CardinalityBasedFMs.GroupCardinality", 0.05);
+		percentages.put("rhea.metamodels.BasicFMs.AlternativeGroup", 0.00);
+		percentages.put("rhea.metamodels.BasicFMs.SelectionGroup", 0.00);
+		percentages.put("rhea.metamodels.CardinalityBasedFMs.MutexGroup", 0.00);
+		percentages.put("rhea.metamodels.CardinalityBasedFMs.GroupCardinality", 0.30);
 
 		FeatureModelGeneratorByPercentages fmgi = new FeatureModelGeneratorByPercentages();
 		
