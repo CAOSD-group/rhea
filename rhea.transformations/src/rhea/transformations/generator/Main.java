@@ -15,7 +15,8 @@ public class Main {
 		
 		String modelName = "MyFeatureModel";
 		
-		int nFeature = 5000, nChildMax = 4, nChildMin = 2;
+		// 5000 Features empieza a costar generar modelos, al menos en mi pc.
+		int nFeature = 35, nChildMax = 7, nChildMin = 3;
 		HenshinEngine henshin = new HenshinEngine(Rhea.BASEDIR);
 		
 		// <Class_Path,Porcentaje> Entorno a un 20% de feature groups es lo ideal (preferiblemente, menos).
