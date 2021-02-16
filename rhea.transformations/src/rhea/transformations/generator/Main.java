@@ -6,25 +6,26 @@ import rhea.Rhea;
 import rhea.generators.FMGenerator;
 import rhea.generators.clafer.ToClafer;
 import rhea.metamodels.BasicFMs.FeatureModel;
+import rhea.parsers.FMParser;
+import rhea.parsers.clafer.ClaferParser;
 import rhea.thirdpartyplugins.utils.Utils;
 import rhea.transformations.engine.HenshinEngine;
 
 public class Main {
-
 	public static void main(String[] args) {
 		
 		String modelName = "MyFeatureModel";
 		
 		// 5000 Features empieza a costar generar modelos, al menos en mi pc.
-		int nFeature = 5000, nChildMax = 4, nChildMin = 2;
+		int nFeature = 100,  nChildMin = 2, nChildMax = 4;
 		HenshinEngine henshin = new HenshinEngine(Rhea.BASEDIR);
 		
 		// <Class_Path,Porcentaje> Entorno a un 20% de feature groups es lo ideal (preferiblemente, menos).
 		LinkedHashMap<String, Double> percentages = new LinkedHashMap<String,Double>();
-		percentages.put("rhea.metamodels.BasicFMs.AlternativeGroup", 0.00);
-		percentages.put("rhea.metamodels.BasicFMs.SelectionGroup", 0.00);
-		percentages.put("rhea.metamodels.CardinalityBasedFMs.MutexGroup", 0.00);
-		percentages.put("rhea.metamodels.CardinalityBasedFMs.GroupCardinality", 0.30);
+		percentages.put("rhea.metamodels.BasicFMs.AlternativeGroup", 0.0);
+		percentages.put("rhea.metamodels.BasicFMs.SelectionGroup", 0.0);
+		percentages.put("rhea.metamodels.CardinalityBasedFMs.MutexGroup", 0.0);
+		percentages.put("rhea.metamodels.CardinalityBasedFMs.GroupCardinality", 0.1);
 
 		FeatureModelGeneratorByPercentages fmgi = new FeatureModelGeneratorByPercentages();
 		

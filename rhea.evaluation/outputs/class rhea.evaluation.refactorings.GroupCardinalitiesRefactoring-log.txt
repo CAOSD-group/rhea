@@ -1,0 +1,473 @@
+=== (1) EXECUTED RULE 'GroupCardinality11' [FALSE] ===
+
+Graph size: 111 nodes, 309 edges
+
+=== (2) EXECUTED UNIT 'AllGroupCardinality11' [TRUE] ===
+
+Graph size: 111 nodes, 309 edges
+
+=== (3) EXECUTED RULE 'GroupCardinality1N' [FALSE] ===
+
+Graph size: 111 nodes, 309 edges
+
+=== (4) EXECUTED UNIT 'AllGroupCardinality1N' [TRUE] ===
+
+Graph size: 111 nodes, 309 edges
+
+=== (5) EXECUTED RULE 'GroupCardinality01' [TRUE] ===
+
+Graph size: 111 nodes, 311 edges
+
+Match for rule 'GroupCardinality01':
+- parameter 'id' => 'Root_F11'
+- parameter 'name' => 'F11'
+- parameter 'mandatory' => false
+- parameter 'abs' => false
+- node #1 => rhea.metamodels.BasicFMs.impl.FeatureModelImpl@7c51f34b (name: fm)
+- node 'parent' => rhea.metamodels.BasicFMs.impl.FeatureImpl@5495333e (id: Root, name: Root, mandatory: true, abstract: true)
+- node #3 => rhea.metamodels.CardinalityBasedFMs.impl.GroupCardinalityImpl@2049a9c1 (id: Root_F11, name: F11, mandatory: false, abstract: false)
+- node #4 => rhea.metamodels.CardinalityBasedFMs.impl.MultiplicityImpl@75d2da2d (lower: 0, upper: 1)
+
+  Multi-rule #1:
+
+  Match #0:
+  - parameter 'id' => 'Root_F11'
+  - parameter 'name' => 'F11'
+  - parameter 'mandatory' => false
+  - parameter 'abs' => false
+  - node #1 => rhea.metamodels.BasicFMs.impl.FeatureModelImpl@7c51f34b (name: fm)
+  - node #2 => rhea.metamodels.BasicFMs.impl.FeatureImpl@5495333e (id: Root, name: Root, mandatory: true, abstract: true)
+  - node #3 => rhea.metamodels.CardinalityBasedFMs.impl.GroupCardinalityImpl@2049a9c1 (id: Root_F11, name: F11, mandatory: false, abstract: false)
+  - node #4 => rhea.metamodels.CardinalityBasedFMs.impl.MultiplicityImpl@75d2da2d (lower: 0, upper: 1)
+  - node #5 => rhea.metamodels.BasicFMs.impl.FeatureImpl@5b3f61ff (id: Root_F11_F32, name: F32, mandatory: false, abstract: false)
+
+  Match #1:
+  - parameter 'id' => 'Root_F11'
+  - parameter 'name' => 'F11'
+  - parameter 'mandatory' => false
+  - parameter 'abs' => false
+  - node #1 => rhea.metamodels.BasicFMs.impl.FeatureModelImpl@7c51f34b (name: fm)
+  - node #2 => rhea.metamodels.BasicFMs.impl.FeatureImpl@5495333e (id: Root, name: Root, mandatory: true, abstract: true)
+  - node #3 => rhea.metamodels.CardinalityBasedFMs.impl.GroupCardinalityImpl@2049a9c1 (id: Root_F11, name: F11, mandatory: false, abstract: false)
+  - node #4 => rhea.metamodels.CardinalityBasedFMs.impl.MultiplicityImpl@75d2da2d (lower: 0, upper: 1)
+  - node #5 => rhea.metamodels.BasicFMs.impl.FeatureImpl@398dada8 (id: Root_F11_F34, name: F34, mandatory: false, abstract: false)
+
+  Match #2:
+  - parameter 'id' => 'Root_F11'
+  - parameter 'name' => 'F11'
+  - parameter 'mandatory' => false
+  - parameter 'abs' => false
+  - node #1 => rhea.metamodels.BasicFMs.impl.FeatureModelImpl@7c51f34b (name: fm)
+  - node #2 => rhea.metamodels.BasicFMs.impl.FeatureImpl@5495333e (id: Root, name: Root, mandatory: true, abstract: true)
+  - node #3 => rhea.metamodels.CardinalityBasedFMs.impl.GroupCardinalityImpl@2049a9c1 (id: Root_F11, name: F11, mandatory: false, abstract: false)
+  - node #4 => rhea.metamodels.CardinalityBasedFMs.impl.MultiplicityImpl@75d2da2d (lower: 0, upper: 1)
+  - node #5 => rhea.metamodels.BasicFMs.impl.FeatureImpl@3e2059ae (id: Root_F11_F33, name: F33, mandatory: false, abstract: false)
+
+Result match for rule 'GroupCardinality01':
+- parameter 'id' => 'Root_F11'
+- parameter 'name' => 'F11'
+- parameter 'mandatory' => false
+- parameter 'abs' => false
+- node #1 => rhea.metamodels.BasicFMs.impl.FeatureModelImpl@7c51f34b (name: fm)
+- node 'parent' => rhea.metamodels.BasicFMs.impl.FeatureImpl@5495333e (id: Root, name: Root, mandatory: true, abstract: true)
+- node #3 => rhea.metamodels.BasicFMs.impl.AlternativeGroupImpl@4763c727 (id: Root_F11P, name: F11P, mandatory: false, abstract: true)
+- node #4 => rhea.metamodels.BasicFMs.impl.FeatureImpl@72445aba (id: Root_F11, name: F11, mandatory: false, abstract: false)
+
+  Multi-rule #1:
+
+  Result match #0:
+  - parameter 'id' => 'Root_F11'
+  - parameter 'name' => 'F11'
+  - parameter 'mandatory' => false
+  - parameter 'abs' => false
+  - node #1 => rhea.metamodels.BasicFMs.impl.FeatureModelImpl@7c51f34b (name: fm)
+  - node #2 => rhea.metamodels.BasicFMs.impl.FeatureImpl@5495333e (id: Root, name: Root, mandatory: true, abstract: true)
+  - node #3 => rhea.metamodels.BasicFMs.impl.FeatureImpl@5b3f61ff (id: Root_F11_F32, name: F32, mandatory: false, abstract: false)
+  - node #4 => rhea.metamodels.BasicFMs.impl.AlternativeGroupImpl@4763c727 (id: Root_F11P, name: F11P, mandatory: false, abstract: true)
+  - node #5 => rhea.metamodels.BasicFMs.impl.FeatureImpl@72445aba (id: Root_F11, name: F11, mandatory: false, abstract: false)
+
+  Result match #1:
+  - parameter 'id' => 'Root_F11'
+  - parameter 'name' => 'F11'
+  - parameter 'mandatory' => false
+  - parameter 'abs' => false
+  - node #1 => rhea.metamodels.BasicFMs.impl.FeatureModelImpl@7c51f34b (name: fm)
+  - node #2 => rhea.metamodels.BasicFMs.impl.FeatureImpl@5495333e (id: Root, name: Root, mandatory: true, abstract: true)
+  - node #3 => rhea.metamodels.BasicFMs.impl.FeatureImpl@398dada8 (id: Root_F11_F34, name: F34, mandatory: false, abstract: false)
+  - node #4 => rhea.metamodels.BasicFMs.impl.AlternativeGroupImpl@4763c727 (id: Root_F11P, name: F11P, mandatory: false, abstract: true)
+  - node #5 => rhea.metamodels.BasicFMs.impl.FeatureImpl@72445aba (id: Root_F11, name: F11, mandatory: false, abstract: false)
+
+  Result match #2:
+  - parameter 'id' => 'Root_F11'
+  - parameter 'name' => 'F11'
+  - parameter 'mandatory' => false
+  - parameter 'abs' => false
+  - node #1 => rhea.metamodels.BasicFMs.impl.FeatureModelImpl@7c51f34b (name: fm)
+  - node #2 => rhea.metamodels.BasicFMs.impl.FeatureImpl@5495333e (id: Root, name: Root, mandatory: true, abstract: true)
+  - node #3 => rhea.metamodels.BasicFMs.impl.FeatureImpl@3e2059ae (id: Root_F11_F33, name: F33, mandatory: false, abstract: false)
+  - node #4 => rhea.metamodels.BasicFMs.impl.AlternativeGroupImpl@4763c727 (id: Root_F11P, name: F11P, mandatory: false, abstract: true)
+  - node #5 => rhea.metamodels.BasicFMs.impl.FeatureImpl@72445aba (id: Root_F11, name: F11, mandatory: false, abstract: false)
+
+=== (6) EXECUTED RULE 'GroupCardinality01' [FALSE] ===
+
+Graph size: 111 nodes, 311 edges
+
+=== (7) EXECUTED UNIT 'AllGroupCardinality01' [TRUE] ===
+
+Graph size: 111 nodes, 311 edges
+
+=== (8) EXECUTED RULE 'GroupCardinality0N' [TRUE] ===
+
+Graph size: 111 nodes, 313 edges
+
+Match for rule 'GroupCardinality0N':
+- parameter 'id' => 'Root_F2_F4'
+- parameter 'name' => 'F4'
+- parameter 'mandatory' => false
+- parameter 'abs' => false
+- node #1 => rhea.metamodels.BasicFMs.impl.FeatureModelImpl@7c51f34b (name: fm)
+- node 'parent' => rhea.metamodels.CardinalityBasedFMs.impl.GroupCardinalityImpl@12a94400 (id: Root_F2, name: F2, mandatory: false, abstract: false)
+- node #3 => rhea.metamodels.CardinalityBasedFMs.impl.GroupCardinalityImpl@43599640 (id: Root_F2_F4, name: F4, mandatory: false, abstract: false)
+- node #4 => rhea.metamodels.CardinalityBasedFMs.impl.MultiplicityImpl@6337c201 (lower: 0, upper: -1)
+
+  Multi-rule #1:
+
+  Match #0:
+  - parameter 'id' => 'Root_F2_F4'
+  - parameter 'name' => 'F4'
+  - parameter 'mandatory' => false
+  - parameter 'abs' => false
+  - node #1 => rhea.metamodels.BasicFMs.impl.FeatureModelImpl@7c51f34b (name: fm)
+  - node #2 => rhea.metamodels.CardinalityBasedFMs.impl.GroupCardinalityImpl@12a94400 (id: Root_F2, name: F2, mandatory: false, abstract: false)
+  - node #3 => rhea.metamodels.CardinalityBasedFMs.impl.GroupCardinalityImpl@43599640 (id: Root_F2_F4, name: F4, mandatory: false, abstract: false)
+  - node #4 => rhea.metamodels.CardinalityBasedFMs.impl.MultiplicityImpl@6337c201 (lower: 0, upper: -1)
+  - node #5 => rhea.metamodels.BasicFMs.impl.FeatureImpl@7c3fdb62 (id: Root_F2_F4_F15, name: F15, mandatory: false, abstract: false)
+
+  Match #1:
+  - parameter 'id' => 'Root_F2_F4'
+  - parameter 'name' => 'F4'
+  - parameter 'mandatory' => false
+  - parameter 'abs' => false
+  - node #1 => rhea.metamodels.BasicFMs.impl.FeatureModelImpl@7c51f34b (name: fm)
+  - node #2 => rhea.metamodels.CardinalityBasedFMs.impl.GroupCardinalityImpl@12a94400 (id: Root_F2, name: F2, mandatory: false, abstract: false)
+  - node #3 => rhea.metamodels.CardinalityBasedFMs.impl.GroupCardinalityImpl@43599640 (id: Root_F2_F4, name: F4, mandatory: false, abstract: false)
+  - node #4 => rhea.metamodels.CardinalityBasedFMs.impl.MultiplicityImpl@6337c201 (lower: 0, upper: -1)
+  - node #5 => rhea.metamodels.BasicFMs.impl.FeatureImpl@6950ed69 (id: Root_F2_F4_F85, name: F85, mandatory: false, abstract: false)
+
+  Match #2:
+  - parameter 'id' => 'Root_F2_F4'
+  - parameter 'name' => 'F4'
+  - parameter 'mandatory' => false
+  - parameter 'abs' => false
+  - node #1 => rhea.metamodels.BasicFMs.impl.FeatureModelImpl@7c51f34b (name: fm)
+  - node #2 => rhea.metamodels.CardinalityBasedFMs.impl.GroupCardinalityImpl@12a94400 (id: Root_F2, name: F2, mandatory: false, abstract: false)
+  - node #3 => rhea.metamodels.CardinalityBasedFMs.impl.GroupCardinalityImpl@43599640 (id: Root_F2_F4, name: F4, mandatory: false, abstract: false)
+  - node #4 => rhea.metamodels.CardinalityBasedFMs.impl.MultiplicityImpl@6337c201 (lower: 0, upper: -1)
+  - node #5 => rhea.metamodels.BasicFMs.impl.FeatureImpl@3336e6b6 (id: Root_F2_F4_F14, name: F14, mandatory: false, abstract: false)
+
+  Match #3:
+  - parameter 'id' => 'Root_F2_F4'
+  - parameter 'name' => 'F4'
+  - parameter 'mandatory' => false
+  - parameter 'abs' => false
+  - node #1 => rhea.metamodels.BasicFMs.impl.FeatureModelImpl@7c51f34b (name: fm)
+  - node #2 => rhea.metamodels.CardinalityBasedFMs.impl.GroupCardinalityImpl@12a94400 (id: Root_F2, name: F2, mandatory: false, abstract: false)
+  - node #3 => rhea.metamodels.CardinalityBasedFMs.impl.GroupCardinalityImpl@43599640 (id: Root_F2_F4, name: F4, mandatory: false, abstract: false)
+  - node #4 => rhea.metamodels.CardinalityBasedFMs.impl.MultiplicityImpl@6337c201 (lower: 0, upper: -1)
+  - node #5 => rhea.metamodels.BasicFMs.impl.FeatureImpl@205d38da (id: Root_F2_F4_F16, name: F16, mandatory: false, abstract: false)
+
+Result match for rule 'GroupCardinality0N':
+- parameter 'id' => 'Root_F2_F4'
+- parameter 'name' => 'F4'
+- parameter 'mandatory' => false
+- parameter 'abs' => false
+- node #1 => rhea.metamodels.BasicFMs.impl.FeatureModelImpl@7c51f34b (name: fm)
+- node 'parent' => rhea.metamodels.CardinalityBasedFMs.impl.GroupCardinalityImpl@12a94400 (id: Root_F2, name: F2, mandatory: false, abstract: false)
+- node #3 => rhea.metamodels.BasicFMs.impl.SelectionGroupImpl@5536379e (id: Root_F2_F4P, name: F4P, mandatory: false, abstract: true)
+- node #4 => rhea.metamodels.BasicFMs.impl.FeatureImpl@277f7dd3 (id: Root_F2_F4, name: F4, mandatory: false, abstract: false)
+
+  Multi-rule #1:
+
+  Result match #0:
+  - parameter 'id' => 'Root_F2_F4'
+  - parameter 'name' => 'F4'
+  - parameter 'mandatory' => false
+  - parameter 'abs' => false
+  - node #1 => rhea.metamodels.BasicFMs.impl.FeatureModelImpl@7c51f34b (name: fm)
+  - node #2 => rhea.metamodels.CardinalityBasedFMs.impl.GroupCardinalityImpl@12a94400 (id: Root_F2, name: F2, mandatory: false, abstract: false)
+  - node #3 => rhea.metamodels.BasicFMs.impl.FeatureImpl@7c3fdb62 (id: Root_F2_F4_F15, name: F15, mandatory: false, abstract: false)
+  - node #4 => rhea.metamodels.BasicFMs.impl.SelectionGroupImpl@5536379e (id: Root_F2_F4P, name: F4P, mandatory: false, abstract: true)
+  - node #5 => rhea.metamodels.BasicFMs.impl.FeatureImpl@277f7dd3 (id: Root_F2_F4, name: F4, mandatory: false, abstract: false)
+
+  Result match #1:
+  - parameter 'id' => 'Root_F2_F4'
+  - parameter 'name' => 'F4'
+  - parameter 'mandatory' => false
+  - parameter 'abs' => false
+  - node #1 => rhea.metamodels.BasicFMs.impl.FeatureModelImpl@7c51f34b (name: fm)
+  - node #2 => rhea.metamodels.CardinalityBasedFMs.impl.GroupCardinalityImpl@12a94400 (id: Root_F2, name: F2, mandatory: false, abstract: false)
+  - node #3 => rhea.metamodels.BasicFMs.impl.FeatureImpl@6950ed69 (id: Root_F2_F4_F85, name: F85, mandatory: false, abstract: false)
+  - node #4 => rhea.metamodels.BasicFMs.impl.SelectionGroupImpl@5536379e (id: Root_F2_F4P, name: F4P, mandatory: false, abstract: true)
+  - node #5 => rhea.metamodels.BasicFMs.impl.FeatureImpl@277f7dd3 (id: Root_F2_F4, name: F4, mandatory: false, abstract: false)
+
+  Result match #2:
+  - parameter 'id' => 'Root_F2_F4'
+  - parameter 'name' => 'F4'
+  - parameter 'mandatory' => false
+  - parameter 'abs' => false
+  - node #1 => rhea.metamodels.BasicFMs.impl.FeatureModelImpl@7c51f34b (name: fm)
+  - node #2 => rhea.metamodels.CardinalityBasedFMs.impl.GroupCardinalityImpl@12a94400 (id: Root_F2, name: F2, mandatory: false, abstract: false)
+  - node #3 => rhea.metamodels.BasicFMs.impl.FeatureImpl@3336e6b6 (id: Root_F2_F4_F14, name: F14, mandatory: false, abstract: false)
+  - node #4 => rhea.metamodels.BasicFMs.impl.SelectionGroupImpl@5536379e (id: Root_F2_F4P, name: F4P, mandatory: false, abstract: true)
+  - node #5 => rhea.metamodels.BasicFMs.impl.FeatureImpl@277f7dd3 (id: Root_F2_F4, name: F4, mandatory: false, abstract: false)
+
+  Result match #3:
+  - parameter 'id' => 'Root_F2_F4'
+  - parameter 'name' => 'F4'
+  - parameter 'mandatory' => false
+  - parameter 'abs' => false
+  - node #1 => rhea.metamodels.BasicFMs.impl.FeatureModelImpl@7c51f34b (name: fm)
+  - node #2 => rhea.metamodels.CardinalityBasedFMs.impl.GroupCardinalityImpl@12a94400 (id: Root_F2, name: F2, mandatory: false, abstract: false)
+  - node #3 => rhea.metamodels.BasicFMs.impl.FeatureImpl@205d38da (id: Root_F2_F4_F16, name: F16, mandatory: false, abstract: false)
+  - node #4 => rhea.metamodels.BasicFMs.impl.SelectionGroupImpl@5536379e (id: Root_F2_F4P, name: F4P, mandatory: false, abstract: true)
+  - node #5 => rhea.metamodels.BasicFMs.impl.FeatureImpl@277f7dd3 (id: Root_F2_F4, name: F4, mandatory: false, abstract: false)
+
+=== (9) EXECUTED RULE 'GroupCardinality0N' [TRUE] ===
+
+Graph size: 111 nodes, 315 edges
+
+Match for rule 'GroupCardinality0N':
+- parameter 'id' => 'Root_F2'
+- parameter 'name' => 'F2'
+- parameter 'mandatory' => false
+- parameter 'abs' => false
+- node #1 => rhea.metamodels.BasicFMs.impl.FeatureModelImpl@7c51f34b (name: fm)
+- node 'parent' => rhea.metamodels.BasicFMs.impl.FeatureImpl@5495333e (id: Root, name: Root, mandatory: true, abstract: true)
+- node #3 => rhea.metamodels.CardinalityBasedFMs.impl.GroupCardinalityImpl@12a94400 (id: Root_F2, name: F2, mandatory: false, abstract: false)
+- node #4 => rhea.metamodels.CardinalityBasedFMs.impl.MultiplicityImpl@40317ba2 (lower: 0, upper: -1)
+
+  Multi-rule #1:
+
+  Match #0:
+  - parameter 'id' => 'Root_F2'
+  - parameter 'name' => 'F2'
+  - parameter 'mandatory' => false
+  - parameter 'abs' => false
+  - node #1 => rhea.metamodels.BasicFMs.impl.FeatureModelImpl@7c51f34b (name: fm)
+  - node #2 => rhea.metamodels.BasicFMs.impl.FeatureImpl@5495333e (id: Root, name: Root, mandatory: true, abstract: true)
+  - node #3 => rhea.metamodels.CardinalityBasedFMs.impl.GroupCardinalityImpl@12a94400 (id: Root_F2, name: F2, mandatory: false, abstract: false)
+  - node #4 => rhea.metamodels.CardinalityBasedFMs.impl.MultiplicityImpl@40317ba2 (lower: 0, upper: -1)
+  - node #5 => rhea.metamodels.BasicFMs.impl.FeatureImpl@277f7dd3 (id: Root_F2_F4, name: F4, mandatory: false, abstract: false)
+
+  Match #1:
+  - parameter 'id' => 'Root_F2'
+  - parameter 'name' => 'F2'
+  - parameter 'mandatory' => false
+  - parameter 'abs' => false
+  - node #1 => rhea.metamodels.BasicFMs.impl.FeatureModelImpl@7c51f34b (name: fm)
+  - node #2 => rhea.metamodels.BasicFMs.impl.FeatureImpl@5495333e (id: Root, name: Root, mandatory: true, abstract: true)
+  - node #3 => rhea.metamodels.CardinalityBasedFMs.impl.GroupCardinalityImpl@12a94400 (id: Root_F2, name: F2, mandatory: false, abstract: false)
+  - node #4 => rhea.metamodels.CardinalityBasedFMs.impl.MultiplicityImpl@40317ba2 (lower: 0, upper: -1)
+  - node #5 => rhea.metamodels.CardinalityBasedFMs.impl.GroupCardinalityImpl@6b6776cb (id: Root_F2_F7, name: F7, mandatory: false, abstract: false)
+
+  Match #2:
+  - parameter 'id' => 'Root_F2'
+  - parameter 'name' => 'F2'
+  - parameter 'mandatory' => false
+  - parameter 'abs' => false
+  - node #1 => rhea.metamodels.BasicFMs.impl.FeatureModelImpl@7c51f34b (name: fm)
+  - node #2 => rhea.metamodels.BasicFMs.impl.FeatureImpl@5495333e (id: Root, name: Root, mandatory: true, abstract: true)
+  - node #3 => rhea.metamodels.CardinalityBasedFMs.impl.GroupCardinalityImpl@12a94400 (id: Root_F2, name: F2, mandatory: false, abstract: false)
+  - node #4 => rhea.metamodels.CardinalityBasedFMs.impl.MultiplicityImpl@40317ba2 (lower: 0, upper: -1)
+  - node #5 => rhea.metamodels.BasicFMs.impl.FeatureImpl@1863d2fe (id: Root_F2_F45, name: F45, mandatory: false, abstract: false)
+
+  Match #3:
+  - parameter 'id' => 'Root_F2'
+  - parameter 'name' => 'F2'
+  - parameter 'mandatory' => false
+  - parameter 'abs' => false
+  - node #1 => rhea.metamodels.BasicFMs.impl.FeatureModelImpl@7c51f34b (name: fm)
+  - node #2 => rhea.metamodels.BasicFMs.impl.FeatureImpl@5495333e (id: Root, name: Root, mandatory: true, abstract: true)
+  - node #3 => rhea.metamodels.CardinalityBasedFMs.impl.GroupCardinalityImpl@12a94400 (id: Root_F2, name: F2, mandatory: false, abstract: false)
+  - node #4 => rhea.metamodels.CardinalityBasedFMs.impl.MultiplicityImpl@40317ba2 (lower: 0, upper: -1)
+  - node #5 => rhea.metamodels.CardinalityBasedFMs.impl.GroupCardinalityImpl@1f81aa00 (id: Root_F2_F5, name: F5, mandatory: false, abstract: false)
+
+Result match for rule 'GroupCardinality0N':
+- parameter 'id' => 'Root_F2'
+- parameter 'name' => 'F2'
+- parameter 'mandatory' => false
+- parameter 'abs' => false
+- node #1 => rhea.metamodels.BasicFMs.impl.FeatureModelImpl@7c51f34b (name: fm)
+- node 'parent' => rhea.metamodels.BasicFMs.impl.FeatureImpl@5495333e (id: Root, name: Root, mandatory: true, abstract: true)
+- node #3 => rhea.metamodels.BasicFMs.impl.SelectionGroupImpl@3f1c5af9 (id: Root_F2P, name: F2P, mandatory: false, abstract: true)
+- node #4 => rhea.metamodels.BasicFMs.impl.FeatureImpl@1c55f277 (id: Root_F2, name: F2, mandatory: false, abstract: false)
+
+  Multi-rule #1:
+
+  Result match #0:
+  - parameter 'id' => 'Root_F2'
+  - parameter 'name' => 'F2'
+  - parameter 'mandatory' => false
+  - parameter 'abs' => false
+  - node #1 => rhea.metamodels.BasicFMs.impl.FeatureModelImpl@7c51f34b (name: fm)
+  - node #2 => rhea.metamodels.BasicFMs.impl.FeatureImpl@5495333e (id: Root, name: Root, mandatory: true, abstract: true)
+  - node #3 => rhea.metamodels.BasicFMs.impl.FeatureImpl@277f7dd3 (id: Root_F2_F4, name: F4, mandatory: false, abstract: false)
+  - node #4 => rhea.metamodels.BasicFMs.impl.SelectionGroupImpl@3f1c5af9 (id: Root_F2P, name: F2P, mandatory: false, abstract: true)
+  - node #5 => rhea.metamodels.BasicFMs.impl.FeatureImpl@1c55f277 (id: Root_F2, name: F2, mandatory: false, abstract: false)
+
+  Result match #1:
+  - parameter 'id' => 'Root_F2'
+  - parameter 'name' => 'F2'
+  - parameter 'mandatory' => false
+  - parameter 'abs' => false
+  - node #1 => rhea.metamodels.BasicFMs.impl.FeatureModelImpl@7c51f34b (name: fm)
+  - node #2 => rhea.metamodels.BasicFMs.impl.FeatureImpl@5495333e (id: Root, name: Root, mandatory: true, abstract: true)
+  - node #3 => rhea.metamodels.CardinalityBasedFMs.impl.GroupCardinalityImpl@6b6776cb (id: Root_F2_F7, name: F7, mandatory: false, abstract: false)
+  - node #4 => rhea.metamodels.BasicFMs.impl.SelectionGroupImpl@3f1c5af9 (id: Root_F2P, name: F2P, mandatory: false, abstract: true)
+  - node #5 => rhea.metamodels.BasicFMs.impl.FeatureImpl@1c55f277 (id: Root_F2, name: F2, mandatory: false, abstract: false)
+
+  Result match #2:
+  - parameter 'id' => 'Root_F2'
+  - parameter 'name' => 'F2'
+  - parameter 'mandatory' => false
+  - parameter 'abs' => false
+  - node #1 => rhea.metamodels.BasicFMs.impl.FeatureModelImpl@7c51f34b (name: fm)
+  - node #2 => rhea.metamodels.BasicFMs.impl.FeatureImpl@5495333e (id: Root, name: Root, mandatory: true, abstract: true)
+  - node #3 => rhea.metamodels.BasicFMs.impl.FeatureImpl@1863d2fe (id: Root_F2_F45, name: F45, mandatory: false, abstract: false)
+  - node #4 => rhea.metamodels.BasicFMs.impl.SelectionGroupImpl@3f1c5af9 (id: Root_F2P, name: F2P, mandatory: false, abstract: true)
+  - node #5 => rhea.metamodels.BasicFMs.impl.FeatureImpl@1c55f277 (id: Root_F2, name: F2, mandatory: false, abstract: false)
+
+  Result match #3:
+  - parameter 'id' => 'Root_F2'
+  - parameter 'name' => 'F2'
+  - parameter 'mandatory' => false
+  - parameter 'abs' => false
+  - node #1 => rhea.metamodels.BasicFMs.impl.FeatureModelImpl@7c51f34b (name: fm)
+  - node #2 => rhea.metamodels.BasicFMs.impl.FeatureImpl@5495333e (id: Root, name: Root, mandatory: true, abstract: true)
+  - node #3 => rhea.metamodels.CardinalityBasedFMs.impl.GroupCardinalityImpl@1f81aa00 (id: Root_F2_F5, name: F5, mandatory: false, abstract: false)
+  - node #4 => rhea.metamodels.BasicFMs.impl.SelectionGroupImpl@3f1c5af9 (id: Root_F2P, name: F2P, mandatory: false, abstract: true)
+  - node #5 => rhea.metamodels.BasicFMs.impl.FeatureImpl@1c55f277 (id: Root_F2, name: F2, mandatory: false, abstract: false)
+
+=== (10) EXECUTED RULE 'GroupCardinality0N' [FALSE] ===
+
+Graph size: 111 nodes, 315 edges
+
+=== (11) EXECUTED UNIT 'AllGroupCardinality0N' [TRUE] ===
+
+Graph size: 111 nodes, 315 edges
+
+=== (12) EXECUTED RULE 'GroupCardinality0B' [TRUE] ===
+
+Graph size: 112 nodes, 318 edges
+
+Match for rule 'GroupCardinality0B':
+- parameter 'id' => 'Root_F2_F7'
+- parameter 'name' => 'F7'
+- parameter 'abs' => false
+- parameter 'mandatory' => false
+- parameter 'upper' => 1
+- node #1 => rhea.metamodels.BasicFMs.impl.FeatureModelImpl@7c51f34b (name: fm)
+- node #2 => rhea.metamodels.CardinalityBasedFMs.impl.GroupCardinalityImpl@6b6776cb (id: Root_F2_F7, name: F7, mandatory: false, abstract: false)
+- node 'parent' => rhea.metamodels.BasicFMs.impl.SelectionGroupImpl@3f1c5af9 (id: Root_F2P, name: F2P, mandatory: false, abstract: true)
+- node #4 => rhea.metamodels.CardinalityBasedFMs.impl.MultiplicityImpl@3406472c (lower: 0, upper: 1)
+
+  Multi-rule #1:
+
+  Match #0:
+  - parameter 'id' => 'Root_F2_F7'
+  - parameter 'name' => 'F7'
+  - parameter 'abs' => false
+  - parameter 'mandatory' => false
+  - parameter 'upper' => 1
+  - node #1 => rhea.metamodels.BasicFMs.impl.FeatureModelImpl@7c51f34b (name: fm)
+  - node #2 => rhea.metamodels.CardinalityBasedFMs.impl.GroupCardinalityImpl@6b6776cb (id: Root_F2_F7, name: F7, mandatory: false, abstract: false)
+  - node 'parent' => rhea.metamodels.BasicFMs.impl.SelectionGroupImpl@3f1c5af9 (id: Root_F2P, name: F2P, mandatory: false, abstract: true)
+  - node #4 => rhea.metamodels.BasicFMs.impl.FeatureImpl@28b46423 (id: Root_F2_F7_F21, name: F21, mandatory: false, abstract: false)
+  - node #5 => rhea.metamodels.CardinalityBasedFMs.impl.MultiplicityImpl@3406472c (lower: 0, upper: 1)
+
+  Match #1:
+  - parameter 'id' => 'Root_F2_F7'
+  - parameter 'name' => 'F7'
+  - parameter 'abs' => false
+  - parameter 'mandatory' => false
+  - parameter 'upper' => 1
+  - node #1 => rhea.metamodels.BasicFMs.impl.FeatureModelImpl@7c51f34b (name: fm)
+  - node #2 => rhea.metamodels.CardinalityBasedFMs.impl.GroupCardinalityImpl@6b6776cb (id: Root_F2_F7, name: F7, mandatory: false, abstract: false)
+  - node 'parent' => rhea.metamodels.BasicFMs.impl.SelectionGroupImpl@3f1c5af9 (id: Root_F2P, name: F2P, mandatory: false, abstract: true)
+  - node #4 => rhea.metamodels.CardinalityBasedFMs.impl.GroupCardinalityImpl@4e07b95f (id: Root_F2_F7_F8, name: F8, mandatory: false, abstract: false)
+  - node #5 => rhea.metamodels.CardinalityBasedFMs.impl.MultiplicityImpl@3406472c (lower: 0, upper: 1)
+
+  Match #2:
+  - parameter 'id' => 'Root_F2_F7'
+  - parameter 'name' => 'F7'
+  - parameter 'abs' => false
+  - parameter 'mandatory' => false
+  - parameter 'upper' => 1
+  - node #1 => rhea.metamodels.BasicFMs.impl.FeatureModelImpl@7c51f34b (name: fm)
+  - node #2 => rhea.metamodels.CardinalityBasedFMs.impl.GroupCardinalityImpl@6b6776cb (id: Root_F2_F7, name: F7, mandatory: false, abstract: false)
+  - node 'parent' => rhea.metamodels.BasicFMs.impl.SelectionGroupImpl@3f1c5af9 (id: Root_F2P, name: F2P, mandatory: false, abstract: true)
+  - node #4 => rhea.metamodels.BasicFMs.impl.FeatureImpl@7fc4780b (id: Root_F2_F7_F22, name: F22, mandatory: false, abstract: false)
+  - node #5 => rhea.metamodels.CardinalityBasedFMs.impl.MultiplicityImpl@3406472c (lower: 0, upper: 1)
+
+Result match for rule 'GroupCardinality0B':
+- parameter 'id' => 'Root_F2_F7'
+- parameter 'name' => 'F7'
+- parameter 'abs' => false
+- parameter 'mandatory' => false
+- parameter 'upper' => 1
+- node #1 => rhea.metamodels.BasicFMs.impl.FeatureModelImpl@7c51f34b (name: fm)
+- node 'parent' => rhea.metamodels.BasicFMs.impl.SelectionGroupImpl@3f1c5af9 (id: Root_F2P, name: F2P, mandatory: false, abstract: true)
+- node #3 => rhea.metamodels.CardinalityBasedFMs.impl.MultiplicityImpl@74e47444 (lower: 1, upper: 1)
+- node #4 => rhea.metamodels.CardinalityBasedFMs.impl.GroupCardinalityImpl@9bd0fa6 (id: Root_F2_F7P, name: F7P, mandatory: false, abstract: true)
+- node #5 => rhea.metamodels.BasicFMs.impl.FeatureImpl@59d2103b (id: Root_F2_F7, name: F7, mandatory: false, abstract: false)
+
+  Multi-rule #1:
+
+  Result match #0:
+  - parameter 'id' => 'Root_F2_F7'
+  - parameter 'name' => 'F7'
+  - parameter 'abs' => false
+  - parameter 'mandatory' => false
+  - parameter 'upper' => 1
+  - node #1 => rhea.metamodels.BasicFMs.impl.FeatureModelImpl@7c51f34b (name: fm)
+  - node #2 => rhea.metamodels.BasicFMs.impl.FeatureImpl@59d2103b (id: Root_F2_F7, name: F7, mandatory: false, abstract: false)
+  - node #3 => rhea.metamodels.CardinalityBasedFMs.impl.GroupCardinalityImpl@9bd0fa6 (id: Root_F2_F7P, name: F7P, mandatory: false, abstract: true)
+  - node 'parent' => rhea.metamodels.BasicFMs.impl.SelectionGroupImpl@3f1c5af9 (id: Root_F2P, name: F2P, mandatory: false, abstract: true)
+  - node #5 => rhea.metamodels.BasicFMs.impl.FeatureImpl@28b46423 (id: Root_F2_F7_F21, name: F21, mandatory: false, abstract: false)
+
+  Result match #1:
+  - parameter 'id' => 'Root_F2_F7'
+  - parameter 'name' => 'F7'
+  - parameter 'abs' => false
+  - parameter 'mandatory' => false
+  - parameter 'upper' => 1
+  - node #1 => rhea.metamodels.BasicFMs.impl.FeatureModelImpl@7c51f34b (name: fm)
+  - node #2 => rhea.metamodels.BasicFMs.impl.FeatureImpl@59d2103b (id: Root_F2_F7, name: F7, mandatory: false, abstract: false)
+  - node #3 => rhea.metamodels.CardinalityBasedFMs.impl.GroupCardinalityImpl@9bd0fa6 (id: Root_F2_F7P, name: F7P, mandatory: false, abstract: true)
+  - node 'parent' => rhea.metamodels.BasicFMs.impl.SelectionGroupImpl@3f1c5af9 (id: Root_F2P, name: F2P, mandatory: false, abstract: true)
+  - node #5 => rhea.metamodels.CardinalityBasedFMs.impl.GroupCardinalityImpl@4e07b95f (id: Root_F2_F7_F8, name: F8, mandatory: false, abstract: false)
+
+  Result match #2:
+  - parameter 'id' => 'Root_F2_F7'
+  - parameter 'name' => 'F7'
+  - parameter 'abs' => false
+  - parameter 'mandatory' => false
+  - parameter 'upper' => 1
+  - node #1 => rhea.metamodels.BasicFMs.impl.FeatureModelImpl@7c51f34b (name: fm)
+  - node #2 => rhea.metamodels.BasicFMs.impl.FeatureImpl@59d2103b (id: Root_F2_F7, name: F7, mandatory: false, abstract: false)
+  - node #3 => rhea.metamodels.CardinalityBasedFMs.impl.GroupCardinalityImpl@9bd0fa6 (id: Root_F2_F7P, name: F7P, mandatory: false, abstract: true)
+  - node 'parent' => rhea.metamodels.BasicFMs.impl.SelectionGroupImpl@3f1c5af9 (id: Root_F2P, name: F2P, mandatory: false, abstract: true)
+  - node #5 => rhea.metamodels.BasicFMs.impl.FeatureImpl@7fc4780b (id: Root_F2_F7_F22, name: F22, mandatory: false, abstract: false)
+
+=== (13) EXECUTED RULE 'GroupCardinality0B' [FALSE] ===
+
+Graph size: 112 nodes, 318 edges
+
+=== (14) EXECUTED UNIT 'AllGroupCardinality0B' [TRUE] ===
+
+Graph size: 112 nodes, 318 edges
+
+=== (15) EXECUTED UNIT 'GroupCardinalitiesRefactor' [TRUE] ===
+
+Graph size: 112 nodes, 318 edges
+

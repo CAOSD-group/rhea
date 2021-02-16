@@ -1,7 +1,10 @@
 package rhea.evaluation.refactorings;
 
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.eclipse.emf.ecore.util.EcoreUtil;
 
@@ -11,10 +14,12 @@ import rhea.aafm.AutomatedAnalysisFM;
 import rhea.generators.FMGenerator;
 import rhea.generators.clafer.ToClafer;
 import rhea.metamodels.BasicFMs.FeatureModel;
+import rhea.metamodels.helpers.EMFIO;
 import rhea.metamodels.helpers.FMHelper;
 import rhea.parsers.FMParser;
 import rhea.parsers.clafer.ClaferParser;
 import rhea.thirdpartyplugins.utils.Utils;
+import rhea.transformations.engine.HenshinEngine;
 
 public class MainTest {
 	
@@ -22,8 +27,9 @@ public class MainTest {
 	TransformationInformation ti;
 	
 	AutomatedAnalysisFM aafm;
+	HenshinEngine henshin;
 	
-	//String outputFileAS;
+	String outputFileAS;
 	String outputFile;
 	String inputFile;
 	
@@ -34,18 +40,19 @@ public class MainTest {
 	public MainTest() {
 		tis = new ArrayList<>();
 		aafm = new AAFMClafer();
+		henshin = new HenshinEngine(Rhea.BASEDIR);
 	}
 	
 	public List<TransformationInformation> run(String model, List<Refactoring> mds) {
 		inputFile = Rhea.CLAFER_INPUTS_DIR + Rhea.REFACTOR_PATH + model + ".txt";
 		outputFile = Rhea.CLAFER_OUTPUTS_DIR + Rhea.REFACTOR_PATH + model + "-refactored.txt";
-		//outputFileAS = Rhea.ABSTRACTSYNTAX_OUTPUTS_DIR + model + "-refactored.xmi";
+		outputFileAS = Rhea.ABSTRACTSYNTAX_OUTPUTS_DIR + model + "-refactored.xmi";
 		
 		FMParser p = new ClaferParser();
 		
 		// fm es una variable auxiliar para almacenar el fm transformado, fmAux contiene el fm tal y como sale despues del anterior modulo.
-		// Esto es necesario porque necesitamos reiniciar el modelo entre iteraciones, y poder almacenarlo de alguna manera. Además,
-		// necesitamos también una manera de reiniciar el modelo una vez hemos obtenido los números de pasos.
+		// Esto es necesario porque necesitamos reiniciar el modelo entre iteraciones, y poder almacenarlo de alguna manera. Ademï¿½s,
+		// necesitamos tambiï¿½n una manera de reiniciar el modelo una vez hemos obtenido los nï¿½meros de pasos.
 		FeatureModel fmAux = p.readFeatureModel(inputFile);
 		FeatureModel fm = EcoreUtil.copy(fmAux);
 		
@@ -56,9 +63,9 @@ public class MainTest {
 				
 				fmAux = EcoreUtil.copy(fm);
 				ti = new TransformationInformation();
-				List<String> units = new ArrayList<>();
+				Set<String> units = new HashSet<>();
 				
-				// Comprobación solo necesaria para GroupCardinalitiesNM
+				// Comprobaciï¿½n solo necesaria para GroupCardinalitiesNM
 				if (r instanceof GroupCardinalitiesNMRefactoring) {
 					
 					((GroupCardinalitiesNMRefactoring) r).setFeatureModel(fmAux);
@@ -93,7 +100,6 @@ public class MainTest {
 					postTransformation(fm);
 				}
 			}
-		
 		} 
 		catch (SecurityException e) {e.printStackTrace();}
 		catch (IllegalArgumentException e) {e.printStackTrace();}
@@ -103,23 +109,27 @@ public class MainTest {
 	
 	private void preTransformation(FeatureModel fm) {
 		// Save information
-		ti.setProductsBefore(aafm.products(fm));
-		ti.setNumberOfFeaturesTypeBefore(FMHelper.getAllFeaturesOf(fm,this.CLASS_PATH).size()); //Cambiar con cada run
+		//ti.setProductsBefore(aafm.products(fm));
+		ti.setNumberOfFeaturesTypeBefore(FMHelper.getAllFeaturesOf(fm,this.CLASS_PATH).size());
+		ti.setnFeaturesBefore(fm.getFeatures().size());
 		ti.setTimeBefore(System.nanoTime());
 	}
 	
 	private void postTransformation(FeatureModel fm) {
 		// Save information
 		ti.setTimeAfter(System.nanoTime());
-		ti.setProductsAfter(aafm.products(fm));
-		ti.setNumberOfFeaturesTypeAfter(FMHelper.getAllFeaturesOf(fm,this.CLASS_PATH).size()); //Cambiar con cada run
-		ti.setnFeatures(fm.getFeatures().size());
+		//ti.setProductsAfter(aafm.products(fm));
+		ti.setNumberOfFeaturesTypeAfter(FMHelper.getAllFeaturesOf(fm,this.CLASS_PATH).size());
+		ti.setnFeaturesAfter(fm.getFeatures().size());
 	
 		tis.add(ti);
 		
 		// Serialize the abstract syntax
-		//henshin.saveModel(fm, outputFileAS);
-		//EMFIO.saveModel(fm, Rhea.STATIC_METAMODELS, outputFileAS);
+		/*henshin.saveModel(fm, outputFileAS);
+		
+		try {EMFIO.saveModel(fm, Rhea.STATIC_METAMODELS, outputFileAS);}
+		catch (IOException e) {e.printStackTrace();}*/
+		
 		FMGenerator g = new ToClafer();
 		Utils.serialize(g.fm2text(fm), outputFile);
 	}

@@ -16,25 +16,18 @@ import rhea.parsers.clafer.ClaferParser;
 
 public class Main {
 	public static boolean DEBUG = true;
+
 	
 	public static void main(String[] args) {
+		String inputName = "fm";
 		
-		String inputName = "gc005";
-		
-		// Adicional, necesario para GroupCardinalities.
-		String inputFile = Rhea.CLAFER_INPUTS_DIR + Rhea.REFACTOR_PATH + inputName + ".txt";
-		FMParser p = new ClaferParser();
-		FeatureModel fm = p.readFeatureModel(inputFile);
-		// End 
-		
-		//Parametros
+		//Par�metros
 		List<Refactoring> mds = new ArrayList<Refactoring>();
 		//mds.add(new MutexGroupRefactoring(DEBUG));
 		mds.add(new GroupCardinalitiesRefactoring(DEBUG));
 		mds.add(new GroupCardinalitiesNMRefactoring(DEBUG));
 		
 		List<String> fms = new ArrayList<String>();
-		//fms.add("mutex001");
 		fms.add(inputName);
 		
 		List<List<TransformationInformation>> tiss = new ArrayList<>();
@@ -43,48 +36,45 @@ public class Main {
 			tiss.add(new MainTest().run(model, mds));
 		}
 		
-		saveData(tiss);
-		processData();
+		saveData(tiss,inputName);
+		processData(inputName);
 	}
 	
-	private static void saveData(List<List<TransformationInformation>> tiss) {
+	private static void saveData(List<List<TransformationInformation>> tiss, String inputName) {
 		try 
 		{
-			FileWriter fw = new FileWriter(Rhea.BASEDIR + "temp/raw_data.csv");
-			fw.write("Run,HenshinModule,HenshinUnits,inputModel,nFeatures,nRefactors,nRulesSucessExecuted, Time(ns) \n");
+			FileWriter fw = new FileWriter(Rhea.BASEDIR + "temp/" + inputName + "-raw.csv");
+			fw.write("Run,HenshinModule,HenshinUnits,inputModel,nFeaturesBefore,nFeaturesAfter,nFeaturesTypeBefore,nFeaturesTypeAfter,nRefactors,nRulesSucessExecuted, Time(ns) \n");
 			
 			for (List<TransformationInformation> tis : tiss) {
-				int i = 1;
-				int rulesSuccessExecuted=0, rulesExecuted;
+				int rulesSuccessExecuted=0, rulesExecuted=0;
 		
 				for (TransformationInformation ti : tis) {
 					if (ti.getRun()==-1) {
-						rulesSuccessExecuted = ti.getRulesSuccessExecuted(); //NO FUNCIONA, COMPROBAR
+						rulesSuccessExecuted = ti.getRulesSuccessExecuted();
 						rulesExecuted = ti.getRulesExecuted();
 					}
 					else
 					{
-						fw.write(ti.getRun() + "," + ti.getHenshinModule() + "," + ti.getHenshinUnits() + "," + ti.getInputModel() + "," + ti.getnFeatures() + "," 
-					+ (ti.getNumberOfFeaturesTypeBefore() - ti.getNumberOfFeaturesTypeAfter()) + "," + rulesSuccessExecuted + "," + ti.getPerformance() + "\n");
+						fw.write(ti.getRun() + "," + ti.getHenshinModule() + "," + ti.getHenshinUnits() + "," + ti.getInputModel() + "," + ti.getnFeaturesBefore() + "," 
+						+ ti.getnFeaturesAfter() + "," + ti.getNumberOfFeaturesTypeBefore() + "," + ti.getNumberOfFeaturesTypeAfter() + "," 
+						+ (ti.getNumberOfFeaturesTypeBefore() - ti.getNumberOfFeaturesTypeAfter()) + "," + rulesSuccessExecuted + "," + ti.getPerformance() + "\n");
 					}
 				}
-				
 			}
 			fw.close();
 		} 
 		catch (IOException e) {e.printStackTrace();}
-		
 	}
 	
-	private static void processData() {
+	private static void processData(String inputName) {
 		try 
 		{
-
-			FileReader fr = new FileReader(Rhea.BASEDIR + "temp/raw_data.csv");
+			FileReader fr = new FileReader(Rhea.BASEDIR + "temp/" + inputName + "-raw.csv");
 			BufferedReader bf = new BufferedReader(fr);
-			FileWriter fw = new FileWriter(Rhea.BASEDIR + "temp/processed_data.csv");
+			FileWriter fw = new FileWriter(Rhea.BASEDIR + "temp/" + inputName + "-processed.csv");
 			
-			fw.write("HenshinModule,HenshinRule,inputModel,nFeatures,nRefactors,nRulesSucessExecuted,mean,median,sd \n");
+			fw.write("HenshinModule,HenshinRule,inputModel,nFeaturesBefore,nFeaturesAfter,nFeaturesTypeBefore,nFeaturesTypeAfter,nRefactors,nRulesSucessExecuted,mean,median,sd \n");
 			
 			String run;
 			double sd, mean, median;
@@ -121,6 +111,5 @@ public class Main {
 		} 
 		catch (FileNotFoundException e) {e.printStackTrace();} 
 		catch (IOException e) {e.printStackTrace();}
-		
 	}
 }

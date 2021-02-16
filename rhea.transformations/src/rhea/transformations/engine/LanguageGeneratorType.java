@@ -3,7 +3,11 @@ package rhea.transformations.engine;
 import java.util.Map;
 
 public enum LanguageGeneratorType { 
-	Root("Root", "deterministic/GenRoot", "GenSimpleRoot", Map.of()),
+	OrdinaryRoot("Root", "deterministic/GenRoot", "GenSimpleRoot", Map.of()),
+	SelectionGroupRoot("Root", "deterministic/GenRoot", "GenSelectionGroupRoot", Map.of()),
+	AlternativeGroupRoot("Root", "deterministic/GenRoot", "GenAlternativeGroupRoot", Map.of()),
+	MutexGroupRoot("Root", "deterministic/GenRoot", "GenMutexGroupRoot", Map.of()),
+	GroupCardinalityRoot("Root", "deterministic/GenRoot", "GenGroupCardinalityRoot", Map.of()),
 	OptionalFeature("Optional Feature", "nondeterministic/GenFeatureRandomly", "GenSimpleFeatureRandomly", Map.of(LanguageGeneratorParam.MANDATORY.getName(), false)),
 	MandatoryFeature("Mandatory Feature", "nondeterministic/GenFeatureRandomly", "GenSimpleFeatureRandomly", Map.of(LanguageGeneratorParam.MANDATORY.getName(), true)),
 	OrdinaryFeatureNonDeterministic("ND Ordinary Feature", "nondeterministic/GenFeatureRandomly", "GenSimpleFeatureRandomly", Map.of()),

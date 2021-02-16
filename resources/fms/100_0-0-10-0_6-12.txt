@@ -1,0 +1,101 @@
+abstract Root
+	mux F2 ?
+		mux F3
+			mux F6
+				mux F9
+					F53
+					F54
+					F55
+						F94 ?
+						F98
+					F56
+						F81
+						F85 ?
+					F57
+					F58
+					F59
+				F33
+				F34
+				F35
+				F36
+				F37
+				F38
+			F16
+				F75
+				F83 ?
+			F17
+			F18
+			F19
+			F20
+			F21
+				F79 ?
+		mux F7
+			F39
+			F40
+			F41
+			F42
+			F43
+			F44
+				F76
+			F45
+			F93
+		mux F11
+			F67
+			F68
+				F97
+			F69
+			F70
+			F71
+			F72
+			F73
+			F91
+		F12
+			F88
+		F13
+			F90 ?
+		F14
+			F87 ?
+		F15
+	mux F4
+		mux F5
+			mux F8
+				F46
+				F47
+				F48
+				F49
+				F50
+					F89 ?
+					F95 ?
+				F51
+				F52
+			F27
+			F28
+				F86 ?
+				F100
+			F29
+			F30
+			F31
+				F84
+			F32
+				F99
+			F74
+		mux F10
+			F60
+			F61
+				F92
+			F62
+			F63
+			F64
+				F80 ?
+			F65
+			F66
+				F96 ?
+			F78
+		F22
+		F23
+		F24
+			F82 ?
+		F25
+		F26
+	F77 ?
+config: Root

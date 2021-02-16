@@ -1,8 +1,10 @@
 package rhea.evaluation.refactorings;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.PrintStream;
 import java.util.List;
 import java.util.Map;
-
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.henshin.model.Unit;
 
@@ -38,19 +40,18 @@ public abstract class HenshingRefactoring implements Refactoring{
 			if(debugMode) 
 			{
 					monitor = new MyLoggingApplicationMonitor();
-					if (henshin.executeTransformation(unit,  Map.of(), fm, monitor))
-						System.out.println("Transformation applied succesfully.");
-					else 
-						System.out.println("Transformation was not applied.");
+					
+					try {monitor.setLogStream(new PrintStream(new File(Rhea.OUTPUTS_DIR + this.getClass().toString()  + "-log.txt")));} 
+					catch (FileNotFoundException e) {e.printStackTrace();}
+					
+					if (henshin.executeTransformation(unit,  Map.of(), fm, monitor)) System.out.println("Transformation applied succesfully.");
+					else System.out.println("Transformation was not applied.");
 			}
 			else
 			{
-					if (henshin.executeTransformation(unit,  Map.of(), fm))
-						System.out.println("Transformation applied succesfully.");
-					else 
-						System.out.println("Transformation was not applied.");
+					if (henshin.executeTransformation(unit,  Map.of(), fm)) System.out.println("Transformation applied succesfully.");
+					else System.out.println("Transformation was not applied.");
 			}
-
 		}
 	}
 	

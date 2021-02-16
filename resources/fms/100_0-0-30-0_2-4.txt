@@ -1,102 +1,101 @@
-abstract 0
-	mux 1 ?
-		mux 4
-			mux 7
-				mux 10
-					41
-					42
-					43
-				37
-				38
-			mux 29
-				89
-				90
-				91
-			33
-		31
-		32
-	mux 2
-		mux 3
-			mux 5
-				mux 6
-					34
-					35
-					36
-						95 ?
-				mux 12
-					mux 14
-						49
-						50
-						51
-					mux 25
-						77
-							97
-						78
-						79
-					46
-				mux 16
-					mux 22
-						mux 28
-							86
-							87
-							88
-						69
-						70
-					55
-					56
-			mux 9
-				mux 13
-					mux 21
-						66
-						67
-						68
-					47
-					48
-				mux 18
-					mux 26
-						80
-						81
-						82
-					58
-					59
-				40
-			mux 24
-				74
-				75
-					100 ?
-				76
-			mux 27
-				83
-				84
-				85
-		mux 11
-			mux 15
-				52
-				53
-				54
-				96
-					98
-			44
-			45
-		mux 20
-			63
-			64
-			65
-			99
-	mux 8 ?
-		mux 17
-			mux 19
-				60
-				61
-				62
-			mux 30
-				92
-				93
-				94
-			57
-		mux 23
-			71
-			72
-			73
-		39
-config: 0
+abstract Root
+	mux F2
+		mux F3
+			mux F14
+				mux F16
+					mux F18
+						F61
+						F62
+						F63
+					mux F21
+						F68
+						F69
+						F70
+					F58
+				mux F17
+					mux F24
+						F74
+						F75
+						F76
+					F59
+					F60
+					F100
+				mux F23
+					mux F29
+						F89
+						F90
+						F91
+					mux F30
+						F92
+						F93
+						F94
+					F73
+			F32
+			F33
+		mux F5
+			mux F6
+				mux F8
+					mux F19
+						F64
+						F65
+						F66
+					mux F20
+						mux F26
+							F80
+							F81
+							F82
+						mux F31
+							F95
+							F96
+							F97
+						F67
+					F39
+				mux F22
+					mux F27
+						F83
+						F84
+						F85
+					F71
+					F72
+				F36
+			mux F13
+				F52
+				F53
+				F54
+					F98 ?
+			F35
+		mux F7
+			mux F15
+				F55
+				F56
+				F57
+			F37
+			F38
+		mux F9
+			F40
+			F41
+			F42
+		mux F10
+			F43
+			F44
+			F45
+	mux F4 ?
+		mux F25
+			F77
+			F78
+			F79
+		mux F28
+			F86
+			F87
+			F88
+		F34
+	mux F11
+		F46
+		F47
+		F48
+	mux F12
+		F49
+		F50
+		F51
+	F99 ?
+config: Root

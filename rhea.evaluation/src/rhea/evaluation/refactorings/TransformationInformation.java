@@ -1,6 +1,5 @@
 package rhea.evaluation.refactorings;
 
-import java.util.List;
 import java.util.Set;
 import rhea.metamodels.BasicFMs.Feature;
 
@@ -8,11 +7,12 @@ public class TransformationInformation {
 	private int run;
 	
 	private String henshinModule;
-	private List<String> henshinUnits;
+	private Set<String> henshinUnits;
 	
 	private String inputModel;
 	
-	private int nFeatures;
+	private int nFeaturesBefore;
+	private int nFeaturesAfter;
 	
 	private Set<Set<Feature>> productsBefore;
 	private Set<Set<Feature>> productsAfter;
@@ -42,11 +42,11 @@ public class TransformationInformation {
 		this.henshinModule = henshinModule;
 	}
 	
-	public List<String> getHenshinUnits() {
+	public Set<String> getHenshinUnits() {
 		return henshinUnits;
 	}
 	
-	public void setHenshinUnits(List<String> henshinUnits) {
+	public void setHenshinUnits(Set<String> henshinUnits) {
 		this.henshinUnits = henshinUnits;
 	}
 	
@@ -58,12 +58,20 @@ public class TransformationInformation {
 		this.inputModel = inputModel;
 	}
 	
-	public int getnFeatures() {
-		return nFeatures;
+	public int getnFeaturesBefore() {
+		return nFeaturesBefore;
 	}
 	
-	public void setnFeatures(int nFeatures) {
-		this.nFeatures = nFeatures;
+	public void setnFeaturesBefore(int nFeaturesBefore) {
+		this.nFeaturesBefore = nFeaturesBefore;
+	}
+	
+	public int getnFeaturesAfter() {
+		return nFeaturesAfter;
+	}
+	
+	public void setnFeaturesAfter(int nFeaturesAfter) {
+		this.nFeaturesAfter = nFeaturesAfter;
 	}
 	
 	public Set<Set<Feature>> getProductsBefore() {

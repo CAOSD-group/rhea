@@ -1,5 +1,6 @@
 package rhea.transformations.generator;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
@@ -11,6 +12,7 @@ import rhea.metamodels.CardinalityBasedFMs.GroupCardinality;
 import rhea.metamodels.helpers.FMHelper;
 import rhea.transformations.engine.FeatureModelGenerator;
 import rhea.transformations.engine.LanguageGeneratorType;
+import rhea.transformations.refactorings.GroupCardinalities;
 
 public class FeatureModelGeneratorByPercentages {
 	private FeatureModelGenerator fmg;
@@ -25,19 +27,40 @@ public class FeatureModelGeneratorByPercentages {
 		
 		Random rd = new Random();
 		double percentage;
-		int i = 1;
+		int i = 2;
 
 		Feature parent;
 		Boolean mandatory;
 		LanguageGeneratorType lgt = null;
 		
-		fmg.addFeature(fm, LanguageGeneratorType.Root ,"0",true,false);
+		// Crear una root de una Feature cuyo porcentaje no sea 0.
+		/*List<String> possibleRoots = new ArrayList<>();
+		possibleRoots.add("Ordinary");
+		
+		for (String key : percentages.keySet()) 
+		{
+			if(percentages.get(key) > 0) possibleRoots.add(key);		
+		}
+		
+		String rootGenerator = possibleRoots.get(rd.nextInt(possibleRoots.size()));
+		
+		if(rootGenerator.contains("Selection")) lgt = LanguageGeneratorType.SelectionGroupRoot;
+		else if(rootGenerator.contains("Alternative")) lgt = LanguageGeneratorType.AlternativeGroupRoot;
+		else if(rootGenerator.contains("Mutex")) lgt = LanguageGeneratorType.MutexGroupRoot;						
+		else if(rootGenerator.contains("Cardinality")) lgt = LanguageGeneratorType.GroupCardinalityRoot;
+		else if(rootGenerator.contains("Ordinary")) lgt = LanguageGeneratorType.OrdinaryRoot;
+		
+		fmg.addFeature(fm, lgt ,"Root",true,false);*/
+		//End Create Root
+		
+		fmg.addFeature(fm, LanguageGeneratorType.OrdinaryRoot ,"Root",true,false);
 		
 		//NEW CODE
-		//Este código genera las features en función de su porcentaje actual (siempre escoge el que tenga menor porcentaje actualmente).
+		//Este cï¿½digo genera las features en funciï¿½n de su porcentaje actual (siempre escoge el que tenga menor porcentaje actualmente).
 		double minPercentage = 0;
 		String minClassPath = "";
 		
+		int gcCounter = 0;
 		
 		while(minPercentage!=1 && i<=nFeatures)
 		{
@@ -58,24 +81,25 @@ public class FeatureModelGeneratorByPercentages {
 			
 			mandatory = rd.nextBoolean();
 			
-			if(minClassPath.contains("Selection")) lgt = LanguageGeneratorType.SelectionGroupNonDeterministic;
-			else if(minClassPath.contains("Alternative")) lgt = LanguageGeneratorType.AlternativeGroupNonDeterministic;
-			else if(minClassPath.contains("Mutex")) lgt = LanguageGeneratorType.MutexGroupNonDeterministic;						
-			else if(minClassPath.contains("Cardinality")) lgt = LanguageGeneratorType.GroupCardinalityNonDeterministic;
-			
+			if(minClassPath.contains("SelectionGroup")) lgt = LanguageGeneratorType.SelectionGroupNonDeterministic;
+			else if(minClassPath.contains("AlternativeGroup")) lgt = LanguageGeneratorType.AlternativeGroupNonDeterministic;
+			else if(minClassPath.contains("MutexGroup")) lgt = LanguageGeneratorType.MutexGroupNonDeterministic;						
+			else if(minClassPath.contains("GroupCardinality")) lgt = LanguageGeneratorType.GroupCardinalityNonDeterministic;
 			
 			if (lgt!=null)
 			{
-				if(minClassPath.contains("Cardinality")) fmg.addGroupCardinality(fm, lgt, Integer.toString(i), mandatory, rd.nextBoolean(), 0, 0);
-				else fmg.addFeature(fm, lgt, Integer.toString(i), mandatory, rd.nextBoolean());
+				if(minClassPath.contains("GroupCardinality")) 
+				{	
+					fmg.addGroupCardinality(fm, lgt, "F"+Integer.toString(i), mandatory, rd.nextBoolean(), 0, 0);
+				}
+				else fmg.addFeature(fm, lgt, "F"+Integer.toString(i), mandatory, rd.nextBoolean());
 				
-				if(fm.getFeature(Integer.toString(i)).getParent() instanceof FeatureGroup) fm.getFeature(Integer.toString(i)).setMandatory(false);
+				if(fm.getFeature("F"+Integer.toString(i)).getParent() instanceof FeatureGroup) fm.getFeature("F"+Integer.toString(i)).setMandatory(false);
 				
 				System.out.println("Feature: " + i);
 				i++;
 			}
 		}
-
 		
 		//END NEW CODE
 		
@@ -83,21 +107,21 @@ public class FeatureModelGeneratorByPercentages {
 		List<Feature> groups = FMHelper.getAllFeaturesOf(fm, "rhea.metamodels.BasicFMs.FeatureGroup");
 		
 		// Completamos los FeatureGroups
-		// ESTE BUCLE NO CUMPLE LAS RESTRICCIONES DE i<nFeatures, para que el modelo de salida siempre sea válido.
+		// ESTE BUCLE NO CUMPLE LAS RESTRICCIONES DE i<nFeatures, para que el modelo de salida siempre sea vï¿½lido.
 		for (Feature feature : groups) 
 		{
 			int nChilds = feature.getChildren().size();	
 			
 			for (int j = nChilds; j <= nChildMin; j++) 
 			{
-				fmg.addFeature(fm, lgt, Integer.toString(i), false, rd.nextBoolean(), feature);
+				fmg.addFeature(fm, lgt, "F"+Integer.toString(i), false, rd.nextBoolean(), feature);
 				System.out.println("Completing: " + i);
 				i++;
 			}
 		}		
 		
 		
-		List<Feature> features = fm.getFeatures();
+		List<Feature> features = new ArrayList<>(fm.getFeatures());
 		
 		//Rellenamos el resto del modelo
 		while(i<=nFeatures)
@@ -112,25 +136,26 @@ public class FeatureModelGeneratorByPercentages {
 			}
 			
 			if(parent instanceof FeatureGroup) mandatory = false;
-			fmg.addFeature(fm, lgt, Integer.toString(i), mandatory, rd.nextBoolean(), parent);
+			fmg.addFeature(fm, lgt, "F"+Integer.toString(i), mandatory, rd.nextBoolean(), parent);
 			System.out.println("Filling: " + i);
 			
 			i++;
 		}
 		
 		// Arreglamos las multiplicidades
+		// No coge todos los GroupCardinalities, ï¿½Por que?
 		groups = FMHelper.getAllFeaturesOf(fm, "rhea.metamodels.CardinalityBasedFMs.GroupCardinality");
 		
 		int lower,upper;
 		
 		for(Feature feature : groups)
-		{	
+		{
 			do
 			{
 				lower = rd.nextInt(feature.getChildren().size()+1);
 				upper = rd.nextInt(feature.getChildren().size()+1);
 			}
-			while(upper<lower || upper==0);
+			while(upper<lower || upper==0); // || feature.getChildren().size() <= lower
 			
 			((GroupCardinality) feature).getMultiplicity().setLower(lower);
 			((GroupCardinality) feature).getMultiplicity().setUpper(upper);
@@ -139,9 +164,9 @@ public class FeatureModelGeneratorByPercentages {
 		
 		if(!FMHelper.isValid(fm))
 		{
-			System.out.println("EL FM NO ES VÁLIDO");
+			System.out.println("EL FM NO ES Vï¿½LIDO");
 		}
-		
+
 		// Comprobamos los Porcentajes
 		for (String f : percentages.keySet()) {
 			if(!f.contains("Feature")) System.out.println("Porcentaje de " + f +": " + (double) FMHelper.getAllFeaturesOf(fm,f).size()/(double) nFeatures);
@@ -153,7 +178,7 @@ public class FeatureModelGeneratorByPercentages {
 }
 
 //OLD CODE
-// Este código por el contrario, genera las Feature hasta llegar a su cupo. Crea FM menos heterogéneos.
+// Este cï¿½digo por el contrario, genera las Feature hasta llegar a su cupo. Crea FM menos heterogï¿½neos.
 /*
 for (String f : percentages.keySet())
 {

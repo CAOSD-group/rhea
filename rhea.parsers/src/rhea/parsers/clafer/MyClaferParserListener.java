@@ -258,7 +258,7 @@ public class MyClaferParserListener implements claferParserListener {
 				
 				if (parent != null) {
 					parent.getChildren().add(currentFeature);
-					currentFeature.setId(parent.getId() + "_" + featureName);
+					currentFeature.setId(featureName);
 					if (parent instanceof FeatureGroup) {		// BE CAREFUL! we do not allow mandatory feature inside a group, but we should?
 						currentFeature.setMandatory(false);
 					}
