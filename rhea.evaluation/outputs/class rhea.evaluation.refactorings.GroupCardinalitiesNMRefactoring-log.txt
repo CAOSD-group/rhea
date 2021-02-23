@@ -1,206 +1,206 @@
 === (1) EXECUTED RULE 'CreateConstraint' [TRUE] ===
 
-Graph size: 307 nodes, 606 edges
+Graph size: 265 nodes, 543 edges
 
 Match for rule 'CreateConstraint':
 - no parameters
-- node #1 => rhea.metamodels.BasicFMs.impl.FeatureModelImpl@388d14e (name: fm)
+- node #1 => rhea.metamodels.BasicFMs.impl.FeatureModelImpl@3667faa8 (name: fm)
 
 Result match for rule 'CreateConstraint':
 - no parameters
-- node #1 => rhea.metamodels.PropLogicCTCs.impl.ImpliesImpl@28cfdcb
-- node #2 => rhea.metamodels.PropLogicCTCs.impl.OrImpl@7a67d983
-- node #3 => rhea.metamodels.BasicFMs.impl.FeatureModelImpl@388d14e (name: fm)
-- node #4 => rhea.metamodels.PropLogicCTCs.impl.AdvancedConstraintImpl@3d945944
-- node #5 => org.eclipse.emf.henshin.trace.impl.TraceImpl@6ae6df4a (name: null)
+- node #1 => rhea.metamodels.PropLogicCTCs.impl.ImpliesImpl@6984d41a
+- node #2 => rhea.metamodels.PropLogicCTCs.impl.OrImpl@70d8f66
+- node #3 => rhea.metamodels.BasicFMs.impl.FeatureModelImpl@3667faa8 (name: fm)
+- node #4 => rhea.metamodels.PropLogicCTCs.impl.AdvancedConstraintImpl@1b0f3f57
+- node #5 => org.eclipse.emf.henshin.trace.impl.TraceImpl@1ea83b58 (name: null)
 
 === (2) EXECUTED RULE 'CombiK1' [TRUE] ===
 
-Graph size: 310 nodes, 610 edges
+Graph size: 268 nodes, 547 edges
 
 Match for rule 'CombiK1':
 - no parameters
-- node 'gc' => rhea.metamodels.CardinalityBasedFMs.impl.GroupCardinalityImpl@6baf25d7 (id: Root_F2_F4P, name: F4P, mandatory: false, abstract: true)
-- node #2 => rhea.metamodels.BasicFMs.impl.FeatureImpl@77c1e611 (id: Root_F2_F4_F85, name: F85, mandatory: false, abstract: false)
-- node #3 => rhea.metamodels.PropLogicCTCs.impl.OrImpl@7a67d983
-- node #4 => rhea.metamodels.PropLogicCTCs.impl.ImpliesImpl@28cfdcb
-- node #5 => org.eclipse.emf.henshin.trace.impl.TraceImpl@6ae6df4a (name: null)
+- node 'gc' => rhea.metamodels.CardinalityBasedFMs.impl.GroupCardinalityImpl@3eb3232b (id: F10, name: F10, mandatory: false, abstract: false)
+- node #2 => rhea.metamodels.BasicFMs.impl.FeatureImpl@3f81621c (id: F36, name: F36, mandatory: false, abstract: false)
+- node #3 => rhea.metamodels.PropLogicCTCs.impl.OrImpl@70d8f66
+- node #4 => rhea.metamodels.PropLogicCTCs.impl.ImpliesImpl@6984d41a
+- node #5 => org.eclipse.emf.henshin.trace.impl.TraceImpl@1ea83b58 (name: null)
 
   Multi-rule #1:
 
   Match #0:
   - no parameters
-  - node #1 => rhea.metamodels.CardinalityBasedFMs.impl.GroupCardinalityImpl@6baf25d7 (id: Root_F2_F4P, name: F4P, mandatory: false, abstract: true)
-  - node #2 => rhea.metamodels.BasicFMs.impl.FeatureImpl@77c1e611 (id: Root_F2_F4_F85, name: F85, mandatory: false, abstract: false)
-  - node #3 => rhea.metamodels.PropLogicCTCs.impl.OrImpl@7a67d983
-  - node #4 => rhea.metamodels.PropLogicCTCs.impl.ImpliesImpl@28cfdcb
-  - node #5 => org.eclipse.emf.henshin.trace.impl.TraceImpl@6ae6df4a (name: null)
+  - node #1 => rhea.metamodels.CardinalityBasedFMs.impl.GroupCardinalityImpl@3eb3232b (id: F10, name: F10, mandatory: false, abstract: false)
+  - node #2 => rhea.metamodels.BasicFMs.impl.FeatureImpl@3f81621c (id: F36, name: F36, mandatory: false, abstract: false)
+  - node #3 => rhea.metamodels.PropLogicCTCs.impl.OrImpl@70d8f66
+  - node #4 => rhea.metamodels.PropLogicCTCs.impl.ImpliesImpl@6984d41a
+  - node #5 => org.eclipse.emf.henshin.trace.impl.TraceImpl@1ea83b58 (name: null)
 
 Result match for rule 'CombiK1':
 - no parameters
-- node 'gc' => rhea.metamodels.CardinalityBasedFMs.impl.GroupCardinalityImpl@6baf25d7 (id: Root_F2_F4P, name: F4P, mandatory: false, abstract: true)
-- node #2 => rhea.metamodels.BasicFMs.impl.FeatureImpl@77c1e611 (id: Root_F2_F4_F85, name: F85, mandatory: false, abstract: false)
-- node #3 => rhea.metamodels.PropLogicCTCs.impl.OrImpl@7a67d983
-- node #4 => rhea.metamodels.PropLogicCTCs.impl.ImpliesImpl@28cfdcb
-- node #5 => org.eclipse.emf.henshin.trace.impl.TraceImpl@6ae6df4a (name: null)
-- node #6 => org.eclipse.emf.henshin.trace.impl.TraceImpl@34bdf0da (name: null)
+- node 'gc' => rhea.metamodels.CardinalityBasedFMs.impl.GroupCardinalityImpl@3eb3232b (id: F10, name: F10, mandatory: false, abstract: false)
+- node #2 => rhea.metamodels.BasicFMs.impl.FeatureImpl@3f81621c (id: F36, name: F36, mandatory: false, abstract: false)
+- node #3 => rhea.metamodels.PropLogicCTCs.impl.OrImpl@70d8f66
+- node #4 => rhea.metamodels.PropLogicCTCs.impl.ImpliesImpl@6984d41a
+- node #5 => org.eclipse.emf.henshin.trace.impl.TraceImpl@1ea83b58 (name: null)
+- node #6 => org.eclipse.emf.henshin.trace.impl.TraceImpl@2248583e (name: null)
 
   Multi-rule #1:
 
   Result match #0:
   - no parameters
-  - node #1 => rhea.metamodels.CardinalityBasedFMs.impl.GroupCardinalityImpl@6baf25d7 (id: Root_F2_F4P, name: F4P, mandatory: false, abstract: true)
-  - node #2 => rhea.metamodels.BasicFMs.impl.FeatureImpl@77c1e611 (id: Root_F2_F4_F85, name: F85, mandatory: false, abstract: false)
-  - node #3 => rhea.metamodels.PropLogicCTCs.impl.OrImpl@7a67d983
-  - node #4 => rhea.metamodels.PropLogicCTCs.impl.ImpliesImpl@28cfdcb
-  - node #5 => org.eclipse.emf.henshin.trace.impl.TraceImpl@6ae6df4a (name: null)
-  - node #6 => rhea.metamodels.PropLogicCTCs.impl.AndImpl@5c73535b
-  - node #7 => rhea.metamodels.PropLogicCTCs.impl.FeatureTermImpl@8880259
-  - node #8 => org.eclipse.emf.henshin.trace.impl.TraceImpl@34bdf0da (name: null)
+  - node #1 => rhea.metamodels.CardinalityBasedFMs.impl.GroupCardinalityImpl@3eb3232b (id: F10, name: F10, mandatory: false, abstract: false)
+  - node #2 => rhea.metamodels.BasicFMs.impl.FeatureImpl@3f81621c (id: F36, name: F36, mandatory: false, abstract: false)
+  - node #3 => rhea.metamodels.PropLogicCTCs.impl.OrImpl@70d8f66
+  - node #4 => rhea.metamodels.PropLogicCTCs.impl.ImpliesImpl@6984d41a
+  - node #5 => org.eclipse.emf.henshin.trace.impl.TraceImpl@1ea83b58 (name: null)
+  - node #6 => rhea.metamodels.PropLogicCTCs.impl.AndImpl@1dfd27fe
+  - node #7 => rhea.metamodels.PropLogicCTCs.impl.FeatureTermImpl@3b6f1227
+  - node #8 => org.eclipse.emf.henshin.trace.impl.TraceImpl@2248583e (name: null)
 
 === (3) EXECUTED RULE 'CombiK1' [TRUE] ===
 
-Graph size: 313 nodes, 614 edges
+Graph size: 271 nodes, 551 edges
 
 Match for rule 'CombiK1':
 - no parameters
-- node 'gc' => rhea.metamodels.CardinalityBasedFMs.impl.GroupCardinalityImpl@6baf25d7 (id: Root_F2_F4P, name: F4P, mandatory: false, abstract: true)
-- node #2 => rhea.metamodels.BasicFMs.impl.FeatureImpl@46046c06 (id: Root_F2_F4_F14, name: F14, mandatory: false, abstract: false)
-- node #3 => rhea.metamodels.PropLogicCTCs.impl.OrImpl@7a67d983
-- node #4 => rhea.metamodels.PropLogicCTCs.impl.ImpliesImpl@28cfdcb
-- node #5 => org.eclipse.emf.henshin.trace.impl.TraceImpl@6ae6df4a (name: null)
+- node 'gc' => rhea.metamodels.CardinalityBasedFMs.impl.GroupCardinalityImpl@3eb3232b (id: F10, name: F10, mandatory: false, abstract: false)
+- node #2 => rhea.metamodels.BasicFMs.impl.FeatureImpl@abbe000 (id: F31, name: F31, mandatory: false, abstract: false)
+- node #3 => rhea.metamodels.PropLogicCTCs.impl.OrImpl@70d8f66
+- node #4 => rhea.metamodels.PropLogicCTCs.impl.ImpliesImpl@6984d41a
+- node #5 => org.eclipse.emf.henshin.trace.impl.TraceImpl@1ea83b58 (name: null)
 
   Multi-rule #1:
 
   Match #0:
   - no parameters
-  - node #1 => rhea.metamodels.CardinalityBasedFMs.impl.GroupCardinalityImpl@6baf25d7 (id: Root_F2_F4P, name: F4P, mandatory: false, abstract: true)
-  - node #2 => rhea.metamodels.BasicFMs.impl.FeatureImpl@46046c06 (id: Root_F2_F4_F14, name: F14, mandatory: false, abstract: false)
-  - node #3 => rhea.metamodels.PropLogicCTCs.impl.OrImpl@7a67d983
-  - node #4 => rhea.metamodels.PropLogicCTCs.impl.ImpliesImpl@28cfdcb
-  - node #5 => org.eclipse.emf.henshin.trace.impl.TraceImpl@6ae6df4a (name: null)
+  - node #1 => rhea.metamodels.CardinalityBasedFMs.impl.GroupCardinalityImpl@3eb3232b (id: F10, name: F10, mandatory: false, abstract: false)
+  - node #2 => rhea.metamodels.BasicFMs.impl.FeatureImpl@abbe000 (id: F31, name: F31, mandatory: false, abstract: false)
+  - node #3 => rhea.metamodels.PropLogicCTCs.impl.OrImpl@70d8f66
+  - node #4 => rhea.metamodels.PropLogicCTCs.impl.ImpliesImpl@6984d41a
+  - node #5 => org.eclipse.emf.henshin.trace.impl.TraceImpl@1ea83b58 (name: null)
 
 Result match for rule 'CombiK1':
 - no parameters
-- node 'gc' => rhea.metamodels.CardinalityBasedFMs.impl.GroupCardinalityImpl@6baf25d7 (id: Root_F2_F4P, name: F4P, mandatory: false, abstract: true)
-- node #2 => rhea.metamodels.BasicFMs.impl.FeatureImpl@46046c06 (id: Root_F2_F4_F14, name: F14, mandatory: false, abstract: false)
-- node #3 => rhea.metamodels.PropLogicCTCs.impl.OrImpl@7a67d983
-- node #4 => rhea.metamodels.PropLogicCTCs.impl.ImpliesImpl@28cfdcb
-- node #5 => org.eclipse.emf.henshin.trace.impl.TraceImpl@6ae6df4a (name: null)
-- node #6 => org.eclipse.emf.henshin.trace.impl.TraceImpl@194c98f5 (name: null)
+- node 'gc' => rhea.metamodels.CardinalityBasedFMs.impl.GroupCardinalityImpl@3eb3232b (id: F10, name: F10, mandatory: false, abstract: false)
+- node #2 => rhea.metamodels.BasicFMs.impl.FeatureImpl@abbe000 (id: F31, name: F31, mandatory: false, abstract: false)
+- node #3 => rhea.metamodels.PropLogicCTCs.impl.OrImpl@70d8f66
+- node #4 => rhea.metamodels.PropLogicCTCs.impl.ImpliesImpl@6984d41a
+- node #5 => org.eclipse.emf.henshin.trace.impl.TraceImpl@1ea83b58 (name: null)
+- node #6 => org.eclipse.emf.henshin.trace.impl.TraceImpl@2cf846b9 (name: null)
 
   Multi-rule #1:
 
   Result match #0:
   - no parameters
-  - node #1 => rhea.metamodels.CardinalityBasedFMs.impl.GroupCardinalityImpl@6baf25d7 (id: Root_F2_F4P, name: F4P, mandatory: false, abstract: true)
-  - node #2 => rhea.metamodels.BasicFMs.impl.FeatureImpl@46046c06 (id: Root_F2_F4_F14, name: F14, mandatory: false, abstract: false)
-  - node #3 => rhea.metamodels.PropLogicCTCs.impl.OrImpl@7a67d983
-  - node #4 => rhea.metamodels.PropLogicCTCs.impl.ImpliesImpl@28cfdcb
-  - node #5 => org.eclipse.emf.henshin.trace.impl.TraceImpl@6ae6df4a (name: null)
-  - node #6 => rhea.metamodels.PropLogicCTCs.impl.AndImpl@511ecb4f
-  - node #7 => rhea.metamodels.PropLogicCTCs.impl.FeatureTermImpl@4ad3f5ad
-  - node #8 => org.eclipse.emf.henshin.trace.impl.TraceImpl@194c98f5 (name: null)
+  - node #1 => rhea.metamodels.CardinalityBasedFMs.impl.GroupCardinalityImpl@3eb3232b (id: F10, name: F10, mandatory: false, abstract: false)
+  - node #2 => rhea.metamodels.BasicFMs.impl.FeatureImpl@abbe000 (id: F31, name: F31, mandatory: false, abstract: false)
+  - node #3 => rhea.metamodels.PropLogicCTCs.impl.OrImpl@70d8f66
+  - node #4 => rhea.metamodels.PropLogicCTCs.impl.ImpliesImpl@6984d41a
+  - node #5 => org.eclipse.emf.henshin.trace.impl.TraceImpl@1ea83b58 (name: null)
+  - node #6 => rhea.metamodels.PropLogicCTCs.impl.AndImpl@6f45872b
+  - node #7 => rhea.metamodels.PropLogicCTCs.impl.FeatureTermImpl@6c916b7e
+  - node #8 => org.eclipse.emf.henshin.trace.impl.TraceImpl@2cf846b9 (name: null)
 
 === (4) EXECUTED RULE 'CombiK1' [TRUE] ===
 
-Graph size: 316 nodes, 618 edges
+Graph size: 274 nodes, 555 edges
 
 Match for rule 'CombiK1':
 - no parameters
-- node 'gc' => rhea.metamodels.CardinalityBasedFMs.impl.GroupCardinalityImpl@6baf25d7 (id: Root_F2_F4P, name: F4P, mandatory: false, abstract: true)
-- node #2 => rhea.metamodels.BasicFMs.impl.FeatureImpl@93824eb (id: Root_F2_F4_F15, name: F15, mandatory: false, abstract: false)
-- node #3 => rhea.metamodels.PropLogicCTCs.impl.OrImpl@7a67d983
-- node #4 => rhea.metamodels.PropLogicCTCs.impl.ImpliesImpl@28cfdcb
-- node #5 => org.eclipse.emf.henshin.trace.impl.TraceImpl@6ae6df4a (name: null)
+- node 'gc' => rhea.metamodels.CardinalityBasedFMs.impl.GroupCardinalityImpl@3eb3232b (id: F10, name: F10, mandatory: false, abstract: false)
+- node #2 => rhea.metamodels.BasicFMs.impl.FeatureImpl@6587305a (id: F30, name: F30, mandatory: false, abstract: false)
+- node #3 => rhea.metamodels.PropLogicCTCs.impl.OrImpl@70d8f66
+- node #4 => rhea.metamodels.PropLogicCTCs.impl.ImpliesImpl@6984d41a
+- node #5 => org.eclipse.emf.henshin.trace.impl.TraceImpl@1ea83b58 (name: null)
 
   Multi-rule #1:
 
   Match #0:
   - no parameters
-  - node #1 => rhea.metamodels.CardinalityBasedFMs.impl.GroupCardinalityImpl@6baf25d7 (id: Root_F2_F4P, name: F4P, mandatory: false, abstract: true)
-  - node #2 => rhea.metamodels.BasicFMs.impl.FeatureImpl@93824eb (id: Root_F2_F4_F15, name: F15, mandatory: false, abstract: false)
-  - node #3 => rhea.metamodels.PropLogicCTCs.impl.OrImpl@7a67d983
-  - node #4 => rhea.metamodels.PropLogicCTCs.impl.ImpliesImpl@28cfdcb
-  - node #5 => org.eclipse.emf.henshin.trace.impl.TraceImpl@6ae6df4a (name: null)
+  - node #1 => rhea.metamodels.CardinalityBasedFMs.impl.GroupCardinalityImpl@3eb3232b (id: F10, name: F10, mandatory: false, abstract: false)
+  - node #2 => rhea.metamodels.BasicFMs.impl.FeatureImpl@6587305a (id: F30, name: F30, mandatory: false, abstract: false)
+  - node #3 => rhea.metamodels.PropLogicCTCs.impl.OrImpl@70d8f66
+  - node #4 => rhea.metamodels.PropLogicCTCs.impl.ImpliesImpl@6984d41a
+  - node #5 => org.eclipse.emf.henshin.trace.impl.TraceImpl@1ea83b58 (name: null)
 
 Result match for rule 'CombiK1':
 - no parameters
-- node 'gc' => rhea.metamodels.CardinalityBasedFMs.impl.GroupCardinalityImpl@6baf25d7 (id: Root_F2_F4P, name: F4P, mandatory: false, abstract: true)
-- node #2 => rhea.metamodels.BasicFMs.impl.FeatureImpl@93824eb (id: Root_F2_F4_F15, name: F15, mandatory: false, abstract: false)
-- node #3 => rhea.metamodels.PropLogicCTCs.impl.OrImpl@7a67d983
-- node #4 => rhea.metamodels.PropLogicCTCs.impl.ImpliesImpl@28cfdcb
-- node #5 => org.eclipse.emf.henshin.trace.impl.TraceImpl@6ae6df4a (name: null)
-- node #6 => org.eclipse.emf.henshin.trace.impl.TraceImpl@7788921d (name: null)
+- node 'gc' => rhea.metamodels.CardinalityBasedFMs.impl.GroupCardinalityImpl@3eb3232b (id: F10, name: F10, mandatory: false, abstract: false)
+- node #2 => rhea.metamodels.BasicFMs.impl.FeatureImpl@6587305a (id: F30, name: F30, mandatory: false, abstract: false)
+- node #3 => rhea.metamodels.PropLogicCTCs.impl.OrImpl@70d8f66
+- node #4 => rhea.metamodels.PropLogicCTCs.impl.ImpliesImpl@6984d41a
+- node #5 => org.eclipse.emf.henshin.trace.impl.TraceImpl@1ea83b58 (name: null)
+- node #6 => org.eclipse.emf.henshin.trace.impl.TraceImpl@2892b704 (name: null)
 
   Multi-rule #1:
 
   Result match #0:
   - no parameters
-  - node #1 => rhea.metamodels.CardinalityBasedFMs.impl.GroupCardinalityImpl@6baf25d7 (id: Root_F2_F4P, name: F4P, mandatory: false, abstract: true)
-  - node #2 => rhea.metamodels.BasicFMs.impl.FeatureImpl@93824eb (id: Root_F2_F4_F15, name: F15, mandatory: false, abstract: false)
-  - node #3 => rhea.metamodels.PropLogicCTCs.impl.OrImpl@7a67d983
-  - node #4 => rhea.metamodels.PropLogicCTCs.impl.ImpliesImpl@28cfdcb
-  - node #5 => org.eclipse.emf.henshin.trace.impl.TraceImpl@6ae6df4a (name: null)
-  - node #6 => rhea.metamodels.PropLogicCTCs.impl.AndImpl@50eb7b10
-  - node #7 => rhea.metamodels.PropLogicCTCs.impl.FeatureTermImpl@540823d
-  - node #8 => org.eclipse.emf.henshin.trace.impl.TraceImpl@7788921d (name: null)
+  - node #1 => rhea.metamodels.CardinalityBasedFMs.impl.GroupCardinalityImpl@3eb3232b (id: F10, name: F10, mandatory: false, abstract: false)
+  - node #2 => rhea.metamodels.BasicFMs.impl.FeatureImpl@6587305a (id: F30, name: F30, mandatory: false, abstract: false)
+  - node #3 => rhea.metamodels.PropLogicCTCs.impl.OrImpl@70d8f66
+  - node #4 => rhea.metamodels.PropLogicCTCs.impl.ImpliesImpl@6984d41a
+  - node #5 => org.eclipse.emf.henshin.trace.impl.TraceImpl@1ea83b58 (name: null)
+  - node #6 => rhea.metamodels.PropLogicCTCs.impl.AndImpl@6b2d01e2
+  - node #7 => rhea.metamodels.PropLogicCTCs.impl.FeatureTermImpl@c005d62
+  - node #8 => org.eclipse.emf.henshin.trace.impl.TraceImpl@2892b704 (name: null)
 
 === (5) EXECUTED RULE 'CombiK1' [TRUE] ===
 
-Graph size: 319 nodes, 622 edges
+Graph size: 277 nodes, 559 edges
 
 Match for rule 'CombiK1':
 - no parameters
-- node 'gc' => rhea.metamodels.CardinalityBasedFMs.impl.GroupCardinalityImpl@6baf25d7 (id: Root_F2_F4P, name: F4P, mandatory: false, abstract: true)
-- node #2 => rhea.metamodels.BasicFMs.impl.FeatureImpl@7af52ec7 (id: Root_F2_F4_F16, name: F16, mandatory: false, abstract: false)
-- node #3 => rhea.metamodels.PropLogicCTCs.impl.OrImpl@7a67d983
-- node #4 => rhea.metamodels.PropLogicCTCs.impl.ImpliesImpl@28cfdcb
-- node #5 => org.eclipse.emf.henshin.trace.impl.TraceImpl@6ae6df4a (name: null)
+- node 'gc' => rhea.metamodels.CardinalityBasedFMs.impl.GroupCardinalityImpl@3eb3232b (id: F10, name: F10, mandatory: false, abstract: false)
+- node #2 => rhea.metamodels.BasicFMs.impl.FeatureImpl@b5de58f (id: F29, name: F29, mandatory: false, abstract: false)
+- node #3 => rhea.metamodels.PropLogicCTCs.impl.OrImpl@70d8f66
+- node #4 => rhea.metamodels.PropLogicCTCs.impl.ImpliesImpl@6984d41a
+- node #5 => org.eclipse.emf.henshin.trace.impl.TraceImpl@1ea83b58 (name: null)
 
   Multi-rule #1:
 
   Match #0:
   - no parameters
-  - node #1 => rhea.metamodels.CardinalityBasedFMs.impl.GroupCardinalityImpl@6baf25d7 (id: Root_F2_F4P, name: F4P, mandatory: false, abstract: true)
-  - node #2 => rhea.metamodels.BasicFMs.impl.FeatureImpl@7af52ec7 (id: Root_F2_F4_F16, name: F16, mandatory: false, abstract: false)
-  - node #3 => rhea.metamodels.PropLogicCTCs.impl.OrImpl@7a67d983
-  - node #4 => rhea.metamodels.PropLogicCTCs.impl.ImpliesImpl@28cfdcb
-  - node #5 => org.eclipse.emf.henshin.trace.impl.TraceImpl@6ae6df4a (name: null)
+  - node #1 => rhea.metamodels.CardinalityBasedFMs.impl.GroupCardinalityImpl@3eb3232b (id: F10, name: F10, mandatory: false, abstract: false)
+  - node #2 => rhea.metamodels.BasicFMs.impl.FeatureImpl@b5de58f (id: F29, name: F29, mandatory: false, abstract: false)
+  - node #3 => rhea.metamodels.PropLogicCTCs.impl.OrImpl@70d8f66
+  - node #4 => rhea.metamodels.PropLogicCTCs.impl.ImpliesImpl@6984d41a
+  - node #5 => org.eclipse.emf.henshin.trace.impl.TraceImpl@1ea83b58 (name: null)
 
 Result match for rule 'CombiK1':
 - no parameters
-- node 'gc' => rhea.metamodels.CardinalityBasedFMs.impl.GroupCardinalityImpl@6baf25d7 (id: Root_F2_F4P, name: F4P, mandatory: false, abstract: true)
-- node #2 => rhea.metamodels.BasicFMs.impl.FeatureImpl@7af52ec7 (id: Root_F2_F4_F16, name: F16, mandatory: false, abstract: false)
-- node #3 => rhea.metamodels.PropLogicCTCs.impl.OrImpl@7a67d983
-- node #4 => rhea.metamodels.PropLogicCTCs.impl.ImpliesImpl@28cfdcb
-- node #5 => org.eclipse.emf.henshin.trace.impl.TraceImpl@6ae6df4a (name: null)
-- node #6 => org.eclipse.emf.henshin.trace.impl.TraceImpl@4d2ad535 (name: null)
+- node 'gc' => rhea.metamodels.CardinalityBasedFMs.impl.GroupCardinalityImpl@3eb3232b (id: F10, name: F10, mandatory: false, abstract: false)
+- node #2 => rhea.metamodels.BasicFMs.impl.FeatureImpl@b5de58f (id: F29, name: F29, mandatory: false, abstract: false)
+- node #3 => rhea.metamodels.PropLogicCTCs.impl.OrImpl@70d8f66
+- node #4 => rhea.metamodels.PropLogicCTCs.impl.ImpliesImpl@6984d41a
+- node #5 => org.eclipse.emf.henshin.trace.impl.TraceImpl@1ea83b58 (name: null)
+- node #6 => org.eclipse.emf.henshin.trace.impl.TraceImpl@7808fb63 (name: null)
 
   Multi-rule #1:
 
   Result match #0:
   - no parameters
-  - node #1 => rhea.metamodels.CardinalityBasedFMs.impl.GroupCardinalityImpl@6baf25d7 (id: Root_F2_F4P, name: F4P, mandatory: false, abstract: true)
-  - node #2 => rhea.metamodels.BasicFMs.impl.FeatureImpl@7af52ec7 (id: Root_F2_F4_F16, name: F16, mandatory: false, abstract: false)
-  - node #3 => rhea.metamodels.PropLogicCTCs.impl.OrImpl@7a67d983
-  - node #4 => rhea.metamodels.PropLogicCTCs.impl.ImpliesImpl@28cfdcb
-  - node #5 => org.eclipse.emf.henshin.trace.impl.TraceImpl@6ae6df4a (name: null)
-  - node #6 => rhea.metamodels.PropLogicCTCs.impl.AndImpl@4692047b
-  - node #7 => rhea.metamodels.PropLogicCTCs.impl.FeatureTermImpl@47c237fe
-  - node #8 => org.eclipse.emf.henshin.trace.impl.TraceImpl@4d2ad535 (name: null)
+  - node #1 => rhea.metamodels.CardinalityBasedFMs.impl.GroupCardinalityImpl@3eb3232b (id: F10, name: F10, mandatory: false, abstract: false)
+  - node #2 => rhea.metamodels.BasicFMs.impl.FeatureImpl@b5de58f (id: F29, name: F29, mandatory: false, abstract: false)
+  - node #3 => rhea.metamodels.PropLogicCTCs.impl.OrImpl@70d8f66
+  - node #4 => rhea.metamodels.PropLogicCTCs.impl.ImpliesImpl@6984d41a
+  - node #5 => org.eclipse.emf.henshin.trace.impl.TraceImpl@1ea83b58 (name: null)
+  - node #6 => rhea.metamodels.PropLogicCTCs.impl.AndImpl@7b29d791
+  - node #7 => rhea.metamodels.PropLogicCTCs.impl.FeatureTermImpl@754c6edb
+  - node #8 => org.eclipse.emf.henshin.trace.impl.TraceImpl@7808fb63 (name: null)
 
 === (6) EXECUTED RULE 'CombiK1' [FALSE] ===
 
-Graph size: 319 nodes, 622 edges
+Graph size: 277 nodes, 559 edges
 
 === (7) EXECUTED UNIT 'MultiCombiK1' [TRUE] ===
 
-Graph size: 319 nodes, 622 edges
+Graph size: 277 nodes, 559 edges
 
 === (8) EXECUTED RULE 'CleanFeatureTrace' [TRUE] ===
 
-Graph size: 315 nodes, 618 edges
+Graph size: 273 nodes, 555 edges
 
 Match for rule 'CleanFeatureTrace':
 - no parameters
@@ -210,23 +210,23 @@ Match for rule 'CleanFeatureTrace':
 
   Match #0:
   - no parameters
-  - node #1 => org.eclipse.emf.henshin.trace.impl.TraceImpl@7788921d (name: null)
-  - node #2 => rhea.metamodels.BasicFMs.impl.FeatureImpl@93824eb (id: Root_F2_F4_F15, name: F15, mandatory: false, abstract: false)
+  - node #1 => org.eclipse.emf.henshin.trace.impl.TraceImpl@7808fb63 (name: null)
+  - node #2 => rhea.metamodels.BasicFMs.impl.FeatureImpl@b5de58f (id: F29, name: F29, mandatory: false, abstract: false)
 
   Match #1:
   - no parameters
-  - node #1 => org.eclipse.emf.henshin.trace.impl.TraceImpl@4d2ad535 (name: null)
-  - node #2 => rhea.metamodels.BasicFMs.impl.FeatureImpl@7af52ec7 (id: Root_F2_F4_F16, name: F16, mandatory: false, abstract: false)
+  - node #1 => org.eclipse.emf.henshin.trace.impl.TraceImpl@2892b704 (name: null)
+  - node #2 => rhea.metamodels.BasicFMs.impl.FeatureImpl@6587305a (id: F30, name: F30, mandatory: false, abstract: false)
 
   Match #2:
   - no parameters
-  - node #1 => org.eclipse.emf.henshin.trace.impl.TraceImpl@194c98f5 (name: null)
-  - node #2 => rhea.metamodels.BasicFMs.impl.FeatureImpl@46046c06 (id: Root_F2_F4_F14, name: F14, mandatory: false, abstract: false)
+  - node #1 => org.eclipse.emf.henshin.trace.impl.TraceImpl@2cf846b9 (name: null)
+  - node #2 => rhea.metamodels.BasicFMs.impl.FeatureImpl@abbe000 (id: F31, name: F31, mandatory: false, abstract: false)
 
   Match #3:
   - no parameters
-  - node #1 => org.eclipse.emf.henshin.trace.impl.TraceImpl@34bdf0da (name: null)
-  - node #2 => rhea.metamodels.BasicFMs.impl.FeatureImpl@77c1e611 (id: Root_F2_F4_F85, name: F85, mandatory: false, abstract: false)
+  - node #1 => org.eclipse.emf.henshin.trace.impl.TraceImpl@2248583e (name: null)
+  - node #2 => rhea.metamodels.BasicFMs.impl.FeatureImpl@3f81621c (id: F36, name: F36, mandatory: false, abstract: false)
 
 Result match for rule 'CleanFeatureTrace':
 - no parameters
@@ -236,508 +236,508 @@ Result match for rule 'CleanFeatureTrace':
 
   Result match #0:
   - no parameters
-  - node #1 => rhea.metamodels.BasicFMs.impl.FeatureImpl@93824eb (id: Root_F2_F4_F15, name: F15, mandatory: false, abstract: false)
+  - node #1 => rhea.metamodels.BasicFMs.impl.FeatureImpl@b5de58f (id: F29, name: F29, mandatory: false, abstract: false)
 
   Result match #1:
   - no parameters
-  - node #1 => rhea.metamodels.BasicFMs.impl.FeatureImpl@7af52ec7 (id: Root_F2_F4_F16, name: F16, mandatory: false, abstract: false)
+  - node #1 => rhea.metamodels.BasicFMs.impl.FeatureImpl@6587305a (id: F30, name: F30, mandatory: false, abstract: false)
 
   Result match #2:
   - no parameters
-  - node #1 => rhea.metamodels.BasicFMs.impl.FeatureImpl@46046c06 (id: Root_F2_F4_F14, name: F14, mandatory: false, abstract: false)
+  - node #1 => rhea.metamodels.BasicFMs.impl.FeatureImpl@abbe000 (id: F31, name: F31, mandatory: false, abstract: false)
 
   Result match #3:
   - no parameters
-  - node #1 => rhea.metamodels.BasicFMs.impl.FeatureImpl@77c1e611 (id: Root_F2_F4_F85, name: F85, mandatory: false, abstract: false)
+  - node #1 => rhea.metamodels.BasicFMs.impl.FeatureImpl@3f81621c (id: F36, name: F36, mandatory: false, abstract: false)
 
 === (9) EXECUTED UNIT 'MultiCombiK1_Clean' [TRUE] ===
 
-Graph size: 315 nodes, 618 edges
+Graph size: 273 nodes, 555 edges
 
 === (10) EXECUTED RULE 'AddNegative' [TRUE] ===
 
-Graph size: 322 nodes, 628 edges
+Graph size: 280 nodes, 565 edges
 
 Match for rule 'AddNegative':
 - no parameters
-- node 'gc' => rhea.metamodels.CardinalityBasedFMs.impl.GroupCardinalityImpl@6baf25d7 (id: Root_F2_F4P, name: F4P, mandatory: false, abstract: true)
-- node #2 => rhea.metamodels.PropLogicCTCs.impl.AndImpl@511ecb4f
-- node #3 => rhea.metamodels.PropLogicCTCs.impl.OrImpl@7a67d983
-- node #4 => org.eclipse.emf.henshin.trace.impl.TraceImpl@6ae6df4a (name: null)
-- node #5 => rhea.metamodels.PropLogicCTCs.impl.ImpliesImpl@28cfdcb
+- node 'gc' => rhea.metamodels.CardinalityBasedFMs.impl.GroupCardinalityImpl@3eb3232b (id: F10, name: F10, mandatory: false, abstract: false)
+- node #2 => rhea.metamodels.PropLogicCTCs.impl.AndImpl@7b29d791
+- node #3 => rhea.metamodels.PropLogicCTCs.impl.OrImpl@70d8f66
+- node #4 => org.eclipse.emf.henshin.trace.impl.TraceImpl@1ea83b58 (name: null)
+- node #5 => rhea.metamodels.PropLogicCTCs.impl.ImpliesImpl@6984d41a
 
   Multi-rule #1:
 
   Match #0:
   - no parameters
-  - node #1 => rhea.metamodels.CardinalityBasedFMs.impl.GroupCardinalityImpl@6baf25d7 (id: Root_F2_F4P, name: F4P, mandatory: false, abstract: true)
-  - node #2 => rhea.metamodels.BasicFMs.impl.FeatureImpl@7af52ec7 (id: Root_F2_F4_F16, name: F16, mandatory: false, abstract: false)
-  - node #3 => rhea.metamodels.PropLogicCTCs.impl.AndImpl@511ecb4f
-  - node #4 => rhea.metamodels.PropLogicCTCs.impl.OrImpl@7a67d983
-  - node #5 => org.eclipse.emf.henshin.trace.impl.TraceImpl@6ae6df4a (name: null)
-  - node #6 => rhea.metamodels.PropLogicCTCs.impl.ImpliesImpl@28cfdcb
+  - node #1 => rhea.metamodels.CardinalityBasedFMs.impl.GroupCardinalityImpl@3eb3232b (id: F10, name: F10, mandatory: false, abstract: false)
+  - node #2 => rhea.metamodels.BasicFMs.impl.FeatureImpl@3f81621c (id: F36, name: F36, mandatory: false, abstract: false)
+  - node #3 => rhea.metamodels.PropLogicCTCs.impl.AndImpl@7b29d791
+  - node #4 => rhea.metamodels.PropLogicCTCs.impl.OrImpl@70d8f66
+  - node #5 => org.eclipse.emf.henshin.trace.impl.TraceImpl@1ea83b58 (name: null)
+  - node #6 => rhea.metamodels.PropLogicCTCs.impl.ImpliesImpl@6984d41a
 
   Match #1:
   - no parameters
-  - node #1 => rhea.metamodels.CardinalityBasedFMs.impl.GroupCardinalityImpl@6baf25d7 (id: Root_F2_F4P, name: F4P, mandatory: false, abstract: true)
-  - node #2 => rhea.metamodels.BasicFMs.impl.FeatureImpl@93824eb (id: Root_F2_F4_F15, name: F15, mandatory: false, abstract: false)
-  - node #3 => rhea.metamodels.PropLogicCTCs.impl.AndImpl@511ecb4f
-  - node #4 => rhea.metamodels.PropLogicCTCs.impl.OrImpl@7a67d983
-  - node #5 => org.eclipse.emf.henshin.trace.impl.TraceImpl@6ae6df4a (name: null)
-  - node #6 => rhea.metamodels.PropLogicCTCs.impl.ImpliesImpl@28cfdcb
+  - node #1 => rhea.metamodels.CardinalityBasedFMs.impl.GroupCardinalityImpl@3eb3232b (id: F10, name: F10, mandatory: false, abstract: false)
+  - node #2 => rhea.metamodels.BasicFMs.impl.FeatureImpl@abbe000 (id: F31, name: F31, mandatory: false, abstract: false)
+  - node #3 => rhea.metamodels.PropLogicCTCs.impl.AndImpl@7b29d791
+  - node #4 => rhea.metamodels.PropLogicCTCs.impl.OrImpl@70d8f66
+  - node #5 => org.eclipse.emf.henshin.trace.impl.TraceImpl@1ea83b58 (name: null)
+  - node #6 => rhea.metamodels.PropLogicCTCs.impl.ImpliesImpl@6984d41a
 
   Match #2:
   - no parameters
-  - node #1 => rhea.metamodels.CardinalityBasedFMs.impl.GroupCardinalityImpl@6baf25d7 (id: Root_F2_F4P, name: F4P, mandatory: false, abstract: true)
-  - node #2 => rhea.metamodels.BasicFMs.impl.FeatureImpl@77c1e611 (id: Root_F2_F4_F85, name: F85, mandatory: false, abstract: false)
-  - node #3 => rhea.metamodels.PropLogicCTCs.impl.AndImpl@511ecb4f
-  - node #4 => rhea.metamodels.PropLogicCTCs.impl.OrImpl@7a67d983
-  - node #5 => org.eclipse.emf.henshin.trace.impl.TraceImpl@6ae6df4a (name: null)
-  - node #6 => rhea.metamodels.PropLogicCTCs.impl.ImpliesImpl@28cfdcb
+  - node #1 => rhea.metamodels.CardinalityBasedFMs.impl.GroupCardinalityImpl@3eb3232b (id: F10, name: F10, mandatory: false, abstract: false)
+  - node #2 => rhea.metamodels.BasicFMs.impl.FeatureImpl@6587305a (id: F30, name: F30, mandatory: false, abstract: false)
+  - node #3 => rhea.metamodels.PropLogicCTCs.impl.AndImpl@7b29d791
+  - node #4 => rhea.metamodels.PropLogicCTCs.impl.OrImpl@70d8f66
+  - node #5 => org.eclipse.emf.henshin.trace.impl.TraceImpl@1ea83b58 (name: null)
+  - node #6 => rhea.metamodels.PropLogicCTCs.impl.ImpliesImpl@6984d41a
 
 Result match for rule 'AddNegative':
 - no parameters
-- node 'gc' => rhea.metamodels.CardinalityBasedFMs.impl.GroupCardinalityImpl@6baf25d7 (id: Root_F2_F4P, name: F4P, mandatory: false, abstract: true)
-- node #2 => rhea.metamodels.PropLogicCTCs.impl.AndImpl@511ecb4f
-- node #3 => org.eclipse.emf.henshin.trace.impl.TraceImpl@19895e73 (name: null)
-- node #4 => rhea.metamodels.PropLogicCTCs.impl.OrImpl@7a67d983
-- node #5 => org.eclipse.emf.henshin.trace.impl.TraceImpl@6ae6df4a (name: null)
-- node #6 => rhea.metamodels.PropLogicCTCs.impl.ImpliesImpl@28cfdcb
+- node 'gc' => rhea.metamodels.CardinalityBasedFMs.impl.GroupCardinalityImpl@3eb3232b (id: F10, name: F10, mandatory: false, abstract: false)
+- node #2 => rhea.metamodels.PropLogicCTCs.impl.AndImpl@7b29d791
+- node #3 => org.eclipse.emf.henshin.trace.impl.TraceImpl@2e15ad9b (name: null)
+- node #4 => rhea.metamodels.PropLogicCTCs.impl.OrImpl@70d8f66
+- node #5 => org.eclipse.emf.henshin.trace.impl.TraceImpl@1ea83b58 (name: null)
+- node #6 => rhea.metamodels.PropLogicCTCs.impl.ImpliesImpl@6984d41a
 
   Multi-rule #1:
 
   Result match #0:
   - no parameters
-  - node #1 => rhea.metamodels.CardinalityBasedFMs.impl.GroupCardinalityImpl@6baf25d7 (id: Root_F2_F4P, name: F4P, mandatory: false, abstract: true)
-  - node #2 => rhea.metamodels.BasicFMs.impl.FeatureImpl@7af52ec7 (id: Root_F2_F4_F16, name: F16, mandatory: false, abstract: false)
-  - node #3 => rhea.metamodels.PropLogicCTCs.impl.AndImpl@511ecb4f
-  - node #4 => rhea.metamodels.PropLogicCTCs.impl.NotImpl@131fa25c
-  - node #5 => rhea.metamodels.PropLogicCTCs.impl.FeatureTermImpl@be906aa
-  - node #6 => org.eclipse.emf.henshin.trace.impl.TraceImpl@19895e73 (name: null)
-  - node #7 => rhea.metamodels.PropLogicCTCs.impl.OrImpl@7a67d983
-  - node #8 => org.eclipse.emf.henshin.trace.impl.TraceImpl@6ae6df4a (name: null)
-  - node #9 => rhea.metamodels.PropLogicCTCs.impl.ImpliesImpl@28cfdcb
+  - node #1 => rhea.metamodels.CardinalityBasedFMs.impl.GroupCardinalityImpl@3eb3232b (id: F10, name: F10, mandatory: false, abstract: false)
+  - node #2 => rhea.metamodels.BasicFMs.impl.FeatureImpl@3f81621c (id: F36, name: F36, mandatory: false, abstract: false)
+  - node #3 => rhea.metamodels.PropLogicCTCs.impl.AndImpl@7b29d791
+  - node #4 => rhea.metamodels.PropLogicCTCs.impl.NotImpl@41a98737
+  - node #5 => rhea.metamodels.PropLogicCTCs.impl.FeatureTermImpl@596559cf
+  - node #6 => org.eclipse.emf.henshin.trace.impl.TraceImpl@2e15ad9b (name: null)
+  - node #7 => rhea.metamodels.PropLogicCTCs.impl.OrImpl@70d8f66
+  - node #8 => org.eclipse.emf.henshin.trace.impl.TraceImpl@1ea83b58 (name: null)
+  - node #9 => rhea.metamodels.PropLogicCTCs.impl.ImpliesImpl@6984d41a
 
   Result match #1:
   - no parameters
-  - node #1 => rhea.metamodels.CardinalityBasedFMs.impl.GroupCardinalityImpl@6baf25d7 (id: Root_F2_F4P, name: F4P, mandatory: false, abstract: true)
-  - node #2 => rhea.metamodels.BasicFMs.impl.FeatureImpl@93824eb (id: Root_F2_F4_F15, name: F15, mandatory: false, abstract: false)
-  - node #3 => rhea.metamodels.PropLogicCTCs.impl.AndImpl@511ecb4f
-  - node #4 => rhea.metamodels.PropLogicCTCs.impl.NotImpl@724e9296
-  - node #5 => rhea.metamodels.PropLogicCTCs.impl.FeatureTermImpl@21e7206a
-  - node #6 => org.eclipse.emf.henshin.trace.impl.TraceImpl@19895e73 (name: null)
-  - node #7 => rhea.metamodels.PropLogicCTCs.impl.OrImpl@7a67d983
-  - node #8 => org.eclipse.emf.henshin.trace.impl.TraceImpl@6ae6df4a (name: null)
-  - node #9 => rhea.metamodels.PropLogicCTCs.impl.ImpliesImpl@28cfdcb
+  - node #1 => rhea.metamodels.CardinalityBasedFMs.impl.GroupCardinalityImpl@3eb3232b (id: F10, name: F10, mandatory: false, abstract: false)
+  - node #2 => rhea.metamodels.BasicFMs.impl.FeatureImpl@abbe000 (id: F31, name: F31, mandatory: false, abstract: false)
+  - node #3 => rhea.metamodels.PropLogicCTCs.impl.AndImpl@7b29d791
+  - node #4 => rhea.metamodels.PropLogicCTCs.impl.NotImpl@3a778c6f
+  - node #5 => rhea.metamodels.PropLogicCTCs.impl.FeatureTermImpl@390d87cf
+  - node #6 => org.eclipse.emf.henshin.trace.impl.TraceImpl@2e15ad9b (name: null)
+  - node #7 => rhea.metamodels.PropLogicCTCs.impl.OrImpl@70d8f66
+  - node #8 => org.eclipse.emf.henshin.trace.impl.TraceImpl@1ea83b58 (name: null)
+  - node #9 => rhea.metamodels.PropLogicCTCs.impl.ImpliesImpl@6984d41a
 
   Result match #2:
   - no parameters
-  - node #1 => rhea.metamodels.CardinalityBasedFMs.impl.GroupCardinalityImpl@6baf25d7 (id: Root_F2_F4P, name: F4P, mandatory: false, abstract: true)
-  - node #2 => rhea.metamodels.BasicFMs.impl.FeatureImpl@77c1e611 (id: Root_F2_F4_F85, name: F85, mandatory: false, abstract: false)
-  - node #3 => rhea.metamodels.PropLogicCTCs.impl.AndImpl@511ecb4f
-  - node #4 => rhea.metamodels.PropLogicCTCs.impl.NotImpl@4f847b48
-  - node #5 => rhea.metamodels.PropLogicCTCs.impl.FeatureTermImpl@c9be844
-  - node #6 => org.eclipse.emf.henshin.trace.impl.TraceImpl@19895e73 (name: null)
-  - node #7 => rhea.metamodels.PropLogicCTCs.impl.OrImpl@7a67d983
-  - node #8 => org.eclipse.emf.henshin.trace.impl.TraceImpl@6ae6df4a (name: null)
-  - node #9 => rhea.metamodels.PropLogicCTCs.impl.ImpliesImpl@28cfdcb
+  - node #1 => rhea.metamodels.CardinalityBasedFMs.impl.GroupCardinalityImpl@3eb3232b (id: F10, name: F10, mandatory: false, abstract: false)
+  - node #2 => rhea.metamodels.BasicFMs.impl.FeatureImpl@6587305a (id: F30, name: F30, mandatory: false, abstract: false)
+  - node #3 => rhea.metamodels.PropLogicCTCs.impl.AndImpl@7b29d791
+  - node #4 => rhea.metamodels.PropLogicCTCs.impl.NotImpl@34902fe6
+  - node #5 => rhea.metamodels.PropLogicCTCs.impl.FeatureTermImpl@4748a39a
+  - node #6 => org.eclipse.emf.henshin.trace.impl.TraceImpl@2e15ad9b (name: null)
+  - node #7 => rhea.metamodels.PropLogicCTCs.impl.OrImpl@70d8f66
+  - node #8 => org.eclipse.emf.henshin.trace.impl.TraceImpl@1ea83b58 (name: null)
+  - node #9 => rhea.metamodels.PropLogicCTCs.impl.ImpliesImpl@6984d41a
 
 === (11) EXECUTED RULE 'AddNegative' [TRUE] ===
 
-Graph size: 329 nodes, 638 edges
+Graph size: 287 nodes, 575 edges
 
 Match for rule 'AddNegative':
 - no parameters
-- node 'gc' => rhea.metamodels.CardinalityBasedFMs.impl.GroupCardinalityImpl@6baf25d7 (id: Root_F2_F4P, name: F4P, mandatory: false, abstract: true)
-- node #2 => rhea.metamodels.PropLogicCTCs.impl.AndImpl@4692047b
-- node #3 => rhea.metamodels.PropLogicCTCs.impl.OrImpl@7a67d983
-- node #4 => org.eclipse.emf.henshin.trace.impl.TraceImpl@6ae6df4a (name: null)
-- node #5 => rhea.metamodels.PropLogicCTCs.impl.ImpliesImpl@28cfdcb
+- node 'gc' => rhea.metamodels.CardinalityBasedFMs.impl.GroupCardinalityImpl@3eb3232b (id: F10, name: F10, mandatory: false, abstract: false)
+- node #2 => rhea.metamodels.PropLogicCTCs.impl.AndImpl@6b2d01e2
+- node #3 => rhea.metamodels.PropLogicCTCs.impl.OrImpl@70d8f66
+- node #4 => org.eclipse.emf.henshin.trace.impl.TraceImpl@1ea83b58 (name: null)
+- node #5 => rhea.metamodels.PropLogicCTCs.impl.ImpliesImpl@6984d41a
 
   Multi-rule #1:
 
   Match #0:
   - no parameters
-  - node #1 => rhea.metamodels.CardinalityBasedFMs.impl.GroupCardinalityImpl@6baf25d7 (id: Root_F2_F4P, name: F4P, mandatory: false, abstract: true)
-  - node #2 => rhea.metamodels.BasicFMs.impl.FeatureImpl@93824eb (id: Root_F2_F4_F15, name: F15, mandatory: false, abstract: false)
-  - node #3 => rhea.metamodels.PropLogicCTCs.impl.AndImpl@4692047b
-  - node #4 => rhea.metamodels.PropLogicCTCs.impl.OrImpl@7a67d983
-  - node #5 => org.eclipse.emf.henshin.trace.impl.TraceImpl@6ae6df4a (name: null)
-  - node #6 => rhea.metamodels.PropLogicCTCs.impl.ImpliesImpl@28cfdcb
+  - node #1 => rhea.metamodels.CardinalityBasedFMs.impl.GroupCardinalityImpl@3eb3232b (id: F10, name: F10, mandatory: false, abstract: false)
+  - node #2 => rhea.metamodels.BasicFMs.impl.FeatureImpl@3f81621c (id: F36, name: F36, mandatory: false, abstract: false)
+  - node #3 => rhea.metamodels.PropLogicCTCs.impl.AndImpl@6b2d01e2
+  - node #4 => rhea.metamodels.PropLogicCTCs.impl.OrImpl@70d8f66
+  - node #5 => org.eclipse.emf.henshin.trace.impl.TraceImpl@1ea83b58 (name: null)
+  - node #6 => rhea.metamodels.PropLogicCTCs.impl.ImpliesImpl@6984d41a
 
   Match #1:
   - no parameters
-  - node #1 => rhea.metamodels.CardinalityBasedFMs.impl.GroupCardinalityImpl@6baf25d7 (id: Root_F2_F4P, name: F4P, mandatory: false, abstract: true)
-  - node #2 => rhea.metamodels.BasicFMs.impl.FeatureImpl@77c1e611 (id: Root_F2_F4_F85, name: F85, mandatory: false, abstract: false)
-  - node #3 => rhea.metamodels.PropLogicCTCs.impl.AndImpl@4692047b
-  - node #4 => rhea.metamodels.PropLogicCTCs.impl.OrImpl@7a67d983
-  - node #5 => org.eclipse.emf.henshin.trace.impl.TraceImpl@6ae6df4a (name: null)
-  - node #6 => rhea.metamodels.PropLogicCTCs.impl.ImpliesImpl@28cfdcb
+  - node #1 => rhea.metamodels.CardinalityBasedFMs.impl.GroupCardinalityImpl@3eb3232b (id: F10, name: F10, mandatory: false, abstract: false)
+  - node #2 => rhea.metamodels.BasicFMs.impl.FeatureImpl@abbe000 (id: F31, name: F31, mandatory: false, abstract: false)
+  - node #3 => rhea.metamodels.PropLogicCTCs.impl.AndImpl@6b2d01e2
+  - node #4 => rhea.metamodels.PropLogicCTCs.impl.OrImpl@70d8f66
+  - node #5 => org.eclipse.emf.henshin.trace.impl.TraceImpl@1ea83b58 (name: null)
+  - node #6 => rhea.metamodels.PropLogicCTCs.impl.ImpliesImpl@6984d41a
 
   Match #2:
   - no parameters
-  - node #1 => rhea.metamodels.CardinalityBasedFMs.impl.GroupCardinalityImpl@6baf25d7 (id: Root_F2_F4P, name: F4P, mandatory: false, abstract: true)
-  - node #2 => rhea.metamodels.BasicFMs.impl.FeatureImpl@46046c06 (id: Root_F2_F4_F14, name: F14, mandatory: false, abstract: false)
-  - node #3 => rhea.metamodels.PropLogicCTCs.impl.AndImpl@4692047b
-  - node #4 => rhea.metamodels.PropLogicCTCs.impl.OrImpl@7a67d983
-  - node #5 => org.eclipse.emf.henshin.trace.impl.TraceImpl@6ae6df4a (name: null)
-  - node #6 => rhea.metamodels.PropLogicCTCs.impl.ImpliesImpl@28cfdcb
+  - node #1 => rhea.metamodels.CardinalityBasedFMs.impl.GroupCardinalityImpl@3eb3232b (id: F10, name: F10, mandatory: false, abstract: false)
+  - node #2 => rhea.metamodels.BasicFMs.impl.FeatureImpl@b5de58f (id: F29, name: F29, mandatory: false, abstract: false)
+  - node #3 => rhea.metamodels.PropLogicCTCs.impl.AndImpl@6b2d01e2
+  - node #4 => rhea.metamodels.PropLogicCTCs.impl.OrImpl@70d8f66
+  - node #5 => org.eclipse.emf.henshin.trace.impl.TraceImpl@1ea83b58 (name: null)
+  - node #6 => rhea.metamodels.PropLogicCTCs.impl.ImpliesImpl@6984d41a
 
 Result match for rule 'AddNegative':
 - no parameters
-- node 'gc' => rhea.metamodels.CardinalityBasedFMs.impl.GroupCardinalityImpl@6baf25d7 (id: Root_F2_F4P, name: F4P, mandatory: false, abstract: true)
-- node #2 => rhea.metamodels.PropLogicCTCs.impl.AndImpl@4692047b
-- node #3 => org.eclipse.emf.henshin.trace.impl.TraceImpl@123b8431 (name: null)
-- node #4 => rhea.metamodels.PropLogicCTCs.impl.OrImpl@7a67d983
-- node #5 => org.eclipse.emf.henshin.trace.impl.TraceImpl@6ae6df4a (name: null)
-- node #6 => rhea.metamodels.PropLogicCTCs.impl.ImpliesImpl@28cfdcb
+- node 'gc' => rhea.metamodels.CardinalityBasedFMs.impl.GroupCardinalityImpl@3eb3232b (id: F10, name: F10, mandatory: false, abstract: false)
+- node #2 => rhea.metamodels.PropLogicCTCs.impl.AndImpl@6b2d01e2
+- node #3 => org.eclipse.emf.henshin.trace.impl.TraceImpl@21e67d8d (name: null)
+- node #4 => rhea.metamodels.PropLogicCTCs.impl.OrImpl@70d8f66
+- node #5 => org.eclipse.emf.henshin.trace.impl.TraceImpl@1ea83b58 (name: null)
+- node #6 => rhea.metamodels.PropLogicCTCs.impl.ImpliesImpl@6984d41a
 
   Multi-rule #1:
 
   Result match #0:
   - no parameters
-  - node #1 => rhea.metamodels.CardinalityBasedFMs.impl.GroupCardinalityImpl@6baf25d7 (id: Root_F2_F4P, name: F4P, mandatory: false, abstract: true)
-  - node #2 => rhea.metamodels.BasicFMs.impl.FeatureImpl@93824eb (id: Root_F2_F4_F15, name: F15, mandatory: false, abstract: false)
-  - node #3 => rhea.metamodels.PropLogicCTCs.impl.AndImpl@4692047b
-  - node #4 => rhea.metamodels.PropLogicCTCs.impl.NotImpl@7e89f305
-  - node #5 => rhea.metamodels.PropLogicCTCs.impl.FeatureTermImpl@2d83ed58
-  - node #6 => org.eclipse.emf.henshin.trace.impl.TraceImpl@123b8431 (name: null)
-  - node #7 => rhea.metamodels.PropLogicCTCs.impl.OrImpl@7a67d983
-  - node #8 => org.eclipse.emf.henshin.trace.impl.TraceImpl@6ae6df4a (name: null)
-  - node #9 => rhea.metamodels.PropLogicCTCs.impl.ImpliesImpl@28cfdcb
+  - node #1 => rhea.metamodels.CardinalityBasedFMs.impl.GroupCardinalityImpl@3eb3232b (id: F10, name: F10, mandatory: false, abstract: false)
+  - node #2 => rhea.metamodels.BasicFMs.impl.FeatureImpl@3f81621c (id: F36, name: F36, mandatory: false, abstract: false)
+  - node #3 => rhea.metamodels.PropLogicCTCs.impl.AndImpl@6b2d01e2
+  - node #4 => rhea.metamodels.PropLogicCTCs.impl.NotImpl@23b05e58
+  - node #5 => rhea.metamodels.PropLogicCTCs.impl.FeatureTermImpl@3026d4cd
+  - node #6 => org.eclipse.emf.henshin.trace.impl.TraceImpl@21e67d8d (name: null)
+  - node #7 => rhea.metamodels.PropLogicCTCs.impl.OrImpl@70d8f66
+  - node #8 => org.eclipse.emf.henshin.trace.impl.TraceImpl@1ea83b58 (name: null)
+  - node #9 => rhea.metamodels.PropLogicCTCs.impl.ImpliesImpl@6984d41a
 
   Result match #1:
   - no parameters
-  - node #1 => rhea.metamodels.CardinalityBasedFMs.impl.GroupCardinalityImpl@6baf25d7 (id: Root_F2_F4P, name: F4P, mandatory: false, abstract: true)
-  - node #2 => rhea.metamodels.BasicFMs.impl.FeatureImpl@77c1e611 (id: Root_F2_F4_F85, name: F85, mandatory: false, abstract: false)
-  - node #3 => rhea.metamodels.PropLogicCTCs.impl.AndImpl@4692047b
-  - node #4 => rhea.metamodels.PropLogicCTCs.impl.NotImpl@1f7d3d82
-  - node #5 => rhea.metamodels.PropLogicCTCs.impl.FeatureTermImpl@51293850
-  - node #6 => org.eclipse.emf.henshin.trace.impl.TraceImpl@123b8431 (name: null)
-  - node #7 => rhea.metamodels.PropLogicCTCs.impl.OrImpl@7a67d983
-  - node #8 => org.eclipse.emf.henshin.trace.impl.TraceImpl@6ae6df4a (name: null)
-  - node #9 => rhea.metamodels.PropLogicCTCs.impl.ImpliesImpl@28cfdcb
+  - node #1 => rhea.metamodels.CardinalityBasedFMs.impl.GroupCardinalityImpl@3eb3232b (id: F10, name: F10, mandatory: false, abstract: false)
+  - node #2 => rhea.metamodels.BasicFMs.impl.FeatureImpl@abbe000 (id: F31, name: F31, mandatory: false, abstract: false)
+  - node #3 => rhea.metamodels.PropLogicCTCs.impl.AndImpl@6b2d01e2
+  - node #4 => rhea.metamodels.PropLogicCTCs.impl.NotImpl@401516ad
+  - node #5 => rhea.metamodels.PropLogicCTCs.impl.FeatureTermImpl@520d0137
+  - node #6 => org.eclipse.emf.henshin.trace.impl.TraceImpl@21e67d8d (name: null)
+  - node #7 => rhea.metamodels.PropLogicCTCs.impl.OrImpl@70d8f66
+  - node #8 => org.eclipse.emf.henshin.trace.impl.TraceImpl@1ea83b58 (name: null)
+  - node #9 => rhea.metamodels.PropLogicCTCs.impl.ImpliesImpl@6984d41a
 
   Result match #2:
   - no parameters
-  - node #1 => rhea.metamodels.CardinalityBasedFMs.impl.GroupCardinalityImpl@6baf25d7 (id: Root_F2_F4P, name: F4P, mandatory: false, abstract: true)
-  - node #2 => rhea.metamodels.BasicFMs.impl.FeatureImpl@46046c06 (id: Root_F2_F4_F14, name: F14, mandatory: false, abstract: false)
-  - node #3 => rhea.metamodels.PropLogicCTCs.impl.AndImpl@4692047b
-  - node #4 => rhea.metamodels.PropLogicCTCs.impl.NotImpl@6009e8ab
-  - node #5 => rhea.metamodels.PropLogicCTCs.impl.FeatureTermImpl@525230df
-  - node #6 => org.eclipse.emf.henshin.trace.impl.TraceImpl@123b8431 (name: null)
-  - node #7 => rhea.metamodels.PropLogicCTCs.impl.OrImpl@7a67d983
-  - node #8 => org.eclipse.emf.henshin.trace.impl.TraceImpl@6ae6df4a (name: null)
-  - node #9 => rhea.metamodels.PropLogicCTCs.impl.ImpliesImpl@28cfdcb
+  - node #1 => rhea.metamodels.CardinalityBasedFMs.impl.GroupCardinalityImpl@3eb3232b (id: F10, name: F10, mandatory: false, abstract: false)
+  - node #2 => rhea.metamodels.BasicFMs.impl.FeatureImpl@b5de58f (id: F29, name: F29, mandatory: false, abstract: false)
+  - node #3 => rhea.metamodels.PropLogicCTCs.impl.AndImpl@6b2d01e2
+  - node #4 => rhea.metamodels.PropLogicCTCs.impl.NotImpl@73eed7b0
+  - node #5 => rhea.metamodels.PropLogicCTCs.impl.FeatureTermImpl@7568f5bc
+  - node #6 => org.eclipse.emf.henshin.trace.impl.TraceImpl@21e67d8d (name: null)
+  - node #7 => rhea.metamodels.PropLogicCTCs.impl.OrImpl@70d8f66
+  - node #8 => org.eclipse.emf.henshin.trace.impl.TraceImpl@1ea83b58 (name: null)
+  - node #9 => rhea.metamodels.PropLogicCTCs.impl.ImpliesImpl@6984d41a
 
 === (12) EXECUTED RULE 'AddNegative' [TRUE] ===
 
-Graph size: 336 nodes, 648 edges
+Graph size: 294 nodes, 585 edges
 
 Match for rule 'AddNegative':
 - no parameters
-- node 'gc' => rhea.metamodels.CardinalityBasedFMs.impl.GroupCardinalityImpl@6baf25d7 (id: Root_F2_F4P, name: F4P, mandatory: false, abstract: true)
-- node #2 => rhea.metamodels.PropLogicCTCs.impl.AndImpl@5c73535b
-- node #3 => rhea.metamodels.PropLogicCTCs.impl.OrImpl@7a67d983
-- node #4 => org.eclipse.emf.henshin.trace.impl.TraceImpl@6ae6df4a (name: null)
-- node #5 => rhea.metamodels.PropLogicCTCs.impl.ImpliesImpl@28cfdcb
+- node 'gc' => rhea.metamodels.CardinalityBasedFMs.impl.GroupCardinalityImpl@3eb3232b (id: F10, name: F10, mandatory: false, abstract: false)
+- node #2 => rhea.metamodels.PropLogicCTCs.impl.AndImpl@6f45872b
+- node #3 => rhea.metamodels.PropLogicCTCs.impl.OrImpl@70d8f66
+- node #4 => org.eclipse.emf.henshin.trace.impl.TraceImpl@1ea83b58 (name: null)
+- node #5 => rhea.metamodels.PropLogicCTCs.impl.ImpliesImpl@6984d41a
 
   Multi-rule #1:
 
   Match #0:
   - no parameters
-  - node #1 => rhea.metamodels.CardinalityBasedFMs.impl.GroupCardinalityImpl@6baf25d7 (id: Root_F2_F4P, name: F4P, mandatory: false, abstract: true)
-  - node #2 => rhea.metamodels.BasicFMs.impl.FeatureImpl@46046c06 (id: Root_F2_F4_F14, name: F14, mandatory: false, abstract: false)
-  - node #3 => rhea.metamodels.PropLogicCTCs.impl.AndImpl@5c73535b
-  - node #4 => rhea.metamodels.PropLogicCTCs.impl.OrImpl@7a67d983
-  - node #5 => org.eclipse.emf.henshin.trace.impl.TraceImpl@6ae6df4a (name: null)
-  - node #6 => rhea.metamodels.PropLogicCTCs.impl.ImpliesImpl@28cfdcb
+  - node #1 => rhea.metamodels.CardinalityBasedFMs.impl.GroupCardinalityImpl@3eb3232b (id: F10, name: F10, mandatory: false, abstract: false)
+  - node #2 => rhea.metamodels.BasicFMs.impl.FeatureImpl@3f81621c (id: F36, name: F36, mandatory: false, abstract: false)
+  - node #3 => rhea.metamodels.PropLogicCTCs.impl.AndImpl@6f45872b
+  - node #4 => rhea.metamodels.PropLogicCTCs.impl.OrImpl@70d8f66
+  - node #5 => org.eclipse.emf.henshin.trace.impl.TraceImpl@1ea83b58 (name: null)
+  - node #6 => rhea.metamodels.PropLogicCTCs.impl.ImpliesImpl@6984d41a
 
   Match #1:
   - no parameters
-  - node #1 => rhea.metamodels.CardinalityBasedFMs.impl.GroupCardinalityImpl@6baf25d7 (id: Root_F2_F4P, name: F4P, mandatory: false, abstract: true)
-  - node #2 => rhea.metamodels.BasicFMs.impl.FeatureImpl@93824eb (id: Root_F2_F4_F15, name: F15, mandatory: false, abstract: false)
-  - node #3 => rhea.metamodels.PropLogicCTCs.impl.AndImpl@5c73535b
-  - node #4 => rhea.metamodels.PropLogicCTCs.impl.OrImpl@7a67d983
-  - node #5 => org.eclipse.emf.henshin.trace.impl.TraceImpl@6ae6df4a (name: null)
-  - node #6 => rhea.metamodels.PropLogicCTCs.impl.ImpliesImpl@28cfdcb
+  - node #1 => rhea.metamodels.CardinalityBasedFMs.impl.GroupCardinalityImpl@3eb3232b (id: F10, name: F10, mandatory: false, abstract: false)
+  - node #2 => rhea.metamodels.BasicFMs.impl.FeatureImpl@6587305a (id: F30, name: F30, mandatory: false, abstract: false)
+  - node #3 => rhea.metamodels.PropLogicCTCs.impl.AndImpl@6f45872b
+  - node #4 => rhea.metamodels.PropLogicCTCs.impl.OrImpl@70d8f66
+  - node #5 => org.eclipse.emf.henshin.trace.impl.TraceImpl@1ea83b58 (name: null)
+  - node #6 => rhea.metamodels.PropLogicCTCs.impl.ImpliesImpl@6984d41a
 
   Match #2:
   - no parameters
-  - node #1 => rhea.metamodels.CardinalityBasedFMs.impl.GroupCardinalityImpl@6baf25d7 (id: Root_F2_F4P, name: F4P, mandatory: false, abstract: true)
-  - node #2 => rhea.metamodels.BasicFMs.impl.FeatureImpl@7af52ec7 (id: Root_F2_F4_F16, name: F16, mandatory: false, abstract: false)
-  - node #3 => rhea.metamodels.PropLogicCTCs.impl.AndImpl@5c73535b
-  - node #4 => rhea.metamodels.PropLogicCTCs.impl.OrImpl@7a67d983
-  - node #5 => org.eclipse.emf.henshin.trace.impl.TraceImpl@6ae6df4a (name: null)
-  - node #6 => rhea.metamodels.PropLogicCTCs.impl.ImpliesImpl@28cfdcb
+  - node #1 => rhea.metamodels.CardinalityBasedFMs.impl.GroupCardinalityImpl@3eb3232b (id: F10, name: F10, mandatory: false, abstract: false)
+  - node #2 => rhea.metamodels.BasicFMs.impl.FeatureImpl@b5de58f (id: F29, name: F29, mandatory: false, abstract: false)
+  - node #3 => rhea.metamodels.PropLogicCTCs.impl.AndImpl@6f45872b
+  - node #4 => rhea.metamodels.PropLogicCTCs.impl.OrImpl@70d8f66
+  - node #5 => org.eclipse.emf.henshin.trace.impl.TraceImpl@1ea83b58 (name: null)
+  - node #6 => rhea.metamodels.PropLogicCTCs.impl.ImpliesImpl@6984d41a
 
 Result match for rule 'AddNegative':
 - no parameters
-- node 'gc' => rhea.metamodels.CardinalityBasedFMs.impl.GroupCardinalityImpl@6baf25d7 (id: Root_F2_F4P, name: F4P, mandatory: false, abstract: true)
-- node #2 => rhea.metamodels.PropLogicCTCs.impl.AndImpl@5c73535b
-- node #3 => org.eclipse.emf.henshin.trace.impl.TraceImpl@3cc6d144 (name: null)
-- node #4 => rhea.metamodels.PropLogicCTCs.impl.OrImpl@7a67d983
-- node #5 => org.eclipse.emf.henshin.trace.impl.TraceImpl@6ae6df4a (name: null)
-- node #6 => rhea.metamodels.PropLogicCTCs.impl.ImpliesImpl@28cfdcb
+- node 'gc' => rhea.metamodels.CardinalityBasedFMs.impl.GroupCardinalityImpl@3eb3232b (id: F10, name: F10, mandatory: false, abstract: false)
+- node #2 => rhea.metamodels.PropLogicCTCs.impl.AndImpl@6f45872b
+- node #3 => org.eclipse.emf.henshin.trace.impl.TraceImpl@271e8be8 (name: null)
+- node #4 => rhea.metamodels.PropLogicCTCs.impl.OrImpl@70d8f66
+- node #5 => org.eclipse.emf.henshin.trace.impl.TraceImpl@1ea83b58 (name: null)
+- node #6 => rhea.metamodels.PropLogicCTCs.impl.ImpliesImpl@6984d41a
 
   Multi-rule #1:
 
   Result match #0:
   - no parameters
-  - node #1 => rhea.metamodels.CardinalityBasedFMs.impl.GroupCardinalityImpl@6baf25d7 (id: Root_F2_F4P, name: F4P, mandatory: false, abstract: true)
-  - node #2 => rhea.metamodels.BasicFMs.impl.FeatureImpl@46046c06 (id: Root_F2_F4_F14, name: F14, mandatory: false, abstract: false)
-  - node #3 => rhea.metamodels.PropLogicCTCs.impl.AndImpl@5c73535b
-  - node #4 => rhea.metamodels.PropLogicCTCs.impl.NotImpl@13253ac7
-  - node #5 => rhea.metamodels.PropLogicCTCs.impl.FeatureTermImpl@503224b4
-  - node #6 => org.eclipse.emf.henshin.trace.impl.TraceImpl@3cc6d144 (name: null)
-  - node #7 => rhea.metamodels.PropLogicCTCs.impl.OrImpl@7a67d983
-  - node #8 => org.eclipse.emf.henshin.trace.impl.TraceImpl@6ae6df4a (name: null)
-  - node #9 => rhea.metamodels.PropLogicCTCs.impl.ImpliesImpl@28cfdcb
+  - node #1 => rhea.metamodels.CardinalityBasedFMs.impl.GroupCardinalityImpl@3eb3232b (id: F10, name: F10, mandatory: false, abstract: false)
+  - node #2 => rhea.metamodels.BasicFMs.impl.FeatureImpl@3f81621c (id: F36, name: F36, mandatory: false, abstract: false)
+  - node #3 => rhea.metamodels.PropLogicCTCs.impl.AndImpl@6f45872b
+  - node #4 => rhea.metamodels.PropLogicCTCs.impl.NotImpl@22c88bec
+  - node #5 => rhea.metamodels.PropLogicCTCs.impl.FeatureTermImpl@10bf4f1c
+  - node #6 => org.eclipse.emf.henshin.trace.impl.TraceImpl@271e8be8 (name: null)
+  - node #7 => rhea.metamodels.PropLogicCTCs.impl.OrImpl@70d8f66
+  - node #8 => org.eclipse.emf.henshin.trace.impl.TraceImpl@1ea83b58 (name: null)
+  - node #9 => rhea.metamodels.PropLogicCTCs.impl.ImpliesImpl@6984d41a
 
   Result match #1:
   - no parameters
-  - node #1 => rhea.metamodels.CardinalityBasedFMs.impl.GroupCardinalityImpl@6baf25d7 (id: Root_F2_F4P, name: F4P, mandatory: false, abstract: true)
-  - node #2 => rhea.metamodels.BasicFMs.impl.FeatureImpl@93824eb (id: Root_F2_F4_F15, name: F15, mandatory: false, abstract: false)
-  - node #3 => rhea.metamodels.PropLogicCTCs.impl.AndImpl@5c73535b
-  - node #4 => rhea.metamodels.PropLogicCTCs.impl.NotImpl@583eecde
-  - node #5 => rhea.metamodels.PropLogicCTCs.impl.FeatureTermImpl@52f85a6c
-  - node #6 => org.eclipse.emf.henshin.trace.impl.TraceImpl@3cc6d144 (name: null)
-  - node #7 => rhea.metamodels.PropLogicCTCs.impl.OrImpl@7a67d983
-  - node #8 => org.eclipse.emf.henshin.trace.impl.TraceImpl@6ae6df4a (name: null)
-  - node #9 => rhea.metamodels.PropLogicCTCs.impl.ImpliesImpl@28cfdcb
+  - node #1 => rhea.metamodels.CardinalityBasedFMs.impl.GroupCardinalityImpl@3eb3232b (id: F10, name: F10, mandatory: false, abstract: false)
+  - node #2 => rhea.metamodels.BasicFMs.impl.FeatureImpl@6587305a (id: F30, name: F30, mandatory: false, abstract: false)
+  - node #3 => rhea.metamodels.PropLogicCTCs.impl.AndImpl@6f45872b
+  - node #4 => rhea.metamodels.PropLogicCTCs.impl.NotImpl@c2de6ec
+  - node #5 => rhea.metamodels.PropLogicCTCs.impl.FeatureTermImpl@5fbf6d4a
+  - node #6 => org.eclipse.emf.henshin.trace.impl.TraceImpl@271e8be8 (name: null)
+  - node #7 => rhea.metamodels.PropLogicCTCs.impl.OrImpl@70d8f66
+  - node #8 => org.eclipse.emf.henshin.trace.impl.TraceImpl@1ea83b58 (name: null)
+  - node #9 => rhea.metamodels.PropLogicCTCs.impl.ImpliesImpl@6984d41a
 
   Result match #2:
   - no parameters
-  - node #1 => rhea.metamodels.CardinalityBasedFMs.impl.GroupCardinalityImpl@6baf25d7 (id: Root_F2_F4P, name: F4P, mandatory: false, abstract: true)
-  - node #2 => rhea.metamodels.BasicFMs.impl.FeatureImpl@7af52ec7 (id: Root_F2_F4_F16, name: F16, mandatory: false, abstract: false)
-  - node #3 => rhea.metamodels.PropLogicCTCs.impl.AndImpl@5c73535b
-  - node #4 => rhea.metamodels.PropLogicCTCs.impl.NotImpl@6831b1f6
-  - node #5 => rhea.metamodels.PropLogicCTCs.impl.FeatureTermImpl@29673fc0
-  - node #6 => org.eclipse.emf.henshin.trace.impl.TraceImpl@3cc6d144 (name: null)
-  - node #7 => rhea.metamodels.PropLogicCTCs.impl.OrImpl@7a67d983
-  - node #8 => org.eclipse.emf.henshin.trace.impl.TraceImpl@6ae6df4a (name: null)
-  - node #9 => rhea.metamodels.PropLogicCTCs.impl.ImpliesImpl@28cfdcb
+  - node #1 => rhea.metamodels.CardinalityBasedFMs.impl.GroupCardinalityImpl@3eb3232b (id: F10, name: F10, mandatory: false, abstract: false)
+  - node #2 => rhea.metamodels.BasicFMs.impl.FeatureImpl@b5de58f (id: F29, name: F29, mandatory: false, abstract: false)
+  - node #3 => rhea.metamodels.PropLogicCTCs.impl.AndImpl@6f45872b
+  - node #4 => rhea.metamodels.PropLogicCTCs.impl.NotImpl@39ce0aba
+  - node #5 => rhea.metamodels.PropLogicCTCs.impl.FeatureTermImpl@53e36530
+  - node #6 => org.eclipse.emf.henshin.trace.impl.TraceImpl@271e8be8 (name: null)
+  - node #7 => rhea.metamodels.PropLogicCTCs.impl.OrImpl@70d8f66
+  - node #8 => org.eclipse.emf.henshin.trace.impl.TraceImpl@1ea83b58 (name: null)
+  - node #9 => rhea.metamodels.PropLogicCTCs.impl.ImpliesImpl@6984d41a
 
 === (13) EXECUTED RULE 'AddNegative' [TRUE] ===
 
-Graph size: 343 nodes, 658 edges
+Graph size: 301 nodes, 595 edges
 
 Match for rule 'AddNegative':
 - no parameters
-- node 'gc' => rhea.metamodels.CardinalityBasedFMs.impl.GroupCardinalityImpl@6baf25d7 (id: Root_F2_F4P, name: F4P, mandatory: false, abstract: true)
-- node #2 => rhea.metamodels.PropLogicCTCs.impl.AndImpl@50eb7b10
-- node #3 => rhea.metamodels.PropLogicCTCs.impl.OrImpl@7a67d983
-- node #4 => org.eclipse.emf.henshin.trace.impl.TraceImpl@6ae6df4a (name: null)
-- node #5 => rhea.metamodels.PropLogicCTCs.impl.ImpliesImpl@28cfdcb
+- node 'gc' => rhea.metamodels.CardinalityBasedFMs.impl.GroupCardinalityImpl@3eb3232b (id: F10, name: F10, mandatory: false, abstract: false)
+- node #2 => rhea.metamodels.PropLogicCTCs.impl.AndImpl@1dfd27fe
+- node #3 => rhea.metamodels.PropLogicCTCs.impl.OrImpl@70d8f66
+- node #4 => org.eclipse.emf.henshin.trace.impl.TraceImpl@1ea83b58 (name: null)
+- node #5 => rhea.metamodels.PropLogicCTCs.impl.ImpliesImpl@6984d41a
 
   Multi-rule #1:
 
   Match #0:
   - no parameters
-  - node #1 => rhea.metamodels.CardinalityBasedFMs.impl.GroupCardinalityImpl@6baf25d7 (id: Root_F2_F4P, name: F4P, mandatory: false, abstract: true)
-  - node #2 => rhea.metamodels.BasicFMs.impl.FeatureImpl@77c1e611 (id: Root_F2_F4_F85, name: F85, mandatory: false, abstract: false)
-  - node #3 => rhea.metamodels.PropLogicCTCs.impl.AndImpl@50eb7b10
-  - node #4 => rhea.metamodels.PropLogicCTCs.impl.OrImpl@7a67d983
-  - node #5 => org.eclipse.emf.henshin.trace.impl.TraceImpl@6ae6df4a (name: null)
-  - node #6 => rhea.metamodels.PropLogicCTCs.impl.ImpliesImpl@28cfdcb
+  - node #1 => rhea.metamodels.CardinalityBasedFMs.impl.GroupCardinalityImpl@3eb3232b (id: F10, name: F10, mandatory: false, abstract: false)
+  - node #2 => rhea.metamodels.BasicFMs.impl.FeatureImpl@abbe000 (id: F31, name: F31, mandatory: false, abstract: false)
+  - node #3 => rhea.metamodels.PropLogicCTCs.impl.AndImpl@1dfd27fe
+  - node #4 => rhea.metamodels.PropLogicCTCs.impl.OrImpl@70d8f66
+  - node #5 => org.eclipse.emf.henshin.trace.impl.TraceImpl@1ea83b58 (name: null)
+  - node #6 => rhea.metamodels.PropLogicCTCs.impl.ImpliesImpl@6984d41a
 
   Match #1:
   - no parameters
-  - node #1 => rhea.metamodels.CardinalityBasedFMs.impl.GroupCardinalityImpl@6baf25d7 (id: Root_F2_F4P, name: F4P, mandatory: false, abstract: true)
-  - node #2 => rhea.metamodels.BasicFMs.impl.FeatureImpl@46046c06 (id: Root_F2_F4_F14, name: F14, mandatory: false, abstract: false)
-  - node #3 => rhea.metamodels.PropLogicCTCs.impl.AndImpl@50eb7b10
-  - node #4 => rhea.metamodels.PropLogicCTCs.impl.OrImpl@7a67d983
-  - node #5 => org.eclipse.emf.henshin.trace.impl.TraceImpl@6ae6df4a (name: null)
-  - node #6 => rhea.metamodels.PropLogicCTCs.impl.ImpliesImpl@28cfdcb
+  - node #1 => rhea.metamodels.CardinalityBasedFMs.impl.GroupCardinalityImpl@3eb3232b (id: F10, name: F10, mandatory: false, abstract: false)
+  - node #2 => rhea.metamodels.BasicFMs.impl.FeatureImpl@6587305a (id: F30, name: F30, mandatory: false, abstract: false)
+  - node #3 => rhea.metamodels.PropLogicCTCs.impl.AndImpl@1dfd27fe
+  - node #4 => rhea.metamodels.PropLogicCTCs.impl.OrImpl@70d8f66
+  - node #5 => org.eclipse.emf.henshin.trace.impl.TraceImpl@1ea83b58 (name: null)
+  - node #6 => rhea.metamodels.PropLogicCTCs.impl.ImpliesImpl@6984d41a
 
   Match #2:
   - no parameters
-  - node #1 => rhea.metamodels.CardinalityBasedFMs.impl.GroupCardinalityImpl@6baf25d7 (id: Root_F2_F4P, name: F4P, mandatory: false, abstract: true)
-  - node #2 => rhea.metamodels.BasicFMs.impl.FeatureImpl@7af52ec7 (id: Root_F2_F4_F16, name: F16, mandatory: false, abstract: false)
-  - node #3 => rhea.metamodels.PropLogicCTCs.impl.AndImpl@50eb7b10
-  - node #4 => rhea.metamodels.PropLogicCTCs.impl.OrImpl@7a67d983
-  - node #5 => org.eclipse.emf.henshin.trace.impl.TraceImpl@6ae6df4a (name: null)
-  - node #6 => rhea.metamodels.PropLogicCTCs.impl.ImpliesImpl@28cfdcb
+  - node #1 => rhea.metamodels.CardinalityBasedFMs.impl.GroupCardinalityImpl@3eb3232b (id: F10, name: F10, mandatory: false, abstract: false)
+  - node #2 => rhea.metamodels.BasicFMs.impl.FeatureImpl@b5de58f (id: F29, name: F29, mandatory: false, abstract: false)
+  - node #3 => rhea.metamodels.PropLogicCTCs.impl.AndImpl@1dfd27fe
+  - node #4 => rhea.metamodels.PropLogicCTCs.impl.OrImpl@70d8f66
+  - node #5 => org.eclipse.emf.henshin.trace.impl.TraceImpl@1ea83b58 (name: null)
+  - node #6 => rhea.metamodels.PropLogicCTCs.impl.ImpliesImpl@6984d41a
 
 Result match for rule 'AddNegative':
 - no parameters
-- node 'gc' => rhea.metamodels.CardinalityBasedFMs.impl.GroupCardinalityImpl@6baf25d7 (id: Root_F2_F4P, name: F4P, mandatory: false, abstract: true)
-- node #2 => rhea.metamodels.PropLogicCTCs.impl.AndImpl@50eb7b10
-- node #3 => org.eclipse.emf.henshin.trace.impl.TraceImpl@16ab7faa (name: null)
-- node #4 => rhea.metamodels.PropLogicCTCs.impl.OrImpl@7a67d983
-- node #5 => org.eclipse.emf.henshin.trace.impl.TraceImpl@6ae6df4a (name: null)
-- node #6 => rhea.metamodels.PropLogicCTCs.impl.ImpliesImpl@28cfdcb
+- node 'gc' => rhea.metamodels.CardinalityBasedFMs.impl.GroupCardinalityImpl@3eb3232b (id: F10, name: F10, mandatory: false, abstract: false)
+- node #2 => rhea.metamodels.PropLogicCTCs.impl.AndImpl@1dfd27fe
+- node #3 => org.eclipse.emf.henshin.trace.impl.TraceImpl@146b1d42 (name: null)
+- node #4 => rhea.metamodels.PropLogicCTCs.impl.OrImpl@70d8f66
+- node #5 => org.eclipse.emf.henshin.trace.impl.TraceImpl@1ea83b58 (name: null)
+- node #6 => rhea.metamodels.PropLogicCTCs.impl.ImpliesImpl@6984d41a
 
   Multi-rule #1:
 
   Result match #0:
   - no parameters
-  - node #1 => rhea.metamodels.CardinalityBasedFMs.impl.GroupCardinalityImpl@6baf25d7 (id: Root_F2_F4P, name: F4P, mandatory: false, abstract: true)
-  - node #2 => rhea.metamodels.BasicFMs.impl.FeatureImpl@77c1e611 (id: Root_F2_F4_F85, name: F85, mandatory: false, abstract: false)
-  - node #3 => rhea.metamodels.PropLogicCTCs.impl.AndImpl@50eb7b10
-  - node #4 => rhea.metamodels.PropLogicCTCs.impl.NotImpl@7370c288
-  - node #5 => rhea.metamodels.PropLogicCTCs.impl.FeatureTermImpl@63796a19
-  - node #6 => org.eclipse.emf.henshin.trace.impl.TraceImpl@16ab7faa (name: null)
-  - node #7 => rhea.metamodels.PropLogicCTCs.impl.OrImpl@7a67d983
-  - node #8 => org.eclipse.emf.henshin.trace.impl.TraceImpl@6ae6df4a (name: null)
-  - node #9 => rhea.metamodels.PropLogicCTCs.impl.ImpliesImpl@28cfdcb
+  - node #1 => rhea.metamodels.CardinalityBasedFMs.impl.GroupCardinalityImpl@3eb3232b (id: F10, name: F10, mandatory: false, abstract: false)
+  - node #2 => rhea.metamodels.BasicFMs.impl.FeatureImpl@abbe000 (id: F31, name: F31, mandatory: false, abstract: false)
+  - node #3 => rhea.metamodels.PropLogicCTCs.impl.AndImpl@1dfd27fe
+  - node #4 => rhea.metamodels.PropLogicCTCs.impl.NotImpl@5db94eaf
+  - node #5 => rhea.metamodels.PropLogicCTCs.impl.FeatureTermImpl@15bb7acd
+  - node #6 => org.eclipse.emf.henshin.trace.impl.TraceImpl@146b1d42 (name: null)
+  - node #7 => rhea.metamodels.PropLogicCTCs.impl.OrImpl@70d8f66
+  - node #8 => org.eclipse.emf.henshin.trace.impl.TraceImpl@1ea83b58 (name: null)
+  - node #9 => rhea.metamodels.PropLogicCTCs.impl.ImpliesImpl@6984d41a
 
   Result match #1:
   - no parameters
-  - node #1 => rhea.metamodels.CardinalityBasedFMs.impl.GroupCardinalityImpl@6baf25d7 (id: Root_F2_F4P, name: F4P, mandatory: false, abstract: true)
-  - node #2 => rhea.metamodels.BasicFMs.impl.FeatureImpl@46046c06 (id: Root_F2_F4_F14, name: F14, mandatory: false, abstract: false)
-  - node #3 => rhea.metamodels.PropLogicCTCs.impl.AndImpl@50eb7b10
-  - node #4 => rhea.metamodels.PropLogicCTCs.impl.NotImpl@661d8946
-  - node #5 => rhea.metamodels.PropLogicCTCs.impl.FeatureTermImpl@2b06fc00
-  - node #6 => org.eclipse.emf.henshin.trace.impl.TraceImpl@16ab7faa (name: null)
-  - node #7 => rhea.metamodels.PropLogicCTCs.impl.OrImpl@7a67d983
-  - node #8 => org.eclipse.emf.henshin.trace.impl.TraceImpl@6ae6df4a (name: null)
-  - node #9 => rhea.metamodels.PropLogicCTCs.impl.ImpliesImpl@28cfdcb
+  - node #1 => rhea.metamodels.CardinalityBasedFMs.impl.GroupCardinalityImpl@3eb3232b (id: F10, name: F10, mandatory: false, abstract: false)
+  - node #2 => rhea.metamodels.BasicFMs.impl.FeatureImpl@6587305a (id: F30, name: F30, mandatory: false, abstract: false)
+  - node #3 => rhea.metamodels.PropLogicCTCs.impl.AndImpl@1dfd27fe
+  - node #4 => rhea.metamodels.PropLogicCTCs.impl.NotImpl@725f288f
+  - node #5 => rhea.metamodels.PropLogicCTCs.impl.FeatureTermImpl@3e12aa8b
+  - node #6 => org.eclipse.emf.henshin.trace.impl.TraceImpl@146b1d42 (name: null)
+  - node #7 => rhea.metamodels.PropLogicCTCs.impl.OrImpl@70d8f66
+  - node #8 => org.eclipse.emf.henshin.trace.impl.TraceImpl@1ea83b58 (name: null)
+  - node #9 => rhea.metamodels.PropLogicCTCs.impl.ImpliesImpl@6984d41a
 
   Result match #2:
   - no parameters
-  - node #1 => rhea.metamodels.CardinalityBasedFMs.impl.GroupCardinalityImpl@6baf25d7 (id: Root_F2_F4P, name: F4P, mandatory: false, abstract: true)
-  - node #2 => rhea.metamodels.BasicFMs.impl.FeatureImpl@7af52ec7 (id: Root_F2_F4_F16, name: F16, mandatory: false, abstract: false)
-  - node #3 => rhea.metamodels.PropLogicCTCs.impl.AndImpl@50eb7b10
-  - node #4 => rhea.metamodels.PropLogicCTCs.impl.NotImpl@5e971f6a
-  - node #5 => rhea.metamodels.PropLogicCTCs.impl.FeatureTermImpl@76968f03
-  - node #6 => org.eclipse.emf.henshin.trace.impl.TraceImpl@16ab7faa (name: null)
-  - node #7 => rhea.metamodels.PropLogicCTCs.impl.OrImpl@7a67d983
-  - node #8 => org.eclipse.emf.henshin.trace.impl.TraceImpl@6ae6df4a (name: null)
-  - node #9 => rhea.metamodels.PropLogicCTCs.impl.ImpliesImpl@28cfdcb
+  - node #1 => rhea.metamodels.CardinalityBasedFMs.impl.GroupCardinalityImpl@3eb3232b (id: F10, name: F10, mandatory: false, abstract: false)
+  - node #2 => rhea.metamodels.BasicFMs.impl.FeatureImpl@b5de58f (id: F29, name: F29, mandatory: false, abstract: false)
+  - node #3 => rhea.metamodels.PropLogicCTCs.impl.AndImpl@1dfd27fe
+  - node #4 => rhea.metamodels.PropLogicCTCs.impl.NotImpl@29c947d0
+  - node #5 => rhea.metamodels.PropLogicCTCs.impl.FeatureTermImpl@676a2d36
+  - node #6 => org.eclipse.emf.henshin.trace.impl.TraceImpl@146b1d42 (name: null)
+  - node #7 => rhea.metamodels.PropLogicCTCs.impl.OrImpl@70d8f66
+  - node #8 => org.eclipse.emf.henshin.trace.impl.TraceImpl@1ea83b58 (name: null)
+  - node #9 => rhea.metamodels.PropLogicCTCs.impl.ImpliesImpl@6984d41a
 
 === (14) EXECUTED RULE 'AddNegative' [FALSE] ===
 
-Graph size: 343 nodes, 658 edges
+Graph size: 301 nodes, 595 edges
 
 === (15) EXECUTED UNIT 'MultiNegative' [TRUE] ===
 
-Graph size: 343 nodes, 658 edges
+Graph size: 301 nodes, 595 edges
 
 === (16) EXECUTED RULE 'TransformGroupCardinality' [TRUE] ===
 
-Graph size: 342 nodes, 658 edges
+Graph size: 300 nodes, 595 edges
 
 Match for rule 'TransformGroupCardinality':
-- parameter 'name' => 'F4P'
-- parameter 'abs' => true
+- parameter 'name' => 'F10'
+- parameter 'abs' => false
 - parameter 'mandatory' => false
-- node 'gc' => rhea.metamodels.CardinalityBasedFMs.impl.GroupCardinalityImpl@6baf25d7 (id: Root_F2_F4P, name: F4P, mandatory: false, abstract: true)
-- node #2 => rhea.metamodels.CardinalityBasedFMs.impl.MultiplicityImpl@6f3f0ae (lower: 1, upper: -1)
-- node #3 => rhea.metamodels.BasicFMs.impl.FeatureModelImpl@388d14e (name: fm)
-- node #4 => rhea.metamodels.BasicFMs.impl.FeatureImpl@57a6a933 (id: Root_F2_F4, name: F4, mandatory: false, abstract: false)
-- node #5 => rhea.metamodels.PropLogicCTCs.impl.ImpliesImpl@28cfdcb
-- node #6 => org.eclipse.emf.henshin.trace.impl.TraceImpl@6ae6df4a (name: null)
+- node 'gc' => rhea.metamodels.CardinalityBasedFMs.impl.GroupCardinalityImpl@3eb3232b (id: F10, name: F10, mandatory: false, abstract: false)
+- node #2 => rhea.metamodels.CardinalityBasedFMs.impl.MultiplicityImpl@506aabf6 (lower: 1, upper: 1)
+- node #3 => rhea.metamodels.BasicFMs.impl.FeatureModelImpl@3667faa8 (name: fm)
+- node #4 => rhea.metamodels.BasicFMs.impl.SelectionGroupImpl@7ed3df3b (id: F3, name: F3, mandatory: true, abstract: false)
+- node #5 => rhea.metamodels.PropLogicCTCs.impl.ImpliesImpl@6984d41a
+- node #6 => org.eclipse.emf.henshin.trace.impl.TraceImpl@1ea83b58 (name: null)
 
   Multi-rule #1:
 
   Match #0:
-  - parameter 'name' => 'F4P'
-  - parameter 'abs' => true
+  - parameter 'name' => 'F10'
+  - parameter 'abs' => false
   - parameter 'mandatory' => false
-  - node #1 => rhea.metamodels.CardinalityBasedFMs.impl.GroupCardinalityImpl@6baf25d7 (id: Root_F2_F4P, name: F4P, mandatory: false, abstract: true)
-  - node #2 => rhea.metamodels.BasicFMs.impl.FeatureModelImpl@388d14e (name: fm)
-  - node #3 => rhea.metamodels.CardinalityBasedFMs.impl.MultiplicityImpl@6f3f0ae (lower: 1, upper: -1)
-  - node #4 => rhea.metamodels.BasicFMs.impl.FeatureImpl@46046c06 (id: Root_F2_F4_F14, name: F14, mandatory: false, abstract: false)
-  - node #5 => rhea.metamodels.BasicFMs.impl.FeatureImpl@57a6a933 (id: Root_F2_F4, name: F4, mandatory: false, abstract: false)
-  - node #6 => rhea.metamodels.PropLogicCTCs.impl.ImpliesImpl@28cfdcb
-  - node #7 => org.eclipse.emf.henshin.trace.impl.TraceImpl@6ae6df4a (name: null)
+  - node #1 => rhea.metamodels.CardinalityBasedFMs.impl.GroupCardinalityImpl@3eb3232b (id: F10, name: F10, mandatory: false, abstract: false)
+  - node #2 => rhea.metamodels.BasicFMs.impl.FeatureModelImpl@3667faa8 (name: fm)
+  - node #3 => rhea.metamodels.CardinalityBasedFMs.impl.MultiplicityImpl@506aabf6 (lower: 1, upper: 1)
+  - node #4 => rhea.metamodels.BasicFMs.impl.FeatureImpl@3f81621c (id: F36, name: F36, mandatory: false, abstract: false)
+  - node #5 => rhea.metamodels.BasicFMs.impl.SelectionGroupImpl@7ed3df3b (id: F3, name: F3, mandatory: true, abstract: false)
+  - node #6 => rhea.metamodels.PropLogicCTCs.impl.ImpliesImpl@6984d41a
+  - node #7 => org.eclipse.emf.henshin.trace.impl.TraceImpl@1ea83b58 (name: null)
 
   Match #1:
-  - parameter 'name' => 'F4P'
-  - parameter 'abs' => true
+  - parameter 'name' => 'F10'
+  - parameter 'abs' => false
   - parameter 'mandatory' => false
-  - node #1 => rhea.metamodels.CardinalityBasedFMs.impl.GroupCardinalityImpl@6baf25d7 (id: Root_F2_F4P, name: F4P, mandatory: false, abstract: true)
-  - node #2 => rhea.metamodels.BasicFMs.impl.FeatureModelImpl@388d14e (name: fm)
-  - node #3 => rhea.metamodels.CardinalityBasedFMs.impl.MultiplicityImpl@6f3f0ae (lower: 1, upper: -1)
-  - node #4 => rhea.metamodels.BasicFMs.impl.FeatureImpl@77c1e611 (id: Root_F2_F4_F85, name: F85, mandatory: false, abstract: false)
-  - node #5 => rhea.metamodels.BasicFMs.impl.FeatureImpl@57a6a933 (id: Root_F2_F4, name: F4, mandatory: false, abstract: false)
-  - node #6 => rhea.metamodels.PropLogicCTCs.impl.ImpliesImpl@28cfdcb
-  - node #7 => org.eclipse.emf.henshin.trace.impl.TraceImpl@6ae6df4a (name: null)
+  - node #1 => rhea.metamodels.CardinalityBasedFMs.impl.GroupCardinalityImpl@3eb3232b (id: F10, name: F10, mandatory: false, abstract: false)
+  - node #2 => rhea.metamodels.BasicFMs.impl.FeatureModelImpl@3667faa8 (name: fm)
+  - node #3 => rhea.metamodels.CardinalityBasedFMs.impl.MultiplicityImpl@506aabf6 (lower: 1, upper: 1)
+  - node #4 => rhea.metamodels.BasicFMs.impl.FeatureImpl@abbe000 (id: F31, name: F31, mandatory: false, abstract: false)
+  - node #5 => rhea.metamodels.BasicFMs.impl.SelectionGroupImpl@7ed3df3b (id: F3, name: F3, mandatory: true, abstract: false)
+  - node #6 => rhea.metamodels.PropLogicCTCs.impl.ImpliesImpl@6984d41a
+  - node #7 => org.eclipse.emf.henshin.trace.impl.TraceImpl@1ea83b58 (name: null)
 
   Match #2:
-  - parameter 'name' => 'F4P'
-  - parameter 'abs' => true
+  - parameter 'name' => 'F10'
+  - parameter 'abs' => false
   - parameter 'mandatory' => false
-  - node #1 => rhea.metamodels.CardinalityBasedFMs.impl.GroupCardinalityImpl@6baf25d7 (id: Root_F2_F4P, name: F4P, mandatory: false, abstract: true)
-  - node #2 => rhea.metamodels.BasicFMs.impl.FeatureModelImpl@388d14e (name: fm)
-  - node #3 => rhea.metamodels.CardinalityBasedFMs.impl.MultiplicityImpl@6f3f0ae (lower: 1, upper: -1)
-  - node #4 => rhea.metamodels.BasicFMs.impl.FeatureImpl@7af52ec7 (id: Root_F2_F4_F16, name: F16, mandatory: false, abstract: false)
-  - node #5 => rhea.metamodels.BasicFMs.impl.FeatureImpl@57a6a933 (id: Root_F2_F4, name: F4, mandatory: false, abstract: false)
-  - node #6 => rhea.metamodels.PropLogicCTCs.impl.ImpliesImpl@28cfdcb
-  - node #7 => org.eclipse.emf.henshin.trace.impl.TraceImpl@6ae6df4a (name: null)
+  - node #1 => rhea.metamodels.CardinalityBasedFMs.impl.GroupCardinalityImpl@3eb3232b (id: F10, name: F10, mandatory: false, abstract: false)
+  - node #2 => rhea.metamodels.BasicFMs.impl.FeatureModelImpl@3667faa8 (name: fm)
+  - node #3 => rhea.metamodels.CardinalityBasedFMs.impl.MultiplicityImpl@506aabf6 (lower: 1, upper: 1)
+  - node #4 => rhea.metamodels.BasicFMs.impl.FeatureImpl@6587305a (id: F30, name: F30, mandatory: false, abstract: false)
+  - node #5 => rhea.metamodels.BasicFMs.impl.SelectionGroupImpl@7ed3df3b (id: F3, name: F3, mandatory: true, abstract: false)
+  - node #6 => rhea.metamodels.PropLogicCTCs.impl.ImpliesImpl@6984d41a
+  - node #7 => org.eclipse.emf.henshin.trace.impl.TraceImpl@1ea83b58 (name: null)
 
   Match #3:
-  - parameter 'name' => 'F4P'
-  - parameter 'abs' => true
+  - parameter 'name' => 'F10'
+  - parameter 'abs' => false
   - parameter 'mandatory' => false
-  - node #1 => rhea.metamodels.CardinalityBasedFMs.impl.GroupCardinalityImpl@6baf25d7 (id: Root_F2_F4P, name: F4P, mandatory: false, abstract: true)
-  - node #2 => rhea.metamodels.BasicFMs.impl.FeatureModelImpl@388d14e (name: fm)
-  - node #3 => rhea.metamodels.CardinalityBasedFMs.impl.MultiplicityImpl@6f3f0ae (lower: 1, upper: -1)
-  - node #4 => rhea.metamodels.BasicFMs.impl.FeatureImpl@93824eb (id: Root_F2_F4_F15, name: F15, mandatory: false, abstract: false)
-  - node #5 => rhea.metamodels.BasicFMs.impl.FeatureImpl@57a6a933 (id: Root_F2_F4, name: F4, mandatory: false, abstract: false)
-  - node #6 => rhea.metamodels.PropLogicCTCs.impl.ImpliesImpl@28cfdcb
-  - node #7 => org.eclipse.emf.henshin.trace.impl.TraceImpl@6ae6df4a (name: null)
+  - node #1 => rhea.metamodels.CardinalityBasedFMs.impl.GroupCardinalityImpl@3eb3232b (id: F10, name: F10, mandatory: false, abstract: false)
+  - node #2 => rhea.metamodels.BasicFMs.impl.FeatureModelImpl@3667faa8 (name: fm)
+  - node #3 => rhea.metamodels.CardinalityBasedFMs.impl.MultiplicityImpl@506aabf6 (lower: 1, upper: 1)
+  - node #4 => rhea.metamodels.BasicFMs.impl.FeatureImpl@b5de58f (id: F29, name: F29, mandatory: false, abstract: false)
+  - node #5 => rhea.metamodels.BasicFMs.impl.SelectionGroupImpl@7ed3df3b (id: F3, name: F3, mandatory: true, abstract: false)
+  - node #6 => rhea.metamodels.PropLogicCTCs.impl.ImpliesImpl@6984d41a
+  - node #7 => org.eclipse.emf.henshin.trace.impl.TraceImpl@1ea83b58 (name: null)
 
 Result match for rule 'TransformGroupCardinality':
-- parameter 'name' => 'F4P'
-- parameter 'abs' => true
+- parameter 'name' => 'F10'
+- parameter 'abs' => false
 - parameter 'mandatory' => false
-- node 'sg' => rhea.metamodels.BasicFMs.impl.SelectionGroupImpl@535d12ed (id: Root_F2_F4P, name: F4P, mandatory: false, abstract: true)
-- node #2 => rhea.metamodels.BasicFMs.impl.FeatureModelImpl@388d14e (name: fm)
-- node #3 => rhea.metamodels.BasicFMs.impl.FeatureImpl@57a6a933 (id: Root_F2_F4, name: F4, mandatory: false, abstract: false)
-- node #4 => rhea.metamodels.PropLogicCTCs.impl.ImpliesImpl@28cfdcb
-- node #5 => rhea.metamodels.PropLogicCTCs.impl.FeatureTermImpl@3ecd0cf9
+- node 'sg' => rhea.metamodels.BasicFMs.impl.SelectionGroupImpl@573eb678 (id: F10, name: F10, mandatory: false, abstract: false)
+- node #2 => rhea.metamodels.BasicFMs.impl.FeatureModelImpl@3667faa8 (name: fm)
+- node #3 => rhea.metamodels.BasicFMs.impl.SelectionGroupImpl@7ed3df3b (id: F3, name: F3, mandatory: true, abstract: false)
+- node #4 => rhea.metamodels.PropLogicCTCs.impl.ImpliesImpl@6984d41a
+- node #5 => rhea.metamodels.PropLogicCTCs.impl.FeatureTermImpl@17ae4b7c
 
   Multi-rule #1:
 
   Result match #0:
-  - parameter 'name' => 'F4P'
-  - parameter 'abs' => true
+  - parameter 'name' => 'F10'
+  - parameter 'abs' => false
   - parameter 'mandatory' => false
-  - node #1 => rhea.metamodels.BasicFMs.impl.FeatureModelImpl@388d14e (name: fm)
-  - node #2 => rhea.metamodels.BasicFMs.impl.SelectionGroupImpl@535d12ed (id: Root_F2_F4P, name: F4P, mandatory: false, abstract: true)
-  - node #3 => rhea.metamodels.BasicFMs.impl.FeatureImpl@46046c06 (id: Root_F2_F4_F14, name: F14, mandatory: false, abstract: false)
-  - node #4 => rhea.metamodels.BasicFMs.impl.FeatureImpl@57a6a933 (id: Root_F2_F4, name: F4, mandatory: false, abstract: false)
-  - node #5 => rhea.metamodels.PropLogicCTCs.impl.ImpliesImpl@28cfdcb
-  - node #6 => rhea.metamodels.PropLogicCTCs.impl.FeatureTermImpl@3ecd0cf9
+  - node #1 => rhea.metamodels.BasicFMs.impl.FeatureModelImpl@3667faa8 (name: fm)
+  - node #2 => rhea.metamodels.BasicFMs.impl.SelectionGroupImpl@573eb678 (id: F10, name: F10, mandatory: false, abstract: false)
+  - node #3 => rhea.metamodels.BasicFMs.impl.FeatureImpl@3f81621c (id: F36, name: F36, mandatory: false, abstract: false)
+  - node #4 => rhea.metamodels.BasicFMs.impl.SelectionGroupImpl@7ed3df3b (id: F3, name: F3, mandatory: true, abstract: false)
+  - node #5 => rhea.metamodels.PropLogicCTCs.impl.ImpliesImpl@6984d41a
+  - node #6 => rhea.metamodels.PropLogicCTCs.impl.FeatureTermImpl@17ae4b7c
 
   Result match #1:
-  - parameter 'name' => 'F4P'
-  - parameter 'abs' => true
+  - parameter 'name' => 'F10'
+  - parameter 'abs' => false
   - parameter 'mandatory' => false
-  - node #1 => rhea.metamodels.BasicFMs.impl.FeatureModelImpl@388d14e (name: fm)
-  - node #2 => rhea.metamodels.BasicFMs.impl.SelectionGroupImpl@535d12ed (id: Root_F2_F4P, name: F4P, mandatory: false, abstract: true)
-  - node #3 => rhea.metamodels.BasicFMs.impl.FeatureImpl@77c1e611 (id: Root_F2_F4_F85, name: F85, mandatory: false, abstract: false)
-  - node #4 => rhea.metamodels.BasicFMs.impl.FeatureImpl@57a6a933 (id: Root_F2_F4, name: F4, mandatory: false, abstract: false)
-  - node #5 => rhea.metamodels.PropLogicCTCs.impl.ImpliesImpl@28cfdcb
-  - node #6 => rhea.metamodels.PropLogicCTCs.impl.FeatureTermImpl@3ecd0cf9
+  - node #1 => rhea.metamodels.BasicFMs.impl.FeatureModelImpl@3667faa8 (name: fm)
+  - node #2 => rhea.metamodels.BasicFMs.impl.SelectionGroupImpl@573eb678 (id: F10, name: F10, mandatory: false, abstract: false)
+  - node #3 => rhea.metamodels.BasicFMs.impl.FeatureImpl@abbe000 (id: F31, name: F31, mandatory: false, abstract: false)
+  - node #4 => rhea.metamodels.BasicFMs.impl.SelectionGroupImpl@7ed3df3b (id: F3, name: F3, mandatory: true, abstract: false)
+  - node #5 => rhea.metamodels.PropLogicCTCs.impl.ImpliesImpl@6984d41a
+  - node #6 => rhea.metamodels.PropLogicCTCs.impl.FeatureTermImpl@17ae4b7c
 
   Result match #2:
-  - parameter 'name' => 'F4P'
-  - parameter 'abs' => true
+  - parameter 'name' => 'F10'
+  - parameter 'abs' => false
   - parameter 'mandatory' => false
-  - node #1 => rhea.metamodels.BasicFMs.impl.FeatureModelImpl@388d14e (name: fm)
-  - node #2 => rhea.metamodels.BasicFMs.impl.SelectionGroupImpl@535d12ed (id: Root_F2_F4P, name: F4P, mandatory: false, abstract: true)
-  - node #3 => rhea.metamodels.BasicFMs.impl.FeatureImpl@7af52ec7 (id: Root_F2_F4_F16, name: F16, mandatory: false, abstract: false)
-  - node #4 => rhea.metamodels.BasicFMs.impl.FeatureImpl@57a6a933 (id: Root_F2_F4, name: F4, mandatory: false, abstract: false)
-  - node #5 => rhea.metamodels.PropLogicCTCs.impl.ImpliesImpl@28cfdcb
-  - node #6 => rhea.metamodels.PropLogicCTCs.impl.FeatureTermImpl@3ecd0cf9
+  - node #1 => rhea.metamodels.BasicFMs.impl.FeatureModelImpl@3667faa8 (name: fm)
+  - node #2 => rhea.metamodels.BasicFMs.impl.SelectionGroupImpl@573eb678 (id: F10, name: F10, mandatory: false, abstract: false)
+  - node #3 => rhea.metamodels.BasicFMs.impl.FeatureImpl@6587305a (id: F30, name: F30, mandatory: false, abstract: false)
+  - node #4 => rhea.metamodels.BasicFMs.impl.SelectionGroupImpl@7ed3df3b (id: F3, name: F3, mandatory: true, abstract: false)
+  - node #5 => rhea.metamodels.PropLogicCTCs.impl.ImpliesImpl@6984d41a
+  - node #6 => rhea.metamodels.PropLogicCTCs.impl.FeatureTermImpl@17ae4b7c
 
   Result match #3:
-  - parameter 'name' => 'F4P'
-  - parameter 'abs' => true
+  - parameter 'name' => 'F10'
+  - parameter 'abs' => false
   - parameter 'mandatory' => false
-  - node #1 => rhea.metamodels.BasicFMs.impl.FeatureModelImpl@388d14e (name: fm)
-  - node #2 => rhea.metamodels.BasicFMs.impl.SelectionGroupImpl@535d12ed (id: Root_F2_F4P, name: F4P, mandatory: false, abstract: true)
-  - node #3 => rhea.metamodels.BasicFMs.impl.FeatureImpl@93824eb (id: Root_F2_F4_F15, name: F15, mandatory: false, abstract: false)
-  - node #4 => rhea.metamodels.BasicFMs.impl.FeatureImpl@57a6a933 (id: Root_F2_F4, name: F4, mandatory: false, abstract: false)
-  - node #5 => rhea.metamodels.PropLogicCTCs.impl.ImpliesImpl@28cfdcb
-  - node #6 => rhea.metamodels.PropLogicCTCs.impl.FeatureTermImpl@3ecd0cf9
+  - node #1 => rhea.metamodels.BasicFMs.impl.FeatureModelImpl@3667faa8 (name: fm)
+  - node #2 => rhea.metamodels.BasicFMs.impl.SelectionGroupImpl@573eb678 (id: F10, name: F10, mandatory: false, abstract: false)
+  - node #3 => rhea.metamodels.BasicFMs.impl.FeatureImpl@b5de58f (id: F29, name: F29, mandatory: false, abstract: false)
+  - node #4 => rhea.metamodels.BasicFMs.impl.SelectionGroupImpl@7ed3df3b (id: F3, name: F3, mandatory: true, abstract: false)
+  - node #5 => rhea.metamodels.PropLogicCTCs.impl.ImpliesImpl@6984d41a
+  - node #6 => rhea.metamodels.PropLogicCTCs.impl.FeatureTermImpl@17ae4b7c
 
 === (17) EXECUTED RULE 'Clean' [TRUE] ===
 
-Graph size: 338 nodes, 654 edges
+Graph size: 296 nodes, 591 edges
 
 Match for rule 'Clean':
 - no parameters
@@ -747,23 +747,23 @@ Match for rule 'Clean':
 
   Match #0:
   - no parameters
-  - node #1 => org.eclipse.emf.henshin.trace.impl.TraceImpl@19895e73 (name: null)
-  - node #2 => rhea.metamodels.PropLogicCTCs.impl.AndImpl@511ecb4f
+  - node #1 => org.eclipse.emf.henshin.trace.impl.TraceImpl@146b1d42 (name: null)
+  - node #2 => rhea.metamodels.PropLogicCTCs.impl.AndImpl@1dfd27fe
 
   Match #1:
   - no parameters
-  - node #1 => org.eclipse.emf.henshin.trace.impl.TraceImpl@3cc6d144 (name: null)
-  - node #2 => rhea.metamodels.PropLogicCTCs.impl.AndImpl@5c73535b
+  - node #1 => org.eclipse.emf.henshin.trace.impl.TraceImpl@271e8be8 (name: null)
+  - node #2 => rhea.metamodels.PropLogicCTCs.impl.AndImpl@6f45872b
 
   Match #2:
   - no parameters
-  - node #1 => org.eclipse.emf.henshin.trace.impl.TraceImpl@16ab7faa (name: null)
-  - node #2 => rhea.metamodels.PropLogicCTCs.impl.AndImpl@50eb7b10
+  - node #1 => org.eclipse.emf.henshin.trace.impl.TraceImpl@21e67d8d (name: null)
+  - node #2 => rhea.metamodels.PropLogicCTCs.impl.AndImpl@6b2d01e2
 
   Match #3:
   - no parameters
-  - node #1 => org.eclipse.emf.henshin.trace.impl.TraceImpl@123b8431 (name: null)
-  - node #2 => rhea.metamodels.PropLogicCTCs.impl.AndImpl@4692047b
+  - node #1 => org.eclipse.emf.henshin.trace.impl.TraceImpl@2e15ad9b (name: null)
+  - node #2 => rhea.metamodels.PropLogicCTCs.impl.AndImpl@7b29d791
 
 Result match for rule 'Clean':
 - no parameters
@@ -773,21 +773,21 @@ Result match for rule 'Clean':
 
   Result match #0:
   - no parameters
-  - node #1 => rhea.metamodels.PropLogicCTCs.impl.AndImpl@511ecb4f
+  - node #1 => rhea.metamodels.PropLogicCTCs.impl.AndImpl@1dfd27fe
 
   Result match #1:
   - no parameters
-  - node #1 => rhea.metamodels.PropLogicCTCs.impl.AndImpl@5c73535b
+  - node #1 => rhea.metamodels.PropLogicCTCs.impl.AndImpl@6f45872b
 
   Result match #2:
   - no parameters
-  - node #1 => rhea.metamodels.PropLogicCTCs.impl.AndImpl@50eb7b10
+  - node #1 => rhea.metamodels.PropLogicCTCs.impl.AndImpl@6b2d01e2
 
   Result match #3:
   - no parameters
-  - node #1 => rhea.metamodels.PropLogicCTCs.impl.AndImpl@4692047b
+  - node #1 => rhea.metamodels.PropLogicCTCs.impl.AndImpl@7b29d791
 
 === (18) EXECUTED UNIT 'GroupCardinalitiesNM' [TRUE] ===
 
-Graph size: 338 nodes, 654 edges
+Graph size: 296 nodes, 591 edges
 

@@ -157,6 +157,9 @@ public class FeatureModelGeneratorByPercentages {
 			}
 			while(upper<lower || upper==0); // || feature.getChildren().size() <= lower
 			
+			// Cambiamos upper por *
+			if((lower==0 || lower==1) && upper==feature.getChildren().size()) upper = -1;
+			
 			((GroupCardinality) feature).getMultiplicity().setLower(lower);
 			((GroupCardinality) feature).getMultiplicity().setUpper(upper);
 		}
