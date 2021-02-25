@@ -42,8 +42,8 @@ public class Test2 {
 		
 		String inputFile = Rhea.INPUTS_DIR + "clafer/GroupCardinalities/" + inputModel + ".txt";
 		String outputFile = Rhea.OUTPUTS_DIR + "clafer/GroupCardinalities/" + inputModel + ".txt";
-		String transformationFilepath = Rhea.REFACTORINGS_DIR + "GroupCardinalities.henshin";
-		String ruleName = "GroupCardinalitiesRefactor";
+		String transformationFilepath = Rhea.REFACTORINGS_DIR + "GroupCardinalities11.henshin";
+		String ruleName = "AllGroupCardinality11";
 		
 		///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		
