@@ -201,7 +201,7 @@ public class HenshinEngine {
 		
 		// Set engine options
 		engine.getOptions().put(Engine.OPTION_CHECK_DANGLING, false);
-		engine.getOptions().put(Engine.OPTION_DETERMINISTIC, false);
+		engine.getOptions().put(Engine.OPTION_DETERMINISTIC, true);
 		
 		// Execute the unit/rule
 		boolean status = application.execute(null);
@@ -234,7 +234,7 @@ public class HenshinEngine {
 		
 		// Set engine options
 		engine.getOptions().put(Engine.OPTION_CHECK_DANGLING, false);
-		engine.getOptions().put(Engine.OPTION_DETERMINISTIC, false);
+		engine.getOptions().put(Engine.OPTION_DETERMINISTIC, true);
 		
 		// Execute the unit/rule
 		boolean status = application.execute(monitor);

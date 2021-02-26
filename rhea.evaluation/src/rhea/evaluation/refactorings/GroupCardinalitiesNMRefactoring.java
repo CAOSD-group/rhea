@@ -1,5 +1,6 @@
 package rhea.evaluation.refactorings;
 
+import java.io.File;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
@@ -25,7 +26,7 @@ public class GroupCardinalitiesNMRefactoring extends HenshingRefactoring{
 	public List<HenshinTransformation> getTransformations() {
 		ArrayList<HenshinTransformation> hs = new ArrayList<>();
 		for ( Feature f : FMHelper.getAllFeaturesOf(fm, "rhea.metamodels.CardinalityBasedFMs.GroupCardinality")) {
-			hs.add(new HenshinTransformation("GroupCardinalitiesNM-"+f.getId(), "GroupCardinalitiesNM"));
+			hs.add(new HenshinTransformation("generated/GroupCardinalitiesNM-"+f.getId(), "GroupCardinalitiesNM"));
 		}
 		return hs;
 	}
@@ -39,13 +40,24 @@ public class GroupCardinalitiesNMRefactoring extends HenshingRefactoring{
 			try {
 				for (GroupCardinality gc : gcs) {
 					module = GroupCardinalities.completeModuleForGC(transformationFilepath, gc);
-					HenshinUtils.serializeModule(module, Rhea.REFACTORINGS_DIR);	// hay que arreglar esto para que no lo genere una carpeta.
+					HenshinUtils.serializeModule(module, Rhea.REFACTORINGS_DIR + "/generated");	// hay que arreglar esto para que no lo genere una carpeta.
 					System.out.println("Template Completed!!");
 				}
 			} catch (ParseException e) {
 				e.printStackTrace();
 			}
 		}
+	}
+	
+	public void deleteTemplates() {
+		String modulesGeneratedPath = Rhea.REFACTORINGS_DIR + "/generated";
+		File generatedDir = new File(modulesGeneratedPath);
+		
+		for (File f : generatedDir.listFiles()) 
+		{
+			f.delete();
+		}
+		
 	}
 	
 	public void setFeatureModel(FeatureModel fm) {

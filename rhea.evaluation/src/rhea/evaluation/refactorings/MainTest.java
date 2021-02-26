@@ -99,6 +99,8 @@ public class MainTest {
 					r.executeTransformation(fm);
 					postTransformation(fm);
 				}
+				
+				if (r instanceof GroupCardinalitiesNMRefactoring) ((GroupCardinalitiesNMRefactoring) r).deleteTemplates();
 			}
 		} 
 		catch (SecurityException e) {e.printStackTrace();}
