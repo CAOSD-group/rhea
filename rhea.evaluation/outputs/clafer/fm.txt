@@ -63,7 +63,19 @@ abstract Root
 			F22
 				F40
 		F45
-	1..* F3
+	F91
+	F94
+	F98 ?
+	or F3
+		F39
+		F13
+			F61 ?
+			F78 ?
+			F82 ?
+		F12
+			F48
+			F55
+			F59
 		1..1 F10
 			F29
 				F65
@@ -77,25 +89,14 @@ abstract Root
 			F31
 				F51 ?
 			F36
-		F12
-			F48
-			F55
-			F59
-		F13
-			F61 ?
-			F78 ?
-			F82 ?
-		F39
-	0..1 F11 ?
-		F32
-		F33
-			F70
-			F79 ?
-		F34
-			F87
-			F95
-			F99
-	F91
-	F94
-	F98 ?
+	F11 ?
+		xor F11P ?
+			F34
+				F87
+				F95
+				F99
+			F33
+				F70
+				F79 ?
+			F32
 config: Root

@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="ASCII"?>
+<rhea:FeatureModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:rhea="rhea.metamodels.BasicFMs" xmlns:rhea_1="rhea.metamodels.CardinalityBasedFMs" name="fm" features="//@root //@root/@children.0 //@root/@children.0/@children.0 //@root/@children.0/@children.0/@children.0 //@root/@children.0/@children.0/@children.0/@children.0 //@root/@children.0/@children.0/@children.0/@children.1 //@root/@children.0/@children.0/@children.0/@children.2 //@root/@children.0/@children.0/@children.0/@children.3 //@root/@children.0/@children.0/@children.1 //@root/@children.0/@children.0/@children.1/@children.0 //@root/@children.0/@children.0/@children.1/@children.1 //@root/@children.0/@children.0/@children.2 //@root/@children.0/@children.0/@children.3 //@root/@children.0/@children.1 //@root/@children.0/@children.1/@children.0 //@root/@children.0/@children.1/@children.0/@children.0 //@root/@children.0/@children.1/@children.0/@children.0/@children.0 //@root/@children.0/@children.1/@children.0/@children.0/@children.1 //@root/@children.0/@children.1/@children.0/@children.0/@children.1/@children.0 //@root/@children.0/@children.1/@children.0/@children.0/@children.1/@children.1 //@root/@children.0/@children.1/@children.0/@children.0/@children.1/@children.2 //@root/@children.0/@children.1/@children.0/@children.0/@children.1/@children.3 //@root/@children.0/@children.1/@children.0/@children.0/@children.2 //@root/@children.0/@children.1/@children.0/@children.0/@children.2/@children.0 //@root/@children.0/@children.1/@children.0/@children.0/@children.2/@children.1 //@root/@children.0/@children.1/@children.0/@children.0/@children.2/@children.2 //@root/@children.0/@children.1/@children.0/@children.0/@children.2/@children.3 //@root/@children.0/@children.1/@children.0/@children.0/@children.2/@children.4 //@root/@children.0/@children.1/@children.0/@children.0/@children.2/@children.5 //@root/@children.0/@children.1/@children.0/@children.0/@children.3 //@root/@children.0/@children.1/@children.0/@children.1 //@root/@children.0/@children.1/@children.0/@children.1/@children.0 //@root/@children.0/@children.1/@children.0/@children.1/@children.1 //@root/@children.0/@children.1/@children.0/@children.2 //@root/@children.0/@children.1/@children.0/@children.2/@children.0 //@root/@children.0/@children.1/@children.0/@children.2/@children.1 //@root/@children.0/@children.1/@children.0/@children.3 //@root/@children.0/@children.1/@children.1 //@root/@children.0/@children.1/@children.1/@children.0 //@root/@children.0/@children.1/@children.1/@children.1 //@root/@children.0/@children.1/@children.1/@children.2 //@root/@children.0/@children.1/@children.1/@children.3 //@root/@children.0/@children.1/@children.1/@children.4 //@root/@children.0/@children.1/@children.2 //@root/@children.0/@children.1/@children.2/@children.0 //@root/@children.0/@children.1/@children.2/@children.1 //@root/@children.0/@children.1/@children.2/@children.2 //@root/@children.0/@children.1/@children.3 //@root/@children.0/@children.2 //@root/@children.0/@children.2/@children.0 //@root/@children.0/@children.2/@children.0/@children.0 //@root/@children.0/@children.2/@children.0/@children.0/@children.0 //@root/@children.0/@children.2/@children.0/@children.1 //@root/@children.0/@children.2/@children.0/@children.1/@children.0 //@root/@children.0/@children.2/@children.0/@children.2 //@root/@children.0/@children.2/@children.0/@children.2/@children.0 //@root/@children.0/@children.2/@children.0/@children.2/@children.1 //@root/@children.0/@children.2/@children.0/@children.2/@children.2 //@root/@children.0/@children.2/@children.0/@children.2/@children.3 //@root/@children.0/@children.2/@children.0/@children.3 //@root/@children.0/@children.2/@children.1 //@root/@children.0/@children.2/@children.1/@children.0 //@root/@children.0/@children.2/@children.2 //@root/@children.0/@children.2/@children.2/@children.0 //@root/@children.0/@children.3 //@root/@children.4/@children.3 //@root/@children.4/@children.3/@children.0 //@root/@children.4/@children.3/@children.0/@children.0 //@root/@children.4/@children.3/@children.0/@children.1 //@root/@children.4/@children.3/@children.0/@children.2 //@root/@children.4/@children.3/@children.0/@children.3 //@root/@children.4/@children.3/@children.1 //@root/@children.4/@children.3/@children.1/@children.0 //@root/@children.4/@children.3/@children.1/@children.1 //@root/@children.4/@children.3/@children.1/@children.2 //@root/@children.4/@children.3/@children.2 //@root/@children.4/@children.3/@children.2/@children.0 //@root/@children.4/@children.3/@children.3 //@root/@children.4/@children.2 //@root/@children.4/@children.2/@children.0 //@root/@children.4/@children.2/@children.1 //@root/@children.4/@children.2/@children.2 //@root/@children.4/@children.1 //@root/@children.4/@children.1/@children.0 //@root/@children.4/@children.1/@children.1 //@root/@children.4/@children.1/@children.2 //@root/@children.4/@children.0 //@root/@children.5/@children.0/@children.2 //@root/@children.5/@children.0/@children.1 //@root/@children.5/@children.0/@children.1/@children.0 //@root/@children.5/@children.0/@children.1/@children.1 //@root/@children.5/@children.0/@children.0 //@root/@children.5/@children.0/@children.0/@children.0 //@root/@children.5/@children.0/@children.0/@children.1 //@root/@children.5/@children.0/@children.0/@children.2 //@root/@children.1 //@root/@children.2 //@root/@children.3 //@root/@children.4 //@root/@children.5/@children.0 //@root/@children.5">
+  <root id="Root" name="Root" mandatory="true" abstract="true">
+    <children xsi:type="rhea_1:GroupCardinality" id="F2" name="F2">
+      <children xsi:type="rhea_1:GroupCardinality" id="F4" name="F4">
+        <children id="F14" name="F14">
+          <children id="F43" name="F43" mandatory="true"/>
+          <children id="F52" name="F52" mandatory="true"/>
+          <children id="F81" name="F81"/>
+          <children id="F86" name="F86" mandatory="true"/>
+        </children>
+        <children id="F15" name="F15">
+          <children id="F77" name="F77"/>
+          <children id="F83" name="F83" mandatory="true"/>
+        </children>
+        <children id="F16" name="F16"/>
+        <children id="F85" name="F85"/>
+        <multiplicity lower="0"/>
+      </children>
+      <children xsi:type="rhea_1:GroupCardinality" id="F5" name="F5">
+        <children xsi:type="rhea_1:GroupCardinality" id="F6" name="F6">
+          <children xsi:type="rhea_1:GroupCardinality" id="F9" name="F9">
+            <children id="F26" name="F26"/>
+            <children id="F27" name="F27">
+              <children id="F46" name="F46"/>
+              <children id="F73" name="F73"/>
+              <children id="F74" name="F74"/>
+              <children id="F92" name="F92"/>
+            </children>
+            <children id="F28" name="F28">
+              <children id="F47" name="F47" mandatory="true"/>
+              <children id="F53" name="F53" mandatory="true"/>
+              <children id="F56" name="F56"/>
+              <children id="F69" name="F69" mandatory="true"/>
+              <children id="F75" name="F75"/>
+              <children id="F89" name="F89"/>
+            </children>
+            <children id="F38" name="F38"/>
+            <multiplicity lower="2" upper="4"/>
+          </children>
+          <children id="F19" name="F19">
+            <children id="F37" name="F37" mandatory="true"/>
+            <children id="F50" name="F50" mandatory="true"/>
+          </children>
+          <children id="F20" name="F20">
+            <children id="F54" name="F54"/>
+            <children id="F62" name="F62"/>
+          </children>
+          <children id="F35" name="F35"/>
+          <multiplicity/>
+        </children>
+        <children id="F17" name="F17">
+          <children id="F42" name="F42" mandatory="true"/>
+          <children id="F44" name="F44" mandatory="true"/>
+          <children id="F66" name="F66"/>
+          <children id="F84" name="F84"/>
+          <children id="F93" name="F93" mandatory="true"/>
+        </children>
+        <children id="F18" name="F18">
+          <children id="F68" name="F68"/>
+          <children id="F71" name="F71" mandatory="true"/>
+          <children id="F76" name="F76" mandatory="true"/>
+        </children>
+        <children id="F41" name="F41"/>
+        <multiplicity lower="0" upper="1"/>
+      </children>
+      <children xsi:type="rhea_1:GroupCardinality" id="F7" name="F7">
+        <children xsi:type="rhea_1:GroupCardinality" id="F8" name="F8">
+          <children id="F23" name="F23">
+            <children id="F58" name="F58" mandatory="true"/>
+          </children>
+          <children id="F24" name="F24">
+            <children id="F97" name="F97" mandatory="true"/>
+          </children>
+          <children id="F25" name="F25">
+            <children id="F64" name="F64"/>
+            <children id="F72" name="F72" mandatory="true"/>
+            <children id="F90" name="F90" mandatory="true"/>
+            <children id="F100" name="F100" mandatory="true"/>
+          </children>
+          <children id="F60" name="F60"/>
+          <multiplicity upper="1"/>
+        </children>
+        <children id="F21" name="F21">
+          <children id="F49" name="F49"/>
+        </children>
+        <children id="F22" name="F22">
+          <children id="F40" name="F40" mandatory="true"/>
+        </children>
+        <multiplicity lower="0" upper="1"/>
+      </children>
+      <children id="F45" name="F45"/>
+      <multiplicity lower="0"/>
+    </children>
+    <children id="F91" name="F91" mandatory="true"/>
+    <children id="F94" name="F94" mandatory="true"/>
+    <children id="F98" name="F98"/>
+    <children xsi:type="rhea:SelectionGroup" id="F3" name="F3" mandatory="true">
+      <children id="F39" name="F39"/>
+      <children id="F13" name="F13">
+        <children id="F61" name="F61"/>
+        <children id="F78" name="F78"/>
+        <children id="F82" name="F82"/>
+      </children>
+      <children id="F12" name="F12">
+        <children id="F48" name="F48" mandatory="true"/>
+        <children id="F55" name="F55" mandatory="true"/>
+        <children id="F59" name="F59" mandatory="true"/>
+      </children>
+      <children xsi:type="rhea_1:GroupCardinality" id="F10" name="F10">
+        <children id="F29" name="F29">
+          <children id="F65" name="F65" mandatory="true"/>
+          <children id="F67" name="F67" mandatory="true"/>
+          <children id="F80" name="F80" mandatory="true"/>
+          <children id="F88" name="F88" mandatory="true"/>
+        </children>
+        <children id="F30" name="F30">
+          <children id="F57" name="F57" mandatory="true"/>
+          <children id="F63" name="F63"/>
+          <children id="F96" name="F96" mandatory="true"/>
+        </children>
+        <children id="F31" name="F31">
+          <children id="F51" name="F51"/>
+        </children>
+        <children id="F36" name="F36"/>
+        <multiplicity upper="1"/>
+      </children>
+    </children>
+    <children id="F11" name="F11">
+      <children xsi:type="rhea:AlternativeGroup" id="F11P" name="F11P" abstract="true">
+        <children id="F34" name="F34">
+          <children id="F87" name="F87" mandatory="true"/>
+          <children id="F95" name="F95" mandatory="true"/>
+          <children id="F99" name="F99" mandatory="true"/>
+        </children>
+        <children id="F33" name="F33">
+          <children id="F70" name="F70" mandatory="true"/>
+          <children id="F79" name="F79"/>
+        </children>
+        <children id="F32" name="F32"/>
+      </children>
+    </children>
+  </root>
+</rhea:FeatureModel>

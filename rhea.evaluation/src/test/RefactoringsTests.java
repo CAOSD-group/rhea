@@ -1,5 +1,6 @@
 package test;
 
+import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.io.IOException;
@@ -15,6 +16,7 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
 
+import rhea.Rhea;
 import rhea.aafm.AAFMClafer;
 import rhea.aafm.AutomatedAnalysisFM;
 import rhea.generators.FMGenerator;
@@ -23,6 +25,7 @@ import rhea.metamodels.BasicFMs.BasicFMsPackage;
 import rhea.metamodels.BasicFMs.FeatureModel;
 import rhea.metamodels.CardinalityBasedFMs.CardinalityBasedFMsPackage;
 import rhea.metamodels.helpers.EMFIO;
+import rhea.metamodels.helpers.FMHelper;
 import rhea.parsers.FMParser;
 import rhea.parsers.clafer.ClaferParser;
 import rhea.thirdpartyplugins.utils.Utils;
@@ -32,7 +35,7 @@ import rhea.transformations.engine.HenshinEngine;
 @RunWith(Suite.class)
 @SuiteClasses({})
 public class RefactoringsTests {
-	public static final String BASEDIR = "E:/Workspaces/RHEA-ws/rhea/";
+	public static final String BASEDIR = Rhea.BASEDIR;
 	public static final String BASEDIR_METAMODELS = BASEDIR + "rhea.metamodels/metamodels/";
 	public static final String BASEDIR_TRANSFORMATIONS = BASEDIR + "rhea.transformations/refactorings/";
 	public static final String BASEDIR_INPUT_MODELS_CLAFER = BASEDIR + "rhea.evaluation/inputs/clafer/";
@@ -45,11 +48,13 @@ public class RefactoringsTests {
 	public static final List<EPackage> staticMetamodels = List.of(BasicFMsPackage.eINSTANCE, CardinalityBasedFMsPackage.eINSTANCE);
 	
 	@ParameterizedTest
-	@ValueSource(strings = {"FM-TelematicsSystem.txt", "casoBase0-1.txt"})
+	@ValueSource(strings = {"fm"})
 	void groupCardinalitiesXOR(String filepath) {
-		String inputFile = BASEDIR_INPUT_MODELS_CLAFER + filepath;
-		String transformationFilepath = BASEDIR_TRANSFORMATIONS + "GroupCardinalities.henshin";
-		String ruleName = "GroupCardinality_XOR";
+		String classPath = "rhea.metamodels.CardinalityBasedFMs.GroupCardinality";
+		
+		String inputFile = Rhea.INPUTS_DIR + "clafer/" + filepath + ".txt";
+		String transformationFilepath = Rhea.REFACTORINGS_DIR + "GroupCardinalities.henshin";
+		String ruleName = "GroupCardinalitiesRefactor";
 		
 		System.out.println("Parsing Clafer feature model " + inputFile);
 		FMParser p = new ClaferParser();
@@ -64,8 +69,8 @@ public class RefactoringsTests {
 		} 
 		
 		// Calculate expected configurations
-		AutomatedAnalysisFM aafm = new AAFMClafer();
-		var expectedConfigs = aafm.configurations(fm);
+		//AutomatedAnalysisFM aafm = new AAFMClafer();
+		//var expectedConfigs = aafm.configurations(fm);
 				
 		// Do the transformation
 		HenshinEngine henshin = new HenshinEngine(BASEDIR);
@@ -81,10 +86,14 @@ public class RefactoringsTests {
 		// Load the model
 		//EObject model = henshin.loadModel(BASEDIR_INPUT_MODELS_AS + fm.getName() + ".xmi");
 				
+		var gcBefore = FMHelper.getAllFeaturesOf(fm, classPath).size();
+		
 		// Execute the transformation
 		EObject model = henshin.executeTransformation(transformationFilepath, ruleName,  Map.of(), BASEDIR_INPUT_MODELS_AS + fm.getName() + ".xmi");
 		FeatureModel fmD = (FeatureModel) model;
 		System.out.println("Feature model transformed: " + fmD.getName());
+		
+		var gcAfter = FMHelper.getAllFeaturesOf(fm, classPath).size();
 		
 		// Serialize the abstract syntax
 		henshin.saveModel(model, BASEDIR_OUTPUT_MODELS_AS +  fm.getName() + ".xmi");
@@ -97,14 +106,16 @@ public class RefactoringsTests {
 		String contents = g.fm2text(fm2);
 		Utils.serialize(contents, BASEDIR_OUTPUT_MODELS_CLAFER + fm2.getName() + ".txt");
 		
-		aafm = new AAFMClafer();
-		var configs = aafm.configurations(fm2);
+		//aafm = new AAFMClafer();
+		//var configs = aafm.configurations(fm2);
 		
 		
-		System.out.println("FM configs: " + configs.size() + " -> " + configs);
-		System.out.println("FM configs (expected): " + expectedConfigs.size() + " -> " + expectedConfigs);
+		//System.out.println("FM configs: " + configs.size() + " -> " + configs);
+		//System.out.println("FM configs (expected): " + expectedConfigs.size() + " -> " + expectedConfigs);
 		
-		assertEquals(configs, expectedConfigs);
+		assertTrue(gcAfter < gcBefore);
+		
+		System.out.println("SI SOY");
 	}
 	
 }

@@ -437,5 +437,5 @@
     </multiRules>
   </units>
   <units xsi:type="henshin:LoopUnit" xmi:id="_CdmSICnCEeuR6NKcYD6bBA" name="AllMutexGroup" subUnit="_lY2tYCm9EeuR6NKcYD6bBA"/>
-  <units xsi:type="henshin:SequentialUnit" xmi:id="_FmCCsCnCEeuR6NKcYD6bBA" name="MutexGroup_Refactoring" subUnits="_CdmSICnCEeuR6NKcYD6bBA _MjPz0Cm_EeuR6NKcYD6bBA" strict="false"/>
+  <units xsi:type="henshin:SequentialUnit" xmi:id="_FmCCsCnCEeuR6NKcYD6bBA" name="MutexGroupRefactor" subUnits="_CdmSICnCEeuR6NKcYD6bBA _MjPz0Cm_EeuR6NKcYD6bBA" strict="false"/>
 </henshin:Module>

@@ -38,12 +38,16 @@ public class Test2 {
 	
 	@ParameterizedTest
 	@ValueSource(strings = {"fm"})
-	void cardinalitiesGroup(String inputModel) throws IOException {
+	void test(String inputModel) throws IOException {
 		
-		String inputFile = Rhea.INPUTS_DIR + "clafer/GroupCardinalities/" + inputModel + ".txt";
-		String outputFile = Rhea.OUTPUTS_DIR + "clafer/GroupCardinalities/" + inputModel + ".txt";
-		String transformationFilepath = Rhea.REFACTORINGS_DIR + "GroupCardinalities11.henshin";
-		String ruleName = "AllGroupCardinality11";
+		String modelType = "GroupCardinalities";
+		String classPath = "rhea.metamodels.CardinalityBasedFMs.GroupCardinality";
+		
+		String inputFile = Rhea.INPUTS_DIR + "clafer/" + modelType + "/" + inputModel + ".txt";
+		String outputFile = Rhea.OUTPUTS_DIR + "clafer/" + modelType + "/" + inputModel + ".txt";
+		String transformationFilepath = Rhea.REFACTORINGS_DIR + modelType + ".henshin";
+		//String ruleName = modelType + "Refactor";
+		String ruleName = "LoopGroupCardinalitiesRefactor";
 		
 		///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		
@@ -66,7 +70,7 @@ public class Test2 {
 		AutomatedAnalysisFM aafm = new AAFMClafer();
 		FMHelper fmh = new FMHelper();
 		
-		var gcBefore = FMHelper.getAllFeaturesOf(fm, "rhea.metamodels.CardinalityBasedFMs.GroupCardinality").size();
+		var gcBefore = FMHelper.getAllFeaturesOf(fm, classPath).size();
 		
 		// Execute the transformation
 		boolean successTransformation = henshin.executeTransformation(unit,  Map.of(), fm);
@@ -77,7 +81,7 @@ public class Test2 {
 
 		/********** END REFACTORING **********/
 
-		var gcAfter = FMHelper.getAllFeaturesOf(fm, "rhea.metamodels.CardinalityBasedFMs.GroupCardinality").size();
+		var gcAfter = FMHelper.getAllFeaturesOf(fm, classPath).size();
 		
 		//Save Model
 		FMGenerator g = new ToClafer();
