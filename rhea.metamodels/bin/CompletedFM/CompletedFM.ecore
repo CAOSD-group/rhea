@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="CompletedFM" nsURI="rhea.metamodels.CompletedFM" nsPrefix="rhea">
+  <eClassifiers xsi:type="ecore:EClass" name="Feature">
+    <eOperations name="isLeaf" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+    <eOperations name="isRoot" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="id" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="mandatory" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean" defaultValueLiteral="false"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="children" upperBound="-1"
+        eType="#//Feature" containment="true" eOpposite="#//Feature/parent"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="parent" eType="#//Feature"
+        eOpposite="#//Feature/children"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="abstract" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"
+        defaultValueLiteral="false"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="FeatureGroup" abstract="true" eSuperTypes="#//Feature"/>
+  <eClassifiers xsi:type="ecore:EClass" name="AlternativeGroup" eSuperTypes="#//FeatureGroup">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="It represents alternative features (i.e., a 'xor' group)."/>
+    </eAnnotations>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="FeatureModel">
+    <eOperations name="getFeature" eType="#//Feature">
+      <eParameters name="id" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    </eOperations>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="root" eType="#//Feature"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="features" upperBound="-1"
+        eType="#//Feature"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="crosstreeconstraints" upperBound="-1"
+        eType="#//CrossTreeConstraint" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="SelectionGroup" eSuperTypes="#//FeatureGroup">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="It represents a selection of features (i.e., an 'or' group).&#xA;"/>
+    </eAnnotations>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="CrossTreeConstraint" abstract="true"/>
+  <eClassifiers xsi:type="ecore:EClass" name="MutexGroup" eSuperTypes="#//FeatureGroup"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Multiplicity">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="lower" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"
+        defaultValueLiteral="1"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="upper" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"
+        defaultValueLiteral="-1"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="GroupCardinality" eSuperTypes="#//FeatureGroup">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="multiplicity" lowerBound="1"
+        eType="#//Multiplicity" containment="true"/>
+  </eClassifiers>
+</ecore:EPackage>
