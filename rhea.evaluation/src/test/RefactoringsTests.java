@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import org.eclipse.emf.ecore.ENamedElement;
 import org.eclipse.emf.ecore.EObject;
@@ -27,6 +28,7 @@ import rhea.parsers.FMParser;
 import rhea.parsers.clafer.ClaferParser;
 import rhea.thirdpartyplugins.utils.Utils;
 import rhea.transformations.engine.HenshinEngine;
+import rhea.transformations.refactorings.GroupCardinalities;
 
 
 @RunWith(Suite.class)
@@ -45,15 +47,18 @@ public class RefactoringsTests {
 	public static final List<EPackage> staticMetamodels = List.of(BasicFMsPackage.eINSTANCE, CardinalityBasedFMsPackage.eINSTANCE);
 	
 	@ParameterizedTest
-	@ValueSource(strings = {"FM-TelematicsSystem.txt", "casoBase0-1.txt"})
+	//@ValueSource(strings = {"FM-TelematicsSystem.txt", "casoBase0-1.txt", "fm.txt"})
+	@ValueSource(strings = {"fm.txt"})
 	void groupCardinalitiesXOR(String filepath) {
 		String inputFile = BASEDIR_INPUT_MODELS_CLAFER + filepath;
 		String transformationFilepath = BASEDIR_TRANSFORMATIONS + "GroupCardinalities.henshin";
-		String ruleName = "GroupCardinality_XOR";
+		String ruleName = "AllGroupCardinality11";
 		
 		System.out.println("Parsing Clafer feature model " + inputFile);
 		FMParser p = new ClaferParser();
 		FeatureModel fm = p.readFeatureModel(inputFile);
+		
+		int nExpectedRefactors = GroupCardinalities.getGroupsCardinalities(fm).stream().filter(gc -> gc.getMultiplicity().getLower() == 1 && gc.getMultiplicity().getUpper() == 1).collect(Collectors.toList()).size();
 		
 		// Serialize the abstract syntax
 		try {
@@ -64,8 +69,8 @@ public class RefactoringsTests {
 		} 
 		
 		// Calculate expected configurations
-		AutomatedAnalysisFM aafm = new AAFMClafer();
-		var expectedConfigs = aafm.configurations(fm);
+		//AutomatedAnalysisFM aafm = new AAFMClafer();
+		//var expectedConfigs = aafm.configurations(fm);
 				
 		// Do the transformation
 		HenshinEngine henshin = new HenshinEngine(BASEDIR);
@@ -92,19 +97,22 @@ public class RefactoringsTests {
 		// Load again the abstract syntax
 		FeatureModel fm2 = (FeatureModel) EMFIO.loadModel(staticMetamodels, BASEDIR_OUTPUT_MODELS_AS + fm.getName() + ".xmi");
 		
+		int refactorsDone = nExpectedRefactors - GroupCardinalities.getGroupsCardinalities(fm2).stream().filter(gc -> gc.getMultiplicity().getLower() == 1 && gc.getMultiplicity().getUpper() == 1).collect(Collectors.toList()).size();
+		
 		// Serialize the model in Clafer
 		FMGenerator g = new ToClafer();
 		String contents = g.fm2text(fm2);
 		Utils.serialize(contents, BASEDIR_OUTPUT_MODELS_CLAFER + fm2.getName() + ".txt");
 		
-		aafm = new AAFMClafer();
-		var configs = aafm.configurations(fm2);
+		//aafm = new AAFMClafer();
+		//var configs = aafm.configurations(fm2);
 		
 		
-		System.out.println("FM configs: " + configs.size() + " -> " + configs);
-		System.out.println("FM configs (expected): " + expectedConfigs.size() + " -> " + expectedConfigs);
+		//System.out.println("FM configs: " + configs.size() + " -> " + configs);
+		//System.out.println("FM configs (expected): " + expectedConfigs.size() + " -> " + expectedConfigs);
 		
-		assertEquals(configs, expectedConfigs);
+		//assertEquals(configs, expectedConfigs);
+		assertEquals(nExpectedRefactors, refactorsDone);
 	}
 	
 }
