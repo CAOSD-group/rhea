@@ -48,9 +48,9 @@ public class RefactoringsTests {
 	
 	@ParameterizedTest
 	//@ValueSource(strings = {"FM-TelematicsSystem.txt", "casoBase0-1.txt", "fm.txt"})
-	@ValueSource(strings = {"fm.txt"})
+	@ValueSource(strings = {"gc001.txt", "gc001a.txt", "gc001a2.txt", "gc001b.txt", "gc001b2.txt", "gc001b3.txt", "gc001c.txt", "gc001d.txt", "gc001e.txt", "gc001f.txt", "gc001g.txt"})
 	void groupCardinalitiesXOR(String filepath) {
-		String inputFile = BASEDIR_INPUT_MODELS_CLAFER + filepath;
+		String inputFile = BASEDIR_INPUT_MODELS_CLAFER + "GroupCardinalities/" + filepath;
 		String transformationFilepath = BASEDIR_TRANSFORMATIONS + "GroupCardinalities.henshin";
 		String ruleName = "AllGroupCardinality11";
 		

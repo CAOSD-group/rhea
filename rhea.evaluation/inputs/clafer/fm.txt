@@ -1,5 +1,5 @@
 abstract Root
-	0..* F2 ?
+	1..1 F2 ?
 		0..* F4
 			F14
 				F43
@@ -46,7 +46,7 @@ abstract Root
 				F71
 				F76
 			F41
-		0..1 F7
+		1..1 F7
 			1..1 F8
 				F23
 					F58
@@ -63,7 +63,7 @@ abstract Root
 			F22
 				F40
 		F45
-	1..* F3
+	1..1 F3
 		1..1 F10
 			F29
 				F65
