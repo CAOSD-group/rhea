@@ -1,0 +1,7 @@
+abstract Root
+	1..* A
+		A2
+		xor A1
+			A12
+			A11
+config: Root

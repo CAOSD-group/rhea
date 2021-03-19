@@ -5,7 +5,8 @@
     importerID="org.eclipse.emf.importer.ecore" complianceLevel="5.0" copyrightFields="false"
     operationReflection="true" importOrganizing="true">
   <foreignModel>CompletedFM.ecore</foreignModel>
-  <genPackages prefix="CompletedFM" disposableProviderFactory="true" ecorePackage="CompletedFM.ecore#/">
+  <genPackages prefix="CompletedFM" basePackage="rhea.metamodels" disposableProviderFactory="true"
+      ecorePackage="CompletedFM.ecore#/">
     <genClasses ecoreClass="CompletedFM.ecore#//Feature">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute CompletedFM.ecore#//Feature/id"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute CompletedFM.ecore#//Feature/name"/>

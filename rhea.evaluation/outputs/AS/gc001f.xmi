@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="ASCII"?>
+<rhea:FeatureModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:rhea="rhea.metamodels.BasicFMs" xmlns:rhea_1="rhea.metamodels.CardinalityBasedFMs" name="gc001f" features="//@root //@root/@children.5/@children.1 //@root/@children.5/@children.1/@children.0 //@root/@children.5/@children.1/@children.0/@children.0 //@root/@children.5/@children.1/@children.0/@children.0/@children.0 //@root/@children.5/@children.1/@children.0/@children.0/@children.1 //@root/@children.5/@children.0 //@root/@children.4/@children.1 //@root/@children.4/@children.0 //@root/@children.4/@children.0/@children.0 //@root/@children.4/@children.0/@children.0/@children.0 //@root/@children.4/@children.0/@children.0/@children.1 //@root/@children.4/@children.0/@children.0/@children.1/@children.0 //@root/@children.4/@children.0/@children.0/@children.1/@children.1 //@root/@children.0 //@root/@children.1 //@root/@children.2 //@root/@children.2/@children.0 //@root/@children.2/@children.1 //@root/@children.3/@children.1 //@root/@children.3/@children.0 //@root/@children.3 //@root/@children.4 //@root/@children.5">
+  <root id="Root" name="Root" mandatory="true" abstract="true">
+    <children id="D" name="D" mandatory="true"/>
+    <children id="E" name="E"/>
+    <children xsi:type="rhea_1:GroupCardinality" id="G0" name="G0" mandatory="true">
+      <children id="G1" name="G1"/>
+      <children id="G2" name="G2"/>
+      <multiplicity lower="0" upper="1"/>
+    </children>
+    <children xsi:type="rhea:AlternativeGroup" id="F0" name="F0" mandatory="true">
+      <children id="F2" name="F2"/>
+      <children id="F1" name="F1"/>
+    </children>
+    <children xsi:type="rhea:AlternativeGroup" id="B0" name="B0">
+      <children id="B2" name="B2">
+        <children xsi:type="rhea_1:GroupCardinality" id="C0" name="C0" mandatory="true">
+          <children id="C1" name="C1"/>
+          <children xsi:type="rhea_1:GroupCardinality" id="C2" name="C2">
+            <children id="C22" name="C22"/>
+            <children id="C23" name="C23"/>
+            <multiplicity upper="1"/>
+          </children>
+          <multiplicity upper="1"/>
+        </children>
+      </children>
+      <children id="B1" name="B1"/>
+    </children>
+    <children xsi:type="rhea:AlternativeGroup" id="A" name="A" mandatory="true">
+      <children id="A2" name="A2"/>
+      <children xsi:type="rhea_1:GroupCardinality" id="A1" name="A1">
+        <children id="A12" name="A12">
+          <children xsi:type="rhea_1:GroupCardinality" id="A112" name="A112">
+            <children id="A1212" name="A1212"/>
+            <children id="A1313" name="A1313"/>
+            <multiplicity upper="1"/>
+          </children>
+        </children>
+        <multiplicity upper="1"/>
+      </children>
+    </children>
+  </root>
+</rhea:FeatureModel>

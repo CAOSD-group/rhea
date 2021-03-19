@@ -23,7 +23,10 @@ Export-Package: rhea.metamodels.BasicCTCs,
  rhea.metamodels.helpers,
  rhea.metamodels.Utils,
  rhea.metamodels.Utils.impl,
- rhea.metamodels.Utils.util
+ rhea.metamodels.Utils.util,
+ rhea.metamodels.CompletedFM,
+ rhea.metamodels.CompletedFM.impl,
+ rhea.metamodels.CompletedFM.util
 Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.emf.ecore;visibility:=reexport,
  rhea.metamodels;visibility:=reexport,

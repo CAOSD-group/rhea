@@ -1,0 +1,7 @@
+abstract Root
+	1..1 C
+		C1
+		0..* B
+			B1
+			B2
+config: Root

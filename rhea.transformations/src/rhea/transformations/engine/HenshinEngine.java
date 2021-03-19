@@ -251,11 +251,12 @@ public class HenshinEngine {
 	 * @param modelPath		Path of the model to be transformed.
 	 * @return				Model object transformed.
 	 */
-	public EObject executeTransformation(String modulePath, String ruleName, Map<String, Object> parameters, String modelPath) {
+	public EObject executeTransformation(String modulePath, String ruleName, Map<String, Object> parameters, String modelPath, LoggingApplicationMonitor monitor) {
 		EObject model = loadModel(modelPath);
 		Module module = getModule(modulePath);
 		Unit rule = module.getUnit(ruleName);
-		executeTransformation(rule, parameters, model);
+		if(monitor==null) executeTransformation(rule, parameters, model);
+		else executeTransformation(rule, parameters, model, monitor);
 		return model;
 	}
 	

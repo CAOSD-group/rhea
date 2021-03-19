@@ -37,7 +37,7 @@ public class Test2 {
     }
 	
 	@ParameterizedTest
-	@ValueSource(strings = {"fm"})
+	@ValueSource(strings = {"gc001g"})
 	void test(String inputModel) throws IOException {
 		
 		String modelType = "GroupCardinalities";

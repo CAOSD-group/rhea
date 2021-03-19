@@ -46,4 +46,12 @@
             genModel="metamodels/Utils/Utils.genmodel"/>
    </extension>
 
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated CompletedFM -->
+      <package
+            uri="rhea.metamodels.CompletedFM"
+            class="rhea.metamodels.CompletedFM.CompletedFMPackage"
+            genModel="metamodels/CompletedFM/CompletedFM.genmodel"/>
+   </extension>
+
 </plugin>

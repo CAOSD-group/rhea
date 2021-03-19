@@ -12,14 +12,14 @@ abstract Root
 			1..1 C
 				C1
 				1..1 C2
-					C22
-					C23
+					X2
+					X3
 	D
-	E ?
-	1..1 G
+	E
+	1..1 G0
 		G1
 		G2
-	1..1 F
+	1..1 F0
 		F1
 		F2
 	1..1 H
@@ -32,7 +32,7 @@ abstract Root
 			H66
 			H67
 			H68
-	1..1 I
+	1..1 I0
 		I1
 		I2
 	1..* J
