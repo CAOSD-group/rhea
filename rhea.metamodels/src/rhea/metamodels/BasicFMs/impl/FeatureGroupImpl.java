@@ -18,7 +18,7 @@ public abstract class FeatureGroupImpl extends FeatureImpl implements FeatureGro
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	protected FeatureGroupImpl() {
 		super();

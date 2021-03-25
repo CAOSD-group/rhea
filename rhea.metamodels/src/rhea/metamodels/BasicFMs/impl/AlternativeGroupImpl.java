@@ -18,9 +18,9 @@ public class AlternativeGroupImpl extends FeatureGroupImpl implements Alternativ
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
-	protected AlternativeGroupImpl() {
+	public AlternativeGroupImpl() {
 		super();
 	}
 

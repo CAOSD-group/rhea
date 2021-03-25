@@ -136,9 +136,9 @@ public class FeatureImpl extends MinimalEObjectImpl.Container implements Feature
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
-	protected FeatureImpl() {
+	public FeatureImpl() {
 		super();
 	}
 
