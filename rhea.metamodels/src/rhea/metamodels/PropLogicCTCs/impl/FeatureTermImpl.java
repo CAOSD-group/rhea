@@ -41,9 +41,9 @@ public class FeatureTermImpl extends TermImpl implements FeatureTerm {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
-	protected FeatureTermImpl() {
+	public FeatureTermImpl() {
 		super();
 	}
 

@@ -43,9 +43,9 @@ public class AdvancedConstraintImpl extends CrossTreeConstraintImpl implements A
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
-	protected AdvancedConstraintImpl() {
+	public AdvancedConstraintImpl() {
 		super();
 	}
 

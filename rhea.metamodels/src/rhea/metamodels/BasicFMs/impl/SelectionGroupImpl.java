@@ -18,9 +18,9 @@ public class SelectionGroupImpl extends FeatureGroupImpl implements SelectionGro
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
-	protected SelectionGroupImpl() {
+	public SelectionGroupImpl() {
 		super();
 	}
 

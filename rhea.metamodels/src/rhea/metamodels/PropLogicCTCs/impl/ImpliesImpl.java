@@ -51,9 +51,9 @@ public class ImpliesImpl extends TermImpl implements Implies {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
-	protected ImpliesImpl() {
+	public ImpliesImpl() {
 		super();
 	}
 

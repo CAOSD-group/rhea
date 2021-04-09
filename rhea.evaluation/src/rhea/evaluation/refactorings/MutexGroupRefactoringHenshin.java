@@ -4,9 +4,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class MutexGroupRefactoring extends HenshingRefactoring{
+public class MutexGroupRefactoringHenshin extends HenshingRefactoring{
 
-	public MutexGroupRefactoring(Boolean debug) {
+	public MutexGroupRefactoringHenshin(Boolean debug) {
 		super(debug);
 	}
 

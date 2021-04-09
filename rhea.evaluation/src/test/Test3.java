@@ -1,13 +1,9 @@
 package test;
 
 import static org.junit.Assert.assertTrue;
-import static org.junit.jupiter.api.Assertions.*;
 
 import java.io.IOException;
-import java.util.Map;
 
-import org.eclipse.emf.ecore.EPackage;
-import org.eclipse.emf.henshin.model.Unit;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
@@ -15,6 +11,8 @@ import org.junit.jupiter.params.provider.ValueSource;
 import rhea.Rhea;
 import rhea.aafm.AAFMClafer;
 import rhea.aafm.AutomatedAnalysisFM;
+import rhea.transformations.refactorings.GroupCardinalityRefactoring;
+import rhea.transformations.refactorings.MutexGroupRefactoring;
 import rhea.generators.FMGenerator;
 import rhea.generators.clafer.ToClafer;
 import rhea.metamodels.BasicFMs.FeatureModel;
@@ -22,7 +20,7 @@ import rhea.metamodels.helpers.FMHelper;
 import rhea.parsers.FMParser;
 import rhea.parsers.clafer.ClaferParser;
 import rhea.thirdpartyplugins.utils.Utils;
-import rhea.transformations.refactorings.MutexGroupRefactoring;
+
 
 class Test3 {
 
@@ -33,11 +31,11 @@ class Test3 {
     }
 	
 	@ParameterizedTest
-	@ValueSource(strings = {"mutex001"})
+	@ValueSource(strings = {"fm"})
 	void test(String inputModel) throws IOException {
 		
-		String modelType = "MutexGroup";
-		String classPath = "rhea.metamodels.CardinalityBasedFMs.MutexGroup";
+		String modelType = "GroupCardinalities";
+		String classPath = "rhea.metamodels.CardinalityBasedFMs.GroupCardinality";
 		
 		String inputFile = Rhea.INPUTS_DIR + "clafer/" + modelType + "/" + inputModel + ".txt";
 		String outputFile = Rhea.OUTPUTS_DIR + "clafer/" + modelType + "/" + inputModel + ".txt";
@@ -55,7 +53,7 @@ class Test3 {
 		var gcBefore = FMHelper.getAllFeaturesOf(fm, classPath).size();
 		
 		// Execute the transformation
-		MutexGroupRefactoring mgr = new MutexGroupRefactoring(fm, classPath);
+		GroupCardinalityRefactoring mgr = new GroupCardinalityRefactoring(fm, classPath);
 		
 		if (mgr.executeRefactoring())
 			System.out.println("Transformation applied succesfully.");

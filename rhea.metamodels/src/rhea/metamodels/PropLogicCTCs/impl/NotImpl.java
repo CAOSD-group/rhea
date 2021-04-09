@@ -41,9 +41,9 @@ public class NotImpl extends TermImpl implements Not {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
-	protected NotImpl() {
+	public NotImpl() {
 		super();
 	}
 

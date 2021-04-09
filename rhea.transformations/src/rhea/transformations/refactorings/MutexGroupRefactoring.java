@@ -1,5 +1,6 @@
 package rhea.transformations.refactorings;
 
+import java.util.Iterator;
 import java.util.List;
 
 import rhea.metamodels.BasicFMs.*;
@@ -41,8 +42,10 @@ public class MutexGroupRefactoring extends Refactoring{
 		mg.getParent().getChildren().remove(ag);
 		
 		//Change Children
-		for (Feature feature : childrenMG) 
+		for (Iterator<Feature> it = childrenMG.iterator(); it.hasNext();) 
 		{
+			Feature feature = it.next();
+			it.remove();
 			feature.setParent(ag);
 			childrenAG.add(feature);
 		}
@@ -54,6 +57,6 @@ public class MutexGroupRefactoring extends Refactoring{
 		fm.getFeatures().add(ag);
 		fm.getFeatures().add(f);
 
-		return false;
+		return true;
 	}
 }

@@ -5,7 +5,7 @@ package rhea.metamodels.PropLogicCTCs.impl;
 import java.util.Collection;
 
 import org.eclipse.emf.common.notify.NotificationChain;
-
+import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EClass;
@@ -44,10 +44,11 @@ public class AndImpl extends TermImpl implements And {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
-	protected AndImpl() {
+	public AndImpl() {
 		super();
+		terms = new BasicEList<Term>();
 	}
 
 	/**
@@ -145,5 +146,14 @@ public class AndImpl extends TermImpl implements And {
 		}
 		return super.eIsSet(featureID);
 	}
-
+	
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	public boolean addTerm(Term t)
+	{
+		return terms.add(t);
+	}
 } //AndImpl
