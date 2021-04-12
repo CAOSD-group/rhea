@@ -13,7 +13,6 @@ public abstract class Refactoring {
 	
 	public Refactoring (FeatureModel fm, String cp)
 	{
-		matchingFeatures = FMHelper.getAllFeaturesOf(fm,cp);
 		this.fm = fm;
 		this.cp = cp;
 	}
@@ -21,6 +20,8 @@ public abstract class Refactoring {
 	public boolean executeRefactoring ()
 	{	
 		Boolean sucess = false;
+		
+		matchingFeatures = FMHelper.getAllFeaturesOf(fm,cp);
 		
 		for (Feature feature : matchingFeatures) 
 		{

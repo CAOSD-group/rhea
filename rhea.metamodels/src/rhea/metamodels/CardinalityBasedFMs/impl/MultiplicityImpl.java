@@ -70,9 +70,9 @@ public class MultiplicityImpl extends MinimalEObjectImpl.Container implements Mu
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
-	protected MultiplicityImpl() {
+	public MultiplicityImpl() {
 		super();
 	}
 

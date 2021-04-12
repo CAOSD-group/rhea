@@ -39,7 +39,7 @@ public class MutexGroupRefactoring extends Refactoring{
 		//Change father
 		ag.setParent(f);
 		f.setParent(mg.getParent());
-		mg.getParent().getChildren().remove(ag);
+		mg.getParent().getChildren().remove(mg);
 		
 		//Change Children
 		for (Iterator<Feature> it = childrenMG.iterator(); it.hasNext();) 

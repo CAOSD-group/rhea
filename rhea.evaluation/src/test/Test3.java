@@ -11,6 +11,7 @@ import org.junit.jupiter.params.provider.ValueSource;
 import rhea.Rhea;
 import rhea.aafm.AAFMClafer;
 import rhea.aafm.AutomatedAnalysisFM;
+import rhea.transformations.refactorings.GroupCardinalityBaseRefactoring;
 import rhea.transformations.refactorings.GroupCardinalityRefactoring;
 import rhea.transformations.refactorings.MutexGroupRefactoring;
 import rhea.generators.FMGenerator;
@@ -31,7 +32,7 @@ class Test3 {
     }
 	
 	@ParameterizedTest
-	@ValueSource(strings = {"fm"})
+	@ValueSource(strings = {"gc012"})
 	void test(String inputModel) throws IOException {
 		
 		String modelType = "GroupCardinalities";
@@ -53,9 +54,10 @@ class Test3 {
 		var gcBefore = FMHelper.getAllFeaturesOf(fm, classPath).size();
 		
 		// Execute the transformation
-		GroupCardinalityRefactoring mgr = new GroupCardinalityRefactoring(fm, classPath);
+		GroupCardinalityBaseRefactoring gcbr = new GroupCardinalityBaseRefactoring(fm, classPath);
+		GroupCardinalityRefactoring gcr = new GroupCardinalityRefactoring(fm, classPath);
 		
-		if (mgr.executeRefactoring())
+		if (gcbr.executeRefactoring() && gcr.executeRefactoring())
 			System.out.println("Transformation applied succesfully.");
 		else 
 			System.out.println("Transformation was not applied.");

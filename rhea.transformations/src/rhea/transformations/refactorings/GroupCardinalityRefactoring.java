@@ -70,7 +70,7 @@ public class GroupCardinalityRefactoring extends Refactoring{
 			}
 			
 			// If the combination match, we create the implies
-			if(lower <= numberOfElements && numberOfElements <= upper && numberOfElements != childrenSG.size())
+			if(lower <= numberOfElements && numberOfElements <= upper && numberOfElements != childrenSG.size() && lower > 0)
 			{
 				// Create implies , left and right
 				ImpliesImpl implies = new ImpliesImpl();

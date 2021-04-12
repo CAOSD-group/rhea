@@ -43,9 +43,9 @@ public class GroupCardinalityImpl extends FeatureGroupImpl implements GroupCardi
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
-	protected GroupCardinalityImpl() {
+	public GroupCardinalityImpl() {
 		super();
 	}
 
