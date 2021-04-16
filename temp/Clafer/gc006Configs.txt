@@ -1,90 +1,90 @@
 === Instance 1 Begin ===
 
 config
-  B
-    B1
   A
     A3
+  B
+    B1
 
 --- Instance 1 End ---
 
 === Instance 2 Begin ===
 
 config
-  B
-    B1
   A
-    A2
+    A3
+  B
+    B3
 
 --- Instance 2 End ---
 
 === Instance 3 Begin ===
 
 config
-  B
-    B3
   A
-    A3
+    A2
+  B
+    B1
 
 --- Instance 3 End ---
 
 === Instance 4 Begin ===
 
 config
-  B
-    B3
   A
     A2
+  B
+    B3
 
 --- Instance 4 End ---
 
 === Instance 5 Begin ===
 
 config
-  B
-    B1
   A
-    A1
+    A3
+  B
+    B2
 
 --- Instance 5 End ---
 
 === Instance 6 Begin ===
 
 config
-  B
-    B3
   A
-    A1
+    A2
+  B
+    B2
 
 --- Instance 6 End ---
 
 === Instance 7 Begin ===
 
 config
-  B
-    B2
   A
-    A3
+    A1
+  B
+    B1
 
 --- Instance 7 End ---
 
 === Instance 8 Begin ===
 
 config
-  B
-    B2
   A
-    A2
+    A1
+  B
+    B3
 
 --- Instance 8 End ---
 
 === Instance 9 Begin ===
 
 config
-  B
-    B2
   A
     A1
+  B
+    B2
 
 --- Instance 9 End ---
 

@@ -17,7 +17,7 @@ public class LanguageGeneratorsTests {
 	public static void main(String[] args) {
 		// Input
 		Set<String> features = Set.of("A", "B", "C");
-		Set<LanguageGeneratorType> lcs = Set.of(LanguageGeneratorType.Root, LanguageGeneratorType.MandatoryFeature, LanguageGeneratorType.OptionalFeature);
+		Set<LanguageGeneratorType> lcs = Set.of(LanguageGeneratorType.OrdinaryRoot, LanguageGeneratorType.MandatoryFeature, LanguageGeneratorType.OptionalFeature);
 		
 		
 		// Generate all possible feature models 

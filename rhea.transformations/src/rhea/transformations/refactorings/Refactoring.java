@@ -29,7 +29,25 @@ public abstract class Refactoring {
 			if (!sucess) break;
 		}
 		
+		matchingFeatures = FMHelper.getAllFeaturesOf(fm, cp);
+		
 		return sucess;
+	}
+	
+	public void setFeatureModel(FeatureModel fm)
+	{
+		this.fm = fm;
+		matchingFeatures = FMHelper.getAllFeaturesOf(fm,cp);
+	}
+	
+	public List<Feature> getMatchingFeatures()
+	{
+		return matchingFeatures;
+	}
+	
+	public FeatureModel getFeatureModel()
+	{
+		return fm;
 	}
 	
 	protected abstract boolean applyRule (String id);

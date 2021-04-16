@@ -82,7 +82,6 @@ public class ToClafer implements FMGenerator {
 	
 	private void addConstraints(StringBuffer claferFM, EList<CrossTreeConstraint> crossTreeConstraints) {
 		for (CrossTreeConstraint ctc : crossTreeConstraints) {
-			System.out.println("Constraints: " + ctc);
 			if (ctc instanceof Requires) {
 				Feature left = ((Requires) ctc).getLeftFeature();
 				Feature right = ((Requires) ctc).getRightFeature();

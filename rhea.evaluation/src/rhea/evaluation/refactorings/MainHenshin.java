@@ -14,7 +14,7 @@ import rhea.metamodels.BasicFMs.FeatureModel;
 import rhea.parsers.FMParser;
 import rhea.parsers.clafer.ClaferParser;
 
-public class Main {
+public class MainHenshin {
 	public static boolean DEBUG = true;
 
 	
