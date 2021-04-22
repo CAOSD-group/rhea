@@ -23,6 +23,7 @@ public class JavaGroupCardinalityRefactoringTesting extends JavaRefactoringTesti
 	@Override
 	public List<TransformationInformation> testRefactoring(int times) {
 		List<TransformationInformation> result = new ArrayList<>();
+		FeatureModel f;
 		
 		GroupCardinalityBaseRefactoring gcbr = new GroupCardinalityBaseRefactoring(EcoreUtil.copy(fm), classPath);
 		GroupCardinalityRefactoring gcr = new GroupCardinalityRefactoring(EcoreUtil.copy(fm), classPath);
@@ -32,8 +33,9 @@ public class JavaGroupCardinalityRefactoringTesting extends JavaRefactoringTesti
 		{
 			//Set the base state
 			TransformationInformation tf = new TransformationInformation();
-			gcbr.setFeatureModel(EcoreUtil.copy(fm));
-			gcr.setFeatureModel(EcoreUtil.copy(fm));
+			f = EcoreUtil.copy(fm);
+			gcbr.setFeatureModel(f);
+			gcr.setFeatureModel(f);
 			
 			//Get the information before the refactoring
 			tf.setRun(i);

@@ -53,7 +53,7 @@ public class GroupCardinalityRefactoring extends Refactoring{
 		
 		//Create Constraints
 		int lower = gc.getMultiplicity().getLower();
-		int upper = gc.getMultiplicity().getUpper();
+		int upper = gc.getMultiplicity().getUpper() == -1 ? sg.getChildren().size() : gc.getMultiplicity().getUpper();
 		
 		AndImpl root = new AndImpl();
 		

@@ -1,13 +1,13 @@
 package rhea.evaluation.refactorings;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Iterator;
 import java.util.List;
 
 import rhea.Rhea;
@@ -20,35 +20,32 @@ public class MainJava {
 
 	public static void main(String[] args) {
 		String modelType = "GroupCardinalities";
-		String classPath = "rhea.metamodels.CardinalityBasedFMs.GroupCardinality";
+		String folderPath = Rhea.INPUTS_DIR + "clafer/" + modelType;
 		
 		List<List<TransformationInformation>> tiss = new ArrayList<>();
 		List<FeatureModel> models = new ArrayList<>();
-		List<String> inputModels = new ArrayList<>();
-		inputModels.add("fm");
-		inputModels.add("fm2");
+		File folder = new File(folderPath);
 		
 		FMParser fmp = new ClaferParser();
-		
-		for (String string : inputModels) 
+
+		for (File f: folder.listFiles()) 
 		{
-			String inputFile = Rhea.INPUTS_DIR + "clafer/" + modelType + "/" + string + ".txt";
-			models.add(fmp.readFeatureModel(inputFile));
+			models.add(fmp.readFeatureModel(f.getPath()));
 		}
 		
 		for (FeatureModel featureModel : models) tiss.add(new JavaGroupCardinalityRefactoringTesting(featureModel).testRefactoring(Rhea.EVALUATION_ITERATIONS));
 		
-		saveData(tiss,inputModels);
-		processData(inputModels);
+		saveData(tiss,folder.listFiles());
+		processData(folder.listFiles());
 	}
 	
-	private static void saveData(List<List<TransformationInformation>> tiss, List<String> inputModels)
+	private static void saveData(List<List<TransformationInformation>> tiss, File[] files)
 	{
-		for (String string : inputModels) 
+		for (File f : files) 
 		{
 			try 
 			{
-				FileWriter fw = new FileWriter(Rhea.BASEDIR + "temp/" + string + "-raw.csv");
+				FileWriter fw = new FileWriter(Rhea.BASEDIR + "temp/" + f.getName() + "-raw.csv");
 				fw.write("Run,nFeaturesBefore,nFeaturesAfter,nFeaturesTypeBefore,nFeaturesTypeAfter,nRefactors,Time(ns) \n");
 				
 				for (List<TransformationInformation> tis : tiss) {
@@ -63,15 +60,15 @@ public class MainJava {
 		}
 	}
 	
-	private static void processData(List<String> inputModels)
+	private static void processData(File[] files)
 	{
-		for (String string : inputModels)
+		for (File f : files)
 		{
 			try 
 			{
-				FileReader fr = new FileReader(Rhea.BASEDIR + "temp/" + string + "-raw.csv");
+				FileReader fr = new FileReader(Rhea.BASEDIR + "temp/" + f.getName() + "-raw.csv");
 				BufferedReader bf = new BufferedReader(fr);
-				FileWriter fw = new FileWriter(Rhea.BASEDIR + "temp/" + string + "-processed.csv");
+				FileWriter fw = new FileWriter(Rhea.BASEDIR + "temp/" + f.getName() + "-processed.csv");
 				
 				fw.write("nFeaturesBefore,nFeaturesAfter,nFeaturesTypeBefore,nFeaturesTypeAfter,nRefactors,mean,median,sd \n");
 				
@@ -79,7 +76,8 @@ public class MainJava {
 				double sd, mean, median;
 				run=bf.readLine();
 				
-				while(run!=null) {
+				while(run!=null) 
+				{
 					
 					sd=0;
 					mean=0;

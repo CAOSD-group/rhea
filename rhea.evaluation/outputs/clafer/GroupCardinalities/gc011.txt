@@ -1,0 +1,21 @@
+abstract Root
+	or C
+		C1
+		C2
+		C3
+	D
+		or DP ?
+			D1
+			D2
+			D3
+	E
+		xor EP ?
+			E1
+			E2
+			E3
+	or A
+		A1
+		A2
+		A3
+[(((A2 && A3)) => ((!A1)) && ((A1 && A3)) => ((!A2)) && ((A1 && A2)) => ((!A3)))]
+config: Root

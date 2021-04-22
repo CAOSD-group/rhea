@@ -1,0 +1,14 @@
+abstract Root
+	xor A
+		A1
+		A2
+		A3
+		xor C
+			C1
+			C2
+			C3
+	xor B
+		B1
+		B2
+		B3
+config: Root
