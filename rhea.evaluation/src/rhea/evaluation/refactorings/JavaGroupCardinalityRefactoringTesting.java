@@ -9,6 +9,7 @@ import rhea.Rhea;
 import rhea.generators.FMGenerator;
 import rhea.generators.clafer.ToClafer;
 import rhea.metamodels.BasicFMs.FeatureModel;
+import rhea.metamodels.helpers.FMHelper;
 import rhea.thirdpartyplugins.utils.Utils;
 import rhea.transformations.refactorings.GroupCardinalityBaseRefactoring;
 import rhea.transformations.refactorings.GroupCardinalityRefactoring;
@@ -38,17 +39,24 @@ public class JavaGroupCardinalityRefactoringTesting extends JavaRefactoringTesti
 			gcr.setFeatureModel(f);
 			
 			//Get the information before the refactoring
+			//TODO Extract this code, so only executed once, first time
 			tf.setRun(i);
 			tf.setInputModel(fm.getName());
 			tf.setnFeaturesBefore(fm.getFeatures().size());
 			tf.setNumberOfFeaturesTypeBefore(gcr.getMatchingFeatures().size());
-			tf.setTimeBefore(System.nanoTime());
+			tf.setnConstraints(fm.getCrosstreeconstraints().size());
+			tf.setnOptionals(FMHelper.getAllOptionalFeatures(fm).size());
+			tf.setnMandatories(FMHelper.getAllMandatoryFeatures(fm).size());
+			tf.setnAlternativeGroups(FMHelper.getAllFeaturesOf(fm,"rhea.metamodels.BasicFMs.AlternativeGroup").size());
+			tf.setnSelectionGroups(FMHelper.getAllFeaturesOf(fm,"rhea.metamodels.BasicFMs.SelectionGroup").size());
+			
+			tf.setTimeBefore(System.nanoTime()/1e9);
 			
 			//Do the refactoring
 			if(gcbr.executeRefactoring() && gcr.executeRefactoring()) System.out.println("Transformation applied sucessfully");
 			
 			//Get the information after the refactoring
-			tf.setTimeAfter(System.nanoTime());
+			tf.setTimeAfter(System.nanoTime()/1e9);
 			tf.setnFeaturesAfter(fm.getFeatures().size());
 			tf.setNumberOfFeaturesTypeAfter(gcr.getMatchingFeatures().size());
 			

@@ -98,7 +98,7 @@ public class GroupCardinalityRefactoring extends Refactoring{
 				root.addTerm(implies);
 			}
 		}
-		
+	
 		//Add the constraint to the fm
 		List<CrossTreeConstraint> ctc = fm.getCrosstreeconstraints();
 		AdvancedConstraint ac = new AdvancedConstraintImpl();

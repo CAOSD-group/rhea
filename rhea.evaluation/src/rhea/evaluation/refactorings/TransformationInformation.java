@@ -11,20 +11,26 @@ public class TransformationInformation {
 	
 	private String inputModel;
 	
-	private int nFeaturesBefore;
+	public int nFeaturesBefore;
 	private int nFeaturesAfter;
 	
 	private Set<Set<Feature>> productsBefore;
 	private Set<Set<Feature>> productsAfter;
 	
-	private long timeBefore;
-	private long timeAfter;
+	private double timeBefore;
+	private double timeAfter;
 	
-	private int numberOfFeaturesTypeBefore;
+	public int numberOfFeaturesTypeBefore;
 	private int numberOfFeaturesTypeAfter;
 	
 	private int rulesExecuted;
 	private int rulesSuccessExecuted;
+	
+	private int nOptionals;
+	private int nMandatories;
+	private int nSelectionGroups;
+	private int nAlternativeGroups;
+	private int nConstraints;
 	
 	public int getRun() {
 		return run;
@@ -90,19 +96,19 @@ public class TransformationInformation {
 		this.productsAfter = productsAfter;
 	}
 	
-	public long getTimeBefore() {
+	public double getTimeBefore() {
 		return timeBefore;
 	}
 	
-	public void setTimeBefore(long timeBefore) {
+	public void setTimeBefore(double timeBefore) {
 		this.timeBefore = timeBefore;
 	}
 	
-	public long getTimeAfter() {
+	public double getTimeAfter() {
 		return timeAfter;
 	}
 	
-	public void setTimeAfter(long timeAfter) {
+	public void setTimeAfter(double timeAfter) {
 		this.timeAfter = timeAfter;
 	}
 	
@@ -122,7 +128,7 @@ public class TransformationInformation {
 		this.numberOfFeaturesTypeAfter = numberOfFeaturesTypeAfter;
 	}
 	
-	public long getPerformance() {
+	public double getPerformance() {
 		return timeAfter-timeBefore;
 	}
 
@@ -140,5 +146,45 @@ public class TransformationInformation {
 
 	public void setRulesSuccessExecuted(int rulesSuccessExecuted) {
 		this.rulesSuccessExecuted = rulesSuccessExecuted;
+	}
+
+	public int getnOptionals() {
+		return nOptionals;
+	}
+
+	public void setnOptionals(int nOptionals) {
+		this.nOptionals = nOptionals;
+	}
+
+	public int getnMandatories() {
+		return nMandatories;
+	}
+
+	public void setnMandatories(int nMandatories) {
+		this.nMandatories = nMandatories;
+	}
+
+	public int getnSelectionGroups() {
+		return nSelectionGroups;
+	}
+
+	public void setnSelectionGroups(int nSelectionGroups) {
+		this.nSelectionGroups = nSelectionGroups;
+	}
+
+	public int getnAlternativeGroups() {
+		return nAlternativeGroups;
+	}
+
+	public void setnAlternativeGroups(int nAlternativeGroups) {
+		this.nAlternativeGroups = nAlternativeGroups;
+	}
+
+	public int getnConstraints() {
+		return nConstraints;
+	}
+
+	public void setnConstraints(int nConstraints) {
+		this.nConstraints = nConstraints;
 	}
 }

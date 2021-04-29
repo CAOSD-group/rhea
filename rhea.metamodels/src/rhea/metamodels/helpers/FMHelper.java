@@ -114,6 +114,26 @@ public class FMHelper {
 		return features;
 	}
 	
+	public static List<Feature> getAllOptionalFeatures(FeatureModel fm)
+	{
+		List<Feature> features = new ArrayList<Feature>();
+		
+		for (Feature f : fm.getFeatures()) {
+			if(!f.isMandatory()) features.add(f);
+		}
+		return features;
+	}
+	
+	public static List<Feature> getAllMandatoryFeatures(FeatureModel fm)
+	{
+		List<Feature> features = new ArrayList<Feature>();
+		
+		for (Feature f : fm.getFeatures()) {
+			if(f.isMandatory()) features.add(f);
+		}
+		return features;
+	}
+	
 	
 	
 //	public FeatureModel createEmptyFeatureModel() {

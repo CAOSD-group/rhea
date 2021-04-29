@@ -8,10 +8,14 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import rhea.Rhea;
 import rhea.metamodels.BasicFMs.FeatureModel;
+import rhea.metamodels.helpers.FMHelper;
 import rhea.parsers.FMParser;
 import rhea.parsers.clafer.ClaferParser;
 
@@ -22,7 +26,7 @@ public class MainJava {
 		String modelType = "GroupCardinalities";
 		String folderPath = Rhea.INPUTS_DIR + "clafer/" + modelType;
 		
-		List<List<TransformationInformation>> tiss = new ArrayList<>();
+		List<TransformationInformation> tis = new ArrayList<>();
 		List<FeatureModel> models = new ArrayList<>();
 		File folder = new File(folderPath);
 		
@@ -33,48 +37,49 @@ public class MainJava {
 			models.add(fmp.readFeatureModel(f.getPath()));
 		}
 		
-		for (FeatureModel featureModel : models) tiss.add(new JavaGroupCardinalityRefactoringTesting(featureModel).testRefactoring(Rhea.EVALUATION_ITERATIONS));
-		
-		saveData(tiss,folder.listFiles());
-		processData(folder.listFiles());
-	}
-	
-	private static void saveData(List<List<TransformationInformation>> tiss, File[] files)
-	{
-		for (File f : files) 
+		for (FeatureModel featureModel : models) 
 		{
+			tis.addAll(new JavaGroupCardinalityRefactoringTesting(featureModel).testRefactoring(Rhea.EVALUATION_ITERATIONS));
+		}
+		
+		tis = sortTransformationInformation(tis);
+		
+		//Change (Todo en un único archivo, o un archivo por fm) TODO
+		saveData(tis,"GroupCardinality");
+		processData("GroupCardinality");
+	}
+
+	private static void saveData(List<TransformationInformation> tis, String name)
+	{
 			try 
 			{
-				FileWriter fw = new FileWriter(Rhea.BASEDIR + "temp/" + f.getName() + "-raw.csv");
-				fw.write("Run,nFeaturesBefore,nFeaturesAfter,nFeaturesTypeBefore,nFeaturesTypeAfter,nRefactors,Time(ns) \n");
+				FileWriter fw = new FileWriter(Rhea.BASEDIR + "temp/Evaluation/" + name + "-raw.csv");
+				fw.write("Run,nFeaturesBefore,nFeaturesAfter,nFeaturesTypeBefore,nFeaturesTypeAfter,nContraints,nOptionals,nMandatories,nAlternativeGroups,nSelectionGroups,nRefactors,Time(s) \n");
 				
-				for (List<TransformationInformation> tis : tiss) {
-					for (TransformationInformation ti : tis) {
-							fw.write(ti.getRun() + "," + ti.getnFeaturesBefore() + "," + ti.getnFeaturesAfter() + "," + ti.getNumberOfFeaturesTypeBefore() + "," + ti.getNumberOfFeaturesTypeAfter() + "," 
-							+ (ti.getNumberOfFeaturesTypeBefore() - ti.getNumberOfFeaturesTypeAfter()) + "," + ti.getPerformance() + "\n");
-					}
+				for (TransformationInformation ti : tis) {
+						fw.write(ti.getRun() + "," + ti.getnFeaturesBefore() + "," + ti.getnFeaturesAfter() + "," + ti.getNumberOfFeaturesTypeBefore() + "," + ti.getNumberOfFeaturesTypeAfter() + ","
+						+ ti.getnConstraints() + "," + ti.getnOptionals() + "," + ti.getnMandatories() + "," + ti.getnAlternativeGroups() + "," + ti.getnSelectionGroups() + ","
+						+ (ti.getNumberOfFeaturesTypeBefore() - ti.getNumberOfFeaturesTypeAfter()) + "," + ti.getPerformance() + "\n");
 				}
+				
 				fw.close();
 			} 
 			catch (IOException e) {e.printStackTrace();}
-		}
 	}
 	
-	private static void processData(File[] files)
+	private static void processData(String name)
 	{
-		for (File f : files)
-		{
 			try 
 			{
-				FileReader fr = new FileReader(Rhea.BASEDIR + "temp/" + f.getName() + "-raw.csv");
+				FileReader fr = new FileReader(Rhea.BASEDIR + "temp/Evaluation/" + name + "-raw.csv");
 				BufferedReader bf = new BufferedReader(fr);
-				FileWriter fw = new FileWriter(Rhea.BASEDIR + "temp/" + f.getName() + "-processed.csv");
-				
-				fw.write("nFeaturesBefore,nFeaturesAfter,nFeaturesTypeBefore,nFeaturesTypeAfter,nRefactors,mean,median,sd \n");
+				FileWriter fw = new FileWriter(Rhea.BASEDIR + "temp/Evaluation/" + name + "-processed.csv");
 				
 				String run;
 				double sd, mean, median;
 				run=bf.readLine();
+				
+				fw.write("Run,nFeaturesBefore,nFeaturesAfter,nFeaturesTypeBefore,nFeaturesTypeAfter,nContraints,nOptionals,nMandatories,nAlternativeGroups,nSelectionGroups,nRefactors,mean(s),median(s),sd(s) \n");
 				
 				while(run!=null) 
 				{
@@ -88,7 +93,6 @@ public class MainJava {
 					for (int i=0; i<Rhea.EVALUATION_ITERATIONS; i++)
 					{
 							if((run=bf.readLine())!=null) times[i] = Double.parseDouble(run.substring(run.lastIndexOf(",")+1));
-							else break;
 					}
 					
 					Arrays.sort(times);
@@ -108,6 +112,13 @@ public class MainJava {
 			} 
 			catch (FileNotFoundException e) {e.printStackTrace();} 
 			catch (IOException e) {e.printStackTrace();}
-		}
+	}
+	
+	private static List<TransformationInformation> sortTransformationInformation(List<TransformationInformation> tis) {
+		Comparator<TransformationInformation> comparator = Comparator.comparing(transformationInformation -> transformationInformation.nFeaturesBefore);
+		comparator = comparator.thenComparing(transformationInformation -> transformationInformation.numberOfFeaturesTypeBefore);
+		
+		Stream<TransformationInformation> personStream = tis.stream().sorted(comparator);
+	    return personStream.collect(Collectors.toList());
 	}
 }

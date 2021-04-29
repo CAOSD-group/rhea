@@ -1,6 +1,5 @@
 package test;
 
-import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.io.IOException;
@@ -32,7 +31,7 @@ class JavaRefactoringTest {
     }
 	
 	@ParameterizedTest
-	@ValueSource(strings = {"gc001", "gc002", "gc003", "gc006", "gc007", "gc008"})
+	@ValueSource(strings = {"gc001", "gc002", "gc003","gc004","gc005", "gc006", "gc007", "gc008"})
 	void test(String inputModel) throws IOException {
 		
 		String modelType = "GroupCardinalities";
