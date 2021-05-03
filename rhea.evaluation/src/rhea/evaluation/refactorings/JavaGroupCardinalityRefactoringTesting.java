@@ -64,7 +64,7 @@ public class JavaGroupCardinalityRefactoringTesting extends JavaRefactoringTesti
 		}
 		
 		//Save the file (optional)
-		String outputFile = Rhea.OUTPUTS_DIR + "clafer/GroupCardinalities/" + fm.getName() + ".txt";
+		String outputFile = Rhea.OUTPUTS_DIR + "clafer/GroupCardinality/" + fm.getName() + ".txt";
 		FMGenerator g = new ToClafer();
 		Utils.serialize(g.fm2text(gcr.getFeatureModel()), outputFile);
 		

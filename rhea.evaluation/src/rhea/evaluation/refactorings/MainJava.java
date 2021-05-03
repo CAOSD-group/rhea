@@ -23,7 +23,7 @@ public class MainJava {
 	public static boolean DEBUG = true;
 
 	public static void main(String[] args) {
-		String modelType = "GroupCardinalities";
+		String modelType = "GroupCardinality";
 		String folderPath = Rhea.INPUTS_DIR + "clafer/" + modelType;
 		
 		List<TransformationInformation> tis = new ArrayList<>();
@@ -40,13 +40,14 @@ public class MainJava {
 		for (FeatureModel featureModel : models) 
 		{
 			tis.addAll(new JavaGroupCardinalityRefactoringTesting(featureModel).testRefactoring(Rhea.EVALUATION_ITERATIONS));
+			//tis.addAll(new JavaMutexGroupRefactoringTesting(featureModel).testRefactoring(Rhea.EVALUATION_ITERATIONS));
 		}
 		
 		tis = sortTransformationInformation(tis);
 		
 		//Change (Todo en un único archivo, o un archivo por fm) TODO
-		saveData(tis,"GroupCardinality");
-		processData("GroupCardinality");
+		saveData(tis,modelType);
+		processData(modelType);
 	}
 
 	private static void saveData(List<TransformationInformation> tis, String name)
@@ -79,7 +80,7 @@ public class MainJava {
 				double sd, mean, median;
 				run=bf.readLine();
 				
-				fw.write("Run,nFeaturesBefore,nFeaturesAfter,nFeaturesTypeBefore,nFeaturesTypeAfter,nContraints,nOptionals,nMandatories,nAlternativeGroups,nSelectionGroups,nRefactors,mean(s),median(s),sd(s) \n");
+				fw.write("nFeaturesBefore,nFeaturesAfter,nFeaturesTypeBefore,nFeaturesTypeAfter,nContraints,nOptionals,nMandatories,nAlternativeGroups,nSelectionGroups,nRefactors,mean(s),median(s),sd(s) \n");
 				
 				while(run!=null) 
 				{

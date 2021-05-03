@@ -16,7 +16,7 @@ public class Main {
 		
 		// 5000 Features empieza a costar generar modelos, al menos en mi pc.
 		int nChildMin = 2, nChildMax = 4, featureStep = 250, featureLimit = 5000;
-		double nAlternativeGroup = 0, nSelectionGroup = 0, nMutexGroup = 0, nGroupCardinality = 0.1;
+		double nAlternativeGroup = 0, nSelectionGroup = 0, nMutexGroup = 0, nGroupCardinality = 0;
 		double percentageStep = 0.05, percentageLimit = 0.2 - (nAlternativeGroup + nSelectionGroup + nMutexGroup);
 		
 		HenshinEngine henshin = new HenshinEngine(Rhea.BASEDIR);
@@ -25,8 +25,8 @@ public class Main {
 		LinkedHashMap<String, Double> percentages = new LinkedHashMap<String,Double>();
 		percentages.put("rhea.metamodels.BasicFMs.AlternativeGroup", nAlternativeGroup);
 		percentages.put("rhea.metamodels.BasicFMs.SelectionGroup", nSelectionGroup);
-		percentages.put("rhea.metamodels.CardinalityBasedFMs.MutexGroup", nMutexGroup);
-		//percentages.put("rhea.metamodels.CardinalityBasedFMs.GroupCardinality", nGroupCardinality);
+		//percentages.put("rhea.metamodels.CardinalityBasedFMs.MutexGroup", nMutexGroup);
+		percentages.put("rhea.metamodels.CardinalityBasedFMs.GroupCardinality", nGroupCardinality);
 
 		FeatureModelGeneratorByPercentages fmgi = new FeatureModelGeneratorByPercentages();
 		
@@ -35,10 +35,10 @@ public class Main {
 			for (double j = percentageStep ; j <= percentageLimit ; j = j + percentageStep)
 			{
 				j = Math.round(j * 100.0) / 100.0;
-				percentages.put("rhea.metamodels.CardinalityBasedFMs.GroupCardinality", j);
+				percentages.put("rhea.metamodels.CardinalityBasedFMs.MutexGroup", j);
 				
-				modelName = Integer.toString(i) +"_"+ Double.toString(nAlternativeGroup) +"-"+ Double.toString(nSelectionGroup) +"-"+ Double.toString(nMutexGroup) +"-"+ 
-						Double.toString(j) +"_"+ Integer.toString(nChildMin) +"-"+ Integer.toString(nChildMax); 
+				modelName = Integer.toString(i) +"_"+ Double.toString(nAlternativeGroup) +"-"+ Double.toString(nSelectionGroup) +"-"+ Double.toString(j) +"-"+ 
+						Double.toString(nGroupCardinality) +"_"+ Integer.toString(nChildMin) +"-"+ Integer.toString(nChildMax); 
 						
 				FeatureModel fm = fmgi.generateFeatureModel(modelName, i, percentages, nChildMax, nChildMin);
 				
