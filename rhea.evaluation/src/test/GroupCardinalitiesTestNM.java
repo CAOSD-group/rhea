@@ -31,7 +31,7 @@ import rhea.parsers.clafer.ClaferParser;
 import rhea.thirdpartyplugins.utils.Utils;
 import rhea.transformations.engine.HenshinEngine;
 import rhea.transformations.henshin.HenshinUtils;
-import rhea.transformations.refactorings.GroupCardinalities;
+import rhea.transformations.refactoringHenshin.GroupCardinalities;
 
 
 @RunWith(Suite.class)
@@ -45,8 +45,7 @@ public class GroupCardinalitiesTestNM {
     }
 	
 	@ParameterizedTest
-	//@ValueSource(strings = {"gc001", "gc002", "gc003", "gc004", "gc005", "gc006", "gc007", "gc008", "gc009", "gc010", "gc011", "gc012"})
-	@ValueSource(strings = {"gc0010"})
+	@ValueSource(strings = {"gc001", "gc002", "gc003", "gc004", "gc005", "gc006", "gc007", "gc008", "gc009", "gc010", "gc011", "gc012"})
 	void cardinalitiesGroup(String inputModel) throws IOException {
 		// Test parameters
 		String inputFile = Rhea.CLAFER_INPUTS_DIR + "GroupCardinalities/" + inputModel + ".txt";

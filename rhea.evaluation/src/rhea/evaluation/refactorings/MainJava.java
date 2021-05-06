@@ -14,6 +14,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import rhea.Rhea;
+import rhea.evaluation.refactoringJava.JavaGroupCardinalityRefactoringTesting;
 import rhea.metamodels.BasicFMs.FeatureModel;
 import rhea.metamodels.helpers.FMHelper;
 import rhea.parsers.FMParser;
@@ -55,11 +56,11 @@ public class MainJava {
 			try 
 			{
 				FileWriter fw = new FileWriter(Rhea.BASEDIR + "temp/Evaluation/" + name + "-raw.csv");
-				fw.write("Run,nFeaturesBefore,nFeaturesAfter,nFeaturesTypeBefore,nFeaturesTypeAfter,nContraints,nOptionals,nMandatories,nAlternativeGroups,nSelectionGroups,nRefactors,Time(s) \n");
+				fw.write("Run,nFeaturesBefore,nFeaturesAfter,nFeaturesTypeBefore,nFeaturesTypeAfter,percentageOfFeaturesType,nContraints,nOptionals,nMandatories,nAlternativeGroups,nSelectionGroups,nRefactors,Time(s) \n");
 				
 				for (TransformationInformation ti : tis) {
 						fw.write(ti.getRun() + "," + ti.getnFeaturesBefore() + "," + ti.getnFeaturesAfter() + "," + ti.getNumberOfFeaturesTypeBefore() + "," + ti.getNumberOfFeaturesTypeAfter() + ","
-						+ ti.getnConstraints() + "," + ti.getnOptionals() + "," + ti.getnMandatories() + "," + ti.getnAlternativeGroups() + "," + ti.getnSelectionGroups() + ","
+						+ ti.getPercentageOfFeaturesType() + "," + ti.getnConstraints() + "," + ti.getnOptionals() + "," + ti.getnMandatories() + "," + ti.getnAlternativeGroups() + "," + ti.getnSelectionGroups() + ","
 						+ (ti.getNumberOfFeaturesTypeBefore() - ti.getNumberOfFeaturesTypeAfter()) + "," + ti.getPerformance() + "\n");
 				}
 				
@@ -80,7 +81,7 @@ public class MainJava {
 				double sd, mean, median;
 				run=bf.readLine();
 				
-				fw.write("nFeaturesBefore,nFeaturesAfter,nFeaturesTypeBefore,nFeaturesTypeAfter,nContraints,nOptionals,nMandatories,nAlternativeGroups,nSelectionGroups,nRefactors,mean(s),median(s),sd(s) \n");
+				fw.write("nFeaturesBefore,nFeaturesAfter,nFeaturesTypeBefore,nFeaturesTypeAfter,percentageOfFeaturesType,nContraints,nOptionals,nMandatories,nAlternativeGroups,nSelectionGroups,nRefactors,mean(s),median(s),sd(s) \n");
 				
 				while(run!=null) 
 				{

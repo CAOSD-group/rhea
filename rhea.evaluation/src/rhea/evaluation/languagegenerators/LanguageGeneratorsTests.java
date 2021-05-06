@@ -9,7 +9,7 @@ import rhea.aafm.AutomatedAnalysisFM;
 import rhea.generators.clafer.ToClafer;
 import rhea.metamodels.BasicFMs.FeatureModel;
 import rhea.metamodels.helpers.FMHelper;
-import rhea.transformations.engine.FeatureModelGenerator;
+import rhea.transformations.engine.FeatureModelGeneratorHelper;
 import rhea.transformations.engine.LanguageGeneratorType;
 
 public class LanguageGeneratorsTests {
@@ -22,7 +22,7 @@ public class LanguageGeneratorsTests {
 		
 		// Generate all possible feature models 
 		System.out.println("Generating all possible feature models...");
-		FeatureModelGenerator fmGen = new FeatureModelGenerator();
+		FeatureModelGeneratorHelper fmGen = new FeatureModelGeneratorHelper();
 		List<FeatureModel> fms = fmGen.generateAllFeatureModels("fm", features, lcs);
 		
 		//System.out.println("MODELS TRANSFORMED4: " + fms);

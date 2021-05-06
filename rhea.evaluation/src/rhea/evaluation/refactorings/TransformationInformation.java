@@ -22,6 +22,7 @@ public class TransformationInformation {
 	
 	public int numberOfFeaturesTypeBefore;
 	private int numberOfFeaturesTypeAfter;
+	private double percentageOfFeaturesType;
 	
 	private int rulesExecuted;
 	private int rulesSuccessExecuted;
@@ -186,5 +187,13 @@ public class TransformationInformation {
 
 	public void setnConstraints(int nConstraints) {
 		this.nConstraints = nConstraints;
+	}
+
+	public double getPercentageOfFeaturesType() {
+		return percentageOfFeaturesType;
+	}
+
+	public void setPercentageOfFeaturesType(double percentageOfFeaturesType) {
+		this.percentageOfFeaturesType = percentageOfFeaturesType;
 	}
 }

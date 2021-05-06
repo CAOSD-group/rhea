@@ -1159,5 +1159,5 @@
   <units xsi:type="henshin:LoopUnit" xmi:id="_5RIpgC8aEeuapvEgGr1xQQ" name="AllGroupCardinality0N" subUnit="_TF2rAC46Eeu3u49aq2v4EA"/>
   <units xsi:type="henshin:LoopUnit" xmi:id="_CEJ-UC8bEeuapvEgGr1xQQ" name="AllGroupCardinality0B" subUnit="_pEa3QC4-Eeu3u49aq2v4EA"/>
   <units xsi:type="henshin:SequentialUnit" xmi:id="_Laro0C8bEeuapvEgGr1xQQ" name="GroupCardinalitiesRefactor" subUnits="_uzc-AC47Eeu3u49aq2v4EA _HJPdIC48Eeu3u49aq2v4EA _ToX3UC48Eeu3u49aq2v4EA _5RIpgC8aEeuapvEgGr1xQQ _CEJ-UC8bEeuapvEgGr1xQQ" strict="false"/>
-  <units xsi:type="henshin:IteratedUnit" xmi:id="_PTH-IHkWEeuO9r7nGtCa4g" name="LoopGroupCardinalitiesRefactor" subUnit="_Laro0C8bEeuapvEgGr1xQQ" iterations="1"/>
+  <units xsi:type="henshin:IteratedUnit" xmi:id="_PTH-IHkWEeuO9r7nGtCa4g" name="LoopGroupCardinalitiesRefactor" subUnit="_Laro0C8bEeuapvEgGr1xQQ" iterations="6"/>
 </henshin:Module>

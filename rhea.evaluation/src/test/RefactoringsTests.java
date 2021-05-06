@@ -35,7 +35,7 @@ import rhea.parsers.clafer.ClaferParser;
 import rhea.thirdpartyplugins.utils.Utils;
 import rhea.transformations.engine.HenshinEngine;
 import rhea.transformations.engine.MyLoggingApplicationMonitor;
-import rhea.transformations.refactorings.GroupCardinalities;
+import rhea.transformations.refactoringHenshin.GroupCardinalities;
 
 
 @RunWith(Suite.class)

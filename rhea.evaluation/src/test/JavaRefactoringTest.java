@@ -11,8 +11,6 @@ import org.junit.jupiter.params.provider.ValueSource;
 import rhea.Rhea;
 import rhea.aafm.AAFMClafer;
 import rhea.aafm.AutomatedAnalysisFM;
-import rhea.transformations.refactorings.GroupCardinalityBaseRefactoring;
-import rhea.transformations.refactorings.GroupCardinalityRefactoring;
 import rhea.generators.FMGenerator;
 import rhea.generators.clafer.ToClafer;
 import rhea.metamodels.BasicFMs.FeatureModel;
@@ -20,6 +18,8 @@ import rhea.metamodels.helpers.FMHelper;
 import rhea.parsers.FMParser;
 import rhea.parsers.clafer.ClaferParser;
 import rhea.thirdpartyplugins.utils.Utils;
+import rhea.transformations.refactoringJava.GroupCardinalityBaseRefactoring;
+import rhea.transformations.refactoringJava.GroupCardinalityRefactoring;
 
 
 class JavaRefactoringTest {

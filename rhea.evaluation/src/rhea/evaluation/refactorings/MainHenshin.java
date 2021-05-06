@@ -10,9 +10,10 @@ import java.util.Arrays;
 import java.util.List;
 
 import rhea.Rhea;
-import rhea.metamodels.BasicFMs.FeatureModel;
-import rhea.parsers.FMParser;
-import rhea.parsers.clafer.ClaferParser;
+import rhea.evaluation.refactoringHenshin.GroupCardinalitiesNMRefactoring;
+import rhea.evaluation.refactoringHenshin.GroupCardinalitiesRefactoring;
+import rhea.evaluation.refactoringHenshin.MainTest;
+import rhea.evaluation.refactoringHenshin.Refactoring;
 
 public class MainHenshin {
 	public static boolean DEBUG = true;

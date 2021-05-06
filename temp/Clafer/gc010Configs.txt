@@ -10,9 +10,8 @@ config
 
 config
   A
+    A3
   B
-    BP
-      B1
 
 --- Instance 2 End ---
 
@@ -20,9 +19,8 @@ config
 
 config
   A
+    A2
   B
-    BP
-      B3
 
 --- Instance 3 End ---
 
@@ -30,10 +28,9 @@ config
 
 config
   A
+    A2
+    A3
   B
-    BP
-      B1
-      B3
 
 --- Instance 4 End ---
 
@@ -43,7 +40,7 @@ config
   A
   B
     BP
-      B2
+      B1
 
 --- Instance 5 End ---
 
@@ -51,10 +48,10 @@ config
 
 config
   A
+    A3
   B
     BP
       B1
-      B2
 
 --- Instance 6 End ---
 
@@ -65,7 +62,6 @@ config
   B
     BP
       B3
-      B2
 
 --- Instance 7 End ---
 
@@ -73,9 +69,10 @@ config
 
 config
   A
-    AP
-      A3
+    A3
   B
+    BP
+      B3
 
 --- Instance 8 End ---
 
@@ -83,9 +80,10 @@ config
 
 config
   A
-    AP
-      A2
   B
+    BP
+      B3
+      B1
 
 --- Instance 9 End ---
 
@@ -93,10 +91,11 @@ config
 
 config
   A
-    AP
-      A2
-      A3
+    A3
   B
+    BP
+      B3
+      B1
 
 --- Instance 10 End ---
 
@@ -104,8 +103,7 @@ config
 
 config
   A
-    AP
-      A3
+    A2
   B
     BP
       B1
@@ -116,11 +114,11 @@ config
 
 config
   A
-    AP
-      A3
+    A2
+    A3
   B
     BP
-      B3
+      B1
 
 --- Instance 12 End ---
 
@@ -128,11 +126,9 @@ config
 
 config
   A
-    AP
-      A3
+    A2
   B
     BP
-      B1
       B3
 
 --- Instance 13 End ---
@@ -141,11 +137,11 @@ config
 
 config
   A
-    AP
-      A2
+    A2
+    A3
   B
     BP
-      B1
+      B3
 
 --- Instance 14 End ---
 
@@ -153,11 +149,10 @@ config
 
 config
   A
-    AP
-      A2
-      A3
+    A2
   B
     BP
+      B3
       B1
 
 --- Instance 15 End ---
@@ -166,11 +161,12 @@ config
 
 config
   A
-    AP
-      A2
+    A2
+    A3
   B
     BP
       B3
+      B1
 
 --- Instance 16 End ---
 
@@ -178,12 +174,9 @@ config
 
 config
   A
-    AP
-      A2
-      A3
   B
     BP
-      B3
+      B2
 
 --- Instance 17 End ---
 
@@ -191,12 +184,10 @@ config
 
 config
   A
-    AP
-      A2
+    A3
   B
     BP
-      B1
-      B3
+      B2
 
 --- Instance 18 End ---
 
@@ -204,13 +195,10 @@ config
 
 config
   A
-    AP
-      A2
-      A3
   B
     BP
+      B2
       B1
-      B3
 
 --- Instance 19 End ---
 
@@ -218,11 +206,11 @@ config
 
 config
   A
-    AP
-      A3
+    A3
   B
     BP
       B2
+      B1
 
 --- Instance 20 End ---
 
@@ -230,11 +218,9 @@ config
 
 config
   A
-    AP
-      A3
   B
     BP
-      B1
+      B3
       B2
 
 --- Instance 21 End ---
@@ -243,8 +229,7 @@ config
 
 config
   A
-    AP
-      A3
+    A3
   B
     BP
       B3
@@ -256,8 +241,7 @@ config
 
 config
   A
-    AP
-      A2
+    A2
   B
     BP
       B2
@@ -268,9 +252,8 @@ config
 
 config
   A
-    AP
-      A2
-      A3
+    A2
+    A3
   B
     BP
       B2
@@ -281,12 +264,11 @@ config
 
 config
   A
-    AP
-      A2
+    A2
   B
     BP
-      B1
       B2
+      B1
 
 --- Instance 25 End ---
 
@@ -294,13 +276,12 @@ config
 
 config
   A
-    AP
-      A2
-      A3
+    A2
+    A3
   B
     BP
-      B1
       B2
+      B1
 
 --- Instance 26 End ---
 
@@ -308,8 +289,7 @@ config
 
 config
   A
-    AP
-      A2
+    A2
   B
     BP
       B3
@@ -321,9 +301,8 @@ config
 
 config
   A
-    AP
-      A2
-      A3
+    A2
+    A3
   B
     BP
       B3
@@ -335,8 +314,7 @@ config
 
 config
   A
-    AP
-      A1
+    A1
   B
 
 --- Instance 29 End ---
@@ -345,9 +323,8 @@ config
 
 config
   A
-    AP
-      A3
-      A1
+    A1
+    A3
   B
 
 --- Instance 30 End ---
@@ -356,9 +333,8 @@ config
 
 config
   A
-    AP
-      A2
-      A1
+    A1
+    A2
   B
 
 --- Instance 31 End ---
@@ -367,8 +343,7 @@ config
 
 config
   A
-    AP
-      A1
+    A1
   B
     BP
       B1
@@ -379,9 +354,8 @@ config
 
 config
   A
-    AP
-      A3
-      A1
+    A1
+    A3
   B
     BP
       B1
@@ -392,8 +366,7 @@ config
 
 config
   A
-    AP
-      A1
+    A1
   B
     BP
       B3
@@ -404,9 +377,8 @@ config
 
 config
   A
-    AP
-      A3
-      A1
+    A1
+    A3
   B
     BP
       B3
@@ -417,12 +389,11 @@ config
 
 config
   A
-    AP
-      A1
+    A1
   B
     BP
-      B1
       B3
+      B1
 
 --- Instance 36 End ---
 
@@ -430,13 +401,12 @@ config
 
 config
   A
-    AP
-      A3
-      A1
+    A1
+    A3
   B
     BP
-      B1
       B3
+      B1
 
 --- Instance 37 End ---
 
@@ -444,9 +414,8 @@ config
 
 config
   A
-    AP
-      A2
-      A1
+    A1
+    A2
   B
     BP
       B1
@@ -457,9 +426,8 @@ config
 
 config
   A
-    AP
-      A2
-      A1
+    A1
+    A2
   B
     BP
       B3
@@ -470,13 +438,12 @@ config
 
 config
   A
-    AP
-      A2
-      A1
+    A1
+    A2
   B
     BP
-      B1
       B3
+      B1
 
 --- Instance 40 End ---
 
@@ -484,8 +451,7 @@ config
 
 config
   A
-    AP
-      A1
+    A1
   B
     BP
       B2
@@ -496,9 +462,8 @@ config
 
 config
   A
-    AP
-      A3
-      A1
+    A1
+    A3
   B
     BP
       B2
@@ -509,12 +474,11 @@ config
 
 config
   A
-    AP
-      A1
+    A1
   B
     BP
-      B1
       B2
+      B1
 
 --- Instance 43 End ---
 
@@ -522,13 +486,12 @@ config
 
 config
   A
-    AP
-      A3
-      A1
+    A1
+    A3
   B
     BP
-      B1
       B2
+      B1
 
 --- Instance 44 End ---
 
@@ -536,8 +499,7 @@ config
 
 config
   A
-    AP
-      A1
+    A1
   B
     BP
       B3
@@ -549,9 +511,8 @@ config
 
 config
   A
-    AP
-      A3
-      A1
+    A1
+    A3
   B
     BP
       B3
@@ -563,9 +524,8 @@ config
 
 config
   A
-    AP
-      A2
-      A1
+    A1
+    A2
   B
     BP
       B2
@@ -576,13 +536,12 @@ config
 
 config
   A
-    AP
-      A2
-      A1
+    A1
+    A2
   B
     BP
-      B1
       B2
+      B1
 
 --- Instance 48 End ---
 
@@ -590,9 +549,8 @@ config
 
 config
   A
-    AP
-      A2
-      A1
+    A1
+    A2
   B
     BP
       B3
