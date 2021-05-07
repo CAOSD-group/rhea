@@ -5,7 +5,7 @@ package rhea.metamodels.PropLogicCTCs.impl;
 import java.util.Collection;
 
 import org.eclipse.emf.common.notify.NotificationChain;
-
+import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EClass;
@@ -46,8 +46,9 @@ public class OrImpl extends TermImpl implements Or {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected OrImpl() {
+	public OrImpl() {
 		super();
+		terms = new BasicEList<Term>();
 	}
 
 	/**
@@ -146,4 +147,13 @@ public class OrImpl extends TermImpl implements Or {
 		return super.eIsSet(featureID);
 	}
 
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	public boolean addTerm(Term t)
+	{
+		return terms.add(t);
+	}
 } //OrImpl

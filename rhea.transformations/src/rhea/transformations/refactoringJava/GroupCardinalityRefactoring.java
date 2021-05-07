@@ -7,6 +7,7 @@ import rhea.metamodels.BasicFMs.CrossTreeConstraint;
 import rhea.metamodels.BasicFMs.Feature;
 import rhea.metamodels.BasicFMs.FeatureModel;
 import rhea.metamodels.BasicFMs.SelectionGroup;
+import rhea.metamodels.BasicFMs.impl.FeatureImpl;
 import rhea.metamodels.BasicFMs.impl.SelectionGroupImpl;
 import rhea.metamodels.CardinalityBasedFMs.GroupCardinality;
 import rhea.metamodels.PropLogicCTCs.AdvancedConstraint;
@@ -15,6 +16,7 @@ import rhea.metamodels.PropLogicCTCs.impl.AndImpl;
 import rhea.metamodels.PropLogicCTCs.impl.FeatureTermImpl;
 import rhea.metamodels.PropLogicCTCs.impl.ImpliesImpl;
 import rhea.metamodels.PropLogicCTCs.impl.NotImpl;
+import rhea.metamodels.PropLogicCTCs.impl.OrImpl;
 
 public class GroupCardinalityRefactoring extends Refactoring{
 
@@ -31,7 +33,7 @@ public class GroupCardinalityRefactoring extends Refactoring{
 		List<Feature> childrenGC = gc.getChildren();
 		
 		//Create the new feature/features
-		SelectionGroup sg = new SelectionGroupImpl();
+		SelectionGroupImpl sg = new SelectionGroupImpl();
 		List<Feature> childrenSG = sg.getChildren();
 		sg.setName(gc.getName());
 		sg.setId(gc.getId());
@@ -55,8 +57,13 @@ public class GroupCardinalityRefactoring extends Refactoring{
 		int lower = gc.getMultiplicity().getLower();
 		int upper = gc.getMultiplicity().getUpper() == -1 ? sg.getChildren().size() : gc.getMultiplicity().getUpper();
 		
-		AndImpl root = new AndImpl();
-		
+		// Create implies , left and right
+		ImpliesImpl implies = new ImpliesImpl();
+		FeatureTermImpl left = new FeatureTermImpl();
+		OrImpl right = new OrImpl();
+		left.setFeature(sg);
+		implies.setLeft(left);
+
 		// Calculate the posible combinations
 		for (int i = 0; i < Math.pow(childrenSG.size(),2) - 1; i++)
 		{	
@@ -70,12 +77,9 @@ public class GroupCardinalityRefactoring extends Refactoring{
 			}
 			
 			// If the combination match, we create the implies
-			if(lower <= numberOfElements && numberOfElements <= upper && numberOfElements != childrenSG.size() && lower > 0)
+			if(lower <= numberOfElements && numberOfElements <= upper && lower > 0)
 			{
-				// Create implies , left and right
-				ImpliesImpl implies = new ImpliesImpl();
-				AndImpl left = new AndImpl();
-				AndImpl right = new AndImpl();
+				AndImpl and = new AndImpl();
 				
 				// For each child, we decide to use (or not) not 
 				for (int k = 0; k < comb.length; k++)
@@ -87,22 +91,22 @@ public class GroupCardinalityRefactoring extends Refactoring{
 					{
 						NotImpl not = new NotImpl();
 						not.setTerm(feature);
-						right.addTerm(not);
+						and.addTerm(not);
 					}
-					else left.addTerm(feature);
+					else and.addTerm(feature);
 				}
 				
-				implies.setLeft(left);
-				implies.setRight(right);
+				right.addTerm(and);
 				
-				root.addTerm(implies);
 			}
 		}
-	
+		
+		implies.setRight(right);
+		
 		//Add the constraint to the fm
 		List<CrossTreeConstraint> ctc = fm.getCrosstreeconstraints();
 		AdvancedConstraint ac = new AdvancedConstraintImpl();
-		ac.setExpr(root);
+		ac.setExpr(implies);
 		ctc.add(ac);
 		
 		//Delete the feature from fm

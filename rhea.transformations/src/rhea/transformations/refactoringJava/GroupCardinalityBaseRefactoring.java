@@ -145,7 +145,7 @@ public class GroupCardinalityBaseRefactoring extends Refactoring{
 			//Delete the feature from fm
 			fm.getFeatures().remove(gc);
 		}
-		else if (lower==upper && lower==childrenGC.size())
+		/*else if (lower==upper && lower==childrenGC.size())
 		{
 			//Create the feature
 			f = createSelectionGroup(gc);
@@ -189,7 +189,7 @@ public class GroupCardinalityBaseRefactoring extends Refactoring{
 			AdvancedConstraint ac = new AdvancedConstraintImpl();
 			ac.setExpr(root);
 			ctc.add(ac);
-		}
+		}*/
 		
 		return true;
 	}
