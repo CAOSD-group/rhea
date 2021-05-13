@@ -1,66 +1,75 @@
 package rhea.evaluation.refactorings;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import rhea.Rhea;
-import rhea.evaluation.refactoringHenshin.GroupCardinalitiesNMRefactoring;
-import rhea.evaluation.refactoringHenshin.GroupCardinalitiesRefactoring;
-import rhea.evaluation.refactoringHenshin.MainTest;
-import rhea.evaluation.refactoringHenshin.Refactoring;
+import rhea.evaluation.refactoringHenshin.HenshinGroupCardinalityRefactoring;
+import rhea.evaluation.refactoringHenshin.HenshinMutexGroupRefactoring;
+import rhea.metamodels.BasicFMs.FeatureModel;
+import rhea.parsers.FMParser;
+import rhea.parsers.clafer.ClaferParser;
+import rhea.transformations.refactoringHenshin.HenshinRule;
 
 public class MainHenshin {
 	public static boolean DEBUG = true;
 
 	
 	public static void main(String[] args) {
-		String inputName = "fm";
+		String modelType = "GroupCardinality";
+		String folderPath = Rhea.INPUTS_DIR + "clafer/" + modelType;
 		
-		//Par�metros
-		List<Refactoring> mds = new ArrayList<Refactoring>();
-		//mds.add(new MutexGroupRefactoring(DEBUG));
-		mds.add(new GroupCardinalitiesRefactoring(DEBUG));
-		mds.add(new GroupCardinalitiesNMRefactoring(DEBUG));
+		List<TransformationInformation> tis = new ArrayList<>();
+		List<FeatureModel> models = new ArrayList<>();
+		File folder = new File(folderPath);
 		
-		List<String> fms = new ArrayList<String>();
-		fms.add(inputName);
+		List<HenshinRule> mds = new ArrayList<HenshinRule>();
+		FMParser fmp = new ClaferParser();
 		
-		List<List<TransformationInformation>> tiss = new ArrayList<>();
-		
-		for (String model : fms) {
-			tiss.add(new MainTest().run(model, mds));
+		for (File f: folder.listFiles()) 
+		{
+			models.add(fmp.readFeatureModel(f.getPath()));
 		}
 		
-		saveData(tiss,inputName);
-		processData(inputName);
+		for (FeatureModel fm : models) {
+			tis.addAll(new HenshinGroupCardinalityRefactoring(fm).refactor(Rhea.EVALUATION_ITERATIONS));
+			//tis.addAll(new HenshinMutexGroupRefactoring(fm).refactor(Rhea.EVALUATION_ITERATIONS));
+		}
+		
+		tis = sortTransformationInformation(tis);
+		
+		saveData(tis,modelType+"Henshin");
+		processData(modelType+"Henshin");
 	}
 	
-	private static void saveData(List<List<TransformationInformation>> tiss, String inputName) {
+	private static void saveData(List<TransformationInformation> tis, String inputName) {
 		try 
 		{
-			FileWriter fw = new FileWriter(Rhea.BASEDIR + "temp/" + inputName + "-raw.csv");
-			fw.write("Run,HenshinModule,HenshinUnits,inputModel,nFeaturesBefore,nFeaturesAfter,nFeaturesTypeBefore,nFeaturesTypeAfter,nRefactors,nRulesSucessExecuted, Time(ns) \n");
+			FileWriter fw = new FileWriter(Rhea.BASEDIR + "temp/Evaluation/" + inputName + "-raw.csv");
+			fw.write("Run,nFeaturesBefore,nFeaturesAfter,nFeaturesTypeBefore,nFeaturesTypeAfter,percentageOfFeaturesType,nConstraints,nOptionals,nMandatories,nAlternativeGroups,nSelectionGroups,nRefactors,nRulesSucessfullyExecuted,Time(s) \n");
 			
-			for (List<TransformationInformation> tis : tiss) {
-				int rulesSuccessExecuted=0, rulesExecuted=0;
-		
-				for (TransformationInformation ti : tis) {
-					if (ti.getRun()==-1) {
-						rulesSuccessExecuted = ti.getRulesSuccessExecuted();
-						rulesExecuted = ti.getRulesExecuted();
-					}
-					else
-					{
-						fw.write(ti.getRun() + "," + ti.getHenshinModule() + "," + ti.getHenshinUnits() + "," + ti.getInputModel() + "," + ti.getnFeaturesBefore() + "," 
-						+ ti.getnFeaturesAfter() + "," + ti.getNumberOfFeaturesTypeBefore() + "," + ti.getNumberOfFeaturesTypeAfter() + "," 
-						+ (ti.getNumberOfFeaturesTypeBefore() - ti.getNumberOfFeaturesTypeAfter()) + "," + rulesSuccessExecuted + "," + ti.getPerformance() + "\n");
-					}
+			int rulesSuccessExecuted=0, rulesExecuted=0;
+			
+			for (TransformationInformation ti : tis) {
+				if (ti.getRun()==-1) {
+					rulesSuccessExecuted = ti.getRulesSuccessExecuted();
+					rulesExecuted = ti.getRulesExecuted();
+				}
+				else
+				{
+					fw.write(ti.getRun() + "," + ti.getnFeaturesBefore() + "," + ti.getnFeaturesAfter() + "," + ti.getNumberOfFeaturesTypeBefore() + "," + ti.getNumberOfFeaturesTypeAfter() + ","
+					+ ti.getPercentageOfFeaturesType() + "," + ti.getnConstraints() + "," + ti.getnOptionals() + "," + ti.getnMandatories() + "," + ti.getnAlternativeGroups() + "," + ti.getnSelectionGroups() + ","
+					+ (ti.getNumberOfFeaturesTypeBefore() - ti.getNumberOfFeaturesTypeAfter()) + "," + rulesSuccessExecuted + "," + ti.getPerformance() + "\n");
 				}
 			}
 			fw.close();
@@ -71,11 +80,11 @@ public class MainHenshin {
 	private static void processData(String inputName) {
 		try 
 		{
-			FileReader fr = new FileReader(Rhea.BASEDIR + "temp/" + inputName + "-raw.csv");
+			FileReader fr = new FileReader(Rhea.BASEDIR + "temp/Evaluation/" + inputName + "-raw.csv");
 			BufferedReader bf = new BufferedReader(fr);
-			FileWriter fw = new FileWriter(Rhea.BASEDIR + "temp/" + inputName + "-processed.csv");
+			FileWriter fw = new FileWriter(Rhea.BASEDIR + "temp/Evaluation/" + inputName + "-processed.csv");
 			
-			fw.write("HenshinModule,HenshinRule,inputModel,nFeaturesBefore,nFeaturesAfter,nFeaturesTypeBefore,nFeaturesTypeAfter,nRefactors,nRulesSucessExecuted,mean,median,sd \n");
+			fw.write("nFeaturesBefore,nFeaturesAfter,nFeaturesTypeBefore,nFeaturesTypeAfter,percentageOfFeaturesType,nContraints,nOptionals,nMandatories,nAlternativeGroups,nSelectionGroups,nRefactors,nRulesSucessfullyExecuted,mean(s),median(s),sd(s) \n");
 			
 			String run;
 			double sd, mean, median;
@@ -112,5 +121,13 @@ public class MainHenshin {
 		} 
 		catch (FileNotFoundException e) {e.printStackTrace();} 
 		catch (IOException e) {e.printStackTrace();}
+	}
+	
+	private static List<TransformationInformation> sortTransformationInformation(List<TransformationInformation> tis) {
+		Comparator<TransformationInformation> comparator = Comparator.comparing(transformationInformation -> transformationInformation.nFeaturesBefore);
+		comparator = comparator.thenComparing(transformationInformation -> transformationInformation.numberOfFeaturesTypeBefore);
+		
+		Stream<TransformationInformation> personStream = tis.stream().sorted(comparator);
+	    return personStream.collect(Collectors.toList());
 	}
 }

@@ -18,8 +18,8 @@ import rhea.metamodels.helpers.FMHelper;
 import rhea.parsers.FMParser;
 import rhea.parsers.clafer.ClaferParser;
 import rhea.thirdpartyplugins.utils.Utils;
-import rhea.transformations.refactoringJava.GroupCardinalityBaseRefactoring;
-import rhea.transformations.refactoringJava.GroupCardinalityRefactoring;
+import rhea.transformations.refactoringJava.JavaGroupCardinalityBaseRule;
+import rhea.transformations.refactoringJava.JavaGroupCardinalityRule;
 
 
 class JavaRefactoringTest {
@@ -52,8 +52,8 @@ class JavaRefactoringTest {
 		var gcBefore = FMHelper.getAllFeaturesOf(fm, classPath).size();
 		
 		// Execute the transformation
-		GroupCardinalityBaseRefactoring gcbr = new GroupCardinalityBaseRefactoring(fm, classPath);
-		GroupCardinalityRefactoring gcr = new GroupCardinalityRefactoring(fm, classPath);
+		JavaGroupCardinalityBaseRule gcbr = new JavaGroupCardinalityBaseRule(fm, classPath);
+		JavaGroupCardinalityRule gcr = new JavaGroupCardinalityRule(fm, classPath);
 		
 		if (gcbr.executeRefactoring() && gcr.executeRefactoring())
 			System.out.println("Transformation applied succesfully.");

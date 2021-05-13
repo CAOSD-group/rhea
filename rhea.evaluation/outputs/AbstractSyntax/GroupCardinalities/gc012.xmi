@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="ASCII"?>
+<rhea:FeatureModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:rhea="rhea.metamodels.BasicFMs" xmlns:rhea_1="rhea.metamodels.CardinalityBasedFMs" name="gc012" features="//@root //@root/@children.0 //@root/@children.0/@children.0 //@root/@children.0/@children.0/@children.0 //@root/@children.0/@children.0/@children.1 //@root/@children.0/@children.1 //@root/@children.0/@children.1/@children.0 //@root/@children.0/@children.1/@children.0/@children.0 //@root/@children.0/@children.2 //@root/@children.1 //@root/@children.1/@children.0 //@root/@children.1/@children.1 //@root/@children.1/@children.2 //@root/@children.1/@children.2/@children.0 //@root/@children.1/@children.2/@children.0/@children.0 //@root/@children.1/@children.2/@children.0/@children.1 //@root/@children.2/@children.2 //@root/@children.2/@children.2/@children.0 //@root/@children.2/@children.2/@children.0/@children.0 //@root/@children.2/@children.2/@children.0/@children.0/@children.0 //@root/@children.2/@children.2/@children.0/@children.0/@children.1 //@root/@children.2/@children.2/@children.0/@children.0/@children.2 //@root/@children.2/@children.2/@children.0/@children.1 //@root/@children.2/@children.1 //@root/@children.2/@children.0 //@root/@children.4/@children.0/@children.2 //@root/@children.4/@children.0/@children.1 //@root/@children.4/@children.0/@children.0 //@root/@children.3/@children.0/@children.2 //@root/@children.3/@children.0/@children.1 //@root/@children.3/@children.0/@children.0 //@root/@children.2 //@root/@children.3/@children.0 //@root/@children.3 //@root/@children.4/@children.0 //@root/@children.4">
+  <root id="Root" name="Root" mandatory="true" abstract="true">
+    <children xsi:type="rhea_1:GroupCardinality" id="A" name="A" mandatory="true">
+      <children id="A1" name="A1">
+        <children id="A5" name="A5" mandatory="true"/>
+        <children id="A6" name="A6" mandatory="true"/>
+      </children>
+      <children id="A2" name="A2">
+        <children id="A7" name="A7" mandatory="true">
+          <children id="A8" name="A8" mandatory="true"/>
+        </children>
+      </children>
+      <children id="A3" name="A3"/>
+      <multiplicity lower="0" upper="2"/>
+    </children>
+    <children xsi:type="rhea_1:GroupCardinality" id="B" name="B" mandatory="true">
+      <children id="B1" name="B1"/>
+      <children id="B2" name="B2"/>
+      <children id="B3" name="B3">
+        <children xsi:type="rhea_1:GroupCardinality" id="B4" name="B4" mandatory="true">
+          <children id="B5" name="B5"/>
+          <children id="B6" name="B6"/>
+          <multiplicity upper="2"/>
+        </children>
+      </children>
+      <multiplicity upper="2"/>
+    </children>
+    <children xsi:type="rhea:SelectionGroup" id="C" name="C" mandatory="true">
+      <children id="C3" name="C3"/>
+      <children id="C2" name="C2"/>
+      <children id="C1" name="C1">
+        <children xsi:type="rhea_1:GroupCardinality" id="C4" name="C4" mandatory="true">
+          <children xsi:type="rhea_1:GroupCardinality" id="C5" name="C5">
+            <children id="C7" name="C7"/>
+            <children id="C8" name="C8"/>
+            <children id="C9" name="C9"/>
+            <multiplicity lower="2" upper="3"/>
+          </children>
+          <children id="C6" name="C6"/>
+          <multiplicity upper="2"/>
+        </children>
+      </children>
+    </children>
+    <children id="E" name="E" mandatory="true">
+      <children xsi:type="rhea:AlternativeGroup" id="EP" name="EP" abstract="true">
+        <children id="E3" name="E3"/>
+        <children id="E2" name="E2"/>
+        <children id="E1" name="E1"/>
+      </children>
+    </children>
+    <children id="D" name="D" mandatory="true">
+      <children xsi:type="rhea:SelectionGroup" id="DP" name="DP" abstract="true">
+        <children id="D3" name="D3"/>
+        <children id="D2" name="D2"/>
+        <children id="D1" name="D1"/>
+      </children>
+    </children>
+  </root>
+</rhea:FeatureModel>

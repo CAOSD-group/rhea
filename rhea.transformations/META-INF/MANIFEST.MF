@@ -15,7 +15,8 @@ Require-Bundle: rhea.metamodels;bundle-version="1.0.0",
  org.eclipse.emf.ecore.xmi
 Export-Package: rhea.transformations.engine,
  rhea.transformations.henshin,
- rhea.transformations.refactoringHenshin
+ rhea.transformations.refactoringHenshin,
+ rhea.transformations.refactoringJava
 Import-Package: org.eclipse.emf.ecore.xmi.impl,
  org.eclipse.emf.henshin.trace,
  org.eclipse.emf.henshin.trace.impl,

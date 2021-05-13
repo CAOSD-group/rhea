@@ -109,14 +109,14 @@ public class ToClafer implements FMGenerator {
 		} else if (t instanceof Implies) {
 			Term left = ((Implies) t).getLeft();
 			Term right = ((Implies) t).getRight();
-			String l = left instanceof FeatureTerm ? ((FeatureTerm) left).getFeature().getName() : "(" + addAdvanceConstraint(left) + ")";
-			String r = right instanceof FeatureTerm ? ((FeatureTerm) right).getFeature().getName() : "(" + addAdvanceConstraint(right) + ")";
+			String l = left instanceof FeatureTerm ? ((FeatureTerm) left).getFeature().getName() : addAdvanceConstraint(left);
+			String r = right instanceof FeatureTerm ? ((FeatureTerm) right).getFeature().getName() : addAdvanceConstraint(right);
 			constraint.append(l).append(" => ").append(r);
 		} else if (t instanceof Excludes) {
 			Term left = ((Implies) t).getLeft();
 			Term right = ((Implies) t).getRight();
-			String l = left instanceof FeatureTerm ? ((FeatureTerm) left).getFeature().getName() : "(" + addAdvanceConstraint(left) + ")";
-			String r = right instanceof FeatureTerm ? "!" + ((FeatureTerm) right).getFeature().getName() : "!(" + addAdvanceConstraint(right) + ")";
+			String l = left instanceof FeatureTerm ? ((FeatureTerm) left).getFeature().getName() : addAdvanceConstraint(left);
+			String r = right instanceof FeatureTerm ? "!" + ((FeatureTerm) right).getFeature().getName() : "!" + addAdvanceConstraint(right);
 			constraint.append(l).append(" => ").append(r);
 		} else if (t instanceof Xor) {
 			Xor xor = (Xor) t;

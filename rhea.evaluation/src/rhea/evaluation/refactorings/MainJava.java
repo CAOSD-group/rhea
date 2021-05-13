@@ -14,9 +14,9 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import rhea.Rhea;
-import rhea.evaluation.refactoringJava.JavaGroupCardinalityRefactoringTesting;
+import rhea.evaluation.refactoringJava.JavaGroupCardinalityRefactoring;
+import rhea.evaluation.refactoringJava.JavaMutexGroupRefactoring;
 import rhea.metamodels.BasicFMs.FeatureModel;
-import rhea.metamodels.helpers.FMHelper;
 import rhea.parsers.FMParser;
 import rhea.parsers.clafer.ClaferParser;
 
@@ -24,7 +24,7 @@ public class MainJava {
 	public static boolean DEBUG = true;
 
 	public static void main(String[] args) {
-		String modelType = "GroupCardinality";
+		String modelType = "MutexGroup";
 		String folderPath = Rhea.INPUTS_DIR + "clafer/" + modelType;
 		
 		List<TransformationInformation> tis = new ArrayList<>();
@@ -40,15 +40,14 @@ public class MainJava {
 		
 		for (FeatureModel featureModel : models) 
 		{
-			tis.addAll(new JavaGroupCardinalityRefactoringTesting(featureModel).testRefactoring(Rhea.EVALUATION_ITERATIONS));
-			//tis.addAll(new JavaMutexGroupRefactoringTesting(featureModel).testRefactoring(Rhea.EVALUATION_ITERATIONS));
+			//tis.addAll(new JavaGroupCardinalityRefactoring(featureModel).refactor(Rhea.EVALUATION_ITERATIONS));
+			tis.addAll(new JavaMutexGroupRefactoring(featureModel).refactor(Rhea.EVALUATION_ITERATIONS));
 		}
 		
 		tis = sortTransformationInformation(tis);
 		
-		//Change (Todo en un único archivo, o un archivo por fm) TODO
-		saveData(tis,modelType);
-		processData(modelType);
+		saveData(tis,modelType+"Java");
+		processData(modelType+"Java");
 	}
 
 	private static void saveData(List<TransformationInformation> tis, String name)

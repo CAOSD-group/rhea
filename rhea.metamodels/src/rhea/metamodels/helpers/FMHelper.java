@@ -10,6 +10,7 @@ import java.util.stream.Collectors;
 import rhea.metamodels.BasicFMs.Feature;
 import rhea.metamodels.BasicFMs.FeatureGroup;
 import rhea.metamodels.BasicFMs.FeatureModel;
+import rhea.metamodels.CardinalityBasedFMs.GroupCardinality;
 
 public class FMHelper {
 
@@ -130,6 +131,25 @@ public class FMHelper {
 		
 		for (Feature f : fm.getFeatures()) {
 			if(f.isMandatory()) features.add(f);
+		}
+		return features;
+	}
+
+	public static List<Feature> getAllBaseCaseGC(FeatureModel fm) 
+	{
+		List<Feature> features = new ArrayList<Feature>();
+		
+		for (Feature f : fm.getFeatures()) {
+			try {
+				if (Class.forName("rhea.metamodels.CardinalityBasedFMs.GroupCardinality").isInstance(f)) 
+				{
+					GroupCardinality gc = ((GroupCardinality) f);
+					int lower = gc.getMultiplicity().getLower();
+					int upper = gc.getMultiplicity().getUpper();
+					
+					if((lower==1 && upper==1) || (lower==1 && upper==-1) || (lower==0)) features.add(gc);
+				}
+			} catch (ClassNotFoundException e) {}
 		}
 		return features;
 	}

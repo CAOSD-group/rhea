@@ -84,8 +84,9 @@ public class GroupCardinalitiesTest {
 		Unit unit = henshin.getModule(transformationFilepath).getUnit(ruleName);
 		
 		// Execute the transformation
-		boolean successTransformation = henshin.executeTransformation(unit,  Map.of(), fm);
-		if (successTransformation)
+		boolean successTransformation1 = henshin.executeTransformation(unit,  Map.of(), fm);
+		
+		if (successTransformation1)
 			System.out.println("Transformation applied succesfully.");
 		else 
 			System.out.println("Transformation was not applied.");
