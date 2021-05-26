@@ -40,10 +40,6 @@ public class HenshinGroupCardinalityRefactoring extends Refactoring{
 		gcbr.setDebugMode(true);
 		gcbr.executeTransformation();
 		
-		//DEBUG ONLY
-		String of = Rhea.OUTPUTS_DIR + "clafer/GroupCardinality/" + fm.getName() + "-OnlyBaseCase.txt";
-		Utils.serialize(g.fm2text(gcbr.getFeatureModel()), of);
-		
 		HenshinGroupCardinalityRule gcr = new HenshinGroupCardinalityRule(f);
 		gcr.setDebugMode(true);
 		gcr.generateTemplates();
@@ -91,7 +87,7 @@ public class HenshinGroupCardinalityRefactoring extends Refactoring{
 			result.add(tf);
 		}
 		
-		//gcr.deleteTemplates();
+		gcr.deleteTemplates();
 		
 		//Save the file (optional)
 		String outputFile = Rhea.OUTPUTS_DIR + "clafer/GroupCardinality/" + fm.getName() + ".txt";

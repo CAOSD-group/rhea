@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <henshin:Module xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:henshin="http://www.eclipse.org/emf/2011/Henshin" xmi:id="_nH4joCkQEeu4fNiXIohV-g" name="GroupCardinalities">
-  <imports href="../../rhea.metamodels/metamodels/BasicFMs/BasicFMs.ecore#/"/>
   <imports href="../../rhea.metamodels/metamodels/CardinalityBasedFMs/CardinalityBasedFMs.ecore#/"/>
+  <imports href="../../rhea.metamodels/metamodels/BasicFMs/BasicFMs.ecore#/"/>
   <units xsi:type="henshin:Rule" xmi:id="_oPEOICkQEeu4fNiXIohV-g" name="GroupCardinality11">
     <annotations xmi:id="_ECx8YC8dEeuh37M3ijRfjQ" key="featureConstraint" value=""/>
     <annotations xmi:id="_ECx8YS8dEeuh37M3ijRfjQ" key="injectiveMatchingPresenceCondition" value=""/>
@@ -1159,5 +1159,5 @@
   <units xsi:type="henshin:LoopUnit" xmi:id="_5RIpgC8aEeuapvEgGr1xQQ" name="AllGroupCardinality0N" subUnit="_TF2rAC46Eeu3u49aq2v4EA"/>
   <units xsi:type="henshin:LoopUnit" xmi:id="_CEJ-UC8bEeuapvEgGr1xQQ" name="AllGroupCardinality0B" subUnit="_pEa3QC4-Eeu3u49aq2v4EA"/>
   <units xsi:type="henshin:SequentialUnit" xmi:id="_Laro0C8bEeuapvEgGr1xQQ" name="GroupCardinalitiesRefactor" subUnits="_uzc-AC47Eeu3u49aq2v4EA _HJPdIC48Eeu3u49aq2v4EA _ToX3UC48Eeu3u49aq2v4EA _5RIpgC8aEeuapvEgGr1xQQ _CEJ-UC8bEeuapvEgGr1xQQ" strict="false"/>
-  <units xsi:type="henshin:IteratedUnit" xmi:id="_PTH-IHkWEeuO9r7nGtCa4g" name="LoopGroupCardinalitiesRefactor" subUnit="_Laro0C8bEeuapvEgGr1xQQ" iterations="10"/>
+  <units xsi:type="henshin:IteratedUnit" xmi:id="_PTH-IHkWEeuO9r7nGtCa4g" name="LoopGroupCardinalitiesRefactor" subUnit="_Laro0C8bEeuapvEgGr1xQQ" iterations="5"/>
 </henshin:Module>

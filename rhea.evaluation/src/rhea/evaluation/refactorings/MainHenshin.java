@@ -19,12 +19,8 @@ import rhea.evaluation.refactoringHenshin.HenshinMutexGroupRefactoring;
 import rhea.metamodels.BasicFMs.FeatureModel;
 import rhea.parsers.FMParser;
 import rhea.parsers.clafer.ClaferParser;
-import rhea.transformations.refactoringHenshin.HenshinRule;
 
 public class MainHenshin {
-	public static boolean DEBUG = true;
-
-	
 	public static void main(String[] args) {
 		String modelType = "GroupCardinality";
 		String folderPath = Rhea.INPUTS_DIR + "clafer/" + modelType;
@@ -32,8 +28,6 @@ public class MainHenshin {
 		List<TransformationInformation> tis = new ArrayList<>();
 		List<FeatureModel> models = new ArrayList<>();
 		File folder = new File(folderPath);
-		
-		List<HenshinRule> mds = new ArrayList<HenshinRule>();
 		FMParser fmp = new ClaferParser();
 		
 		for (File f: folder.listFiles()) 
@@ -48,14 +42,14 @@ public class MainHenshin {
 		
 		tis = sortTransformationInformation(tis);
 		
-		saveData(tis,modelType+"Henshin");
-		processData(modelType+"Henshin");
+		saveData(tis,"Henshin"+modelType);
+		processData("Henshin"+modelType);
 	}
 	
 	private static void saveData(List<TransformationInformation> tis, String inputName) {
 		try 
 		{
-			FileWriter fw = new FileWriter(Rhea.BASEDIR + "temp/Evaluation/" + inputName + "-raw.csv");
+			FileWriter fw = new FileWriter(Rhea.BASEDIR + "temp/Evaluation/" + inputName + "-raw.csv",true);
 			fw.write("Run,nFeaturesBefore,nFeaturesAfter,nFeaturesTypeBefore,nFeaturesTypeAfter,percentageOfFeaturesType,nConstraints,nOptionals,nMandatories,nAlternativeGroups,nSelectionGroups,nRefactors,nRulesSucessfullyExecuted,Time(s) \n");
 			
 			int rulesSuccessExecuted=0, rulesExecuted=0;

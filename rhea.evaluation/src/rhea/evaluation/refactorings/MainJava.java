@@ -24,7 +24,7 @@ public class MainJava {
 	public static boolean DEBUG = true;
 
 	public static void main(String[] args) {
-		String modelType = "MutexGroup";
+		String modelType = "GroupCardinality";
 		String folderPath = Rhea.INPUTS_DIR + "clafer/" + modelType;
 		
 		List<TransformationInformation> tis = new ArrayList<>();
@@ -40,14 +40,15 @@ public class MainJava {
 		
 		for (FeatureModel featureModel : models) 
 		{
-			//tis.addAll(new JavaGroupCardinalityRefactoring(featureModel).refactor(Rhea.EVALUATION_ITERATIONS));
-			tis.addAll(new JavaMutexGroupRefactoring(featureModel).refactor(Rhea.EVALUATION_ITERATIONS));
+			tis.addAll(new JavaGroupCardinalityRefactoring(featureModel).refactor(Rhea.EVALUATION_ITERATIONS));
+			//tis.addAll(new JavaMutexGroupRefactoring(featureModel).refactor(Rhea.EVALUATION_ITERATIONS));
 		}
 		
 		tis = sortTransformationInformation(tis);
 		
-		saveData(tis,modelType+"Java");
-		processData(modelType+"Java");
+		saveData(tis,"Java"+modelType);
+		processData("Java"+modelType);
+		
 	}
 
 	private static void saveData(List<TransformationInformation> tis, String name)
@@ -55,7 +56,7 @@ public class MainJava {
 			try 
 			{
 				FileWriter fw = new FileWriter(Rhea.BASEDIR + "temp/Evaluation/" + name + "-raw.csv");
-				fw.write("Run,nFeaturesBefore,nFeaturesAfter,nFeaturesTypeBefore,nFeaturesTypeAfter,percentageOfFeaturesType,nContraints,nOptionals,nMandatories,nAlternativeGroups,nSelectionGroups,nRefactors,Time(s) \n");
+				fw.write("Run,nFeaturesBefore,nFeaturesAfter,nFeaturesTypeBefore,nFeaturesTypeAfter,percentageOfFeaturesType,nConstraints,nOptionals,nMandatories,nAlternativeGroups,nSelectionGroups,nRefactors,Time(s) \n");
 				
 				for (TransformationInformation ti : tis) {
 						fw.write(ti.getRun() + "," + ti.getnFeaturesBefore() + "," + ti.getnFeaturesAfter() + "," + ti.getNumberOfFeaturesTypeBefore() + "," + ti.getNumberOfFeaturesTypeAfter() + ","
@@ -80,7 +81,7 @@ public class MainJava {
 				double sd, mean, median;
 				run=bf.readLine();
 				
-				fw.write("nFeaturesBefore,nFeaturesAfter,nFeaturesTypeBefore,nFeaturesTypeAfter,percentageOfFeaturesType,nContraints,nOptionals,nMandatories,nAlternativeGroups,nSelectionGroups,nRefactors,mean(s),median(s),sd(s) \n");
+				fw.write("nFeaturesBefore,nFeaturesAfter,nFeaturesTypeBefore,nFeaturesTypeAfter,percentageOfFeaturesType,nConstraints,nOptionals,nMandatories,nAlternativeGroups,nSelectionGroups,nRefactors,mean(s),median(s),sd(s) \n");
 				
 				while(run!=null) 
 				{

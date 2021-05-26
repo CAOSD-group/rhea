@@ -15,7 +15,7 @@ public class GenerateFMs {
 		String modelName;
 		
 		// 5000 Features empieza a costar generar modelos, al menos en mi pc.
-		int nChildMin = 2, nChildMax = 4, featureStep = 250, featureLimit = 10000;
+		int nChildMin = 2, nChildMax = 4, featureStep = 250, featureLimit = 7000;
 		double nAlternativeGroup = 0, nSelectionGroup = 0, nMutexGroup = 0, nGroupCardinality = 0;
 		double percentageStep = 0.05, percentageLimit = 0.2;
 		
@@ -25,7 +25,7 @@ public class GenerateFMs {
 		LinkedHashMap<String, Double> percentages = new LinkedHashMap<String,Double>();
 		FeatureModelGenerator fmgi = new FeatureModelGenerator();
 		
-		for (int i = 8750 ; i <= featureLimit ; i = i + featureStep)
+		for (int i = 250 ; i <= featureLimit ; i = i + featureStep)
 		{
 			for (double j = percentageStep ; j <= percentageLimit ; j = j + percentageStep)
 			{

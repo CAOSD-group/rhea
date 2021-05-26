@@ -40,14 +40,14 @@ public class JavaMutexGroupRefactoring extends Refactoring{
 			//Get the information before the refactoring
 			//TODO Extract this code, so only executed once, first time
 			tf.setRun(i);
-			tf.setInputModel(fm.getName());
-			tf.setnFeaturesBefore(fm.getFeatures().size());
+			tf.setInputModel(f.getName());
+			tf.setnFeaturesBefore(f.getFeatures().size());
 			tf.setNumberOfFeaturesTypeBefore(mgr.getMatchingFeatures().size());
-			tf.setnConstraints(fm.getCrosstreeconstraints().size());
-			tf.setnOptionals(FMHelper.getAllOptionalFeatures(fm).size());
-			tf.setnMandatories(FMHelper.getAllMandatoryFeatures(fm).size());
-			tf.setnAlternativeGroups(FMHelper.getAllFeaturesOf(fm,"rhea.metamodels.BasicFMs.AlternativeGroup").size());
-			tf.setnSelectionGroups(FMHelper.getAllFeaturesOf(fm,"rhea.metamodels.BasicFMs.SelectionGroup").size());
+			tf.setnConstraints(f.getCrosstreeconstraints().size());
+			tf.setnOptionals(FMHelper.getAllOptionalFeatures(f).size());
+			tf.setnMandatories(FMHelper.getAllMandatoryFeatures(f).size());
+			tf.setnAlternativeGroups(FMHelper.getAllFeaturesOf(f,"rhea.metamodels.BasicFMs.AlternativeGroup").size());
+			tf.setnSelectionGroups(FMHelper.getAllFeaturesOf(f,"rhea.metamodels.BasicFMs.SelectionGroup").size());
 			tf.setPercentageOfFeaturesType(Math.round((double) tf.numberOfFeaturesTypeBefore/(double) tf.nFeaturesBefore * 100d)/100d);
 			
 			
@@ -58,13 +58,13 @@ public class JavaMutexGroupRefactoring extends Refactoring{
 			
 			//Get the information after the refactoring
 			tf.setTimeAfter(System.nanoTime()/1e9);
-			tf.setnFeaturesAfter(fm.getFeatures().size());
+			tf.setnFeaturesAfter(f.getFeatures().size());
 			tf.setNumberOfFeaturesTypeAfter(mgr.getMatchingFeatures().size());
 			
 			result.add(tf);
 		}
 		
-		//Save the file (optional)
+		//Save the file (optional) REVISAR POR QUE NAME NO COJE EL NOMBRE ENTERO TODO
 		String outputFile = Rhea.OUTPUTS_DIR + "clafer/MutexGroup/" + fm.getName() + ".txt";
 		FMGenerator g = new ToClafer();
 		Utils.serialize(g.fm2text(mgr.getFeatureModel()), outputFile);

@@ -52,7 +52,7 @@ public class ClaferParser implements FMParser {
 	        fm = listener.getFeatureModel();
 	        //fm.setName(fm.getRoot().getName());
 	        String name = path.getFileName().toString();
-	        fm.setName(name.substring(0, name.indexOf(".")));
+	        fm.setName(name.substring(0, name.lastIndexOf(".")));
 	        
 		} catch (IOException e) {
 			e.printStackTrace();

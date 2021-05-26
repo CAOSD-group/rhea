@@ -1,0 +1,251 @@
+abstract Root
+	xor F2 ?
+		or F3
+			mux F4
+				xor F5
+					F57
+						F223
+					F58
+					F59
+					F184
+				or F6
+					F60
+						F225
+					F61
+						F237
+					F62
+				mux F7
+					xor F8
+						F63
+							F210
+						F64
+						F65
+						F228
+					or F9
+						F66
+							F231
+						F67
+						F68
+					mux F10
+						xor F11
+							F69
+							F70
+							F71
+						or F12
+							F72
+							F73
+								F229
+								F238 ?
+							F74
+							F209
+						mux F13
+							xor F14
+								F75
+									F179
+									F183
+									F196 ?
+								F76
+								F77
+								F212
+							or F15
+								F78
+									F193 ?
+								F79
+								F80
+							mux F16
+								xor F17
+									F81
+									F82
+										F248 ?
+									F83
+										F250 ?
+									F173
+								or F18
+									F84
+										F242 ?
+									F85
+									F86
+										F227 ?
+									F221
+								mux F19
+									xor F20
+										F87
+										F88
+										F89
+									or F21
+										F90
+										F91
+										F92
+											F172 ?
+										F243
+									mux F22
+										xor F23
+											F93
+												F224 ?
+											F94
+												F233 ?
+											F95
+												F216
+										or F24
+											F96
+											F97
+											F98
+										mux F25
+											xor F26
+												F99
+													F217 ?
+													F246
+												F100
+												F101
+												F185
+											or F27
+												F102
+													F166
+													F247
+												F103
+													F170
+													F235
+												F104
+											mux F28
+												xor F29
+													F105
+													F106
+													F107
+												or F30
+													F108
+													F109
+														F245 ?
+													F110
+														F168 ?
+														F187 ?
+												mux F31
+													xor F32
+														F111
+															F174
+															F232 ?
+														F112
+														F113
+													or F33
+														F114
+														F115
+															F236
+														F116
+															F203
+													mux F34
+														xor F35
+															F117
+																F220 ?
+															F118
+															F119
+																F211
+															F226
+														or F36
+															F120
+															F121
+																F199 ?
+																F219
+															F122
+														mux F37
+															xor F38
+																F123
+																F124
+																F125
+															or F39
+																F126
+																F127
+																F128
+																	F182
+																F178
+															mux F40
+																xor F41
+																	F129
+																	F130
+																		F169
+																	F131
+																or F42
+																	F132
+																	F133
+																		F190 ?
+																		F206 ?
+																	F134
+																		F181 ?
+																xor F43
+																	F135
+																	F136
+																	F137
+																or F44
+																	F138
+																	F139
+																		F239 ?
+																	F140
+																	F188
+																xor F45
+																	F141
+																		F186
+																	F142
+																	F143
+																		F202 ?
+																	F200
+																or F46
+																	F144
+																		F244 ?
+																	F145
+																	F146
+																xor F47
+																	F147
+																		F204 ?
+																	F148
+																		F180
+																		F205
+																	F149
+																		F194
+																or F48
+																	F150
+																		F195
+																		F208 ?
+																	F151
+																	F152
+																		F240
+																	F215
+																xor F49
+																	F153
+																	F154
+																		F198
+																		F218
+																	F155
+																		F230
+																or F50
+																	F156
+																		F249
+																	F157
+																	F158
+																		F241
+																xor F51
+																	F159
+																	F160
+																	F161
+																		F167 ?
+																or F52
+																	F162
+																		F171 ?
+																		F192 ?
+																	F163
+																	F164
+																		F175 ?
+																F177
+															F201
+														F213
+													F176
+												F234
+										F165
+									F214
+								F189
+			F55
+			F56
+				F207 ?
+				F222 ?
+		F53
+		F54
+			F191 ?
+			F197
+config: Root

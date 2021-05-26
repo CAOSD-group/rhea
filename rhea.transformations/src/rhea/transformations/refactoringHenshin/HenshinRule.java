@@ -48,8 +48,8 @@ public abstract class HenshinRule{
 			{
 					monitor = new MyLoggingApplicationMonitor();
 					
-					try {monitor.setLogStream(new PrintStream(new File(Rhea.OUTPUTS_DIR + this.getClass().toString()  + "-log.txt")));} 
-					catch (FileNotFoundException e) {e.printStackTrace();}
+					/*try {monitor.setLogStream(new PrintStream(new File(Rhea.OUTPUTS_DIR + this.getClass().toString()  + "-log.txt")));} 
+					catch (FileNotFoundException e) {e.printStackTrace();}*/
 				
 					if (henshin.executeTransformation(unit,  Map.of(), fm, monitor)) System.out.println("Transformation applied succesfully.");
 					else System.out.println("Transformation was not applied.");
