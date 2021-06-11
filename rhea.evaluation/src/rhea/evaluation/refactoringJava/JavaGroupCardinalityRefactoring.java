@@ -1,6 +1,9 @@
 package rhea.evaluation.refactoringJava;
 
 import rhea.Rhea;
+import rhea.aafm.AAFMClafer;
+import rhea.aafm.AutomatedAnalysisFM;
+
 import java.util.List;
 import java.util.ArrayList;
 import rhea.generators.FMGenerator;
@@ -23,7 +26,7 @@ public class JavaGroupCardinalityRefactoring extends Refactoring{
 	}
 
 	@Override
-	public List<TransformationInformation> refactor(int times) {
+	public List<TransformationInformation> refactor(int times, String output) {
 		List<TransformationInformation> result = new ArrayList<>();
 		FeatureModel f;
 		
@@ -42,31 +45,37 @@ public class JavaGroupCardinalityRefactoring extends Refactoring{
 			//Get the information before the refactoring
 			//TODO Extract this code, so only executed once, first time
 			tf.setRun(i);
-			tf.setInputModel(fm.getName());
-			tf.setnFeaturesBefore(fm.getFeatures().size());
+			tf.setInputModel(f.getName());
+			tf.setnFeaturesBefore(f.getFeatures().size());
 			tf.setNumberOfFeaturesTypeBefore(gcr.getMatchingFeatures().size());
-			tf.setnConstraints(fm.getCrosstreeconstraints().size());
-			tf.setnOptionals(FMHelper.getAllOptionalFeatures(fm).size());
-			tf.setnMandatories(FMHelper.getAllMandatoryFeatures(fm).size());
-			tf.setnAlternativeGroups(FMHelper.getAllFeaturesOf(fm,"rhea.metamodels.BasicFMs.AlternativeGroup").size());
-			tf.setnSelectionGroups(FMHelper.getAllFeaturesOf(fm,"rhea.metamodels.BasicFMs.SelectionGroup").size());
+			tf.setnConstraints(f.getCrosstreeconstraints().size());
+			tf.setnOptionals(FMHelper.getAllOptionalFeatures(f).size());
+			tf.setnMandatories(FMHelper.getAllMandatoryFeatures(f).size());
+			tf.setnAlternativeGroups(FMHelper.getAllFeaturesOf(f,"rhea.metamodels.BasicFMs.AlternativeGroup").size());
+			tf.setnSelectionGroups(FMHelper.getAllFeaturesOf(f,"rhea.metamodels.BasicFMs.SelectionGroup").size());
 			tf.setPercentageOfFeaturesType(Math.round((double) tf.numberOfFeaturesTypeBefore/(double) tf.nFeaturesBefore * 100d)/100d);
 			
-			tf.setTimeBefore(System.nanoTime()/1e9);
+			//ONLY ON LITTLE MODELS
+			AutomatedAnalysisFM aafm = new AAFMClafer();
+			tf.setProductsBefore(aafm.products(f));
 			
-			//Do the refactoring
+			// Full Transformation Block
+			tf.setTimeBefore(System.nanoTime()/1e9);
 			if(gcbr.executeRefactoring() && gcr.executeRefactoring()) System.out.println("Transformation applied sucessfully");
+			tf.setTimeAfter(System.nanoTime()/1e9);
+			
+			//ONLY ON LITTLE MODELS
+			tf.setProductsAfter(aafm.products(f));
 			
 			//Get the information after the refactoring
-			tf.setTimeAfter(System.nanoTime()/1e9);
-			tf.setnFeaturesAfter(fm.getFeatures().size());
+			tf.setnFeaturesAfter(f.getFeatures().size());
 			tf.setNumberOfFeaturesTypeAfter(gcr.getMatchingFeatures().size());
 			
 			result.add(tf);
 		}
 		
 		//Save the file (optional)
-		String outputFile = Rhea.OUTPUTS_DIR + "clafer/GroupCardinality/" + fm.getName() + ".txt";
+		String outputFile = Rhea.OUTPUTS_DIR + "clafer/" + output + "/" + fm.getName() + ".txt";
 		FMGenerator g = new ToClafer();
 		Utils.serialize(g.fm2text(gcr.getFeatureModel()), outputFile);
 		

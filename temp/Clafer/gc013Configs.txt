@@ -24,8 +24,8 @@ config
   A
     A3
   B
-    B1
     B3
+    B1
 
 --- Instance 3 End ---
 
@@ -33,9 +33,9 @@ config
 
 config
   A
-    A3
+    A2
   B
-    B2
+    B1
 
 --- Instance 4 End ---
 
@@ -43,10 +43,9 @@ config
 
 config
   A
-    A3
+    A2
   B
-    B1
-    B2
+    B3
 
 --- Instance 5 End ---
 
@@ -54,10 +53,10 @@ config
 
 config
   A
-    A3
+    A2
   B
-    B2
     B3
+    B1
 
 --- Instance 6 End ---
 
@@ -67,9 +66,769 @@ config
   A
     A3
   B
-    B1
     B2
-    B3
 
 --- Instance 7 End ---
+
+=== Instance 8 Begin ===
+
+config
+  A
+    A3
+  B
+    B2
+    B1
+
+--- Instance 8 End ---
+
+=== Instance 9 Begin ===
+
+config
+  A
+    A3
+  B
+    B3
+    B2
+
+--- Instance 9 End ---
+
+=== Instance 10 Begin ===
+
+config
+  A
+    A3
+  B
+    B3
+    B2
+    B1
+
+--- Instance 10 End ---
+
+=== Instance 11 Begin ===
+
+config
+  A
+    A2
+  B
+    B2
+
+--- Instance 11 End ---
+
+=== Instance 12 Begin ===
+
+config
+  A
+    A2
+  B
+    B2
+    B1
+
+--- Instance 12 End ---
+
+=== Instance 13 Begin ===
+
+config
+  A
+    A2
+  B
+    B3
+    B2
+
+--- Instance 13 End ---
+
+=== Instance 14 Begin ===
+
+config
+  A
+    A2
+  B
+    B3
+    B2
+    B1
+
+--- Instance 14 End ---
+
+=== Instance 15 Begin ===
+
+config
+  A
+    C
+      C2
+  B
+    B1
+
+--- Instance 15 End ---
+
+=== Instance 16 Begin ===
+
+config
+  A
+    C
+      C1
+  B
+    B1
+
+--- Instance 16 End ---
+
+=== Instance 17 Begin ===
+
+config
+  A
+    C
+      C2
+      C1
+  B
+    B1
+
+--- Instance 17 End ---
+
+=== Instance 18 Begin ===
+
+config
+  A
+    C
+      C2
+  B
+    B3
+
+--- Instance 18 End ---
+
+=== Instance 19 Begin ===
+
+config
+  A
+    C
+      C2
+  B
+    B3
+    B1
+
+--- Instance 19 End ---
+
+=== Instance 20 Begin ===
+
+config
+  A
+    C
+      C1
+  B
+    B3
+
+--- Instance 20 End ---
+
+=== Instance 21 Begin ===
+
+config
+  A
+    C
+      C1
+  B
+    B3
+    B1
+
+--- Instance 21 End ---
+
+=== Instance 22 Begin ===
+
+config
+  A
+    C
+      C2
+      C1
+  B
+    B3
+
+--- Instance 22 End ---
+
+=== Instance 23 Begin ===
+
+config
+  A
+    C
+      C2
+      C1
+  B
+    B3
+    B1
+
+--- Instance 23 End ---
+
+=== Instance 24 Begin ===
+
+config
+  A
+    C
+      C2
+  B
+    B2
+
+--- Instance 24 End ---
+
+=== Instance 25 Begin ===
+
+config
+  A
+    C
+      C2
+  B
+    B2
+    B1
+
+--- Instance 25 End ---
+
+=== Instance 26 Begin ===
+
+config
+  A
+    C
+      C1
+  B
+    B2
+
+--- Instance 26 End ---
+
+=== Instance 27 Begin ===
+
+config
+  A
+    C
+      C1
+  B
+    B2
+    B1
+
+--- Instance 27 End ---
+
+=== Instance 28 Begin ===
+
+config
+  A
+    C
+      C2
+      C1
+  B
+    B2
+
+--- Instance 28 End ---
+
+=== Instance 29 Begin ===
+
+config
+  A
+    C
+      C2
+      C1
+  B
+    B2
+    B1
+
+--- Instance 29 End ---
+
+=== Instance 30 Begin ===
+
+config
+  A
+    C
+      C2
+  B
+    B3
+    B2
+
+--- Instance 30 End ---
+
+=== Instance 31 Begin ===
+
+config
+  A
+    C
+      C2
+  B
+    B3
+    B2
+    B1
+
+--- Instance 31 End ---
+
+=== Instance 32 Begin ===
+
+config
+  A
+    C
+      C1
+  B
+    B3
+    B2
+
+--- Instance 32 End ---
+
+=== Instance 33 Begin ===
+
+config
+  A
+    C
+      C1
+  B
+    B3
+    B2
+    B1
+
+--- Instance 33 End ---
+
+=== Instance 34 Begin ===
+
+config
+  A
+    C
+      C2
+      C1
+  B
+    B3
+    B2
+
+--- Instance 34 End ---
+
+=== Instance 35 Begin ===
+
+config
+  A
+    C
+      C2
+      C1
+  B
+    B3
+    B2
+    B1
+
+--- Instance 35 End ---
+
+=== Instance 36 Begin ===
+
+config
+  A
+    C
+      C3
+  B
+    B1
+
+--- Instance 36 End ---
+
+=== Instance 37 Begin ===
+
+config
+  A
+    C
+      C3
+      C2
+  B
+    B1
+
+--- Instance 37 End ---
+
+=== Instance 38 Begin ===
+
+config
+  A
+    C
+      C3
+      C1
+  B
+    B1
+
+--- Instance 38 End ---
+
+=== Instance 39 Begin ===
+
+config
+  A
+    C
+      C3
+      C2
+      C1
+  B
+    B1
+
+--- Instance 39 End ---
+
+=== Instance 40 Begin ===
+
+config
+  A
+    C
+      C3
+  B
+    B3
+
+--- Instance 40 End ---
+
+=== Instance 41 Begin ===
+
+config
+  A
+    C
+      C3
+  B
+    B3
+    B1
+
+--- Instance 41 End ---
+
+=== Instance 42 Begin ===
+
+config
+  A
+    C
+      C3
+      C2
+  B
+    B3
+
+--- Instance 42 End ---
+
+=== Instance 43 Begin ===
+
+config
+  A
+    C
+      C3
+      C2
+  B
+    B3
+    B1
+
+--- Instance 43 End ---
+
+=== Instance 44 Begin ===
+
+config
+  A
+    C
+      C3
+      C1
+  B
+    B3
+
+--- Instance 44 End ---
+
+=== Instance 45 Begin ===
+
+config
+  A
+    C
+      C3
+      C1
+  B
+    B3
+    B1
+
+--- Instance 45 End ---
+
+=== Instance 46 Begin ===
+
+config
+  A
+    C
+      C3
+      C2
+      C1
+  B
+    B3
+
+--- Instance 46 End ---
+
+=== Instance 47 Begin ===
+
+config
+  A
+    C
+      C3
+      C2
+      C1
+  B
+    B3
+    B1
+
+--- Instance 47 End ---
+
+=== Instance 48 Begin ===
+
+config
+  A
+    C
+      C3
+  B
+    B2
+
+--- Instance 48 End ---
+
+=== Instance 49 Begin ===
+
+config
+  A
+    C
+      C3
+  B
+    B2
+    B1
+
+--- Instance 49 End ---
+
+=== Instance 50 Begin ===
+
+config
+  A
+    C
+      C3
+      C2
+  B
+    B2
+
+--- Instance 50 End ---
+
+=== Instance 51 Begin ===
+
+config
+  A
+    C
+      C3
+      C2
+  B
+    B2
+    B1
+
+--- Instance 51 End ---
+
+=== Instance 52 Begin ===
+
+config
+  A
+    C
+      C3
+      C1
+  B
+    B2
+
+--- Instance 52 End ---
+
+=== Instance 53 Begin ===
+
+config
+  A
+    C
+      C3
+      C1
+  B
+    B2
+    B1
+
+--- Instance 53 End ---
+
+=== Instance 54 Begin ===
+
+config
+  A
+    C
+      C3
+      C2
+      C1
+  B
+    B2
+
+--- Instance 54 End ---
+
+=== Instance 55 Begin ===
+
+config
+  A
+    C
+      C3
+      C2
+      C1
+  B
+    B2
+    B1
+
+--- Instance 55 End ---
+
+=== Instance 56 Begin ===
+
+config
+  A
+    C
+      C3
+  B
+    B3
+    B2
+
+--- Instance 56 End ---
+
+=== Instance 57 Begin ===
+
+config
+  A
+    C
+      C3
+  B
+    B3
+    B2
+    B1
+
+--- Instance 57 End ---
+
+=== Instance 58 Begin ===
+
+config
+  A
+    C
+      C3
+      C2
+  B
+    B3
+    B2
+
+--- Instance 58 End ---
+
+=== Instance 59 Begin ===
+
+config
+  A
+    C
+      C3
+      C2
+  B
+    B3
+    B2
+    B1
+
+--- Instance 59 End ---
+
+=== Instance 60 Begin ===
+
+config
+  A
+    C
+      C3
+      C1
+  B
+    B3
+    B2
+
+--- Instance 60 End ---
+
+=== Instance 61 Begin ===
+
+config
+  A
+    C
+      C3
+      C1
+  B
+    B3
+    B2
+    B1
+
+--- Instance 61 End ---
+
+=== Instance 62 Begin ===
+
+config
+  A
+    C
+      C3
+      C2
+      C1
+  B
+    B3
+    B2
+
+--- Instance 62 End ---
+
+=== Instance 63 Begin ===
+
+config
+  A
+    C
+      C3
+      C2
+      C1
+  B
+    B3
+    B2
+    B1
+
+--- Instance 63 End ---
+
+=== Instance 64 Begin ===
+
+config
+  A
+    A1
+  B
+    B1
+
+--- Instance 64 End ---
+
+=== Instance 65 Begin ===
+
+config
+  A
+    A1
+  B
+    B3
+
+--- Instance 65 End ---
+
+=== Instance 66 Begin ===
+
+config
+  A
+    A1
+  B
+    B3
+    B1
+
+--- Instance 66 End ---
+
+=== Instance 67 Begin ===
+
+config
+  A
+    A1
+  B
+    B2
+
+--- Instance 67 End ---
+
+=== Instance 68 Begin ===
+
+config
+  A
+    A1
+  B
+    B2
+    B1
+
+--- Instance 68 End ---
+
+=== Instance 69 Begin ===
+
+config
+  A
+    A1
+  B
+    B3
+    B2
+
+--- Instance 69 End ---
+
+=== Instance 70 Begin ===
+
+config
+  A
+    A1
+  B
+    B3
+    B2
+    B1
+
+--- Instance 70 End ---
 

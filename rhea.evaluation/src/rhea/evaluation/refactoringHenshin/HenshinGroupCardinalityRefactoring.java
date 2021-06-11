@@ -29,7 +29,7 @@ public class HenshinGroupCardinalityRefactoring extends Refactoring{
 		super(fm);
 	}
 	
-	public List<TransformationInformation> refactor(int times) {
+	public List<TransformationInformation> refactor(int times, String output) {
 		List<TransformationInformation> result = new ArrayList<>();
 		FeatureModel f;
 		FMGenerator g = new ToClafer();
@@ -74,13 +74,19 @@ public class HenshinGroupCardinalityRefactoring extends Refactoring{
 			tf.setnSelectionGroups(FMHelper.getAllFeaturesOf(f,"rhea.metamodels.BasicFMs.SelectionGroup").size());
 			tf.setPercentageOfFeaturesType(Math.round((double) tf.numberOfFeaturesTypeBefore/(double) tf.nFeaturesBefore * 100d)/100d);
 		
-			tf.setTimeBefore(System.nanoTime()/1e9);
+			//ONLY ON LITTLE MODELS
+			AutomatedAnalysisFM aafm = new AAFMClafer();
+			//tf.setProductsBefore(aafm.products(f));
 			
 			// Full Transformation Block
+			tf.setTimeBefore(System.nanoTime()/1e9);
 			if(gcbr.executeTransformation() && gcr.executeTransformation()) System.out.println("Transformation applied sucessfully");
+			tf.setTimeAfter(System.nanoTime()/1e9);
+			
+			//ONLY ON LITTLE MODELS
+			//tf.setProductsAfter(aafm.products(f));
 			
 			//Get the information after the refactoring
-			tf.setTimeAfter(System.nanoTime()/1e9);
 			tf.setnFeaturesAfter(f.getFeatures().size());
 			tf.setNumberOfFeaturesTypeAfter(FMHelper.getAllFeaturesOf(f, "rhea.metamodels.CardinalityBasedFMs.GroupCardinality").size());
 			
@@ -90,7 +96,8 @@ public class HenshinGroupCardinalityRefactoring extends Refactoring{
 		gcr.deleteTemplates();
 		
 		//Save the file (optional)
-		String outputFile = Rhea.OUTPUTS_DIR + "clafer/GroupCardinality/" + fm.getName() + ".txt";
+		String outputFile = Rhea.OUTPUTS_DIR + "clafer/" + output + "/" +fm.getName() + ".txt";
+		//String outputFile = Rhea.OUTPUTS_DIR + "clafer/GroupCardinality/" + fm.getName() + ".txt";
 		Utils.serialize(g.fm2text(gcr.getFeatureModel()), outputFile);
 		
 		return result;

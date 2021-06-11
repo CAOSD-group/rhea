@@ -12,5 +12,5 @@ public abstract class Refactoring {
 		fm = featureModel;
 	}
 	
-	public abstract List<TransformationInformation> refactor(int times);
+	public abstract List<TransformationInformation> refactor(int times, String output);
 }

@@ -30,7 +30,7 @@ public class HenshinMutexGroupRefactoring extends Refactoring{
 		super(fm);
 	}
 	
-	public List<TransformationInformation> refactor(int times) {
+	public List<TransformationInformation> refactor(int times, String output) {
 		List<TransformationInformation> result = new ArrayList<>();
 		FeatureModel f;
 		FMGenerator g = new ToClafer();
@@ -81,7 +81,7 @@ public class HenshinMutexGroupRefactoring extends Refactoring{
 		}
 		
 		//Save the file (optional)
-		String outputFile = Rhea.OUTPUTS_DIR + "clafer/MutexGroup/" + fm.getName() + ".txt";
+		String outputFile = Rhea.OUTPUTS_DIR + "clafer/" + output + "/" + fm.getName() + ".txt";
 		Utils.serialize(g.fm2text(mgr.getFeatureModel()), outputFile);
 		
 		return result;

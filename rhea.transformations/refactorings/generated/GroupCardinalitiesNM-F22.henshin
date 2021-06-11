@@ -1,0 +1,2185 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<henshin:Module xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:henshin="http://www.eclipse.org/emf/2011/Henshin" xmi:id="_GAoYcDVREeutge8AG_WnHw" name="GroupCardinalitiesNM-F22" description="">
+  <imports href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/CardinalityBasedFMs/CardinalityBasedFMs.ecore#/"/>
+  <imports href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/PropLogicCTCs/PropLogicCTCs.ecore#/"/>
+  <imports href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/BasicFMs/BasicFMs.ecore#/"/>
+  <imports href="http://www.eclipse.org/emf/2011/Henshin/Trace#/"/>
+  <units xsi:type="henshin:Rule" xmi:id="_8lxfYDWDEeutge8AG_WnHw" name="CleanFeatureTrace">
+    <lhs xmi:id="_8lytgDWDEeutge8AG_WnHw" name="Lhs"/>
+    <rhs xmi:id="_8lytgTWDEeutge8AG_WnHw" name="Rhs"/>
+    <multiRules xmi:id="_RidaczrDEeuMN7qXPAVi1A">
+      <lhs xmi:id="_RidadDrDEeuMN7qXPAVi1A" name="Lhs">
+        <nodes xmi:id="_RidacDrDEeuMN7qXPAVi1A" outgoing="_ouqaUDrOEeuMN7qXPAVi1A">
+          <type href="http://www.eclipse.org/emf/2011/Henshin/Trace#//Trace"/>
+        </nodes>
+        <nodes xmi:id="_oGBtADrOEeuMN7qXPAVi1A" incoming="_ouqaUDrOEeuMN7qXPAVi1A">
+          <type href="rhea.metamodels.BasicFMs#//Feature"/>
+        </nodes>
+        <edges xmi:id="_ouqaUDrOEeuMN7qXPAVi1A" source="_RidacDrDEeuMN7qXPAVi1A" target="_oGBtADrOEeuMN7qXPAVi1A">
+          <type href="http://www.eclipse.org/emf/2011/Henshin/Trace#//Trace/source"/>
+        </edges>
+      </lhs>
+      <rhs xmi:id="_RidadTrDEeuMN7qXPAVi1A" name="Rhs">
+        <nodes xmi:id="_oGCUEDrOEeuMN7qXPAVi1A">
+          <type href="rhea.metamodels.BasicFMs#//Feature"/>
+        </nodes>
+      </rhs>
+      <mappings xmi:id="_oGCUETrOEeuMN7qXPAVi1A" origin="_oGBtADrOEeuMN7qXPAVi1A" image="_oGCUEDrOEeuMN7qXPAVi1A"/>
+    </multiRules>
+  </units>
+  <units xsi:type="henshin:Rule" xmi:id="_C0Ke0DWFEeuS6ehYFuk3Lg" name="AddNegative">
+    <lhs xmi:id="_C0PXUDWFEeuS6ehYFuk3Lg" name="Lhs">
+      <nodes xmi:id="_esWXkDWOEeuS6ehYFuk3Lg" name="gc">
+        <type href="rhea.metamodels.CardinalityBasedFMs#//GroupCardinality"/>
+        <attributes xmi:id="_XHqzssLgEeugueWwllUb5w" value="&quot;F22&quot;">
+          <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/BasicFMs/BasicFMs.ecore#//Feature/id"/>
+        </attributes>
+      </nodes>
+      <nodes xmi:id="_yeGDwDWOEeuS6ehYFuk3Lg" incoming="_sElEoD3sEeuGD_Cc5ehgNg">
+        <type href="rhea.metamodels.PropLogicCTCs#//And"/>
+      </nodes>
+      <nodes xmi:id="_pyBMID3sEeuGD_Cc5ehgNg" incoming="_r5ZIUD3sEeuGD_Cc5ehgNg" outgoing="_sElEoD3sEeuGD_Cc5ehgNg">
+        <type href="rhea.metamodels.PropLogicCTCs#//Or"/>
+      </nodes>
+      <nodes xmi:id="_qjvkAD3sEeuGD_Cc5ehgNg" outgoing="_rl_EID3sEeuGD_Cc5ehgNg">
+        <type href="http://www.eclipse.org/emf/2011/Henshin/Trace#//Trace"/>
+      </nodes>
+      <nodes xmi:id="_q4hhMD3sEeuGD_Cc5ehgNg" incoming="_rl_EID3sEeuGD_Cc5ehgNg" outgoing="_r5ZIUD3sEeuGD_Cc5ehgNg">
+        <type href="rhea.metamodels.PropLogicCTCs#//Implies"/>
+      </nodes>
+      <edges xmi:id="_rl_EID3sEeuGD_Cc5ehgNg" source="_qjvkAD3sEeuGD_Cc5ehgNg" target="_q4hhMD3sEeuGD_Cc5ehgNg">
+        <type href="http://www.eclipse.org/emf/2011/Henshin/Trace#//Trace/source"/>
+      </edges>
+      <edges xmi:id="_r5ZIUD3sEeuGD_Cc5ehgNg" source="_q4hhMD3sEeuGD_Cc5ehgNg" target="_pyBMID3sEeuGD_Cc5ehgNg">
+        <type href="rhea.metamodels.PropLogicCTCs#//Implies/right"/>
+      </edges>
+      <edges xmi:id="_sElEoD3sEeuGD_Cc5ehgNg" source="_pyBMID3sEeuGD_Cc5ehgNg" target="_yeGDwDWOEeuS6ehYFuk3Lg">
+        <type href="rhea.metamodels.PropLogicCTCs#//Or/terms"/>
+      </edges>
+      <formula xsi:type="henshin:Not" xmi:id="_2xIiczrBEeuMN7qXPAVi1A">
+        <child xsi:type="henshin:NestedCondition" xmi:id="_2xIidDrBEeuMN7qXPAVi1A">
+          <conclusion xmi:id="_2xIidTrBEeuMN7qXPAVi1A">
+            <nodes xmi:id="_2xIidjrBEeuMN7qXPAVi1A">
+              <type href="rhea.metamodels.CardinalityBasedFMs#//GroupCardinality"/>
+            </nodes>
+            <nodes xmi:id="_2xIieDrBEeuMN7qXPAVi1A" incoming="_3XFIIDrBEeuMN7qXPAVi1A _sElEpD3sEeuGD_Cc5ehgNg">
+              <type href="rhea.metamodels.PropLogicCTCs#//And"/>
+            </nodes>
+            <nodes xmi:id="_2xIicDrBEeuMN7qXPAVi1A" outgoing="_3XFIIDrBEeuMN7qXPAVi1A">
+              <type href="http://www.eclipse.org/emf/2011/Henshin/Trace#//Trace"/>
+            </nodes>
+            <nodes xmi:id="_pyBMKD3sEeuGD_Cc5ehgNg" incoming="_r5ZIVD3sEeuGD_Cc5ehgNg" outgoing="_sElEpD3sEeuGD_Cc5ehgNg">
+              <type href="rhea.metamodels.PropLogicCTCs#//Or"/>
+            </nodes>
+            <nodes xmi:id="_qjvkCD3sEeuGD_Cc5ehgNg" outgoing="_rl_EJD3sEeuGD_Cc5ehgNg">
+              <type href="http://www.eclipse.org/emf/2011/Henshin/Trace#//Trace"/>
+            </nodes>
+            <nodes xmi:id="_q4hhOD3sEeuGD_Cc5ehgNg" incoming="_rl_EJD3sEeuGD_Cc5ehgNg" outgoing="_r5ZIVD3sEeuGD_Cc5ehgNg">
+              <type href="rhea.metamodels.PropLogicCTCs#//Implies"/>
+            </nodes>
+            <edges xmi:id="_3XFIIDrBEeuMN7qXPAVi1A" source="_2xIicDrBEeuMN7qXPAVi1A" target="_2xIieDrBEeuMN7qXPAVi1A">
+              <type href="http://www.eclipse.org/emf/2011/Henshin/Trace#//Trace/source"/>
+            </edges>
+            <edges xmi:id="_rl_EJD3sEeuGD_Cc5ehgNg" source="_qjvkCD3sEeuGD_Cc5ehgNg" target="_q4hhOD3sEeuGD_Cc5ehgNg">
+              <type href="http://www.eclipse.org/emf/2011/Henshin/Trace#//Trace/source"/>
+            </edges>
+            <edges xmi:id="_r5ZIVD3sEeuGD_Cc5ehgNg" source="_q4hhOD3sEeuGD_Cc5ehgNg" target="_pyBMKD3sEeuGD_Cc5ehgNg">
+              <type href="rhea.metamodels.PropLogicCTCs#//Implies/right"/>
+            </edges>
+            <edges xmi:id="_sElEpD3sEeuGD_Cc5ehgNg" source="_pyBMKD3sEeuGD_Cc5ehgNg" target="_2xIieDrBEeuMN7qXPAVi1A">
+              <type href="rhea.metamodels.PropLogicCTCs#//Or/terms"/>
+            </edges>
+          </conclusion>
+          <mappings xmi:id="_2xIidzrBEeuMN7qXPAVi1A" origin="_esWXkDWOEeuS6ehYFuk3Lg" image="_2xIidjrBEeuMN7qXPAVi1A"/>
+          <mappings xmi:id="_2xIieTrBEeuMN7qXPAVi1A" origin="_yeGDwDWOEeuS6ehYFuk3Lg" image="_2xIieDrBEeuMN7qXPAVi1A"/>
+          <mappings xmi:id="_pyBMKT3sEeuGD_Cc5ehgNg" origin="_pyBMID3sEeuGD_Cc5ehgNg" image="_pyBMKD3sEeuGD_Cc5ehgNg"/>
+          <mappings xmi:id="_qjvkCT3sEeuGD_Cc5ehgNg" origin="_qjvkAD3sEeuGD_Cc5ehgNg" image="_qjvkCD3sEeuGD_Cc5ehgNg"/>
+          <mappings xmi:id="_q4hhOT3sEeuGD_Cc5ehgNg" origin="_q4hhMD3sEeuGD_Cc5ehgNg" image="_q4hhOD3sEeuGD_Cc5ehgNg"/>
+        </child>
+      </formula>
+    </lhs>
+    <rhs xmi:id="_C0P-YDWFEeuS6ehYFuk3Lg" name="Rhs">
+      <nodes xmi:id="_esW-oDWOEeuS6ehYFuk3Lg" name="gc">
+        <type href="rhea.metamodels.CardinalityBasedFMs#//GroupCardinality"/>
+        <attributes xmi:id="_XHqzs8LgEeugueWwllUb5w" value="&quot;F22&quot;">
+          <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/BasicFMs/BasicFMs.ecore#//Feature/id"/>
+        </attributes>
+      </nodes>
+      <nodes xmi:id="_yeGDwTWOEeuS6ehYFuk3Lg" incoming="_1lNh4DrBEeuMN7qXPAVi1A _sElEoT3sEeuGD_Cc5ehgNg">
+        <type href="rhea.metamodels.PropLogicCTCs#//And"/>
+      </nodes>
+      <nodes xmi:id="_09JcUDrBEeuMN7qXPAVi1A" outgoing="_1lNh4DrBEeuMN7qXPAVi1A">
+        <type href="http://www.eclipse.org/emf/2011/Henshin/Trace#//Trace"/>
+      </nodes>
+      <nodes xmi:id="_pyBMIT3sEeuGD_Cc5ehgNg" incoming="_r5ZIUT3sEeuGD_Cc5ehgNg" outgoing="_sElEoT3sEeuGD_Cc5ehgNg">
+        <type href="rhea.metamodels.PropLogicCTCs#//Or"/>
+      </nodes>
+      <nodes xmi:id="_qjvkAT3sEeuGD_Cc5ehgNg" outgoing="_rl_EIT3sEeuGD_Cc5ehgNg">
+        <type href="http://www.eclipse.org/emf/2011/Henshin/Trace#//Trace"/>
+      </nodes>
+      <nodes xmi:id="_q4hhMT3sEeuGD_Cc5ehgNg" incoming="_rl_EIT3sEeuGD_Cc5ehgNg" outgoing="_r5ZIUT3sEeuGD_Cc5ehgNg">
+        <type href="rhea.metamodels.PropLogicCTCs#//Implies"/>
+      </nodes>
+      <edges xmi:id="_1lNh4DrBEeuMN7qXPAVi1A" source="_09JcUDrBEeuMN7qXPAVi1A" target="_yeGDwTWOEeuS6ehYFuk3Lg">
+        <type href="http://www.eclipse.org/emf/2011/Henshin/Trace#//Trace/source"/>
+      </edges>
+      <edges xmi:id="_rl_EIT3sEeuGD_Cc5ehgNg" source="_qjvkAT3sEeuGD_Cc5ehgNg" target="_q4hhMT3sEeuGD_Cc5ehgNg">
+        <type href="http://www.eclipse.org/emf/2011/Henshin/Trace#//Trace/source"/>
+      </edges>
+      <edges xmi:id="_r5ZIUT3sEeuGD_Cc5ehgNg" source="_q4hhMT3sEeuGD_Cc5ehgNg" target="_pyBMIT3sEeuGD_Cc5ehgNg">
+        <type href="rhea.metamodels.PropLogicCTCs#//Implies/right"/>
+      </edges>
+      <edges xmi:id="_sElEoT3sEeuGD_Cc5ehgNg" source="_pyBMIT3sEeuGD_Cc5ehgNg" target="_yeGDwTWOEeuS6ehYFuk3Lg">
+        <type href="rhea.metamodels.PropLogicCTCs#//Or/terms"/>
+      </edges>
+    </rhs>
+    <mappings xmi:id="_esW-oTWOEeuS6ehYFuk3Lg" origin="_esWXkDWOEeuS6ehYFuk3Lg" image="_esW-oDWOEeuS6ehYFuk3Lg"/>
+    <mappings xmi:id="_yeGDwjWOEeuS6ehYFuk3Lg" origin="_yeGDwDWOEeuS6ehYFuk3Lg" image="_yeGDwTWOEeuS6ehYFuk3Lg"/>
+    <mappings xmi:id="_pyBMIj3sEeuGD_Cc5ehgNg" origin="_pyBMID3sEeuGD_Cc5ehgNg" image="_pyBMIT3sEeuGD_Cc5ehgNg"/>
+    <mappings xmi:id="_qjvkAj3sEeuGD_Cc5ehgNg" origin="_qjvkAD3sEeuGD_Cc5ehgNg" image="_qjvkAT3sEeuGD_Cc5ehgNg"/>
+    <mappings xmi:id="_q4hhMj3sEeuGD_Cc5ehgNg" origin="_q4hhMD3sEeuGD_Cc5ehgNg" image="_q4hhMT3sEeuGD_Cc5ehgNg"/>
+    <multiRules xmi:id="_D2UsgDrBEeuMN7qXPAVi1A">
+      <lhs xmi:id="_D2Xv0DrBEeuMN7qXPAVi1A" name="Lhs">
+        <nodes xmi:id="_D2aMETrBEeuMN7qXPAVi1A" incoming="_hu5ikDWOEeuS6ehYFuk3Lg" outgoing="_hd9jkDWOEeuS6ehYFuk3Lg">
+          <type href="rhea.metamodels.CardinalityBasedFMs#//GroupCardinality"/>
+        </nodes>
+        <nodes xmi:id="_fWhV8DWOEeuS6ehYFuk3Lg" incoming="_hd9jkDWOEeuS6ehYFuk3Lg" outgoing="_hu5ikDWOEeuS6ehYFuk3Lg">
+          <type href="rhea.metamodels.BasicFMs#//Feature"/>
+        </nodes>
+        <nodes xmi:id="_D2azJjrBEeuMN7qXPAVi1A" incoming="_sElEoz3sEeuGD_Cc5ehgNg">
+          <type href="rhea.metamodels.PropLogicCTCs#//And"/>
+        </nodes>
+        <nodes xmi:id="_pyBMJT3sEeuGD_Cc5ehgNg" incoming="_r5ZIUz3sEeuGD_Cc5ehgNg" outgoing="_sElEoz3sEeuGD_Cc5ehgNg">
+          <type href="rhea.metamodels.PropLogicCTCs#//Or"/>
+        </nodes>
+        <nodes xmi:id="_qjvkBT3sEeuGD_Cc5ehgNg" outgoing="_rl_EIz3sEeuGD_Cc5ehgNg">
+          <type href="http://www.eclipse.org/emf/2011/Henshin/Trace#//Trace"/>
+        </nodes>
+        <nodes xmi:id="_q4hhNT3sEeuGD_Cc5ehgNg" incoming="_rl_EIz3sEeuGD_Cc5ehgNg" outgoing="_r5ZIUz3sEeuGD_Cc5ehgNg">
+          <type href="rhea.metamodels.PropLogicCTCs#//Implies"/>
+        </nodes>
+        <edges xmi:id="_hd9jkDWOEeuS6ehYFuk3Lg" source="_D2aMETrBEeuMN7qXPAVi1A" target="_fWhV8DWOEeuS6ehYFuk3Lg">
+          <type href="rhea.metamodels.BasicFMs#//Feature/children"/>
+        </edges>
+        <edges xmi:id="_hu5ikDWOEeuS6ehYFuk3Lg" source="_fWhV8DWOEeuS6ehYFuk3Lg" target="_D2aMETrBEeuMN7qXPAVi1A">
+          <type href="rhea.metamodels.BasicFMs#//Feature/parent"/>
+        </edges>
+        <edges xmi:id="_rl_EIz3sEeuGD_Cc5ehgNg" source="_qjvkBT3sEeuGD_Cc5ehgNg" target="_q4hhNT3sEeuGD_Cc5ehgNg">
+          <type href="http://www.eclipse.org/emf/2011/Henshin/Trace#//Trace/source"/>
+        </edges>
+        <edges xmi:id="_r5ZIUz3sEeuGD_Cc5ehgNg" source="_q4hhNT3sEeuGD_Cc5ehgNg" target="_pyBMJT3sEeuGD_Cc5ehgNg">
+          <type href="rhea.metamodels.PropLogicCTCs#//Implies/right"/>
+        </edges>
+        <edges xmi:id="_sElEoz3sEeuGD_Cc5ehgNg" source="_pyBMJT3sEeuGD_Cc5ehgNg" target="_D2azJjrBEeuMN7qXPAVi1A">
+          <type href="rhea.metamodels.PropLogicCTCs#//Or/terms"/>
+        </edges>
+        <formula xsi:type="henshin:And" xmi:id="_f5GBcjrGEeuMN7qXPAVi1A">
+          <left xsi:type="henshin:Not" xmi:id="_HXY_gDrBEeuMN7qXPAVi1A">
+            <child xsi:type="henshin:NestedCondition" xmi:id="_HXY_gTrBEeuMN7qXPAVi1A">
+              <conclusion xmi:id="_HXY_gjrBEeuMN7qXPAVi1A">
+                <nodes xmi:id="_HXZmkDrBEeuMN7qXPAVi1A" incoming="_HXaNoDrBEeuMN7qXPAVi1A" outgoing="_HXZmljrBEeuMN7qXPAVi1A">
+                  <type href="rhea.metamodels.CardinalityBasedFMs#//GroupCardinality"/>
+                </nodes>
+                <nodes xmi:id="_HXZmkjrBEeuMN7qXPAVi1A" incoming="_HXZmljrBEeuMN7qXPAVi1A __dIFYDrFEeuMN7qXPAVi1A" outgoing="_HXaNoDrBEeuMN7qXPAVi1A">
+                  <type href="rhea.metamodels.BasicFMs#//Feature"/>
+                </nodes>
+                <nodes xmi:id="_HXZmlDrBEeuMN7qXPAVi1A" incoming="_sElEpT3sEeuGD_Cc5ehgNg" outgoing="__B6JADrFEeuMN7qXPAVi1A">
+                  <type href="rhea.metamodels.PropLogicCTCs#//And"/>
+                </nodes>
+                <nodes xmi:id="_8xeXcDrFEeuMN7qXPAVi1A" incoming="__B6JADrFEeuMN7qXPAVi1A" outgoing="__dIFYDrFEeuMN7qXPAVi1A">
+                  <type href="rhea.metamodels.PropLogicCTCs#//FeatureTerm"/>
+                </nodes>
+                <nodes xmi:id="_pyBMKj3sEeuGD_Cc5ehgNg" incoming="_r5ZIVT3sEeuGD_Cc5ehgNg" outgoing="_sElEpT3sEeuGD_Cc5ehgNg">
+                  <type href="rhea.metamodels.PropLogicCTCs#//Or"/>
+                </nodes>
+                <nodes xmi:id="_qjvkCj3sEeuGD_Cc5ehgNg" outgoing="_rl_EJT3sEeuGD_Cc5ehgNg">
+                  <type href="http://www.eclipse.org/emf/2011/Henshin/Trace#//Trace"/>
+                </nodes>
+                <nodes xmi:id="_q4hhOj3sEeuGD_Cc5ehgNg" incoming="_rl_EJT3sEeuGD_Cc5ehgNg" outgoing="_r5ZIVT3sEeuGD_Cc5ehgNg">
+                  <type href="rhea.metamodels.PropLogicCTCs#//Implies"/>
+                </nodes>
+                <edges xmi:id="_HXZmljrBEeuMN7qXPAVi1A" source="_HXZmkDrBEeuMN7qXPAVi1A" target="_HXZmkjrBEeuMN7qXPAVi1A">
+                  <type href="rhea.metamodels.BasicFMs#//Feature/children"/>
+                </edges>
+                <edges xmi:id="_HXaNoDrBEeuMN7qXPAVi1A" source="_HXZmkjrBEeuMN7qXPAVi1A" target="_HXZmkDrBEeuMN7qXPAVi1A">
+                  <type href="rhea.metamodels.BasicFMs#//Feature/parent"/>
+                </edges>
+                <edges xmi:id="__B6JADrFEeuMN7qXPAVi1A" source="_HXZmlDrBEeuMN7qXPAVi1A" target="_8xeXcDrFEeuMN7qXPAVi1A">
+                  <type href="rhea.metamodels.PropLogicCTCs#//And/terms"/>
+                </edges>
+                <edges xmi:id="__dIFYDrFEeuMN7qXPAVi1A" source="_8xeXcDrFEeuMN7qXPAVi1A" target="_HXZmkjrBEeuMN7qXPAVi1A">
+                  <type href="rhea.metamodels.PropLogicCTCs#//FeatureTerm/feature"/>
+                </edges>
+                <edges xmi:id="_rl_EJT3sEeuGD_Cc5ehgNg" source="_qjvkCj3sEeuGD_Cc5ehgNg" target="_q4hhOj3sEeuGD_Cc5ehgNg">
+                  <type href="http://www.eclipse.org/emf/2011/Henshin/Trace#//Trace/source"/>
+                </edges>
+                <edges xmi:id="_r5ZIVT3sEeuGD_Cc5ehgNg" source="_q4hhOj3sEeuGD_Cc5ehgNg" target="_pyBMKj3sEeuGD_Cc5ehgNg">
+                  <type href="rhea.metamodels.PropLogicCTCs#//Implies/right"/>
+                </edges>
+                <edges xmi:id="_sElEpT3sEeuGD_Cc5ehgNg" source="_pyBMKj3sEeuGD_Cc5ehgNg" target="_HXZmlDrBEeuMN7qXPAVi1A">
+                  <type href="rhea.metamodels.PropLogicCTCs#//Or/terms"/>
+                </edges>
+              </conclusion>
+              <mappings xmi:id="_HXZmkTrBEeuMN7qXPAVi1A" origin="_D2aMETrBEeuMN7qXPAVi1A" image="_HXZmkDrBEeuMN7qXPAVi1A"/>
+              <mappings xmi:id="_HXZmkzrBEeuMN7qXPAVi1A" origin="_fWhV8DWOEeuS6ehYFuk3Lg" image="_HXZmkjrBEeuMN7qXPAVi1A"/>
+              <mappings xmi:id="_HXZmlTrBEeuMN7qXPAVi1A" origin="_D2azJjrBEeuMN7qXPAVi1A" image="_HXZmlDrBEeuMN7qXPAVi1A"/>
+              <mappings xmi:id="_pyBMKz3sEeuGD_Cc5ehgNg" origin="_pyBMJT3sEeuGD_Cc5ehgNg" image="_pyBMKj3sEeuGD_Cc5ehgNg"/>
+              <mappings xmi:id="_qjvkCz3sEeuGD_Cc5ehgNg" origin="_qjvkBT3sEeuGD_Cc5ehgNg" image="_qjvkCj3sEeuGD_Cc5ehgNg"/>
+              <mappings xmi:id="_q4hhOz3sEeuGD_Cc5ehgNg" origin="_q4hhNT3sEeuGD_Cc5ehgNg" image="_q4hhOj3sEeuGD_Cc5ehgNg"/>
+            </child>
+          </left>
+          <right xsi:type="henshin:Not" xmi:id="_f5GBczrGEeuMN7qXPAVi1A">
+            <child xsi:type="henshin:NestedCondition" xmi:id="_f5GBdDrGEeuMN7qXPAVi1A">
+              <conclusion xmi:id="_f5GBdTrGEeuMN7qXPAVi1A" name="2">
+                <nodes xmi:id="_f5GBdjrGEeuMN7qXPAVi1A" incoming="_f5GBejrGEeuMN7qXPAVi1A" outgoing="_f5GBezrGEeuMN7qXPAVi1A">
+                  <type href="rhea.metamodels.CardinalityBasedFMs#//GroupCardinality"/>
+                </nodes>
+                <nodes xmi:id="_f5GBeDrGEeuMN7qXPAVi1A" incoming="_f5GBezrGEeuMN7qXPAVi1A _jIk1MDrGEeuMN7qXPAVi1A" outgoing="_f5GBejrGEeuMN7qXPAVi1A">
+                  <type href="rhea.metamodels.BasicFMs#//Feature"/>
+                </nodes>
+                <nodes xmi:id="_f5GBfDrGEeuMN7qXPAVi1A" incoming="_sElEpj3sEeuGD_Cc5ehgNg" outgoing="_KtLhIDWTEeuS6ehYFuk3Lg">
+                  <type href="rhea.metamodels.PropLogicCTCs#//And"/>
+                </nodes>
+                <nodes xmi:id="_J40sADWTEeuS6ehYFuk3Lg" incoming="_KtLhIDWTEeuS6ehYFuk3Lg" outgoing="_OpfUIDrBEeuMN7qXPAVi1A">
+                  <type href="rhea.metamodels.PropLogicCTCs#//Not"/>
+                </nodes>
+                <nodes xmi:id="_f5GBcDrGEeuMN7qXPAVi1A" incoming="_OpfUIDrBEeuMN7qXPAVi1A" outgoing="_jIk1MDrGEeuMN7qXPAVi1A">
+                  <type href="rhea.metamodels.PropLogicCTCs#//FeatureTerm"/>
+                </nodes>
+                <nodes xmi:id="_pyBMLD3sEeuGD_Cc5ehgNg" incoming="_r5ZIVj3sEeuGD_Cc5ehgNg" outgoing="_sElEpj3sEeuGD_Cc5ehgNg">
+                  <type href="rhea.metamodels.PropLogicCTCs#//Or"/>
+                </nodes>
+                <nodes xmi:id="_qjvkDD3sEeuGD_Cc5ehgNg" outgoing="_rl_EJj3sEeuGD_Cc5ehgNg">
+                  <type href="http://www.eclipse.org/emf/2011/Henshin/Trace#//Trace"/>
+                </nodes>
+                <nodes xmi:id="_q4hhPD3sEeuGD_Cc5ehgNg" incoming="_rl_EJj3sEeuGD_Cc5ehgNg" outgoing="_r5ZIVj3sEeuGD_Cc5ehgNg">
+                  <type href="rhea.metamodels.PropLogicCTCs#//Implies"/>
+                </nodes>
+                <edges xmi:id="_f5GBejrGEeuMN7qXPAVi1A" source="_f5GBeDrGEeuMN7qXPAVi1A" target="_f5GBdjrGEeuMN7qXPAVi1A">
+                  <type href="rhea.metamodels.BasicFMs#//Feature/parent"/>
+                </edges>
+                <edges xmi:id="_f5GBezrGEeuMN7qXPAVi1A" source="_f5GBdjrGEeuMN7qXPAVi1A" target="_f5GBeDrGEeuMN7qXPAVi1A">
+                  <type href="rhea.metamodels.BasicFMs#//Feature/children"/>
+                </edges>
+                <edges xmi:id="_KtLhIDWTEeuS6ehYFuk3Lg" source="_f5GBfDrGEeuMN7qXPAVi1A" target="_J40sADWTEeuS6ehYFuk3Lg">
+                  <type href="rhea.metamodels.PropLogicCTCs#//And/terms"/>
+                </edges>
+                <edges xmi:id="_OpfUIDrBEeuMN7qXPAVi1A" source="_J40sADWTEeuS6ehYFuk3Lg" target="_f5GBcDrGEeuMN7qXPAVi1A">
+                  <type href="rhea.metamodels.PropLogicCTCs#//Not/term"/>
+                </edges>
+                <edges xmi:id="_jIk1MDrGEeuMN7qXPAVi1A" source="_f5GBcDrGEeuMN7qXPAVi1A" target="_f5GBeDrGEeuMN7qXPAVi1A">
+                  <type href="rhea.metamodels.PropLogicCTCs#//FeatureTerm/feature"/>
+                </edges>
+                <edges xmi:id="_rl_EJj3sEeuGD_Cc5ehgNg" source="_qjvkDD3sEeuGD_Cc5ehgNg" target="_q4hhPD3sEeuGD_Cc5ehgNg">
+                  <type href="http://www.eclipse.org/emf/2011/Henshin/Trace#//Trace/source"/>
+                </edges>
+                <edges xmi:id="_r5ZIVj3sEeuGD_Cc5ehgNg" source="_q4hhPD3sEeuGD_Cc5ehgNg" target="_pyBMLD3sEeuGD_Cc5ehgNg">
+                  <type href="rhea.metamodels.PropLogicCTCs#//Implies/right"/>
+                </edges>
+                <edges xmi:id="_sElEpj3sEeuGD_Cc5ehgNg" source="_pyBMLD3sEeuGD_Cc5ehgNg" target="_f5GBfDrGEeuMN7qXPAVi1A">
+                  <type href="rhea.metamodels.PropLogicCTCs#//Or/terms"/>
+                </edges>
+              </conclusion>
+              <mappings xmi:id="_f5GBdzrGEeuMN7qXPAVi1A" origin="_D2aMETrBEeuMN7qXPAVi1A" image="_f5GBdjrGEeuMN7qXPAVi1A"/>
+              <mappings xmi:id="_f5GBeTrGEeuMN7qXPAVi1A" origin="_fWhV8DWOEeuS6ehYFuk3Lg" image="_f5GBeDrGEeuMN7qXPAVi1A"/>
+              <mappings xmi:id="_f5GBfTrGEeuMN7qXPAVi1A" origin="_D2azJjrBEeuMN7qXPAVi1A" image="_f5GBfDrGEeuMN7qXPAVi1A"/>
+              <mappings xmi:id="_pyBMLT3sEeuGD_Cc5ehgNg" origin="_pyBMJT3sEeuGD_Cc5ehgNg" image="_pyBMLD3sEeuGD_Cc5ehgNg"/>
+              <mappings xmi:id="_qjvkDT3sEeuGD_Cc5ehgNg" origin="_qjvkBT3sEeuGD_Cc5ehgNg" image="_qjvkDD3sEeuGD_Cc5ehgNg"/>
+              <mappings xmi:id="_q4hhPT3sEeuGD_Cc5ehgNg" origin="_q4hhNT3sEeuGD_Cc5ehgNg" image="_q4hhPD3sEeuGD_Cc5ehgNg"/>
+            </child>
+          </right>
+        </formula>
+      </lhs>
+      <rhs xmi:id="_D2YW4DrBEeuMN7qXPAVi1A" name="Rhs">
+        <nodes xmi:id="_D2Y98DrBEeuMN7qXPAVi1A" incoming="_hu5ikTWOEeuS6ehYFuk3Lg" outgoing="_hd9jkTWOEeuS6ehYFuk3Lg">
+          <type href="rhea.metamodels.CardinalityBasedFMs#//GroupCardinality"/>
+        </nodes>
+        <nodes xmi:id="_fWhV8TWOEeuS6ehYFuk3Lg" incoming="_hd9jkTWOEeuS6ehYFuk3Lg _wjLPMDWOEeuS6ehYFuk3Lg" outgoing="_hu5ikTWOEeuS6ehYFuk3Lg">
+          <type href="rhea.metamodels.BasicFMs#//Feature"/>
+        </nodes>
+        <nodes xmi:id="_D2azITrBEeuMN7qXPAVi1A" incoming="_1lNh4zrBEeuMN7qXPAVi1A _sElEoj3sEeuGD_Cc5ehgNg" outgoing="_wB6_cDWSEeuS6ehYFuk3Lg">
+          <type href="rhea.metamodels.PropLogicCTCs#//And"/>
+        </nodes>
+        <nodes xmi:id="_vpiUoDWSEeuS6ehYFuk3Lg" incoming="_wB6_cDWSEeuS6ehYFuk3Lg" outgoing="_wO9V4DWSEeuS6ehYFuk3Lg">
+          <type href="rhea.metamodels.PropLogicCTCs#//Not"/>
+        </nodes>
+        <nodes xmi:id="_Z3YXQDWPEeuS6ehYFuk3Lg" incoming="_wO9V4DWSEeuS6ehYFuk3Lg" outgoing="_wjLPMDWOEeuS6ehYFuk3Lg">
+          <type href="rhea.metamodels.PropLogicCTCs#//FeatureTerm"/>
+        </nodes>
+        <nodes xmi:id="_1lNh4TrBEeuMN7qXPAVi1A" outgoing="_1lNh4zrBEeuMN7qXPAVi1A">
+          <type href="http://www.eclipse.org/emf/2011/Henshin/Trace#//Trace"/>
+        </nodes>
+        <nodes xmi:id="_pyBMIz3sEeuGD_Cc5ehgNg" incoming="_r5ZIUj3sEeuGD_Cc5ehgNg" outgoing="_sElEoj3sEeuGD_Cc5ehgNg">
+          <type href="rhea.metamodels.PropLogicCTCs#//Or"/>
+        </nodes>
+        <nodes xmi:id="_qjvkAz3sEeuGD_Cc5ehgNg" outgoing="_rl_EIj3sEeuGD_Cc5ehgNg">
+          <type href="http://www.eclipse.org/emf/2011/Henshin/Trace#//Trace"/>
+        </nodes>
+        <nodes xmi:id="_q4hhMz3sEeuGD_Cc5ehgNg" incoming="_rl_EIj3sEeuGD_Cc5ehgNg" outgoing="_r5ZIUj3sEeuGD_Cc5ehgNg">
+          <type href="rhea.metamodels.PropLogicCTCs#//Implies"/>
+        </nodes>
+        <edges xmi:id="_hd9jkTWOEeuS6ehYFuk3Lg" source="_D2Y98DrBEeuMN7qXPAVi1A" target="_fWhV8TWOEeuS6ehYFuk3Lg">
+          <type href="rhea.metamodels.BasicFMs#//Feature/children"/>
+        </edges>
+        <edges xmi:id="_wjLPMDWOEeuS6ehYFuk3Lg" source="_Z3YXQDWPEeuS6ehYFuk3Lg" target="_fWhV8TWOEeuS6ehYFuk3Lg">
+          <type href="rhea.metamodels.PropLogicCTCs#//FeatureTerm/feature"/>
+        </edges>
+        <edges xmi:id="_hu5ikTWOEeuS6ehYFuk3Lg" source="_fWhV8TWOEeuS6ehYFuk3Lg" target="_D2Y98DrBEeuMN7qXPAVi1A">
+          <type href="rhea.metamodels.BasicFMs#//Feature/parent"/>
+        </edges>
+        <edges xmi:id="_wB6_cDWSEeuS6ehYFuk3Lg" source="_D2azITrBEeuMN7qXPAVi1A" target="_vpiUoDWSEeuS6ehYFuk3Lg">
+          <type href="rhea.metamodels.PropLogicCTCs#//And/terms"/>
+        </edges>
+        <edges xmi:id="_wO9V4DWSEeuS6ehYFuk3Lg" source="_vpiUoDWSEeuS6ehYFuk3Lg" target="_Z3YXQDWPEeuS6ehYFuk3Lg">
+          <type href="rhea.metamodels.PropLogicCTCs#//Not/term"/>
+        </edges>
+        <edges xmi:id="_1lNh4zrBEeuMN7qXPAVi1A" source="_1lNh4TrBEeuMN7qXPAVi1A" target="_D2azITrBEeuMN7qXPAVi1A">
+          <type href="http://www.eclipse.org/emf/2011/Henshin/Trace#//Trace/source"/>
+        </edges>
+        <edges xmi:id="_rl_EIj3sEeuGD_Cc5ehgNg" source="_qjvkAz3sEeuGD_Cc5ehgNg" target="_q4hhMz3sEeuGD_Cc5ehgNg">
+          <type href="http://www.eclipse.org/emf/2011/Henshin/Trace#//Trace/source"/>
+        </edges>
+        <edges xmi:id="_r5ZIUj3sEeuGD_Cc5ehgNg" source="_q4hhMz3sEeuGD_Cc5ehgNg" target="_pyBMIz3sEeuGD_Cc5ehgNg">
+          <type href="rhea.metamodels.PropLogicCTCs#//Implies/right"/>
+        </edges>
+        <edges xmi:id="_sElEoj3sEeuGD_Cc5ehgNg" source="_pyBMIz3sEeuGD_Cc5ehgNg" target="_D2azITrBEeuMN7qXPAVi1A">
+          <type href="rhea.metamodels.PropLogicCTCs#//Or/terms"/>
+        </edges>
+      </rhs>
+      <mappings xmi:id="_D2azIDrBEeuMN7qXPAVi1A" origin="_D2aMETrBEeuMN7qXPAVi1A" image="_D2Y98DrBEeuMN7qXPAVi1A"/>
+      <mappings xmi:id="_D2azKDrBEeuMN7qXPAVi1A" origin="_D2azJjrBEeuMN7qXPAVi1A" image="_D2azITrBEeuMN7qXPAVi1A"/>
+      <mappings xmi:id="_fWhV8jWOEeuS6ehYFuk3Lg" origin="_fWhV8DWOEeuS6ehYFuk3Lg" image="_fWhV8TWOEeuS6ehYFuk3Lg"/>
+      <mappings xmi:id="_pyBMJz3sEeuGD_Cc5ehgNg" origin="_pyBMJT3sEeuGD_Cc5ehgNg" image="_pyBMIz3sEeuGD_Cc5ehgNg"/>
+      <mappings xmi:id="_qjvkBz3sEeuGD_Cc5ehgNg" origin="_qjvkBT3sEeuGD_Cc5ehgNg" image="_qjvkAz3sEeuGD_Cc5ehgNg"/>
+      <mappings xmi:id="_q4hhNz3sEeuGD_Cc5ehgNg" origin="_q4hhNT3sEeuGD_Cc5ehgNg" image="_q4hhMz3sEeuGD_Cc5ehgNg"/>
+      <multiMappings xmi:id="_D2ZlADrBEeuMN7qXPAVi1A" origin="_esW-oDWOEeuS6ehYFuk3Lg" image="_D2Y98DrBEeuMN7qXPAVi1A"/>
+      <multiMappings xmi:id="_D2aMEjrBEeuMN7qXPAVi1A" origin="_esWXkDWOEeuS6ehYFuk3Lg" image="_D2aMETrBEeuMN7qXPAVi1A"/>
+      <multiMappings xmi:id="_D2azIjrBEeuMN7qXPAVi1A" origin="_yeGDwTWOEeuS6ehYFuk3Lg" image="_D2azITrBEeuMN7qXPAVi1A"/>
+      <multiMappings xmi:id="_D2azJzrBEeuMN7qXPAVi1A" origin="_yeGDwDWOEeuS6ehYFuk3Lg" image="_D2azJjrBEeuMN7qXPAVi1A"/>
+      <multiMappings xmi:id="_1lNh4jrBEeuMN7qXPAVi1A" origin="_09JcUDrBEeuMN7qXPAVi1A" image="_1lNh4TrBEeuMN7qXPAVi1A"/>
+      <multiMappings xmi:id="_pyBMJD3sEeuGD_Cc5ehgNg" origin="_pyBMIT3sEeuGD_Cc5ehgNg" image="_pyBMIz3sEeuGD_Cc5ehgNg"/>
+      <multiMappings xmi:id="_pyBMJj3sEeuGD_Cc5ehgNg" origin="_pyBMID3sEeuGD_Cc5ehgNg" image="_pyBMJT3sEeuGD_Cc5ehgNg"/>
+      <multiMappings xmi:id="_qjvkBD3sEeuGD_Cc5ehgNg" origin="_qjvkAT3sEeuGD_Cc5ehgNg" image="_qjvkAz3sEeuGD_Cc5ehgNg"/>
+      <multiMappings xmi:id="_qjvkBj3sEeuGD_Cc5ehgNg" origin="_qjvkAD3sEeuGD_Cc5ehgNg" image="_qjvkBT3sEeuGD_Cc5ehgNg"/>
+      <multiMappings xmi:id="_q4hhND3sEeuGD_Cc5ehgNg" origin="_q4hhMT3sEeuGD_Cc5ehgNg" image="_q4hhMz3sEeuGD_Cc5ehgNg"/>
+      <multiMappings xmi:id="_q4hhNj3sEeuGD_Cc5ehgNg" origin="_q4hhMD3sEeuGD_Cc5ehgNg" image="_q4hhNT3sEeuGD_Cc5ehgNg"/>
+    </multiRules>
+  </units>
+  <units xsi:type="henshin:Rule" xmi:id="_LCgZQDWFEeuS6ehYFuk3Lg" name="CreateConstraint">
+    <lhs xmi:id="_LChnYDWFEeuS6ehYFuk3Lg" name="Lhs">
+      <nodes xmi:id="_oV6B4DWFEeuS6ehYFuk3Lg">
+        <type href="rhea.metamodels.BasicFMs#//FeatureModel"/>
+      </nodes>
+    </lhs>
+    <rhs xmi:id="_LChnYTWFEeuS6ehYFuk3Lg" name="Rhs">
+      <nodes xmi:id="_WCoe0DWFEeuS6ehYFuk3Lg" incoming="_sSS-8DWFEeuS6ehYFuk3Lg _Zg2DsD3sEeuGD_Cc5ehgNg" outgoing="_gr6xsDWFEeuS6ehYFuk3Lg">
+        <type href="rhea.metamodels.PropLogicCTCs#//Implies"/>
+      </nodes>
+      <nodes xmi:id="_aY5UcDWFEeuS6ehYFuk3Lg" incoming="_gr6xsDWFEeuS6ehYFuk3Lg">
+        <type href="rhea.metamodels.PropLogicCTCs#//Or"/>
+      </nodes>
+      <nodes xmi:id="_o8nckDWFEeuS6ehYFuk3Lg" outgoing="_soLvYDWFEeuS6ehYFuk3Lg">
+        <type href="rhea.metamodels.BasicFMs#//FeatureModel"/>
+      </nodes>
+      <nodes xmi:id="_psmIADWFEeuS6ehYFuk3Lg" incoming="_soLvYDWFEeuS6ehYFuk3Lg" outgoing="_sSS-8DWFEeuS6ehYFuk3Lg">
+        <type href="rhea.metamodels.PropLogicCTCs#//AdvancedConstraint"/>
+      </nodes>
+      <nodes xmi:id="_YnwfkD3sEeuGD_Cc5ehgNg" outgoing="_Zg2DsD3sEeuGD_Cc5ehgNg">
+        <type href="http://www.eclipse.org/emf/2011/Henshin/Trace#//Trace"/>
+      </nodes>
+      <edges xmi:id="_gr6xsDWFEeuS6ehYFuk3Lg" source="_WCoe0DWFEeuS6ehYFuk3Lg" target="_aY5UcDWFEeuS6ehYFuk3Lg">
+        <type href="rhea.metamodels.PropLogicCTCs#//Implies/right"/>
+      </edges>
+      <edges xmi:id="_sSS-8DWFEeuS6ehYFuk3Lg" source="_psmIADWFEeuS6ehYFuk3Lg" target="_WCoe0DWFEeuS6ehYFuk3Lg">
+        <type href="rhea.metamodels.PropLogicCTCs#//AdvancedConstraint/expr"/>
+      </edges>
+      <edges xmi:id="_soLvYDWFEeuS6ehYFuk3Lg" source="_o8nckDWFEeuS6ehYFuk3Lg" target="_psmIADWFEeuS6ehYFuk3Lg">
+        <type href="rhea.metamodels.BasicFMs#//FeatureModel/crosstreeconstraints"/>
+      </edges>
+      <edges xmi:id="_Zg2DsD3sEeuGD_Cc5ehgNg" source="_YnwfkD3sEeuGD_Cc5ehgNg" target="_WCoe0DWFEeuS6ehYFuk3Lg">
+        <type href="http://www.eclipse.org/emf/2011/Henshin/Trace#//Trace/source"/>
+      </edges>
+    </rhs>
+    <mappings xmi:id="_o8nckTWFEeuS6ehYFuk3Lg" origin="_oV6B4DWFEeuS6ehYFuk3Lg" image="_o8nckDWFEeuS6ehYFuk3Lg"/>
+  </units>
+  <units xsi:type="henshin:LoopUnit" xmi:id="_KuqhIDWOEeuS6ehYFuk3Lg" name="MultiNegative" subUnit="_C0Ke0DWFEeuS6ehYFuk3Lg"/>
+  <units xsi:type="henshin:Rule" xmi:id="_84Oz4DoOEeuaGfhWmWOrWA" name="TransformGroupCardinality">
+    <parameters xmi:id="_7Z3ewTraEeuMN7qXPAVi1A" name="name" kind="VAR"/>
+    <parameters xmi:id="_7Z3ewjraEeuMN7qXPAVi1A" name="abs" kind="VAR"/>
+    <parameters xmi:id="_7Z3ewzraEeuMN7qXPAVi1A" name="mandatory" kind="VAR"/>
+    <lhs xmi:id="_84cPQDoOEeuaGfhWmWOrWA" name="Lhs">
+      <nodes xmi:id="_OHFskDoPEeuaGfhWmWOrWA" name="gc" incoming="_kOPbwDrREeuMN7qXPAVi1A _x62VsDrREeuMN7qXPAVi1A" outgoing="_CVOhoDrLEeuMN7qXPAVi1A _xrPMYDrREeuMN7qXPAVi1A">
+        <type href="rhea.metamodels.CardinalityBasedFMs#//GroupCardinality"/>
+        <attributes xmi:id="_hWVIoDoPEeuaGfhWmWOrWA" value="name">
+          <type href="rhea.metamodels.BasicFMs#//Feature/name"/>
+        </attributes>
+        <attributes xmi:id="_iQvicDoPEeuaGfhWmWOrWA" value="abs">
+          <type href="rhea.metamodels.BasicFMs#//Feature/abstract"/>
+        </attributes>
+        <attributes xmi:id="_i7pgoDoPEeuaGfhWmWOrWA" value="mandatory">
+          <type href="rhea.metamodels.BasicFMs#//Feature/mandatory"/>
+        </attributes>
+        <attributes xmi:id="_XHqztMLgEeugueWwllUb5w" value="&quot;F22&quot;">
+          <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/BasicFMs/BasicFMs.ecore#//Feature/id"/>
+        </attributes>
+      </nodes>
+      <nodes xmi:id="_BKS_kDrLEeuMN7qXPAVi1A" incoming="_CVOhoDrLEeuMN7qXPAVi1A">
+        <type href="rhea.metamodels.CardinalityBasedFMs#//Multiplicity"/>
+      </nodes>
+      <nodes xmi:id="_jS2KgDrREeuMN7qXPAVi1A" outgoing="_kOPbwDrREeuMN7qXPAVi1A">
+        <type href="rhea.metamodels.BasicFMs#//FeatureModel"/>
+      </nodes>
+      <nodes xmi:id="_wPp_MDrREeuMN7qXPAVi1A" incoming="_xrPMYDrREeuMN7qXPAVi1A" outgoing="_x62VsDrREeuMN7qXPAVi1A">
+        <type href="rhea.metamodels.BasicFMs#//Feature"/>
+      </nodes>
+      <nodes xmi:id="_zg5FMD3sEeuGD_Cc5ehgNg" incoming="_0731cD3sEeuGD_Cc5ehgNg">
+        <type href="rhea.metamodels.PropLogicCTCs#//Implies"/>
+      </nodes>
+      <nodes xmi:id="_z5kq8D3sEeuGD_Cc5ehgNg" outgoing="_0731cD3sEeuGD_Cc5ehgNg">
+        <type href="http://www.eclipse.org/emf/2011/Henshin/Trace#//Trace"/>
+      </nodes>
+      <edges xmi:id="_CVOhoDrLEeuMN7qXPAVi1A" source="_OHFskDoPEeuaGfhWmWOrWA" target="_BKS_kDrLEeuMN7qXPAVi1A">
+        <type href="rhea.metamodels.CardinalityBasedFMs#//GroupCardinality/multiplicity"/>
+      </edges>
+      <edges xmi:id="_kOPbwDrREeuMN7qXPAVi1A" source="_jS2KgDrREeuMN7qXPAVi1A" target="_OHFskDoPEeuaGfhWmWOrWA">
+        <type href="rhea.metamodels.BasicFMs#//FeatureModel/features"/>
+      </edges>
+      <edges xmi:id="_xrPMYDrREeuMN7qXPAVi1A" source="_OHFskDoPEeuaGfhWmWOrWA" target="_wPp_MDrREeuMN7qXPAVi1A">
+        <type href="rhea.metamodels.BasicFMs#//Feature/parent"/>
+      </edges>
+      <edges xmi:id="_x62VsDrREeuMN7qXPAVi1A" source="_wPp_MDrREeuMN7qXPAVi1A" target="_OHFskDoPEeuaGfhWmWOrWA" index="">
+        <type href="rhea.metamodels.BasicFMs#//Feature/children"/>
+      </edges>
+      <edges xmi:id="_0731cD3sEeuGD_Cc5ehgNg" source="_z5kq8D3sEeuGD_Cc5ehgNg" target="_zg5FMD3sEeuGD_Cc5ehgNg">
+        <type href="http://www.eclipse.org/emf/2011/Henshin/Trace#//Trace/source"/>
+      </edges>
+    </lhs>
+    <rhs xmi:id="_84cPQToOEeuaGfhWmWOrWA" name="Rhs">
+      <nodes xmi:id="_V2kgwDoPEeuaGfhWmWOrWA" name="sg" incoming="_jyes0DrREeuMN7qXPAVi1A _yrS7MDrREeuMN7qXPAVi1A _3mRmMD3sEeuGD_Cc5ehgNg" outgoing="_zCCAMDrREeuMN7qXPAVi1A">
+        <type href="rhea.metamodels.BasicFMs#//SelectionGroup"/>
+        <attributes xmi:id="_wm3TcDoPEeuaGfhWmWOrWA" value="name">
+          <type href="rhea.metamodels.BasicFMs#//Feature/name"/>
+        </attributes>
+        <attributes xmi:id="_xX0PQDoPEeuaGfhWmWOrWA" value="abs">
+          <type href="rhea.metamodels.BasicFMs#//Feature/abstract"/>
+        </attributes>
+        <attributes xmi:id="_yC7BwDoPEeuaGfhWmWOrWA" value="mandatory">
+          <type href="rhea.metamodels.BasicFMs#//Feature/mandatory"/>
+        </attributes>
+        <attributes xmi:id="_XHqztcLgEeugueWwllUb5w" value="&quot;F22&quot;">
+          <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/BasicFMs/BasicFMs.ecore#//Feature/id"/>
+        </attributes>
+      </nodes>
+      <nodes xmi:id="_jS2KgTrREeuMN7qXPAVi1A" outgoing="_jyes0DrREeuMN7qXPAVi1A">
+        <type href="rhea.metamodels.BasicFMs#//FeatureModel"/>
+      </nodes>
+      <nodes xmi:id="_wPp_MTrREeuMN7qXPAVi1A" incoming="_zCCAMDrREeuMN7qXPAVi1A" outgoing="_yrS7MDrREeuMN7qXPAVi1A">
+        <type href="rhea.metamodels.BasicFMs#//Feature"/>
+      </nodes>
+      <nodes xmi:id="_zg5FMT3sEeuGD_Cc5ehgNg" outgoing="_3d_M4D3sEeuGD_Cc5ehgNg">
+        <type href="rhea.metamodels.PropLogicCTCs#//Implies"/>
+      </nodes>
+      <nodes xmi:id="_2TtLED3sEeuGD_Cc5ehgNg" incoming="_3d_M4D3sEeuGD_Cc5ehgNg" outgoing="_3mRmMD3sEeuGD_Cc5ehgNg">
+        <type href="rhea.metamodels.PropLogicCTCs#//FeatureTerm"/>
+      </nodes>
+      <edges xmi:id="_jyes0DrREeuMN7qXPAVi1A" source="_jS2KgTrREeuMN7qXPAVi1A" target="_V2kgwDoPEeuaGfhWmWOrWA">
+        <type href="rhea.metamodels.BasicFMs#//FeatureModel/features"/>
+      </edges>
+      <edges xmi:id="_yrS7MDrREeuMN7qXPAVi1A" source="_wPp_MTrREeuMN7qXPAVi1A" target="_V2kgwDoPEeuaGfhWmWOrWA">
+        <type href="rhea.metamodels.BasicFMs#//Feature/children"/>
+      </edges>
+      <edges xmi:id="_zCCAMDrREeuMN7qXPAVi1A" source="_V2kgwDoPEeuaGfhWmWOrWA" target="_wPp_MTrREeuMN7qXPAVi1A">
+        <type href="rhea.metamodels.BasicFMs#//Feature/parent"/>
+      </edges>
+      <edges xmi:id="_3d_M4D3sEeuGD_Cc5ehgNg" source="_zg5FMT3sEeuGD_Cc5ehgNg" target="_2TtLED3sEeuGD_Cc5ehgNg">
+        <type href="rhea.metamodels.PropLogicCTCs#//Implies/left"/>
+      </edges>
+      <edges xmi:id="_3mRmMD3sEeuGD_Cc5ehgNg" source="_2TtLED3sEeuGD_Cc5ehgNg" target="_V2kgwDoPEeuaGfhWmWOrWA">
+        <type href="rhea.metamodels.PropLogicCTCs#//FeatureTerm/feature"/>
+      </edges>
+    </rhs>
+    <mappings xmi:id="_jS2KgjrREeuMN7qXPAVi1A" origin="_jS2KgDrREeuMN7qXPAVi1A" image="_jS2KgTrREeuMN7qXPAVi1A"/>
+    <mappings xmi:id="_wPp_MjrREeuMN7qXPAVi1A" origin="_wPp_MDrREeuMN7qXPAVi1A" image="_wPp_MTrREeuMN7qXPAVi1A"/>
+    <mappings xmi:id="_zg5FMj3sEeuGD_Cc5ehgNg" origin="_zg5FMD3sEeuGD_Cc5ehgNg" image="_zg5FMT3sEeuGD_Cc5ehgNg"/>
+    <multiRules xmi:id="_puuBwzrREeuMN7qXPAVi1A">
+      <parameters xmi:id="_1JCZ4TraEeuMN7qXPAVi1A" name="name" kind="VAR"/>
+      <parameters xmi:id="_7Z3exDraEeuMN7qXPAVi1A" name="abs" kind="VAR"/>
+      <parameters xmi:id="_7Z3exTraEeuMN7qXPAVi1A" name="mandatory" kind="VAR"/>
+      <lhs xmi:id="_puuBxDrREeuMN7qXPAVi1A" name="Lhs">
+        <nodes xmi:id="_puuB0jrREeuMN7qXPAVi1A" incoming="_puuB2jrREeuMN7qXPAVi1A _q21gYDrREeuMN7qXPAVi1A _x62VszrREeuMN7qXPAVi1A" outgoing="_puuB3TrREeuMN7qXPAVi1A _qp3bYDrREeuMN7qXPAVi1A _xrPMYzrREeuMN7qXPAVi1A">
+          <type href="rhea.metamodels.CardinalityBasedFMs#//GroupCardinality"/>
+          <attributes xmi:id="_puuB1DrREeuMN7qXPAVi1A" value="name">
+            <type href="rhea.metamodels.BasicFMs#//Feature/name"/>
+          </attributes>
+          <attributes xmi:id="_puuB1TrREeuMN7qXPAVi1A" value="abs">
+            <type href="rhea.metamodels.BasicFMs#//Feature/abstract"/>
+          </attributes>
+          <attributes xmi:id="_puuB1jrREeuMN7qXPAVi1A" value="mandatory">
+            <type href="rhea.metamodels.BasicFMs#//Feature/mandatory"/>
+          </attributes>
+        </nodes>
+        <nodes xmi:id="_puuB2DrREeuMN7qXPAVi1A" outgoing="_puuB2jrREeuMN7qXPAVi1A">
+          <type href="rhea.metamodels.BasicFMs#//FeatureModel"/>
+        </nodes>
+        <nodes xmi:id="_puuB2zrREeuMN7qXPAVi1A" incoming="_puuB3TrREeuMN7qXPAVi1A">
+          <type href="rhea.metamodels.CardinalityBasedFMs#//Multiplicity"/>
+        </nodes>
+        <nodes xmi:id="_puuBwDrREeuMN7qXPAVi1A" incoming="_qp3bYDrREeuMN7qXPAVi1A" outgoing="_q21gYDrREeuMN7qXPAVi1A">
+          <type href="rhea.metamodels.BasicFMs#//Feature"/>
+        </nodes>
+        <nodes xmi:id="_wPp_NTrREeuMN7qXPAVi1A" incoming="_xrPMYzrREeuMN7qXPAVi1A" outgoing="_x62VszrREeuMN7qXPAVi1A">
+          <type href="rhea.metamodels.BasicFMs#//Feature"/>
+        </nodes>
+        <nodes xmi:id="_zg5sQj3sEeuGD_Cc5ehgNg" incoming="_0731cz3sEeuGD_Cc5ehgNg">
+          <type href="rhea.metamodels.PropLogicCTCs#//Implies"/>
+        </nodes>
+        <nodes xmi:id="_z5lSAj3sEeuGD_Cc5ehgNg" outgoing="_0731cz3sEeuGD_Cc5ehgNg">
+          <type href="http://www.eclipse.org/emf/2011/Henshin/Trace#//Trace"/>
+        </nodes>
+        <edges xmi:id="_puuB2jrREeuMN7qXPAVi1A" source="_puuB2DrREeuMN7qXPAVi1A" target="_puuB0jrREeuMN7qXPAVi1A">
+          <type href="rhea.metamodels.BasicFMs#//FeatureModel/features"/>
+        </edges>
+        <edges xmi:id="_puuB3TrREeuMN7qXPAVi1A" source="_puuB0jrREeuMN7qXPAVi1A" target="_puuB2zrREeuMN7qXPAVi1A">
+          <type href="rhea.metamodels.CardinalityBasedFMs#//GroupCardinality/multiplicity"/>
+        </edges>
+        <edges xmi:id="_qp3bYDrREeuMN7qXPAVi1A" source="_puuB0jrREeuMN7qXPAVi1A" target="_puuBwDrREeuMN7qXPAVi1A">
+          <type href="rhea.metamodels.BasicFMs#//Feature/children"/>
+        </edges>
+        <edges xmi:id="_q21gYDrREeuMN7qXPAVi1A" source="_puuBwDrREeuMN7qXPAVi1A" target="_puuB0jrREeuMN7qXPAVi1A">
+          <type href="rhea.metamodels.BasicFMs#//Feature/parent"/>
+        </edges>
+        <edges xmi:id="_xrPMYzrREeuMN7qXPAVi1A" source="_puuB0jrREeuMN7qXPAVi1A" target="_wPp_NTrREeuMN7qXPAVi1A">
+          <type href="rhea.metamodels.BasicFMs#//Feature/parent"/>
+        </edges>
+        <edges xmi:id="_x62VszrREeuMN7qXPAVi1A" source="_wPp_NTrREeuMN7qXPAVi1A" target="_puuB0jrREeuMN7qXPAVi1A">
+          <type href="rhea.metamodels.BasicFMs#//Feature/children"/>
+        </edges>
+        <edges xmi:id="_0731cz3sEeuGD_Cc5ehgNg" source="_z5lSAj3sEeuGD_Cc5ehgNg" target="_zg5sQj3sEeuGD_Cc5ehgNg">
+          <type href="http://www.eclipse.org/emf/2011/Henshin/Trace#//Trace/source"/>
+        </edges>
+      </lhs>
+      <rhs xmi:id="_puuBxTrREeuMN7qXPAVi1A" name="Rhs">
+        <nodes xmi:id="_puuBzDrREeuMN7qXPAVi1A" outgoing="_puuB5jrREeuMN7qXPAVi1A">
+          <type href="rhea.metamodels.BasicFMs#//FeatureModel"/>
+        </nodes>
+        <nodes xmi:id="_puuB4DrREeuMN7qXPAVi1A" incoming="_puuB5jrREeuMN7qXPAVi1A _uuUvUDrREeuMN7qXPAVi1A _yrS7MTrREeuMN7qXPAVi1A" outgoing="_vCmWMDrREeuMN7qXPAVi1A _zCCAMTrREeuMN7qXPAVi1A">
+          <type href="rhea.metamodels.BasicFMs#//SelectionGroup"/>
+          <attributes xmi:id="_puuB4jrREeuMN7qXPAVi1A" value="name">
+            <type href="rhea.metamodels.BasicFMs#//Feature/name"/>
+          </attributes>
+          <attributes xmi:id="_puuB4zrREeuMN7qXPAVi1A" value="abs">
+            <type href="rhea.metamodels.BasicFMs#//Feature/abstract"/>
+          </attributes>
+          <attributes xmi:id="_puuB5DrREeuMN7qXPAVi1A" value="mandatory">
+            <type href="rhea.metamodels.BasicFMs#//Feature/mandatory"/>
+          </attributes>
+        </nodes>
+        <nodes xmi:id="_puuBwTrREeuMN7qXPAVi1A" incoming="_vCmWMDrREeuMN7qXPAVi1A" outgoing="_uuUvUDrREeuMN7qXPAVi1A">
+          <type href="rhea.metamodels.BasicFMs#//Feature"/>
+        </nodes>
+        <nodes xmi:id="_wPp_MzrREeuMN7qXPAVi1A" incoming="_zCCAMTrREeuMN7qXPAVi1A" outgoing="_yrS7MTrREeuMN7qXPAVi1A">
+          <type href="rhea.metamodels.BasicFMs#//Feature"/>
+        </nodes>
+        <nodes xmi:id="_zg5sQD3sEeuGD_Cc5ehgNg" outgoing="_3d_M4T3sEeuGD_Cc5ehgNg">
+          <type href="rhea.metamodels.PropLogicCTCs#//Implies"/>
+        </nodes>
+        <nodes xmi:id="_2TtLEz3sEeuGD_Cc5ehgNg" incoming="_3d_M4T3sEeuGD_Cc5ehgNg">
+          <type href="rhea.metamodels.PropLogicCTCs#//FeatureTerm"/>
+        </nodes>
+        <edges xmi:id="_puuB5jrREeuMN7qXPAVi1A" source="_puuBzDrREeuMN7qXPAVi1A" target="_puuB4DrREeuMN7qXPAVi1A">
+          <type href="rhea.metamodels.BasicFMs#//FeatureModel/features"/>
+        </edges>
+        <edges xmi:id="_uuUvUDrREeuMN7qXPAVi1A" source="_puuBwTrREeuMN7qXPAVi1A" target="_puuB4DrREeuMN7qXPAVi1A">
+          <type href="rhea.metamodels.BasicFMs#//Feature/parent"/>
+        </edges>
+        <edges xmi:id="_vCmWMDrREeuMN7qXPAVi1A" source="_puuB4DrREeuMN7qXPAVi1A" target="_puuBwTrREeuMN7qXPAVi1A">
+          <type href="rhea.metamodels.BasicFMs#//Feature/children"/>
+        </edges>
+        <edges xmi:id="_yrS7MTrREeuMN7qXPAVi1A" source="_wPp_MzrREeuMN7qXPAVi1A" target="_puuB4DrREeuMN7qXPAVi1A">
+          <type href="rhea.metamodels.BasicFMs#//Feature/children"/>
+        </edges>
+        <edges xmi:id="_zCCAMTrREeuMN7qXPAVi1A" source="_puuB4DrREeuMN7qXPAVi1A" target="_wPp_MzrREeuMN7qXPAVi1A">
+          <type href="rhea.metamodels.BasicFMs#//Feature/parent"/>
+        </edges>
+        <edges xmi:id="_3d_M4T3sEeuGD_Cc5ehgNg" source="_zg5sQD3sEeuGD_Cc5ehgNg" target="_2TtLEz3sEeuGD_Cc5ehgNg">
+          <type href="rhea.metamodels.PropLogicCTCs#//Implies/left"/>
+        </edges>
+      </rhs>
+      <mappings xmi:id="_puuB5zrREeuMN7qXPAVi1A" origin="_puuB2DrREeuMN7qXPAVi1A" image="_puuBzDrREeuMN7qXPAVi1A"/>
+      <mappings xmi:id="_puuBwjrREeuMN7qXPAVi1A" origin="_puuBwDrREeuMN7qXPAVi1A" image="_puuBwTrREeuMN7qXPAVi1A"/>
+      <mappings xmi:id="_wPp_NzrREeuMN7qXPAVi1A" origin="_wPp_NTrREeuMN7qXPAVi1A" image="_wPp_MzrREeuMN7qXPAVi1A"/>
+      <mappings xmi:id="_zg5sRD3sEeuGD_Cc5ehgNg" origin="_zg5sQj3sEeuGD_Cc5ehgNg" image="_zg5sQD3sEeuGD_Cc5ehgNg"/>
+      <multiMappings xmi:id="_puuBzTrREeuMN7qXPAVi1A" origin="_jS2KgTrREeuMN7qXPAVi1A" image="_puuBzDrREeuMN7qXPAVi1A"/>
+      <multiMappings xmi:id="_puuB1zrREeuMN7qXPAVi1A" origin="_OHFskDoPEeuaGfhWmWOrWA" image="_puuB0jrREeuMN7qXPAVi1A"/>
+      <multiMappings xmi:id="_puuB2TrREeuMN7qXPAVi1A" origin="_jS2KgDrREeuMN7qXPAVi1A" image="_puuB2DrREeuMN7qXPAVi1A"/>
+      <multiMappings xmi:id="_puuB3DrREeuMN7qXPAVi1A" origin="_BKS_kDrLEeuMN7qXPAVi1A" image="_puuB2zrREeuMN7qXPAVi1A"/>
+      <multiMappings xmi:id="_puuB5TrREeuMN7qXPAVi1A" origin="_V2kgwDoPEeuaGfhWmWOrWA" image="_puuB4DrREeuMN7qXPAVi1A"/>
+      <multiMappings xmi:id="_wPp_NDrREeuMN7qXPAVi1A" origin="_wPp_MTrREeuMN7qXPAVi1A" image="_wPp_MzrREeuMN7qXPAVi1A"/>
+      <multiMappings xmi:id="_wPp_NjrREeuMN7qXPAVi1A" origin="_wPp_MDrREeuMN7qXPAVi1A" image="_wPp_NTrREeuMN7qXPAVi1A"/>
+      <multiMappings xmi:id="_zg5sQT3sEeuGD_Cc5ehgNg" origin="_zg5FMT3sEeuGD_Cc5ehgNg" image="_zg5sQD3sEeuGD_Cc5ehgNg"/>
+      <multiMappings xmi:id="_zg5sQz3sEeuGD_Cc5ehgNg" origin="_zg5FMD3sEeuGD_Cc5ehgNg" image="_zg5sQj3sEeuGD_Cc5ehgNg"/>
+      <multiMappings xmi:id="_z5lSAz3sEeuGD_Cc5ehgNg" origin="_z5kq8D3sEeuGD_Cc5ehgNg" image="_z5lSAj3sEeuGD_Cc5ehgNg"/>
+      <multiMappings xmi:id="_2TtLFD3sEeuGD_Cc5ehgNg" origin="_2TtLED3sEeuGD_Cc5ehgNg" image="_2TtLEz3sEeuGD_Cc5ehgNg"/>
+    </multiRules>
+  </units>
+  <units xsi:type="henshin:Rule" xmi:id="_euqygDrCEeuMN7qXPAVi1A" name="Clean">
+    <lhs xmi:id="_eusAoDrCEeuMN7qXPAVi1A" name="Lhs"/>
+    <rhs xmi:id="_eusAoTrCEeuMN7qXPAVi1A" name="Rhs"/>
+    <multiRules xmi:id="_kjTqojrCEeuMN7qXPAVi1A">
+      <lhs xmi:id="_kjTqozrCEeuMN7qXPAVi1A" name="Lhs">
+        <nodes xmi:id="_9uVUID3tEeuGD_Cc5ehgNg" outgoing="__OopQD3tEeuGD_Cc5ehgNg">
+          <type href="http://www.eclipse.org/emf/2011/Henshin/Trace#//Trace"/>
+        </nodes>
+        <nodes xmi:id="_-usk8D3tEeuGD_Cc5ehgNg" incoming="__OopQD3tEeuGD_Cc5ehgNg">
+          <type href="rhea.metamodels.PropLogicCTCs#//And"/>
+        </nodes>
+        <edges xmi:id="__OopQD3tEeuGD_Cc5ehgNg" source="_9uVUID3tEeuGD_Cc5ehgNg" target="_-usk8D3tEeuGD_Cc5ehgNg">
+          <type href="http://www.eclipse.org/emf/2011/Henshin/Trace#//Trace/source"/>
+        </edges>
+      </lhs>
+      <rhs xmi:id="_kjTqpDrCEeuMN7qXPAVi1A" name="Rhs">
+        <nodes xmi:id="_-usk8T3tEeuGD_Cc5ehgNg">
+          <type href="rhea.metamodels.PropLogicCTCs#//And"/>
+        </nodes>
+      </rhs>
+      <mappings xmi:id="_-usk8j3tEeuGD_Cc5ehgNg" origin="_-usk8D3tEeuGD_Cc5ehgNg" image="_-usk8T3tEeuGD_Cc5ehgNg"/>
+    </multiRules>
+  </units>
+  <units xsi:type="henshin:Rule" xmi:id="_-tnNsD7bEeuHmIvvSRGWcg" name="CombiK1">
+    <lhs xmi:id="_-tpp8D7bEeuHmIvvSRGWcg" name="Lhs">
+      <nodes xmi:id="_Ak-X8D7cEeuHmIvvSRGWcg" name="gc" incoming="_Zjm_wD7cEeuHmIvvSRGWcg" outgoing="_YDQnUD7cEeuHmIvvSRGWcg">
+        <type href="rhea.metamodels.CardinalityBasedFMs#//GroupCardinality"/>
+      </nodes>
+      <nodes xmi:id="_BVyJ0D7cEeuHmIvvSRGWcg" incoming="_YDQnUD7cEeuHmIvvSRGWcg" outgoing="_Zjm_wD7cEeuHmIvvSRGWcg">
+        <type href="rhea.metamodels.BasicFMs#//Feature"/>
+      </nodes>
+      <nodes xmi:id="_C1NVMD7cEeuHmIvvSRGWcg" incoming="_Jp2RwD7cEeuHmIvvSRGWcg">
+        <type href="rhea.metamodels.PropLogicCTCs#//Or"/>
+      </nodes>
+      <nodes xmi:id="_GHT_ID7cEeuHmIvvSRGWcg" incoming="_JUNY8D7cEeuHmIvvSRGWcg" outgoing="_Jp2RwD7cEeuHmIvvSRGWcg">
+        <type href="rhea.metamodels.PropLogicCTCs#//Implies"/>
+      </nodes>
+      <nodes xmi:id="_Gi1dgD7cEeuHmIvvSRGWcg" outgoing="_JUNY8D7cEeuHmIvvSRGWcg">
+        <type href="http://www.eclipse.org/emf/2011/Henshin/Trace#//Trace"/>
+      </nodes>
+      <edges xmi:id="_JUNY8D7cEeuHmIvvSRGWcg" source="_Gi1dgD7cEeuHmIvvSRGWcg" target="_GHT_ID7cEeuHmIvvSRGWcg">
+        <type href="http://www.eclipse.org/emf/2011/Henshin/Trace#//Trace/source"/>
+      </edges>
+      <edges xmi:id="_Jp2RwD7cEeuHmIvvSRGWcg" source="_GHT_ID7cEeuHmIvvSRGWcg" target="_C1NVMD7cEeuHmIvvSRGWcg">
+        <type href="rhea.metamodels.PropLogicCTCs#//Implies/right"/>
+      </edges>
+      <edges xmi:id="_YDQnUD7cEeuHmIvvSRGWcg" source="_Ak-X8D7cEeuHmIvvSRGWcg" target="_BVyJ0D7cEeuHmIvvSRGWcg">
+        <type href="rhea.metamodels.BasicFMs#//Feature/children"/>
+      </edges>
+      <edges xmi:id="_Zjm_wD7cEeuHmIvvSRGWcg" source="_BVyJ0D7cEeuHmIvvSRGWcg" target="_Ak-X8D7cEeuHmIvvSRGWcg">
+        <type href="rhea.metamodels.BasicFMs#//Feature/parent"/>
+      </edges>
+      <formula xsi:type="henshin:Not" xmi:id="_baGnUz7cEeuHmIvvSRGWcg">
+        <child xsi:type="henshin:NestedCondition" xmi:id="_baGnVD7cEeuHmIvvSRGWcg">
+          <conclusion xmi:id="_baGnVT7cEeuHmIvvSRGWcg">
+            <nodes xmi:id="_baHOYD7cEeuHmIvvSRGWcg" incoming="_baHOZD7cEeuHmIvvSRGWcg" outgoing="_baHOZT7cEeuHmIvvSRGWcg">
+              <type href="rhea.metamodels.CardinalityBasedFMs#//GroupCardinality"/>
+            </nodes>
+            <nodes xmi:id="_baHOYj7cEeuHmIvvSRGWcg" incoming="_baHOZT7cEeuHmIvvSRGWcg _cNDuQD7cEeuHmIvvSRGWcg" outgoing="_baHOZD7cEeuHmIvvSRGWcg">
+              <type href="rhea.metamodels.BasicFMs#//Feature"/>
+            </nodes>
+            <nodes xmi:id="_baHOZj7cEeuHmIvvSRGWcg" incoming="_baHOaj7cEeuHmIvvSRGWcg">
+              <type href="rhea.metamodels.PropLogicCTCs#//Or"/>
+            </nodes>
+            <nodes xmi:id="_baHOaD7cEeuHmIvvSRGWcg" incoming="_baHObT7cEeuHmIvvSRGWcg" outgoing="_baHOaj7cEeuHmIvvSRGWcg">
+              <type href="rhea.metamodels.PropLogicCTCs#//Implies"/>
+            </nodes>
+            <nodes xmi:id="_baHOaz7cEeuHmIvvSRGWcg" outgoing="_baHObT7cEeuHmIvvSRGWcg">
+              <type href="http://www.eclipse.org/emf/2011/Henshin/Trace#//Trace"/>
+            </nodes>
+            <nodes xmi:id="_baGnUD7cEeuHmIvvSRGWcg" outgoing="_cNDuQD7cEeuHmIvvSRGWcg">
+              <type href="http://www.eclipse.org/emf/2011/Henshin/Trace#//Trace"/>
+            </nodes>
+            <edges xmi:id="_baHOZD7cEeuHmIvvSRGWcg" source="_baHOYj7cEeuHmIvvSRGWcg" target="_baHOYD7cEeuHmIvvSRGWcg">
+              <type href="rhea.metamodels.BasicFMs#//Feature/parent"/>
+            </edges>
+            <edges xmi:id="_baHOZT7cEeuHmIvvSRGWcg" source="_baHOYD7cEeuHmIvvSRGWcg" target="_baHOYj7cEeuHmIvvSRGWcg">
+              <type href="rhea.metamodels.BasicFMs#//Feature/children"/>
+            </edges>
+            <edges xmi:id="_baHOaj7cEeuHmIvvSRGWcg" source="_baHOaD7cEeuHmIvvSRGWcg" target="_baHOZj7cEeuHmIvvSRGWcg">
+              <type href="rhea.metamodels.PropLogicCTCs#//Implies/right"/>
+            </edges>
+            <edges xmi:id="_baHObT7cEeuHmIvvSRGWcg" source="_baHOaz7cEeuHmIvvSRGWcg" target="_baHOaD7cEeuHmIvvSRGWcg">
+              <type href="http://www.eclipse.org/emf/2011/Henshin/Trace#//Trace/source"/>
+            </edges>
+            <edges xmi:id="_cNDuQD7cEeuHmIvvSRGWcg" source="_baGnUD7cEeuHmIvvSRGWcg" target="_baHOYj7cEeuHmIvvSRGWcg">
+              <type href="http://www.eclipse.org/emf/2011/Henshin/Trace#//Trace/source"/>
+            </edges>
+          </conclusion>
+          <mappings xmi:id="_baHOYT7cEeuHmIvvSRGWcg" origin="_Ak-X8D7cEeuHmIvvSRGWcg" image="_baHOYD7cEeuHmIvvSRGWcg"/>
+          <mappings xmi:id="_baHOYz7cEeuHmIvvSRGWcg" origin="_BVyJ0D7cEeuHmIvvSRGWcg" image="_baHOYj7cEeuHmIvvSRGWcg"/>
+          <mappings xmi:id="_baHOZz7cEeuHmIvvSRGWcg" origin="_C1NVMD7cEeuHmIvvSRGWcg" image="_baHOZj7cEeuHmIvvSRGWcg"/>
+          <mappings xmi:id="_baHOaT7cEeuHmIvvSRGWcg" origin="_GHT_ID7cEeuHmIvvSRGWcg" image="_baHOaD7cEeuHmIvvSRGWcg"/>
+          <mappings xmi:id="_baHObD7cEeuHmIvvSRGWcg" origin="_Gi1dgD7cEeuHmIvvSRGWcg" image="_baHOaz7cEeuHmIvvSRGWcg"/>
+        </child>
+      </formula>
+    </lhs>
+    <rhs xmi:id="_-tpp8T7bEeuHmIvvSRGWcg" name="Rhs">
+      <nodes xmi:id="_Ak-X8T7cEeuHmIvvSRGWcg" name="gc" incoming="_Zjm_wT7cEeuHmIvvSRGWcg" outgoing="_YDQnUT7cEeuHmIvvSRGWcg">
+        <type href="rhea.metamodels.CardinalityBasedFMs#//GroupCardinality"/>
+      </nodes>
+      <nodes xmi:id="_BVyJ0T7cEeuHmIvvSRGWcg" incoming="_YDQnUT7cEeuHmIvvSRGWcg _b9gPUD7cEeuHmIvvSRGWcg" outgoing="_Zjm_wT7cEeuHmIvvSRGWcg">
+        <type href="rhea.metamodels.BasicFMs#//Feature"/>
+      </nodes>
+      <nodes xmi:id="_C1NVMT7cEeuHmIvvSRGWcg" incoming="_Jp2RwT7cEeuHmIvvSRGWcg">
+        <type href="rhea.metamodels.PropLogicCTCs#//Or"/>
+      </nodes>
+      <nodes xmi:id="_GHT_IT7cEeuHmIvvSRGWcg" incoming="_JUNY8T7cEeuHmIvvSRGWcg" outgoing="_Jp2RwT7cEeuHmIvvSRGWcg">
+        <type href="rhea.metamodels.PropLogicCTCs#//Implies"/>
+      </nodes>
+      <nodes xmi:id="_Gi1dgT7cEeuHmIvvSRGWcg" outgoing="_JUNY8T7cEeuHmIvvSRGWcg">
+        <type href="http://www.eclipse.org/emf/2011/Henshin/Trace#//Trace"/>
+      </nodes>
+      <nodes xmi:id="_ar9H4D7cEeuHmIvvSRGWcg" outgoing="_b9gPUD7cEeuHmIvvSRGWcg">
+        <type href="http://www.eclipse.org/emf/2011/Henshin/Trace#//Trace"/>
+      </nodes>
+      <edges xmi:id="_JUNY8T7cEeuHmIvvSRGWcg" source="_Gi1dgT7cEeuHmIvvSRGWcg" target="_GHT_IT7cEeuHmIvvSRGWcg">
+        <type href="http://www.eclipse.org/emf/2011/Henshin/Trace#//Trace/source"/>
+      </edges>
+      <edges xmi:id="_Jp2RwT7cEeuHmIvvSRGWcg" source="_GHT_IT7cEeuHmIvvSRGWcg" target="_C1NVMT7cEeuHmIvvSRGWcg">
+        <type href="rhea.metamodels.PropLogicCTCs#//Implies/right"/>
+      </edges>
+      <edges xmi:id="_YDQnUT7cEeuHmIvvSRGWcg" source="_Ak-X8T7cEeuHmIvvSRGWcg" target="_BVyJ0T7cEeuHmIvvSRGWcg">
+        <type href="rhea.metamodels.BasicFMs#//Feature/children"/>
+      </edges>
+      <edges xmi:id="_Zjm_wT7cEeuHmIvvSRGWcg" source="_BVyJ0T7cEeuHmIvvSRGWcg" target="_Ak-X8T7cEeuHmIvvSRGWcg">
+        <type href="rhea.metamodels.BasicFMs#//Feature/parent"/>
+      </edges>
+      <edges xmi:id="_b9gPUD7cEeuHmIvvSRGWcg" source="_ar9H4D7cEeuHmIvvSRGWcg" target="_BVyJ0T7cEeuHmIvvSRGWcg">
+        <type href="http://www.eclipse.org/emf/2011/Henshin/Trace#//Trace/source"/>
+      </edges>
+    </rhs>
+    <mappings xmi:id="_Ak-X8j7cEeuHmIvvSRGWcg" origin="_Ak-X8D7cEeuHmIvvSRGWcg" image="_Ak-X8T7cEeuHmIvvSRGWcg"/>
+    <mappings xmi:id="_BVyJ0j7cEeuHmIvvSRGWcg" origin="_BVyJ0D7cEeuHmIvvSRGWcg" image="_BVyJ0T7cEeuHmIvvSRGWcg"/>
+    <mappings xmi:id="_C1NVMj7cEeuHmIvvSRGWcg" origin="_C1NVMD7cEeuHmIvvSRGWcg" image="_C1NVMT7cEeuHmIvvSRGWcg"/>
+    <mappings xmi:id="_GHT_Ij7cEeuHmIvvSRGWcg" origin="_GHT_ID7cEeuHmIvvSRGWcg" image="_GHT_IT7cEeuHmIvvSRGWcg"/>
+    <mappings xmi:id="_Gi1dgj7cEeuHmIvvSRGWcg" origin="_Gi1dgD7cEeuHmIvvSRGWcg" image="_Gi1dgT7cEeuHmIvvSRGWcg"/>
+    <multiRules xmi:id="_PLcSEz7cEeuHmIvvSRGWcg">
+      <lhs xmi:id="_PLc5ID7cEeuHmIvvSRGWcg" name="Lhs">
+        <nodes xmi:id="_PLc5JD7cEeuHmIvvSRGWcg" incoming="_Zjm_wz7cEeuHmIvvSRGWcg" outgoing="_YDQnUz7cEeuHmIvvSRGWcg">
+          <type href="rhea.metamodels.CardinalityBasedFMs#//GroupCardinality"/>
+        </nodes>
+        <nodes xmi:id="_PLc5KT7cEeuHmIvvSRGWcg" incoming="_YDQnUz7cEeuHmIvvSRGWcg" outgoing="_Zjm_wz7cEeuHmIvvSRGWcg">
+          <type href="rhea.metamodels.BasicFMs#//Feature"/>
+        </nodes>
+        <nodes xmi:id="_PLdgMj7cEeuHmIvvSRGWcg" incoming="_PLdgNj7cEeuHmIvvSRGWcg">
+          <type href="rhea.metamodels.PropLogicCTCs#//Or"/>
+        </nodes>
+        <nodes xmi:id="_PLdgND7cEeuHmIvvSRGWcg" incoming="_PLdgPT7cEeuHmIvvSRGWcg" outgoing="_PLdgNj7cEeuHmIvvSRGWcg">
+          <type href="rhea.metamodels.PropLogicCTCs#//Implies"/>
+        </nodes>
+        <nodes xmi:id="_PLdgOz7cEeuHmIvvSRGWcg" outgoing="_PLdgPT7cEeuHmIvvSRGWcg">
+          <type href="http://www.eclipse.org/emf/2011/Henshin/Trace#//Trace"/>
+        </nodes>
+        <edges xmi:id="_PLdgNj7cEeuHmIvvSRGWcg" source="_PLdgND7cEeuHmIvvSRGWcg" target="_PLdgMj7cEeuHmIvvSRGWcg">
+          <type href="rhea.metamodels.PropLogicCTCs#//Implies/right"/>
+        </edges>
+        <edges xmi:id="_PLdgPT7cEeuHmIvvSRGWcg" source="_PLdgOz7cEeuHmIvvSRGWcg" target="_PLdgND7cEeuHmIvvSRGWcg">
+          <type href="http://www.eclipse.org/emf/2011/Henshin/Trace#//Trace/source"/>
+        </edges>
+        <edges xmi:id="_YDQnUz7cEeuHmIvvSRGWcg" source="_PLc5JD7cEeuHmIvvSRGWcg" target="_PLc5KT7cEeuHmIvvSRGWcg">
+          <type href="rhea.metamodels.BasicFMs#//Feature/children"/>
+        </edges>
+        <edges xmi:id="_Zjm_wz7cEeuHmIvvSRGWcg" source="_PLc5KT7cEeuHmIvvSRGWcg" target="_PLc5JD7cEeuHmIvvSRGWcg">
+          <type href="rhea.metamodels.BasicFMs#//Feature/parent"/>
+        </edges>
+        <formula xsi:type="henshin:Not" xmi:id="_PyxX4T7cEeuHmIvvSRGWcg">
+          <child xsi:type="henshin:NestedCondition" xmi:id="_PyxX4j7cEeuHmIvvSRGWcg">
+            <conclusion xmi:id="_PyxX4z7cEeuHmIvvSRGWcg">
+              <nodes xmi:id="_Pyx-4D7cEeuHmIvvSRGWcg" incoming="_Zjnm0D7cEeuHmIvvSRGWcg" outgoing="_YDQnVD7cEeuHmIvvSRGWcg">
+                <type href="rhea.metamodels.CardinalityBasedFMs#//GroupCardinality"/>
+              </nodes>
+              <nodes xmi:id="_Pyx-4j7cEeuHmIvvSRGWcg" incoming="_WaJUcD7cEeuHmIvvSRGWcg _YDQnVD7cEeuHmIvvSRGWcg" outgoing="_Zjnm0D7cEeuHmIvvSRGWcg">
+                <type href="rhea.metamodels.BasicFMs#//Feature"/>
+              </nodes>
+              <nodes xmi:id="_Pyx-5D7cEeuHmIvvSRGWcg" incoming="_Pyx-6j7cEeuHmIvvSRGWcg" outgoing="_QThUcD7cEeuHmIvvSRGWcg">
+                <type href="rhea.metamodels.PropLogicCTCs#//Or"/>
+              </nodes>
+              <nodes xmi:id="_Pyx-5j7cEeuHmIvvSRGWcg" incoming="_Pyx-6z7cEeuHmIvvSRGWcg" outgoing="_Pyx-6j7cEeuHmIvvSRGWcg">
+                <type href="rhea.metamodels.PropLogicCTCs#//Implies"/>
+              </nodes>
+              <nodes xmi:id="_Pyx-6D7cEeuHmIvvSRGWcg" outgoing="_Pyx-6z7cEeuHmIvvSRGWcg">
+                <type href="http://www.eclipse.org/emf/2011/Henshin/Trace#//Trace"/>
+              </nodes>
+              <nodes xmi:id="_PywwwD7cEeuHmIvvSRGWcg" incoming="_QThUcD7cEeuHmIvvSRGWcg" outgoing="_V0zywD7cEeuHmIvvSRGWcg">
+                <type href="rhea.metamodels.PropLogicCTCs#//And"/>
+              </nodes>
+              <nodes xmi:id="_TDMmwD7cEeuHmIvvSRGWcg" incoming="_V0zywD7cEeuHmIvvSRGWcg" outgoing="_WaJUcD7cEeuHmIvvSRGWcg">
+                <type href="rhea.metamodels.PropLogicCTCs#//FeatureTerm"/>
+              </nodes>
+              <edges xmi:id="_Pyx-6j7cEeuHmIvvSRGWcg" source="_Pyx-5j7cEeuHmIvvSRGWcg" target="_Pyx-5D7cEeuHmIvvSRGWcg">
+                <type href="rhea.metamodels.PropLogicCTCs#//Implies/right"/>
+              </edges>
+              <edges xmi:id="_Pyx-6z7cEeuHmIvvSRGWcg" source="_Pyx-6D7cEeuHmIvvSRGWcg" target="_Pyx-5j7cEeuHmIvvSRGWcg">
+                <type href="http://www.eclipse.org/emf/2011/Henshin/Trace#//Trace/source"/>
+              </edges>
+              <edges xmi:id="_QThUcD7cEeuHmIvvSRGWcg" source="_Pyx-5D7cEeuHmIvvSRGWcg" target="_PywwwD7cEeuHmIvvSRGWcg">
+                <type href="rhea.metamodels.PropLogicCTCs#//Or/terms"/>
+              </edges>
+              <edges xmi:id="_V0zywD7cEeuHmIvvSRGWcg" source="_PywwwD7cEeuHmIvvSRGWcg" target="_TDMmwD7cEeuHmIvvSRGWcg">
+                <type href="rhea.metamodels.PropLogicCTCs#//And/terms"/>
+              </edges>
+              <edges xmi:id="_WaJUcD7cEeuHmIvvSRGWcg" source="_TDMmwD7cEeuHmIvvSRGWcg" target="_Pyx-4j7cEeuHmIvvSRGWcg">
+                <type href="rhea.metamodels.PropLogicCTCs#//FeatureTerm/feature"/>
+              </edges>
+              <edges xmi:id="_YDQnVD7cEeuHmIvvSRGWcg" source="_Pyx-4D7cEeuHmIvvSRGWcg" target="_Pyx-4j7cEeuHmIvvSRGWcg">
+                <type href="rhea.metamodels.BasicFMs#//Feature/children"/>
+              </edges>
+              <edges xmi:id="_Zjnm0D7cEeuHmIvvSRGWcg" source="_Pyx-4j7cEeuHmIvvSRGWcg" target="_Pyx-4D7cEeuHmIvvSRGWcg">
+                <type href="rhea.metamodels.BasicFMs#//Feature/parent"/>
+              </edges>
+            </conclusion>
+            <mappings xmi:id="_Pyx-4T7cEeuHmIvvSRGWcg" origin="_PLc5JD7cEeuHmIvvSRGWcg" image="_Pyx-4D7cEeuHmIvvSRGWcg"/>
+            <mappings xmi:id="_Pyx-4z7cEeuHmIvvSRGWcg" origin="_PLc5KT7cEeuHmIvvSRGWcg" image="_Pyx-4j7cEeuHmIvvSRGWcg"/>
+            <mappings xmi:id="_Pyx-5T7cEeuHmIvvSRGWcg" origin="_PLdgMj7cEeuHmIvvSRGWcg" image="_Pyx-5D7cEeuHmIvvSRGWcg"/>
+            <mappings xmi:id="_Pyx-5z7cEeuHmIvvSRGWcg" origin="_PLdgND7cEeuHmIvvSRGWcg" image="_Pyx-5j7cEeuHmIvvSRGWcg"/>
+            <mappings xmi:id="_Pyx-6T7cEeuHmIvvSRGWcg" origin="_PLdgOz7cEeuHmIvvSRGWcg" image="_Pyx-6D7cEeuHmIvvSRGWcg"/>
+          </child>
+        </formula>
+      </lhs>
+      <rhs xmi:id="_PLc5IT7cEeuHmIvvSRGWcg" name="Rhs">
+        <nodes xmi:id="_PLc5Ij7cEeuHmIvvSRGWcg" incoming="_Zjm_wj7cEeuHmIvvSRGWcg" outgoing="_YDQnUj7cEeuHmIvvSRGWcg">
+          <type href="rhea.metamodels.CardinalityBasedFMs#//GroupCardinality"/>
+        </nodes>
+        <nodes xmi:id="_PLc5Jz7cEeuHmIvvSRGWcg" incoming="_WOmy0D7cEeuHmIvvSRGWcg _YDQnUj7cEeuHmIvvSRGWcg _b9gPUz7cEeuHmIvvSRGWcg" outgoing="_Zjm_wj7cEeuHmIvvSRGWcg">
+          <type href="rhea.metamodels.BasicFMs#//Feature"/>
+        </nodes>
+        <nodes xmi:id="_PLc5LD7cEeuHmIvvSRGWcg" incoming="_PLdgMT7cEeuHmIvvSRGWcg" outgoing="_QICdMD7cEeuHmIvvSRGWcg">
+          <type href="rhea.metamodels.PropLogicCTCs#//Or"/>
+        </nodes>
+        <nodes xmi:id="_PLc5Lj7cEeuHmIvvSRGWcg" incoming="_PLdgOj7cEeuHmIvvSRGWcg" outgoing="_PLdgMT7cEeuHmIvvSRGWcg">
+          <type href="rhea.metamodels.PropLogicCTCs#//Implies"/>
+        </nodes>
+        <nodes xmi:id="_PLdgOD7cEeuHmIvvSRGWcg" outgoing="_PLdgOj7cEeuHmIvvSRGWcg">
+          <type href="http://www.eclipse.org/emf/2011/Henshin/Trace#//Trace"/>
+        </nodes>
+        <nodes xmi:id="_PLcSED7cEeuHmIvvSRGWcg" incoming="_QICdMD7cEeuHmIvvSRGWcg" outgoing="_VoXSMD7cEeuHmIvvSRGWcg">
+          <type href="rhea.metamodels.PropLogicCTCs#//And"/>
+        </nodes>
+        <nodes xmi:id="_Tn_V4D7cEeuHmIvvSRGWcg" incoming="_VoXSMD7cEeuHmIvvSRGWcg" outgoing="_WOmy0D7cEeuHmIvvSRGWcg">
+          <type href="rhea.metamodels.PropLogicCTCs#//FeatureTerm"/>
+        </nodes>
+        <nodes xmi:id="_b9gPUT7cEeuHmIvvSRGWcg" outgoing="_b9gPUz7cEeuHmIvvSRGWcg">
+          <type href="http://www.eclipse.org/emf/2011/Henshin/Trace#//Trace"/>
+        </nodes>
+        <edges xmi:id="_PLdgMT7cEeuHmIvvSRGWcg" source="_PLc5Lj7cEeuHmIvvSRGWcg" target="_PLc5LD7cEeuHmIvvSRGWcg">
+          <type href="rhea.metamodels.PropLogicCTCs#//Implies/right"/>
+        </edges>
+        <edges xmi:id="_PLdgOj7cEeuHmIvvSRGWcg" source="_PLdgOD7cEeuHmIvvSRGWcg" target="_PLc5Lj7cEeuHmIvvSRGWcg">
+          <type href="http://www.eclipse.org/emf/2011/Henshin/Trace#//Trace/source"/>
+        </edges>
+        <edges xmi:id="_QICdMD7cEeuHmIvvSRGWcg" source="_PLc5LD7cEeuHmIvvSRGWcg" target="_PLcSED7cEeuHmIvvSRGWcg">
+          <type href="rhea.metamodels.PropLogicCTCs#//Or/terms"/>
+        </edges>
+        <edges xmi:id="_VoXSMD7cEeuHmIvvSRGWcg" source="_PLcSED7cEeuHmIvvSRGWcg" target="_Tn_V4D7cEeuHmIvvSRGWcg">
+          <type href="rhea.metamodels.PropLogicCTCs#//And/terms"/>
+        </edges>
+        <edges xmi:id="_WOmy0D7cEeuHmIvvSRGWcg" source="_Tn_V4D7cEeuHmIvvSRGWcg" target="_PLc5Jz7cEeuHmIvvSRGWcg">
+          <type href="rhea.metamodels.PropLogicCTCs#//FeatureTerm/feature"/>
+        </edges>
+        <edges xmi:id="_YDQnUj7cEeuHmIvvSRGWcg" source="_PLc5Ij7cEeuHmIvvSRGWcg" target="_PLc5Jz7cEeuHmIvvSRGWcg">
+          <type href="rhea.metamodels.BasicFMs#//Feature/children"/>
+        </edges>
+        <edges xmi:id="_Zjm_wj7cEeuHmIvvSRGWcg" source="_PLc5Jz7cEeuHmIvvSRGWcg" target="_PLc5Ij7cEeuHmIvvSRGWcg">
+          <type href="rhea.metamodels.BasicFMs#//Feature/parent"/>
+        </edges>
+        <edges xmi:id="_b9gPUz7cEeuHmIvvSRGWcg" source="_b9gPUT7cEeuHmIvvSRGWcg" target="_PLc5Jz7cEeuHmIvvSRGWcg">
+          <type href="http://www.eclipse.org/emf/2011/Henshin/Trace#//Trace/source"/>
+        </edges>
+      </rhs>
+      <mappings xmi:id="_PLc5Jj7cEeuHmIvvSRGWcg" origin="_PLc5JD7cEeuHmIvvSRGWcg" image="_PLc5Ij7cEeuHmIvvSRGWcg"/>
+      <mappings xmi:id="_PLc5Kz7cEeuHmIvvSRGWcg" origin="_PLc5KT7cEeuHmIvvSRGWcg" image="_PLc5Jz7cEeuHmIvvSRGWcg"/>
+      <mappings xmi:id="_PLdgNz7cEeuHmIvvSRGWcg" origin="_PLdgMj7cEeuHmIvvSRGWcg" image="_PLc5LD7cEeuHmIvvSRGWcg"/>
+      <mappings xmi:id="_PLdgPj7cEeuHmIvvSRGWcg" origin="_PLdgND7cEeuHmIvvSRGWcg" image="_PLc5Lj7cEeuHmIvvSRGWcg"/>
+      <mappings xmi:id="_PLdgPz7cEeuHmIvvSRGWcg" origin="_PLdgOz7cEeuHmIvvSRGWcg" image="_PLdgOD7cEeuHmIvvSRGWcg"/>
+      <multiMappings xmi:id="_PLc5Iz7cEeuHmIvvSRGWcg" origin="_Ak-X8T7cEeuHmIvvSRGWcg" image="_PLc5Ij7cEeuHmIvvSRGWcg"/>
+      <multiMappings xmi:id="_PLc5JT7cEeuHmIvvSRGWcg" origin="_Ak-X8D7cEeuHmIvvSRGWcg" image="_PLc5JD7cEeuHmIvvSRGWcg"/>
+      <multiMappings xmi:id="_PLc5KD7cEeuHmIvvSRGWcg" origin="_BVyJ0T7cEeuHmIvvSRGWcg" image="_PLc5Jz7cEeuHmIvvSRGWcg"/>
+      <multiMappings xmi:id="_PLc5Kj7cEeuHmIvvSRGWcg" origin="_BVyJ0D7cEeuHmIvvSRGWcg" image="_PLc5KT7cEeuHmIvvSRGWcg"/>
+      <multiMappings xmi:id="_PLc5LT7cEeuHmIvvSRGWcg" origin="_C1NVMT7cEeuHmIvvSRGWcg" image="_PLc5LD7cEeuHmIvvSRGWcg"/>
+      <multiMappings xmi:id="_PLdgMD7cEeuHmIvvSRGWcg" origin="_GHT_IT7cEeuHmIvvSRGWcg" image="_PLc5Lj7cEeuHmIvvSRGWcg"/>
+      <multiMappings xmi:id="_PLdgMz7cEeuHmIvvSRGWcg" origin="_C1NVMD7cEeuHmIvvSRGWcg" image="_PLdgMj7cEeuHmIvvSRGWcg"/>
+      <multiMappings xmi:id="_PLdgNT7cEeuHmIvvSRGWcg" origin="_GHT_ID7cEeuHmIvvSRGWcg" image="_PLdgND7cEeuHmIvvSRGWcg"/>
+      <multiMappings xmi:id="_PLdgOT7cEeuHmIvvSRGWcg" origin="_Gi1dgT7cEeuHmIvvSRGWcg" image="_PLdgOD7cEeuHmIvvSRGWcg"/>
+      <multiMappings xmi:id="_PLdgPD7cEeuHmIvvSRGWcg" origin="_Gi1dgD7cEeuHmIvvSRGWcg" image="_PLdgOz7cEeuHmIvvSRGWcg"/>
+      <multiMappings xmi:id="_b9gPUj7cEeuHmIvvSRGWcg" origin="_ar9H4D7cEeuHmIvvSRGWcg" image="_b9gPUT7cEeuHmIvvSRGWcg"/>
+    </multiRules>
+  </units>
+  <units xsi:type="henshin:LoopUnit" xmi:id="_dhwQUD7cEeuHmIvvSRGWcg" name="MultiCombiK1" subUnit="_-tnNsD7bEeuHmIvvSRGWcg"/>
+  <units xsi:type="henshin:SequentialUnit" xmi:id="_jsWKUD7cEeuHmIvvSRGWcg" name="MultiCombiK1_Clean" subUnits="_dhwQUD7cEeuHmIvvSRGWcg _8lxfYDWDEeutge8AG_WnHw"/>
+  <units xsi:type="henshin:Rule" xmi:id="_XHpkwMLgEeugueWwllUb5w" name="F22_k2">
+    <lhs xmi:id="_XHpkwcLgEeugueWwllUb5w" name="Lhs">
+      <nodes xmi:id="_XHpkwsLgEeugueWwllUb5w" name="" incoming="_XHpky8LgEeugueWwllUb5w" outgoing="_XHpkysLgEeugueWwllUb5w">
+        <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/CardinalityBasedFMs/CardinalityBasedFMs.ecore#//GroupCardinality"/>
+        <attributes xmi:id="_XHpkw8LgEeugueWwllUb5w" value="&quot;F22&quot;">
+          <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/BasicFMs/BasicFMs.ecore#//Feature/id"/>
+        </attributes>
+      </nodes>
+      <nodes xmi:id="_XHpkxMLgEeugueWwllUb5w" name="" incoming="_XHpkycLgEeugueWwllUb5w" outgoing="_XHpkyMLgEeugueWwllUb5w">
+        <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/PropLogicCTCs/PropLogicCTCs.ecore#//Implies"/>
+      </nodes>
+      <nodes xmi:id="_XHpkxcLgEeugueWwllUb5w" name="" incoming="_XHpkyMLgEeugueWwllUb5w">
+        <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/PropLogicCTCs/PropLogicCTCs.ecore#//Or"/>
+      </nodes>
+      <nodes xmi:id="_XHpkxsLgEeugueWwllUb5w" name="" outgoing="_XHpkycLgEeugueWwllUb5w">
+        <type href="http://www.eclipse.org/emf/2011/Henshin/Trace#//Trace"/>
+      </nodes>
+      <nodes xmi:id="_XHpkx8LgEeugueWwllUb5w" name="" incoming="_XHpkysLgEeugueWwllUb5w" outgoing="_XHpky8LgEeugueWwllUb5w">
+        <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/BasicFMs/BasicFMs.ecore#//Feature"/>
+      </nodes>
+      <edges xmi:id="_XHpkyMLgEeugueWwllUb5w" source="_XHpkxMLgEeugueWwllUb5w" target="_XHpkxcLgEeugueWwllUb5w">
+        <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/PropLogicCTCs/PropLogicCTCs.ecore#//Implies/right"/>
+      </edges>
+      <edges xmi:id="_XHpkycLgEeugueWwllUb5w" source="_XHpkxsLgEeugueWwllUb5w" target="_XHpkxMLgEeugueWwllUb5w">
+        <type href="http://www.eclipse.org/emf/2011/Henshin/Trace#//Trace/source"/>
+      </edges>
+      <edges xmi:id="_XHpkysLgEeugueWwllUb5w" source="_XHpkwsLgEeugueWwllUb5w" target="_XHpkx8LgEeugueWwllUb5w">
+        <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/BasicFMs/BasicFMs.ecore#//Feature/children"/>
+      </edges>
+      <edges xmi:id="_XHpky8LgEeugueWwllUb5w" source="_XHpkx8LgEeugueWwllUb5w" target="_XHpkwsLgEeugueWwllUb5w">
+        <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/BasicFMs/BasicFMs.ecore#//Feature/parent"/>
+      </edges>
+      <formula xsi:type="henshin:Not" xmi:id="_XHpkzMLgEeugueWwllUb5w">
+        <child xsi:type="henshin:NestedCondition" xmi:id="_XHpkzcLgEeugueWwllUb5w">
+          <conclusion xmi:id="_XHpkzsLgEeugueWwllUb5w">
+            <nodes xmi:id="_XHpkz8LgEeugueWwllUb5w" name="" incoming="_XHpk2MLgEeugueWwllUb5w" outgoing="_XHpk18LgEeugueWwllUb5w">
+              <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/CardinalityBasedFMs/CardinalityBasedFMs.ecore#//GroupCardinality"/>
+            </nodes>
+            <nodes xmi:id="_XHpk0MLgEeugueWwllUb5w" name="" incoming="_XHpk1sLgEeugueWwllUb5w" outgoing="_XHpk1cLgEeugueWwllUb5w">
+              <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/PropLogicCTCs/PropLogicCTCs.ecore#//Implies"/>
+            </nodes>
+            <nodes xmi:id="_XHpk0cLgEeugueWwllUb5w" name="" incoming="_XHpk1cLgEeugueWwllUb5w">
+              <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/PropLogicCTCs/PropLogicCTCs.ecore#//Or"/>
+            </nodes>
+            <nodes xmi:id="_XHpk0sLgEeugueWwllUb5w" name="" outgoing="_XHpk1sLgEeugueWwllUb5w">
+              <type href="http://www.eclipse.org/emf/2011/Henshin/Trace#//Trace"/>
+            </nodes>
+            <nodes xmi:id="_XHpk08LgEeugueWwllUb5w" name="" incoming="_XHpk18LgEeugueWwllUb5w _XHpk2cLgEeugueWwllUb5w" outgoing="_XHpk2MLgEeugueWwllUb5w">
+              <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/BasicFMs/BasicFMs.ecore#//Feature"/>
+            </nodes>
+            <nodes xmi:id="_XHpk1MLgEeugueWwllUb5w" name="" outgoing="_XHpk2cLgEeugueWwllUb5w">
+              <type href="http://www.eclipse.org/emf/2011/Henshin/Trace#//Trace"/>
+            </nodes>
+            <edges xmi:id="_XHpk1cLgEeugueWwllUb5w" source="_XHpk0MLgEeugueWwllUb5w" target="_XHpk0cLgEeugueWwllUb5w">
+              <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/PropLogicCTCs/PropLogicCTCs.ecore#//Implies/right"/>
+            </edges>
+            <edges xmi:id="_XHpk1sLgEeugueWwllUb5w" source="_XHpk0sLgEeugueWwllUb5w" target="_XHpk0MLgEeugueWwllUb5w">
+              <type href="http://www.eclipse.org/emf/2011/Henshin/Trace#//Trace/source"/>
+            </edges>
+            <edges xmi:id="_XHpk18LgEeugueWwllUb5w" source="_XHpkz8LgEeugueWwllUb5w" target="_XHpk08LgEeugueWwllUb5w">
+              <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/BasicFMs/BasicFMs.ecore#//Feature/children"/>
+            </edges>
+            <edges xmi:id="_XHpk2MLgEeugueWwllUb5w" source="_XHpk08LgEeugueWwllUb5w" target="_XHpkz8LgEeugueWwllUb5w">
+              <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/BasicFMs/BasicFMs.ecore#//Feature/parent"/>
+            </edges>
+            <edges xmi:id="_XHpk2cLgEeugueWwllUb5w" source="_XHpk1MLgEeugueWwllUb5w" target="_XHpk08LgEeugueWwllUb5w">
+              <type href="http://www.eclipse.org/emf/2011/Henshin/Trace#//Trace/source"/>
+            </edges>
+          </conclusion>
+          <mappings xmi:id="_XHpk2sLgEeugueWwllUb5w" origin="_XHpkwsLgEeugueWwllUb5w" image="_XHpkz8LgEeugueWwllUb5w"/>
+          <mappings xmi:id="_XHpk28LgEeugueWwllUb5w" origin="_XHpkxMLgEeugueWwllUb5w" image="_XHpk0MLgEeugueWwllUb5w"/>
+          <mappings xmi:id="_XHpk3MLgEeugueWwllUb5w" origin="_XHpkxcLgEeugueWwllUb5w" image="_XHpk0cLgEeugueWwllUb5w"/>
+          <mappings xmi:id="_XHpk3cLgEeugueWwllUb5w" origin="_XHpkxsLgEeugueWwllUb5w" image="_XHpk0sLgEeugueWwllUb5w"/>
+          <mappings xmi:id="_XHpk3sLgEeugueWwllUb5w" origin="_XHpkx8LgEeugueWwllUb5w" image="_XHpk08LgEeugueWwllUb5w"/>
+        </child>
+      </formula>
+    </lhs>
+    <rhs xmi:id="_XHpk38LgEeugueWwllUb5w" name="Rhs">
+      <nodes xmi:id="_XHpk4MLgEeugueWwllUb5w" name="" incoming="_XHpk6sLgEeugueWwllUb5w" outgoing="_XHpk6cLgEeugueWwllUb5w">
+        <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/CardinalityBasedFMs/CardinalityBasedFMs.ecore#//GroupCardinality"/>
+        <attributes xmi:id="_XHpk4cLgEeugueWwllUb5w" value="&quot;F22&quot;">
+          <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/BasicFMs/BasicFMs.ecore#//Feature/id"/>
+        </attributes>
+      </nodes>
+      <nodes xmi:id="_XHpk4sLgEeugueWwllUb5w" name="" incoming="_XHpk6MLgEeugueWwllUb5w" outgoing="_XHpk58LgEeugueWwllUb5w">
+        <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/PropLogicCTCs/PropLogicCTCs.ecore#//Implies"/>
+      </nodes>
+      <nodes xmi:id="_XHpk48LgEeugueWwllUb5w" name="" incoming="_XHpk58LgEeugueWwllUb5w">
+        <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/PropLogicCTCs/PropLogicCTCs.ecore#//Or"/>
+      </nodes>
+      <nodes xmi:id="_XHpk5MLgEeugueWwllUb5w" name="" outgoing="_XHpk6MLgEeugueWwllUb5w">
+        <type href="http://www.eclipse.org/emf/2011/Henshin/Trace#//Trace"/>
+      </nodes>
+      <nodes xmi:id="_XHpk5cLgEeugueWwllUb5w" name="" incoming="_XHpk6cLgEeugueWwllUb5w _XHpk68LgEeugueWwllUb5w" outgoing="_XHpk6sLgEeugueWwllUb5w">
+        <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/BasicFMs/BasicFMs.ecore#//Feature"/>
+      </nodes>
+      <nodes xmi:id="_XHpk5sLgEeugueWwllUb5w" name="" outgoing="_XHpk68LgEeugueWwllUb5w">
+        <type href="http://www.eclipse.org/emf/2011/Henshin/Trace#//Trace"/>
+      </nodes>
+      <edges xmi:id="_XHpk58LgEeugueWwllUb5w" source="_XHpk4sLgEeugueWwllUb5w" target="_XHpk48LgEeugueWwllUb5w">
+        <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/PropLogicCTCs/PropLogicCTCs.ecore#//Implies/right"/>
+      </edges>
+      <edges xmi:id="_XHpk6MLgEeugueWwllUb5w" source="_XHpk5MLgEeugueWwllUb5w" target="_XHpk4sLgEeugueWwllUb5w">
+        <type href="http://www.eclipse.org/emf/2011/Henshin/Trace#//Trace/source"/>
+      </edges>
+      <edges xmi:id="_XHpk6cLgEeugueWwllUb5w" source="_XHpk4MLgEeugueWwllUb5w" target="_XHpk5cLgEeugueWwllUb5w">
+        <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/BasicFMs/BasicFMs.ecore#//Feature/children"/>
+      </edges>
+      <edges xmi:id="_XHpk6sLgEeugueWwllUb5w" source="_XHpk5cLgEeugueWwllUb5w" target="_XHpk4MLgEeugueWwllUb5w">
+        <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/BasicFMs/BasicFMs.ecore#//Feature/parent"/>
+      </edges>
+      <edges xmi:id="_XHpk68LgEeugueWwllUb5w" source="_XHpk5sLgEeugueWwllUb5w" target="_XHpk5cLgEeugueWwllUb5w">
+        <type href="http://www.eclipse.org/emf/2011/Henshin/Trace#//Trace/source"/>
+      </edges>
+    </rhs>
+    <mappings xmi:id="_XHpk7MLgEeugueWwllUb5w" origin="_XHpkwsLgEeugueWwllUb5w" image="_XHpk4MLgEeugueWwllUb5w"/>
+    <mappings xmi:id="_XHpk7cLgEeugueWwllUb5w" origin="_XHpkxMLgEeugueWwllUb5w" image="_XHpk4sLgEeugueWwllUb5w"/>
+    <mappings xmi:id="_XHpk7sLgEeugueWwllUb5w" origin="_XHpkxcLgEeugueWwllUb5w" image="_XHpk48LgEeugueWwllUb5w"/>
+    <mappings xmi:id="_XHpk78LgEeugueWwllUb5w" origin="_XHpkxsLgEeugueWwllUb5w" image="_XHpk5MLgEeugueWwllUb5w"/>
+    <mappings xmi:id="_XHqL0MLgEeugueWwllUb5w" origin="_XHpkx8LgEeugueWwllUb5w" image="_XHpk5cLgEeugueWwllUb5w"/>
+    <multiRules xmi:id="_XHqL0cLgEeugueWwllUb5w">
+      <lhs xmi:id="_XHqL0sLgEeugueWwllUb5w" name="Lhs">
+        <nodes xmi:id="_XHqL08LgEeugueWwllUb5w" name="" incoming="_XHqL3cLgEeugueWwllUb5w _XHqL38LgEeugueWwllUb5w" outgoing="_XHqL3MLgEeugueWwllUb5w _XHqL3sLgEeugueWwllUb5w">
+          <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/CardinalityBasedFMs/CardinalityBasedFMs.ecore#//GroupCardinality"/>
+          <attributes xmi:id="_XHqL1MLgEeugueWwllUb5w" value="&quot;F22&quot;">
+            <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/BasicFMs/BasicFMs.ecore#//Feature/id"/>
+          </attributes>
+        </nodes>
+        <nodes xmi:id="_XHqL1cLgEeugueWwllUb5w" name="" incoming="_XHqL28LgEeugueWwllUb5w" outgoing="_XHqL2sLgEeugueWwllUb5w">
+          <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/PropLogicCTCs/PropLogicCTCs.ecore#//Implies"/>
+        </nodes>
+        <nodes xmi:id="_XHqL1sLgEeugueWwllUb5w" name="" incoming="_XHqL2sLgEeugueWwllUb5w">
+          <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/PropLogicCTCs/PropLogicCTCs.ecore#//Or"/>
+        </nodes>
+        <nodes xmi:id="_XHqL18LgEeugueWwllUb5w" name="" outgoing="_XHqL28LgEeugueWwllUb5w">
+          <type href="http://www.eclipse.org/emf/2011/Henshin/Trace#//Trace"/>
+        </nodes>
+        <nodes xmi:id="_XHqL2MLgEeugueWwllUb5w" name="" incoming="_XHqL3MLgEeugueWwllUb5w" outgoing="_XHqL3cLgEeugueWwllUb5w">
+          <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/BasicFMs/BasicFMs.ecore#//Feature"/>
+        </nodes>
+        <nodes xmi:id="_XHqL2cLgEeugueWwllUb5w" name="" incoming="_XHqL3sLgEeugueWwllUb5w" outgoing="_XHqL38LgEeugueWwllUb5w">
+          <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/BasicFMs/BasicFMs.ecore#//Feature"/>
+        </nodes>
+        <edges xmi:id="_XHqL2sLgEeugueWwllUb5w" source="_XHqL1cLgEeugueWwllUb5w" target="_XHqL1sLgEeugueWwllUb5w">
+          <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/PropLogicCTCs/PropLogicCTCs.ecore#//Implies/right"/>
+        </edges>
+        <edges xmi:id="_XHqL28LgEeugueWwllUb5w" source="_XHqL18LgEeugueWwllUb5w" target="_XHqL1cLgEeugueWwllUb5w">
+          <type href="http://www.eclipse.org/emf/2011/Henshin/Trace#//Trace/source"/>
+        </edges>
+        <edges xmi:id="_XHqL3MLgEeugueWwllUb5w" source="_XHqL08LgEeugueWwllUb5w" target="_XHqL2MLgEeugueWwllUb5w">
+          <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/BasicFMs/BasicFMs.ecore#//Feature/children"/>
+        </edges>
+        <edges xmi:id="_XHqL3cLgEeugueWwllUb5w" source="_XHqL2MLgEeugueWwllUb5w" target="_XHqL08LgEeugueWwllUb5w">
+          <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/BasicFMs/BasicFMs.ecore#//Feature/parent"/>
+        </edges>
+        <edges xmi:id="_XHqL3sLgEeugueWwllUb5w" source="_XHqL08LgEeugueWwllUb5w" target="_XHqL2cLgEeugueWwllUb5w">
+          <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/BasicFMs/BasicFMs.ecore#//Feature/children"/>
+        </edges>
+        <edges xmi:id="_XHqL38LgEeugueWwllUb5w" source="_XHqL2cLgEeugueWwllUb5w" target="_XHqL08LgEeugueWwllUb5w">
+          <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/BasicFMs/BasicFMs.ecore#//Feature/parent"/>
+        </edges>
+        <formula xsi:type="henshin:Not" xmi:id="_XHqL4MLgEeugueWwllUb5w">
+          <child xsi:type="henshin:NestedCondition" xmi:id="_XHqL4cLgEeugueWwllUb5w">
+            <conclusion xmi:id="_XHqL4sLgEeugueWwllUb5w">
+              <nodes xmi:id="_XHqL48LgEeugueWwllUb5w" name="" incoming="_XHqL8cLgEeugueWwllUb5w _XHqL9MLgEeugueWwllUb5w" outgoing="_XHqL8MLgEeugueWwllUb5w _XHqL88LgEeugueWwllUb5w">
+                <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/CardinalityBasedFMs/CardinalityBasedFMs.ecore#//GroupCardinality"/>
+              </nodes>
+              <nodes xmi:id="_XHqL5MLgEeugueWwllUb5w" name="" incoming="_XHqL7cLgEeugueWwllUb5w" outgoing="_XHqL7MLgEeugueWwllUb5w">
+                <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/PropLogicCTCs/PropLogicCTCs.ecore#//Implies"/>
+              </nodes>
+              <nodes xmi:id="_XHqL5cLgEeugueWwllUb5w" name="" incoming="_XHqL7MLgEeugueWwllUb5w" outgoing="_XHqL7sLgEeugueWwllUb5w">
+                <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/PropLogicCTCs/PropLogicCTCs.ecore#//Or"/>
+              </nodes>
+              <nodes xmi:id="_XHqL5sLgEeugueWwllUb5w" name="" outgoing="_XHqL7cLgEeugueWwllUb5w">
+                <type href="http://www.eclipse.org/emf/2011/Henshin/Trace#//Trace"/>
+              </nodes>
+              <nodes xmi:id="_XHqL58LgEeugueWwllUb5w" name="" incoming="_XHqL7sLgEeugueWwllUb5w" outgoing="_XHqL78LgEeugueWwllUb5w _XHqL9cLgEeugueWwllUb5w">
+                <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/PropLogicCTCs/PropLogicCTCs.ecore#//And"/>
+              </nodes>
+              <nodes xmi:id="_XHqL6MLgEeugueWwllUb5w" name="" incoming="_XHqL78LgEeugueWwllUb5w" outgoing="_XHqL8sLgEeugueWwllUb5w">
+                <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/PropLogicCTCs/PropLogicCTCs.ecore#//FeatureTerm"/>
+              </nodes>
+              <nodes xmi:id="_XHqL6cLgEeugueWwllUb5w" name="" incoming="_XHqL8MLgEeugueWwllUb5w _XHqL8sLgEeugueWwllUb5w" outgoing="_XHqL8cLgEeugueWwllUb5w">
+                <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/BasicFMs/BasicFMs.ecore#//Feature"/>
+              </nodes>
+              <nodes xmi:id="_XHqL6sLgEeugueWwllUb5w" name="" incoming="_XHqL88LgEeugueWwllUb5w _XHqL9sLgEeugueWwllUb5w" outgoing="_XHqL9MLgEeugueWwllUb5w">
+                <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/BasicFMs/BasicFMs.ecore#//Feature"/>
+              </nodes>
+              <nodes xmi:id="_XHqL68LgEeugueWwllUb5w" name="" incoming="_XHqL9cLgEeugueWwllUb5w" outgoing="_XHqL9sLgEeugueWwllUb5w">
+                <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/PropLogicCTCs/PropLogicCTCs.ecore#//FeatureTerm"/>
+              </nodes>
+              <edges xmi:id="_XHqL7MLgEeugueWwllUb5w" source="_XHqL5MLgEeugueWwllUb5w" target="_XHqL5cLgEeugueWwllUb5w">
+                <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/PropLogicCTCs/PropLogicCTCs.ecore#//Implies/right"/>
+              </edges>
+              <edges xmi:id="_XHqL7cLgEeugueWwllUb5w" source="_XHqL5sLgEeugueWwllUb5w" target="_XHqL5MLgEeugueWwllUb5w">
+                <type href="http://www.eclipse.org/emf/2011/Henshin/Trace#//Trace/source"/>
+              </edges>
+              <edges xmi:id="_XHqL7sLgEeugueWwllUb5w" source="_XHqL5cLgEeugueWwllUb5w" target="_XHqL58LgEeugueWwllUb5w">
+                <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/PropLogicCTCs/PropLogicCTCs.ecore#//Or/terms"/>
+              </edges>
+              <edges xmi:id="_XHqL78LgEeugueWwllUb5w" source="_XHqL58LgEeugueWwllUb5w" target="_XHqL6MLgEeugueWwllUb5w">
+                <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/PropLogicCTCs/PropLogicCTCs.ecore#//And/terms"/>
+              </edges>
+              <edges xmi:id="_XHqL8MLgEeugueWwllUb5w" source="_XHqL48LgEeugueWwllUb5w" target="_XHqL6cLgEeugueWwllUb5w">
+                <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/BasicFMs/BasicFMs.ecore#//Feature/children"/>
+              </edges>
+              <edges xmi:id="_XHqL8cLgEeugueWwllUb5w" source="_XHqL6cLgEeugueWwllUb5w" target="_XHqL48LgEeugueWwllUb5w">
+                <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/BasicFMs/BasicFMs.ecore#//Feature/parent"/>
+              </edges>
+              <edges xmi:id="_XHqL8sLgEeugueWwllUb5w" source="_XHqL6MLgEeugueWwllUb5w" target="_XHqL6cLgEeugueWwllUb5w">
+                <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/PropLogicCTCs/PropLogicCTCs.ecore#//FeatureTerm/feature"/>
+              </edges>
+              <edges xmi:id="_XHqL88LgEeugueWwllUb5w" source="_XHqL48LgEeugueWwllUb5w" target="_XHqL6sLgEeugueWwllUb5w">
+                <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/BasicFMs/BasicFMs.ecore#//Feature/children"/>
+              </edges>
+              <edges xmi:id="_XHqL9MLgEeugueWwllUb5w" source="_XHqL6sLgEeugueWwllUb5w" target="_XHqL48LgEeugueWwllUb5w">
+                <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/BasicFMs/BasicFMs.ecore#//Feature/parent"/>
+              </edges>
+              <edges xmi:id="_XHqL9cLgEeugueWwllUb5w" source="_XHqL58LgEeugueWwllUb5w" target="_XHqL68LgEeugueWwllUb5w">
+                <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/PropLogicCTCs/PropLogicCTCs.ecore#//And/terms"/>
+              </edges>
+              <edges xmi:id="_XHqL9sLgEeugueWwllUb5w" source="_XHqL68LgEeugueWwllUb5w" target="_XHqL6sLgEeugueWwllUb5w">
+                <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/PropLogicCTCs/PropLogicCTCs.ecore#//FeatureTerm/feature"/>
+              </edges>
+            </conclusion>
+            <mappings xmi:id="_XHqL98LgEeugueWwllUb5w" origin="_XHqL08LgEeugueWwllUb5w" image="_XHqL48LgEeugueWwllUb5w"/>
+            <mappings xmi:id="_XHqL-MLgEeugueWwllUb5w" origin="_XHqL1cLgEeugueWwllUb5w" image="_XHqL5MLgEeugueWwllUb5w"/>
+            <mappings xmi:id="_XHqL-cLgEeugueWwllUb5w" origin="_XHqL1sLgEeugueWwllUb5w" image="_XHqL5cLgEeugueWwllUb5w"/>
+            <mappings xmi:id="_XHqL-sLgEeugueWwllUb5w" origin="_XHqL18LgEeugueWwllUb5w" image="_XHqL5sLgEeugueWwllUb5w"/>
+            <mappings xmi:id="_XHqL-8LgEeugueWwllUb5w" origin="_XHqL2MLgEeugueWwllUb5w" image="_XHqL6cLgEeugueWwllUb5w"/>
+            <mappings xmi:id="_XHqL_MLgEeugueWwllUb5w" origin="_XHqL2cLgEeugueWwllUb5w" image="_XHqL6sLgEeugueWwllUb5w"/>
+          </child>
+        </formula>
+      </lhs>
+      <rhs xmi:id="_XHqL_cLgEeugueWwllUb5w" name="Rhs">
+        <nodes xmi:id="_XHqL_sLgEeugueWwllUb5w" name="" incoming="_XHqMDsLgEeugueWwllUb5w _XHqMEcLgEeugueWwllUb5w" outgoing="_XHqMDcLgEeugueWwllUb5w _XHqMEMLgEeugueWwllUb5w">
+          <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/CardinalityBasedFMs/CardinalityBasedFMs.ecore#//GroupCardinality"/>
+          <attributes xmi:id="_XHqL_8LgEeugueWwllUb5w" value="&quot;F22&quot;">
+            <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/BasicFMs/BasicFMs.ecore#//Feature/id"/>
+          </attributes>
+        </nodes>
+        <nodes xmi:id="_XHqMAMLgEeugueWwllUb5w" name="" incoming="_XHqMCsLgEeugueWwllUb5w" outgoing="_XHqMCcLgEeugueWwllUb5w">
+          <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/PropLogicCTCs/PropLogicCTCs.ecore#//Implies"/>
+        </nodes>
+        <nodes xmi:id="_XHqMAcLgEeugueWwllUb5w" name="" incoming="_XHqMCcLgEeugueWwllUb5w" outgoing="_XHqMC8LgEeugueWwllUb5w">
+          <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/PropLogicCTCs/PropLogicCTCs.ecore#//Or"/>
+        </nodes>
+        <nodes xmi:id="_XHqMAsLgEeugueWwllUb5w" name="" outgoing="_XHqMCsLgEeugueWwllUb5w">
+          <type href="http://www.eclipse.org/emf/2011/Henshin/Trace#//Trace"/>
+        </nodes>
+        <nodes xmi:id="_XHqMA8LgEeugueWwllUb5w" name="" incoming="_XHqMC8LgEeugueWwllUb5w" outgoing="_XHqMDMLgEeugueWwllUb5w _XHqMEsLgEeugueWwllUb5w">
+          <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/PropLogicCTCs/PropLogicCTCs.ecore#//And"/>
+        </nodes>
+        <nodes xmi:id="_XHqMBMLgEeugueWwllUb5w" name="" incoming="_XHqMDMLgEeugueWwllUb5w" outgoing="_XHqMD8LgEeugueWwllUb5w">
+          <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/PropLogicCTCs/PropLogicCTCs.ecore#//FeatureTerm"/>
+        </nodes>
+        <nodes xmi:id="_XHqMBcLgEeugueWwllUb5w" name="" incoming="_XHqMDcLgEeugueWwllUb5w _XHqMD8LgEeugueWwllUb5w" outgoing="_XHqMDsLgEeugueWwllUb5w">
+          <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/BasicFMs/BasicFMs.ecore#//Feature"/>
+        </nodes>
+        <nodes xmi:id="_XHqMBsLgEeugueWwllUb5w" name="" incoming="_XHqMEMLgEeugueWwllUb5w _XHqME8LgEeugueWwllUb5w _XHqMFMLgEeugueWwllUb5w" outgoing="_XHqMEcLgEeugueWwllUb5w">
+          <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/BasicFMs/BasicFMs.ecore#//Feature"/>
+        </nodes>
+        <nodes xmi:id="_XHqMB8LgEeugueWwllUb5w" name="" incoming="_XHqMEsLgEeugueWwllUb5w" outgoing="_XHqME8LgEeugueWwllUb5w">
+          <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/PropLogicCTCs/PropLogicCTCs.ecore#//FeatureTerm"/>
+        </nodes>
+        <nodes xmi:id="_XHqMCMLgEeugueWwllUb5w" name="" outgoing="_XHqMFMLgEeugueWwllUb5w">
+          <type href="http://www.eclipse.org/emf/2011/Henshin/Trace#//Trace"/>
+        </nodes>
+        <edges xmi:id="_XHqMCcLgEeugueWwllUb5w" source="_XHqMAMLgEeugueWwllUb5w" target="_XHqMAcLgEeugueWwllUb5w">
+          <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/PropLogicCTCs/PropLogicCTCs.ecore#//Implies/right"/>
+        </edges>
+        <edges xmi:id="_XHqMCsLgEeugueWwllUb5w" source="_XHqMAsLgEeugueWwllUb5w" target="_XHqMAMLgEeugueWwllUb5w">
+          <type href="http://www.eclipse.org/emf/2011/Henshin/Trace#//Trace/source"/>
+        </edges>
+        <edges xmi:id="_XHqMC8LgEeugueWwllUb5w" source="_XHqMAcLgEeugueWwllUb5w" target="_XHqMA8LgEeugueWwllUb5w">
+          <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/PropLogicCTCs/PropLogicCTCs.ecore#//Or/terms"/>
+        </edges>
+        <edges xmi:id="_XHqMDMLgEeugueWwllUb5w" source="_XHqMA8LgEeugueWwllUb5w" target="_XHqMBMLgEeugueWwllUb5w">
+          <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/PropLogicCTCs/PropLogicCTCs.ecore#//And/terms"/>
+        </edges>
+        <edges xmi:id="_XHqMDcLgEeugueWwllUb5w" source="_XHqL_sLgEeugueWwllUb5w" target="_XHqMBcLgEeugueWwllUb5w">
+          <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/BasicFMs/BasicFMs.ecore#//Feature/children"/>
+        </edges>
+        <edges xmi:id="_XHqMDsLgEeugueWwllUb5w" source="_XHqMBcLgEeugueWwllUb5w" target="_XHqL_sLgEeugueWwllUb5w">
+          <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/BasicFMs/BasicFMs.ecore#//Feature/parent"/>
+        </edges>
+        <edges xmi:id="_XHqMD8LgEeugueWwllUb5w" source="_XHqMBMLgEeugueWwllUb5w" target="_XHqMBcLgEeugueWwllUb5w">
+          <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/PropLogicCTCs/PropLogicCTCs.ecore#//FeatureTerm/feature"/>
+        </edges>
+        <edges xmi:id="_XHqMEMLgEeugueWwllUb5w" source="_XHqL_sLgEeugueWwllUb5w" target="_XHqMBsLgEeugueWwllUb5w">
+          <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/BasicFMs/BasicFMs.ecore#//Feature/children"/>
+        </edges>
+        <edges xmi:id="_XHqMEcLgEeugueWwllUb5w" source="_XHqMBsLgEeugueWwllUb5w" target="_XHqL_sLgEeugueWwllUb5w">
+          <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/BasicFMs/BasicFMs.ecore#//Feature/parent"/>
+        </edges>
+        <edges xmi:id="_XHqMEsLgEeugueWwllUb5w" source="_XHqMA8LgEeugueWwllUb5w" target="_XHqMB8LgEeugueWwllUb5w">
+          <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/PropLogicCTCs/PropLogicCTCs.ecore#//And/terms"/>
+        </edges>
+        <edges xmi:id="_XHqME8LgEeugueWwllUb5w" source="_XHqMB8LgEeugueWwllUb5w" target="_XHqMBsLgEeugueWwllUb5w">
+          <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/PropLogicCTCs/PropLogicCTCs.ecore#//FeatureTerm/feature"/>
+        </edges>
+        <edges xmi:id="_XHqMFMLgEeugueWwllUb5w" source="_XHqMCMLgEeugueWwllUb5w" target="_XHqMBsLgEeugueWwllUb5w">
+          <type href="http://www.eclipse.org/emf/2011/Henshin/Trace#//Trace/source"/>
+        </edges>
+      </rhs>
+      <mappings xmi:id="_XHqMFcLgEeugueWwllUb5w" origin="_XHqL08LgEeugueWwllUb5w" image="_XHqL_sLgEeugueWwllUb5w"/>
+      <mappings xmi:id="_XHqMFsLgEeugueWwllUb5w" origin="_XHqL1cLgEeugueWwllUb5w" image="_XHqMAMLgEeugueWwllUb5w"/>
+      <mappings xmi:id="_XHqMF8LgEeugueWwllUb5w" origin="_XHqL1sLgEeugueWwllUb5w" image="_XHqMAcLgEeugueWwllUb5w"/>
+      <mappings xmi:id="_XHqMGMLgEeugueWwllUb5w" origin="_XHqL18LgEeugueWwllUb5w" image="_XHqMAsLgEeugueWwllUb5w"/>
+      <mappings xmi:id="_XHqMGcLgEeugueWwllUb5w" origin="_XHqL2MLgEeugueWwllUb5w" image="_XHqMBcLgEeugueWwllUb5w"/>
+      <mappings xmi:id="_XHqMGsLgEeugueWwllUb5w" origin="_XHqL2cLgEeugueWwllUb5w" image="_XHqMBsLgEeugueWwllUb5w"/>
+      <multiMappings xmi:id="_XHqMG8LgEeugueWwllUb5w" origin="_XHpkwsLgEeugueWwllUb5w" image="_XHqL08LgEeugueWwllUb5w"/>
+      <multiMappings xmi:id="_XHqMHMLgEeugueWwllUb5w" origin="_XHpk4MLgEeugueWwllUb5w" image="_XHqL_sLgEeugueWwllUb5w"/>
+      <multiMappings xmi:id="_XHqMHcLgEeugueWwllUb5w" origin="_XHpkxMLgEeugueWwllUb5w" image="_XHqL1cLgEeugueWwllUb5w"/>
+      <multiMappings xmi:id="_XHqMHsLgEeugueWwllUb5w" origin="_XHpk4sLgEeugueWwllUb5w" image="_XHqMAMLgEeugueWwllUb5w"/>
+      <multiMappings xmi:id="_XHqMH8LgEeugueWwllUb5w" origin="_XHpkxcLgEeugueWwllUb5w" image="_XHqL1sLgEeugueWwllUb5w"/>
+      <multiMappings xmi:id="_XHqMIMLgEeugueWwllUb5w" origin="_XHpk48LgEeugueWwllUb5w" image="_XHqMAcLgEeugueWwllUb5w"/>
+      <multiMappings xmi:id="_XHqMIcLgEeugueWwllUb5w" origin="_XHpkxsLgEeugueWwllUb5w" image="_XHqL18LgEeugueWwllUb5w"/>
+      <multiMappings xmi:id="_XHqMIsLgEeugueWwllUb5w" origin="_XHpk5MLgEeugueWwllUb5w" image="_XHqMAsLgEeugueWwllUb5w"/>
+      <multiMappings xmi:id="_XHqMI8LgEeugueWwllUb5w" origin="_XHpkx8LgEeugueWwllUb5w" image="_XHqL2cLgEeugueWwllUb5w"/>
+      <multiMappings xmi:id="_XHqMJMLgEeugueWwllUb5w" origin="_XHpk5cLgEeugueWwllUb5w" image="_XHqMBsLgEeugueWwllUb5w"/>
+      <multiMappings xmi:id="_XHqMJcLgEeugueWwllUb5w" origin="_XHpk5sLgEeugueWwllUb5w" image="_XHqMCMLgEeugueWwllUb5w"/>
+    </multiRules>
+  </units>
+  <units xsi:type="henshin:LoopUnit" xmi:id="_XHqMJsLgEeugueWwllUb5w" name="MultiF22_k2" subUnit="_XHpkwMLgEeugueWwllUb5w"/>
+  <units xsi:type="henshin:SequentialUnit" xmi:id="_XHqMJ8LgEeugueWwllUb5w" name="MultiF22_k2Clean" subUnits="_XHqMJsLgEeugueWwllUb5w _8lxfYDWDEeutge8AG_WnHw"/>
+  <units xsi:type="henshin:Rule" xmi:id="_XHqMKMLgEeugueWwllUb5w" name="F22_k3">
+    <lhs xmi:id="_XHqMKcLgEeugueWwllUb5w" name="Lhs">
+      <nodes xmi:id="_XHqMKsLgEeugueWwllUb5w" name="" incoming="_XHqMNMLgEeugueWwllUb5w _XHqMNsLgEeugueWwllUb5w" outgoing="_XHqMM8LgEeugueWwllUb5w _XHqMNcLgEeugueWwllUb5w">
+        <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/CardinalityBasedFMs/CardinalityBasedFMs.ecore#//GroupCardinality"/>
+        <attributes xmi:id="_XHqMK8LgEeugueWwllUb5w" value="&quot;F22&quot;">
+          <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/BasicFMs/BasicFMs.ecore#//Feature/id"/>
+        </attributes>
+      </nodes>
+      <nodes xmi:id="_XHqMLMLgEeugueWwllUb5w" name="" incoming="_XHqMMsLgEeugueWwllUb5w" outgoing="_XHqMMcLgEeugueWwllUb5w">
+        <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/PropLogicCTCs/PropLogicCTCs.ecore#//Implies"/>
+      </nodes>
+      <nodes xmi:id="_XHqMLcLgEeugueWwllUb5w" name="" incoming="_XHqMMcLgEeugueWwllUb5w">
+        <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/PropLogicCTCs/PropLogicCTCs.ecore#//Or"/>
+      </nodes>
+      <nodes xmi:id="_XHqMLsLgEeugueWwllUb5w" name="" outgoing="_XHqMMsLgEeugueWwllUb5w">
+        <type href="http://www.eclipse.org/emf/2011/Henshin/Trace#//Trace"/>
+      </nodes>
+      <nodes xmi:id="_XHqML8LgEeugueWwllUb5w" name="" incoming="_XHqMM8LgEeugueWwllUb5w" outgoing="_XHqMNMLgEeugueWwllUb5w">
+        <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/BasicFMs/BasicFMs.ecore#//Feature"/>
+      </nodes>
+      <nodes xmi:id="_XHqMMMLgEeugueWwllUb5w" name="" incoming="_XHqMNcLgEeugueWwllUb5w" outgoing="_XHqMNsLgEeugueWwllUb5w">
+        <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/BasicFMs/BasicFMs.ecore#//Feature"/>
+      </nodes>
+      <edges xmi:id="_XHqMMcLgEeugueWwllUb5w" source="_XHqMLMLgEeugueWwllUb5w" target="_XHqMLcLgEeugueWwllUb5w">
+        <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/PropLogicCTCs/PropLogicCTCs.ecore#//Implies/right"/>
+      </edges>
+      <edges xmi:id="_XHqMMsLgEeugueWwllUb5w" source="_XHqMLsLgEeugueWwllUb5w" target="_XHqMLMLgEeugueWwllUb5w">
+        <type href="http://www.eclipse.org/emf/2011/Henshin/Trace#//Trace/source"/>
+      </edges>
+      <edges xmi:id="_XHqMM8LgEeugueWwllUb5w" source="_XHqMKsLgEeugueWwllUb5w" target="_XHqML8LgEeugueWwllUb5w">
+        <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/BasicFMs/BasicFMs.ecore#//Feature/children"/>
+      </edges>
+      <edges xmi:id="_XHqMNMLgEeugueWwllUb5w" source="_XHqML8LgEeugueWwllUb5w" target="_XHqMKsLgEeugueWwllUb5w">
+        <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/BasicFMs/BasicFMs.ecore#//Feature/parent"/>
+      </edges>
+      <edges xmi:id="_XHqMNcLgEeugueWwllUb5w" source="_XHqMKsLgEeugueWwllUb5w" target="_XHqMMMLgEeugueWwllUb5w">
+        <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/BasicFMs/BasicFMs.ecore#//Feature/children"/>
+      </edges>
+      <edges xmi:id="_XHqMNsLgEeugueWwllUb5w" source="_XHqMMMLgEeugueWwllUb5w" target="_XHqMKsLgEeugueWwllUb5w">
+        <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/BasicFMs/BasicFMs.ecore#//Feature/parent"/>
+      </edges>
+      <formula xsi:type="henshin:Not" xmi:id="_XHqMN8LgEeugueWwllUb5w">
+        <child xsi:type="henshin:NestedCondition" xmi:id="_XHqMOMLgEeugueWwllUb5w">
+          <conclusion xmi:id="_XHqMOcLgEeugueWwllUb5w">
+            <nodes xmi:id="_XHqMOsLgEeugueWwllUb5w" name="" incoming="_XHqMRcLgEeugueWwllUb5w _XHqMSMLgEeugueWwllUb5w" outgoing="_XHqMRMLgEeugueWwllUb5w _XHqMR8LgEeugueWwllUb5w">
+              <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/CardinalityBasedFMs/CardinalityBasedFMs.ecore#//GroupCardinality"/>
+            </nodes>
+            <nodes xmi:id="_XHqMO8LgEeugueWwllUb5w" name="" incoming="_XHqMQ8LgEeugueWwllUb5w" outgoing="_XHqMQsLgEeugueWwllUb5w">
+              <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/PropLogicCTCs/PropLogicCTCs.ecore#//Implies"/>
+            </nodes>
+            <nodes xmi:id="_XHqMPMLgEeugueWwllUb5w" name="" incoming="_XHqMQsLgEeugueWwllUb5w">
+              <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/PropLogicCTCs/PropLogicCTCs.ecore#//Or"/>
+            </nodes>
+            <nodes xmi:id="_XHqMPcLgEeugueWwllUb5w" name="" outgoing="_XHqMQ8LgEeugueWwllUb5w">
+              <type href="http://www.eclipse.org/emf/2011/Henshin/Trace#//Trace"/>
+            </nodes>
+            <nodes xmi:id="_XHqMPsLgEeugueWwllUb5w" name="" incoming="_XHqMRMLgEeugueWwllUb5w _XHqMRsLgEeugueWwllUb5w" outgoing="_XHqMRcLgEeugueWwllUb5w">
+              <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/BasicFMs/BasicFMs.ecore#//Feature"/>
+            </nodes>
+            <nodes xmi:id="_XHqMP8LgEeugueWwllUb5w" name="" outgoing="_XHqMRsLgEeugueWwllUb5w">
+              <type href="http://www.eclipse.org/emf/2011/Henshin/Trace#//Trace"/>
+            </nodes>
+            <nodes xmi:id="_XHqMQMLgEeugueWwllUb5w" name="" incoming="_XHqMR8LgEeugueWwllUb5w _XHqMScLgEeugueWwllUb5w" outgoing="_XHqMSMLgEeugueWwllUb5w">
+              <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/BasicFMs/BasicFMs.ecore#//Feature"/>
+            </nodes>
+            <nodes xmi:id="_XHqMQcLgEeugueWwllUb5w" name="" outgoing="_XHqMScLgEeugueWwllUb5w">
+              <type href="http://www.eclipse.org/emf/2011/Henshin/Trace#//Trace"/>
+            </nodes>
+            <edges xmi:id="_XHqMQsLgEeugueWwllUb5w" source="_XHqMO8LgEeugueWwllUb5w" target="_XHqMPMLgEeugueWwllUb5w">
+              <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/PropLogicCTCs/PropLogicCTCs.ecore#//Implies/right"/>
+            </edges>
+            <edges xmi:id="_XHqMQ8LgEeugueWwllUb5w" source="_XHqMPcLgEeugueWwllUb5w" target="_XHqMO8LgEeugueWwllUb5w">
+              <type href="http://www.eclipse.org/emf/2011/Henshin/Trace#//Trace/source"/>
+            </edges>
+            <edges xmi:id="_XHqMRMLgEeugueWwllUb5w" source="_XHqMOsLgEeugueWwllUb5w" target="_XHqMPsLgEeugueWwllUb5w">
+              <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/BasicFMs/BasicFMs.ecore#//Feature/children"/>
+            </edges>
+            <edges xmi:id="_XHqMRcLgEeugueWwllUb5w" source="_XHqMPsLgEeugueWwllUb5w" target="_XHqMOsLgEeugueWwllUb5w">
+              <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/BasicFMs/BasicFMs.ecore#//Feature/parent"/>
+            </edges>
+            <edges xmi:id="_XHqMRsLgEeugueWwllUb5w" source="_XHqMP8LgEeugueWwllUb5w" target="_XHqMPsLgEeugueWwllUb5w">
+              <type href="http://www.eclipse.org/emf/2011/Henshin/Trace#//Trace/source"/>
+            </edges>
+            <edges xmi:id="_XHqMR8LgEeugueWwllUb5w" source="_XHqMOsLgEeugueWwllUb5w" target="_XHqMQMLgEeugueWwllUb5w">
+              <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/BasicFMs/BasicFMs.ecore#//Feature/children"/>
+            </edges>
+            <edges xmi:id="_XHqMSMLgEeugueWwllUb5w" source="_XHqMQMLgEeugueWwllUb5w" target="_XHqMOsLgEeugueWwllUb5w">
+              <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/BasicFMs/BasicFMs.ecore#//Feature/parent"/>
+            </edges>
+            <edges xmi:id="_XHqMScLgEeugueWwllUb5w" source="_XHqMQcLgEeugueWwllUb5w" target="_XHqMQMLgEeugueWwllUb5w">
+              <type href="http://www.eclipse.org/emf/2011/Henshin/Trace#//Trace/source"/>
+            </edges>
+          </conclusion>
+          <mappings xmi:id="_XHqMSsLgEeugueWwllUb5w" origin="_XHqMKsLgEeugueWwllUb5w" image="_XHqMOsLgEeugueWwllUb5w"/>
+          <mappings xmi:id="_XHqMS8LgEeugueWwllUb5w" origin="_XHqMLMLgEeugueWwllUb5w" image="_XHqMO8LgEeugueWwllUb5w"/>
+          <mappings xmi:id="_XHqMTMLgEeugueWwllUb5w" origin="_XHqMLcLgEeugueWwllUb5w" image="_XHqMPMLgEeugueWwllUb5w"/>
+          <mappings xmi:id="_XHqMTcLgEeugueWwllUb5w" origin="_XHqMLsLgEeugueWwllUb5w" image="_XHqMPcLgEeugueWwllUb5w"/>
+          <mappings xmi:id="_XHqMTsLgEeugueWwllUb5w" origin="_XHqML8LgEeugueWwllUb5w" image="_XHqMPsLgEeugueWwllUb5w"/>
+          <mappings xmi:id="_XHqMT8LgEeugueWwllUb5w" origin="_XHqMMMLgEeugueWwllUb5w" image="_XHqMQMLgEeugueWwllUb5w"/>
+        </child>
+      </formula>
+    </lhs>
+    <rhs xmi:id="_XHqMUMLgEeugueWwllUb5w" name="Rhs">
+      <nodes xmi:id="_XHqMUcLgEeugueWwllUb5w" name="" incoming="_XHqMXcLgEeugueWwllUb5w _XHqMYMLgEeugueWwllUb5w" outgoing="_XHqMXMLgEeugueWwllUb5w _XHqMX8LgEeugueWwllUb5w">
+        <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/CardinalityBasedFMs/CardinalityBasedFMs.ecore#//GroupCardinality"/>
+        <attributes xmi:id="_XHqMUsLgEeugueWwllUb5w" value="&quot;F22&quot;">
+          <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/BasicFMs/BasicFMs.ecore#//Feature/id"/>
+        </attributes>
+      </nodes>
+      <nodes xmi:id="_XHqMU8LgEeugueWwllUb5w" name="" incoming="_XHqMW8LgEeugueWwllUb5w" outgoing="_XHqMWsLgEeugueWwllUb5w">
+        <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/PropLogicCTCs/PropLogicCTCs.ecore#//Implies"/>
+      </nodes>
+      <nodes xmi:id="_XHqMVMLgEeugueWwllUb5w" name="" incoming="_XHqMWsLgEeugueWwllUb5w">
+        <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/PropLogicCTCs/PropLogicCTCs.ecore#//Or"/>
+      </nodes>
+      <nodes xmi:id="_XHqMVcLgEeugueWwllUb5w" name="" outgoing="_XHqMW8LgEeugueWwllUb5w">
+        <type href="http://www.eclipse.org/emf/2011/Henshin/Trace#//Trace"/>
+      </nodes>
+      <nodes xmi:id="_XHqMVsLgEeugueWwllUb5w" name="" incoming="_XHqMXMLgEeugueWwllUb5w _XHqMXsLgEeugueWwllUb5w" outgoing="_XHqMXcLgEeugueWwllUb5w">
+        <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/BasicFMs/BasicFMs.ecore#//Feature"/>
+      </nodes>
+      <nodes xmi:id="_XHqMV8LgEeugueWwllUb5w" name="" outgoing="_XHqMXsLgEeugueWwllUb5w">
+        <type href="http://www.eclipse.org/emf/2011/Henshin/Trace#//Trace"/>
+      </nodes>
+      <nodes xmi:id="_XHqMWMLgEeugueWwllUb5w" name="" incoming="_XHqMX8LgEeugueWwllUb5w _XHqMYcLgEeugueWwllUb5w" outgoing="_XHqMYMLgEeugueWwllUb5w">
+        <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/BasicFMs/BasicFMs.ecore#//Feature"/>
+      </nodes>
+      <nodes xmi:id="_XHqMWcLgEeugueWwllUb5w" name="" outgoing="_XHqMYcLgEeugueWwllUb5w">
+        <type href="http://www.eclipse.org/emf/2011/Henshin/Trace#//Trace"/>
+      </nodes>
+      <edges xmi:id="_XHqMWsLgEeugueWwllUb5w" source="_XHqMU8LgEeugueWwllUb5w" target="_XHqMVMLgEeugueWwllUb5w">
+        <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/PropLogicCTCs/PropLogicCTCs.ecore#//Implies/right"/>
+      </edges>
+      <edges xmi:id="_XHqMW8LgEeugueWwllUb5w" source="_XHqMVcLgEeugueWwllUb5w" target="_XHqMU8LgEeugueWwllUb5w">
+        <type href="http://www.eclipse.org/emf/2011/Henshin/Trace#//Trace/source"/>
+      </edges>
+      <edges xmi:id="_XHqMXMLgEeugueWwllUb5w" source="_XHqMUcLgEeugueWwllUb5w" target="_XHqMVsLgEeugueWwllUb5w">
+        <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/BasicFMs/BasicFMs.ecore#//Feature/children"/>
+      </edges>
+      <edges xmi:id="_XHqMXcLgEeugueWwllUb5w" source="_XHqMVsLgEeugueWwllUb5w" target="_XHqMUcLgEeugueWwllUb5w">
+        <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/BasicFMs/BasicFMs.ecore#//Feature/parent"/>
+      </edges>
+      <edges xmi:id="_XHqMXsLgEeugueWwllUb5w" source="_XHqMV8LgEeugueWwllUb5w" target="_XHqMVsLgEeugueWwllUb5w">
+        <type href="http://www.eclipse.org/emf/2011/Henshin/Trace#//Trace/source"/>
+      </edges>
+      <edges xmi:id="_XHqMX8LgEeugueWwllUb5w" source="_XHqMUcLgEeugueWwllUb5w" target="_XHqMWMLgEeugueWwllUb5w">
+        <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/BasicFMs/BasicFMs.ecore#//Feature/children"/>
+      </edges>
+      <edges xmi:id="_XHqMYMLgEeugueWwllUb5w" source="_XHqMWMLgEeugueWwllUb5w" target="_XHqMUcLgEeugueWwllUb5w">
+        <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/BasicFMs/BasicFMs.ecore#//Feature/parent"/>
+      </edges>
+      <edges xmi:id="_XHqMYcLgEeugueWwllUb5w" source="_XHqMWcLgEeugueWwllUb5w" target="_XHqMWMLgEeugueWwllUb5w">
+        <type href="http://www.eclipse.org/emf/2011/Henshin/Trace#//Trace/source"/>
+      </edges>
+    </rhs>
+    <mappings xmi:id="_XHqMYsLgEeugueWwllUb5w" origin="_XHqMKsLgEeugueWwllUb5w" image="_XHqMUcLgEeugueWwllUb5w"/>
+    <mappings xmi:id="_XHqMY8LgEeugueWwllUb5w" origin="_XHqMLMLgEeugueWwllUb5w" image="_XHqMU8LgEeugueWwllUb5w"/>
+    <mappings xmi:id="_XHqMZMLgEeugueWwllUb5w" origin="_XHqMLcLgEeugueWwllUb5w" image="_XHqMVMLgEeugueWwllUb5w"/>
+    <mappings xmi:id="_XHqMZcLgEeugueWwllUb5w" origin="_XHqMLsLgEeugueWwllUb5w" image="_XHqMVcLgEeugueWwllUb5w"/>
+    <mappings xmi:id="_XHqMZsLgEeugueWwllUb5w" origin="_XHqML8LgEeugueWwllUb5w" image="_XHqMVsLgEeugueWwllUb5w"/>
+    <mappings xmi:id="_XHqMZ8LgEeugueWwllUb5w" origin="_XHqMMMLgEeugueWwllUb5w" image="_XHqMWMLgEeugueWwllUb5w"/>
+    <multiRules xmi:id="_XHqMaMLgEeugueWwllUb5w">
+      <lhs xmi:id="_XHqMacLgEeugueWwllUb5w" name="Lhs">
+        <nodes xmi:id="_XHqMasLgEeugueWwllUb5w" name="" incoming="_XHqMdcLgEeugueWwllUb5w _XHqMd8LgEeugueWwllUb5w _XHqMecLgEeugueWwllUb5w" outgoing="_XHqMdMLgEeugueWwllUb5w _XHqMdsLgEeugueWwllUb5w _XHqMeMLgEeugueWwllUb5w">
+          <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/CardinalityBasedFMs/CardinalityBasedFMs.ecore#//GroupCardinality"/>
+          <attributes xmi:id="_XHqMa8LgEeugueWwllUb5w" value="&quot;F22&quot;">
+            <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/BasicFMs/BasicFMs.ecore#//Feature/id"/>
+          </attributes>
+        </nodes>
+        <nodes xmi:id="_XHqMbMLgEeugueWwllUb5w" name="" incoming="_XHqMc8LgEeugueWwllUb5w" outgoing="_XHqMcsLgEeugueWwllUb5w">
+          <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/PropLogicCTCs/PropLogicCTCs.ecore#//Implies"/>
+        </nodes>
+        <nodes xmi:id="_XHqMbcLgEeugueWwllUb5w" name="" incoming="_XHqMcsLgEeugueWwllUb5w">
+          <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/PropLogicCTCs/PropLogicCTCs.ecore#//Or"/>
+        </nodes>
+        <nodes xmi:id="_XHqMbsLgEeugueWwllUb5w" name="" outgoing="_XHqMc8LgEeugueWwllUb5w">
+          <type href="http://www.eclipse.org/emf/2011/Henshin/Trace#//Trace"/>
+        </nodes>
+        <nodes xmi:id="_XHqMb8LgEeugueWwllUb5w" name="" incoming="_XHqMdMLgEeugueWwllUb5w" outgoing="_XHqMdcLgEeugueWwllUb5w">
+          <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/BasicFMs/BasicFMs.ecore#//Feature"/>
+        </nodes>
+        <nodes xmi:id="_XHqMcMLgEeugueWwllUb5w" name="" incoming="_XHqMdsLgEeugueWwllUb5w" outgoing="_XHqMd8LgEeugueWwllUb5w">
+          <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/BasicFMs/BasicFMs.ecore#//Feature"/>
+        </nodes>
+        <nodes xmi:id="_XHqMccLgEeugueWwllUb5w" name="" incoming="_XHqMeMLgEeugueWwllUb5w" outgoing="_XHqMecLgEeugueWwllUb5w">
+          <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/BasicFMs/BasicFMs.ecore#//Feature"/>
+        </nodes>
+        <edges xmi:id="_XHqMcsLgEeugueWwllUb5w" source="_XHqMbMLgEeugueWwllUb5w" target="_XHqMbcLgEeugueWwllUb5w">
+          <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/PropLogicCTCs/PropLogicCTCs.ecore#//Implies/right"/>
+        </edges>
+        <edges xmi:id="_XHqMc8LgEeugueWwllUb5w" source="_XHqMbsLgEeugueWwllUb5w" target="_XHqMbMLgEeugueWwllUb5w">
+          <type href="http://www.eclipse.org/emf/2011/Henshin/Trace#//Trace/source"/>
+        </edges>
+        <edges xmi:id="_XHqMdMLgEeugueWwllUb5w" source="_XHqMasLgEeugueWwllUb5w" target="_XHqMb8LgEeugueWwllUb5w">
+          <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/BasicFMs/BasicFMs.ecore#//Feature/children"/>
+        </edges>
+        <edges xmi:id="_XHqMdcLgEeugueWwllUb5w" source="_XHqMb8LgEeugueWwllUb5w" target="_XHqMasLgEeugueWwllUb5w">
+          <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/BasicFMs/BasicFMs.ecore#//Feature/parent"/>
+        </edges>
+        <edges xmi:id="_XHqMdsLgEeugueWwllUb5w" source="_XHqMasLgEeugueWwllUb5w" target="_XHqMcMLgEeugueWwllUb5w">
+          <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/BasicFMs/BasicFMs.ecore#//Feature/children"/>
+        </edges>
+        <edges xmi:id="_XHqMd8LgEeugueWwllUb5w" source="_XHqMcMLgEeugueWwllUb5w" target="_XHqMasLgEeugueWwllUb5w">
+          <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/BasicFMs/BasicFMs.ecore#//Feature/parent"/>
+        </edges>
+        <edges xmi:id="_XHqMeMLgEeugueWwllUb5w" source="_XHqMasLgEeugueWwllUb5w" target="_XHqMccLgEeugueWwllUb5w">
+          <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/BasicFMs/BasicFMs.ecore#//Feature/children"/>
+        </edges>
+        <edges xmi:id="_XHqMecLgEeugueWwllUb5w" source="_XHqMccLgEeugueWwllUb5w" target="_XHqMasLgEeugueWwllUb5w">
+          <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/BasicFMs/BasicFMs.ecore#//Feature/parent"/>
+        </edges>
+        <formula xsi:type="henshin:Not" xmi:id="_XHqMesLgEeugueWwllUb5w">
+          <child xsi:type="henshin:NestedCondition" xmi:id="_XHqMe8LgEeugueWwllUb5w">
+            <conclusion xmi:id="_XHqMfMLgEeugueWwllUb5w">
+              <nodes xmi:id="_XHqMfcLgEeugueWwllUb5w" name="" incoming="_XHqMjcLgEeugueWwllUb5w _XHqMkMLgEeugueWwllUb5w _XHqMlMLgEeugueWwllUb5w" outgoing="_XHqMjMLgEeugueWwllUb5w _XHqMj8LgEeugueWwllUb5w _XHqMk8LgEeugueWwllUb5w">
+                <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/CardinalityBasedFMs/CardinalityBasedFMs.ecore#//GroupCardinality"/>
+              </nodes>
+              <nodes xmi:id="_XHqMfsLgEeugueWwllUb5w" name="" incoming="_XHqMicLgEeugueWwllUb5w" outgoing="_XHqMiMLgEeugueWwllUb5w">
+                <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/PropLogicCTCs/PropLogicCTCs.ecore#//Implies"/>
+              </nodes>
+              <nodes xmi:id="_XHqMf8LgEeugueWwllUb5w" name="" incoming="_XHqMiMLgEeugueWwllUb5w" outgoing="_XHqMisLgEeugueWwllUb5w">
+                <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/PropLogicCTCs/PropLogicCTCs.ecore#//Or"/>
+              </nodes>
+              <nodes xmi:id="_XHqMgMLgEeugueWwllUb5w" name="" outgoing="_XHqMicLgEeugueWwllUb5w">
+                <type href="http://www.eclipse.org/emf/2011/Henshin/Trace#//Trace"/>
+              </nodes>
+              <nodes xmi:id="_XHqMgcLgEeugueWwllUb5w" name="" incoming="_XHqMisLgEeugueWwllUb5w" outgoing="_XHqMi8LgEeugueWwllUb5w _XHqMkcLgEeugueWwllUb5w _XHqMlcLgEeugueWwllUb5w">
+                <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/PropLogicCTCs/PropLogicCTCs.ecore#//And"/>
+              </nodes>
+              <nodes xmi:id="_XHqMgsLgEeugueWwllUb5w" name="" incoming="_XHqMi8LgEeugueWwllUb5w" outgoing="_XHqMjsLgEeugueWwllUb5w">
+                <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/PropLogicCTCs/PropLogicCTCs.ecore#//FeatureTerm"/>
+              </nodes>
+              <nodes xmi:id="_XHqMg8LgEeugueWwllUb5w" name="" incoming="_XHqMjMLgEeugueWwllUb5w _XHqMjsLgEeugueWwllUb5w" outgoing="_XHqMjcLgEeugueWwllUb5w">
+                <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/BasicFMs/BasicFMs.ecore#//Feature"/>
+              </nodes>
+              <nodes xmi:id="_XHqMhMLgEeugueWwllUb5w" name="" incoming="_XHqMj8LgEeugueWwllUb5w _XHqMksLgEeugueWwllUb5w" outgoing="_XHqMkMLgEeugueWwllUb5w">
+                <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/BasicFMs/BasicFMs.ecore#//Feature"/>
+              </nodes>
+              <nodes xmi:id="_XHqMhcLgEeugueWwllUb5w" name="" incoming="_XHqMkcLgEeugueWwllUb5w" outgoing="_XHqMksLgEeugueWwllUb5w">
+                <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/PropLogicCTCs/PropLogicCTCs.ecore#//FeatureTerm"/>
+              </nodes>
+              <nodes xmi:id="_XHqMhsLgEeugueWwllUb5w" name="" incoming="_XHqMk8LgEeugueWwllUb5w _XHqMlsLgEeugueWwllUb5w" outgoing="_XHqMlMLgEeugueWwllUb5w">
+                <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/BasicFMs/BasicFMs.ecore#//Feature"/>
+              </nodes>
+              <nodes xmi:id="_XHqMh8LgEeugueWwllUb5w" name="" incoming="_XHqMlcLgEeugueWwllUb5w" outgoing="_XHqMlsLgEeugueWwllUb5w">
+                <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/PropLogicCTCs/PropLogicCTCs.ecore#//FeatureTerm"/>
+              </nodes>
+              <edges xmi:id="_XHqMiMLgEeugueWwllUb5w" source="_XHqMfsLgEeugueWwllUb5w" target="_XHqMf8LgEeugueWwllUb5w">
+                <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/PropLogicCTCs/PropLogicCTCs.ecore#//Implies/right"/>
+              </edges>
+              <edges xmi:id="_XHqMicLgEeugueWwllUb5w" source="_XHqMgMLgEeugueWwllUb5w" target="_XHqMfsLgEeugueWwllUb5w">
+                <type href="http://www.eclipse.org/emf/2011/Henshin/Trace#//Trace/source"/>
+              </edges>
+              <edges xmi:id="_XHqMisLgEeugueWwllUb5w" source="_XHqMf8LgEeugueWwllUb5w" target="_XHqMgcLgEeugueWwllUb5w">
+                <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/PropLogicCTCs/PropLogicCTCs.ecore#//Or/terms"/>
+              </edges>
+              <edges xmi:id="_XHqMi8LgEeugueWwllUb5w" source="_XHqMgcLgEeugueWwllUb5w" target="_XHqMgsLgEeugueWwllUb5w">
+                <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/PropLogicCTCs/PropLogicCTCs.ecore#//And/terms"/>
+              </edges>
+              <edges xmi:id="_XHqMjMLgEeugueWwllUb5w" source="_XHqMfcLgEeugueWwllUb5w" target="_XHqMg8LgEeugueWwllUb5w">
+                <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/BasicFMs/BasicFMs.ecore#//Feature/children"/>
+              </edges>
+              <edges xmi:id="_XHqMjcLgEeugueWwllUb5w" source="_XHqMg8LgEeugueWwllUb5w" target="_XHqMfcLgEeugueWwllUb5w">
+                <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/BasicFMs/BasicFMs.ecore#//Feature/parent"/>
+              </edges>
+              <edges xmi:id="_XHqMjsLgEeugueWwllUb5w" source="_XHqMgsLgEeugueWwllUb5w" target="_XHqMg8LgEeugueWwllUb5w">
+                <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/PropLogicCTCs/PropLogicCTCs.ecore#//FeatureTerm/feature"/>
+              </edges>
+              <edges xmi:id="_XHqMj8LgEeugueWwllUb5w" source="_XHqMfcLgEeugueWwllUb5w" target="_XHqMhMLgEeugueWwllUb5w">
+                <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/BasicFMs/BasicFMs.ecore#//Feature/children"/>
+              </edges>
+              <edges xmi:id="_XHqMkMLgEeugueWwllUb5w" source="_XHqMhMLgEeugueWwllUb5w" target="_XHqMfcLgEeugueWwllUb5w">
+                <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/BasicFMs/BasicFMs.ecore#//Feature/parent"/>
+              </edges>
+              <edges xmi:id="_XHqMkcLgEeugueWwllUb5w" source="_XHqMgcLgEeugueWwllUb5w" target="_XHqMhcLgEeugueWwllUb5w">
+                <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/PropLogicCTCs/PropLogicCTCs.ecore#//And/terms"/>
+              </edges>
+              <edges xmi:id="_XHqMksLgEeugueWwllUb5w" source="_XHqMhcLgEeugueWwllUb5w" target="_XHqMhMLgEeugueWwllUb5w">
+                <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/PropLogicCTCs/PropLogicCTCs.ecore#//FeatureTerm/feature"/>
+              </edges>
+              <edges xmi:id="_XHqMk8LgEeugueWwllUb5w" source="_XHqMfcLgEeugueWwllUb5w" target="_XHqMhsLgEeugueWwllUb5w">
+                <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/BasicFMs/BasicFMs.ecore#//Feature/children"/>
+              </edges>
+              <edges xmi:id="_XHqMlMLgEeugueWwllUb5w" source="_XHqMhsLgEeugueWwllUb5w" target="_XHqMfcLgEeugueWwllUb5w">
+                <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/BasicFMs/BasicFMs.ecore#//Feature/parent"/>
+              </edges>
+              <edges xmi:id="_XHqMlcLgEeugueWwllUb5w" source="_XHqMgcLgEeugueWwllUb5w" target="_XHqMh8LgEeugueWwllUb5w">
+                <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/PropLogicCTCs/PropLogicCTCs.ecore#//And/terms"/>
+              </edges>
+              <edges xmi:id="_XHqMlsLgEeugueWwllUb5w" source="_XHqMh8LgEeugueWwllUb5w" target="_XHqMhsLgEeugueWwllUb5w">
+                <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/PropLogicCTCs/PropLogicCTCs.ecore#//FeatureTerm/feature"/>
+              </edges>
+            </conclusion>
+            <mappings xmi:id="_XHqMl8LgEeugueWwllUb5w" origin="_XHqMasLgEeugueWwllUb5w" image="_XHqMfcLgEeugueWwllUb5w"/>
+            <mappings xmi:id="_XHqMmMLgEeugueWwllUb5w" origin="_XHqMbMLgEeugueWwllUb5w" image="_XHqMfsLgEeugueWwllUb5w"/>
+            <mappings xmi:id="_XHqMmcLgEeugueWwllUb5w" origin="_XHqMbcLgEeugueWwllUb5w" image="_XHqMf8LgEeugueWwllUb5w"/>
+            <mappings xmi:id="_XHqMmsLgEeugueWwllUb5w" origin="_XHqMbsLgEeugueWwllUb5w" image="_XHqMgMLgEeugueWwllUb5w"/>
+            <mappings xmi:id="_XHqMm8LgEeugueWwllUb5w" origin="_XHqMb8LgEeugueWwllUb5w" image="_XHqMg8LgEeugueWwllUb5w"/>
+            <mappings xmi:id="_XHqMnMLgEeugueWwllUb5w" origin="_XHqMcMLgEeugueWwllUb5w" image="_XHqMhMLgEeugueWwllUb5w"/>
+            <mappings xmi:id="_XHqMncLgEeugueWwllUb5w" origin="_XHqMccLgEeugueWwllUb5w" image="_XHqMhsLgEeugueWwllUb5w"/>
+          </child>
+        </formula>
+      </lhs>
+      <rhs xmi:id="_XHqMnsLgEeugueWwllUb5w" name="Rhs">
+        <nodes xmi:id="_XHqMn8LgEeugueWwllUb5w" name="" incoming="_XHqMssLgEeugueWwllUb5w _XHqMtcLgEeugueWwllUb5w _XHqMusLgEeugueWwllUb5w" outgoing="_XHqMscLgEeugueWwllUb5w _XHqMtMLgEeugueWwllUb5w _XHqMucLgEeugueWwllUb5w">
+          <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/CardinalityBasedFMs/CardinalityBasedFMs.ecore#//GroupCardinality"/>
+          <attributes xmi:id="_XHqMoMLgEeugueWwllUb5w" value="&quot;F22&quot;">
+            <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/BasicFMs/BasicFMs.ecore#//Feature/id"/>
+          </attributes>
+        </nodes>
+        <nodes xmi:id="_XHqMocLgEeugueWwllUb5w" name="" incoming="_XHqMrsLgEeugueWwllUb5w" outgoing="_XHqMrcLgEeugueWwllUb5w">
+          <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/PropLogicCTCs/PropLogicCTCs.ecore#//Implies"/>
+        </nodes>
+        <nodes xmi:id="_XHqMosLgEeugueWwllUb5w" name="" incoming="_XHqMrcLgEeugueWwllUb5w" outgoing="_XHqMr8LgEeugueWwllUb5w">
+          <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/PropLogicCTCs/PropLogicCTCs.ecore#//Or"/>
+        </nodes>
+        <nodes xmi:id="_XHqMo8LgEeugueWwllUb5w" name="" outgoing="_XHqMrsLgEeugueWwllUb5w">
+          <type href="http://www.eclipse.org/emf/2011/Henshin/Trace#//Trace"/>
+        </nodes>
+        <nodes xmi:id="_XHqMpMLgEeugueWwllUb5w" name="" incoming="_XHqMr8LgEeugueWwllUb5w" outgoing="_XHqMsMLgEeugueWwllUb5w _XHqMtsLgEeugueWwllUb5w _XHqMu8LgEeugueWwllUb5w">
+          <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/PropLogicCTCs/PropLogicCTCs.ecore#//And"/>
+        </nodes>
+        <nodes xmi:id="_XHqMpcLgEeugueWwllUb5w" name="" incoming="_XHqMsMLgEeugueWwllUb5w" outgoing="_XHqMs8LgEeugueWwllUb5w">
+          <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/PropLogicCTCs/PropLogicCTCs.ecore#//FeatureTerm"/>
+        </nodes>
+        <nodes xmi:id="_XHqMpsLgEeugueWwllUb5w" name="" incoming="_XHqMscLgEeugueWwllUb5w _XHqMs8LgEeugueWwllUb5w" outgoing="_XHqMssLgEeugueWwllUb5w">
+          <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/BasicFMs/BasicFMs.ecore#//Feature"/>
+        </nodes>
+        <nodes xmi:id="_XHqMp8LgEeugueWwllUb5w" name="" incoming="_XHqMtMLgEeugueWwllUb5w _XHqMt8LgEeugueWwllUb5w _XHqMuMLgEeugueWwllUb5w" outgoing="_XHqMtcLgEeugueWwllUb5w">
+          <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/BasicFMs/BasicFMs.ecore#//Feature"/>
+        </nodes>
+        <nodes xmi:id="_XHqMqMLgEeugueWwllUb5w" name="" incoming="_XHqMtsLgEeugueWwllUb5w" outgoing="_XHqMt8LgEeugueWwllUb5w">
+          <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/PropLogicCTCs/PropLogicCTCs.ecore#//FeatureTerm"/>
+        </nodes>
+        <nodes xmi:id="_XHqMqcLgEeugueWwllUb5w" name="" outgoing="_XHqMuMLgEeugueWwllUb5w">
+          <type href="http://www.eclipse.org/emf/2011/Henshin/Trace#//Trace"/>
+        </nodes>
+        <nodes xmi:id="_XHqMqsLgEeugueWwllUb5w" name="" incoming="_XHqMucLgEeugueWwllUb5w _XHqMvMLgEeugueWwllUb5w _XHqMvcLgEeugueWwllUb5w" outgoing="_XHqMusLgEeugueWwllUb5w">
+          <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/BasicFMs/BasicFMs.ecore#//Feature"/>
+        </nodes>
+        <nodes xmi:id="_XHqMq8LgEeugueWwllUb5w" name="" incoming="_XHqMu8LgEeugueWwllUb5w" outgoing="_XHqMvMLgEeugueWwllUb5w">
+          <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/PropLogicCTCs/PropLogicCTCs.ecore#//FeatureTerm"/>
+        </nodes>
+        <nodes xmi:id="_XHqMrMLgEeugueWwllUb5w" name="" outgoing="_XHqMvcLgEeugueWwllUb5w">
+          <type href="http://www.eclipse.org/emf/2011/Henshin/Trace#//Trace"/>
+        </nodes>
+        <edges xmi:id="_XHqMrcLgEeugueWwllUb5w" source="_XHqMocLgEeugueWwllUb5w" target="_XHqMosLgEeugueWwllUb5w">
+          <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/PropLogicCTCs/PropLogicCTCs.ecore#//Implies/right"/>
+        </edges>
+        <edges xmi:id="_XHqMrsLgEeugueWwllUb5w" source="_XHqMo8LgEeugueWwllUb5w" target="_XHqMocLgEeugueWwllUb5w">
+          <type href="http://www.eclipse.org/emf/2011/Henshin/Trace#//Trace/source"/>
+        </edges>
+        <edges xmi:id="_XHqMr8LgEeugueWwllUb5w" source="_XHqMosLgEeugueWwllUb5w" target="_XHqMpMLgEeugueWwllUb5w">
+          <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/PropLogicCTCs/PropLogicCTCs.ecore#//Or/terms"/>
+        </edges>
+        <edges xmi:id="_XHqMsMLgEeugueWwllUb5w" source="_XHqMpMLgEeugueWwllUb5w" target="_XHqMpcLgEeugueWwllUb5w">
+          <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/PropLogicCTCs/PropLogicCTCs.ecore#//And/terms"/>
+        </edges>
+        <edges xmi:id="_XHqMscLgEeugueWwllUb5w" source="_XHqMn8LgEeugueWwllUb5w" target="_XHqMpsLgEeugueWwllUb5w">
+          <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/BasicFMs/BasicFMs.ecore#//Feature/children"/>
+        </edges>
+        <edges xmi:id="_XHqMssLgEeugueWwllUb5w" source="_XHqMpsLgEeugueWwllUb5w" target="_XHqMn8LgEeugueWwllUb5w">
+          <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/BasicFMs/BasicFMs.ecore#//Feature/parent"/>
+        </edges>
+        <edges xmi:id="_XHqMs8LgEeugueWwllUb5w" source="_XHqMpcLgEeugueWwllUb5w" target="_XHqMpsLgEeugueWwllUb5w">
+          <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/PropLogicCTCs/PropLogicCTCs.ecore#//FeatureTerm/feature"/>
+        </edges>
+        <edges xmi:id="_XHqMtMLgEeugueWwllUb5w" source="_XHqMn8LgEeugueWwllUb5w" target="_XHqMp8LgEeugueWwllUb5w">
+          <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/BasicFMs/BasicFMs.ecore#//Feature/children"/>
+        </edges>
+        <edges xmi:id="_XHqMtcLgEeugueWwllUb5w" source="_XHqMp8LgEeugueWwllUb5w" target="_XHqMn8LgEeugueWwllUb5w">
+          <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/BasicFMs/BasicFMs.ecore#//Feature/parent"/>
+        </edges>
+        <edges xmi:id="_XHqMtsLgEeugueWwllUb5w" source="_XHqMpMLgEeugueWwllUb5w" target="_XHqMqMLgEeugueWwllUb5w">
+          <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/PropLogicCTCs/PropLogicCTCs.ecore#//And/terms"/>
+        </edges>
+        <edges xmi:id="_XHqMt8LgEeugueWwllUb5w" source="_XHqMqMLgEeugueWwllUb5w" target="_XHqMp8LgEeugueWwllUb5w">
+          <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/PropLogicCTCs/PropLogicCTCs.ecore#//FeatureTerm/feature"/>
+        </edges>
+        <edges xmi:id="_XHqMuMLgEeugueWwllUb5w" source="_XHqMqcLgEeugueWwllUb5w" target="_XHqMp8LgEeugueWwllUb5w">
+          <type href="http://www.eclipse.org/emf/2011/Henshin/Trace#//Trace/source"/>
+        </edges>
+        <edges xmi:id="_XHqMucLgEeugueWwllUb5w" source="_XHqMn8LgEeugueWwllUb5w" target="_XHqMqsLgEeugueWwllUb5w">
+          <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/BasicFMs/BasicFMs.ecore#//Feature/children"/>
+        </edges>
+        <edges xmi:id="_XHqMusLgEeugueWwllUb5w" source="_XHqMqsLgEeugueWwllUb5w" target="_XHqMn8LgEeugueWwllUb5w">
+          <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/BasicFMs/BasicFMs.ecore#//Feature/parent"/>
+        </edges>
+        <edges xmi:id="_XHqMu8LgEeugueWwllUb5w" source="_XHqMpMLgEeugueWwllUb5w" target="_XHqMq8LgEeugueWwllUb5w">
+          <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/PropLogicCTCs/PropLogicCTCs.ecore#//And/terms"/>
+        </edges>
+        <edges xmi:id="_XHqMvMLgEeugueWwllUb5w" source="_XHqMq8LgEeugueWwllUb5w" target="_XHqMqsLgEeugueWwllUb5w">
+          <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/PropLogicCTCs/PropLogicCTCs.ecore#//FeatureTerm/feature"/>
+        </edges>
+        <edges xmi:id="_XHqMvcLgEeugueWwllUb5w" source="_XHqMrMLgEeugueWwllUb5w" target="_XHqMqsLgEeugueWwllUb5w">
+          <type href="http://www.eclipse.org/emf/2011/Henshin/Trace#//Trace/source"/>
+        </edges>
+      </rhs>
+      <mappings xmi:id="_XHqMvsLgEeugueWwllUb5w" origin="_XHqMasLgEeugueWwllUb5w" image="_XHqMn8LgEeugueWwllUb5w"/>
+      <mappings xmi:id="_XHqMv8LgEeugueWwllUb5w" origin="_XHqMbMLgEeugueWwllUb5w" image="_XHqMocLgEeugueWwllUb5w"/>
+      <mappings xmi:id="_XHqMwMLgEeugueWwllUb5w" origin="_XHqMbcLgEeugueWwllUb5w" image="_XHqMosLgEeugueWwllUb5w"/>
+      <mappings xmi:id="_XHqMwcLgEeugueWwllUb5w" origin="_XHqMbsLgEeugueWwllUb5w" image="_XHqMo8LgEeugueWwllUb5w"/>
+      <mappings xmi:id="_XHqMwsLgEeugueWwllUb5w" origin="_XHqMb8LgEeugueWwllUb5w" image="_XHqMpsLgEeugueWwllUb5w"/>
+      <mappings xmi:id="_XHqMw8LgEeugueWwllUb5w" origin="_XHqMcMLgEeugueWwllUb5w" image="_XHqMp8LgEeugueWwllUb5w"/>
+      <mappings xmi:id="_XHqMxMLgEeugueWwllUb5w" origin="_XHqMccLgEeugueWwllUb5w" image="_XHqMqsLgEeugueWwllUb5w"/>
+      <multiMappings xmi:id="_XHqMxcLgEeugueWwllUb5w" origin="_XHqMKsLgEeugueWwllUb5w" image="_XHqMasLgEeugueWwllUb5w"/>
+      <multiMappings xmi:id="_XHqMxsLgEeugueWwllUb5w" origin="_XHqMUcLgEeugueWwllUb5w" image="_XHqMn8LgEeugueWwllUb5w"/>
+      <multiMappings xmi:id="_XHqMx8LgEeugueWwllUb5w" origin="_XHqMLMLgEeugueWwllUb5w" image="_XHqMbMLgEeugueWwllUb5w"/>
+      <multiMappings xmi:id="_XHqMyMLgEeugueWwllUb5w" origin="_XHqMU8LgEeugueWwllUb5w" image="_XHqMocLgEeugueWwllUb5w"/>
+      <multiMappings xmi:id="_XHqMycLgEeugueWwllUb5w" origin="_XHqMLcLgEeugueWwllUb5w" image="_XHqMbcLgEeugueWwllUb5w"/>
+      <multiMappings xmi:id="_XHqMysLgEeugueWwllUb5w" origin="_XHqMVMLgEeugueWwllUb5w" image="_XHqMosLgEeugueWwllUb5w"/>
+      <multiMappings xmi:id="_XHqMy8LgEeugueWwllUb5w" origin="_XHqMLsLgEeugueWwllUb5w" image="_XHqMbsLgEeugueWwllUb5w"/>
+      <multiMappings xmi:id="_XHqMzMLgEeugueWwllUb5w" origin="_XHqMVcLgEeugueWwllUb5w" image="_XHqMo8LgEeugueWwllUb5w"/>
+      <multiMappings xmi:id="_XHqMzcLgEeugueWwllUb5w" origin="_XHqML8LgEeugueWwllUb5w" image="_XHqMcMLgEeugueWwllUb5w"/>
+      <multiMappings xmi:id="_XHqMzsLgEeugueWwllUb5w" origin="_XHqMVsLgEeugueWwllUb5w" image="_XHqMp8LgEeugueWwllUb5w"/>
+      <multiMappings xmi:id="_XHqMz8LgEeugueWwllUb5w" origin="_XHqMV8LgEeugueWwllUb5w" image="_XHqMqcLgEeugueWwllUb5w"/>
+      <multiMappings xmi:id="_XHqM0MLgEeugueWwllUb5w" origin="_XHqMMMLgEeugueWwllUb5w" image="_XHqMccLgEeugueWwllUb5w"/>
+      <multiMappings xmi:id="_XHqM0cLgEeugueWwllUb5w" origin="_XHqMWMLgEeugueWwllUb5w" image="_XHqMqsLgEeugueWwllUb5w"/>
+      <multiMappings xmi:id="_XHqM0sLgEeugueWwllUb5w" origin="_XHqMWcLgEeugueWwllUb5w" image="_XHqMrMLgEeugueWwllUb5w"/>
+    </multiRules>
+  </units>
+  <units xsi:type="henshin:LoopUnit" xmi:id="_XHqM08LgEeugueWwllUb5w" name="MultiF22_k3" subUnit="_XHqMKMLgEeugueWwllUb5w"/>
+  <units xsi:type="henshin:SequentialUnit" xmi:id="_XHqM1MLgEeugueWwllUb5w" name="MultiF22_k3Clean" subUnits="_XHqM08LgEeugueWwllUb5w _8lxfYDWDEeutge8AG_WnHw"/>
+  <units xsi:type="henshin:Rule" xmi:id="_XHqy4MLgEeugueWwllUb5w" name="F22_k4">
+    <lhs xmi:id="_XHqy4cLgEeugueWwllUb5w" name="Lhs">
+      <nodes xmi:id="_XHqy4sLgEeugueWwllUb5w" name="" incoming="_XHqy7cLgEeugueWwllUb5w _XHqy78LgEeugueWwllUb5w _XHqy8cLgEeugueWwllUb5w" outgoing="_XHqy7MLgEeugueWwllUb5w _XHqy7sLgEeugueWwllUb5w _XHqy8MLgEeugueWwllUb5w">
+        <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/CardinalityBasedFMs/CardinalityBasedFMs.ecore#//GroupCardinality"/>
+        <attributes xmi:id="_XHqy48LgEeugueWwllUb5w" value="&quot;F22&quot;">
+          <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/BasicFMs/BasicFMs.ecore#//Feature/id"/>
+        </attributes>
+      </nodes>
+      <nodes xmi:id="_XHqy5MLgEeugueWwllUb5w" name="" incoming="_XHqy68LgEeugueWwllUb5w" outgoing="_XHqy6sLgEeugueWwllUb5w">
+        <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/PropLogicCTCs/PropLogicCTCs.ecore#//Implies"/>
+      </nodes>
+      <nodes xmi:id="_XHqy5cLgEeugueWwllUb5w" name="" incoming="_XHqy6sLgEeugueWwllUb5w">
+        <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/PropLogicCTCs/PropLogicCTCs.ecore#//Or"/>
+      </nodes>
+      <nodes xmi:id="_XHqy5sLgEeugueWwllUb5w" name="" outgoing="_XHqy68LgEeugueWwllUb5w">
+        <type href="http://www.eclipse.org/emf/2011/Henshin/Trace#//Trace"/>
+      </nodes>
+      <nodes xmi:id="_XHqy58LgEeugueWwllUb5w" name="" incoming="_XHqy7MLgEeugueWwllUb5w" outgoing="_XHqy7cLgEeugueWwllUb5w">
+        <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/BasicFMs/BasicFMs.ecore#//Feature"/>
+      </nodes>
+      <nodes xmi:id="_XHqy6MLgEeugueWwllUb5w" name="" incoming="_XHqy7sLgEeugueWwllUb5w" outgoing="_XHqy78LgEeugueWwllUb5w">
+        <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/BasicFMs/BasicFMs.ecore#//Feature"/>
+      </nodes>
+      <nodes xmi:id="_XHqy6cLgEeugueWwllUb5w" name="" incoming="_XHqy8MLgEeugueWwllUb5w" outgoing="_XHqy8cLgEeugueWwllUb5w">
+        <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/BasicFMs/BasicFMs.ecore#//Feature"/>
+      </nodes>
+      <edges xmi:id="_XHqy6sLgEeugueWwllUb5w" source="_XHqy5MLgEeugueWwllUb5w" target="_XHqy5cLgEeugueWwllUb5w">
+        <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/PropLogicCTCs/PropLogicCTCs.ecore#//Implies/right"/>
+      </edges>
+      <edges xmi:id="_XHqy68LgEeugueWwllUb5w" source="_XHqy5sLgEeugueWwllUb5w" target="_XHqy5MLgEeugueWwllUb5w">
+        <type href="http://www.eclipse.org/emf/2011/Henshin/Trace#//Trace/source"/>
+      </edges>
+      <edges xmi:id="_XHqy7MLgEeugueWwllUb5w" source="_XHqy4sLgEeugueWwllUb5w" target="_XHqy58LgEeugueWwllUb5w">
+        <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/BasicFMs/BasicFMs.ecore#//Feature/children"/>
+      </edges>
+      <edges xmi:id="_XHqy7cLgEeugueWwllUb5w" source="_XHqy58LgEeugueWwllUb5w" target="_XHqy4sLgEeugueWwllUb5w">
+        <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/BasicFMs/BasicFMs.ecore#//Feature/parent"/>
+      </edges>
+      <edges xmi:id="_XHqy7sLgEeugueWwllUb5w" source="_XHqy4sLgEeugueWwllUb5w" target="_XHqy6MLgEeugueWwllUb5w">
+        <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/BasicFMs/BasicFMs.ecore#//Feature/children"/>
+      </edges>
+      <edges xmi:id="_XHqy78LgEeugueWwllUb5w" source="_XHqy6MLgEeugueWwllUb5w" target="_XHqy4sLgEeugueWwllUb5w">
+        <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/BasicFMs/BasicFMs.ecore#//Feature/parent"/>
+      </edges>
+      <edges xmi:id="_XHqy8MLgEeugueWwllUb5w" source="_XHqy4sLgEeugueWwllUb5w" target="_XHqy6cLgEeugueWwllUb5w">
+        <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/BasicFMs/BasicFMs.ecore#//Feature/children"/>
+      </edges>
+      <edges xmi:id="_XHqy8cLgEeugueWwllUb5w" source="_XHqy6cLgEeugueWwllUb5w" target="_XHqy4sLgEeugueWwllUb5w">
+        <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/BasicFMs/BasicFMs.ecore#//Feature/parent"/>
+      </edges>
+      <formula xsi:type="henshin:Not" xmi:id="_XHqy8sLgEeugueWwllUb5w">
+        <child xsi:type="henshin:NestedCondition" xmi:id="_XHqy88LgEeugueWwllUb5w">
+          <conclusion xmi:id="_XHqy9MLgEeugueWwllUb5w">
+            <nodes xmi:id="_XHqy9cLgEeugueWwllUb5w" name="" incoming="_XHqzAsLgEeugueWwllUb5w _XHqzBcLgEeugueWwllUb5w _XHqzCMLgEeugueWwllUb5w" outgoing="_XHqzAcLgEeugueWwllUb5w _XHqzBMLgEeugueWwllUb5w _XHqzB8LgEeugueWwllUb5w">
+              <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/CardinalityBasedFMs/CardinalityBasedFMs.ecore#//GroupCardinality"/>
+            </nodes>
+            <nodes xmi:id="_XHqy9sLgEeugueWwllUb5w" name="" incoming="_XHqzAMLgEeugueWwllUb5w" outgoing="_XHqy_8LgEeugueWwllUb5w">
+              <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/PropLogicCTCs/PropLogicCTCs.ecore#//Implies"/>
+            </nodes>
+            <nodes xmi:id="_XHqy98LgEeugueWwllUb5w" name="" incoming="_XHqy_8LgEeugueWwllUb5w">
+              <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/PropLogicCTCs/PropLogicCTCs.ecore#//Or"/>
+            </nodes>
+            <nodes xmi:id="_XHqy-MLgEeugueWwllUb5w" name="" outgoing="_XHqzAMLgEeugueWwllUb5w">
+              <type href="http://www.eclipse.org/emf/2011/Henshin/Trace#//Trace"/>
+            </nodes>
+            <nodes xmi:id="_XHqy-cLgEeugueWwllUb5w" name="" incoming="_XHqzAcLgEeugueWwllUb5w _XHqzA8LgEeugueWwllUb5w" outgoing="_XHqzAsLgEeugueWwllUb5w">
+              <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/BasicFMs/BasicFMs.ecore#//Feature"/>
+            </nodes>
+            <nodes xmi:id="_XHqy-sLgEeugueWwllUb5w" name="" outgoing="_XHqzA8LgEeugueWwllUb5w">
+              <type href="http://www.eclipse.org/emf/2011/Henshin/Trace#//Trace"/>
+            </nodes>
+            <nodes xmi:id="_XHqy-8LgEeugueWwllUb5w" name="" incoming="_XHqzBMLgEeugueWwllUb5w _XHqzBsLgEeugueWwllUb5w" outgoing="_XHqzBcLgEeugueWwllUb5w">
+              <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/BasicFMs/BasicFMs.ecore#//Feature"/>
+            </nodes>
+            <nodes xmi:id="_XHqy_MLgEeugueWwllUb5w" name="" outgoing="_XHqzBsLgEeugueWwllUb5w">
+              <type href="http://www.eclipse.org/emf/2011/Henshin/Trace#//Trace"/>
+            </nodes>
+            <nodes xmi:id="_XHqy_cLgEeugueWwllUb5w" name="" incoming="_XHqzB8LgEeugueWwllUb5w _XHqzCcLgEeugueWwllUb5w" outgoing="_XHqzCMLgEeugueWwllUb5w">
+              <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/BasicFMs/BasicFMs.ecore#//Feature"/>
+            </nodes>
+            <nodes xmi:id="_XHqy_sLgEeugueWwllUb5w" name="" outgoing="_XHqzCcLgEeugueWwllUb5w">
+              <type href="http://www.eclipse.org/emf/2011/Henshin/Trace#//Trace"/>
+            </nodes>
+            <edges xmi:id="_XHqy_8LgEeugueWwllUb5w" source="_XHqy9sLgEeugueWwllUb5w" target="_XHqy98LgEeugueWwllUb5w">
+              <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/PropLogicCTCs/PropLogicCTCs.ecore#//Implies/right"/>
+            </edges>
+            <edges xmi:id="_XHqzAMLgEeugueWwllUb5w" source="_XHqy-MLgEeugueWwllUb5w" target="_XHqy9sLgEeugueWwllUb5w">
+              <type href="http://www.eclipse.org/emf/2011/Henshin/Trace#//Trace/source"/>
+            </edges>
+            <edges xmi:id="_XHqzAcLgEeugueWwllUb5w" source="_XHqy9cLgEeugueWwllUb5w" target="_XHqy-cLgEeugueWwllUb5w">
+              <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/BasicFMs/BasicFMs.ecore#//Feature/children"/>
+            </edges>
+            <edges xmi:id="_XHqzAsLgEeugueWwllUb5w" source="_XHqy-cLgEeugueWwllUb5w" target="_XHqy9cLgEeugueWwllUb5w">
+              <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/BasicFMs/BasicFMs.ecore#//Feature/parent"/>
+            </edges>
+            <edges xmi:id="_XHqzA8LgEeugueWwllUb5w" source="_XHqy-sLgEeugueWwllUb5w" target="_XHqy-cLgEeugueWwllUb5w">
+              <type href="http://www.eclipse.org/emf/2011/Henshin/Trace#//Trace/source"/>
+            </edges>
+            <edges xmi:id="_XHqzBMLgEeugueWwllUb5w" source="_XHqy9cLgEeugueWwllUb5w" target="_XHqy-8LgEeugueWwllUb5w">
+              <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/BasicFMs/BasicFMs.ecore#//Feature/children"/>
+            </edges>
+            <edges xmi:id="_XHqzBcLgEeugueWwllUb5w" source="_XHqy-8LgEeugueWwllUb5w" target="_XHqy9cLgEeugueWwllUb5w">
+              <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/BasicFMs/BasicFMs.ecore#//Feature/parent"/>
+            </edges>
+            <edges xmi:id="_XHqzBsLgEeugueWwllUb5w" source="_XHqy_MLgEeugueWwllUb5w" target="_XHqy-8LgEeugueWwllUb5w">
+              <type href="http://www.eclipse.org/emf/2011/Henshin/Trace#//Trace/source"/>
+            </edges>
+            <edges xmi:id="_XHqzB8LgEeugueWwllUb5w" source="_XHqy9cLgEeugueWwllUb5w" target="_XHqy_cLgEeugueWwllUb5w">
+              <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/BasicFMs/BasicFMs.ecore#//Feature/children"/>
+            </edges>
+            <edges xmi:id="_XHqzCMLgEeugueWwllUb5w" source="_XHqy_cLgEeugueWwllUb5w" target="_XHqy9cLgEeugueWwllUb5w">
+              <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/BasicFMs/BasicFMs.ecore#//Feature/parent"/>
+            </edges>
+            <edges xmi:id="_XHqzCcLgEeugueWwllUb5w" source="_XHqy_sLgEeugueWwllUb5w" target="_XHqy_cLgEeugueWwllUb5w">
+              <type href="http://www.eclipse.org/emf/2011/Henshin/Trace#//Trace/source"/>
+            </edges>
+          </conclusion>
+          <mappings xmi:id="_XHqzCsLgEeugueWwllUb5w" origin="_XHqy4sLgEeugueWwllUb5w" image="_XHqy9cLgEeugueWwllUb5w"/>
+          <mappings xmi:id="_XHqzC8LgEeugueWwllUb5w" origin="_XHqy5MLgEeugueWwllUb5w" image="_XHqy9sLgEeugueWwllUb5w"/>
+          <mappings xmi:id="_XHqzDMLgEeugueWwllUb5w" origin="_XHqy5cLgEeugueWwllUb5w" image="_XHqy98LgEeugueWwllUb5w"/>
+          <mappings xmi:id="_XHqzDcLgEeugueWwllUb5w" origin="_XHqy5sLgEeugueWwllUb5w" image="_XHqy-MLgEeugueWwllUb5w"/>
+          <mappings xmi:id="_XHqzDsLgEeugueWwllUb5w" origin="_XHqy58LgEeugueWwllUb5w" image="_XHqy-cLgEeugueWwllUb5w"/>
+          <mappings xmi:id="_XHqzD8LgEeugueWwllUb5w" origin="_XHqy6MLgEeugueWwllUb5w" image="_XHqy-8LgEeugueWwllUb5w"/>
+          <mappings xmi:id="_XHqzEMLgEeugueWwllUb5w" origin="_XHqy6cLgEeugueWwllUb5w" image="_XHqy_cLgEeugueWwllUb5w"/>
+        </child>
+      </formula>
+    </lhs>
+    <rhs xmi:id="_XHqzEcLgEeugueWwllUb5w" name="Rhs">
+      <nodes xmi:id="_XHqzEsLgEeugueWwllUb5w" name="" incoming="_XHqzIMLgEeugueWwllUb5w _XHqzI8LgEeugueWwllUb5w _XHqzJsLgEeugueWwllUb5w" outgoing="_XHqzH8LgEeugueWwllUb5w _XHqzIsLgEeugueWwllUb5w _XHqzJcLgEeugueWwllUb5w">
+        <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/CardinalityBasedFMs/CardinalityBasedFMs.ecore#//GroupCardinality"/>
+        <attributes xmi:id="_XHqzE8LgEeugueWwllUb5w" value="&quot;F22&quot;">
+          <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/BasicFMs/BasicFMs.ecore#//Feature/id"/>
+        </attributes>
+      </nodes>
+      <nodes xmi:id="_XHqzFMLgEeugueWwllUb5w" name="" incoming="_XHqzHsLgEeugueWwllUb5w" outgoing="_XHqzHcLgEeugueWwllUb5w">
+        <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/PropLogicCTCs/PropLogicCTCs.ecore#//Implies"/>
+      </nodes>
+      <nodes xmi:id="_XHqzFcLgEeugueWwllUb5w" name="" incoming="_XHqzHcLgEeugueWwllUb5w">
+        <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/PropLogicCTCs/PropLogicCTCs.ecore#//Or"/>
+      </nodes>
+      <nodes xmi:id="_XHqzFsLgEeugueWwllUb5w" name="" outgoing="_XHqzHsLgEeugueWwllUb5w">
+        <type href="http://www.eclipse.org/emf/2011/Henshin/Trace#//Trace"/>
+      </nodes>
+      <nodes xmi:id="_XHqzF8LgEeugueWwllUb5w" name="" incoming="_XHqzH8LgEeugueWwllUb5w _XHqzIcLgEeugueWwllUb5w" outgoing="_XHqzIMLgEeugueWwllUb5w">
+        <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/BasicFMs/BasicFMs.ecore#//Feature"/>
+      </nodes>
+      <nodes xmi:id="_XHqzGMLgEeugueWwllUb5w" name="" outgoing="_XHqzIcLgEeugueWwllUb5w">
+        <type href="http://www.eclipse.org/emf/2011/Henshin/Trace#//Trace"/>
+      </nodes>
+      <nodes xmi:id="_XHqzGcLgEeugueWwllUb5w" name="" incoming="_XHqzIsLgEeugueWwllUb5w _XHqzJMLgEeugueWwllUb5w" outgoing="_XHqzI8LgEeugueWwllUb5w">
+        <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/BasicFMs/BasicFMs.ecore#//Feature"/>
+      </nodes>
+      <nodes xmi:id="_XHqzGsLgEeugueWwllUb5w" name="" outgoing="_XHqzJMLgEeugueWwllUb5w">
+        <type href="http://www.eclipse.org/emf/2011/Henshin/Trace#//Trace"/>
+      </nodes>
+      <nodes xmi:id="_XHqzG8LgEeugueWwllUb5w" name="" incoming="_XHqzJcLgEeugueWwllUb5w _XHqzJ8LgEeugueWwllUb5w" outgoing="_XHqzJsLgEeugueWwllUb5w">
+        <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/BasicFMs/BasicFMs.ecore#//Feature"/>
+      </nodes>
+      <nodes xmi:id="_XHqzHMLgEeugueWwllUb5w" name="" outgoing="_XHqzJ8LgEeugueWwllUb5w">
+        <type href="http://www.eclipse.org/emf/2011/Henshin/Trace#//Trace"/>
+      </nodes>
+      <edges xmi:id="_XHqzHcLgEeugueWwllUb5w" source="_XHqzFMLgEeugueWwllUb5w" target="_XHqzFcLgEeugueWwllUb5w">
+        <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/PropLogicCTCs/PropLogicCTCs.ecore#//Implies/right"/>
+      </edges>
+      <edges xmi:id="_XHqzHsLgEeugueWwllUb5w" source="_XHqzFsLgEeugueWwllUb5w" target="_XHqzFMLgEeugueWwllUb5w">
+        <type href="http://www.eclipse.org/emf/2011/Henshin/Trace#//Trace/source"/>
+      </edges>
+      <edges xmi:id="_XHqzH8LgEeugueWwllUb5w" source="_XHqzEsLgEeugueWwllUb5w" target="_XHqzF8LgEeugueWwllUb5w">
+        <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/BasicFMs/BasicFMs.ecore#//Feature/children"/>
+      </edges>
+      <edges xmi:id="_XHqzIMLgEeugueWwllUb5w" source="_XHqzF8LgEeugueWwllUb5w" target="_XHqzEsLgEeugueWwllUb5w">
+        <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/BasicFMs/BasicFMs.ecore#//Feature/parent"/>
+      </edges>
+      <edges xmi:id="_XHqzIcLgEeugueWwllUb5w" source="_XHqzGMLgEeugueWwllUb5w" target="_XHqzF8LgEeugueWwllUb5w">
+        <type href="http://www.eclipse.org/emf/2011/Henshin/Trace#//Trace/source"/>
+      </edges>
+      <edges xmi:id="_XHqzIsLgEeugueWwllUb5w" source="_XHqzEsLgEeugueWwllUb5w" target="_XHqzGcLgEeugueWwllUb5w">
+        <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/BasicFMs/BasicFMs.ecore#//Feature/children"/>
+      </edges>
+      <edges xmi:id="_XHqzI8LgEeugueWwllUb5w" source="_XHqzGcLgEeugueWwllUb5w" target="_XHqzEsLgEeugueWwllUb5w">
+        <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/BasicFMs/BasicFMs.ecore#//Feature/parent"/>
+      </edges>
+      <edges xmi:id="_XHqzJMLgEeugueWwllUb5w" source="_XHqzGsLgEeugueWwllUb5w" target="_XHqzGcLgEeugueWwllUb5w">
+        <type href="http://www.eclipse.org/emf/2011/Henshin/Trace#//Trace/source"/>
+      </edges>
+      <edges xmi:id="_XHqzJcLgEeugueWwllUb5w" source="_XHqzEsLgEeugueWwllUb5w" target="_XHqzG8LgEeugueWwllUb5w">
+        <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/BasicFMs/BasicFMs.ecore#//Feature/children"/>
+      </edges>
+      <edges xmi:id="_XHqzJsLgEeugueWwllUb5w" source="_XHqzG8LgEeugueWwllUb5w" target="_XHqzEsLgEeugueWwllUb5w">
+        <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/BasicFMs/BasicFMs.ecore#//Feature/parent"/>
+      </edges>
+      <edges xmi:id="_XHqzJ8LgEeugueWwllUb5w" source="_XHqzHMLgEeugueWwllUb5w" target="_XHqzG8LgEeugueWwllUb5w">
+        <type href="http://www.eclipse.org/emf/2011/Henshin/Trace#//Trace/source"/>
+      </edges>
+    </rhs>
+    <mappings xmi:id="_XHqzKMLgEeugueWwllUb5w" origin="_XHqy4sLgEeugueWwllUb5w" image="_XHqzEsLgEeugueWwllUb5w"/>
+    <mappings xmi:id="_XHqzKcLgEeugueWwllUb5w" origin="_XHqy5MLgEeugueWwllUb5w" image="_XHqzFMLgEeugueWwllUb5w"/>
+    <mappings xmi:id="_XHqzKsLgEeugueWwllUb5w" origin="_XHqy5cLgEeugueWwllUb5w" image="_XHqzFcLgEeugueWwllUb5w"/>
+    <mappings xmi:id="_XHqzK8LgEeugueWwllUb5w" origin="_XHqy5sLgEeugueWwllUb5w" image="_XHqzFsLgEeugueWwllUb5w"/>
+    <mappings xmi:id="_XHqzLMLgEeugueWwllUb5w" origin="_XHqy58LgEeugueWwllUb5w" image="_XHqzF8LgEeugueWwllUb5w"/>
+    <mappings xmi:id="_XHqzLcLgEeugueWwllUb5w" origin="_XHqy6MLgEeugueWwllUb5w" image="_XHqzGcLgEeugueWwllUb5w"/>
+    <mappings xmi:id="_XHqzLsLgEeugueWwllUb5w" origin="_XHqy6cLgEeugueWwllUb5w" image="_XHqzG8LgEeugueWwllUb5w"/>
+    <multiRules xmi:id="_XHqzL8LgEeugueWwllUb5w">
+      <lhs xmi:id="_XHqzMMLgEeugueWwllUb5w" name="Lhs">
+        <nodes xmi:id="_XHqzMcLgEeugueWwllUb5w" name="" incoming="_XHqzPcLgEeugueWwllUb5w _XHqzP8LgEeugueWwllUb5w _XHqzQcLgEeugueWwllUb5w _XHqzQ8LgEeugueWwllUb5w" outgoing="_XHqzPMLgEeugueWwllUb5w _XHqzPsLgEeugueWwllUb5w _XHqzQMLgEeugueWwllUb5w _XHqzQsLgEeugueWwllUb5w">
+          <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/CardinalityBasedFMs/CardinalityBasedFMs.ecore#//GroupCardinality"/>
+          <attributes xmi:id="_XHqzMsLgEeugueWwllUb5w" value="&quot;F22&quot;">
+            <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/BasicFMs/BasicFMs.ecore#//Feature/id"/>
+          </attributes>
+        </nodes>
+        <nodes xmi:id="_XHqzM8LgEeugueWwllUb5w" name="" incoming="_XHqzO8LgEeugueWwllUb5w" outgoing="_XHqzOsLgEeugueWwllUb5w">
+          <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/PropLogicCTCs/PropLogicCTCs.ecore#//Implies"/>
+        </nodes>
+        <nodes xmi:id="_XHqzNMLgEeugueWwllUb5w" name="" incoming="_XHqzOsLgEeugueWwllUb5w">
+          <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/PropLogicCTCs/PropLogicCTCs.ecore#//Or"/>
+        </nodes>
+        <nodes xmi:id="_XHqzNcLgEeugueWwllUb5w" name="" outgoing="_XHqzO8LgEeugueWwllUb5w">
+          <type href="http://www.eclipse.org/emf/2011/Henshin/Trace#//Trace"/>
+        </nodes>
+        <nodes xmi:id="_XHqzNsLgEeugueWwllUb5w" name="" incoming="_XHqzPMLgEeugueWwllUb5w" outgoing="_XHqzPcLgEeugueWwllUb5w">
+          <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/BasicFMs/BasicFMs.ecore#//Feature"/>
+        </nodes>
+        <nodes xmi:id="_XHqzN8LgEeugueWwllUb5w" name="" incoming="_XHqzPsLgEeugueWwllUb5w" outgoing="_XHqzP8LgEeugueWwllUb5w">
+          <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/BasicFMs/BasicFMs.ecore#//Feature"/>
+        </nodes>
+        <nodes xmi:id="_XHqzOMLgEeugueWwllUb5w" name="" incoming="_XHqzQMLgEeugueWwllUb5w" outgoing="_XHqzQcLgEeugueWwllUb5w">
+          <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/BasicFMs/BasicFMs.ecore#//Feature"/>
+        </nodes>
+        <nodes xmi:id="_XHqzOcLgEeugueWwllUb5w" name="" incoming="_XHqzQsLgEeugueWwllUb5w" outgoing="_XHqzQ8LgEeugueWwllUb5w">
+          <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/BasicFMs/BasicFMs.ecore#//Feature"/>
+        </nodes>
+        <edges xmi:id="_XHqzOsLgEeugueWwllUb5w" source="_XHqzM8LgEeugueWwllUb5w" target="_XHqzNMLgEeugueWwllUb5w">
+          <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/PropLogicCTCs/PropLogicCTCs.ecore#//Implies/right"/>
+        </edges>
+        <edges xmi:id="_XHqzO8LgEeugueWwllUb5w" source="_XHqzNcLgEeugueWwllUb5w" target="_XHqzM8LgEeugueWwllUb5w">
+          <type href="http://www.eclipse.org/emf/2011/Henshin/Trace#//Trace/source"/>
+        </edges>
+        <edges xmi:id="_XHqzPMLgEeugueWwllUb5w" source="_XHqzMcLgEeugueWwllUb5w" target="_XHqzNsLgEeugueWwllUb5w">
+          <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/BasicFMs/BasicFMs.ecore#//Feature/children"/>
+        </edges>
+        <edges xmi:id="_XHqzPcLgEeugueWwllUb5w" source="_XHqzNsLgEeugueWwllUb5w" target="_XHqzMcLgEeugueWwllUb5w">
+          <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/BasicFMs/BasicFMs.ecore#//Feature/parent"/>
+        </edges>
+        <edges xmi:id="_XHqzPsLgEeugueWwllUb5w" source="_XHqzMcLgEeugueWwllUb5w" target="_XHqzN8LgEeugueWwllUb5w">
+          <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/BasicFMs/BasicFMs.ecore#//Feature/children"/>
+        </edges>
+        <edges xmi:id="_XHqzP8LgEeugueWwllUb5w" source="_XHqzN8LgEeugueWwllUb5w" target="_XHqzMcLgEeugueWwllUb5w">
+          <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/BasicFMs/BasicFMs.ecore#//Feature/parent"/>
+        </edges>
+        <edges xmi:id="_XHqzQMLgEeugueWwllUb5w" source="_XHqzMcLgEeugueWwllUb5w" target="_XHqzOMLgEeugueWwllUb5w">
+          <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/BasicFMs/BasicFMs.ecore#//Feature/children"/>
+        </edges>
+        <edges xmi:id="_XHqzQcLgEeugueWwllUb5w" source="_XHqzOMLgEeugueWwllUb5w" target="_XHqzMcLgEeugueWwllUb5w">
+          <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/BasicFMs/BasicFMs.ecore#//Feature/parent"/>
+        </edges>
+        <edges xmi:id="_XHqzQsLgEeugueWwllUb5w" source="_XHqzMcLgEeugueWwllUb5w" target="_XHqzOcLgEeugueWwllUb5w">
+          <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/BasicFMs/BasicFMs.ecore#//Feature/children"/>
+        </edges>
+        <edges xmi:id="_XHqzQ8LgEeugueWwllUb5w" source="_XHqzOcLgEeugueWwllUb5w" target="_XHqzMcLgEeugueWwllUb5w">
+          <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/BasicFMs/BasicFMs.ecore#//Feature/parent"/>
+        </edges>
+        <formula xsi:type="henshin:Not" xmi:id="_XHqzRMLgEeugueWwllUb5w">
+          <child xsi:type="henshin:NestedCondition" xmi:id="_XHqzRcLgEeugueWwllUb5w">
+            <conclusion xmi:id="_XHqzRsLgEeugueWwllUb5w">
+              <nodes xmi:id="_XHqzR8LgEeugueWwllUb5w" name="" incoming="_XHqzWcLgEeugueWwllUb5w _XHqzXMLgEeugueWwllUb5w _XHqzYMLgEeugueWwllUb5w _XHqzZMLgEeugueWwllUb5w" outgoing="_XHqzWMLgEeugueWwllUb5w _XHqzW8LgEeugueWwllUb5w _XHqzX8LgEeugueWwllUb5w _XHqzY8LgEeugueWwllUb5w">
+                <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/CardinalityBasedFMs/CardinalityBasedFMs.ecore#//GroupCardinality"/>
+              </nodes>
+              <nodes xmi:id="_XHqzSMLgEeugueWwllUb5w" name="" incoming="_XHqzVcLgEeugueWwllUb5w" outgoing="_XHqzVMLgEeugueWwllUb5w">
+                <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/PropLogicCTCs/PropLogicCTCs.ecore#//Implies"/>
+              </nodes>
+              <nodes xmi:id="_XHqzScLgEeugueWwllUb5w" name="" incoming="_XHqzVMLgEeugueWwllUb5w" outgoing="_XHqzVsLgEeugueWwllUb5w">
+                <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/PropLogicCTCs/PropLogicCTCs.ecore#//Or"/>
+              </nodes>
+              <nodes xmi:id="_XHqzSsLgEeugueWwllUb5w" name="" outgoing="_XHqzVcLgEeugueWwllUb5w">
+                <type href="http://www.eclipse.org/emf/2011/Henshin/Trace#//Trace"/>
+              </nodes>
+              <nodes xmi:id="_XHqzS8LgEeugueWwllUb5w" name="" incoming="_XHqzVsLgEeugueWwllUb5w" outgoing="_XHqzV8LgEeugueWwllUb5w _XHqzXcLgEeugueWwllUb5w _XHqzYcLgEeugueWwllUb5w _XHqzZcLgEeugueWwllUb5w">
+                <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/PropLogicCTCs/PropLogicCTCs.ecore#//And"/>
+              </nodes>
+              <nodes xmi:id="_XHqzTMLgEeugueWwllUb5w" name="" incoming="_XHqzV8LgEeugueWwllUb5w" outgoing="_XHqzWsLgEeugueWwllUb5w">
+                <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/PropLogicCTCs/PropLogicCTCs.ecore#//FeatureTerm"/>
+              </nodes>
+              <nodes xmi:id="_XHqzTcLgEeugueWwllUb5w" name="" incoming="_XHqzWMLgEeugueWwllUb5w _XHqzWsLgEeugueWwllUb5w" outgoing="_XHqzWcLgEeugueWwllUb5w">
+                <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/BasicFMs/BasicFMs.ecore#//Feature"/>
+              </nodes>
+              <nodes xmi:id="_XHqzTsLgEeugueWwllUb5w" name="" incoming="_XHqzW8LgEeugueWwllUb5w _XHqzXsLgEeugueWwllUb5w" outgoing="_XHqzXMLgEeugueWwllUb5w">
+                <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/BasicFMs/BasicFMs.ecore#//Feature"/>
+              </nodes>
+              <nodes xmi:id="_XHqzT8LgEeugueWwllUb5w" name="" incoming="_XHqzXcLgEeugueWwllUb5w" outgoing="_XHqzXsLgEeugueWwllUb5w">
+                <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/PropLogicCTCs/PropLogicCTCs.ecore#//FeatureTerm"/>
+              </nodes>
+              <nodes xmi:id="_XHqzUMLgEeugueWwllUb5w" name="" incoming="_XHqzX8LgEeugueWwllUb5w _XHqzYsLgEeugueWwllUb5w" outgoing="_XHqzYMLgEeugueWwllUb5w">
+                <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/BasicFMs/BasicFMs.ecore#//Feature"/>
+              </nodes>
+              <nodes xmi:id="_XHqzUcLgEeugueWwllUb5w" name="" incoming="_XHqzYcLgEeugueWwllUb5w" outgoing="_XHqzYsLgEeugueWwllUb5w">
+                <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/PropLogicCTCs/PropLogicCTCs.ecore#//FeatureTerm"/>
+              </nodes>
+              <nodes xmi:id="_XHqzUsLgEeugueWwllUb5w" name="" incoming="_XHqzY8LgEeugueWwllUb5w _XHqzZsLgEeugueWwllUb5w" outgoing="_XHqzZMLgEeugueWwllUb5w">
+                <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/BasicFMs/BasicFMs.ecore#//Feature"/>
+              </nodes>
+              <nodes xmi:id="_XHqzU8LgEeugueWwllUb5w" name="" incoming="_XHqzZcLgEeugueWwllUb5w" outgoing="_XHqzZsLgEeugueWwllUb5w">
+                <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/PropLogicCTCs/PropLogicCTCs.ecore#//FeatureTerm"/>
+              </nodes>
+              <edges xmi:id="_XHqzVMLgEeugueWwllUb5w" source="_XHqzSMLgEeugueWwllUb5w" target="_XHqzScLgEeugueWwllUb5w">
+                <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/PropLogicCTCs/PropLogicCTCs.ecore#//Implies/right"/>
+              </edges>
+              <edges xmi:id="_XHqzVcLgEeugueWwllUb5w" source="_XHqzSsLgEeugueWwllUb5w" target="_XHqzSMLgEeugueWwllUb5w">
+                <type href="http://www.eclipse.org/emf/2011/Henshin/Trace#//Trace/source"/>
+              </edges>
+              <edges xmi:id="_XHqzVsLgEeugueWwllUb5w" source="_XHqzScLgEeugueWwllUb5w" target="_XHqzS8LgEeugueWwllUb5w">
+                <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/PropLogicCTCs/PropLogicCTCs.ecore#//Or/terms"/>
+              </edges>
+              <edges xmi:id="_XHqzV8LgEeugueWwllUb5w" source="_XHqzS8LgEeugueWwllUb5w" target="_XHqzTMLgEeugueWwllUb5w">
+                <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/PropLogicCTCs/PropLogicCTCs.ecore#//And/terms"/>
+              </edges>
+              <edges xmi:id="_XHqzWMLgEeugueWwllUb5w" source="_XHqzR8LgEeugueWwllUb5w" target="_XHqzTcLgEeugueWwllUb5w">
+                <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/BasicFMs/BasicFMs.ecore#//Feature/children"/>
+              </edges>
+              <edges xmi:id="_XHqzWcLgEeugueWwllUb5w" source="_XHqzTcLgEeugueWwllUb5w" target="_XHqzR8LgEeugueWwllUb5w">
+                <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/BasicFMs/BasicFMs.ecore#//Feature/parent"/>
+              </edges>
+              <edges xmi:id="_XHqzWsLgEeugueWwllUb5w" source="_XHqzTMLgEeugueWwllUb5w" target="_XHqzTcLgEeugueWwllUb5w">
+                <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/PropLogicCTCs/PropLogicCTCs.ecore#//FeatureTerm/feature"/>
+              </edges>
+              <edges xmi:id="_XHqzW8LgEeugueWwllUb5w" source="_XHqzR8LgEeugueWwllUb5w" target="_XHqzTsLgEeugueWwllUb5w">
+                <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/BasicFMs/BasicFMs.ecore#//Feature/children"/>
+              </edges>
+              <edges xmi:id="_XHqzXMLgEeugueWwllUb5w" source="_XHqzTsLgEeugueWwllUb5w" target="_XHqzR8LgEeugueWwllUb5w">
+                <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/BasicFMs/BasicFMs.ecore#//Feature/parent"/>
+              </edges>
+              <edges xmi:id="_XHqzXcLgEeugueWwllUb5w" source="_XHqzS8LgEeugueWwllUb5w" target="_XHqzT8LgEeugueWwllUb5w">
+                <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/PropLogicCTCs/PropLogicCTCs.ecore#//And/terms"/>
+              </edges>
+              <edges xmi:id="_XHqzXsLgEeugueWwllUb5w" source="_XHqzT8LgEeugueWwllUb5w" target="_XHqzTsLgEeugueWwllUb5w">
+                <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/PropLogicCTCs/PropLogicCTCs.ecore#//FeatureTerm/feature"/>
+              </edges>
+              <edges xmi:id="_XHqzX8LgEeugueWwllUb5w" source="_XHqzR8LgEeugueWwllUb5w" target="_XHqzUMLgEeugueWwllUb5w">
+                <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/BasicFMs/BasicFMs.ecore#//Feature/children"/>
+              </edges>
+              <edges xmi:id="_XHqzYMLgEeugueWwllUb5w" source="_XHqzUMLgEeugueWwllUb5w" target="_XHqzR8LgEeugueWwllUb5w">
+                <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/BasicFMs/BasicFMs.ecore#//Feature/parent"/>
+              </edges>
+              <edges xmi:id="_XHqzYcLgEeugueWwllUb5w" source="_XHqzS8LgEeugueWwllUb5w" target="_XHqzUcLgEeugueWwllUb5w">
+                <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/PropLogicCTCs/PropLogicCTCs.ecore#//And/terms"/>
+              </edges>
+              <edges xmi:id="_XHqzYsLgEeugueWwllUb5w" source="_XHqzUcLgEeugueWwllUb5w" target="_XHqzUMLgEeugueWwllUb5w">
+                <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/PropLogicCTCs/PropLogicCTCs.ecore#//FeatureTerm/feature"/>
+              </edges>
+              <edges xmi:id="_XHqzY8LgEeugueWwllUb5w" source="_XHqzR8LgEeugueWwllUb5w" target="_XHqzUsLgEeugueWwllUb5w">
+                <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/BasicFMs/BasicFMs.ecore#//Feature/children"/>
+              </edges>
+              <edges xmi:id="_XHqzZMLgEeugueWwllUb5w" source="_XHqzUsLgEeugueWwllUb5w" target="_XHqzR8LgEeugueWwllUb5w">
+                <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/BasicFMs/BasicFMs.ecore#//Feature/parent"/>
+              </edges>
+              <edges xmi:id="_XHqzZcLgEeugueWwllUb5w" source="_XHqzS8LgEeugueWwllUb5w" target="_XHqzU8LgEeugueWwllUb5w">
+                <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/PropLogicCTCs/PropLogicCTCs.ecore#//And/terms"/>
+              </edges>
+              <edges xmi:id="_XHqzZsLgEeugueWwllUb5w" source="_XHqzU8LgEeugueWwllUb5w" target="_XHqzUsLgEeugueWwllUb5w">
+                <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/PropLogicCTCs/PropLogicCTCs.ecore#//FeatureTerm/feature"/>
+              </edges>
+            </conclusion>
+            <mappings xmi:id="_XHqzZ8LgEeugueWwllUb5w" origin="_XHqzMcLgEeugueWwllUb5w" image="_XHqzR8LgEeugueWwllUb5w"/>
+            <mappings xmi:id="_XHqzaMLgEeugueWwllUb5w" origin="_XHqzM8LgEeugueWwllUb5w" image="_XHqzSMLgEeugueWwllUb5w"/>
+            <mappings xmi:id="_XHqzacLgEeugueWwllUb5w" origin="_XHqzNMLgEeugueWwllUb5w" image="_XHqzScLgEeugueWwllUb5w"/>
+            <mappings xmi:id="_XHqzasLgEeugueWwllUb5w" origin="_XHqzNcLgEeugueWwllUb5w" image="_XHqzSsLgEeugueWwllUb5w"/>
+            <mappings xmi:id="_XHqza8LgEeugueWwllUb5w" origin="_XHqzNsLgEeugueWwllUb5w" image="_XHqzTcLgEeugueWwllUb5w"/>
+            <mappings xmi:id="_XHqzbMLgEeugueWwllUb5w" origin="_XHqzN8LgEeugueWwllUb5w" image="_XHqzTsLgEeugueWwllUb5w"/>
+            <mappings xmi:id="_XHqzbcLgEeugueWwllUb5w" origin="_XHqzOMLgEeugueWwllUb5w" image="_XHqzUMLgEeugueWwllUb5w"/>
+            <mappings xmi:id="_XHqzbsLgEeugueWwllUb5w" origin="_XHqzOcLgEeugueWwllUb5w" image="_XHqzUsLgEeugueWwllUb5w"/>
+          </child>
+        </formula>
+      </lhs>
+      <rhs xmi:id="_XHqzb8LgEeugueWwllUb5w" name="Rhs">
+        <nodes xmi:id="_XHqzcMLgEeugueWwllUb5w" name="" incoming="_XHqzhsLgEeugueWwllUb5w _XHqzicLgEeugueWwllUb5w _XHqzjsLgEeugueWwllUb5w _XHqzk8LgEeugueWwllUb5w" outgoing="_XHqzhcLgEeugueWwllUb5w _XHqziMLgEeugueWwllUb5w _XHqzjcLgEeugueWwllUb5w _XHqzksLgEeugueWwllUb5w">
+          <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/CardinalityBasedFMs/CardinalityBasedFMs.ecore#//GroupCardinality"/>
+          <attributes xmi:id="_XHqzccLgEeugueWwllUb5w" value="&quot;F22&quot;">
+            <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/BasicFMs/BasicFMs.ecore#//Feature/id"/>
+          </attributes>
+        </nodes>
+        <nodes xmi:id="_XHqzcsLgEeugueWwllUb5w" name="" incoming="_XHqzgsLgEeugueWwllUb5w" outgoing="_XHqzgcLgEeugueWwllUb5w">
+          <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/PropLogicCTCs/PropLogicCTCs.ecore#//Implies"/>
+        </nodes>
+        <nodes xmi:id="_XHqzc8LgEeugueWwllUb5w" name="" incoming="_XHqzgcLgEeugueWwllUb5w" outgoing="_XHqzg8LgEeugueWwllUb5w">
+          <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/PropLogicCTCs/PropLogicCTCs.ecore#//Or"/>
+        </nodes>
+        <nodes xmi:id="_XHqzdMLgEeugueWwllUb5w" name="" outgoing="_XHqzgsLgEeugueWwllUb5w">
+          <type href="http://www.eclipse.org/emf/2011/Henshin/Trace#//Trace"/>
+        </nodes>
+        <nodes xmi:id="_XHqzdcLgEeugueWwllUb5w" name="" incoming="_XHqzg8LgEeugueWwllUb5w" outgoing="_XHqzhMLgEeugueWwllUb5w _XHqzisLgEeugueWwllUb5w _XHqzj8LgEeugueWwllUb5w _XHqzlMLgEeugueWwllUb5w">
+          <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/PropLogicCTCs/PropLogicCTCs.ecore#//And"/>
+        </nodes>
+        <nodes xmi:id="_XHqzdsLgEeugueWwllUb5w" name="" incoming="_XHqzhMLgEeugueWwllUb5w" outgoing="_XHqzh8LgEeugueWwllUb5w">
+          <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/PropLogicCTCs/PropLogicCTCs.ecore#//FeatureTerm"/>
+        </nodes>
+        <nodes xmi:id="_XHqzd8LgEeugueWwllUb5w" name="" incoming="_XHqzhcLgEeugueWwllUb5w _XHqzh8LgEeugueWwllUb5w" outgoing="_XHqzhsLgEeugueWwllUb5w">
+          <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/BasicFMs/BasicFMs.ecore#//Feature"/>
+        </nodes>
+        <nodes xmi:id="_XHqzeMLgEeugueWwllUb5w" name="" incoming="_XHqziMLgEeugueWwllUb5w _XHqzi8LgEeugueWwllUb5w _XHqzjMLgEeugueWwllUb5w" outgoing="_XHqzicLgEeugueWwllUb5w">
+          <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/BasicFMs/BasicFMs.ecore#//Feature"/>
+        </nodes>
+        <nodes xmi:id="_XHqzecLgEeugueWwllUb5w" name="" incoming="_XHqzisLgEeugueWwllUb5w" outgoing="_XHqzi8LgEeugueWwllUb5w">
+          <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/PropLogicCTCs/PropLogicCTCs.ecore#//FeatureTerm"/>
+        </nodes>
+        <nodes xmi:id="_XHqzesLgEeugueWwllUb5w" name="" outgoing="_XHqzjMLgEeugueWwllUb5w">
+          <type href="http://www.eclipse.org/emf/2011/Henshin/Trace#//Trace"/>
+        </nodes>
+        <nodes xmi:id="_XHqze8LgEeugueWwllUb5w" name="" incoming="_XHqzjcLgEeugueWwllUb5w _XHqzkMLgEeugueWwllUb5w _XHqzkcLgEeugueWwllUb5w" outgoing="_XHqzjsLgEeugueWwllUb5w">
+          <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/BasicFMs/BasicFMs.ecore#//Feature"/>
+        </nodes>
+        <nodes xmi:id="_XHqzfMLgEeugueWwllUb5w" name="" incoming="_XHqzj8LgEeugueWwllUb5w" outgoing="_XHqzkMLgEeugueWwllUb5w">
+          <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/PropLogicCTCs/PropLogicCTCs.ecore#//FeatureTerm"/>
+        </nodes>
+        <nodes xmi:id="_XHqzfcLgEeugueWwllUb5w" name="" outgoing="_XHqzkcLgEeugueWwllUb5w">
+          <type href="http://www.eclipse.org/emf/2011/Henshin/Trace#//Trace"/>
+        </nodes>
+        <nodes xmi:id="_XHqzfsLgEeugueWwllUb5w" name="" incoming="_XHqzksLgEeugueWwllUb5w _XHqzlcLgEeugueWwllUb5w _XHqzlsLgEeugueWwllUb5w" outgoing="_XHqzk8LgEeugueWwllUb5w">
+          <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/BasicFMs/BasicFMs.ecore#//Feature"/>
+        </nodes>
+        <nodes xmi:id="_XHqzf8LgEeugueWwllUb5w" name="" incoming="_XHqzlMLgEeugueWwllUb5w" outgoing="_XHqzlcLgEeugueWwllUb5w">
+          <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/PropLogicCTCs/PropLogicCTCs.ecore#//FeatureTerm"/>
+        </nodes>
+        <nodes xmi:id="_XHqzgMLgEeugueWwllUb5w" name="" outgoing="_XHqzlsLgEeugueWwllUb5w">
+          <type href="http://www.eclipse.org/emf/2011/Henshin/Trace#//Trace"/>
+        </nodes>
+        <edges xmi:id="_XHqzgcLgEeugueWwllUb5w" source="_XHqzcsLgEeugueWwllUb5w" target="_XHqzc8LgEeugueWwllUb5w">
+          <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/PropLogicCTCs/PropLogicCTCs.ecore#//Implies/right"/>
+        </edges>
+        <edges xmi:id="_XHqzgsLgEeugueWwllUb5w" source="_XHqzdMLgEeugueWwllUb5w" target="_XHqzcsLgEeugueWwllUb5w">
+          <type href="http://www.eclipse.org/emf/2011/Henshin/Trace#//Trace/source"/>
+        </edges>
+        <edges xmi:id="_XHqzg8LgEeugueWwllUb5w" source="_XHqzc8LgEeugueWwllUb5w" target="_XHqzdcLgEeugueWwllUb5w">
+          <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/PropLogicCTCs/PropLogicCTCs.ecore#//Or/terms"/>
+        </edges>
+        <edges xmi:id="_XHqzhMLgEeugueWwllUb5w" source="_XHqzdcLgEeugueWwllUb5w" target="_XHqzdsLgEeugueWwllUb5w">
+          <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/PropLogicCTCs/PropLogicCTCs.ecore#//And/terms"/>
+        </edges>
+        <edges xmi:id="_XHqzhcLgEeugueWwllUb5w" source="_XHqzcMLgEeugueWwllUb5w" target="_XHqzd8LgEeugueWwllUb5w">
+          <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/BasicFMs/BasicFMs.ecore#//Feature/children"/>
+        </edges>
+        <edges xmi:id="_XHqzhsLgEeugueWwllUb5w" source="_XHqzd8LgEeugueWwllUb5w" target="_XHqzcMLgEeugueWwllUb5w">
+          <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/BasicFMs/BasicFMs.ecore#//Feature/parent"/>
+        </edges>
+        <edges xmi:id="_XHqzh8LgEeugueWwllUb5w" source="_XHqzdsLgEeugueWwllUb5w" target="_XHqzd8LgEeugueWwllUb5w">
+          <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/PropLogicCTCs/PropLogicCTCs.ecore#//FeatureTerm/feature"/>
+        </edges>
+        <edges xmi:id="_XHqziMLgEeugueWwllUb5w" source="_XHqzcMLgEeugueWwllUb5w" target="_XHqzeMLgEeugueWwllUb5w">
+          <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/BasicFMs/BasicFMs.ecore#//Feature/children"/>
+        </edges>
+        <edges xmi:id="_XHqzicLgEeugueWwllUb5w" source="_XHqzeMLgEeugueWwllUb5w" target="_XHqzcMLgEeugueWwllUb5w">
+          <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/BasicFMs/BasicFMs.ecore#//Feature/parent"/>
+        </edges>
+        <edges xmi:id="_XHqzisLgEeugueWwllUb5w" source="_XHqzdcLgEeugueWwllUb5w" target="_XHqzecLgEeugueWwllUb5w">
+          <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/PropLogicCTCs/PropLogicCTCs.ecore#//And/terms"/>
+        </edges>
+        <edges xmi:id="_XHqzi8LgEeugueWwllUb5w" source="_XHqzecLgEeugueWwllUb5w" target="_XHqzeMLgEeugueWwllUb5w">
+          <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/PropLogicCTCs/PropLogicCTCs.ecore#//FeatureTerm/feature"/>
+        </edges>
+        <edges xmi:id="_XHqzjMLgEeugueWwllUb5w" source="_XHqzesLgEeugueWwllUb5w" target="_XHqzeMLgEeugueWwllUb5w">
+          <type href="http://www.eclipse.org/emf/2011/Henshin/Trace#//Trace/source"/>
+        </edges>
+        <edges xmi:id="_XHqzjcLgEeugueWwllUb5w" source="_XHqzcMLgEeugueWwllUb5w" target="_XHqze8LgEeugueWwllUb5w">
+          <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/BasicFMs/BasicFMs.ecore#//Feature/children"/>
+        </edges>
+        <edges xmi:id="_XHqzjsLgEeugueWwllUb5w" source="_XHqze8LgEeugueWwllUb5w" target="_XHqzcMLgEeugueWwllUb5w">
+          <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/BasicFMs/BasicFMs.ecore#//Feature/parent"/>
+        </edges>
+        <edges xmi:id="_XHqzj8LgEeugueWwllUb5w" source="_XHqzdcLgEeugueWwllUb5w" target="_XHqzfMLgEeugueWwllUb5w">
+          <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/PropLogicCTCs/PropLogicCTCs.ecore#//And/terms"/>
+        </edges>
+        <edges xmi:id="_XHqzkMLgEeugueWwllUb5w" source="_XHqzfMLgEeugueWwllUb5w" target="_XHqze8LgEeugueWwllUb5w">
+          <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/PropLogicCTCs/PropLogicCTCs.ecore#//FeatureTerm/feature"/>
+        </edges>
+        <edges xmi:id="_XHqzkcLgEeugueWwllUb5w" source="_XHqzfcLgEeugueWwllUb5w" target="_XHqze8LgEeugueWwllUb5w">
+          <type href="http://www.eclipse.org/emf/2011/Henshin/Trace#//Trace/source"/>
+        </edges>
+        <edges xmi:id="_XHqzksLgEeugueWwllUb5w" source="_XHqzcMLgEeugueWwllUb5w" target="_XHqzfsLgEeugueWwllUb5w">
+          <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/BasicFMs/BasicFMs.ecore#//Feature/children"/>
+        </edges>
+        <edges xmi:id="_XHqzk8LgEeugueWwllUb5w" source="_XHqzfsLgEeugueWwllUb5w" target="_XHqzcMLgEeugueWwllUb5w">
+          <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/BasicFMs/BasicFMs.ecore#//Feature/parent"/>
+        </edges>
+        <edges xmi:id="_XHqzlMLgEeugueWwllUb5w" source="_XHqzdcLgEeugueWwllUb5w" target="_XHqzf8LgEeugueWwllUb5w">
+          <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/PropLogicCTCs/PropLogicCTCs.ecore#//And/terms"/>
+        </edges>
+        <edges xmi:id="_XHqzlcLgEeugueWwllUb5w" source="_XHqzf8LgEeugueWwllUb5w" target="_XHqzfsLgEeugueWwllUb5w">
+          <type href="file:/B:/Trabajo/Investigación/Proyectos/RHEA/rhea/rhea.metamodels/metamodels/PropLogicCTCs/PropLogicCTCs.ecore#//FeatureTerm/feature"/>
+        </edges>
+        <edges xmi:id="_XHqzlsLgEeugueWwllUb5w" source="_XHqzgMLgEeugueWwllUb5w" target="_XHqzfsLgEeugueWwllUb5w">
+          <type href="http://www.eclipse.org/emf/2011/Henshin/Trace#//Trace/source"/>
+        </edges>
+      </rhs>
+      <mappings xmi:id="_XHqzl8LgEeugueWwllUb5w" origin="_XHqzMcLgEeugueWwllUb5w" image="_XHqzcMLgEeugueWwllUb5w"/>
+      <mappings xmi:id="_XHqzmMLgEeugueWwllUb5w" origin="_XHqzM8LgEeugueWwllUb5w" image="_XHqzcsLgEeugueWwllUb5w"/>
+      <mappings xmi:id="_XHqzmcLgEeugueWwllUb5w" origin="_XHqzNMLgEeugueWwllUb5w" image="_XHqzc8LgEeugueWwllUb5w"/>
+      <mappings xmi:id="_XHqzmsLgEeugueWwllUb5w" origin="_XHqzNcLgEeugueWwllUb5w" image="_XHqzdMLgEeugueWwllUb5w"/>
+      <mappings xmi:id="_XHqzm8LgEeugueWwllUb5w" origin="_XHqzNsLgEeugueWwllUb5w" image="_XHqzd8LgEeugueWwllUb5w"/>
+      <mappings xmi:id="_XHqznMLgEeugueWwllUb5w" origin="_XHqzN8LgEeugueWwllUb5w" image="_XHqzeMLgEeugueWwllUb5w"/>
+      <mappings xmi:id="_XHqzncLgEeugueWwllUb5w" origin="_XHqzOMLgEeugueWwllUb5w" image="_XHqze8LgEeugueWwllUb5w"/>
+      <mappings xmi:id="_XHqznsLgEeugueWwllUb5w" origin="_XHqzOcLgEeugueWwllUb5w" image="_XHqzfsLgEeugueWwllUb5w"/>
+      <multiMappings xmi:id="_XHqzn8LgEeugueWwllUb5w" origin="_XHqy4sLgEeugueWwllUb5w" image="_XHqzMcLgEeugueWwllUb5w"/>
+      <multiMappings xmi:id="_XHqzoMLgEeugueWwllUb5w" origin="_XHqzEsLgEeugueWwllUb5w" image="_XHqzcMLgEeugueWwllUb5w"/>
+      <multiMappings xmi:id="_XHqzocLgEeugueWwllUb5w" origin="_XHqy5MLgEeugueWwllUb5w" image="_XHqzM8LgEeugueWwllUb5w"/>
+      <multiMappings xmi:id="_XHqzosLgEeugueWwllUb5w" origin="_XHqzFMLgEeugueWwllUb5w" image="_XHqzcsLgEeugueWwllUb5w"/>
+      <multiMappings xmi:id="_XHqzo8LgEeugueWwllUb5w" origin="_XHqy5cLgEeugueWwllUb5w" image="_XHqzNMLgEeugueWwllUb5w"/>
+      <multiMappings xmi:id="_XHqzpMLgEeugueWwllUb5w" origin="_XHqzFcLgEeugueWwllUb5w" image="_XHqzc8LgEeugueWwllUb5w"/>
+      <multiMappings xmi:id="_XHqzpcLgEeugueWwllUb5w" origin="_XHqy5sLgEeugueWwllUb5w" image="_XHqzNcLgEeugueWwllUb5w"/>
+      <multiMappings xmi:id="_XHqzpsLgEeugueWwllUb5w" origin="_XHqzFsLgEeugueWwllUb5w" image="_XHqzdMLgEeugueWwllUb5w"/>
+      <multiMappings xmi:id="_XHqzp8LgEeugueWwllUb5w" origin="_XHqy58LgEeugueWwllUb5w" image="_XHqzN8LgEeugueWwllUb5w"/>
+      <multiMappings xmi:id="_XHqzqMLgEeugueWwllUb5w" origin="_XHqzF8LgEeugueWwllUb5w" image="_XHqzeMLgEeugueWwllUb5w"/>
+      <multiMappings xmi:id="_XHqzqcLgEeugueWwllUb5w" origin="_XHqzGMLgEeugueWwllUb5w" image="_XHqzesLgEeugueWwllUb5w"/>
+      <multiMappings xmi:id="_XHqzqsLgEeugueWwllUb5w" origin="_XHqy6MLgEeugueWwllUb5w" image="_XHqzOMLgEeugueWwllUb5w"/>
+      <multiMappings xmi:id="_XHqzq8LgEeugueWwllUb5w" origin="_XHqzGcLgEeugueWwllUb5w" image="_XHqze8LgEeugueWwllUb5w"/>
+      <multiMappings xmi:id="_XHqzrMLgEeugueWwllUb5w" origin="_XHqzGsLgEeugueWwllUb5w" image="_XHqzfcLgEeugueWwllUb5w"/>
+      <multiMappings xmi:id="_XHqzrcLgEeugueWwllUb5w" origin="_XHqy6cLgEeugueWwllUb5w" image="_XHqzOcLgEeugueWwllUb5w"/>
+      <multiMappings xmi:id="_XHqzrsLgEeugueWwllUb5w" origin="_XHqzG8LgEeugueWwllUb5w" image="_XHqzfsLgEeugueWwllUb5w"/>
+      <multiMappings xmi:id="_XHqzr8LgEeugueWwllUb5w" origin="_XHqzHMLgEeugueWwllUb5w" image="_XHqzgMLgEeugueWwllUb5w"/>
+    </multiRules>
+  </units>
+  <units xsi:type="henshin:LoopUnit" xmi:id="_XHqzsMLgEeugueWwllUb5w" name="MultiF22_k4" subUnit="_XHqy4MLgEeugueWwllUb5w"/>
+  <units xsi:type="henshin:SequentialUnit" xmi:id="_XHqzscLgEeugueWwllUb5w" name="MultiF22_k4Clean" subUnits="_XHqzsMLgEeugueWwllUb5w _8lxfYDWDEeutge8AG_WnHw"/>
+  <units xsi:type="henshin:SequentialUnit" xmi:id="_XHqztsLgEeugueWwllUb5w" name="GroupCardinalitiesNM" subUnits="_LCgZQDWFEeuS6ehYFuk3Lg _XHqMJ8LgEeugueWwllUb5w _XHqM1MLgEeugueWwllUb5w _XHqzscLgEeugueWwllUb5w _KuqhIDWOEeuS6ehYFuk3Lg _84Oz4DoOEeuaGfhWmWOrWA _euqygDrCEeuMN7qXPAVi1A"/>
+</henshin:Module>

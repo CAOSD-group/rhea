@@ -15,9 +15,9 @@ public class GenerateFMs {
 		String modelName;
 		
 		// 5000 Features empieza a costar generar modelos, al menos en mi pc.
-		int nChildMin = 2, nChildMax = 4, featureStep = 250, featureLimit = 7000;
+		int nChildMin = 2, nChildMax = 4, featureStep = 250, featureLimit = 1000;
 		double nAlternativeGroup = 0, nSelectionGroup = 0, nMutexGroup = 0, nGroupCardinality = 0;
-		double percentageStep = 0.05, percentageLimit = 0.2;
+		double percentageStep = 0.02, percentageLimit = 0.06;
 		
 		HenshinEngine henshin = new HenshinEngine(Rhea.BASEDIR);
 		

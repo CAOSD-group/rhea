@@ -1,0 +1,26 @@
+abstract Root
+	D
+	E ?
+	xor F0
+		F5
+		F4
+		F3
+		F2
+		F1
+	xor B ?
+		B2
+			xor C
+				xor C2
+					C23
+					C22
+				C1
+		B1
+	xor A
+		xor A1
+			A12
+				xor A112 ?
+					A1313
+					A1212
+			A11
+		A2
+config: Root

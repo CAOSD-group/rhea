@@ -1,0 +1,12 @@
+abstract Root
+	or C
+		C1
+		or B
+			B5
+			B4
+			B3
+			B2
+			B1
+[C => ((B && !C1) || (C1 && !B))]
+[B => ()]
+config: Root

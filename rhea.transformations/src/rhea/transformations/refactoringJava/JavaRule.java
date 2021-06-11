@@ -19,7 +19,7 @@ public abstract class JavaRule {
 	
 	public boolean executeRefactoring ()
 	{	
-		Boolean sucess = false;
+		Boolean sucess = true;
 		
 		matchingFeatures = FMHelper.getAllFeaturesOf(fm,cp);
 		

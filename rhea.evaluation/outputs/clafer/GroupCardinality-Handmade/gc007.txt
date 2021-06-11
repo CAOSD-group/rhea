@@ -1,0 +1,10 @@
+abstract Root
+	or B
+		B3
+		B2
+		B1
+	or A
+		A3
+		A2
+		A1
+config: Root

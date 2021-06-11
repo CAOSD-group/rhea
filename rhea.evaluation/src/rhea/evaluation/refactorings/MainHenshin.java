@@ -22,7 +22,7 @@ import rhea.parsers.clafer.ClaferParser;
 
 public class MainHenshin {
 	public static void main(String[] args) {
-		String modelType = "GroupCardinality";
+		String modelType = "Test";
 		String folderPath = Rhea.INPUTS_DIR + "clafer/" + modelType;
 		
 		List<TransformationInformation> tis = new ArrayList<>();
@@ -36,8 +36,8 @@ public class MainHenshin {
 		}
 		
 		for (FeatureModel fm : models) {
-			tis.addAll(new HenshinGroupCardinalityRefactoring(fm).refactor(Rhea.EVALUATION_ITERATIONS));
-			//tis.addAll(new HenshinMutexGroupRefactoring(fm).refactor(Rhea.EVALUATION_ITERATIONS));
+			tis.addAll(new HenshinGroupCardinalityRefactoring(fm).refactor(Rhea.EVALUATION_ITERATIONS,modelType));
+			//tis.addAll(new HenshinMutexGroupRefactoring(fm).refactor(Rhea.EVALUATION_ITERATIONS,modelType));
 		}
 		
 		tis = sortTransformationInformation(tis);
@@ -49,7 +49,8 @@ public class MainHenshin {
 	private static void saveData(List<TransformationInformation> tis, String inputName) {
 		try 
 		{
-			FileWriter fw = new FileWriter(Rhea.BASEDIR + "temp/Evaluation/" + inputName + "-raw.csv",true);
+			FileWriter fw = new FileWriter(Rhea.BASEDIR + "temp/Evaluation/" + inputName + "-raw.csv");
+			//fw.write("Run,nFeaturesBefore,nFeaturesAfter,nFeaturesTypeBefore,nFeaturesTypeAfter,percentageOfFeaturesType,nProductsBefore,nProductsAfter,nConstraints,nOptionals,nMandatories,nAlternativeGroups,nSelectionGroups,nRefactors,nRulesSucessfullyExecuted,Time(s) \n");
 			fw.write("Run,nFeaturesBefore,nFeaturesAfter,nFeaturesTypeBefore,nFeaturesTypeAfter,percentageOfFeaturesType,nConstraints,nOptionals,nMandatories,nAlternativeGroups,nSelectionGroups,nRefactors,nRulesSucessfullyExecuted,Time(s) \n");
 			
 			int rulesSuccessExecuted=0, rulesExecuted=0;
@@ -64,6 +65,10 @@ public class MainHenshin {
 					fw.write(ti.getRun() + "," + ti.getnFeaturesBefore() + "," + ti.getnFeaturesAfter() + "," + ti.getNumberOfFeaturesTypeBefore() + "," + ti.getNumberOfFeaturesTypeAfter() + ","
 					+ ti.getPercentageOfFeaturesType() + "," + ti.getnConstraints() + "," + ti.getnOptionals() + "," + ti.getnMandatories() + "," + ti.getnAlternativeGroups() + "," + ti.getnSelectionGroups() + ","
 					+ (ti.getNumberOfFeaturesTypeBefore() - ti.getNumberOfFeaturesTypeAfter()) + "," + rulesSuccessExecuted + "," + ti.getPerformance() + "\n");
+					
+					/*fw.write(ti.getRun() + "," + ti.getnFeaturesBefore() + "," + ti.getnFeaturesAfter() + "," + ti.getNumberOfFeaturesTypeBefore() + "," + ti.getNumberOfFeaturesTypeAfter() + ","
+					+ ti.getPercentageOfFeaturesType() + "," + ti.getProductsBefore().size() + "," + ti.getProductsAfter().size() + "," + ti.getnConstraints() + "," + ti.getnOptionals() + "," + ti.getnMandatories() + "," + ti.getnAlternativeGroups() + "," + ti.getnSelectionGroups() + ","
+					+ (ti.getNumberOfFeaturesTypeBefore() - ti.getNumberOfFeaturesTypeAfter()) + "," + rulesSuccessExecuted + "," + ti.getPerformance() + "\n");*/
 				}
 			}
 			fw.close();
@@ -78,6 +83,7 @@ public class MainHenshin {
 			BufferedReader bf = new BufferedReader(fr);
 			FileWriter fw = new FileWriter(Rhea.BASEDIR + "temp/Evaluation/" + inputName + "-processed.csv");
 			
+			//fw.write("nFeaturesBefore,nFeaturesAfter,nFeaturesTypeBefore,nFeaturesTypeAfter,percentageOfFeaturesType,nProductsBefore,nProductsAfter,nConstraints,nOptionals,nMandatories,nAlternativeGroups,nSelectionGroups,nRefactors,nRulesSucessfullyExecuted,mean(s),median(s),sd(s) \n");
 			fw.write("nFeaturesBefore,nFeaturesAfter,nFeaturesTypeBefore,nFeaturesTypeAfter,percentageOfFeaturesType,nContraints,nOptionals,nMandatories,nAlternativeGroups,nSelectionGroups,nRefactors,nRulesSucessfullyExecuted,mean(s),median(s),sd(s) \n");
 			
 			String run;

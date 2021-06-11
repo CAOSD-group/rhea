@@ -23,7 +23,7 @@ public class JavaMutexGroupRefactoring extends Refactoring{
 	}
 
 	@Override
-	public List<TransformationInformation> refactor(int times) {
+	public List<TransformationInformation> refactor(int times, String output) {
 		List<TransformationInformation> result = new ArrayList<>();
 		FeatureModel f;
 		
@@ -50,7 +50,6 @@ public class JavaMutexGroupRefactoring extends Refactoring{
 			tf.setnSelectionGroups(FMHelper.getAllFeaturesOf(f,"rhea.metamodels.BasicFMs.SelectionGroup").size());
 			tf.setPercentageOfFeaturesType(Math.round((double) tf.numberOfFeaturesTypeBefore/(double) tf.nFeaturesBefore * 100d)/100d);
 			
-			
 			tf.setTimeBefore(System.nanoTime()/1e9);
 			
 			//Do the refactoring
@@ -64,8 +63,8 @@ public class JavaMutexGroupRefactoring extends Refactoring{
 			result.add(tf);
 		}
 		
-		//Save the file (optional) REVISAR POR QUE NAME NO COJE EL NOMBRE ENTERO TODO
-		String outputFile = Rhea.OUTPUTS_DIR + "clafer/MutexGroup/" + fm.getName() + ".txt";
+		//Save the file (optional)
+		String outputFile = Rhea.OUTPUTS_DIR + "clafer/" + output + "/" + fm.getName() + ".txt";
 		FMGenerator g = new ToClafer();
 		Utils.serialize(g.fm2text(mgr.getFeatureModel()), outputFile);
 		
