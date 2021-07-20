@@ -7,6 +7,13 @@ import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.tree.ErrorNode;
 import org.antlr.v4.runtime.tree.TerminalNode;
 
+import DataTypes.DataType;
+import DataTypes.PrimitiveType;
+import DataTypes.PrimitiveTypeEnum;
+import DataTypes.impl.DataTypeImpl;
+import DataTypes.impl.DataTypesFactoryImpl;
+import NumericalFMs.NumericalFeature;
+import NumericalFMs.impl.NumericalFMsFactoryImpl;
 import clafer.claferParser.Abstract_Context;
 import clafer.claferParser.AssertionContext;
 import clafer.claferParser.CardContext;
@@ -456,17 +463,28 @@ public class MyClaferParserListener implements claferParserListener {
 	@Override
 	public void exitCard(CardContext ctx) {
 		// TODO Auto-generated method stub
-
 	}
 
 	@Override
 	public void enterNCard(NCardContext ctx) {
-
+		
 	}
 
 	@Override
 	public void exitNCard(NCardContext ctx) {
-
+		// format [->,type,=,value]
+		String[] type = ctx.getText().split(" ");	
+		currentFeature = (Feature) NumericalFMsFactoryImpl.eINSTANCE.createNumericalFeature();
+		DataType dt = DataTypesFactoryImpl.eINSTANCE.createPrimitiveType();
+		
+		if(type[1].equals("Integer")) ((PrimitiveType)dt).setType(PrimitiveTypeEnum.INTEGER);
+		else if(type[1].equals("Natural")) ((PrimitiveType)dt).setType(PrimitiveTypeEnum.NATURAL);
+		else if(type[1].equals("Real")) ((PrimitiveType)dt).setType(PrimitiveTypeEnum.REAL);
+		
+		//Set the type and value
+		((NumericalFeature) currentFeature).setType(dt);
+		//TODO
+		
 	}
 
 	@Override

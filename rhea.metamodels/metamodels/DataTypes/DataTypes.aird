@@ -5,7 +5,7 @@
     <semanticResources>../BasicFMs/BasicFMs.ecore</semanticResources>
     <ownedViews xmi:type="viewpoint:DView" uid="_VTOPcC_EEeu5vf7oUZSVbw">
       <viewpoint xmi:type="description:Viewpoint" href="platform:/plugin/org.eclipse.emf.ecoretools.design/description/ecore.odesign#//@ownedViewpoints[name='Design']"/>
-      <ownedRepresentationDescriptors xmi:type="viewpoint:DRepresentationDescriptor" uid="_WO_7MS_EEeu5vf7oUZSVbw" name="DataTypes class diagram" repPath="#_WO9e8C_EEeu5vf7oUZSVbw" changeId="2bf99fd3-6b42-4e73-9050-120099a63021">
+      <ownedRepresentationDescriptors xmi:type="viewpoint:DRepresentationDescriptor" uid="_WO_7MS_EEeu5vf7oUZSVbw" name="DataTypes class diagram" repPath="#_WO9e8C_EEeu5vf7oUZSVbw" changeId="8a472a8c-a6ee-44dc-923e-dc9762101c8f">
         <description xmi:type="description_1:DiagramDescription" href="platform:/plugin/org.eclipse.emf.ecoretools.design/description/ecore.odesign#//@ownedViewpoints[name='Design']/@ownedRepresentations[name='Entities']"/>
         <target xmi:type="ecore:EPackage" href="DataTypes.ecore#/"/>
       </ownedRepresentationDescriptors>
@@ -463,6 +463,7 @@
       <ownedStyle xmi:type="diagram:EdgeStyle" uid="_Wl3jEC_EEeu5vf7oUZSVbw" description="_Wl28AS_EEeu5vf7oUZSVbw" sourceArrow="FillDiamond" routingStyle="manhattan" strokeColor="0,0,0">
         <centerLabelStyle xmi:type="diagram:CenterLabelStyle" uid="_Wl3jEi_EEeu5vf7oUZSVbw" showIcon="false">
           <customFeatures>labelSize</customFeatures>
+          <labelFormat>bold</labelFormat>
         </centerLabelStyle>
         <endLabelStyle xmi:type="diagram:EndLabelStyle" uid="_Wl3jES_EEeu5vf7oUZSVbw" showIcon="false" labelColor="39,76,114">
           <customFeatures>labelSize</customFeatures>
@@ -489,6 +490,7 @@
       <ownedStyle xmi:type="diagram:EdgeStyle" uid="_Wl4xMy_EEeu5vf7oUZSVbw" description="_Wl4xMC_EEeu5vf7oUZSVbw" routingStyle="manhattan" strokeColor="0,0,0">
         <centerLabelStyle xmi:type="diagram:CenterLabelStyle" uid="_Wl4xNS_EEeu5vf7oUZSVbw" showIcon="false">
           <customFeatures>labelSize</customFeatures>
+          <labelFormat>bold</labelFormat>
         </centerLabelStyle>
         <endLabelStyle xmi:type="diagram:EndLabelStyle" uid="_Wl4xNC_EEeu5vf7oUZSVbw" showIcon="false" labelColor="39,76,114">
           <customFeatures>labelSize</customFeatures>

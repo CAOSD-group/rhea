@@ -85,6 +85,7 @@ public class FeatureModelGenerator {
 			else if(minClassPath.contains("AlternativeGroup")) lgt = LanguageGeneratorType.AlternativeGroupNonDeterministic;
 			else if(minClassPath.contains("MutexGroup")) lgt = LanguageGeneratorType.MutexGroupNonDeterministic;						
 			else if(minClassPath.contains("GroupCardinality")) lgt = LanguageGeneratorType.GroupCardinalityNonDeterministic;
+			else if(minClassPath.contains("NumericalFeature")) ; //TODO
 			
 			if (lgt!=null)
 			{

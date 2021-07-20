@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<genmodel:GenModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
+    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" copyrightText="" modelDirectory="/rhea.metamodels/src" modelPluginID="rhea.metamodels"
+    modelName="NumericalFMs" importerID="org.eclipse.emf.importer.ecore" complianceLevel="6.0"
+    copyrightFields="false">
+  <foreignModel>NumericalFM.ecore</foreignModel>
+  <genPackages prefix="NumericalFMs" disposableProviderFactory="true" ecorePackage="NumericalFM.ecore#/">
+    <genClasses ecoreClass="NumericalFM.ecore#//NumericalFM">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference NumericalFM.ecore#//NumericalFM/numericalfeatures"/>
+    </genClasses>
+    <genClasses ecoreClass="NumericalFM.ecore#//NumericalFeature"/>
+  </genPackages>
+  <genPackages prefix="BasicFMs" ecorePackage="../BasicFMs/BasicFMs.ecore#/">
+    <genClasses ecoreClass="../BasicFMs/BasicFMs.ecore#//FeatureModel">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ../BasicFMs/BasicFMs.ecore#//FeatureModel/name"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ../BasicFMs/BasicFMs.ecore#//FeatureModel/root"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ../BasicFMs/BasicFMs.ecore#//FeatureModel/features"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ../BasicFMs/BasicFMs.ecore#//FeatureModel/crosstreeconstraints"/>
+      <genOperations ecoreOperation="../BasicFMs/BasicFMs.ecore#//FeatureModel/getFeature">
+        <genParameters ecoreParameter="../BasicFMs/BasicFMs.ecore#//FeatureModel/getFeature/id"/>
+      </genOperations>
+    </genClasses>
+    <genClasses ecoreClass="../BasicFMs/BasicFMs.ecore#//Feature">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ../BasicFMs/BasicFMs.ecore#//Feature/id"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ../BasicFMs/BasicFMs.ecore#//Feature/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ../BasicFMs/BasicFMs.ecore#//Feature/mandatory"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ../BasicFMs/BasicFMs.ecore#//Feature/children"/>
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference ../BasicFMs/BasicFMs.ecore#//Feature/parent"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ../BasicFMs/BasicFMs.ecore#//Feature/abstract"/>
+      <genOperations ecoreOperation="../BasicFMs/BasicFMs.ecore#//Feature/isLeaf"/>
+      <genOperations ecoreOperation="../BasicFMs/BasicFMs.ecore#//Feature/isRoot"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="../BasicFMs/BasicFMs.ecore#//CrossTreeConstraint"/>
+    <genClasses image="false" ecoreClass="../BasicFMs/BasicFMs.ecore#//FeatureGroup"/>
+    <genClasses ecoreClass="../BasicFMs/BasicFMs.ecore#//AlternativeGroup"/>
+    <genClasses ecoreClass="../BasicFMs/BasicFMs.ecore#//SelectionGroup"/>
+  </genPackages>
+  <genPackages prefix="DataTypes" ecorePackage="../DataTypes/DataTypes.ecore#/">
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="../DataTypes/DataTypes.ecore#//PrimitiveTypeEnum">
+      <genEnumLiterals ecoreEnumLiteral="../DataTypes/DataTypes.ecore#//PrimitiveTypeEnum/Boolean"/>
+      <genEnumLiterals ecoreEnumLiteral="../DataTypes/DataTypes.ecore#//PrimitiveTypeEnum/Natural"/>
+      <genEnumLiterals ecoreEnumLiteral="../DataTypes/DataTypes.ecore#//PrimitiveTypeEnum/Integer"/>
+      <genEnumLiterals ecoreEnumLiteral="../DataTypes/DataTypes.ecore#//PrimitiveTypeEnum/Real"/>
+      <genEnumLiterals ecoreEnumLiteral="../DataTypes/DataTypes.ecore#//PrimitiveTypeEnum/String"/>
+    </genEnums>
+    <genDataTypes ecoreDataType="../DataTypes/DataTypes.ecore#//Object"/>
+    <genClasses image="false" ecoreClass="../DataTypes/DataTypes.ecore#//DataType"/>
+    <genClasses ecoreClass="../DataTypes/DataTypes.ecore#//PrimitiveType">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ../DataTypes/DataTypes.ecore#//PrimitiveType/type"/>
+    </genClasses>
+    <genClasses ecoreClass="../DataTypes/DataTypes.ecore#//TypedFeature">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ../DataTypes/DataTypes.ecore#//TypedFeature/type"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ../DataTypes/DataTypes.ecore#//TypedFeature/value"/>
+    </genClasses>
+    <genClasses ecoreClass="../DataTypes/DataTypes.ecore#//Value">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ../DataTypes/DataTypes.ecore#//Value/type"/>
+    </genClasses>
+    <genClasses ecoreClass="../DataTypes/DataTypes.ecore#//ObjectType">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ../DataTypes/DataTypes.ecore#//ObjectType/type"/>
+    </genClasses>
+    <genClasses ecoreClass="../DataTypes/DataTypes.ecore#//NonTraditionalFM">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ../DataTypes/DataTypes.ecore#//NonTraditionalFM/typedfeatures"/>
+    </genClasses>
+  </genPackages>
+</genmodel:GenModel>

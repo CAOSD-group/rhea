@@ -16,7 +16,12 @@ public class GenerateFMs {
 		
 		// 5000 Features empieza a costar generar modelos, al menos en mi pc.
 		int nChildMin = 2, nChildMax = 4, featureStep = 250, featureLimit = 1000;
+		
+		//Basic + GCs
 		double nAlternativeGroup = 0, nSelectionGroup = 0, nMutexGroup = 0, nGroupCardinality = 0;
+		
+		//Numerical
+		double nNumerical = 0;
 		double percentageStep = 0.02, percentageLimit = 0.06;
 		
 		HenshinEngine henshin = new HenshinEngine(Rhea.BASEDIR);
@@ -33,10 +38,14 @@ public class GenerateFMs {
 				nAlternativeGroup = Math.round((percentageLimit-j)/2d* 1000.0) / 1000.0;
 				nSelectionGroup = nAlternativeGroup;
 				
+				//Basic + GCs
 				percentages.put("rhea.metamodels.BasicFMs.AlternativeGroup", nAlternativeGroup);
 				percentages.put("rhea.metamodels.BasicFMs.SelectionGroup", nSelectionGroup);
 				percentages.put("rhea.metamodels.CardinalityBasedFMs.MutexGroup", nMutexGroup);
 				percentages.put("rhea.metamodels.CardinalityBasedFMs.GroupCardinality", j);
+				
+				//Numerical
+				percentages.put("rhea.metamodels.", nNumerical);
 				
 				modelName = Integer.toString(i) +"_"+ Double.toString(nAlternativeGroup) +"-"+ Double.toString(nSelectionGroup) +"-"+ Double.toString(nMutexGroup) +"-"+ 
 						Double.toString(j) +"_"+ Integer.toString(nChildMin) +"-"+ Integer.toString(nChildMax);

@@ -4,6 +4,8 @@ import java.util.stream.Collectors;
 
 import org.eclipse.emf.common.util.EList;
 
+import DataTypes.PrimitiveType;
+import NumericalFMs.NumericalFeature;
 import rhea.generators.FMGenerator;
 import rhea.metamodels.BasicCTCs.Excludes;
 import rhea.metamodels.BasicCTCs.Requires;
@@ -66,6 +68,13 @@ public class ToClafer implements FMGenerator {
 			} else if (feature instanceof MutexGroup) {
 				claferFM.append("mux " );
 			}
+			claferFM.append(feature.getName());
+			
+			if (feature instanceof NumericalFeature && ((NumericalFeature) feature).getType() instanceof PrimitiveType) {
+				claferFM.append("-> " + ((PrimitiveType)((NumericalFeature) feature).getType()).getType());
+				//TODO Añadir value
+			}
+			
 			claferFM.append(feature.getName());
 			if (!feature.isMandatory() && !(feature.getParent() instanceof FeatureGroup)) {	// Optional feature
 				claferFM.append(" ?");
@@ -135,6 +144,8 @@ public class ToClafer implements FMGenerator {
 			String e = equiv.getTerms().stream().map(te -> addAdvanceConstraint(te)).collect(Collectors.joining(" <=> "));
 			constraint.append(e);
 		}
+		
+		//TODO AÑADIR LAS RESTRICCIONES DE NUMERICAL
 		return constraint.toString();
 	}
 	
