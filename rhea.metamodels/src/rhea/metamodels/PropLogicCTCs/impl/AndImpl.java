@@ -66,6 +66,7 @@ public class AndImpl extends TermImpl implements And {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<Term> getTerms() {
 		if (terms == null) {
 			terms = new EObjectContainmentEList<Term>(Term.class, this, PropLogicCTCsPackage.AND__TERMS);

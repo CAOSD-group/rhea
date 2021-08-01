@@ -3,7 +3,6 @@
 package rhea.metamodels.BasicFMs.impl;
 
 import org.eclipse.emf.ecore.EClass;
-
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
 import rhea.metamodels.BasicFMs.BasicFMsPackage;

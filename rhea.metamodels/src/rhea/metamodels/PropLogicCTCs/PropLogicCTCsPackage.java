@@ -86,15 +86,6 @@ public interface PropLogicCTCsPackage extends EPackage {
 	int ADVANCED_CONSTRAINT_FEATURE_COUNT = BasicFMsPackage.CROSS_TREE_CONSTRAINT_FEATURE_COUNT + 1;
 
 	/**
-	 * The number of operations of the '<em>Advanced Constraint</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ADVANCED_CONSTRAINT_OPERATION_COUNT = BasicFMsPackage.CROSS_TREE_CONSTRAINT_OPERATION_COUNT + 0;
-
-	/**
 	 * The meta object id for the '{@link rhea.metamodels.PropLogicCTCs.impl.TermImpl <em>Term</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -112,15 +103,6 @@ public interface PropLogicCTCsPackage extends EPackage {
 	 * @ordered
 	 */
 	int TERM_FEATURE_COUNT = 0;
-
-	/**
-	 * The number of operations of the '<em>Term</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int TERM_OPERATION_COUNT = 0;
 
 	/**
 	 * The meta object id for the '{@link rhea.metamodels.PropLogicCTCs.impl.FeatureTermImpl <em>Feature Term</em>}' class.
@@ -151,15 +133,6 @@ public interface PropLogicCTCsPackage extends EPackage {
 	int FEATURE_TERM_FEATURE_COUNT = TERM_FEATURE_COUNT + 1;
 
 	/**
-	 * The number of operations of the '<em>Feature Term</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FEATURE_TERM_OPERATION_COUNT = TERM_OPERATION_COUNT + 0;
-
-	/**
 	 * The meta object id for the '{@link rhea.metamodels.PropLogicCTCs.impl.NotImpl <em>Not</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -186,15 +159,6 @@ public interface PropLogicCTCsPackage extends EPackage {
 	 * @ordered
 	 */
 	int NOT_FEATURE_COUNT = TERM_FEATURE_COUNT + 1;
-
-	/**
-	 * The number of operations of the '<em>Not</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int NOT_OPERATION_COUNT = TERM_OPERATION_COUNT + 0;
 
 	/**
 	 * The meta object id for the '{@link rhea.metamodels.PropLogicCTCs.impl.AndImpl <em>And</em>}' class.
@@ -225,15 +189,6 @@ public interface PropLogicCTCsPackage extends EPackage {
 	int AND_FEATURE_COUNT = TERM_FEATURE_COUNT + 1;
 
 	/**
-	 * The number of operations of the '<em>And</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int AND_OPERATION_COUNT = TERM_OPERATION_COUNT + 0;
-
-	/**
 	 * The meta object id for the '{@link rhea.metamodels.PropLogicCTCs.impl.OrImpl <em>Or</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -260,15 +215,6 @@ public interface PropLogicCTCsPackage extends EPackage {
 	 * @ordered
 	 */
 	int OR_FEATURE_COUNT = TERM_FEATURE_COUNT + 1;
-
-	/**
-	 * The number of operations of the '<em>Or</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int OR_OPERATION_COUNT = TERM_OPERATION_COUNT + 0;
 
 	/**
 	 * The meta object id for the '{@link rhea.metamodels.PropLogicCTCs.impl.XorImpl <em>Xor</em>}' class.
@@ -299,15 +245,6 @@ public interface PropLogicCTCsPackage extends EPackage {
 	int XOR_FEATURE_COUNT = TERM_FEATURE_COUNT + 1;
 
 	/**
-	 * The number of operations of the '<em>Xor</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int XOR_OPERATION_COUNT = TERM_OPERATION_COUNT + 0;
-
-	/**
 	 * The meta object id for the '{@link rhea.metamodels.PropLogicCTCs.impl.EquivImpl <em>Equiv</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -334,15 +271,6 @@ public interface PropLogicCTCsPackage extends EPackage {
 	 * @ordered
 	 */
 	int EQUIV_FEATURE_COUNT = TERM_FEATURE_COUNT + 1;
-
-	/**
-	 * The number of operations of the '<em>Equiv</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int EQUIV_OPERATION_COUNT = TERM_OPERATION_COUNT + 0;
 
 	/**
 	 * The meta object id for the '{@link rhea.metamodels.PropLogicCTCs.impl.ImpliesImpl <em>Implies</em>}' class.
@@ -382,15 +310,6 @@ public interface PropLogicCTCsPackage extends EPackage {
 	int IMPLIES_FEATURE_COUNT = TERM_FEATURE_COUNT + 2;
 
 	/**
-	 * The number of operations of the '<em>Implies</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int IMPLIES_OPERATION_COUNT = TERM_OPERATION_COUNT + 0;
-
-	/**
 	 * The meta object id for the '{@link rhea.metamodels.PropLogicCTCs.impl.ExcludesImpl <em>Excludes</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -426,16 +345,6 @@ public interface PropLogicCTCsPackage extends EPackage {
 	 * @ordered
 	 */
 	int EXCLUDES_FEATURE_COUNT = TERM_FEATURE_COUNT + 2;
-
-	/**
-	 * The number of operations of the '<em>Excludes</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int EXCLUDES_OPERATION_COUNT = TERM_OPERATION_COUNT + 0;
-
 
 	/**
 	 * Returns the meta object for class '{@link rhea.metamodels.PropLogicCTCs.AdvancedConstraint <em>Advanced Constraint</em>}'.

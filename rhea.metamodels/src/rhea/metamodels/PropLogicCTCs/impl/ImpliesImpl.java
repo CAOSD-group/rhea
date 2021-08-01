@@ -72,6 +72,7 @@ public class ImpliesImpl extends TermImpl implements Implies {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Term getLeft() {
 		return left;
 	}
@@ -96,6 +97,7 @@ public class ImpliesImpl extends TermImpl implements Implies {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setLeft(Term newLeft) {
 		if (newLeft != left) {
 			NotificationChain msgs = null;
@@ -115,6 +117,7 @@ public class ImpliesImpl extends TermImpl implements Implies {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Term getRight() {
 		return right;
 	}
@@ -139,6 +142,7 @@ public class ImpliesImpl extends TermImpl implements Implies {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setRight(Term newRight) {
 		if (newRight != right) {
 			NotificationChain msgs = null;

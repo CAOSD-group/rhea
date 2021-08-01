@@ -1,17 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <genmodel:GenModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
-    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/rhea.metamodels/src" modelPluginID="rhea.metamodels"
-    modelName="PropLogicCTCs" rootExtendsClass="org.eclipse.emf.ecore.impl.MinimalEObjectImpl$Container"
-    importerID="org.eclipse.emf.importer.ecore" complianceLevel="5.0" copyrightFields="false"
-    usedGenPackages="../BasicFMs/BasicFMs.genmodel#//BasicFMs" operationReflection="true"
-    importOrganizing="true">
+    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" copyrightText="" modelDirectory="/rhea.metamodels/src" modelPluginID="rhea.metamodels"
+    modelName="PropLogicCTCs" importerID="org.eclipse.emf.importer.ecore" complianceLevel="6.0"
+    copyrightFields="false">
   <foreignModel>PropLogicCTCs.ecore</foreignModel>
   <genPackages prefix="PropLogicCTCs" basePackage="rhea.metamodels" disposableProviderFactory="true"
       ecorePackage="PropLogicCTCs.ecore#/">
     <genClasses ecoreClass="PropLogicCTCs.ecore#//AdvancedConstraint">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference PropLogicCTCs.ecore#//AdvancedConstraint/expr"/>
     </genClasses>
-    <genClasses ecoreClass="PropLogicCTCs.ecore#//Term"/>
+    <genClasses image="false" ecoreClass="PropLogicCTCs.ecore#//Term"/>
     <genClasses ecoreClass="PropLogicCTCs.ecore#//FeatureTerm">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference PropLogicCTCs.ecore#//FeatureTerm/feature"/>
     </genClasses>
@@ -38,5 +36,30 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference PropLogicCTCs.ecore#//Excludes/left"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference PropLogicCTCs.ecore#//Excludes/right"/>
     </genClasses>
+  </genPackages>
+  <genPackages prefix="BasicFMs" basePackage="rhea.metamodels" ecorePackage="../BasicFMs/BasicFMs.ecore#/">
+    <genClasses ecoreClass="../BasicFMs/BasicFMs.ecore#//FeatureModel">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ../BasicFMs/BasicFMs.ecore#//FeatureModel/name"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ../BasicFMs/BasicFMs.ecore#//FeatureModel/root"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ../BasicFMs/BasicFMs.ecore#//FeatureModel/features"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ../BasicFMs/BasicFMs.ecore#//FeatureModel/crosstreeconstraints"/>
+      <genOperations ecoreOperation="../BasicFMs/BasicFMs.ecore#//FeatureModel/getFeature">
+        <genParameters ecoreParameter="../BasicFMs/BasicFMs.ecore#//FeatureModel/getFeature/id"/>
+      </genOperations>
+    </genClasses>
+    <genClasses ecoreClass="../BasicFMs/BasicFMs.ecore#//Feature">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ../BasicFMs/BasicFMs.ecore#//Feature/id"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ../BasicFMs/BasicFMs.ecore#//Feature/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ../BasicFMs/BasicFMs.ecore#//Feature/mandatory"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ../BasicFMs/BasicFMs.ecore#//Feature/children"/>
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference ../BasicFMs/BasicFMs.ecore#//Feature/parent"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ../BasicFMs/BasicFMs.ecore#//Feature/abstract"/>
+      <genOperations ecoreOperation="../BasicFMs/BasicFMs.ecore#//Feature/isLeaf"/>
+      <genOperations ecoreOperation="../BasicFMs/BasicFMs.ecore#//Feature/isRoot"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="../BasicFMs/BasicFMs.ecore#//CrossTreeConstraint"/>
+    <genClasses image="false" ecoreClass="../BasicFMs/BasicFMs.ecore#//FeatureGroup"/>
+    <genClasses ecoreClass="../BasicFMs/BasicFMs.ecore#//AlternativeGroup"/>
+    <genClasses ecoreClass="../BasicFMs/BasicFMs.ecore#//SelectionGroup"/>
   </genPackages>
 </genmodel:GenModel>

@@ -4,6 +4,7 @@ package rhea.metamodels.PropLogicCTCs.impl;
 
 import org.eclipse.emf.ecore.EClass;
 
+import org.eclipse.emf.ecore.impl.EObjectImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
 import rhea.metamodels.PropLogicCTCs.PropLogicCTCsPackage;
@@ -16,7 +17,7 @@ import rhea.metamodels.PropLogicCTCs.Term;
  *
  * @generated
  */
-public abstract class TermImpl extends MinimalEObjectImpl.Container implements Term {
+public abstract class TermImpl extends EObjectImpl implements Term {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

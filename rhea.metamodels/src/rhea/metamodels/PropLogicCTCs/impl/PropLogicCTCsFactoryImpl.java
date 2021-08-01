@@ -75,6 +75,7 @@ public class PropLogicCTCsFactoryImpl extends EFactoryImpl implements PropLogicC
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public AdvancedConstraint createAdvancedConstraint() {
 		AdvancedConstraintImpl advancedConstraint = new AdvancedConstraintImpl();
 		return advancedConstraint;
@@ -85,6 +86,7 @@ public class PropLogicCTCsFactoryImpl extends EFactoryImpl implements PropLogicC
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public FeatureTerm createFeatureTerm() {
 		FeatureTermImpl featureTerm = new FeatureTermImpl();
 		return featureTerm;
@@ -95,6 +97,7 @@ public class PropLogicCTCsFactoryImpl extends EFactoryImpl implements PropLogicC
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Not createNot() {
 		NotImpl not = new NotImpl();
 		return not;
@@ -105,6 +108,7 @@ public class PropLogicCTCsFactoryImpl extends EFactoryImpl implements PropLogicC
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public And createAnd() {
 		AndImpl and = new AndImpl();
 		return and;
@@ -115,6 +119,7 @@ public class PropLogicCTCsFactoryImpl extends EFactoryImpl implements PropLogicC
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Or createOr() {
 		OrImpl or = new OrImpl();
 		return or;
@@ -125,6 +130,7 @@ public class PropLogicCTCsFactoryImpl extends EFactoryImpl implements PropLogicC
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Xor createXor() {
 		XorImpl xor = new XorImpl();
 		return xor;
@@ -135,6 +141,7 @@ public class PropLogicCTCsFactoryImpl extends EFactoryImpl implements PropLogicC
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Equiv createEquiv() {
 		EquivImpl equiv = new EquivImpl();
 		return equiv;
@@ -145,6 +152,7 @@ public class PropLogicCTCsFactoryImpl extends EFactoryImpl implements PropLogicC
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Implies createImplies() {
 		ImpliesImpl implies = new ImpliesImpl();
 		return implies;
@@ -155,6 +163,7 @@ public class PropLogicCTCsFactoryImpl extends EFactoryImpl implements PropLogicC
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Excludes createExcludes() {
 		ExcludesImpl excludes = new ExcludesImpl();
 		return excludes;
@@ -165,6 +174,7 @@ public class PropLogicCTCsFactoryImpl extends EFactoryImpl implements PropLogicC
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public PropLogicCTCsPackage getPropLogicCTCsPackage() {
 		return (PropLogicCTCsPackage)getEPackage();
 	}

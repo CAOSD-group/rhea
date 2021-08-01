@@ -12,6 +12,7 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
 import rhea.metamodels.BasicFMs.impl.CrossTreeConstraintImpl;
 
+import rhea.metamodels.ComparativeCTCs.BinaryComparativeTerm;
 import rhea.metamodels.PropLogicCTCs.AdvancedConstraint;
 import rhea.metamodels.PropLogicCTCs.PropLogicCTCsPackage;
 import rhea.metamodels.PropLogicCTCs.Term;
@@ -64,6 +65,7 @@ public class AdvancedConstraintImpl extends CrossTreeConstraintImpl implements A
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Term getExpr() {
 		return expr;
 	}
@@ -88,6 +90,7 @@ public class AdvancedConstraintImpl extends CrossTreeConstraintImpl implements A
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setExpr(Term newExpr) {
 		if (newExpr != expr) {
 			NotificationChain msgs = null;

@@ -4,8 +4,6 @@ import java.util.stream.Collectors;
 
 import org.eclipse.emf.common.util.EList;
 
-import DataTypes.PrimitiveType;
-import NumericalFMs.NumericalFeature;
 import rhea.generators.FMGenerator;
 import rhea.metamodels.BasicCTCs.Excludes;
 import rhea.metamodels.BasicCTCs.Requires;
@@ -17,6 +15,9 @@ import rhea.metamodels.BasicFMs.FeatureModel;
 import rhea.metamodels.BasicFMs.SelectionGroup;
 import rhea.metamodels.CardinalityBasedFMs.GroupCardinality;
 import rhea.metamodels.CardinalityBasedFMs.MutexGroup;
+import rhea.metamodels.ComparativeCTCs.*;
+import rhea.metamodels.DataTypes.PrimitiveType;
+import rhea.metamodels.NumericalFMs.NumericalFeature;
 import rhea.metamodels.PropLogicCTCs.AdvancedConstraint;
 import rhea.metamodels.PropLogicCTCs.And;
 import rhea.metamodels.PropLogicCTCs.Equiv;
@@ -69,13 +70,14 @@ public class ToClafer implements FMGenerator {
 				claferFM.append("mux " );
 			}
 			claferFM.append(feature.getName());
-			
 			if (feature instanceof NumericalFeature && ((NumericalFeature) feature).getType() instanceof PrimitiveType) {
-				claferFM.append("-> " + ((PrimitiveType)((NumericalFeature) feature).getType()).getType());
-				//TODO Añadir value
+				claferFM.append(" -> " + ((PrimitiveType)((NumericalFeature) feature).getType()).getType());
+				
+				if(((NumericalFeature) feature).getValue() != null) {
+					claferFM.append(" : " + ((NumericalFeature) feature).getValue().toString());
+				}
 			}
 			
-			claferFM.append(feature.getName());
 			if (!feature.isMandatory() && !(feature.getParent() instanceof FeatureGroup)) {	// Optional feature
 				claferFM.append(" ?");
 			}
@@ -145,7 +147,31 @@ public class ToClafer implements FMGenerator {
 			constraint.append(e);
 		}
 		
-		//TODO AÑADIR LAS RESTRICCIONES DE NUMERICAL
+		// Restricciones Numéricas
+		if(t instanceof BinaryComparativeTerm)
+		{
+			BinaryComparativeTerm bct = (BinaryComparativeTerm) t;
+			Term left = bct.getLeft(); 
+			Term right = bct.getRight();
+			
+			String l,r;
+			
+			if(left instanceof FeatureTerm) l = ((FeatureTerm) left).getFeature().getName();
+			else if (left instanceof NumericTerm) l = Float.toString(((NumericTerm) left).getValue());
+			else l = addAdvanceConstraint(left);
+
+			if(right instanceof FeatureTerm) r = ((FeatureTerm) right).getFeature().getName();
+			else if (right instanceof NumericTerm) r = Float.toString(((NumericTerm) right).getValue());
+			else r = addAdvanceConstraint(right);
+		
+			if(t instanceof Equal) constraint.append(l).append(" = ").append(r);
+			else if(t instanceof NotEqual) constraint.append(l).append(" != ").append(r);
+			else if (t instanceof Less) constraint.append(l).append(" < ").append(r);
+			else if (t instanceof More) constraint.append(l).append(" > ").append(r);
+			else if (t instanceof LessOrEqual) constraint.append(l).append(" <= ").append(r);
+			else if (t instanceof MoreOrEqual) constraint.append(l).append(" >= ").append(r);
+		}
+		
 		return constraint.toString();
 	}
 	

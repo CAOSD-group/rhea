@@ -30,5 +30,32 @@
     <genClasses image="false" ecoreClass="BasicFMs.ecore#//FeatureGroup"/>
     <genClasses ecoreClass="BasicFMs.ecore#//AlternativeGroup"/>
     <genClasses ecoreClass="BasicFMs.ecore#//SelectionGroup"/>
+    <nestedGenPackages prefix="BasicFMs" basePackage="rhea.metamodels" disposableProviderFactory="true"
+        ecorePackage="BasicFMs.ecore#/">
+      <genClasses ecoreClass="BasicFMs.ecore#//FeatureModel">
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute BasicFMs.ecore#//FeatureModel/name"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference BasicFMs.ecore#//FeatureModel/root"/>
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference BasicFMs.ecore#//FeatureModel/features"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference BasicFMs.ecore#//FeatureModel/crosstreeconstraints"/>
+        <genOperations ecoreOperation="BasicFMs.ecore#//FeatureModel/getFeature">
+          <genParameters ecoreParameter="BasicFMs.ecore#//FeatureModel/getFeature/id"/>
+        </genOperations>
+      </genClasses>
+      <genClasses ecoreClass="BasicFMs.ecore#//Feature">
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute BasicFMs.ecore#//Feature/id"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute BasicFMs.ecore#//Feature/name"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute BasicFMs.ecore#//Feature/mandatory"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference BasicFMs.ecore#//Feature/children"/>
+        <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference BasicFMs.ecore#//Feature/parent"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute BasicFMs.ecore#//Feature/abstract"/>
+        <genOperations ecoreOperation="BasicFMs.ecore#//Feature/isLeaf"/>
+        <genOperations ecoreOperation="BasicFMs.ecore#//Feature/isRoot"/>
+      </genClasses>
+      <genClasses image="false" ecoreClass="BasicFMs.ecore#//CrossTreeConstraint"/>
+      <genClasses image="false" ecoreClass="BasicFMs.ecore#//FeatureGroup"/>
+      <genClasses ecoreClass="BasicFMs.ecore#//AlternativeGroup"/>
+      <genClasses ecoreClass="BasicFMs.ecore#//SelectionGroup"/>
+    </nestedGenPackages>
   </genPackages>
 </genmodel:GenModel>

@@ -7,11 +7,36 @@
 <plugin>
 
    <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated NumericalFM -->
+      <package
+            uri="rhea.metamodels.NumericalFMs"
+            class="rhea.metamodels.NumericalFMs.NumericalFMsPackage"
+            genModel="metamodels/NumericalFMs/NumericalFM.genmodel"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
       <!-- @generated BasicFMs -->
       <package
             uri="rhea.metamodels.BasicFMs"
             class="rhea.metamodels.BasicFMs.BasicFMsPackage"
             genModel="metamodels/BasicFMs/BasicFMs.genmodel"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated BasicFMs -->
+      <package
+            uri="rhea.metamodels.BasicFMs"
+            class="rhea.metamodels.BasicFMs.BasicFMsPackage"
+            genModel="metamodels/BasicFMs/BasicFMs.genmodel"/>
+   </extension>
+
+null
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated NumericalFM -->
+      <package
+            uri="rhea.metamodels.DataTypes"
+            class="rhea.metamodels.DataTypes.DataTypesPackage"
+            genModel="metamodels/NumericalFMs/NumericalFM.genmodel"/>
    </extension>
 
    <extension point="org.eclipse.emf.ecore.generated_package">
@@ -28,6 +53,14 @@
             uri="rhea.metamodels.CardinalityBasedFMs"
             class="rhea.metamodels.CardinalityBasedFMs.CardinalityBasedFMsPackage"
             genModel="metamodels/CardinalityBasedFMs/CardinalityBasedFMs.genmodel"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated ComparativeCTCs -->
+      <package
+            uri="rhea.metamodels.ComparativeCTCs"
+            class="rhea.metamodels.ComparativeCTCs.ComparativeCTCsPackage"
+            genModel="metamodels/ComparativeCTCs/ComparativeCTCs.genmodel"/>
    </extension>
 
    <extension point="org.eclipse.emf.ecore.generated_package">
@@ -54,27 +87,4 @@
             genModel="metamodels/CompletedFM/CompletedFM.genmodel"/>
    </extension>
 
-   <extension point="org.eclipse.emf.ecore.generated_package">
-      <!-- @generated NumericalFM -->
-      <package
-            uri="rhea.metamodels.NumericalFMs"
-            class="NumericalFMs.NumericalFMsPackage"
-            genModel="metamodels/NumericalFMs/NumericalFM.genmodel"/>
-   </extension>
-
-   <extension point="org.eclipse.emf.ecore.generated_package">
-      <!-- @generated NumericalFM -->
-      <package
-            uri="rhea.metamodels.BasicFMs"
-            class="BasicFMs.BasicFMsPackage"
-            genModel="metamodels/NumericalFMs/NumericalFM.genmodel"/>
-   </extension>
-
-   <extension point="org.eclipse.emf.ecore.generated_package">
-      <!-- @generated NumericalFM -->
-      <package
-            uri="rhea.metamodels.DataTypes"
-            class="DataTypes.DataTypesPackage"
-            genModel="metamodels/NumericalFMs/NumericalFM.genmodel"/>
-   </extension>
 </plugin>

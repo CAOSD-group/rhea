@@ -48,7 +48,6 @@ public class OrImpl extends TermImpl implements Or {
 	 */
 	public OrImpl() {
 		super();
-		terms = new BasicEList<Term>();
 	}
 
 	/**
@@ -66,6 +65,7 @@ public class OrImpl extends TermImpl implements Or {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<Term> getTerms() {
 		if (terms == null) {
 			terms = new EObjectContainmentEList<Term>(Term.class, this, PropLogicCTCsPackage.OR__TERMS);

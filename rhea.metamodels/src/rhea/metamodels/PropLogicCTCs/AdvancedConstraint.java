@@ -3,6 +3,7 @@
 package rhea.metamodels.PropLogicCTCs;
 
 import rhea.metamodels.BasicFMs.CrossTreeConstraint;
+import rhea.metamodels.ComparativeCTCs.BinaryComparativeTerm;
 
 /**
  * <!-- begin-user-doc -->

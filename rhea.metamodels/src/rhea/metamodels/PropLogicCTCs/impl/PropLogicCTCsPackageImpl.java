@@ -10,6 +10,9 @@ import org.eclipse.emf.ecore.impl.EPackageImpl;
 
 import rhea.metamodels.BasicFMs.BasicFMsPackage;
 
+import rhea.metamodels.BasicFMs.impl.BasicFMsPackageImpl;
+import rhea.metamodels.ComparativeCTCs.ComparativeCTCsPackage;
+import rhea.metamodels.ComparativeCTCs.impl.ComparativeCTCsPackageImpl;
 import rhea.metamodels.PropLogicCTCs.AdvancedConstraint;
 import rhea.metamodels.PropLogicCTCs.And;
 import rhea.metamodels.PropLogicCTCs.Equiv;
@@ -147,14 +150,17 @@ public class PropLogicCTCsPackageImpl extends EPackageImpl implements PropLogicC
 
 		isInited = true;
 
-		// Initialize simple dependencies
-		BasicFMsPackage.eINSTANCE.eClass();
+		// Obtain or create and register interdependencies
+		Object registeredPackage = EPackage.Registry.INSTANCE.getEPackage(BasicFMsPackage.eNS_URI);
+		BasicFMsPackageImpl theBasicFMsPackage = (BasicFMsPackageImpl)(registeredPackage instanceof BasicFMsPackageImpl ? registeredPackage : BasicFMsPackage.eINSTANCE);
 
 		// Create package meta-data objects
 		thePropLogicCTCsPackage.createPackageContents();
+		theBasicFMsPackage.createPackageContents();
 
 		// Initialize created meta-data
 		thePropLogicCTCsPackage.initializePackageContents();
+		theBasicFMsPackage.initializePackageContents();
 
 		// Mark meta-data to indicate it can't be changed
 		thePropLogicCTCsPackage.freeze();
@@ -169,6 +175,7 @@ public class PropLogicCTCsPackageImpl extends EPackageImpl implements PropLogicC
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getAdvancedConstraint() {
 		return advancedConstraintEClass;
 	}
@@ -178,6 +185,7 @@ public class PropLogicCTCsPackageImpl extends EPackageImpl implements PropLogicC
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getAdvancedConstraint_Expr() {
 		return (EReference)advancedConstraintEClass.getEStructuralFeatures().get(0);
 	}
@@ -187,6 +195,7 @@ public class PropLogicCTCsPackageImpl extends EPackageImpl implements PropLogicC
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getTerm() {
 		return termEClass;
 	}
@@ -196,6 +205,7 @@ public class PropLogicCTCsPackageImpl extends EPackageImpl implements PropLogicC
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getFeatureTerm() {
 		return featureTermEClass;
 	}
@@ -205,6 +215,7 @@ public class PropLogicCTCsPackageImpl extends EPackageImpl implements PropLogicC
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getFeatureTerm_Feature() {
 		return (EReference)featureTermEClass.getEStructuralFeatures().get(0);
 	}
@@ -214,6 +225,7 @@ public class PropLogicCTCsPackageImpl extends EPackageImpl implements PropLogicC
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getNot() {
 		return notEClass;
 	}
@@ -223,6 +235,7 @@ public class PropLogicCTCsPackageImpl extends EPackageImpl implements PropLogicC
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getNot_Term() {
 		return (EReference)notEClass.getEStructuralFeatures().get(0);
 	}
@@ -232,6 +245,7 @@ public class PropLogicCTCsPackageImpl extends EPackageImpl implements PropLogicC
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getAnd() {
 		return andEClass;
 	}
@@ -241,6 +255,7 @@ public class PropLogicCTCsPackageImpl extends EPackageImpl implements PropLogicC
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getAnd_Terms() {
 		return (EReference)andEClass.getEStructuralFeatures().get(0);
 	}
@@ -250,6 +265,7 @@ public class PropLogicCTCsPackageImpl extends EPackageImpl implements PropLogicC
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getOr() {
 		return orEClass;
 	}
@@ -259,6 +275,7 @@ public class PropLogicCTCsPackageImpl extends EPackageImpl implements PropLogicC
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getOr_Terms() {
 		return (EReference)orEClass.getEStructuralFeatures().get(0);
 	}
@@ -268,6 +285,7 @@ public class PropLogicCTCsPackageImpl extends EPackageImpl implements PropLogicC
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getXor() {
 		return xorEClass;
 	}
@@ -277,6 +295,7 @@ public class PropLogicCTCsPackageImpl extends EPackageImpl implements PropLogicC
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getXor_Terms() {
 		return (EReference)xorEClass.getEStructuralFeatures().get(0);
 	}
@@ -286,6 +305,7 @@ public class PropLogicCTCsPackageImpl extends EPackageImpl implements PropLogicC
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getEquiv() {
 		return equivEClass;
 	}
@@ -295,6 +315,7 @@ public class PropLogicCTCsPackageImpl extends EPackageImpl implements PropLogicC
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getEquiv_Terms() {
 		return (EReference)equivEClass.getEStructuralFeatures().get(0);
 	}
@@ -304,6 +325,7 @@ public class PropLogicCTCsPackageImpl extends EPackageImpl implements PropLogicC
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getImplies() {
 		return impliesEClass;
 	}
@@ -313,6 +335,7 @@ public class PropLogicCTCsPackageImpl extends EPackageImpl implements PropLogicC
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getImplies_Left() {
 		return (EReference)impliesEClass.getEStructuralFeatures().get(0);
 	}
@@ -322,6 +345,7 @@ public class PropLogicCTCsPackageImpl extends EPackageImpl implements PropLogicC
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getImplies_Right() {
 		return (EReference)impliesEClass.getEStructuralFeatures().get(1);
 	}
@@ -331,6 +355,7 @@ public class PropLogicCTCsPackageImpl extends EPackageImpl implements PropLogicC
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getExcludes() {
 		return excludesEClass;
 	}
@@ -340,6 +365,7 @@ public class PropLogicCTCsPackageImpl extends EPackageImpl implements PropLogicC
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getExcludes_Left() {
 		return (EReference)excludesEClass.getEStructuralFeatures().get(0);
 	}
@@ -349,6 +375,7 @@ public class PropLogicCTCsPackageImpl extends EPackageImpl implements PropLogicC
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getExcludes_Right() {
 		return (EReference)excludesEClass.getEStructuralFeatures().get(1);
 	}
@@ -358,6 +385,7 @@ public class PropLogicCTCsPackageImpl extends EPackageImpl implements PropLogicC
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public PropLogicCTCsFactory getPropLogicCTCsFactory() {
 		return (PropLogicCTCsFactory)getEFactoryInstance();
 	}
@@ -454,7 +482,7 @@ public class PropLogicCTCsPackageImpl extends EPackageImpl implements PropLogicC
 		impliesEClass.getESuperTypes().add(this.getTerm());
 		excludesEClass.getESuperTypes().add(this.getTerm());
 
-		// Initialize classes, features, and operations; add parameters
+		// Initialize classes and features; add operations and parameters
 		initEClass(advancedConstraintEClass, AdvancedConstraint.class, "AdvancedConstraint", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getAdvancedConstraint_Expr(), this.getTerm(), null, "expr", null, 1, 1, AdvancedConstraint.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 

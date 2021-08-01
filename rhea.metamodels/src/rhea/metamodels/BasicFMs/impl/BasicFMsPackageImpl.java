@@ -115,11 +115,17 @@ public class BasicFMsPackageImpl extends EPackageImpl implements BasicFMsPackage
 
 		isInited = true;
 
+		// Obtain or create and register interdependencies
+		Object registeredPackage = EPackage.Registry.INSTANCE.getEPackage(BasicFMsPackage.eNS_URI);
+		BasicFMsPackageImpl theBasicFMsPackage_1 = (BasicFMsPackageImpl)(registeredPackage instanceof BasicFMsPackageImpl ? registeredPackage : BasicFMsPackage.eINSTANCE);
+
 		// Create package meta-data objects
 		theBasicFMsPackage.createPackageContents();
+		theBasicFMsPackage_1.createPackageContents();
 
 		// Initialize created meta-data
 		theBasicFMsPackage.initializePackageContents();
+		theBasicFMsPackage_1.initializePackageContents();
 
 		// Mark meta-data to indicate it can't be changed
 		theBasicFMsPackage.freeze();
@@ -134,6 +140,7 @@ public class BasicFMsPackageImpl extends EPackageImpl implements BasicFMsPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getFeatureModel() {
 		return featureModelEClass;
 	}
@@ -143,6 +150,7 @@ public class BasicFMsPackageImpl extends EPackageImpl implements BasicFMsPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getFeatureModel_Name() {
 		return (EAttribute)featureModelEClass.getEStructuralFeatures().get(0);
 	}
@@ -152,6 +160,7 @@ public class BasicFMsPackageImpl extends EPackageImpl implements BasicFMsPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getFeatureModel_Root() {
 		return (EReference)featureModelEClass.getEStructuralFeatures().get(1);
 	}
@@ -161,6 +170,7 @@ public class BasicFMsPackageImpl extends EPackageImpl implements BasicFMsPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getFeatureModel_Features() {
 		return (EReference)featureModelEClass.getEStructuralFeatures().get(2);
 	}
@@ -170,6 +180,7 @@ public class BasicFMsPackageImpl extends EPackageImpl implements BasicFMsPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getFeatureModel_Crosstreeconstraints() {
 		return (EReference)featureModelEClass.getEStructuralFeatures().get(3);
 	}
@@ -188,6 +199,7 @@ public class BasicFMsPackageImpl extends EPackageImpl implements BasicFMsPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getFeature() {
 		return featureEClass;
 	}
@@ -197,6 +209,7 @@ public class BasicFMsPackageImpl extends EPackageImpl implements BasicFMsPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getFeature_Id() {
 		return (EAttribute)featureEClass.getEStructuralFeatures().get(0);
 	}
@@ -206,6 +219,7 @@ public class BasicFMsPackageImpl extends EPackageImpl implements BasicFMsPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getFeature_Name() {
 		return (EAttribute)featureEClass.getEStructuralFeatures().get(1);
 	}
@@ -215,6 +229,7 @@ public class BasicFMsPackageImpl extends EPackageImpl implements BasicFMsPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getFeature_Mandatory() {
 		return (EAttribute)featureEClass.getEStructuralFeatures().get(2);
 	}
@@ -224,6 +239,7 @@ public class BasicFMsPackageImpl extends EPackageImpl implements BasicFMsPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getFeature_Children() {
 		return (EReference)featureEClass.getEStructuralFeatures().get(3);
 	}
@@ -233,6 +249,7 @@ public class BasicFMsPackageImpl extends EPackageImpl implements BasicFMsPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getFeature_Parent() {
 		return (EReference)featureEClass.getEStructuralFeatures().get(4);
 	}
@@ -242,6 +259,7 @@ public class BasicFMsPackageImpl extends EPackageImpl implements BasicFMsPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getFeature_Abstract() {
 		return (EAttribute)featureEClass.getEStructuralFeatures().get(5);
 	}
@@ -269,6 +287,7 @@ public class BasicFMsPackageImpl extends EPackageImpl implements BasicFMsPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getCrossTreeConstraint() {
 		return crossTreeConstraintEClass;
 	}
@@ -278,6 +297,7 @@ public class BasicFMsPackageImpl extends EPackageImpl implements BasicFMsPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getFeatureGroup() {
 		return featureGroupEClass;
 	}
@@ -287,6 +307,7 @@ public class BasicFMsPackageImpl extends EPackageImpl implements BasicFMsPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getAlternativeGroup() {
 		return alternativeGroupEClass;
 	}
@@ -296,6 +317,7 @@ public class BasicFMsPackageImpl extends EPackageImpl implements BasicFMsPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getSelectionGroup() {
 		return selectionGroupEClass;
 	}
@@ -305,6 +327,7 @@ public class BasicFMsPackageImpl extends EPackageImpl implements BasicFMsPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public BasicFMsFactory getBasicFMsFactory() {
 		return (BasicFMsFactory)getEFactoryInstance();
 	}
@@ -377,31 +400,34 @@ public class BasicFMsPackageImpl extends EPackageImpl implements BasicFMsPackage
 		setNsPrefix(eNS_PREFIX);
 		setNsURI(eNS_URI);
 
+		// Obtain other dependent packages
+		BasicFMsPackage theBasicFMsPackage_1 = (BasicFMsPackage)EPackage.Registry.INSTANCE.getEPackage(BasicFMsPackage.eNS_URI);
+
 		// Create type parameters
 
 		// Set bounds for type parameters
 
 		// Add supertypes to classes
-		featureGroupEClass.getESuperTypes().add(this.getFeature());
-		alternativeGroupEClass.getESuperTypes().add(this.getFeatureGroup());
-		selectionGroupEClass.getESuperTypes().add(this.getFeatureGroup());
+		featureGroupEClass.getESuperTypes().add(theBasicFMsPackage_1.getFeature());
+		alternativeGroupEClass.getESuperTypes().add(theBasicFMsPackage_1.getFeatureGroup());
+		selectionGroupEClass.getESuperTypes().add(theBasicFMsPackage_1.getFeatureGroup());
 
 		// Initialize classes, features, and operations; add parameters
 		initEClass(featureModelEClass, FeatureModel.class, "FeatureModel", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getFeatureModel_Name(), ecorePackage.getEString(), "name", null, 1, 1, FeatureModel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getFeatureModel_Root(), this.getFeature(), null, "root", null, 0, 1, FeatureModel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getFeatureModel_Features(), this.getFeature(), null, "features", null, 0, -1, FeatureModel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getFeatureModel_Crosstreeconstraints(), this.getCrossTreeConstraint(), null, "crosstreeconstraints", null, 0, -1, FeatureModel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getFeatureModel_Root(), theBasicFMsPackage_1.getFeature(), null, "root", null, 0, 1, FeatureModel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getFeatureModel_Features(), theBasicFMsPackage_1.getFeature(), null, "features", null, 0, -1, FeatureModel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getFeatureModel_Crosstreeconstraints(), theBasicFMsPackage_1.getCrossTreeConstraint(), null, "crosstreeconstraints", null, 0, -1, FeatureModel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-		EOperation op = initEOperation(getFeatureModel__GetFeature__String(), this.getFeature(), "getFeature", 0, 1, IS_UNIQUE, IS_ORDERED);
+		EOperation op = initEOperation(getFeatureModel__GetFeature__String(), theBasicFMsPackage_1.getFeature(), "getFeature", 0, 1, IS_UNIQUE, IS_ORDERED);
 		addEParameter(op, ecorePackage.getEString(), "id", 0, 1, IS_UNIQUE, IS_ORDERED);
 
 		initEClass(featureEClass, Feature.class, "Feature", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getFeature_Id(), ecorePackage.getEString(), "id", null, 1, 1, Feature.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getFeature_Name(), ecorePackage.getEString(), "name", null, 1, 1, Feature.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getFeature_Mandatory(), ecorePackage.getEBoolean(), "mandatory", "false", 1, 1, Feature.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getFeature_Children(), this.getFeature(), this.getFeature_Parent(), "children", null, 0, -1, Feature.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getFeature_Parent(), this.getFeature(), this.getFeature_Children(), "parent", null, 0, 1, Feature.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getFeature_Children(), theBasicFMsPackage_1.getFeature(), theBasicFMsPackage_1.getFeature_Parent(), "children", null, 0, -1, Feature.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getFeature_Parent(), theBasicFMsPackage_1.getFeature(), theBasicFMsPackage_1.getFeature_Children(), "parent", null, 0, 1, Feature.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getFeature_Abstract(), ecorePackage.getEBoolean(), "abstract", "false", 0, 1, Feature.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEOperation(getFeature__IsLeaf(), ecorePackage.getEBoolean(), "isLeaf", 0, 1, IS_UNIQUE, IS_ORDERED);
@@ -415,9 +441,6 @@ public class BasicFMsPackageImpl extends EPackageImpl implements BasicFMsPackage
 		initEClass(alternativeGroupEClass, AlternativeGroup.class, "AlternativeGroup", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
 		initEClass(selectionGroupEClass, SelectionGroup.class, "SelectionGroup", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-
-		// Create resource
-		createResource(eNS_URI);
 	}
 
 } //BasicFMsPackageImpl

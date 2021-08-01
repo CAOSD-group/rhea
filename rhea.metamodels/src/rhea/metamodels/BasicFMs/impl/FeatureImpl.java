@@ -157,6 +157,7 @@ public class FeatureImpl extends MinimalEObjectImpl.Container implements Feature
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getId() {
 		return id;
 	}
@@ -166,6 +167,7 @@ public class FeatureImpl extends MinimalEObjectImpl.Container implements Feature
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setId(String newId) {
 		String oldId = id;
 		id = newId;
@@ -178,6 +180,7 @@ public class FeatureImpl extends MinimalEObjectImpl.Container implements Feature
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getName() {
 		return name;
 	}
@@ -187,6 +190,7 @@ public class FeatureImpl extends MinimalEObjectImpl.Container implements Feature
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setName(String newName) {
 		String oldName = name;
 		name = newName;
@@ -199,6 +203,7 @@ public class FeatureImpl extends MinimalEObjectImpl.Container implements Feature
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isMandatory() {
 		return mandatory;
 	}
@@ -208,6 +213,7 @@ public class FeatureImpl extends MinimalEObjectImpl.Container implements Feature
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setMandatory(boolean newMandatory) {
 		boolean oldMandatory = mandatory;
 		mandatory = newMandatory;
@@ -220,6 +226,7 @@ public class FeatureImpl extends MinimalEObjectImpl.Container implements Feature
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<Feature> getChildren() {
 		if (children == null) {
 			children = new EObjectContainmentWithInverseEList<Feature>(Feature.class, this, BasicFMsPackage.FEATURE__CHILDREN, BasicFMsPackage.FEATURE__PARENT);
@@ -232,6 +239,7 @@ public class FeatureImpl extends MinimalEObjectImpl.Container implements Feature
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Feature getParent() {
 		if (eContainerFeatureID() != BasicFMsPackage.FEATURE__PARENT) return null;
 		return (Feature)eInternalContainer();
@@ -252,6 +260,7 @@ public class FeatureImpl extends MinimalEObjectImpl.Container implements Feature
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setParent(Feature newParent) {
 		if (newParent != eInternalContainer() || (eContainerFeatureID() != BasicFMsPackage.FEATURE__PARENT && newParent != null)) {
 			if (EcoreUtil.isAncestor(this, newParent))
@@ -273,6 +282,7 @@ public class FeatureImpl extends MinimalEObjectImpl.Container implements Feature
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isAbstract() {
 		return abstract_;
 	}
@@ -282,6 +292,7 @@ public class FeatureImpl extends MinimalEObjectImpl.Container implements Feature
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setAbstract(boolean newAbstract) {
 		boolean oldAbstract = abstract_;
 		abstract_ = newAbstract;

@@ -1,19 +1,14 @@
 package rhea.parsers.clafer;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.tree.ErrorNode;
 import org.antlr.v4.runtime.tree.TerminalNode;
 
-import DataTypes.DataType;
-import DataTypes.PrimitiveType;
-import DataTypes.PrimitiveTypeEnum;
-import DataTypes.impl.DataTypeImpl;
-import DataTypes.impl.DataTypesFactoryImpl;
-import NumericalFMs.NumericalFeature;
-import NumericalFMs.impl.NumericalFMsFactoryImpl;
+import clafer.Absyn.Exp;
 import clafer.claferParser.Abstract_Context;
 import clafer.claferParser.AssertionContext;
 import clafer.claferParser.CardContext;
@@ -84,17 +79,58 @@ import clafer.claferParser.TransGuardContext;
 import clafer.claferParser.TransitionContext;
 import clafer.claferParser.VarBindingContext;
 import clafer.claferParserListener;
+import clafer.Absyn.ClaferId;
+import clafer.Absyn.EAnd;
+import clafer.Absyn.EEq;
+import clafer.Absyn.EGt;
+import clafer.Absyn.EGte;
+import clafer.Absyn.EIff;
+import clafer.Absyn.EImplies;
+import clafer.Absyn.EInt;
+import clafer.Absyn.ELt;
+import clafer.Absyn.ELte;
+import clafer.Absyn.ENeq;
+import clafer.Absyn.EOr;
+import clafer.Absyn.EReal;
+import clafer.Absyn.EXor;
+import rhea.metamodels.BasicCTCs.impl.BasicCTCsFactoryImpl;
 import rhea.metamodels.BasicFMs.BasicFMsFactory;
 import rhea.metamodels.BasicFMs.Feature;
 import rhea.metamodels.BasicFMs.FeatureGroup;
 import rhea.metamodels.BasicFMs.FeatureModel;
+import rhea.metamodels.BasicFMs.impl.BasicFMsFactoryImpl;
 import rhea.metamodels.CardinalityBasedFMs.CardinalityBasedFMsFactory;
 import rhea.metamodels.CardinalityBasedFMs.GroupCardinality;
 import rhea.metamodels.CardinalityBasedFMs.Multiplicity;
+import rhea.metamodels.ComparativeCTCs.Equal;
+import rhea.metamodels.ComparativeCTCs.Less;
+import rhea.metamodels.ComparativeCTCs.LessOrEqual;
+import rhea.metamodels.ComparativeCTCs.More;
+import rhea.metamodels.ComparativeCTCs.MoreOrEqual;
+import rhea.metamodels.ComparativeCTCs.NotEqual;
+import rhea.metamodels.ComparativeCTCs.NumericTerm;
+import rhea.metamodels.ComparativeCTCs.impl.ComparativeCTCsFactoryImpl;
+import rhea.metamodels.DataTypes.DataType;
+import rhea.metamodels.DataTypes.PrimitiveType;
+import rhea.metamodels.DataTypes.PrimitiveTypeEnum;
+import rhea.metamodels.DataTypes.impl.DataTypesFactoryImpl;
+import rhea.metamodels.NumericalFMs.NumericalFeature;
+import rhea.metamodels.NumericalFMs.impl.NumericalFMsFactoryImpl;
+import rhea.metamodels.PropLogicCTCs.AdvancedConstraint;
+import rhea.metamodels.PropLogicCTCs.And;
+import rhea.metamodels.PropLogicCTCs.Equiv;
+import rhea.metamodels.PropLogicCTCs.FeatureTerm;
+import rhea.metamodels.PropLogicCTCs.Implies;
+import rhea.metamodels.PropLogicCTCs.Or;
+import rhea.metamodels.PropLogicCTCs.Term;
+import rhea.metamodels.PropLogicCTCs.Xor;
+import rhea.metamodels.PropLogicCTCs.impl.PropLogicCTCsFactoryImpl;
 
 public class MyClaferParserListener implements claferParserListener {
 	private FeatureModel fm;
 	private Feature currentFeature;
+	private AdvancedConstraint currentConstraint;
+	private boolean operatedConstraint;
 	private Boolean mandatory;
 	private int nFeatures;
 	private boolean isValidFeature;
@@ -237,6 +273,10 @@ public class MyClaferParserListener implements claferParserListener {
 
 	@Override
 	public void exitClafer(ClaferContext ctx) {
+		operatedConstraint = false;
+		
+		if(currentConstraint!=null) fm.getCrosstreeconstraints().add(currentConstraint);
+		
 		if (isValidFeature) {
 			// Create simple feature if not has been created (e.g., because of a group)
 			if (currentFeature == null) 
@@ -282,19 +322,17 @@ public class MyClaferParserListener implements claferParserListener {
 	@Override
 	public void enterConstraint(ConstraintContext ctx) {
 		// TODO Auto-generated method stub
-
 	}
 
 	@Override
 	public void exitConstraint(ConstraintContext ctx) {
 		// TODO Auto-generated method stub
-
 	}
 
 	@Override
 	public void enterAssertion(AssertionContext ctx) {
 		// TODO Auto-generated method stub
-
+		
 	}
 
 	@Override
@@ -306,7 +344,7 @@ public class MyClaferParserListener implements claferParserListener {
 	@Override
 	public void enterGoal(GoalContext ctx) {
 		// TODO Auto-generated method stub
-
+		
 	}
 
 	@Override
@@ -374,7 +412,6 @@ public class MyClaferParserListener implements claferParserListener {
 	@Override
 	public void enterSuper_(Super_Context ctx) {
 		// TODO Auto-generated method stub
-
 	}
 
 	@Override
@@ -385,8 +422,25 @@ public class MyClaferParserListener implements claferParserListener {
 
 	@Override
 	public void enterReference(ReferenceContext ctx) {
-		// TODO Auto-generated method stub
-
+		// No lo reconoce como feature numérica, sino como referencia a un conjunto
+		String type = ctx.getText();
+	
+		if(type.contains("->")) {
+			// format [->,type]
+			String nf = ctx.getText().substring(2);	
+			currentFeature = NumericalFMsFactoryImpl.eINSTANCE.createNumericalFeature();
+			DataType dt = DataTypesFactoryImpl.eINSTANCE.createPrimitiveType();
+			
+			if(nf.equals("Integer")) ((PrimitiveType)dt).setType(PrimitiveTypeEnum.INTEGER);
+			else if(nf.equals("Natural")) ((PrimitiveType)dt).setType(PrimitiveTypeEnum.NATURAL);
+			else if(nf.equals("Real")) ((PrimitiveType)dt).setType(PrimitiveTypeEnum.REAL);
+			
+			//Set the type
+			((NumericalFeature) currentFeature).setType(dt);
+			
+			//No le llega el valor de la Feature Numerica 
+			//Set the value TODO
+		}
 	}
 
 	@Override
@@ -446,8 +500,7 @@ public class MyClaferParserListener implements claferParserListener {
 
 	@Override
 	public void exitGCard(GCardContext ctx) {
-		// TODO Auto-generated method stub
-
+		
 	}
 
 	@Override
@@ -472,18 +525,6 @@ public class MyClaferParserListener implements claferParserListener {
 
 	@Override
 	public void exitNCard(NCardContext ctx) {
-		// format [->,type,=,value]
-		String[] type = ctx.getText().split(" ");	
-		currentFeature = (Feature) NumericalFMsFactoryImpl.eINSTANCE.createNumericalFeature();
-		DataType dt = DataTypesFactoryImpl.eINSTANCE.createPrimitiveType();
-		
-		if(type[1].equals("Integer")) ((PrimitiveType)dt).setType(PrimitiveTypeEnum.INTEGER);
-		else if(type[1].equals("Natural")) ((PrimitiveType)dt).setType(PrimitiveTypeEnum.NATURAL);
-		else if(type[1].equals("Real")) ((PrimitiveType)dt).setType(PrimitiveTypeEnum.REAL);
-		
-		//Set the type and value
-		((NumericalFeature) currentFeature).setType(dt);
-		//TODO
 		
 	}
 
@@ -510,15 +551,21 @@ public class MyClaferParserListener implements claferParserListener {
 
 	}
 
+
 	@Override
 	public void enterExp(ExpContext ctx) {
-		
+		// Triggers on each operator in the contraints
+		if (!operatedConstraint)
+		{
+			currentConstraint = PropLogicCTCsFactoryImpl.eINSTANCE.createAdvancedConstraint();
+			operatedConstraint = true;
+			currentConstraint.setExpr(parserConstraint(ctx.result));
+		}
 	}
 
 	@Override
 	public void exitExp(ExpContext ctx) {
 		// TODO Auto-generated method stub
-
 	}
 
 	@Override
@@ -835,7 +882,7 @@ public class MyClaferParserListener implements claferParserListener {
 
 	@Override
 	public void enterDecl(DeclContext ctx) {
-		
+		System.out.println(ctx.getText());
 	}
 
 	@Override
@@ -1015,5 +1062,142 @@ public class MyClaferParserListener implements claferParserListener {
 	public void exitExp14(Exp14Context ctx) {
 		
 	}
+	
+	private Term parserConstraint(Exp exp) {
+		Term t = null;
+		
+		if(exp instanceof EImplies)
+		{
+			// => Requires or Implies
+			t = PropLogicCTCsFactoryImpl.eINSTANCE.createImplies();
+			((Implies) t).setLeft(parserConstraint(((EImplies) exp).exp_1));
+			((Implies) t).setRight(parserConstraint(((EImplies) exp).exp_2));
+		}
+		
+		/*
+		else if(exp instanceof EExcludes)
+		{
 
+		}
+		*/
+		
+		else if(exp instanceof ELt)
+		{
+			// <
+			t = ComparativeCTCsFactoryImpl.eINSTANCE.createLess();
+			((Less) t).setLeft(parserConstraint(((ELt) exp).exp_1));
+			((Less) t).setRight(parserConstraint(((ELt) exp).exp_2));
+		}
+		else if(exp instanceof EGt)
+		{
+			// >
+			t = ComparativeCTCsFactoryImpl.eINSTANCE.createMore();
+			((More) t).setLeft(parserConstraint(((EGt) exp).exp_1));
+			((More) t).setRight(parserConstraint(((EGt) exp).exp_2));
+		}
+		else if(exp instanceof EEq)
+		{
+			// =
+			t = ComparativeCTCsFactoryImpl.eINSTANCE.createMore();
+			((More) t).setLeft(parserConstraint(((EEq) exp).exp_1));
+			((More) t).setRight(parserConstraint(((EEq) exp).exp_2));
+		}
+		else if(exp instanceof ELte)
+		{
+			// <=
+			t = ComparativeCTCsFactoryImpl.eINSTANCE.createLessOrEqual();
+			((LessOrEqual) t).setLeft(parserConstraint(((ELte) exp).exp_1));
+			((LessOrEqual) t).setRight(parserConstraint(((ELte) exp).exp_2));
+		}
+		else if(exp instanceof EGte)
+		{
+			// >=
+			t = ComparativeCTCsFactoryImpl.eINSTANCE.createMoreOrEqual();
+			((MoreOrEqual) t).setLeft(parserConstraint(((EGte) exp).exp_1));
+			((MoreOrEqual) t).setRight(parserConstraint(((EGte) exp).exp_2));
+		}
+		else if(exp instanceof ENeq)
+		{
+			// !=
+			t = ComparativeCTCsFactoryImpl.eINSTANCE.createNotEqual();
+			((NotEqual) t).setLeft(parserConstraint(((ENeq) exp).exp_1));
+			((NotEqual) t).setRight(parserConstraint(((ENeq) exp).exp_2));
+		}
+		else if(exp instanceof EEq)
+		{
+			// =
+			t = ComparativeCTCsFactoryImpl.eINSTANCE.createEqual();
+			((Equal) t).setLeft(parserConstraint(((EEq) exp).exp_1));
+			((Equal) t).setRight(parserConstraint(((EEq) exp).exp_2));
+		}
+		else if(exp instanceof EAnd) 
+		{
+			// &&
+			t = PropLogicCTCsFactoryImpl.eINSTANCE.createAnd();
+			List<Term> terms = ((And) t).getTerms();
+			
+			terms.add(parserConstraint(((EAnd) exp).exp_1));
+			terms.add(parserConstraint(((EAnd) exp).exp_2));
+			
+			/* REVISAR OR Y ANDS, COMPROBAR SI LO QUE ESTA ESCRITO ES EQUIVALENTE A UN ÚNICO AND (LO QUE ESTA COMENTADO PERO NO ACABADO) TODO
+			if (((EAnd) exp).exp_1 instanceof EAnd)
+			{
+				terms.add(parserConstraint(((EAnd) exp).exp_1));
+				
+			}
+			
+			if (((EAnd) exp).exp_2 instanceof EAnd)
+			{
+				terms.add(parserConstraint(((EAnd) exp).exp_2));
+			}
+			*/
+			
+		}
+		else if(exp instanceof EOr)
+		{
+			// ||
+			t = PropLogicCTCsFactoryImpl.eINSTANCE.createOr();
+			List<Term> terms = ((Or) t).getTerms();
+			
+			terms.add(parserConstraint(((EOr) exp).exp_1));
+			terms.add(parserConstraint(((EOr) exp).exp_2));
+			
+		}
+		else if(exp instanceof EXor)
+			// xor
+		{
+			t = PropLogicCTCsFactoryImpl.eINSTANCE.createXor();
+			List<Term> terms = ((Xor) t).getTerms();
+			
+			terms.add(parserConstraint(((EXor) exp).exp_1));
+			terms.add(parserConstraint(((EXor) exp).exp_2));
+		}
+		else if(exp instanceof EIff)
+		{
+			// <=>
+			t = PropLogicCTCsFactoryImpl.eINSTANCE.createEquiv();
+			List<Term> terms = ((And) t).getTerms();
+			
+			terms.add(parserConstraint(((EIff) exp).exp_1));
+			terms.add(parserConstraint(((EIff) exp).exp_2));
+		}
+		else if(exp instanceof ClaferId)
+		{
+			t = PropLogicCTCsFactoryImpl.eINSTANCE.createFeatureTerm();
+			//((FeatureTerm) t).setFeature(fm.getFeature(((ClaferId) exp).name_.toString())); // Como obtengo la feature TODO
+			((FeatureTerm) t).setFeature(BasicFMsFactoryImpl.eINSTANCE.createFeature());
+		}
+		else if(exp instanceof EInt)
+		{
+			t = ComparativeCTCsFactoryImpl.eINSTANCE.createNumericTerm();
+			((NumericTerm) t).setValue(Integer.parseInt(((EInt) exp).posinteger_));
+		}
+		else if(exp instanceof EReal)
+		{
+			t = ComparativeCTCsFactoryImpl.eINSTANCE.createNumericTerm();
+			((NumericTerm) t).setValue(Float.parseFloat(((EReal) exp).posreal_));
+		}
+		
+		return t;
+	}
 }

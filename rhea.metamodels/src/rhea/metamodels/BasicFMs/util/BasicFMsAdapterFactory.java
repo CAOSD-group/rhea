@@ -92,6 +92,14 @@ public class BasicFMsAdapterFactory extends AdapterFactoryImpl {
 				return createSelectionGroupAdapter();
 			}
 			@Override
+			public Adapter caseBasicFMs_Feature(Feature object) {
+				return createBasicFMs_FeatureAdapter();
+			}
+			@Override
+			public Adapter caseBasicFMs_FeatureGroup(FeatureGroup object) {
+				return createBasicFMs_FeatureGroupAdapter();
+			}
+			@Override
 			public Adapter defaultCase(EObject object) {
 				return createEObjectAdapter();
 			}
@@ -192,6 +200,34 @@ public class BasicFMsAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createSelectionGroupAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link rhea.metamodels.BasicFMs.Feature <em>Feature</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see rhea.metamodels.BasicFMs.Feature
+	 * @generated
+	 */
+	public Adapter createBasicFMs_FeatureAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link rhea.metamodels.BasicFMs.FeatureGroup <em>Feature Group</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see rhea.metamodels.BasicFMs.FeatureGroup
+	 * @generated
+	 */
+	public Adapter createBasicFMs_FeatureGroupAdapter() {
 		return null;
 	}
 

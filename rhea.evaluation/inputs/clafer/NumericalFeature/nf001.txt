@@ -1,0 +1,8 @@
+abstract Root
+	A 
+		A1 -> Integer
+		B
+		C
+		
+[(A => B) && (C && A1)]
+config: Root

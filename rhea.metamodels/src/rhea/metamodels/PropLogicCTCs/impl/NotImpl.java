@@ -62,6 +62,7 @@ public class NotImpl extends TermImpl implements Not {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Term getTerm() {
 		return term;
 	}
@@ -86,6 +87,7 @@ public class NotImpl extends TermImpl implements Not {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setTerm(Term newTerm) {
 		if (newTerm != term) {
 			NotificationChain msgs = null;

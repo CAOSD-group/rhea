@@ -65,6 +65,7 @@ public class EquivImpl extends TermImpl implements Equiv {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<Term> getTerms() {
 		if (terms == null) {
 			terms = new EObjectContainmentEList<Term>(Term.class, this, PropLogicCTCsPackage.EQUIV__TERMS);

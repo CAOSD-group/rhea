@@ -65,6 +65,7 @@ public class XorImpl extends TermImpl implements Xor {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<Term> getTerms() {
 		if (terms == null) {
 			terms = new EObjectContainmentEList<Term>(Term.class, this, PropLogicCTCsPackage.XOR__TERMS);

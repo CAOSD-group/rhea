@@ -87,23 +87,23 @@ public class BasicFMsSwitch<T> extends Switch<T> {
 			case BasicFMsPackage.FEATURE_GROUP: {
 				FeatureGroup featureGroup = (FeatureGroup)theEObject;
 				T result = caseFeatureGroup(featureGroup);
-				if (result == null) result = caseFeature(featureGroup);
+				if (result == null) result = caseBasicFMs_Feature(featureGroup);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case BasicFMsPackage.ALTERNATIVE_GROUP: {
 				AlternativeGroup alternativeGroup = (AlternativeGroup)theEObject;
 				T result = caseAlternativeGroup(alternativeGroup);
-				if (result == null) result = caseFeatureGroup(alternativeGroup);
-				if (result == null) result = caseFeature(alternativeGroup);
+				if (result == null) result = caseBasicFMs_FeatureGroup(alternativeGroup);
+				if (result == null) result = caseBasicFMs_Feature(alternativeGroup);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case BasicFMsPackage.SELECTION_GROUP: {
 				SelectionGroup selectionGroup = (SelectionGroup)theEObject;
 				T result = caseSelectionGroup(selectionGroup);
-				if (result == null) result = caseFeatureGroup(selectionGroup);
-				if (result == null) result = caseFeature(selectionGroup);
+				if (result == null) result = caseBasicFMs_FeatureGroup(selectionGroup);
+				if (result == null) result = caseBasicFMs_Feature(selectionGroup);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -198,6 +198,36 @@ public class BasicFMsSwitch<T> extends Switch<T> {
 	 * @generated
 	 */
 	public T caseSelectionGroup(SelectionGroup object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Feature</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Feature</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseBasicFMs_Feature(Feature object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Feature Group</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Feature Group</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseBasicFMs_FeatureGroup(FeatureGroup object) {
 		return null;
 	}
 

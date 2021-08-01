@@ -70,6 +70,7 @@ public class BasicFMsFactoryImpl extends EFactoryImpl implements BasicFMsFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public FeatureModel createFeatureModel() {
 		FeatureModelImpl featureModel = new FeatureModelImpl();
 		return featureModel;
@@ -80,6 +81,7 @@ public class BasicFMsFactoryImpl extends EFactoryImpl implements BasicFMsFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Feature createFeature() {
 		FeatureImpl feature = new FeatureImpl();
 		return feature;
@@ -90,6 +92,7 @@ public class BasicFMsFactoryImpl extends EFactoryImpl implements BasicFMsFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public AlternativeGroup createAlternativeGroup() {
 		AlternativeGroupImpl alternativeGroup = new AlternativeGroupImpl();
 		return alternativeGroup;
@@ -100,6 +103,7 @@ public class BasicFMsFactoryImpl extends EFactoryImpl implements BasicFMsFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public SelectionGroup createSelectionGroup() {
 		SelectionGroupImpl selectionGroup = new SelectionGroupImpl();
 		return selectionGroup;
@@ -110,6 +114,7 @@ public class BasicFMsFactoryImpl extends EFactoryImpl implements BasicFMsFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public BasicFMsPackage getBasicFMsPackage() {
 		return (BasicFMsPackage)getEPackage();
 	}

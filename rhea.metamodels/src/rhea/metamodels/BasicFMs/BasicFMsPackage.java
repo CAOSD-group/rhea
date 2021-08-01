@@ -275,7 +275,7 @@ public interface BasicFMsPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int FEATURE_GROUP__ID = FEATURE__ID;
+	int FEATURE_GROUP__ID = BasicFMsPackage.FEATURE__ID;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -284,7 +284,7 @@ public interface BasicFMsPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int FEATURE_GROUP__NAME = FEATURE__NAME;
+	int FEATURE_GROUP__NAME = BasicFMsPackage.FEATURE__NAME;
 
 	/**
 	 * The feature id for the '<em><b>Mandatory</b></em>' attribute.
@@ -293,7 +293,7 @@ public interface BasicFMsPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int FEATURE_GROUP__MANDATORY = FEATURE__MANDATORY;
+	int FEATURE_GROUP__MANDATORY = BasicFMsPackage.FEATURE__MANDATORY;
 
 	/**
 	 * The feature id for the '<em><b>Children</b></em>' containment reference list.
@@ -302,7 +302,7 @@ public interface BasicFMsPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int FEATURE_GROUP__CHILDREN = FEATURE__CHILDREN;
+	int FEATURE_GROUP__CHILDREN = BasicFMsPackage.FEATURE__CHILDREN;
 
 	/**
 	 * The feature id for the '<em><b>Parent</b></em>' container reference.
@@ -311,7 +311,7 @@ public interface BasicFMsPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int FEATURE_GROUP__PARENT = FEATURE__PARENT;
+	int FEATURE_GROUP__PARENT = BasicFMsPackage.FEATURE__PARENT;
 
 	/**
 	 * The feature id for the '<em><b>Abstract</b></em>' attribute.
@@ -320,7 +320,7 @@ public interface BasicFMsPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int FEATURE_GROUP__ABSTRACT = FEATURE__ABSTRACT;
+	int FEATURE_GROUP__ABSTRACT = BasicFMsPackage.FEATURE__ABSTRACT;
 
 	/**
 	 * The number of structural features of the '<em>Feature Group</em>' class.
@@ -329,7 +329,7 @@ public interface BasicFMsPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int FEATURE_GROUP_FEATURE_COUNT = FEATURE_FEATURE_COUNT + 0;
+	int FEATURE_GROUP_FEATURE_COUNT = BasicFMsPackage.FEATURE_FEATURE_COUNT + 0;
 
 	/**
 	 * The operation id for the '<em>Is Leaf</em>' operation.
@@ -338,7 +338,7 @@ public interface BasicFMsPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int FEATURE_GROUP___IS_LEAF = FEATURE___IS_LEAF;
+	int FEATURE_GROUP___IS_LEAF = BasicFMsPackage.FEATURE___IS_LEAF;
 
 	/**
 	 * The operation id for the '<em>Is Root</em>' operation.
@@ -347,7 +347,7 @@ public interface BasicFMsPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int FEATURE_GROUP___IS_ROOT = FEATURE___IS_ROOT;
+	int FEATURE_GROUP___IS_ROOT = BasicFMsPackage.FEATURE___IS_ROOT;
 
 	/**
 	 * The number of operations of the '<em>Feature Group</em>' class.
@@ -356,7 +356,7 @@ public interface BasicFMsPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int FEATURE_GROUP_OPERATION_COUNT = FEATURE_OPERATION_COUNT + 0;
+	int FEATURE_GROUP_OPERATION_COUNT = BasicFMsPackage.FEATURE_OPERATION_COUNT + 0;
 
 	/**
 	 * The meta object id for the '{@link rhea.metamodels.BasicFMs.impl.AlternativeGroupImpl <em>Alternative Group</em>}' class.
@@ -375,7 +375,7 @@ public interface BasicFMsPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int ALTERNATIVE_GROUP__ID = FEATURE_GROUP__ID;
+	int ALTERNATIVE_GROUP__ID = BasicFMsPackage.FEATURE_GROUP__ID;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -384,7 +384,7 @@ public interface BasicFMsPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int ALTERNATIVE_GROUP__NAME = FEATURE_GROUP__NAME;
+	int ALTERNATIVE_GROUP__NAME = BasicFMsPackage.FEATURE_GROUP__NAME;
 
 	/**
 	 * The feature id for the '<em><b>Mandatory</b></em>' attribute.
@@ -393,7 +393,7 @@ public interface BasicFMsPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int ALTERNATIVE_GROUP__MANDATORY = FEATURE_GROUP__MANDATORY;
+	int ALTERNATIVE_GROUP__MANDATORY = BasicFMsPackage.FEATURE_GROUP__MANDATORY;
 
 	/**
 	 * The feature id for the '<em><b>Children</b></em>' containment reference list.
@@ -402,7 +402,7 @@ public interface BasicFMsPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int ALTERNATIVE_GROUP__CHILDREN = FEATURE_GROUP__CHILDREN;
+	int ALTERNATIVE_GROUP__CHILDREN = BasicFMsPackage.FEATURE_GROUP__CHILDREN;
 
 	/**
 	 * The feature id for the '<em><b>Parent</b></em>' container reference.
@@ -411,7 +411,7 @@ public interface BasicFMsPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int ALTERNATIVE_GROUP__PARENT = FEATURE_GROUP__PARENT;
+	int ALTERNATIVE_GROUP__PARENT = BasicFMsPackage.FEATURE_GROUP__PARENT;
 
 	/**
 	 * The feature id for the '<em><b>Abstract</b></em>' attribute.
@@ -420,7 +420,7 @@ public interface BasicFMsPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int ALTERNATIVE_GROUP__ABSTRACT = FEATURE_GROUP__ABSTRACT;
+	int ALTERNATIVE_GROUP__ABSTRACT = BasicFMsPackage.FEATURE_GROUP__ABSTRACT;
 
 	/**
 	 * The number of structural features of the '<em>Alternative Group</em>' class.
@@ -429,7 +429,7 @@ public interface BasicFMsPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int ALTERNATIVE_GROUP_FEATURE_COUNT = FEATURE_GROUP_FEATURE_COUNT + 0;
+	int ALTERNATIVE_GROUP_FEATURE_COUNT = BasicFMsPackage.FEATURE_GROUP_FEATURE_COUNT + 0;
 
 	/**
 	 * The operation id for the '<em>Is Leaf</em>' operation.
@@ -438,7 +438,7 @@ public interface BasicFMsPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int ALTERNATIVE_GROUP___IS_LEAF = FEATURE_GROUP___IS_LEAF;
+	int ALTERNATIVE_GROUP___IS_LEAF = BasicFMsPackage.FEATURE_GROUP___IS_LEAF;
 
 	/**
 	 * The operation id for the '<em>Is Root</em>' operation.
@@ -447,7 +447,7 @@ public interface BasicFMsPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int ALTERNATIVE_GROUP___IS_ROOT = FEATURE_GROUP___IS_ROOT;
+	int ALTERNATIVE_GROUP___IS_ROOT = BasicFMsPackage.FEATURE_GROUP___IS_ROOT;
 
 	/**
 	 * The number of operations of the '<em>Alternative Group</em>' class.
@@ -456,7 +456,7 @@ public interface BasicFMsPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int ALTERNATIVE_GROUP_OPERATION_COUNT = FEATURE_GROUP_OPERATION_COUNT + 0;
+	int ALTERNATIVE_GROUP_OPERATION_COUNT = BasicFMsPackage.FEATURE_GROUP_OPERATION_COUNT + 0;
 
 	/**
 	 * The meta object id for the '{@link rhea.metamodels.BasicFMs.impl.SelectionGroupImpl <em>Selection Group</em>}' class.
@@ -475,7 +475,7 @@ public interface BasicFMsPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int SELECTION_GROUP__ID = FEATURE_GROUP__ID;
+	int SELECTION_GROUP__ID = BasicFMsPackage.FEATURE_GROUP__ID;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -484,7 +484,7 @@ public interface BasicFMsPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int SELECTION_GROUP__NAME = FEATURE_GROUP__NAME;
+	int SELECTION_GROUP__NAME = BasicFMsPackage.FEATURE_GROUP__NAME;
 
 	/**
 	 * The feature id for the '<em><b>Mandatory</b></em>' attribute.
@@ -493,7 +493,7 @@ public interface BasicFMsPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int SELECTION_GROUP__MANDATORY = FEATURE_GROUP__MANDATORY;
+	int SELECTION_GROUP__MANDATORY = BasicFMsPackage.FEATURE_GROUP__MANDATORY;
 
 	/**
 	 * The feature id for the '<em><b>Children</b></em>' containment reference list.
@@ -502,7 +502,7 @@ public interface BasicFMsPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int SELECTION_GROUP__CHILDREN = FEATURE_GROUP__CHILDREN;
+	int SELECTION_GROUP__CHILDREN = BasicFMsPackage.FEATURE_GROUP__CHILDREN;
 
 	/**
 	 * The feature id for the '<em><b>Parent</b></em>' container reference.
@@ -511,7 +511,7 @@ public interface BasicFMsPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int SELECTION_GROUP__PARENT = FEATURE_GROUP__PARENT;
+	int SELECTION_GROUP__PARENT = BasicFMsPackage.FEATURE_GROUP__PARENT;
 
 	/**
 	 * The feature id for the '<em><b>Abstract</b></em>' attribute.
@@ -520,7 +520,7 @@ public interface BasicFMsPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int SELECTION_GROUP__ABSTRACT = FEATURE_GROUP__ABSTRACT;
+	int SELECTION_GROUP__ABSTRACT = BasicFMsPackage.FEATURE_GROUP__ABSTRACT;
 
 	/**
 	 * The number of structural features of the '<em>Selection Group</em>' class.
@@ -529,7 +529,7 @@ public interface BasicFMsPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int SELECTION_GROUP_FEATURE_COUNT = FEATURE_GROUP_FEATURE_COUNT + 0;
+	int SELECTION_GROUP_FEATURE_COUNT = BasicFMsPackage.FEATURE_GROUP_FEATURE_COUNT + 0;
 
 	/**
 	 * The operation id for the '<em>Is Leaf</em>' operation.
@@ -538,7 +538,7 @@ public interface BasicFMsPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int SELECTION_GROUP___IS_LEAF = FEATURE_GROUP___IS_LEAF;
+	int SELECTION_GROUP___IS_LEAF = BasicFMsPackage.FEATURE_GROUP___IS_LEAF;
 
 	/**
 	 * The operation id for the '<em>Is Root</em>' operation.
@@ -547,7 +547,7 @@ public interface BasicFMsPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int SELECTION_GROUP___IS_ROOT = FEATURE_GROUP___IS_ROOT;
+	int SELECTION_GROUP___IS_ROOT = BasicFMsPackage.FEATURE_GROUP___IS_ROOT;
 
 	/**
 	 * The number of operations of the '<em>Selection Group</em>' class.
@@ -556,8 +556,7 @@ public interface BasicFMsPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int SELECTION_GROUP_OPERATION_COUNT = FEATURE_GROUP_OPERATION_COUNT + 0;
-
+	int SELECTION_GROUP_OPERATION_COUNT = BasicFMsPackage.FEATURE_GROUP_OPERATION_COUNT + 0;
 
 	/**
 	 * Returns the meta object for class '{@link rhea.metamodels.BasicFMs.FeatureModel <em>Feature Model</em>}'.
