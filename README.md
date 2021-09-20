@@ -9,13 +9,12 @@
 
 ### Instalación
 1. Instalar Java JDK 11 o superior (recomendamos 13.0.2).
-2. Descargar e instalar Eclipse for Java & DSL.
-3. Instalar Ecore Tools, desde el marketplace de Eclipse.
-4. Instalar Henshin.
-  5.1. Clonar este repositorio en un espacio de trabajo de Eclipse.
-    6.1. Importar el proyecto a Eclipse.
-  5.2. Importar el proyecto desde uno de los 2 zips proporcionados.
-7. Modificar las rutas absolutas del proyecto "rhea", para adaptarlas a las propias.
+1. Descargar e instalar Eclipse for Java & DSL.
+1. Instalar Ecore Tools, desde el marketplace de Eclipse.
+1. Instalar Henshin.
+1. Clonar este repositorio en un espacio de trabajo de Eclipse.
+1. Importar el proyecto a Eclipse.
+1. Modificar las rutas absolutas del proyecto "rhea", para adaptarlas a las propias.
 
 ## Estructura del proyecto
 * [rhea](https://github.com/CAOSD-group/rhea/tree/main/rhea). El proyecto principal. Es donde se encuentran ubicadas las rutas relativas y absolutas de ficheros, carpetas, modelos etc.
