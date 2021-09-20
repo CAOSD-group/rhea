@@ -6,8 +6,6 @@ import java.util.List;
 import rhea.metamodels.BasicFMs.CrossTreeConstraint;
 import rhea.metamodels.BasicFMs.Feature;
 import rhea.metamodels.BasicFMs.FeatureModel;
-import rhea.metamodels.BasicFMs.SelectionGroup;
-import rhea.metamodels.BasicFMs.impl.FeatureImpl;
 import rhea.metamodels.BasicFMs.impl.SelectionGroupImpl;
 import rhea.metamodels.CardinalityBasedFMs.GroupCardinality;
 import rhea.metamodels.PropLogicCTCs.AdvancedConstraint;
@@ -61,6 +59,8 @@ public class JavaGroupCardinalityRule extends JavaRule{
 		ImpliesImpl implies = new ImpliesImpl();
 		FeatureTermImpl left = new FeatureTermImpl();
 		OrImpl right = new OrImpl();
+		right.getTerms();
+		
 		left.setFeature(sg);
 		implies.setLeft(left);
 

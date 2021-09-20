@@ -46,9 +46,9 @@ public class OrImpl extends TermImpl implements Or {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated not
 	 */
-	protected OrImpl() {
+	public OrImpl() {
 		super();
 	}
 

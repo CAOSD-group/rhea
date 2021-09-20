@@ -43,7 +43,6 @@ public class JavaGroupCardinalityRefactoring extends Refactoring{
 			gcr.setFeatureModel(f);
 			
 			//Get the information before the refactoring
-			//TODO Extract this code, so only executed once, first time
 			tf.setRun(i);
 			tf.setInputModel(f.getName());
 			tf.setnFeaturesBefore(f.getFeatures().size());
@@ -56,8 +55,8 @@ public class JavaGroupCardinalityRefactoring extends Refactoring{
 			tf.setPercentageOfFeaturesType(Math.round((double) tf.numberOfFeaturesTypeBefore/(double) tf.nFeaturesBefore * 100d)/100d);
 			
 			//ONLY ON LITTLE MODELS
-			AutomatedAnalysisFM aafm = new AAFMClafer();
-			tf.setProductsBefore(aafm.products(f));
+			//AutomatedAnalysisFM aafm = new AAFMClafer();
+			//tf.setProductsBefore(aafm.products(f));
 			
 			// Full Transformation Block
 			tf.setTimeBefore(System.nanoTime()/1e9);
@@ -65,7 +64,7 @@ public class JavaGroupCardinalityRefactoring extends Refactoring{
 			tf.setTimeAfter(System.nanoTime()/1e9);
 			
 			//ONLY ON LITTLE MODELS
-			tf.setProductsAfter(aafm.products(f));
+			//tf.setProductsAfter(aafm.products(f));
 			
 			//Get the information after the refactoring
 			tf.setnFeaturesAfter(f.getFeatures().size());

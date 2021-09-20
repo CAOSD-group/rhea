@@ -15,7 +15,7 @@ public class GenerateFMs {
 		String modelName;
 		
 		// 5000 Features empieza a costar generar modelos, al menos en mi pc.
-		int nChildMin = 2, nChildMax = 4, featureStep = 250, featureLimit = 1000;
+		int nChildMin = 2, nChildMax = 4, featureStep = 100, featureLimit = 1000;
 		
 		//Basic + GCs
 		double nAlternativeGroup = 0, nSelectionGroup = 0, nMutexGroup = 0, nGroupCardinality = 0;
@@ -30,7 +30,7 @@ public class GenerateFMs {
 		LinkedHashMap<String, Double> percentages = new LinkedHashMap<String,Double>();
 		FeatureModelGenerator fmgi = new FeatureModelGenerator();
 		
-		for (int i = 250 ; i <= featureLimit ; i = i + featureStep)
+		for (int i = 100 ; i <= featureLimit ; i = i + featureStep)
 		{
 			for (double j = percentageStep ; j <= percentageLimit ; j = j + percentageStep)
 			{
@@ -45,7 +45,7 @@ public class GenerateFMs {
 				percentages.put("rhea.metamodels.CardinalityBasedFMs.GroupCardinality", j);
 				
 				//Numerical
-				percentages.put("rhea.metamodels.", nNumerical);
+				//percentages.put("rhea.metamodels.", nNumerical);
 				
 				modelName = Integer.toString(i) +"_"+ Double.toString(nAlternativeGroup) +"-"+ Double.toString(nSelectionGroup) +"-"+ Double.toString(nMutexGroup) +"-"+ 
 						Double.toString(j) +"_"+ Integer.toString(nChildMin) +"-"+ Integer.toString(nChildMax);

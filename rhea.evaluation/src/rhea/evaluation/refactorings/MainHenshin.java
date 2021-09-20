@@ -22,7 +22,7 @@ import rhea.parsers.clafer.ClaferParser;
 
 public class MainHenshin {
 	public static void main(String[] args) {
-		String modelType = "Test";
+		String modelType = "MutexGroup-Testing";
 		String folderPath = Rhea.INPUTS_DIR + "clafer/" + modelType;
 		
 		List<TransformationInformation> tis = new ArrayList<>();
@@ -35,9 +35,11 @@ public class MainHenshin {
 			models.add(fmp.readFeatureModel(f.getPath()));
 		}
 		
-		for (FeatureModel fm : models) {
-			tis.addAll(new HenshinGroupCardinalityRefactoring(fm).refactor(Rhea.EVALUATION_ITERATIONS,modelType));
-			//tis.addAll(new HenshinMutexGroupRefactoring(fm).refactor(Rhea.EVALUATION_ITERATIONS,modelType));
+		
+		for (FeatureModel fm : models) 
+		{
+			//tis.addAll(new HenshinGroupCardinalityRefactoring(fm).refactor(Rhea.EVALUATION_ITERATIONS,modelType));
+			tis.addAll(new HenshinMutexGroupRefactoring(fm).refactor(Rhea.EVALUATION_ITERATIONS,modelType));
 		}
 		
 		tis = sortTransformationInformation(tis);
