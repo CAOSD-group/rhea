@@ -12,8 +12,9 @@
 2. Descargar e instalar Eclipse for Java & DSL.
 3. Instalar Ecore Tools, desde el marketplace de Eclipse.
 4. Instalar Henshin.
-5. Clonar este repositorio en un espacio de trabajo de Eclipse.
-6. Importar el proyecto a Eclipse.
+  5.1. Clonar este repositorio en un espacio de trabajo de Eclipse.
+    6.1. Importar el proyecto a Eclipse.
+  5.2. Importar el proyecto desde uno de los 2 zips proporcionados.
 7. Modificar las rutas absolutas del proyecto "rhea", para adaptarlas a las propias.
 
 ## Estructura del proyecto
