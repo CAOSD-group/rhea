@@ -44,3 +44,7 @@
 
 ## Ejecución
 Para poder ejecutar alguna transformación, debemos acudir al proyecto *rhea.evaluation->src*. Allí, encontraremos varios paquetes, pero el que nos interesa es refactorings. Dentro podremos encontrar las clases MainJava y MainHenshin, para poder ejecutar las transformaciones. En la carpeta *inputs->clafer* del mismo proyecto, podemos encontrar modelos clasificados en carpetas. En la carpeta *outputs*, es donde encontraremos los modelos ya transformados en una clasificación identica a la carpeta *inputs*. Por último, los resultados de las transformaciones, podemos encontrarlos en el directorio raíz *temp->Evaluation*.
+
+La configuración actual permite realizar transformaciones en GroupCardinalities mediante Java, y MutexGroup mediante Henshin, ambos sobre un subconjunto de pruebas, para evitar que el tiempo de ejecución pueda ser excesivo. En caso de querer probar otras transformaciones, solo hay que cambiar la variable *modelType* por el nombre de la carpeta contenedora de otros feature models, y cambiar la regla que se está ejecutando (cambiar el código de la línea 41 por el de la línea 42, tan solo comentando el que no lo este y descomentando el otro).
+
+En nuestro equipo, las pruebas que hemos dejado preparadas no han tardado más de 2 minutos. Rogamos que si pasa dicho limite, tenga paciencia y espere a que finalice. Por el contrario, es posible eliminar modelos de las carpetas para aligerar el proceso de transformación.
