@@ -12,7 +12,7 @@
 
 * [rhea.aafm](https://github.com/CAOSD-group/rhea/tree/main/rhea.aafm). Contiene un modulo que permite analizar los modelos de características de manera automática (obteniendo productos, configuraciones etc.).
 
-* [rhea.evaluation](https://github.com/CAOSD-group/rhea/tree/main/rhea.evaluation). Contiene las pruebas y los ficheros que usan las transformaciones. Es donde debemos acudir para probarlas y generar los datos de los modelos (más en detalle, en la siguiente sección).
+* [rhea.evaluation](https://github.com/CAOSD-group/rhea/tree/main/rhea.evaluation). Contiene las pruebas y los ficheros que usan las transformaciones. Es donde debemos acudir para probarlas y generar los datos de los modelos (más en detalle, en siguientes secciones).
 
 * [rhea.metamodels](https://github.com/CAOSD-group/rhea/tree/main/rhea.metamodels). Contiene todos los metamodelos de la sintaxsis abstracta necesarios para el funcionamiento de la aplicación, así como las clases generadas a partir de los mismos.
 
