@@ -8,7 +8,7 @@ import java.util.Collection;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
-
+import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EClass;
@@ -345,6 +345,16 @@ public class FeatureModelImpl extends MinimalEObjectImpl.Container implements Fe
 		result.append(name);
 		result.append(')');
 		return result.toString();
+	}
+	
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated not
+	 */
+	public void createFeatureList()
+	{
+		this.features = new BasicEList<Feature>();
 	}
 
 } //FeatureModelImpl

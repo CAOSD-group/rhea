@@ -93,7 +93,6 @@ import clafer.Absyn.ENeq;
 import clafer.Absyn.EOr;
 import clafer.Absyn.EReal;
 import clafer.Absyn.EXor;
-import rhea.metamodels.BasicCTCs.impl.BasicCTCsFactoryImpl;
 import rhea.metamodels.BasicFMs.BasicFMsFactory;
 import rhea.metamodels.BasicFMs.Feature;
 import rhea.metamodels.BasicFMs.FeatureGroup;
@@ -179,86 +178,72 @@ public class MyClaferParserListener implements claferParserListener {
 
 	@Override
 	public void enterStart_Module(Start_ModuleContext ctx) {
-		
+		//System.out.println(new Object(){}.getClass().getEnclosingMethod().getName() + " " + ctx.getText());
 	}
 
 	@Override
 	public void exitStart_Module(Start_ModuleContext ctx) {
-		
+		//System.out.println(new Object(){}.getClass().getEnclosingMethod().getName() + " " + ctx.getText());
 	}
 
 	@Override
 	public void enterStart_Clafer(Start_ClaferContext ctx) {
-		
+		//System.out.println(new Object(){}.getClass().getEnclosingMethod().getName() + " " + ctx.getText());
 	}
 
 	@Override
 	public void exitStart_Clafer(Start_ClaferContext ctx) {
-		
+		//System.out.println(new Object(){}.getClass().getEnclosingMethod().getName() + " " + ctx.getText());
 	}
 
 	@Override
 	public void enterStart_Constraint(Start_ConstraintContext ctx) {
-		// TODO Auto-generated method stub
-
+		//System.out.println(new Object(){}.getClass().getEnclosingMethod().getName() + " " + ctx.getText());
 	}
 
 	@Override
 	public void exitStart_Constraint(Start_ConstraintContext ctx) {
-		// TODO Auto-generated method stub
-
+		//System.out.println(new Object(){}.getClass().getEnclosingMethod().getName() + " " + ctx.getText());
 	}
 
 	@Override
 	public void enterStart_Assertion(Start_AssertionContext ctx) {
-		// TODO Auto-generated method stub
-
+		//System.out.println(new Object(){}.getClass().getEnclosingMethod().getName() + " " + ctx.getText());
 	}
 
 	@Override
 	public void exitStart_Assertion(Start_AssertionContext ctx) {
-		// TODO Auto-generated method stub
-
+		//System.out.println(new Object(){}.getClass().getEnclosingMethod().getName() + " " + ctx.getText());
 	}
 
 	@Override
 	public void enterStart_Goal(Start_GoalContext ctx) {
-		// TODO Auto-generated method stub
-
+		//System.out.println(new Object(){}.getClass().getEnclosingMethod().getName() + " " + ctx.getText());
 	}
 
 	@Override
 	public void exitStart_Goal(Start_GoalContext ctx) {
-		// TODO Auto-generated method stub
-
+		//System.out.println(new Object(){}.getClass().getEnclosingMethod().getName() + " " + ctx.getText());
 	}
 
 	@Override
 	public void enterModule(ModuleContext ctx) {
-		/*
-		System.out.println("Module: " + ctx.getText());
-		System.out.println("    depth: " + ctx.depth());
-		System.out.println("    getAltNumber: " + ctx.getAltNumber());
-		System.out.println("    getRuleIndex: " + ctx.getRuleIndex());
-		System.out.println("    getChildCount: " + ctx.getChildCount());
-		System.out.println("    getChild: " + ctx.getChild(0));
-		*/
+		//System.out.println(new Object(){}.getClass().getEnclosingMethod().getName() + " " + ctx.getText());
 	}
 
 	@Override
 	public void exitModule(ModuleContext ctx) {
-		
+		//System.out.println(new Object(){}.getClass().getEnclosingMethod().getName() + " " + ctx.getText());
 	}
 
 	@Override
 	public void enterDeclaration(DeclarationContext ctx) {
-		
+		//System.out.println(new Object(){}.getClass().getEnclosingMethod().getName() + " " + ctx.getText());
 	}
 
 	@Override
 	public void exitDeclaration(DeclarationContext ctx) {
-		// TODO Auto-generated method stub
-
+		//System.out.println(new Object(){}.getClass().getEnclosingMethod().getName() + " " + ctx.getText());
 	}
 
 	@Override
@@ -321,103 +306,92 @@ public class MyClaferParserListener implements claferParserListener {
 
 	@Override
 	public void enterConstraint(ConstraintContext ctx) {
-		// TODO Auto-generated method stub
+		//System.out.println(new Object(){}.getClass().getEnclosingMethod().getName() + " " + ctx.getText());
 	}
 
 	@Override
 	public void exitConstraint(ConstraintContext ctx) {
-		// TODO Auto-generated method stub
+		//System.out.println(new Object(){}.getClass().getEnclosingMethod().getName() + " " + ctx.getText());
 	}
 
 	@Override
 	public void enterAssertion(AssertionContext ctx) {
-		// TODO Auto-generated method stub
-		
+		//System.out.println(new Object(){}.getClass().getEnclosingMethod().getName() + " " + ctx.getText());
 	}
 
 	@Override
 	public void exitAssertion(AssertionContext ctx) {
-		// TODO Auto-generated method stub
-
+		//System.out.println(new Object(){}.getClass().getEnclosingMethod().getName() + " " + ctx.getText());
 	}
 
 	@Override
 	public void enterGoal(GoalContext ctx) {
-		// TODO Auto-generated method stub
-		
+		//System.out.println(new Object(){}.getClass().getEnclosingMethod().getName() + " " + ctx.getText());
 	}
 
 	@Override
 	public void exitGoal(GoalContext ctx) {
-		// TODO Auto-generated method stub
-
+		//System.out.println(new Object(){}.getClass().getEnclosingMethod().getName() + " " + ctx.getText());
 	}
 
 	@Override
 	public void enterTempModifier(TempModifierContext ctx) {
-		// TODO Auto-generated method stub
-
+		//System.out.println(new Object(){}.getClass().getEnclosingMethod().getName() + " " + ctx.getText());
 	}
 
 	@Override
 	public void exitTempModifier(TempModifierContext ctx) {
-		// TODO Auto-generated method stub
-
+		//System.out.println(new Object(){}.getClass().getEnclosingMethod().getName() + " " + ctx.getText());
 	}
 
 	@Override
 	public void enterTransition(TransitionContext ctx) {
-		// TODO Auto-generated method stub
-
+		//System.out.println(new Object(){}.getClass().getEnclosingMethod().getName() + " " + ctx.getText());
 	}
 
 	@Override
 	public void exitTransition(TransitionContext ctx) {
-		// TODO Auto-generated method stub
-
+		//System.out.println(new Object(){}.getClass().getEnclosingMethod().getName() + " " + ctx.getText());
 	}
 
 	@Override
 	public void enterAbstract_(Abstract_Context ctx) {
-		//System.out.println("Abstract: " + ctx.getText());
+		//System.out.println(new Object(){}.getClass().getEnclosingMethod().getName() + " " + ctx.getText());
 	}
 
 	@Override
 	public void exitAbstract_(Abstract_Context ctx) {
-
+		//System.out.println(new Object(){}.getClass().getEnclosingMethod().getName() + " " + ctx.getText());
 	}
 
 	@Override
 	public void enterElements(ElementsContext ctx) {
-
+		//System.out.println(new Object(){}.getClass().getEnclosingMethod().getName() + " " + ctx.getText());
 	}
 
 	@Override
 	public void exitElements(ElementsContext ctx) {
-		// TODO Auto-generated method stub
-
+		//System.out.println(new Object(){}.getClass().getEnclosingMethod().getName() + " " + ctx.getText());
 	}
 
 	@Override
 	public void enterElement(ElementContext ctx) {
-
+		//System.out.println(new Object(){}.getClass().getEnclosingMethod().getName() + " " + ctx.getText());
 	}
 
 	@Override
 	public void exitElement(ElementContext ctx) {
-		// TODO Auto-generated method stub
-
+		//System.out.println(new Object(){}.getClass().getEnclosingMethod().getName() + " " + ctx.getText());
 	}
 
 	@Override
 	public void enterSuper_(Super_Context ctx) {
-		// TODO Auto-generated method stub
+		//System.out.println(new Object(){}.getClass().getEnclosingMethod().getName() + " " + ctx.getText());
 	}
 
 	@Override
 	public void exitSuper_(Super_Context ctx) {
-		// TODO Auto-generated method stub
-
+		//System.out.println(new Object(){}.getClass().getEnclosingMethod().getName() + " " + ctx.getText());
 	}
 
 	@Override
@@ -446,31 +420,31 @@ public class MyClaferParserListener implements claferParserListener {
 	@Override
 	public void exitReference(ReferenceContext ctx) {
 		// TODO Auto-generated method stub
-
+		//System.out.println(new Object(){}.getClass().getEnclosingMethod().getName() + " " + ctx.getText());
 	}
 
 	@Override
 	public void enterInit(InitContext ctx) {
 		// TODO Auto-generated method stub
-
+		//System.out.println(new Object(){}.getClass().getEnclosingMethod().getName() + " " + ctx.getText());
 	}
 
 	@Override
 	public void exitInit(InitContext ctx) {
 		// TODO Auto-generated method stub
-
+		//System.out.println(new Object(){}.getClass().getEnclosingMethod().getName() + " " + ctx.getText());
 	}
 
 	@Override
 	public void enterInitHow(InitHowContext ctx) {
 		// TODO Auto-generated method stub
-
+		//System.out.println(new Object(){}.getClass().getEnclosingMethod().getName() + " " + ctx.getText());
 	}
 
 	@Override
 	public void exitInitHow(InitHowContext ctx) {
 		// TODO Auto-generated method stub
-
+		//System.out.println(new Object(){}.getClass().getEnclosingMethod().getName() + " " + ctx.getText());
 	}
 
 	@Override
@@ -500,7 +474,7 @@ public class MyClaferParserListener implements claferParserListener {
 
 	@Override
 	public void exitGCard(GCardContext ctx) {
-		
+		//System.out.println(new Object(){}.getClass().getEnclosingMethod().getName() + " " + ctx.getText());
 	}
 
 	@Override
@@ -515,40 +489,37 @@ public class MyClaferParserListener implements claferParserListener {
 
 	@Override
 	public void exitCard(CardContext ctx) {
-		// TODO Auto-generated method stub
+		//System.out.println(new Object(){}.getClass().getEnclosingMethod().getName() + " " + ctx.getText());
 	}
 
 	@Override
 	public void enterNCard(NCardContext ctx) {
-		
+		//System.out.println(new Object(){}.getClass().getEnclosingMethod().getName() + " " + ctx.getText());
 	}
 
 	@Override
 	public void exitNCard(NCardContext ctx) {
-		
+		//System.out.println(new Object(){}.getClass().getEnclosingMethod().getName() + " " + ctx.getText());
 	}
 
 	@Override
 	public void enterExInteger(ExIntegerContext ctx) {
-		// TODO Auto-generated method stub
-
+		//System.out.println(new Object(){}.getClass().getEnclosingMethod().getName() + " " + ctx.getText());
 	}
 
 	@Override
 	public void exitExInteger(ExIntegerContext ctx) {
-		// TODO Auto-generated method stub
-
+		//System.out.println(new Object(){}.getClass().getEnclosingMethod().getName() + " " + ctx.getText());
 	}
 
 	@Override
 	public void enterName(NameContext ctx) {
-		
+		//System.out.println(new Object(){}.getClass().getEnclosingMethod().getName() + " " + ctx.getText());
 	}
 
 	@Override
 	public void exitName(NameContext ctx) {
-		// TODO Auto-generated method stub
-
+		//System.out.println(new Object(){}.getClass().getEnclosingMethod().getName() + " " + ctx.getText());
 	}
 
 
@@ -565,502 +536,437 @@ public class MyClaferParserListener implements claferParserListener {
 
 	@Override
 	public void exitExp(ExpContext ctx) {
-		// TODO Auto-generated method stub
+		//System.out.println(new Object(){}.getClass().getEnclosingMethod().getName() + " " + ctx.getText());
 	}
 
 	@Override
 	public void enterExp1(Exp1Context ctx) {
-		
+		//System.out.println(new Object(){}.getClass().getEnclosingMethod().getName() + " " + ctx.getText());
 	}
 
 	@Override
 	public void exitExp1(Exp1Context ctx) {
-		// TODO Auto-generated method stub
-
+		//System.out.println(new Object(){}.getClass().getEnclosingMethod().getName() + " " + ctx.getText());
 	}
 
 	@Override
 	public void enterExp2(Exp2Context ctx) {
-		
+		//System.out.println(new Object(){}.getClass().getEnclosingMethod().getName() + " " + ctx.getText());
 	}
 
 	@Override
 	public void exitExp2(Exp2Context ctx) {
-		// TODO Auto-generated method stub
-
+		//System.out.println(new Object(){}.getClass().getEnclosingMethod().getName() + " " + ctx.getText());
 	}
 
 	@Override
 	public void enterExp3(Exp3Context ctx) {
-		
+		//System.out.println(new Object(){}.getClass().getEnclosingMethod().getName() + " " + ctx.getText());
 	}
 
 	@Override
 	public void exitExp3(Exp3Context ctx) {
-		// TODO Auto-generated method stub
-
+		//System.out.println(new Object(){}.getClass().getEnclosingMethod().getName() + " " + ctx.getText());
 	}
 
 	@Override
 	public void enterExp4(Exp4Context ctx) {
-		
+		//System.out.println(new Object(){}.getClass().getEnclosingMethod().getName() + " " + ctx.getText());
 	}
 
 	@Override
 	public void exitExp4(Exp4Context ctx) {
-		// TODO Auto-generated method stub
-
+		//System.out.println(new Object(){}.getClass().getEnclosingMethod().getName() + " " + ctx.getText());
 	}
 
 	@Override
 	public void enterExp5(Exp5Context ctx) {
-		
+		//System.out.println(new Object(){}.getClass().getEnclosingMethod().getName() + " " + ctx.getText());
 	}
 
 	@Override
 	public void exitExp5(Exp5Context ctx) {
-		// TODO Auto-generated method stub
-
+		//System.out.println(new Object(){}.getClass().getEnclosingMethod().getName() + " " + ctx.getText());
 	}
 
 	@Override
 	public void enterExp6(Exp6Context ctx) {
-		
+		//System.out.println(new Object(){}.getClass().getEnclosingMethod().getName() + " " + ctx.getText());
 	}
 
 	@Override
 	public void exitExp6(Exp6Context ctx) {
-		// TODO Auto-generated method stub
-
+		//System.out.println(new Object(){}.getClass().getEnclosingMethod().getName() + " " + ctx.getText());
 	}
 
 	@Override
 	public void enterExp7(Exp7Context ctx) {
-		
+		//System.out.println(new Object(){}.getClass().getEnclosingMethod().getName() + " " + ctx.getText());
 	}
 
 	@Override
 	public void exitExp7(Exp7Context ctx) {
-		// TODO Auto-generated method stub
-
+		//System.out.println(new Object(){}.getClass().getEnclosingMethod().getName() + " " + ctx.getText());
 	}
 
 	@Override
 	public void enterExp8(Exp8Context ctx) {
-		
+		//System.out.println(new Object(){}.getClass().getEnclosingMethod().getName() + " " + ctx.getText());
 	}
 
 	@Override
 	public void exitExp8(Exp8Context ctx) {
-		// TODO Auto-generated method stub
-
+		//System.out.println(new Object(){}.getClass().getEnclosingMethod().getName() + " " + ctx.getText());
 	}
 
 	@Override
 	public void enterExp9(Exp9Context ctx) {
-		
+		//System.out.println(new Object(){}.getClass().getEnclosingMethod().getName() + " " + ctx.getText());
 	}
 
 	@Override
 	public void exitExp9(Exp9Context ctx) {
-		// TODO Auto-generated method stub
-
+		//System.out.println(new Object(){}.getClass().getEnclosingMethod().getName() + " " + ctx.getText());
 	}
 
 	@Override
 	public void enterExp10(Exp10Context ctx) {
-		// TODO Auto-generated method stub
-
+		//System.out.println(new Object(){}.getClass().getEnclosingMethod().getName() + " " + ctx.getText());
 	}
 
 	@Override
 	public void exitExp10(Exp10Context ctx) {
-		// TODO Auto-generated method stub
-
+		//System.out.println(new Object(){}.getClass().getEnclosingMethod().getName() + " " + ctx.getText());
 	}
 
 	@Override
 	public void enterExp11(Exp11Context ctx) {
-		// TODO Auto-generated method stub
-
+		//System.out.println(new Object(){}.getClass().getEnclosingMethod().getName() + " " + ctx.getText());
 	}
 
 	@Override
 	public void exitExp11(Exp11Context ctx) {
-		// TODO Auto-generated method stub
-
+		//System.out.println(new Object(){}.getClass().getEnclosingMethod().getName() + " " + ctx.getText());
 	}
 
 	@Override
 	public void enterExp15(Exp15Context ctx) {
-		// TODO Auto-generated method stub
-
+		//System.out.println(new Object(){}.getClass().getEnclosingMethod().getName() + " " + ctx.getText());
 	}
 
 	@Override
 	public void exitExp15(Exp15Context ctx) {
-		// TODO Auto-generated method stub
-
+		//System.out.println(new Object(){}.getClass().getEnclosingMethod().getName() + " " + ctx.getText());
 	}
 
 	@Override
 	public void enterExp16(Exp16Context ctx) {
-		// TODO Auto-generated method stub
-
+		//System.out.println(new Object(){}.getClass().getEnclosingMethod().getName() + " " + ctx.getText());
 	}
 
 	@Override
 	public void exitExp16(Exp16Context ctx) {
-		// TODO Auto-generated method stub
-
+		//System.out.println(new Object(){}.getClass().getEnclosingMethod().getName() + " " + ctx.getText());
 	}
 
 	@Override
 	public void enterExp17(Exp17Context ctx) {
-		// TODO Auto-generated method stub
-
+		//System.out.println(new Object(){}.getClass().getEnclosingMethod().getName() + " " + ctx.getText());
 	}
 
 	@Override
 	public void exitExp17(Exp17Context ctx) {
-		// TODO Auto-generated method stub
-
+		//System.out.println(new Object(){}.getClass().getEnclosingMethod().getName() + " " + ctx.getText());
 	}
 
 	@Override
 	public void enterExp18(Exp18Context ctx) {
-		// TODO Auto-generated method stub
-
+		//System.out.println(new Object(){}.getClass().getEnclosingMethod().getName() + " " + ctx.getText());
 	}
 
 	@Override
 	public void exitExp18(Exp18Context ctx) {
-		// TODO Auto-generated method stub
-
+		//System.out.println(new Object(){}.getClass().getEnclosingMethod().getName() + " " + ctx.getText());
 	}
 
 	@Override
 	public void enterExp19(Exp19Context ctx) {
-		// TODO Auto-generated method stub
-
+		//System.out.println(new Object(){}.getClass().getEnclosingMethod().getName() + " " + ctx.getText());
 	}
 
 	@Override
 	public void exitExp19(Exp19Context ctx) {
-		// TODO Auto-generated method stub
-
+		//System.out.println(new Object(){}.getClass().getEnclosingMethod().getName() + " " + ctx.getText());
 	}
 
 	@Override
 	public void enterExp20(Exp20Context ctx) {
-		// TODO Auto-generated method stub
-
+		//System.out.println(new Object(){}.getClass().getEnclosingMethod().getName() + " " + ctx.getText());
 	}
 
 	@Override
 	public void exitExp20(Exp20Context ctx) {
-		// TODO Auto-generated method stub
-
+		//System.out.println(new Object(){}.getClass().getEnclosingMethod().getName() + " " + ctx.getText());
 	}
 
 	@Override
 	public void enterExp21(Exp21Context ctx) {
-		// TODO Auto-generated method stub
-
+		//System.out.println(new Object(){}.getClass().getEnclosingMethod().getName() + " " + ctx.getText());
 	}
 
 	@Override
 	public void exitExp21(Exp21Context ctx) {
-		// TODO Auto-generated method stub
-
+		//System.out.println(new Object(){}.getClass().getEnclosingMethod().getName() + " " + ctx.getText());
 	}
 
 	@Override
 	public void enterExp22(Exp22Context ctx) {
-		// TODO Auto-generated method stub
-
+		//System.out.println(new Object(){}.getClass().getEnclosingMethod().getName() + " " + ctx.getText());
 	}
 
 	@Override
 	public void exitExp22(Exp22Context ctx) {
-		// TODO Auto-generated method stub
-
+		//System.out.println(new Object(){}.getClass().getEnclosingMethod().getName() + " " + ctx.getText());
 	}
 
 	@Override
 	public void enterExp23(Exp23Context ctx) {
-		// TODO Auto-generated method stub
-
+		//System.out.println(new Object(){}.getClass().getEnclosingMethod().getName() + " " + ctx.getText());
 	}
 
 	@Override
 	public void exitExp23(Exp23Context ctx) {
-		// TODO Auto-generated method stub
-
+		//System.out.println(new Object(){}.getClass().getEnclosingMethod().getName() + " " + ctx.getText());
 	}
 
 	@Override
 	public void enterExp24(Exp24Context ctx) {
-		// TODO Auto-generated method stub
-
+		//System.out.println(new Object(){}.getClass().getEnclosingMethod().getName() + " " + ctx.getText());
 	}
 
 	@Override
 	public void exitExp24(Exp24Context ctx) {
-		// TODO Auto-generated method stub
-
+		//System.out.println(new Object(){}.getClass().getEnclosingMethod().getName() + " " + ctx.getText());
 	}
 
 	@Override
 	public void enterExp25(Exp25Context ctx) {
-		// TODO Auto-generated method stub
-
+		//System.out.println(new Object(){}.getClass().getEnclosingMethod().getName() + " " + ctx.getText());
 	}
 
 	@Override
 	public void exitExp25(Exp25Context ctx) {
-		// TODO Auto-generated method stub
-
+		//System.out.println(new Object(){}.getClass().getEnclosingMethod().getName() + " " + ctx.getText());
 	}
 
 	@Override
 	public void enterExp26(Exp26Context ctx) {
-		// TODO Auto-generated method stub
-
+		//System.out.println(new Object(){}.getClass().getEnclosingMethod().getName() + " " + ctx.getText());
 	}
 
 	@Override
 	public void exitExp26(Exp26Context ctx) {
-		// TODO Auto-generated method stub
-
+		//System.out.println(new Object(){}.getClass().getEnclosingMethod().getName() + " " + ctx.getText());
 	}
 
 	@Override
 	public void enterExp27(Exp27Context ctx) {
-		// TODO Auto-generated method stub
-
+		//System.out.println(new Object(){}.getClass().getEnclosingMethod().getName() + " " + ctx.getText());
 	}
 
 	@Override
 	public void exitExp27(Exp27Context ctx) {
-		// TODO Auto-generated method stub
-
+		//System.out.println(new Object(){}.getClass().getEnclosingMethod().getName() + " " + ctx.getText());
 	}
 
 	@Override
 	public void enterTransGuard(TransGuardContext ctx) {
-		
+		//System.out.println(new Object(){}.getClass().getEnclosingMethod().getName() + " " + ctx.getText());
 	}
 
 	@Override
 	public void exitTransGuard(TransGuardContext ctx) {
-		// TODO Auto-generated method stub
-
+		//System.out.println(new Object(){}.getClass().getEnclosingMethod().getName() + " " + ctx.getText());
 	}
 
 	@Override
 	public void enterTransArrow(TransArrowContext ctx) {
-		
+		//System.out.println(new Object(){}.getClass().getEnclosingMethod().getName() + " " + ctx.getText());
 	}
 
 	@Override
 	public void exitTransArrow(TransArrowContext ctx) {
-		// TODO Auto-generated method stub
-
+		//System.out.println(new Object(){}.getClass().getEnclosingMethod().getName() + " " + ctx.getText());
 	}
 
 	@Override
 	public void enterPatternScope(PatternScopeContext ctx) {
-		
+		//System.out.println(new Object(){}.getClass().getEnclosingMethod().getName() + " " + ctx.getText());
 	}
 
 	@Override
 	public void exitPatternScope(PatternScopeContext ctx) {
-		// TODO Auto-generated method stub
-
+		//System.out.println(new Object(){}.getClass().getEnclosingMethod().getName() + " " + ctx.getText());
 	}
 
 	@Override
 	public void enterDecl(DeclContext ctx) {
-		System.out.println(ctx.getText());
+		//System.out.println(new Object(){}.getClass().getEnclosingMethod().getName() + " " + ctx.getText());
 	}
 
 	@Override
 	public void exitDecl(DeclContext ctx) {
-		// TODO Auto-generated method stub
-
+		//System.out.println(new Object(){}.getClass().getEnclosingMethod().getName() + " " + ctx.getText());
 	}
 
 	@Override
 	public void enterVarBinding(VarBindingContext ctx) {
-		
+		//System.out.println(new Object(){}.getClass().getEnclosingMethod().getName() + " " + ctx.getText());
 	}
 
 	@Override
 	public void exitVarBinding(VarBindingContext ctx) {
-		// TODO Auto-generated method stub
-
+		//System.out.println(new Object(){}.getClass().getEnclosingMethod().getName() + " " + ctx.getText());
 	}
 
 	@Override
 	public void enterQuant(QuantContext ctx) {
-		
+		//System.out.println(new Object(){}.getClass().getEnclosingMethod().getName() + " " + ctx.getText());
 	}
 
 	@Override
 	public void exitQuant(QuantContext ctx) {
-		// TODO Auto-generated method stub
-
+		//System.out.println(new Object(){}.getClass().getEnclosingMethod().getName() + " " + ctx.getText());
 	}
 
 	@Override
 	public void enterEnumId(EnumIdContext ctx) {
-		
+		//System.out.println(new Object(){}.getClass().getEnclosingMethod().getName() + " " + ctx.getText());
 	}
 
 	@Override
 	public void exitEnumId(EnumIdContext ctx) {
-		// TODO Auto-generated method stub
-
+		//System.out.println(new Object(){}.getClass().getEnclosingMethod().getName() + " " + ctx.getText());
 	}
 
 	@Override
 	public void enterModId(ModIdContext ctx) {
-		
+		//System.out.println(new Object(){}.getClass().getEnclosingMethod().getName() + " " + ctx.getText());
 	}
 
 	@Override
 	public void exitModId(ModIdContext ctx) {
-		// TODO Auto-generated method stub
-
+		//System.out.println(new Object(){}.getClass().getEnclosingMethod().getName() + " " + ctx.getText());
 	}
 
 	@Override
 	public void enterLocId(LocIdContext ctx) {
-		
+		//System.out.println(new Object(){}.getClass().getEnclosingMethod().getName() + " " + ctx.getText());
 	}
 
 	@Override
 	public void exitLocId(LocIdContext ctx) {
-		// TODO Auto-generated method stub
-
+		//System.out.println(new Object(){}.getClass().getEnclosingMethod().getName() + " " + ctx.getText());
 	}
 
 	@Override
 	public void enterListDeclaration(ListDeclarationContext ctx) {
-		// TODO Auto-generated method stub
-
+		//System.out.println(new Object(){}.getClass().getEnclosingMethod().getName() + " " + ctx.getText());
 	}
 
 	@Override
 	public void exitListDeclaration(ListDeclarationContext ctx) {
-		// TODO Auto-generated method stub
-
+		//System.out.println(new Object(){}.getClass().getEnclosingMethod().getName() + " " + ctx.getText());
 	}
 
 	@Override
 	public void enterListEnumId(ListEnumIdContext ctx) {
-		// TODO Auto-generated method stub
-
+		//System.out.println(new Object(){}.getClass().getEnclosingMethod().getName() + " " + ctx.getText());
 	}
 
 	@Override
 	public void exitListEnumId(ListEnumIdContext ctx) {
-		// TODO Auto-generated method stub
-
+		//System.out.println(new Object(){}.getClass().getEnclosingMethod().getName() + " " + ctx.getText());
 	}
 
 	@Override
 	public void enterListElement(ListElementContext ctx) {
-		
+		//System.out.println(new Object(){}.getClass().getEnclosingMethod().getName() + " " + ctx.getText());
 	}
 
 	@Override
 	public void exitListElement(ListElementContext ctx) {
-		// TODO Auto-generated method stub
-
+		//System.out.println(new Object(){}.getClass().getEnclosingMethod().getName() + " " + ctx.getText());
 	}
 
 	@Override
 	public void enterListExp(ListExpContext ctx) {
-		// TODO Auto-generated method stub
-
+		//System.out.println(new Object(){}.getClass().getEnclosingMethod().getName() + " " + ctx.getText());
 	}
 
 	@Override
 	public void exitListExp(ListExpContext ctx) {
-		// TODO Auto-generated method stub
-
+		//System.out.println(new Object(){}.getClass().getEnclosingMethod().getName() + " " + ctx.getText());
 	}
 
 	@Override
 	public void enterListTempModifier(ListTempModifierContext ctx) {
-		// TODO Auto-generated method stub
-
+		//System.out.println(new Object(){}.getClass().getEnclosingMethod().getName() + " " + ctx.getText());
 	}
 
 	@Override
 	public void exitListTempModifier(ListTempModifierContext ctx) {
-		// TODO Auto-generated method stub
-
+		//System.out.println(new Object(){}.getClass().getEnclosingMethod().getName() + " " + ctx.getText());
 	}
 
 	@Override
 	public void enterListLocId(ListLocIdContext ctx) {
-		// TODO Auto-generated method stub
-
+		//System.out.println(new Object(){}.getClass().getEnclosingMethod().getName() + " " + ctx.getText());
 	}
 
 	@Override
 	public void exitListLocId(ListLocIdContext ctx) {
-		// TODO Auto-generated method stub
-
+		//System.out.println(new Object(){}.getClass().getEnclosingMethod().getName() + " " + ctx.getText());
 	}
 
 	@Override
 	public void enterListModId(ListModIdContext ctx) {
-		// TODO Auto-generated method stub
-
+		//System.out.println(new Object(){}.getClass().getEnclosingMethod().getName() + " " + ctx.getText());
 	}
 
 	@Override
 	public void exitListModId(ListModIdContext ctx) {
-		// TODO Auto-generated method stub
-
+		//System.out.println(new Object(){}.getClass().getEnclosingMethod().getName() + " " + ctx.getText());
 	}
 
 	@Override
 	public void enterExp12(Exp12Context ctx) {
-		// TODO Auto-generated method stub
-
+		//System.out.println(new Object(){}.getClass().getEnclosingMethod().getName() + " " + ctx.getText());
 	}
 
 	@Override
 	public void exitExp12(Exp12Context ctx) {
-		// TODO Auto-generated method stub
-
+		//System.out.println(new Object(){}.getClass().getEnclosingMethod().getName() + " " + ctx.getText());
 	}
 
 	@Override
 	public void enterExp13(Exp13Context ctx) {
-		// TODO Auto-generated method stub
-
+		//System.out.println(new Object(){}.getClass().getEnclosingMethod().getName() + " " + ctx.getText());
 	}
 
 	@Override
 	public void exitExp13(Exp13Context ctx) {
-		// TODO Auto-generated method stub
-
+		//System.out.println(new Object(){}.getClass().getEnclosingMethod().getName() + " " + ctx.getText());
 	}
 
 	@Override
 	public void enterExp14(Exp14Context ctx) {
-		
+		//System.out.println(new Object(){}.getClass().getEnclosingMethod().getName() + " " + ctx.getText());
 	}
 
 	@Override
 	public void exitExp14(Exp14Context ctx) {
-		
+		//System.out.println(new Object(){}.getClass().getEnclosingMethod().getName() + " " + ctx.getText());
 	}
 	
 	private Term parserConstraint(Exp exp) {
@@ -1094,13 +1000,6 @@ public class MyClaferParserListener implements claferParserListener {
 			t = ComparativeCTCsFactoryImpl.eINSTANCE.createMore();
 			((More) t).setLeft(parserConstraint(((EGt) exp).exp_1));
 			((More) t).setRight(parserConstraint(((EGt) exp).exp_2));
-		}
-		else if(exp instanceof EEq)
-		{
-			// =
-			t = ComparativeCTCsFactoryImpl.eINSTANCE.createMore();
-			((More) t).setLeft(parserConstraint(((EEq) exp).exp_1));
-			((More) t).setRight(parserConstraint(((EEq) exp).exp_2));
 		}
 		else if(exp instanceof ELte)
 		{

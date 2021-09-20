@@ -64,6 +64,7 @@ public class GroupCardinalityImpl extends FeatureGroupImpl implements GroupCardi
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Multiplicity getMultiplicity() {
 		return multiplicity;
 	}
@@ -88,6 +89,7 @@ public class GroupCardinalityImpl extends FeatureGroupImpl implements GroupCardi
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setMultiplicity(Multiplicity newMultiplicity) {
 		if (newMultiplicity != multiplicity) {
 			NotificationChain msgs = null;

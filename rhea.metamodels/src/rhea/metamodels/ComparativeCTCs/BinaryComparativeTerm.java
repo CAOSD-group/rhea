@@ -23,44 +23,44 @@ import rhea.metamodels.PropLogicCTCs.Term;
  */
 public interface BinaryComparativeTerm extends Term {
 	/**
-	 * Returns the value of the '<em><b>Left</b></em>' reference.
+	 * Returns the value of the '<em><b>Left</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Left</em>' reference.
+	 * @return the value of the '<em>Left</em>' containment reference.
 	 * @see #setLeft(Term)
 	 * @see rhea.metamodels.ComparativeCTCs.ComparativeCTCsPackage#getBinaryComparativeTerm_Left()
-	 * @model required="true"
+	 * @model containment="true" required="true"
 	 * @generated
 	 */
 	Term getLeft();
 
 	/**
-	 * Sets the value of the '{@link rhea.metamodels.ComparativeCTCs.BinaryComparativeTerm#getLeft <em>Left</em>}' reference.
+	 * Sets the value of the '{@link rhea.metamodels.ComparativeCTCs.BinaryComparativeTerm#getLeft <em>Left</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Left</em>' reference.
+	 * @param value the new value of the '<em>Left</em>' containment reference.
 	 * @see #getLeft()
 	 * @generated
 	 */
 	void setLeft(Term value);
 
 	/**
-	 * Returns the value of the '<em><b>Right</b></em>' reference.
+	 * Returns the value of the '<em><b>Right</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Right</em>' reference.
+	 * @return the value of the '<em>Right</em>' containment reference.
 	 * @see #setRight(Term)
 	 * @see rhea.metamodels.ComparativeCTCs.ComparativeCTCsPackage#getBinaryComparativeTerm_Right()
-	 * @model required="true"
+	 * @model containment="true" required="true"
 	 * @generated
 	 */
 	Term getRight();
 
 	/**
-	 * Sets the value of the '{@link rhea.metamodels.ComparativeCTCs.BinaryComparativeTerm#getRight <em>Right</em>}' reference.
+	 * Sets the value of the '{@link rhea.metamodels.ComparativeCTCs.BinaryComparativeTerm#getRight <em>Right</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Right</em>' reference.
+	 * @param value the new value of the '<em>Right</em>' containment reference.
 	 * @see #getRight()
 	 * @generated
 	 */

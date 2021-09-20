@@ -180,22 +180,13 @@ public interface DataTypesPackage extends EPackage {
 	int TYPED_FEATURE__TYPE = BasicFMsPackage.FEATURE_FEATURE_COUNT + 0;
 
 	/**
-	 * The feature id for the '<em><b>Value</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int TYPED_FEATURE__VALUE = BasicFMsPackage.FEATURE_FEATURE_COUNT + 1;
-
-	/**
 	 * The number of structural features of the '<em>Typed Feature</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int TYPED_FEATURE_FEATURE_COUNT = BasicFMsPackage.FEATURE_FEATURE_COUNT + 2;
+	int TYPED_FEATURE_FEATURE_COUNT = BasicFMsPackage.FEATURE_FEATURE_COUNT + 1;
 
 	/**
 	 * The meta object id for the '{@link rhea.metamodels.DataTypes.impl.ObjectTypeImpl <em>Object Type</em>}' class.
@@ -363,17 +354,6 @@ public interface DataTypesPackage extends EPackage {
 	EReference getTypedFeature_Type();
 
 	/**
-	 * Returns the meta object for the attribute '{@link rhea.metamodels.DataTypes.TypedFeature#getValue <em>Value</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Value</em>'.
-	 * @see rhea.metamodels.DataTypes.TypedFeature#getValue()
-	 * @see #getTypedFeature()
-	 * @generated
-	 */
-	EAttribute getTypedFeature_Value();
-
-	/**
 	 * Returns the meta object for class '{@link rhea.metamodels.DataTypes.ObjectType <em>Object Type</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -503,14 +483,6 @@ public interface DataTypesPackage extends EPackage {
 		 * @generated
 		 */
 		EReference TYPED_FEATURE__TYPE = eINSTANCE.getTypedFeature_Type();
-
-		/**
-		 * The meta object literal for the '<em><b>Value</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EAttribute TYPED_FEATURE__VALUE = eINSTANCE.getTypedFeature_Value();
 
 		/**
 		 * The meta object literal for the '{@link rhea.metamodels.DataTypes.impl.ObjectTypeImpl <em>Object Type</em>}' class.

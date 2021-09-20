@@ -2,6 +2,7 @@
  */
 package rhea.metamodels.NumericalFMs.impl;
 
+import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
@@ -121,6 +122,16 @@ public class NumericalFMsPackageImpl extends EPackageImpl implements NumericalFM
 	 * @generated
 	 */
 	@Override
+	public EAttribute getNumericalFeature_Value() {
+		return (EAttribute)numericalFeatureEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public NumericalFMsFactory getNumericalFMsFactory() {
 		return (NumericalFMsFactory)getEFactoryInstance();
 	}
@@ -145,6 +156,7 @@ public class NumericalFMsPackageImpl extends EPackageImpl implements NumericalFM
 
 		// Create classes and their features
 		numericalFeatureEClass = createEClass(NUMERICAL_FEATURE);
+		createEAttribute(numericalFeatureEClass, NUMERICAL_FEATURE__VALUE);
 	}
 
 	/**
@@ -182,6 +194,7 @@ public class NumericalFMsPackageImpl extends EPackageImpl implements NumericalFM
 
 		// Initialize classes and features; add operations and parameters
 		initEClass(numericalFeatureEClass, NumericalFeature.class, "NumericalFeature", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getNumericalFeature_Value(), ecorePackage.getEDouble(), "value", null, 0, 1, NumericalFeature.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		// Create resource
 		createResource(eNS_URI);

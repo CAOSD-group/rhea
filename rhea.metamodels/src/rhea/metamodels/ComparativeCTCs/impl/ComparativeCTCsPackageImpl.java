@@ -363,8 +363,8 @@ public class ComparativeCTCsPackageImpl extends EPackageImpl implements Comparat
 
 		// Initialize classes and features; add operations and parameters
 		initEClass(binaryComparativeTermEClass, BinaryComparativeTerm.class, "BinaryComparativeTerm", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getBinaryComparativeTerm_Left(), thePropLogicCTCsPackage.getTerm(), null, "left", null, 1, 1, BinaryComparativeTerm.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getBinaryComparativeTerm_Right(), thePropLogicCTCsPackage.getTerm(), null, "right", null, 1, 1, BinaryComparativeTerm.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getBinaryComparativeTerm_Left(), thePropLogicCTCsPackage.getTerm(), null, "left", null, 1, 1, BinaryComparativeTerm.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getBinaryComparativeTerm_Right(), thePropLogicCTCsPackage.getTerm(), null, "right", null, 1, 1, BinaryComparativeTerm.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(equalEClass, Equal.class, "Equal", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 

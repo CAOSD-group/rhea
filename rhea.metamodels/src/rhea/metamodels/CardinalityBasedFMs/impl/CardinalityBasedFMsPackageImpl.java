@@ -92,14 +92,17 @@ public class CardinalityBasedFMsPackageImpl extends EPackageImpl implements Card
 
 		isInited = true;
 
-		// Initialize simple dependencies
-		BasicFMsPackage.eINSTANCE.eClass();
+		// Obtain or create and register interdependencies
+		Object registeredPackage = EPackage.Registry.INSTANCE.getEPackage(BasicFMsPackage.eNS_URI);
+		rhea.metamodels.BasicFMs.impl.BasicFMsPackageImpl theBasicFMsPackage = (rhea.metamodels.BasicFMs.impl.BasicFMsPackageImpl)(registeredPackage instanceof rhea.metamodels.BasicFMs.impl.BasicFMsPackageImpl ? registeredPackage : BasicFMsPackage.eINSTANCE);
 
 		// Create package meta-data objects
 		theCardinalityBasedFMsPackage.createPackageContents();
+		theBasicFMsPackage.createPackageContents();
 
 		// Initialize created meta-data
 		theCardinalityBasedFMsPackage.initializePackageContents();
+		theBasicFMsPackage.initializePackageContents();
 
 		// Mark meta-data to indicate it can't be changed
 		theCardinalityBasedFMsPackage.freeze();
@@ -114,6 +117,7 @@ public class CardinalityBasedFMsPackageImpl extends EPackageImpl implements Card
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getMultiplicity() {
 		return multiplicityEClass;
 	}
@@ -123,6 +127,7 @@ public class CardinalityBasedFMsPackageImpl extends EPackageImpl implements Card
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getMultiplicity_Lower() {
 		return (EAttribute)multiplicityEClass.getEStructuralFeatures().get(0);
 	}
@@ -132,6 +137,7 @@ public class CardinalityBasedFMsPackageImpl extends EPackageImpl implements Card
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getMultiplicity_Upper() {
 		return (EAttribute)multiplicityEClass.getEStructuralFeatures().get(1);
 	}
@@ -141,6 +147,7 @@ public class CardinalityBasedFMsPackageImpl extends EPackageImpl implements Card
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getGroupCardinality() {
 		return groupCardinalityEClass;
 	}
@@ -150,6 +157,7 @@ public class CardinalityBasedFMsPackageImpl extends EPackageImpl implements Card
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getGroupCardinality_Multiplicity() {
 		return (EReference)groupCardinalityEClass.getEStructuralFeatures().get(0);
 	}
@@ -159,6 +167,7 @@ public class CardinalityBasedFMsPackageImpl extends EPackageImpl implements Card
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getMutexGroup() {
 		return mutexGroupEClass;
 	}
@@ -168,6 +177,7 @@ public class CardinalityBasedFMsPackageImpl extends EPackageImpl implements Card
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public CardinalityBasedFMsFactory getCardinalityBasedFMsFactory() {
 		return (CardinalityBasedFMsFactory)getEFactoryInstance();
 	}
@@ -235,7 +245,7 @@ public class CardinalityBasedFMsPackageImpl extends EPackageImpl implements Card
 		groupCardinalityEClass.getESuperTypes().add(theBasicFMsPackage.getFeatureGroup());
 		mutexGroupEClass.getESuperTypes().add(theBasicFMsPackage.getFeatureGroup());
 
-		// Initialize classes, features, and operations; add parameters
+		// Initialize classes and features; add operations and parameters
 		initEClass(multiplicityEClass, Multiplicity.class, "Multiplicity", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getMultiplicity_Lower(), ecorePackage.getEInt(), "lower", "1", 1, 1, Multiplicity.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getMultiplicity_Upper(), ecorePackage.getEInt(), "upper", "-1", 1, 1, Multiplicity.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

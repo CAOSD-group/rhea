@@ -96,15 +96,6 @@ public interface CardinalityBasedFMsPackage extends EPackage {
 	int MULTIPLICITY_FEATURE_COUNT = 2;
 
 	/**
-	 * The number of operations of the '<em>Multiplicity</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int MULTIPLICITY_OPERATION_COUNT = 0;
-
-	/**
 	 * The meta object id for the '{@link rhea.metamodels.CardinalityBasedFMs.impl.GroupCardinalityImpl <em>Group Cardinality</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -187,33 +178,6 @@ public interface CardinalityBasedFMsPackage extends EPackage {
 	int GROUP_CARDINALITY_FEATURE_COUNT = BasicFMsPackage.FEATURE_GROUP_FEATURE_COUNT + 1;
 
 	/**
-	 * The operation id for the '<em>Is Leaf</em>' operation.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int GROUP_CARDINALITY___IS_LEAF = BasicFMsPackage.FEATURE_GROUP___IS_LEAF;
-
-	/**
-	 * The operation id for the '<em>Is Root</em>' operation.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int GROUP_CARDINALITY___IS_ROOT = BasicFMsPackage.FEATURE_GROUP___IS_ROOT;
-
-	/**
-	 * The number of operations of the '<em>Group Cardinality</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int GROUP_CARDINALITY_OPERATION_COUNT = BasicFMsPackage.FEATURE_GROUP_OPERATION_COUNT + 0;
-
-	/**
 	 * The meta object id for the '{@link rhea.metamodels.CardinalityBasedFMs.impl.MutexGroupImpl <em>Mutex Group</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -285,34 +249,6 @@ public interface CardinalityBasedFMsPackage extends EPackage {
 	 * @ordered
 	 */
 	int MUTEX_GROUP_FEATURE_COUNT = BasicFMsPackage.FEATURE_GROUP_FEATURE_COUNT + 0;
-
-	/**
-	 * The operation id for the '<em>Is Leaf</em>' operation.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int MUTEX_GROUP___IS_LEAF = BasicFMsPackage.FEATURE_GROUP___IS_LEAF;
-
-	/**
-	 * The operation id for the '<em>Is Root</em>' operation.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int MUTEX_GROUP___IS_ROOT = BasicFMsPackage.FEATURE_GROUP___IS_ROOT;
-
-	/**
-	 * The number of operations of the '<em>Mutex Group</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int MUTEX_GROUP_OPERATION_COUNT = BasicFMsPackage.FEATURE_GROUP_OPERATION_COUNT + 0;
-
 
 	/**
 	 * Returns the meta object for class '{@link rhea.metamodels.CardinalityBasedFMs.Multiplicity <em>Multiplicity</em>}'.

@@ -7,6 +7,7 @@ import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.ecore.EClass;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
+import org.eclipse.emf.ecore.impl.EObjectImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
 import rhea.metamodels.CardinalityBasedFMs.CardinalityBasedFMsPackage;
@@ -26,7 +27,7 @@ import rhea.metamodels.CardinalityBasedFMs.Multiplicity;
  *
  * @generated
  */
-public class MultiplicityImpl extends MinimalEObjectImpl.Container implements Multiplicity {
+public class MultiplicityImpl extends EObjectImpl implements Multiplicity {
 	/**
 	 * The default value of the '{@link #getLower() <em>Lower</em>}' attribute.
 	 * <!-- begin-user-doc -->
@@ -91,6 +92,7 @@ public class MultiplicityImpl extends MinimalEObjectImpl.Container implements Mu
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public int getLower() {
 		return lower;
 	}
@@ -100,6 +102,7 @@ public class MultiplicityImpl extends MinimalEObjectImpl.Container implements Mu
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setLower(int newLower) {
 		int oldLower = lower;
 		lower = newLower;
@@ -112,6 +115,7 @@ public class MultiplicityImpl extends MinimalEObjectImpl.Container implements Mu
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public int getUpper() {
 		return upper;
 	}
@@ -121,6 +125,7 @@ public class MultiplicityImpl extends MinimalEObjectImpl.Container implements Mu
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setUpper(int newUpper) {
 		int oldUpper = upper;
 		upper = newUpper;

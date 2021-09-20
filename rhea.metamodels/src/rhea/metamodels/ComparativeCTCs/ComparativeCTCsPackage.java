@@ -68,7 +68,7 @@ public interface ComparativeCTCsPackage extends EPackage {
 	int BINARY_COMPARATIVE_TERM = 0;
 
 	/**
-	 * The feature id for the '<em><b>Left</b></em>' reference.
+	 * The feature id for the '<em><b>Left</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -77,7 +77,7 @@ public interface ComparativeCTCsPackage extends EPackage {
 	int BINARY_COMPARATIVE_TERM__LEFT = PropLogicCTCsPackage.TERM_FEATURE_COUNT + 0;
 
 	/**
-	 * The feature id for the '<em><b>Right</b></em>' reference.
+	 * The feature id for the '<em><b>Right</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -105,7 +105,7 @@ public interface ComparativeCTCsPackage extends EPackage {
 	int EQUAL = 1;
 
 	/**
-	 * The feature id for the '<em><b>Left</b></em>' reference.
+	 * The feature id for the '<em><b>Left</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -114,7 +114,7 @@ public interface ComparativeCTCsPackage extends EPackage {
 	int EQUAL__LEFT = BINARY_COMPARATIVE_TERM__LEFT;
 
 	/**
-	 * The feature id for the '<em><b>Right</b></em>' reference.
+	 * The feature id for the '<em><b>Right</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -142,7 +142,7 @@ public interface ComparativeCTCsPackage extends EPackage {
 	int NOT_EQUAL = 2;
 
 	/**
-	 * The feature id for the '<em><b>Left</b></em>' reference.
+	 * The feature id for the '<em><b>Left</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -151,7 +151,7 @@ public interface ComparativeCTCsPackage extends EPackage {
 	int NOT_EQUAL__LEFT = BINARY_COMPARATIVE_TERM__LEFT;
 
 	/**
-	 * The feature id for the '<em><b>Right</b></em>' reference.
+	 * The feature id for the '<em><b>Right</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -179,7 +179,7 @@ public interface ComparativeCTCsPackage extends EPackage {
 	int LESS = 3;
 
 	/**
-	 * The feature id for the '<em><b>Left</b></em>' reference.
+	 * The feature id for the '<em><b>Left</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -188,7 +188,7 @@ public interface ComparativeCTCsPackage extends EPackage {
 	int LESS__LEFT = BINARY_COMPARATIVE_TERM__LEFT;
 
 	/**
-	 * The feature id for the '<em><b>Right</b></em>' reference.
+	 * The feature id for the '<em><b>Right</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -216,7 +216,7 @@ public interface ComparativeCTCsPackage extends EPackage {
 	int MORE = 4;
 
 	/**
-	 * The feature id for the '<em><b>Left</b></em>' reference.
+	 * The feature id for the '<em><b>Left</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -225,7 +225,7 @@ public interface ComparativeCTCsPackage extends EPackage {
 	int MORE__LEFT = BINARY_COMPARATIVE_TERM__LEFT;
 
 	/**
-	 * The feature id for the '<em><b>Right</b></em>' reference.
+	 * The feature id for the '<em><b>Right</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -253,7 +253,7 @@ public interface ComparativeCTCsPackage extends EPackage {
 	int LESS_OR_EQUAL = 5;
 
 	/**
-	 * The feature id for the '<em><b>Left</b></em>' reference.
+	 * The feature id for the '<em><b>Left</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -262,7 +262,7 @@ public interface ComparativeCTCsPackage extends EPackage {
 	int LESS_OR_EQUAL__LEFT = BINARY_COMPARATIVE_TERM__LEFT;
 
 	/**
-	 * The feature id for the '<em><b>Right</b></em>' reference.
+	 * The feature id for the '<em><b>Right</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -290,7 +290,7 @@ public interface ComparativeCTCsPackage extends EPackage {
 	int MORE_OR_EQUAL = 6;
 
 	/**
-	 * The feature id for the '<em><b>Left</b></em>' reference.
+	 * The feature id for the '<em><b>Left</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -299,7 +299,7 @@ public interface ComparativeCTCsPackage extends EPackage {
 	int MORE_OR_EQUAL__LEFT = BINARY_COMPARATIVE_TERM__LEFT;
 
 	/**
-	 * The feature id for the '<em><b>Right</b></em>' reference.
+	 * The feature id for the '<em><b>Right</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -356,10 +356,10 @@ public interface ComparativeCTCsPackage extends EPackage {
 	EClass getBinaryComparativeTerm();
 
 	/**
-	 * Returns the meta object for the reference '{@link rhea.metamodels.ComparativeCTCs.BinaryComparativeTerm#getLeft <em>Left</em>}'.
+	 * Returns the meta object for the containment reference '{@link rhea.metamodels.ComparativeCTCs.BinaryComparativeTerm#getLeft <em>Left</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Left</em>'.
+	 * @return the meta object for the containment reference '<em>Left</em>'.
 	 * @see rhea.metamodels.ComparativeCTCs.BinaryComparativeTerm#getLeft()
 	 * @see #getBinaryComparativeTerm()
 	 * @generated
@@ -367,10 +367,10 @@ public interface ComparativeCTCsPackage extends EPackage {
 	EReference getBinaryComparativeTerm_Left();
 
 	/**
-	 * Returns the meta object for the reference '{@link rhea.metamodels.ComparativeCTCs.BinaryComparativeTerm#getRight <em>Right</em>}'.
+	 * Returns the meta object for the containment reference '{@link rhea.metamodels.ComparativeCTCs.BinaryComparativeTerm#getRight <em>Right</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Right</em>'.
+	 * @return the meta object for the containment reference '<em>Right</em>'.
 	 * @see rhea.metamodels.ComparativeCTCs.BinaryComparativeTerm#getRight()
 	 * @see #getBinaryComparativeTerm()
 	 * @generated
@@ -491,7 +491,7 @@ public interface ComparativeCTCsPackage extends EPackage {
 		EClass BINARY_COMPARATIVE_TERM = eINSTANCE.getBinaryComparativeTerm();
 
 		/**
-		 * The meta object literal for the '<em><b>Left</b></em>' reference feature.
+		 * The meta object literal for the '<em><b>Left</b></em>' containment reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
@@ -499,7 +499,7 @@ public interface ComparativeCTCsPackage extends EPackage {
 		EReference BINARY_COMPARATIVE_TERM__LEFT = eINSTANCE.getBinaryComparativeTerm_Left();
 
 		/**
-		 * The meta object literal for the '<em><b>Right</b></em>' reference feature.
+		 * The meta object literal for the '<em><b>Right</b></em>' containment reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated

@@ -6,5 +6,4 @@ public abstract class Name implements java.io.Serializable {
     public R visit(clafer.Absyn.Path p, A arg);
 
   }
-
 }

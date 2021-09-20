@@ -6,7 +6,9 @@
   <foreignModel>NumericalFMs.ecore</foreignModel>
   <genPackages prefix="NumericalFMs" basePackage="rhea.metamodels" disposableProviderFactory="true"
       ecorePackage="NumericalFMs.ecore#/">
-    <genClasses ecoreClass="NumericalFMs.ecore#//NumericalFeature"/>
+    <genClasses ecoreClass="NumericalFMs.ecore#//NumericalFeature">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute NumericalFMs.ecore#//NumericalFeature/value"/>
+    </genClasses>
   </genPackages>
   <genPackages prefix="DataTypes" basePackage="rhea.metamodels" ecorePackage="../DataTypes/DataTypes.ecore#/">
     <genEnums typeSafeEnumCompatible="false" ecoreEnum="../DataTypes/DataTypes.ecore#//PrimitiveTypeEnum">
@@ -23,7 +25,6 @@
     </genClasses>
     <genClasses ecoreClass="../DataTypes/DataTypes.ecore#//TypedFeature">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ../DataTypes/DataTypes.ecore#//TypedFeature/type"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ../DataTypes/DataTypes.ecore#//TypedFeature/value"/>
     </genClasses>
     <genClasses ecoreClass="../DataTypes/DataTypes.ecore#//ObjectType">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ../DataTypes/DataTypes.ecore#//ObjectType/type"/>

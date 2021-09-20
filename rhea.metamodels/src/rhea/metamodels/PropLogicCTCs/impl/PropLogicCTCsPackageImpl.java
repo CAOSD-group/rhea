@@ -151,15 +151,19 @@ public class PropLogicCTCsPackageImpl extends EPackageImpl implements PropLogicC
 		isInited = true;
 
 		// Obtain or create and register interdependencies
-		Object registeredPackage = EPackage.Registry.INSTANCE.getEPackage(BasicFMsPackage.eNS_URI);
+		Object registeredPackage = EPackage.Registry.INSTANCE.getEPackage(ComparativeCTCsPackage.eNS_URI);
+		ComparativeCTCsPackageImpl theComparativeCTCsPackage = (ComparativeCTCsPackageImpl)(registeredPackage instanceof ComparativeCTCsPackageImpl ? registeredPackage : ComparativeCTCsPackage.eINSTANCE);
+		registeredPackage = EPackage.Registry.INSTANCE.getEPackage(BasicFMsPackage.eNS_URI);
 		BasicFMsPackageImpl theBasicFMsPackage = (BasicFMsPackageImpl)(registeredPackage instanceof BasicFMsPackageImpl ? registeredPackage : BasicFMsPackage.eINSTANCE);
 
 		// Create package meta-data objects
 		thePropLogicCTCsPackage.createPackageContents();
+		theComparativeCTCsPackage.createPackageContents();
 		theBasicFMsPackage.createPackageContents();
 
 		// Initialize created meta-data
 		thePropLogicCTCsPackage.initializePackageContents();
+		theComparativeCTCsPackage.initializePackageContents();
 		theBasicFMsPackage.initializePackageContents();
 
 		// Mark meta-data to indicate it can't be changed

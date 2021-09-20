@@ -26,7 +26,6 @@ import rhea.metamodels.DataTypes.Value;
  * </p>
  * <ul>
  *   <li>{@link rhea.metamodels.DataTypes.impl.TypedFeatureImpl#getType <em>Type</em>}</li>
- *   <li>{@link rhea.metamodels.DataTypes.impl.TypedFeatureImpl#getValue <em>Value</em>}</li>
  * </ul>
  *
  * @generated
@@ -41,16 +40,6 @@ public class TypedFeatureImpl extends FeatureImpl implements TypedFeature {
 	 * @ordered
 	 */
 	protected DataType type;
-
-	/**
-	 * The cached value of the '{@link #getValue() <em>Value</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getValue()
-	 * @generated
-	 * @ordered
-	 */
-	protected Object value;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -122,29 +111,6 @@ public class TypedFeatureImpl extends FeatureImpl implements TypedFeature {
 	 * @generated
 	 */
 	@Override
-	public Object getValue() {
-		return value;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public void setValue(Object newValue) {
-		Object oldValue = value;
-		value = newValue;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, DataTypesPackage.TYPED_FEATURE__VALUE, oldValue, value));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case DataTypesPackage.TYPED_FEATURE__TYPE:
@@ -163,8 +129,6 @@ public class TypedFeatureImpl extends FeatureImpl implements TypedFeature {
 		switch (featureID) {
 			case DataTypesPackage.TYPED_FEATURE__TYPE:
 				return getType();
-			case DataTypesPackage.TYPED_FEATURE__VALUE:
-				return getValue();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -179,9 +143,6 @@ public class TypedFeatureImpl extends FeatureImpl implements TypedFeature {
 		switch (featureID) {
 			case DataTypesPackage.TYPED_FEATURE__TYPE:
 				setType((DataType)newValue);
-				return;
-			case DataTypesPackage.TYPED_FEATURE__VALUE:
-				setValue(newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -198,9 +159,6 @@ public class TypedFeatureImpl extends FeatureImpl implements TypedFeature {
 			case DataTypesPackage.TYPED_FEATURE__TYPE:
 				setType((DataType)null);
 				return;
-			case DataTypesPackage.TYPED_FEATURE__VALUE:
-				setValue((Object)null);
-				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -215,26 +173,8 @@ public class TypedFeatureImpl extends FeatureImpl implements TypedFeature {
 		switch (featureID) {
 			case DataTypesPackage.TYPED_FEATURE__TYPE:
 				return type != null;
-			case DataTypesPackage.TYPED_FEATURE__VALUE:
-				return value != null;
 		}
 		return super.eIsSet(featureID);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public String toString() {
-		if (eIsProxy()) return super.toString();
-
-		StringBuilder result = new StringBuilder(super.toString());
-		result.append(" (value: ");
-		result.append(value);
-		result.append(')');
-		return result.toString();
 	}
 
 } //TypedFeatureImpl

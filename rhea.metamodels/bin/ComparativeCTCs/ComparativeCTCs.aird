@@ -6,7 +6,7 @@
     <semanticResources>../BasicFMs/BasicFMs.ecore</semanticResources>
     <ownedViews xmi:type="viewpoint:DView" uid="_iILrUOujEeuCx6IH3CUNYg">
       <viewpoint xmi:type="description:Viewpoint" href="platform:/plugin/org.eclipse.emf.ecoretools.design/description/ecore.odesign#//@ownedViewpoints[name='Design']"/>
-      <ownedRepresentationDescriptors xmi:type="viewpoint:DRepresentationDescriptor" uid="_kEFXUOujEeuCx6IH3CUNYg" name="ComparativeCTCs class diagram" repPath="#_kD_QsOujEeuCx6IH3CUNYg" changeId="36bd37b7-92c5-43a2-ac7e-d6b5e4805dd5">
+      <ownedRepresentationDescriptors xmi:type="viewpoint:DRepresentationDescriptor" uid="_kEFXUOujEeuCx6IH3CUNYg" name="ComparativeCTCs class diagram" repPath="#_kD_QsOujEeuCx6IH3CUNYg" changeId="887c8c8a-8663-4848-8547-9c79d0f64740">
         <description xmi:type="description_1:DiagramDescription" href="platform:/plugin/org.eclipse.emf.ecoretools.design/description/ecore.odesign#//@ownedViewpoints[name='Design']/@ownedRepresentations[name='Entities']"/>
         <target xmi:type="ecore:EPackage" href="ComparativeCTCs.ecore#/"/>
       </ownedRepresentationDescriptors>
@@ -274,13 +274,13 @@
     </ownedAnnotationEntries>
     <ownedAnnotationEntries xmi:type="description:AnnotationEntry" uid="_kELd8OujEeuCx6IH3CUNYg" source="DANNOTATION_CUSTOMIZATION_KEY">
       <data xmi:type="diagram:ComputedStyleDescriptionRegistry" uid="_kELd8eujEeuCx6IH3CUNYg">
-        <computedStyleDescriptions xmi:type="style:EdgeStyleDescription" xmi:id="_WEj2gOulEeuCx6IH3CUNYg" routingStyle="manhattan">
+        <computedStyleDescriptions xmi:type="style:EdgeStyleDescription" xmi:id="_e57uQBlkEey3NpXQTjGRcQ" sourceArrow="FillDiamond" routingStyle="manhattan">
           <strokeColor xmi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
-          <centerLabelStyleDescription xmi:type="style:CenterLabelStyleDescription" xmi:id="_WEj2geulEeuCx6IH3CUNYg" showIcon="false" labelExpression="service:render">
+          <centerLabelStyleDescription xmi:type="style:CenterLabelStyleDescription" xmi:id="_e57uQRlkEey3NpXQTjGRcQ" showIcon="false" labelExpression="service:render">
             <labelFormat>bold</labelFormat>
             <labelColor xmi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
           </centerLabelStyleDescription>
-          <endLabelStyleDescription xmi:type="style:EndLabelStyleDescription" xmi:id="_WEj2guulEeuCx6IH3CUNYg" labelSize="6" showIcon="false" labelExpression="service:eKeysLabel">
+          <endLabelStyleDescription xmi:type="style:EndLabelStyleDescription" xmi:id="_e57uQhlkEey3NpXQTjGRcQ" labelSize="6" showIcon="false" labelExpression="service:eKeysLabel">
             <labelColor xmi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='dark_blue']"/>
           </endLabelStyleDescription>
         </computedStyleDescriptions>
@@ -315,22 +315,22 @@
     <ownedDiagramElements xmi:type="diagram:DEdge" uid="_Uvs8YOulEeuCx6IH3CUNYg" name="[1..1] left" sourceNode="_8-iCsOujEeuCx6IH3CUNYg" targetNode="_ReGowOulEeuCx6IH3CUNYg">
       <target xmi:type="ecore:EReference" href="ComparativeCTCs.ecore#//BinaryComparativeTerm/left"/>
       <semanticElements xmi:type="ecore:EReference" href="ComparativeCTCs.ecore#//BinaryComparativeTerm/left"/>
-      <ownedStyle xmi:type="diagram:EdgeStyle" uid="_WEj2g-ulEeuCx6IH3CUNYg" description="_WEj2gOulEeuCx6IH3CUNYg" routingStyle="manhattan" strokeColor="0,0,0">
-        <centerLabelStyle xmi:type="diagram:CenterLabelStyle" uid="_WEj2heulEeuCx6IH3CUNYg" showIcon="false">
+      <ownedStyle xmi:type="diagram:EdgeStyle" uid="_e58VUBlkEey3NpXQTjGRcQ" description="_e57uQBlkEey3NpXQTjGRcQ" sourceArrow="FillDiamond" routingStyle="manhattan" strokeColor="0,0,0">
+        <centerLabelStyle xmi:type="diagram:CenterLabelStyle" uid="_e58VUhlkEey3NpXQTjGRcQ" showIcon="false">
           <labelFormat>bold</labelFormat>
         </centerLabelStyle>
-        <endLabelStyle xmi:type="diagram:EndLabelStyle" uid="_WEj2hOulEeuCx6IH3CUNYg" labelSize="6" showIcon="false" labelColor="39,76,114"/>
+        <endLabelStyle xmi:type="diagram:EndLabelStyle" uid="_e58VURlkEey3NpXQTjGRcQ" labelSize="6" showIcon="false" labelColor="39,76,114"/>
       </ownedStyle>
       <actualMapping xmi:type="description_1:EdgeMapping" href="platform:/plugin/org.eclipse.emf.ecoretools.design/description/ecore.odesign#//@ownedViewpoints[name='Design']/@ownedRepresentations[name='Entities']/@defaultLayer/@edgeMappings[name='EC_EReference']"/>
     </ownedDiagramElements>
     <ownedDiagramElements xmi:type="diagram:DEdge" uid="_WsWPQOulEeuCx6IH3CUNYg" name="[1..1] right" sourceNode="_8-iCsOujEeuCx6IH3CUNYg" targetNode="_ReGowOulEeuCx6IH3CUNYg">
       <target xmi:type="ecore:EReference" href="ComparativeCTCs.ecore#//BinaryComparativeTerm/right"/>
       <semanticElements xmi:type="ecore:EReference" href="ComparativeCTCs.ecore#//BinaryComparativeTerm/right"/>
-      <ownedStyle xmi:type="diagram:EdgeStyle" uid="_YWk8duulEeuCx6IH3CUNYg" description="_WEj2gOulEeuCx6IH3CUNYg" routingStyle="manhattan" strokeColor="0,0,0">
-        <centerLabelStyle xmi:type="diagram:CenterLabelStyle" uid="_YWljgeulEeuCx6IH3CUNYg" showIcon="false">
+      <ownedStyle xmi:type="diagram:EdgeStyle" uid="_e5-KgBlkEey3NpXQTjGRcQ" description="_e57uQBlkEey3NpXQTjGRcQ" sourceArrow="FillDiamond" routingStyle="manhattan" strokeColor="0,0,0">
+        <centerLabelStyle xmi:type="diagram:CenterLabelStyle" uid="_e5-KghlkEey3NpXQTjGRcQ" showIcon="false">
           <labelFormat>bold</labelFormat>
         </centerLabelStyle>
-        <endLabelStyle xmi:type="diagram:EndLabelStyle" uid="_YWljgOulEeuCx6IH3CUNYg" labelSize="6" showIcon="false" labelColor="39,76,114"/>
+        <endLabelStyle xmi:type="diagram:EndLabelStyle" uid="_e5-KgRlkEey3NpXQTjGRcQ" labelSize="6" showIcon="false" labelColor="39,76,114"/>
       </ownedStyle>
       <actualMapping xmi:type="description_1:EdgeMapping" href="platform:/plugin/org.eclipse.emf.ecoretools.design/description/ecore.odesign#//@ownedViewpoints[name='Design']/@ownedRepresentations[name='Entities']/@defaultLayer/@edgeMappings[name='EC_EReference']"/>
     </ownedDiagramElements>

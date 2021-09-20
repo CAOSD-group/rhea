@@ -14,7 +14,6 @@ import rhea.metamodels.BasicFMs.Feature;
  * </p>
  * <ul>
  *   <li>{@link rhea.metamodels.DataTypes.TypedFeature#getType <em>Type</em>}</li>
- *   <li>{@link rhea.metamodels.DataTypes.TypedFeature#getValue <em>Value</em>}</li>
  * </ul>
  *
  * @see rhea.metamodels.DataTypes.DataTypesPackage#getTypedFeature()
@@ -43,27 +42,5 @@ public interface TypedFeature extends Feature {
 	 * @generated
 	 */
 	void setType(DataType value);
-
-	/**
-	 * Returns the value of the '<em><b>Value</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Value</em>' attribute.
-	 * @see #setValue(Object)
-	 * @see rhea.metamodels.DataTypes.DataTypesPackage#getTypedFeature_Value()
-	 * @model dataType="rhea.metamodels.DataTypes.Object"
-	 * @generated
-	 */
-	Object getValue();
-
-	/**
-	 * Sets the value of the '{@link rhea.metamodels.DataTypes.TypedFeature#getValue <em>Value</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Value</em>' attribute.
-	 * @see #getValue()
-	 * @generated
-	 */
-	void setValue(Object value);
 
 } // TypedFeature

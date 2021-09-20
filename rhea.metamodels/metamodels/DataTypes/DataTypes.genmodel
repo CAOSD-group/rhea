@@ -20,7 +20,6 @@
     </genClasses>
     <genClasses ecoreClass="DataTypes.ecore#//TypedFeature">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference DataTypes.ecore#//TypedFeature/type"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute DataTypes.ecore#//TypedFeature/value"/>
     </genClasses>
     <genClasses ecoreClass="DataTypes.ecore#//ObjectType">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute DataTypes.ecore#//ObjectType/type"/>

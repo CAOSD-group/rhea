@@ -6,7 +6,7 @@
     <semanticResources>../ComparativeCTCs/ComparativeCTCs.ecore</semanticResources>
     <ownedViews xmi:type="viewpoint:DView" uid="_FFxvACaFEeu3qvhlFTf08w">
       <viewpoint xmi:type="description:Viewpoint" href="platform:/plugin/org.eclipse.emf.ecoretools.design/description/ecore.odesign#//@ownedViewpoints[name='Design']"/>
-      <ownedRepresentationDescriptors xmi:type="viewpoint:DRepresentationDescriptor" uid="_FuacUCaFEeu3qvhlFTf08w" name="PropLogicCTCs class diagram" repPath="#_Ft434CaFEeu3qvhlFTf08w" changeId="4723961b-6648-4717-8126-7ada9afc741d">
+      <ownedRepresentationDescriptors xmi:type="viewpoint:DRepresentationDescriptor" uid="_FuacUCaFEeu3qvhlFTf08w" name="PropLogicCTCs class diagram" repPath="#_Ft434CaFEeu3qvhlFTf08w" changeId="41e09e62-c4de-4754-a64d-4501c0d84c0a">
         <description xmi:type="description_1:DiagramDescription" href="platform:/plugin/org.eclipse.emf.ecoretools.design/description/ecore.odesign#//@ownedViewpoints[name='Design']/@ownedRepresentations[name='Entities']"/>
         <target xmi:type="ecore:EPackage" href="PropLogicCTCs.ecore#/"/>
       </ownedRepresentationDescriptors>
@@ -749,6 +749,7 @@
       <ownedStyle xmi:type="diagram:EdgeStyle" uid="_u9D6kPBaEeukwo2Uvunpgg" description="_oUHFACaFEeu3qvhlFTf08w" sourceArrow="FillDiamond" routingStyle="manhattan" strokeColor="0,0,0">
         <centerLabelStyle xmi:type="diagram:CenterLabelStyle" uid="_u9D6kvBaEeukwo2Uvunpgg" showIcon="false">
           <customFeatures>labelSize</customFeatures>
+          <labelFormat>bold</labelFormat>
         </centerLabelStyle>
         <endLabelStyle xmi:type="diagram:EndLabelStyle" uid="_u9D6kfBaEeukwo2Uvunpgg" showIcon="false" labelColor="39,76,114">
           <customFeatures>labelSize</customFeatures>

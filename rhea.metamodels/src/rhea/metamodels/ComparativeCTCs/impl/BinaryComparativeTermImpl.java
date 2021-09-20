@@ -4,6 +4,7 @@ package rhea.metamodels.ComparativeCTCs.impl;
 
 import org.eclipse.emf.common.notify.Notification;
 
+import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 
@@ -32,7 +33,7 @@ import rhea.metamodels.PropLogicCTCs.impl.TermImpl;
  */
 public class BinaryComparativeTermImpl extends TermImpl implements BinaryComparativeTerm {
 	/**
-	 * The cached value of the '{@link #getLeft() <em>Left</em>}' reference.
+	 * The cached value of the '{@link #getLeft() <em>Left</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #getLeft()
@@ -42,7 +43,7 @@ public class BinaryComparativeTermImpl extends TermImpl implements BinaryCompara
 	protected Term left;
 
 	/**
-	 * The cached value of the '{@link #getRight() <em>Right</em>}' reference.
+	 * The cached value of the '{@link #getRight() <em>Right</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #getRight()
@@ -77,14 +78,6 @@ public class BinaryComparativeTermImpl extends TermImpl implements BinaryCompara
 	 */
 	@Override
 	public Term getLeft() {
-		if (left != null && left.eIsProxy()) {
-			InternalEObject oldLeft = (InternalEObject)left;
-			left = (Term)eResolveProxy(oldLeft);
-			if (left != oldLeft) {
-				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, ComparativeCTCsPackage.BINARY_COMPARATIVE_TERM__LEFT, oldLeft, left));
-			}
-		}
 		return left;
 	}
 
@@ -93,8 +86,14 @@ public class BinaryComparativeTermImpl extends TermImpl implements BinaryCompara
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Term basicGetLeft() {
-		return left;
+	public NotificationChain basicSetLeft(Term newLeft, NotificationChain msgs) {
+		Term oldLeft = left;
+		left = newLeft;
+		if (eNotificationRequired()) {
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ComparativeCTCsPackage.BINARY_COMPARATIVE_TERM__LEFT, oldLeft, newLeft);
+			if (msgs == null) msgs = notification; else msgs.add(notification);
+		}
+		return msgs;
 	}
 
 	/**
@@ -104,10 +103,17 @@ public class BinaryComparativeTermImpl extends TermImpl implements BinaryCompara
 	 */
 	@Override
 	public void setLeft(Term newLeft) {
-		Term oldLeft = left;
-		left = newLeft;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ComparativeCTCsPackage.BINARY_COMPARATIVE_TERM__LEFT, oldLeft, left));
+		if (newLeft != left) {
+			NotificationChain msgs = null;
+			if (left != null)
+				msgs = ((InternalEObject)left).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - ComparativeCTCsPackage.BINARY_COMPARATIVE_TERM__LEFT, null, msgs);
+			if (newLeft != null)
+				msgs = ((InternalEObject)newLeft).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - ComparativeCTCsPackage.BINARY_COMPARATIVE_TERM__LEFT, null, msgs);
+			msgs = basicSetLeft(newLeft, msgs);
+			if (msgs != null) msgs.dispatch();
+		}
+		else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, ComparativeCTCsPackage.BINARY_COMPARATIVE_TERM__LEFT, newLeft, newLeft));
 	}
 
 	/**
@@ -117,14 +123,6 @@ public class BinaryComparativeTermImpl extends TermImpl implements BinaryCompara
 	 */
 	@Override
 	public Term getRight() {
-		if (right != null && right.eIsProxy()) {
-			InternalEObject oldRight = (InternalEObject)right;
-			right = (Term)eResolveProxy(oldRight);
-			if (right != oldRight) {
-				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, ComparativeCTCsPackage.BINARY_COMPARATIVE_TERM__RIGHT, oldRight, right));
-			}
-		}
 		return right;
 	}
 
@@ -133,8 +131,14 @@ public class BinaryComparativeTermImpl extends TermImpl implements BinaryCompara
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Term basicGetRight() {
-		return right;
+	public NotificationChain basicSetRight(Term newRight, NotificationChain msgs) {
+		Term oldRight = right;
+		right = newRight;
+		if (eNotificationRequired()) {
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ComparativeCTCsPackage.BINARY_COMPARATIVE_TERM__RIGHT, oldRight, newRight);
+			if (msgs == null) msgs = notification; else msgs.add(notification);
+		}
+		return msgs;
 	}
 
 	/**
@@ -144,10 +148,33 @@ public class BinaryComparativeTermImpl extends TermImpl implements BinaryCompara
 	 */
 	@Override
 	public void setRight(Term newRight) {
-		Term oldRight = right;
-		right = newRight;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ComparativeCTCsPackage.BINARY_COMPARATIVE_TERM__RIGHT, oldRight, right));
+		if (newRight != right) {
+			NotificationChain msgs = null;
+			if (right != null)
+				msgs = ((InternalEObject)right).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - ComparativeCTCsPackage.BINARY_COMPARATIVE_TERM__RIGHT, null, msgs);
+			if (newRight != null)
+				msgs = ((InternalEObject)newRight).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - ComparativeCTCsPackage.BINARY_COMPARATIVE_TERM__RIGHT, null, msgs);
+			msgs = basicSetRight(newRight, msgs);
+			if (msgs != null) msgs.dispatch();
+		}
+		else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, ComparativeCTCsPackage.BINARY_COMPARATIVE_TERM__RIGHT, newRight, newRight));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case ComparativeCTCsPackage.BINARY_COMPARATIVE_TERM__LEFT:
+				return basicSetLeft(null, msgs);
+			case ComparativeCTCsPackage.BINARY_COMPARATIVE_TERM__RIGHT:
+				return basicSetRight(null, msgs);
+		}
+		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
 
 	/**
@@ -159,11 +186,9 @@ public class BinaryComparativeTermImpl extends TermImpl implements BinaryCompara
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case ComparativeCTCsPackage.BINARY_COMPARATIVE_TERM__LEFT:
-				if (resolve) return getLeft();
-				return basicGetLeft();
+				return getLeft();
 			case ComparativeCTCsPackage.BINARY_COMPARATIVE_TERM__RIGHT:
-				if (resolve) return getRight();
-				return basicGetRight();
+				return getRight();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}

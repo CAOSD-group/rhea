@@ -208,16 +208,6 @@ public class DataTypesPackageImpl extends EPackageImpl implements DataTypesPacka
 	 * @generated
 	 */
 	@Override
-	public EAttribute getTypedFeature_Value() {
-		return (EAttribute)typedFeatureEClass.getEStructuralFeatures().get(1);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
 	public EClass getObjectType() {
 		return objectTypeEClass;
 	}
@@ -308,7 +298,6 @@ public class DataTypesPackageImpl extends EPackageImpl implements DataTypesPacka
 
 		typedFeatureEClass = createEClass(TYPED_FEATURE);
 		createEReference(typedFeatureEClass, TYPED_FEATURE__TYPE);
-		createEAttribute(typedFeatureEClass, TYPED_FEATURE__VALUE);
 
 		objectTypeEClass = createEClass(OBJECT_TYPE);
 		createEAttribute(objectTypeEClass, OBJECT_TYPE__TYPE);
@@ -367,7 +356,6 @@ public class DataTypesPackageImpl extends EPackageImpl implements DataTypesPacka
 
 		initEClass(typedFeatureEClass, TypedFeature.class, "TypedFeature", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getTypedFeature_Type(), this.getDataType(), null, "type", null, 1, 1, TypedFeature.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getTypedFeature_Value(), this.getObject(), "value", null, 0, 1, TypedFeature.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(objectTypeEClass, ObjectType.class, "ObjectType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getObjectType_Type(), this.getObject(), "type", null, 0, 1, ObjectType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

@@ -8,7 +8,7 @@ import rhea.metamodels.helpers.FMHelper;
 public abstract class JavaRule {
 	
 	protected FeatureModel fm;
-	protected String cp;
+	protected String cp; //classpath
 	protected List<Feature> matchingFeatures;
 	
 	public JavaRule (FeatureModel fm, String cp)

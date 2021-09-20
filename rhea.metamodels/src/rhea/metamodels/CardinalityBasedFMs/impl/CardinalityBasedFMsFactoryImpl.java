@@ -69,6 +69,7 @@ public class CardinalityBasedFMsFactoryImpl extends EFactoryImpl implements Card
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Multiplicity createMultiplicity() {
 		MultiplicityImpl multiplicity = new MultiplicityImpl();
 		return multiplicity;
@@ -79,6 +80,7 @@ public class CardinalityBasedFMsFactoryImpl extends EFactoryImpl implements Card
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public GroupCardinality createGroupCardinality() {
 		GroupCardinalityImpl groupCardinality = new GroupCardinalityImpl();
 		return groupCardinality;
@@ -89,6 +91,7 @@ public class CardinalityBasedFMsFactoryImpl extends EFactoryImpl implements Card
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public MutexGroup createMutexGroup() {
 		MutexGroupImpl mutexGroup = new MutexGroupImpl();
 		return mutexGroup;
@@ -99,6 +102,7 @@ public class CardinalityBasedFMsFactoryImpl extends EFactoryImpl implements Card
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public CardinalityBasedFMsPackage getCardinalityBasedFMsPackage() {
 		return (CardinalityBasedFMsPackage)getEPackage();
 	}

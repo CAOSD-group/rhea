@@ -18,7 +18,7 @@ public class LessImpl extends BinaryComparativeTermImpl implements Less {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated not
 	 */
 	public LessImpl() {
 		super();

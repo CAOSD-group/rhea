@@ -50,7 +50,7 @@ public class NumericTermImpl extends TermImpl implements NumericTerm {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated not
 	 */
 	public NumericTermImpl() {
 		super();

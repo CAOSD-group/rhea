@@ -5,7 +5,7 @@
     <semanticResources>../BasicFMs/BasicFMs.ecore</semanticResources>
     <ownedViews xmi:type="viewpoint:DView" uid="_VTOPcC_EEeu5vf7oUZSVbw">
       <viewpoint xmi:type="description:Viewpoint" href="platform:/plugin/org.eclipse.emf.ecoretools.design/description/ecore.odesign#//@ownedViewpoints[name='Design']"/>
-      <ownedRepresentationDescriptors xmi:type="viewpoint:DRepresentationDescriptor" uid="_WO_7MS_EEeu5vf7oUZSVbw" name="DataTypes class diagram" repPath="#_WO9e8C_EEeu5vf7oUZSVbw" changeId="8ea30c7c-2538-4789-aa0b-59322ae3b0c2">
+      <ownedRepresentationDescriptors xmi:type="viewpoint:DRepresentationDescriptor" uid="_WO_7MS_EEeu5vf7oUZSVbw" name="DataTypes class diagram" repPath="#_WO9e8C_EEeu5vf7oUZSVbw" changeId="8b004674-7844-49c7-aa6b-38add7775456">
         <description xmi:type="description_1:DiagramDescription" href="platform:/plugin/org.eclipse.emf.ecoretools.design/description/ecore.odesign#//@ownedViewpoints[name='Design']/@ownedRepresentations[name='Entities']"/>
         <target xmi:type="ecore:EPackage" href="DataTypes.ecore#/"/>
       </ownedRepresentationDescriptors>
@@ -84,10 +84,6 @@
             <children xmi:type="notation:Node" xmi:id="_WmBUFi_EEeu5vf7oUZSVbw" type="3010" element="_WlvnQS_EEeu5vf7oUZSVbw">
               <styles xmi:type="notation:FontStyle" xmi:id="_WmBUFy_EEeu5vf7oUZSVbw" fontColor="8224125" fontName="Segoe UI" fontHeight="8" italic="true"/>
               <layoutConstraint xmi:type="notation:Location" xmi:id="_WmBUGC_EEeu5vf7oUZSVbw"/>
-            </children>
-            <children xmi:type="notation:Node" xmi:id="_1LO8wPBJEeuui72MHDNCnQ" type="3010" element="_1LHoAPBJEeuui72MHDNCnQ">
-              <styles xmi:type="notation:FontStyle" xmi:id="_1LO8wfBJEeuui72MHDNCnQ" fontColor="2697711" fontName="Segoe UI" fontHeight="8"/>
-              <layoutConstraint xmi:type="notation:Location" xmi:id="_1LO8wvBJEeuui72MHDNCnQ"/>
             </children>
             <styles xmi:type="notation:SortingStyle" xmi:id="_Wl-QxS_EEeu5vf7oUZSVbw"/>
             <styles xmi:type="notation:FilteringStyle" xmi:id="_Wl-Qxi_EEeu5vf7oUZSVbw"/>
@@ -320,14 +316,6 @@
           <description xmi:type="style:BundledImageDescription" href="platform:/plugin/org.eclipse.emf.ecoretools.design/description/ecore.odesign#//@ownedViewpoints[name='Design']/@ownedRepresentations[name='Entities']/@defaultLayer/@containerMappings[name='EC%20EClass']/@subNodeMappings[name='EC%20EReferenceNode']/@conditionnalStyles.0/@style"/>
         </ownedStyle>
         <actualMapping xmi:type="description_1:NodeMapping" href="platform:/plugin/org.eclipse.emf.ecoretools.design/description/ecore.odesign#//@ownedViewpoints[name='Design']/@ownedRepresentations[name='Entities']/@defaultLayer/@containerMappings[name='EC%20EClass']/@subNodeMappings[name='EC%20EReferenceNode']"/>
-      </ownedElements>
-      <ownedElements xmi:type="diagram:DNodeListElement" uid="_1LHoAPBJEeuui72MHDNCnQ" name="value : Object" tooltipText="">
-        <target xmi:type="ecore:EAttribute" href="DataTypes.ecore#//TypedFeature/value"/>
-        <semanticElements xmi:type="ecore:EAttribute" href="DataTypes.ecore#//TypedFeature/value"/>
-        <ownedStyle xmi:type="diagram:BundledImage" uid="_HjREAfBKEeuui72MHDNCnQ" labelAlignment="LEFT">
-          <description xmi:type="style:BundledImageDescription" href="platform:/plugin/org.eclipse.emf.ecoretools.design/description/ecore.odesign#//@ownedViewpoints[name='Design']/@ownedRepresentations[name='Entities']/@defaultLayer/@containerMappings[name='EC%20EClass']/@subNodeMappings[name='EC%20EAttribute']/@style"/>
-        </ownedStyle>
-        <actualMapping xmi:type="description_1:NodeMapping" href="platform:/plugin/org.eclipse.emf.ecoretools.design/description/ecore.odesign#//@ownedViewpoints[name='Design']/@ownedRepresentations[name='Entities']/@defaultLayer/@containerMappings[name='EC%20EClass']/@subNodeMappings[name='EC%20EAttribute']"/>
       </ownedElements>
     </ownedDiagramElements>
     <ownedDiagramElements xmi:type="diagram:DNodeList" uid="_WlnEYC_EEeu5vf7oUZSVbw" name="ObjectType" tooltipText="" outgoingEdges="_Wl6mZi_EEeu5vf7oUZSVbw" width="12" height="10">

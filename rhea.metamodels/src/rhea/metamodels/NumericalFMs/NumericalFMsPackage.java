@@ -2,6 +2,7 @@
  */
 package rhea.metamodels.NumericalFMs;
 
+import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
@@ -137,7 +138,7 @@ public interface NumericalFMsPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int NUMERICAL_FEATURE__VALUE = DataTypesPackage.TYPED_FEATURE__VALUE;
+	int NUMERICAL_FEATURE__VALUE = DataTypesPackage.TYPED_FEATURE_FEATURE_COUNT + 0;
 
 	/**
 	 * The number of structural features of the '<em>Numerical Feature</em>' class.
@@ -146,7 +147,7 @@ public interface NumericalFMsPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int NUMERICAL_FEATURE_FEATURE_COUNT = DataTypesPackage.TYPED_FEATURE_FEATURE_COUNT + 0;
+	int NUMERICAL_FEATURE_FEATURE_COUNT = DataTypesPackage.TYPED_FEATURE_FEATURE_COUNT + 1;
 
 
 	/**
@@ -158,6 +159,17 @@ public interface NumericalFMsPackage extends EPackage {
 	 * @generated
 	 */
 	EClass getNumericalFeature();
+
+	/**
+	 * Returns the meta object for the attribute '{@link rhea.metamodels.NumericalFMs.NumericalFeature#getValue <em>Value</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Value</em>'.
+	 * @see rhea.metamodels.NumericalFMs.NumericalFeature#getValue()
+	 * @see #getNumericalFeature()
+	 * @generated
+	 */
+	EAttribute getNumericalFeature_Value();
 
 	/**
 	 * Returns the factory that creates the instances of the model.
@@ -190,6 +202,13 @@ public interface NumericalFMsPackage extends EPackage {
 		 * @generated
 		 */
 		EClass NUMERICAL_FEATURE = eINSTANCE.getNumericalFeature();
+		/**
+		 * The meta object literal for the '<em><b>Value</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute NUMERICAL_FEATURE__VALUE = eINSTANCE.getNumericalFeature_Value();
 
 	}
 

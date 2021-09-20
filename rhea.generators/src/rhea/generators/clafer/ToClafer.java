@@ -73,8 +73,8 @@ public class ToClafer implements FMGenerator {
 			if (feature instanceof NumericalFeature && ((NumericalFeature) feature).getType() instanceof PrimitiveType) {
 				claferFM.append(" -> " + ((PrimitiveType)((NumericalFeature) feature).getType()).getType());
 				
-				if(((NumericalFeature) feature).getValue() != null) {
-					claferFM.append(" : " + ((NumericalFeature) feature).getValue().toString());
+				if(((NumericalFeature) feature).getValue() != 0.0) {
+					claferFM.append(" : " + ((NumericalFeature) feature).getValue());
 				}
 			}
 			

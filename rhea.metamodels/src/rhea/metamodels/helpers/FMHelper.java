@@ -107,7 +107,11 @@ public class FMHelper {
 		List<Feature> features = new ArrayList<Feature>();
 		for (Feature f : fm.getFeatures()) {
 			try {
-				if (!Class.forName("rhea.metamodels.BasicFMs.AlternativeGroup").isInstance(f) && !Class.forName("rhea.metamodels.BasicFMs.SelectionGroup").isInstance(f) && !Class.forName("rhea.metamodels.CardinalityBasedFMs.MutexGroup").isInstance(f) && !Class.forName("rhea.metamodels.CardinalityBasedFMs.GroupCardinality").isInstance(f)) {
+				if (!Class.forName("rhea.metamodels.BasicFMs.AlternativeGroup").isInstance(f) && 
+					!Class.forName("rhea.metamodels.BasicFMs.SelectionGroup").isInstance(f) && 
+					!Class.forName("rhea.metamodels.CardinalityBasedFMs.MutexGroup").isInstance(f) && 
+					!Class.forName("rhea.metamodels.CardinalityBasedFMs.GroupCardinality").isInstance(f) && 
+					!Class.forName("rhea.metamodels.NumericalFMs.NumericalFeature").isInstance(f)) {
 					features.add(f);
 				}
 			} catch (ClassNotFoundException e) {e.printStackTrace();}
