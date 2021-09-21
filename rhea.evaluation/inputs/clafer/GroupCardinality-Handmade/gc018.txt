@@ -1,0 +1,9 @@
+abstract Root
+	1..1 C
+		C1
+		2..* B
+			B1
+			B2
+			B3
+			B4
+			B5
