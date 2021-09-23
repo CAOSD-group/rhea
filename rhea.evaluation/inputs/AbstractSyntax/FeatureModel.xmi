@@ -5,41 +5,29 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xmlns:rhea="rhea.metamodels.BasicFMs"
     xmlns:rhea_1="rhea.metamodels.NumericalFMs"
-    xmlns:rhea_2="rhea.metamodels.DataTypes"
-    xmlns:rhea_3="rhea.metamodels.PropLogicCTCs"
-    xmlns:rhea_4="rhea.metamodels.ComparativeCTCs"
-    xsi:schemaLocation="rhea.metamodels.BasicFMs ../../../rhea.metamodels/metamodels/BasicFMs/BasicFMs.ecore rhea.metamodels.NumericalFMs ../../../rhea.metamodels/metamodels/NumericalFMs/NumericalFMs.ecore rhea.metamodels.DataTypes ../../../rhea.metamodels/metamodels/DataTypes/DataTypes.ecore rhea.metamodels.PropLogicCTCs ../../../rhea.metamodels/metamodels/PropLogicCTCs/PropLogicCTCs.ecore rhea.metamodels.ComparativeCTCs ../../../rhea.metamodels/metamodels/ComparativeCTCs/ComparativeCTCs.ecore">
+    xmlns:rhea_2="rhea.metamodels.PropLogicCTCs"
+    xmlns:rhea_3="rhea.metamodels.ComparativeCTCs"
+    xsi:schemaLocation="rhea.metamodels.BasicFMs ../../../rhea.metamodels/metamodels/BasicFMs/BasicFMs.ecore rhea.metamodels.NumericalFMs ../../../rhea.metamodels/metamodels/NumericalFMs/NumericalFMs.ecore rhea.metamodels.PropLogicCTCs ../../../rhea.metamodels/metamodels/PropLogicCTCs/PropLogicCTCs.ecore rhea.metamodels.ComparativeCTCs ../../../rhea.metamodels/metamodels/ComparativeCTCs/ComparativeCTCs.ecore">
   <root id="Root"
       name="Root">
     <children
         xsi:type="rhea_1:NumericalFeature"
-        id="Numeric"
-        name="Numeric">
-      <type
-          xsi:type="rhea_2:PrimitiveType"
-          type="Integer"/>
-    </children>
+        id="N1"
+        name="N1"
+        mandatory="true"
+        value="2.0"/>
   </root>
   <crosstreeconstraints
-      xsi:type="rhea_3:AdvancedConstraint">
-    <expr xsi:type="rhea_3:And">
+      xsi:type="rhea_2:AdvancedConstraint">
+    <expr xsi:type="rhea_2:And">
       <terms
-          xsi:type="rhea_4:Less">
+          xsi:type="rhea_3:Less">
         <left
-            xsi:type="rhea_3:FeatureTerm"
+            xsi:type="rhea_2:FeatureTerm"
             feature="//@root/@children.0"/>
         <right
-            xsi:type="rhea_4:NumericTerm"
-            value="7.0"/>
-      </terms>
-      <terms
-          xsi:type="rhea_4:More">
-        <left
-            xsi:type="rhea_3:FeatureTerm"
-            feature="//@root/@children.0"/>
-        <right
-            xsi:type="rhea_4:NumericTerm"
-            value="4.0"/>
+            xsi:type="rhea_3:NumericTerm"
+            value="8.0"/>
       </terms>
     </expr>
   </crosstreeconstraints>

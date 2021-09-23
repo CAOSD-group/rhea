@@ -7,6 +7,7 @@ import org.eclipse.emf.ecore.EPackage;
 import rhea.Rhea;
 import rhea.generators.FMGenerator;
 import rhea.generators.clafer.ToClafer;
+import rhea.metamodels.BasicCTCs.BasicCTCsPackage;
 import rhea.metamodels.BasicFMs.BasicFMsPackage;
 import rhea.metamodels.BasicFMs.FeatureModel;
 import rhea.metamodels.BasicFMs.impl.FeatureModelImpl;
@@ -31,7 +32,7 @@ import rhea.transformations.engine.LanguageGeneratorType;
 import rhea.transformations.refactoringJava.JavaNumericalFeature;
 
 public class NumericalFeatureTest {
-	public static final List<EPackage> staticMetamodels = List.of(BasicFMsPackage.eINSTANCE, NumericalFMsPackage.eINSTANCE, ComparativeCTCsPackage.eINSTANCE, DataTypesPackage.eINSTANCE, PropLogicCTCsPackage.eINSTANCE);
+	public static final List<EPackage> staticMetamodels = List.of(BasicFMsPackage.eINSTANCE, NumericalFMsPackage.eINSTANCE, ComparativeCTCsPackage.eINSTANCE, DataTypesPackage.eINSTANCE, PropLogicCTCsPackage.eINSTANCE, BasicCTCsPackage.eINSTANCE);
 	
 	public static void main(String[] args) {
 		FMParser p = new ClaferParser();
