@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <henshin:Module xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:henshin="http://www.eclipse.org/emf/2011/Henshin" xmi:id="_HwRZUCpJEeu-3NVSHGSY7g" name="GenFeatureRandomly">
   <imports href="../../../rhea.metamodels/metamodels/CardinalityBasedFMs/CardinalityBasedFMs.ecore#/"/>
+  <imports href="../../../rhea.metamodels/metamodels/NumericalFMs/NumericalFMs.ecore#/"/>
   <imports href="../../../rhea.metamodels/metamodels/BasicFMs/BasicFMs.ecore#/"/>
+  <imports href="../../../rhea.metamodels/metamodels/DataTypes/DataTypes.ecore#/"/>
   <units xsi:type="henshin:Rule" xmi:id="_KqknQCpJEeu-3NVSHGSY7g" name="GenSimpleFeatureRandomly">
     <annotations xmi:id="_Kq-P4CpJEeu-3NVSHGSY7g" key="featureConstraint" value=""/>
     <annotations xmi:id="_Kq-28CpJEeu-3NVSHGSY7g" key="injectiveMatchingPresenceCondition" value=""/>
@@ -564,5 +566,97 @@
     <attributeConditions xmi:id="_4F2r3VlrEeu89IO8h0skmA" name="ParentChildDifferentName" conditionText="name!=parentName"/>
     <mappings xmi:id="_4F2r3llrEeu89IO8h0skmA" origin="_4F2rqllrEeu89IO8h0skmA" image="_4F2rxVlrEeu89IO8h0skmA"/>
     <mappings xmi:id="_4F2r31lrEeu89IO8h0skmA" origin="_4F2rrFlrEeu89IO8h0skmA" image="_4F2r0VlrEeu89IO8h0skmA"/>
+  </units>
+  <units xsi:type="henshin:Rule" xmi:id="_rACZUCK4EeyzRpFZAlPycg" name="GenNumericalFeatureRandomly">
+    <parameters xmi:id="_rPDswCK4EeyzRpFZAlPycg" name="name" kind="IN">
+      <type xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    </parameters>
+    <parameters xmi:id="_rPDswSK4EeyzRpFZAlPycg" name="mandatory" kind="IN">
+      <type xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+    </parameters>
+    <parameters xmi:id="_rPDswiK4EeyzRpFZAlPycg" name="abs" kind="IN">
+      <type xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+    </parameters>
+    <parameters xmi:id="_rPDswyK4EeyzRpFZAlPycg" name="value" kind="IN">
+      <type xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EFloat"/>
+    </parameters>
+    <parameters xmi:id="_QYju8CK5EeyzRpFZAlPycg" name="parentName" kind="VAR">
+      <type xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    </parameters>
+    <lhs xmi:id="_rARp4CK4EeyzRpFZAlPycg" name="Lhs">
+      <nodes xmi:id="_ss48sCK4EeyzRpFZAlPycg">
+        <type href="../../../rhea.metamodels/metamodels/BasicFMs/BasicFMs.ecore#//FeatureModel"/>
+      </nodes>
+      <nodes xmi:id="_I7YywCK5EeyzRpFZAlPycg">
+        <type href="../../../rhea.metamodels/metamodels/BasicFMs/BasicFMs.ecore#//Feature"/>
+        <attributes xmi:id="_Q14kICK5EeyzRpFZAlPycg" value="parentName">
+          <type href="../../../rhea.metamodels/metamodels/BasicFMs/BasicFMs.ecore#//Feature/name"/>
+        </attributes>
+      </nodes>
+      <formula xsi:type="henshin:Not" xmi:id="_Glw_MiK5EeyzRpFZAlPycg">
+        <child xsi:type="henshin:NestedCondition" xmi:id="_Glw_MyK5EeyzRpFZAlPycg">
+          <conclusion xmi:id="_Glw_NCK5EeyzRpFZAlPycg">
+            <nodes xmi:id="_GlyNUCK5EeyzRpFZAlPycg">
+              <type href="../../../rhea.metamodels/metamodels/BasicFMs/BasicFMs.ecore#//FeatureModel"/>
+            </nodes>
+            <nodes xmi:id="_GlvKACK5EeyzRpFZAlPycg">
+              <type href="../../../rhea.metamodels/metamodels/BasicFMs/BasicFMs.ecore#//Feature"/>
+              <attributes xmi:id="_HVhoMCK5EeyzRpFZAlPycg" value="name">
+                <type href="../../../rhea.metamodels/metamodels/BasicFMs/BasicFMs.ecore#//Feature/name"/>
+              </attributes>
+            </nodes>
+            <nodes xmi:id="_JrTz0iK5EeyzRpFZAlPycg">
+              <type href="../../../rhea.metamodels/metamodels/BasicFMs/BasicFMs.ecore#//Feature"/>
+              <attributes xmi:id="_Q14kIiK5EeyzRpFZAlPycg" value="parentName">
+                <type href="../../../rhea.metamodels/metamodels/BasicFMs/BasicFMs.ecore#//Feature/name"/>
+              </attributes>
+            </nodes>
+          </conclusion>
+          <mappings xmi:id="_GlyNUSK5EeyzRpFZAlPycg" origin="_ss48sCK4EeyzRpFZAlPycg" image="_GlyNUCK5EeyzRpFZAlPycg"/>
+          <mappings xmi:id="_JrTz0yK5EeyzRpFZAlPycg" origin="_I7YywCK5EeyzRpFZAlPycg" image="_JrTz0iK5EeyzRpFZAlPycg"/>
+        </child>
+      </formula>
+    </lhs>
+    <rhs xmi:id="_rARp4SK4EeyzRpFZAlPycg" name="Rhs">
+      <nodes xmi:id="_ss5jwCK4EeyzRpFZAlPycg" outgoing="_FykAoCK5EeyzRpFZAlPycg">
+        <type href="../../../rhea.metamodels/metamodels/BasicFMs/BasicFMs.ecore#//FeatureModel"/>
+      </nodes>
+      <nodes xmi:id="_BnixsCK5EeyzRpFZAlPycg" incoming="_FykAoCK5EeyzRpFZAlPycg _SnedkCK5EeyzRpFZAlPycg" outgoing="_SZzN8CK5EeyzRpFZAlPycg">
+        <type href="../../../rhea.metamodels/metamodels/NumericalFMs/NumericalFMs.ecore#//NumericalFeature"/>
+        <attributes xmi:id="_Dnl94CK5EeyzRpFZAlPycg" value="name">
+          <type href="../../../rhea.metamodels/metamodels/BasicFMs/BasicFMs.ecore#//Feature/name"/>
+        </attributes>
+        <attributes xmi:id="_D_03sCK5EeyzRpFZAlPycg" value="name">
+          <type href="../../../rhea.metamodels/metamodels/BasicFMs/BasicFMs.ecore#//Feature/id"/>
+        </attributes>
+        <attributes xmi:id="_EdedACK5EeyzRpFZAlPycg" value="mandatory">
+          <type href="../../../rhea.metamodels/metamodels/BasicFMs/BasicFMs.ecore#//Feature/mandatory"/>
+        </attributes>
+        <attributes xmi:id="_Esw2MCK5EeyzRpFZAlPycg" value="mandatory">
+          <type href="../../../rhea.metamodels/metamodels/BasicFMs/BasicFMs.ecore#//Feature/abstract"/>
+        </attributes>
+        <attributes xmi:id="_EzmeACK5EeyzRpFZAlPycg" value="0.0">
+          <type href="../../../rhea.metamodels/metamodels/NumericalFMs/NumericalFMs.ecore#//NumericalFeature/value"/>
+        </attributes>
+      </nodes>
+      <nodes xmi:id="_JrTz0CK5EeyzRpFZAlPycg" incoming="_SZzN8CK5EeyzRpFZAlPycg" outgoing="_SnedkCK5EeyzRpFZAlPycg">
+        <type href="../../../rhea.metamodels/metamodels/BasicFMs/BasicFMs.ecore#//Feature"/>
+        <attributes xmi:id="_Q14kISK5EeyzRpFZAlPycg" value="parentName">
+          <type href="../../../rhea.metamodels/metamodels/BasicFMs/BasicFMs.ecore#//Feature/name"/>
+        </attributes>
+      </nodes>
+      <edges xmi:id="_FykAoCK5EeyzRpFZAlPycg" source="_ss5jwCK4EeyzRpFZAlPycg" target="_BnixsCK5EeyzRpFZAlPycg">
+        <type href="../../../rhea.metamodels/metamodels/BasicFMs/BasicFMs.ecore#//FeatureModel/features"/>
+      </edges>
+      <edges xmi:id="_SZzN8CK5EeyzRpFZAlPycg" source="_BnixsCK5EeyzRpFZAlPycg" target="_JrTz0CK5EeyzRpFZAlPycg">
+        <type href="../../../rhea.metamodels/metamodels/BasicFMs/BasicFMs.ecore#//Feature/parent"/>
+      </edges>
+      <edges xmi:id="_SnedkCK5EeyzRpFZAlPycg" source="_JrTz0CK5EeyzRpFZAlPycg" target="_BnixsCK5EeyzRpFZAlPycg">
+        <type href="../../../rhea.metamodels/metamodels/BasicFMs/BasicFMs.ecore#//Feature/children"/>
+      </edges>
+    </rhs>
+    <attributeConditions xmi:id="_Vkkg0CK5EeyzRpFZAlPycg" name="ParentChildDifferentName" conditionText="name!=parentName"/>
+    <mappings xmi:id="_ss5jwSK4EeyzRpFZAlPycg" origin="_ss48sCK4EeyzRpFZAlPycg" image="_ss5jwCK4EeyzRpFZAlPycg"/>
+    <mappings xmi:id="_JrTz0SK5EeyzRpFZAlPycg" origin="_I7YywCK5EeyzRpFZAlPycg" image="_JrTz0CK5EeyzRpFZAlPycg"/>
   </units>
 </henshin:Module>

@@ -20,7 +20,7 @@ public class LessOrEqualImpl extends BinaryComparativeTermImpl implements LessOr
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected LessOrEqualImpl() {
+	public LessOrEqualImpl() {
 		super();
 	}
 

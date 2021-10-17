@@ -13,32 +13,44 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import org.eclipse.emf.ecore.EPackage;
+
 import rhea.Rhea;
 import rhea.evaluation.refactoringJava.JavaGroupCardinalityRefactoring;
 import rhea.evaluation.refactoringJava.JavaMutexGroupRefactoring;
+import rhea.evaluation.refactoringJava.JavaNumericalFeatureRefactoring;
+import rhea.metamodels.BasicFMs.Feature;
 import rhea.metamodels.BasicFMs.FeatureModel;
+import rhea.metamodels.BasicFMs.impl.FeatureModelImpl;
+import rhea.metamodels.helpers.FMHelper;
 import rhea.parsers.FMParser;
 import rhea.parsers.clafer.ClaferParser;
+import rhea.transformations.engine.HenshinEngine;
 
 public class MainJava {
 	public static void main(String[] args) {
-		String modelType = "GroupCardinality-Testing";
+		String modelType = "NumericalFeature";
 		String folderPath = Rhea.INPUTS_DIR + "clafer/" + modelType;
 		
 		List<TransformationInformation> tis = new ArrayList<>();
 		List<FeatureModel> models = new ArrayList<>();
 		File folder = new File(folderPath);
 		
+		HenshinEngine henshin = new HenshinEngine(Rhea.BASEDIR);
+		for (EPackage mm : Rhea.NUMERICAL_FEATURE_STATIC_METAMODELS) henshin.registerStaticMetamodel(mm);	
+		
 		FMParser fmp = new ClaferParser();
 
 		for (File f: folder.listFiles()) 
 		{
-			models.add(fmp.readFeatureModel(f.getPath()));
+			//models.add(fmp.readFeatureModel(f.getPath()));
+			models.add(loadModelFromAS(f.getPath(), henshin));
 		}
 		
 		for (FeatureModel featureModel : models) 
 		{
-			tis.addAll(new JavaGroupCardinalityRefactoring(featureModel).refactor(Rhea.EVALUATION_ITERATIONS,modelType));
+			tis.addAll(new JavaNumericalFeatureRefactoring(featureModel).refactor(Rhea.EVALUATION_ITERATIONS,modelType));
+			//tis.addAll(new JavaGroupCardinalityRefactoring(featureModel).refactor(Rhea.EVALUATION_ITERATIONS,modelType));
 			//tis.addAll(new JavaMutexGroupRefactoring(featureModel).refactor(Rhea.EVALUATION_ITERATIONS,modelType));
 		}
 		
@@ -125,5 +137,15 @@ public class MainJava {
 		
 		Stream<TransformationInformation> personStream = tis.stream().sorted(comparator);
 	    return personStream.collect(Collectors.toList());
+	}
+	
+	private static FeatureModel loadModelFromAS(String path, HenshinEngine henshin) 
+	{
+		FeatureModel fm = (FeatureModel) henshin.loadModel(path);
+		
+		/* Ecore cuando lee el modelo no crea ni completa la lista de features */
+		fm.createFeatureList();
+		FMHelper.addChild(fm, fm.getRoot());
+		return fm;
 	}
 }

@@ -4,8 +4,12 @@ import java.util.List;
 
 import org.eclipse.emf.ecore.EPackage;
 
+import rhea.metamodels.BasicCTCs.BasicCTCsPackage;
 import rhea.metamodels.BasicFMs.BasicFMsPackage;
 import rhea.metamodels.CardinalityBasedFMs.CardinalityBasedFMsPackage;
+import rhea.metamodels.ComparativeCTCs.ComparativeCTCsPackage;
+import rhea.metamodels.DataTypes.DataTypesPackage;
+import rhea.metamodels.NumericalFMs.NumericalFMsPackage;
 import rhea.metamodels.PropLogicCTCs.PropLogicCTCsPackage;
 
 public class Rhea {
@@ -38,5 +42,10 @@ public class Rhea {
 	
 	public static final List<EPackage> STATIC_METAMODELS = List.of(BasicFMsPackage.eINSTANCE, 
 																   CardinalityBasedFMsPackage.eINSTANCE, 
-																   PropLogicCTCsPackage.eINSTANCE);
+																   PropLogicCTCsPackage.eINSTANCE,
+																   NumericalFMsPackage.eINSTANCE,
+																   ComparativeCTCsPackage.eINSTANCE);
+	
+	public static final List<EPackage> NUMERICAL_FEATURE_STATIC_METAMODELS = List.of(BasicFMsPackage.eINSTANCE, NumericalFMsPackage.eINSTANCE, ComparativeCTCsPackage.eINSTANCE, DataTypesPackage.eINSTANCE, PropLogicCTCsPackage.eINSTANCE, BasicCTCsPackage.eINSTANCE);
+	
 }

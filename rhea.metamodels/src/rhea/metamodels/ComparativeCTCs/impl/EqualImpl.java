@@ -18,9 +18,9 @@ public class EqualImpl extends BinaryComparativeTermImpl implements Equal {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated not
 	 */
-	protected EqualImpl() {
+	public EqualImpl() {
 		super();
 	}
 

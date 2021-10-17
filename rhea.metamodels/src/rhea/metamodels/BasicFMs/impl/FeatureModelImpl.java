@@ -354,7 +354,7 @@ public class FeatureModelImpl extends MinimalEObjectImpl.Container implements Fe
 	 */
 	public void createFeatureList()
 	{
-		this.features = new BasicEList<Feature>();
+		features = new EObjectResolvingEList<Feature>(Feature.class, this, BasicFMsPackage.FEATURE_MODEL__FEATURES);
 	}
 
 } //FeatureModelImpl

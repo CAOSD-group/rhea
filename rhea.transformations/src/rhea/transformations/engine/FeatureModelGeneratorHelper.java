@@ -95,6 +95,17 @@ public class FeatureModelGeneratorHelper {
 		return executeLanguageGenerator(fm, lc, params);
 	}
 	
+	public boolean addNumericalFeature(FeatureModel fm, LanguageGeneratorType lc ,String featureName, boolean mandatory, boolean abs, float value) {
+		Map<String, Object> params = Map.of("name", featureName, "mandatory", mandatory, "abs", abs, "value" , value);
+		return executeLanguageGenerator(fm, lc, params);
+	}
+	
+	public boolean addNumericalFeature(FeatureModel fm, LanguageGeneratorType lc ,String featureName, boolean mandatory, boolean abs, Feature parent, float value) {
+		if(parent==null) return addNumericalFeature(fm, lc, featureName, mandatory, abs, value);
+		Map<String, Object> params = Map.of("name", featureName, "mandatory", mandatory, "abs", abs, "parentId", parent.getId(), "value" , value);
+		return executeLanguageGenerator(fm, lc, params);
+	}
+	
 	public boolean deleteFeature(FeatureModel fm, int id) {
 		return executeLanguageGenerator(fm, LanguageGeneratorType.DeleteFeature, Map.of("Id", id));
 	}

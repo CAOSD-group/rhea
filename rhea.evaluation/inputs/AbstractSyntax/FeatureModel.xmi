@@ -1,34 +1,129 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<rhea:FeatureModel
-    xmi:version="2.0"
-    xmlns:xmi="http://www.omg.org/XMI"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xmlns:rhea="rhea.metamodels.BasicFMs"
-    xmlns:rhea_1="rhea.metamodels.NumericalFMs"
-    xmlns:rhea_2="rhea.metamodels.PropLogicCTCs"
-    xmlns:rhea_3="rhea.metamodels.ComparativeCTCs"
-    xsi:schemaLocation="rhea.metamodels.BasicFMs ../../../rhea.metamodels/metamodels/BasicFMs/BasicFMs.ecore rhea.metamodels.NumericalFMs ../../../rhea.metamodels/metamodels/NumericalFMs/NumericalFMs.ecore rhea.metamodels.PropLogicCTCs ../../../rhea.metamodels/metamodels/PropLogicCTCs/PropLogicCTCs.ecore rhea.metamodels.ComparativeCTCs ../../../rhea.metamodels/metamodels/ComparativeCTCs/ComparativeCTCs.ecore">
-  <root id="Root"
-      name="Root">
-    <children
-        xsi:type="rhea_1:NumericalFeature"
-        id="N1"
-        name="N1"
-        mandatory="true"
-        value="2.0"/>
+<?xml version="1.0" encoding="ASCII"?>
+<rhea:FeatureModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:rhea="rhea.metamodels.BasicFMs" xmlns:rhea_1="rhea.metamodels.NumericalFMs" xmlns:rhea_2="rhea.metamodels.DataTypes" xmlns:rhea_3="rhea.metamodels.PropLogicCTCs" xmlns:rhea_4="rhea.metamodels.ComparativeCTCs" name="100_0.0-0.0-0.0-0.0-0.02_2-4" features="//@root //@root/@children.0 //@root/@children.0/@children.0 //@root/@children.1 //@root/@children.0/@children.1 //@root/@children.2 //@root/@children.0/@children.0/@children.0 //@root/@children.0/@children.2 //@root/@children.3 //@root/@children.4 //@root/@children.0/@children.3 //@root/@children.5 //@root/@children.6 //@root/@children.0/@children.0/@children.1 //@root/@children.0/@children.0/@children.2 //@root/@children.0/@children.0/@children.3 //@root/@children.0/@children.0/@children.4 //@root/@children.0/@children.0/@children.5 //@root/@children.0/@children.4 //@root/@children.0/@children.5 //@root/@children.7 //@root/@children.8 //@root/@children.0/@children.0/@children.6 //@root/@children.0/@children.6 //@root/@children.9 //@root/@children.10 //@root/@children.0/@children.0/@children.7 //@root/@children.0/@children.0/@children.8 //@root/@children.0/@children.7 //@root/@children.0/@children.8 //@root/@children.0/@children.0/@children.9 //@root/@children.11 //@root/@children.0/@children.9 //@root/@children.0/@children.0/@children.10 //@root/@children.0/@children.0/@children.11 //@root/@children.0/@children.10 //@root/@children.12 //@root/@children.13 //@root/@children.0/@children.0/@children.12 //@root/@children.0/@children.11 //@root/@children.0/@children.12 //@root/@children.0/@children.0/@children.13 //@root/@children.0/@children.13 //@root/@children.14 //@root/@children.0/@children.14 //@root/@children.15 //@root/@children.0/@children.0/@children.14 //@root/@children.16 //@root/@children.0/@children.0/@children.15 //@root/@children.17 //@root/@children.0/@children.15 //@root/@children.18 //@root/@children.0/@children.0/@children.16 //@root/@children.0/@children.0/@children.17 //@root/@children.0/@children.16 //@root/@children.19 //@root/@children.0/@children.17 //@root/@children.0/@children.18 //@root/@children.0/@children.19 //@root/@children.20 //@root/@children.0/@children.20 //@root/@children.0/@children.0/@children.18 //@root/@children.21 //@root/@children.22 //@root/@children.0/@children.21 //@root/@children.23 //@root/@children.0/@children.0/@children.19 //@root/@children.24 //@root/@children.0/@children.0/@children.20 //@root/@children.0/@children.22 //@root/@children.0/@children.23 //@root/@children.0/@children.0/@children.21 //@root/@children.25 //@root/@children.0/@children.0/@children.22 //@root/@children.0/@children.24 //@root/@children.0/@children.25 //@root/@children.26 //@root/@children.27 //@root/@children.28 //@root/@children.0/@children.0/@children.23 //@root/@children.0/@children.0/@children.24 //@root/@children.29 //@root/@children.0/@children.26 //@root/@children.0/@children.27 //@root/@children.0/@children.0/@children.25 //@root/@children.0/@children.0/@children.26 //@root/@children.30 //@root/@children.0/@children.28 //@root/@children.0/@children.29 //@root/@children.31 //@root/@children.0/@children.30 //@root/@children.0/@children.0/@children.27 //@root/@children.32 //@root/@children.0/@children.0/@children.28 //@root/@children.0/@children.0/@children.29 //@root/@children.0/@children.31 //@root/@children.0/@children.32 //@root/@children.0/@children.33 //@root/@children.0/@children.34 //@root/@children.0/@children.35">
+  <root id="Root" name="Root" mandatory="true">
+    <children xsi:type="rhea_1:NumericalFeature" id="F2" name="F2">
+      <children xsi:type="rhea_1:NumericalFeature" id="F3" name="F3">
+        <children id="F7" name="F7"/>
+        <children id="F14" name="F14" abstract="true"/>
+        <children id="F15" name="F15"/>
+        <children id="F16" name="F16" abstract="true"/>
+        <children id="F17" name="F17"/>
+        <children id="F18" name="F18" abstract="true"/>
+        <children id="F23" name="F23" abstract="true"/>
+        <children id="F27" name="F27" abstract="true"/>
+        <children id="F28" name="F28" abstract="true"/>
+        <children id="F31" name="F31"/>
+        <children id="F34" name="F34"/>
+        <children id="F35" name="F35" abstract="true"/>
+        <children id="F39" name="F39" abstract="true"/>
+        <children id="F42" name="F42" abstract="true"/>
+        <children id="F47" name="F47" abstract="true"/>
+        <children id="F49" name="F49" abstract="true"/>
+        <children id="F53" name="F53"/>
+        <children id="F54" name="F54" abstract="true"/>
+        <children id="F62" name="F62" abstract="true"/>
+        <children id="F67" name="F67"/>
+        <children id="F69" name="F69" abstract="true"/>
+        <children id="F72" name="F72"/>
+        <children id="F74" name="F74" abstract="true"/>
+        <children id="F80" name="F80"/>
+        <children id="F81" name="F81"/>
+        <children id="F85" name="F85" abstract="true"/>
+        <children id="F86" name="F86"/>
+        <children id="F92" name="F92"/>
+        <children id="F94" name="F94"/>
+        <children id="F95" name="F95"/>
+        <type xsi:type="rhea_2:PrimitiveType" type="Natural"/>
+      </children>
+      <children id="F5" name="F5" abstract="true"/>
+      <children id="F8" name="F8" abstract="true"/>
+      <children id="F11" name="F11"/>
+      <children id="F19" name="F19" abstract="true"/>
+      <children id="F20" name="F20" abstract="true"/>
+      <children id="F24" name="F24" abstract="true"/>
+      <children id="F29" name="F29" abstract="true"/>
+      <children id="F30" name="F30" abstract="true"/>
+      <children id="F33" name="F33" abstract="true"/>
+      <children id="F36" name="F36"/>
+      <children id="F40" name="F40" abstract="true"/>
+      <children id="F41" name="F41" abstract="true"/>
+      <children id="F43" name="F43" abstract="true"/>
+      <children id="F45" name="F45"/>
+      <children id="F51" name="F51" abstract="true"/>
+      <children id="F55" name="F55"/>
+      <children id="F57" name="F57"/>
+      <children id="F58" name="F58"/>
+      <children id="F59" name="F59"/>
+      <children id="F61" name="F61" abstract="true"/>
+      <children id="F65" name="F65"/>
+      <children id="F70" name="F70"/>
+      <children id="F71" name="F71"/>
+      <children id="F75" name="F75" abstract="true"/>
+      <children id="F76" name="F76" abstract="true"/>
+      <children id="F83" name="F83"/>
+      <children id="F84" name="F84" abstract="true"/>
+      <children id="F88" name="F88" abstract="true"/>
+      <children id="F89" name="F89"/>
+      <children id="F91" name="F91"/>
+      <children id="F96" name="F96"/>
+      <children id="F97" name="F97"/>
+      <children id="F98" name="F98"/>
+      <children id="F99" name="F99"/>
+      <children id="F100" name="F100"/>
+      <type xsi:type="rhea_2:PrimitiveType" type="Integer"/>
+    </children>
+    <children id="F4" name="F4"/>
+    <children id="F6" name="F6" abstract="true"/>
+    <children id="F9" name="F9"/>
+    <children id="F10" name="F10" abstract="true"/>
+    <children id="F12" name="F12" abstract="true"/>
+    <children id="F13" name="F13"/>
+    <children id="F21" name="F21"/>
+    <children id="F22" name="F22" abstract="true"/>
+    <children id="F25" name="F25" abstract="true"/>
+    <children id="F26" name="F26" abstract="true"/>
+    <children id="F32" name="F32"/>
+    <children id="F37" name="F37" abstract="true"/>
+    <children id="F38" name="F38"/>
+    <children id="F44" name="F44" abstract="true"/>
+    <children id="F46" name="F46"/>
+    <children id="F48" name="F48"/>
+    <children id="F50" name="F50" abstract="true"/>
+    <children id="F52" name="F52"/>
+    <children id="F56" name="F56" abstract="true"/>
+    <children id="F60" name="F60"/>
+    <children id="F63" name="F63" abstract="true"/>
+    <children id="F64" name="F64"/>
+    <children id="F66" name="F66" abstract="true"/>
+    <children id="F68" name="F68" abstract="true"/>
+    <children id="F73" name="F73"/>
+    <children id="F77" name="F77" abstract="true"/>
+    <children id="F78" name="F78"/>
+    <children id="F79" name="F79" abstract="true"/>
+    <children id="F82" name="F82"/>
+    <children id="F87" name="F87" abstract="true"/>
+    <children id="F90" name="F90" abstract="true"/>
+    <children id="F93" name="F93"/>
   </root>
-  <crosstreeconstraints
-      xsi:type="rhea_2:AdvancedConstraint">
-    <expr xsi:type="rhea_2:And">
-      <terms
-          xsi:type="rhea_3:Less">
-        <left
-            xsi:type="rhea_2:FeatureTerm"
-            feature="//@root/@children.0"/>
-        <right
-            xsi:type="rhea_3:NumericTerm"
-            value="8.0"/>
-      </terms>
+  <crosstreeconstraints xsi:type="rhea_3:AdvancedConstraint">
+    <expr xsi:type="rhea_4:NotEqual">
+      <left xsi:type="rhea_4:NumericTerm" value="46.0"/>
+      <right xsi:type="rhea_3:FeatureTerm" feature="//@root/@children.0"/>
+    </expr>
+  </crosstreeconstraints>
+  <crosstreeconstraints xsi:type="rhea_3:AdvancedConstraint">
+    <expr xsi:type="rhea_3:Implies">
+      <left xsi:type="rhea_3:FeatureTerm" feature="//@root/@children.11"/>
+      <right xsi:type="rhea_4:Equal">
+        <left xsi:type="rhea_3:FeatureTerm" feature="//@root/@children.0"/>
+        <right xsi:type="rhea_4:NumericTerm" value="47.0"/>
+      </right>
+    </expr>
+  </crosstreeconstraints>
+  <crosstreeconstraints xsi:type="rhea_3:AdvancedConstraint">
+    <expr xsi:type="rhea_4:Equal">
+      <left xsi:type="rhea_4:NumericTerm" value="87.0"/>
+      <right xsi:type="rhea_3:FeatureTerm" feature="//@root/@children.0/@children.0"/>
     </expr>
   </crosstreeconstraints>
 </rhea:FeatureModel>

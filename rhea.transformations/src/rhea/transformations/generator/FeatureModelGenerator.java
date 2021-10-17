@@ -5,14 +5,39 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
+import rhea.metamodels.BasicFMs.CrossTreeConstraint;
 import rhea.metamodels.BasicFMs.Feature;
 import rhea.metamodels.BasicFMs.FeatureGroup;
 import rhea.metamodels.BasicFMs.FeatureModel;
 import rhea.metamodels.CardinalityBasedFMs.GroupCardinality;
+import rhea.metamodels.ComparativeCTCs.BinaryComparativeTerm;
+import rhea.metamodels.ComparativeCTCs.Equal;
+import rhea.metamodels.ComparativeCTCs.Less;
+import rhea.metamodels.ComparativeCTCs.LessOrEqual;
+import rhea.metamodels.ComparativeCTCs.More;
+import rhea.metamodels.ComparativeCTCs.MoreOrEqual;
+import rhea.metamodels.ComparativeCTCs.NumericTerm;
+import rhea.metamodels.ComparativeCTCs.impl.EqualImpl;
+import rhea.metamodels.ComparativeCTCs.impl.LessImpl;
+import rhea.metamodels.ComparativeCTCs.impl.LessOrEqualImpl;
+import rhea.metamodels.ComparativeCTCs.impl.MoreImpl;
+import rhea.metamodels.ComparativeCTCs.impl.MoreOrEqualImpl;
+import rhea.metamodels.ComparativeCTCs.impl.NotEqualImpl;
+import rhea.metamodels.ComparativeCTCs.impl.NumericTermImpl;
+import rhea.metamodels.DataTypes.DataType;
+import rhea.metamodels.DataTypes.PrimitiveType;
+import rhea.metamodels.DataTypes.PrimitiveTypeEnum;
+import rhea.metamodels.DataTypes.impl.PrimitiveTypeImpl;
+import rhea.metamodels.NumericalFMs.NumericalFeature;
+import rhea.metamodels.PropLogicCTCs.AdvancedConstraint;
+import rhea.metamodels.PropLogicCTCs.FeatureTerm;
+import rhea.metamodels.PropLogicCTCs.Implies;
+import rhea.metamodels.PropLogicCTCs.impl.AdvancedConstraintImpl;
+import rhea.metamodels.PropLogicCTCs.impl.FeatureTermImpl;
+import rhea.metamodels.PropLogicCTCs.impl.ImpliesImpl;
 import rhea.metamodels.helpers.FMHelper;
 import rhea.transformations.engine.FeatureModelGeneratorHelper;
 import rhea.transformations.engine.LanguageGeneratorType;
-import rhea.transformations.refactoringHenshin.GroupCardinalities;
 
 public class FeatureModelGenerator {
 	private FeatureModelGeneratorHelper fmg;
@@ -30,7 +55,7 @@ public class FeatureModelGenerator {
 		int i = 2;
 
 		Feature parent;
-		Boolean mandatory;
+		Boolean mandatory = false;
 		LanguageGeneratorType lgt = null;
 		
 		// Crear una root de una Feature cuyo porcentaje no sea 0.
@@ -60,8 +85,6 @@ public class FeatureModelGenerator {
 		double minPercentage = 0;
 		String minClassPath = "";
 		
-		int gcCounter = 0;
-		
 		while(minPercentage!=1 && i<=nFeatures)
 		{
 			minPercentage = 1;
@@ -79,21 +102,23 @@ public class FeatureModelGenerator {
 				}
 			}
 			
-			mandatory = rd.nextBoolean();
-			
 			if(minClassPath.contains("SelectionGroup")) lgt = LanguageGeneratorType.SelectionGroupNonDeterministic;
 			else if(minClassPath.contains("AlternativeGroup")) lgt = LanguageGeneratorType.AlternativeGroupNonDeterministic;
 			else if(minClassPath.contains("MutexGroup")) lgt = LanguageGeneratorType.MutexGroupNonDeterministic;						
 			else if(minClassPath.contains("GroupCardinality")) lgt = LanguageGeneratorType.GroupCardinalityNonDeterministic;
-			else if(minClassPath.contains("NumericalFeature")) ; //TODO
+			else if(minClassPath.contains("NumericalFeature")) lgt = LanguageGeneratorType.NumericalFeatureNonDeterministic;
 			
 			if (lgt!=null)
-			{
+			{ 
 				if(minClassPath.contains("GroupCardinality")) 
 				{	
-					fmg.addGroupCardinality(fm, lgt, "F"+Integer.toString(i), mandatory, rd.nextBoolean(), 0, 0);
+					fmg.addGroupCardinality(fm, lgt, "F"+Integer.toString(i), rd.nextBoolean(), rd.nextBoolean(), 0, 0);
 				}
-				else fmg.addFeature(fm, lgt, "F"+Integer.toString(i), mandatory, rd.nextBoolean());
+				else if (minClassPath.contains("NumericalFeature"))
+				{
+					fmg.addNumericalFeature(fm, lgt, "F"+Integer.toString(i), rd.nextBoolean(), rd.nextBoolean(), 0);
+				}
+				else fmg.addFeature(fm, lgt, "F"+Integer.toString(i), rd.nextBoolean(), rd.nextBoolean());
 				
 				if(fm.getFeature("F"+Integer.toString(i)).getParent() instanceof FeatureGroup) fm.getFeature("F"+Integer.toString(i)).setMandatory(false);
 				
@@ -115,7 +140,7 @@ public class FeatureModelGenerator {
 			
 			for (int j = nChilds; j <= nChildMin; j++) 
 			{
-				fmg.addFeature(fm, lgt, "F"+Integer.toString(i), false, rd.nextBoolean(), feature);
+				fmg.addFeature(fm, lgt, "F"+Integer.toString(i), rd.nextBoolean(), rd.nextBoolean(), feature);
 				System.out.println("Completing: " + i);
 				i++;
 			}
@@ -127,7 +152,6 @@ public class FeatureModelGenerator {
 		//Rellenamos el resto del modelo
 		while(i<=nFeatures)
 		{			
-			mandatory = rd.nextBoolean();
 			parent = features.get(rd.nextInt(features.size()));
 			
 			while(parent instanceof FeatureGroup && nChildMax==parent.getChildren().size())
@@ -143,8 +167,114 @@ public class FeatureModelGenerator {
 			i++;
 		}
 		
+		// Añadimos las restricciones y cambiamos el valor de las numéricas
+		groups = FMHelper.getAllFeaturesOf(fm, "rhea.metamodels.NumericalFMs.NumericalFeature");
+		
+		BinaryComparativeTerm bct = null;
+		NumericTerm nt;
+		FeatureTerm ft;
+		AdvancedConstraint ac;
+		PrimitiveType pt;
+		
+		for (Feature feature: groups)
+		{
+			pt = new PrimitiveTypeImpl();
+			nt = new NumericTermImpl();
+			
+			switch(rd.nextInt(3))
+			{
+				case 0:
+					pt.setType(PrimitiveTypeEnum.NATURAL);
+					nt.setValue(rd.nextInt(100));
+					break;
+				case 1:
+					pt.setType(PrimitiveTypeEnum.INTEGER);
+					nt.setValue(rd.nextInt(50+50) - 50);
+					break;
+				case 2:
+					pt.setType(PrimitiveTypeEnum.REAL);
+					nt.setValue((rd.nextFloat()*100)-50);
+					break;
+			}
+			
+
+			((NumericalFeature) feature).setType(pt);
+			
+			ac = new AdvancedConstraintImpl();
+			
+			switch(rd.nextInt(6))
+			{
+				case 0:
+					bct = new LessImpl();
+					break;
+				case 1:
+					bct = new MoreImpl();
+					break;
+				case 2:
+					bct = new LessOrEqualImpl();
+					break;
+				case 3:
+					bct = new MoreOrEqualImpl();
+					break;
+				case 4:
+					bct = new EqualImpl();
+					break;
+				case 5:
+					bct = new NotEqualImpl();
+					break;
+			}
+			
+			bct.setLeft(nt);
+			
+			ft = new FeatureTermImpl();
+			ft.setFeature(feature);
+			bct.setRight(ft);
+			
+			ac.setExpr(bct);
+			fm.getCrosstreeconstraints().add(ac);
+			
+			// Añadimos restricciones complejas
+			
+			if(!(bct instanceof Equal))
+			{
+				float value = nt.getValue();
+				nt = new NumericTermImpl();
+				
+				if(bct instanceof Less || bct instanceof LessOrEqual)
+				{
+					if(value <= 0) nt.setValue(value+1);
+					else nt.setValue(value-1);
+				}
+				else if (bct instanceof More || bct instanceof MoreOrEqual) 
+				{
+					if(value <= 0) nt.setValue(value-1);
+					else nt.setValue(value+1);
+				}
+				else nt.setValue(value+1);
+				
+				ac = new AdvancedConstraintImpl();
+				Implies implies = new ImpliesImpl();
+				
+				ft = new FeatureTermImpl();
+				ft.setFeature(fm.getFeatures().get(rd.nextInt(fm.getFeatures().size())));
+				implies.setLeft(ft);
+				
+				bct = new EqualImpl();
+				
+				ft = new FeatureTermImpl();
+				ft.setFeature(feature);
+				
+				bct.setLeft(ft);
+				bct.setRight(nt);
+				
+				implies.setRight(bct);
+				
+				ac.setExpr(implies);
+				fm.getCrosstreeconstraints().add(ac);
+			}
+		}
+		
 		// Arreglamos las multiplicidades
-		// No coge todos los GroupCardinalities, �Por que?
 		groups = FMHelper.getAllFeaturesOf(fm, "rhea.metamodels.CardinalityBasedFMs.GroupCardinality");
 		
 		int lower,upper;
@@ -173,7 +303,7 @@ public class FeatureModelGenerator {
 
 		// Comprobamos los Porcentajes
 		for (String f : percentages.keySet()) {
-			if(!f.contains("Feature")) System.out.println("Porcentaje de " + f +": " + (double) FMHelper.getAllFeaturesOf(fm,f).size()/(double) nFeatures);
+			if(!f.contains("OrdinaryFeature")) System.out.println("Porcentaje de " + f +": " + (double) FMHelper.getAllFeaturesOf(fm,f).size()/(double) nFeatures);
 		}
 		
 		System.out.println("Porcentaje de OrdinaryFeatures: " + FMHelper.getAllOrdinaryFeatures(fm).size()/(double) nFeatures);

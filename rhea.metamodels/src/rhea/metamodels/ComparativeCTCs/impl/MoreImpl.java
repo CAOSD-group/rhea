@@ -20,7 +20,7 @@ public class MoreImpl extends BinaryComparativeTermImpl implements More {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected MoreImpl() {
+	public MoreImpl() {
 		super();
 	}
 

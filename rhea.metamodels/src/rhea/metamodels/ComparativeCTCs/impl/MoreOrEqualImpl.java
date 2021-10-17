@@ -20,7 +20,7 @@ public class MoreOrEqualImpl extends BinaryComparativeTermImpl implements MoreOr
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected MoreOrEqualImpl() {
+	public MoreOrEqualImpl() {
 		super();
 	}
 

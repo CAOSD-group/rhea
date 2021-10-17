@@ -20,7 +20,7 @@ public class NotEqualImpl extends BinaryComparativeTermImpl implements NotEqual 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected NotEqualImpl() {
+	public NotEqualImpl() {
 		super();
 	}
 

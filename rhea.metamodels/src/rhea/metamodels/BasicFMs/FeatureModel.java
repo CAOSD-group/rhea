@@ -101,4 +101,6 @@ public interface FeatureModel extends EObject {
 	 * @generated
 	 */
 	Feature getFeature(String id);
+
+	void createFeatureList();
 } // FeatureModel

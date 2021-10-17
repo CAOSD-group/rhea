@@ -158,6 +158,14 @@ public class FMHelper {
 		return features;
 	}
 	
+	public static void addChild(FeatureModel fm, Feature f)
+	{
+		fm.getFeatures().add(f);
+		for (Feature child : f.getChildren()) {
+			addChild(fm,child);
+		}
+	}
+	
 	
 	
 //	public FeatureModel createEmptyFeatureModel() {

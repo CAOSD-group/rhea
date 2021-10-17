@@ -18,6 +18,7 @@ public enum LanguageGeneratorType {
 	AlternativeGroupDeterministic("D Alternative Group", "deterministic/GenFeature", "GenAlternativeGroup", Map.of()),
 	MutexGroupNonDeterministic("ND Mutex Gorup", "nondeterministic/GenFeatureRandomly", "GenMutexGroupRandomly", Map.of()),
 	GroupCardinalityNonDeterministic("ND Group Cardinality", "nondeterministic/GenFeatureRandomly", "GenGroupCardinalityRandomly", Map.of()),
+	NumericalFeatureNonDeterministic("ND Numerical Feature", "nondeterministic/GenFeatureRandomly", "GenNumericalFeatureRandomly", Map.of()),
 	
 	DeleteFeature("Delete Feature","others/DelFeature","DeleteFeature", Map.of());
 	

@@ -9,6 +9,7 @@ import rhea.generators.FMGenerator;
 import rhea.generators.clafer.ToClafer;
 import rhea.metamodels.BasicCTCs.BasicCTCsPackage;
 import rhea.metamodels.BasicFMs.BasicFMsPackage;
+import rhea.metamodels.BasicFMs.Feature;
 import rhea.metamodels.BasicFMs.FeatureModel;
 import rhea.metamodels.BasicFMs.impl.FeatureModelImpl;
 import rhea.metamodels.ComparativeCTCs.ComparativeCTCsPackage;
@@ -22,14 +23,13 @@ import rhea.metamodels.NumericalFMs.impl.NumericalFeatureImpl;
 import rhea.metamodels.PropLogicCTCs.PropLogicCTCsPackage;
 import rhea.metamodels.PropLogicCTCs.impl.AdvancedConstraintImpl;
 import rhea.metamodels.PropLogicCTCs.impl.FeatureTermImpl;
-import rhea.metamodels.helpers.FMHelper;
 import rhea.parsers.FMParser;
 import rhea.parsers.clafer.ClaferParser;
 import rhea.thirdpartyplugins.utils.Utils;
 import rhea.transformations.engine.FeatureModelGeneratorHelper;
 import rhea.transformations.engine.HenshinEngine;
 import rhea.transformations.engine.LanguageGeneratorType;
-import rhea.transformations.refactoringJava.JavaNumericalFeature;
+import rhea.transformations.refactoringJava.JavaNumericalFeatureRule;
 
 public class NumericalFeatureTest {
 	public static final List<EPackage> staticMetamodels = List.of(BasicFMsPackage.eINSTANCE, NumericalFMsPackage.eINSTANCE, ComparativeCTCsPackage.eINSTANCE, DataTypesPackage.eINSTANCE, PropLogicCTCsPackage.eINSTANCE, BasicCTCsPackage.eINSTANCE);
@@ -37,7 +37,7 @@ public class NumericalFeatureTest {
 	public static void main(String[] args) {
 		FMParser p = new ClaferParser();
 		FMGenerator g = new ToClafer();
-		JavaNumericalFeature transformator;
+		JavaNumericalFeatureRule transformator;
 		FeatureModelGeneratorHelper fmg = new FeatureModelGeneratorHelper();
 		HenshinEngine henshin = new HenshinEngine(Rhea.BASEDIR);
 		FeatureModelImpl fm;
@@ -48,10 +48,9 @@ public class NumericalFeatureTest {
 		
 		/* Ecore cuando lee el modelo no crea ni completa la lista de features */
 		fm.createFeatureList();
-		fm.getFeatures().add(fm.getRoot());
-		fm.getFeatures().add(fm.getRoot().getChildren().get(0));
+		addChild(fm,fm.getRoot());
 		
-		transformator = new JavaNumericalFeature(fm, "rhea.metamodels.NumericalFMs.NumericalFeature");
+		transformator = new JavaNumericalFeatureRule(fm, "rhea.metamodels.NumericalFMs.NumericalFeature");
 		//fm = createFM(fmg);
 		//fm = p.readFeatureModel(Rhea.CLAFER_INPUTS_DIR + "NumericalFeature/nf001.txt");
 		transformator.executeRefactoring();
@@ -93,5 +92,13 @@ public class NumericalFeatureTest {
 		fm.getCrosstreeconstraints().add(ac);
 		
 		return fm;
+	}
+	
+	private static void addChild(FeatureModel fm, Feature f)
+	{
+		fm.getFeatures().add(f);
+		for (Feature child : f.getChildren()) {
+			addChild(fm,child);
+		}
 	}
 }
