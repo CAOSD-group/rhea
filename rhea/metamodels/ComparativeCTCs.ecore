@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="ComparativeCTCs" nsURI="rhea.metamodels.ComparativeCTCs" nsPrefix="rhea">
+  <eClassifiers xsi:type="ecore:EClass" name="BinaryComparativeTerm" eSuperTypes="../PropLogicCTCs/PropLogicCTCs.ecore#//Term">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="left" lowerBound="1" eType="ecore:EClass PropLogicCTCs.ecore#//Term"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="right" lowerBound="1" eType="ecore:EClass PropLogicCTCs.ecore#//Term"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Equal" eSuperTypes="#//BinaryComparativeTerm"/>
+  <eClassifiers xsi:type="ecore:EClass" name="NotEqual" eSuperTypes="#//BinaryComparativeTerm"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Less" eSuperTypes="#//BinaryComparativeTerm"/>
+  <eClassifiers xsi:type="ecore:EClass" name="More" eSuperTypes="#//BinaryComparativeTerm"/>
+  <eClassifiers xsi:type="ecore:EClass" name="LessOrEqual" eSuperTypes="#//BinaryComparativeTerm"/>
+  <eClassifiers xsi:type="ecore:EClass" name="MoreOrEqual" eSuperTypes="#//BinaryComparativeTerm"/>
+  <eClassifiers xsi:type="ecore:EClass" name="NumericTerm" eSuperTypes="PropLogicCTCs.ecore#//Term">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EFloat"/>
+  </eClassifiers>
+</ecore:EPackage>

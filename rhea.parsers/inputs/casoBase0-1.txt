@@ -1,7 +1,0 @@
-abstract MyRoot 
-	0..1 A       //0 o 1. También mux A
-		    B 
-		    C
-		    D
-		
-config: MyRoot
