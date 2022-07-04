@@ -2,9 +2,11 @@ import {Component} from '@angular/core';
 import {NestedTreeControl} from '@angular/cdk/tree';
 import {MatTreeNestedDataSource} from '@angular/material/tree';
 
+
 interface FeatureNode {
     name: string;
     children?: FeatureNode[];
+   // cantidad: number;
 }
 
 const TREE_DATA: FeatureNode[] = [
@@ -22,6 +24,9 @@ const TREE_DATA: FeatureNode[] = [
                   },
                   {
                     "name": "18tons"
+                  },
+                  {
+                    "name": "20tons"
                   }
                 ]
               },
@@ -52,6 +57,22 @@ const TREE_DATA: FeatureNode[] = [
                 "children": [
                   {
                     "name": "dumper"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "name": "prueba",
+            "children": [
+              {
+                "name": "prueba1"
+              },
+              {
+                "name": "prueba_hijo",
+                "children": [
+                  {
+                    "name": "ultima"
                   }
                 ]
               }
@@ -144,6 +165,10 @@ const TREE_DATA: FeatureNode[] = [
 export class FMEditor {
     treeControl = new NestedTreeControl<FeatureNode>(node => node.children);
     dataSource = new MatTreeNestedDataSource<FeatureNode>();
+    checkededed = false;
+    indeterminateeded = false;
+    labelPositioneded: 'before' | 'after' = 'after';
+    disablededed = false;
 
     constructor() {
         this.dataSource.data = TREE_DATA;

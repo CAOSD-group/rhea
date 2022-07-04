@@ -6,7 +6,10 @@ import { FMEditor } from './components/fm-editor/fm-editor.component';
 
 import {MatTreeModule} from '@angular/material/tree';
 import {MatIconModule} from '@angular/material/icon';
-
+import {MatCheckboxModule} from '@angular/material/checkbox';
+import {MatCardModule} from '@angular/material/card';
+import {MatRadioModule} from '@angular/material/radio';
+import {FormsModule,ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -17,8 +20,15 @@ import {MatIconModule} from '@angular/material/icon';
     BrowserModule,
     MatTreeModule,
     MatIconModule,
+    MatCheckboxModule,
+    MatCardModule,
+    MatRadioModule,
+    FormsModule,
+    ReactiveFormsModule
+    
   ],
   providers: [],
   bootstrap: [AppComponent]
+ 
 })
 export class AppModule { }
