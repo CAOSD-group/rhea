@@ -6,7 +6,6 @@ import {MatTreeNestedDataSource} from '@angular/material/tree';
 interface FeatureNode {
     name: string;
     children?: FeatureNode[];
-   // cantidad: number;
 }
 
 const TREE_DATA: FeatureNode[] = [
@@ -174,5 +173,5 @@ export class FMEditor {
         this.dataSource.data = TREE_DATA;
     }
 
-    hasChild = (_: number, node: FeatureNode) => !!node.children && node.children.length > 0;
+    hasChild = (_: number, node: FeatureNode) => !!node.children && node.children.length >= 0;
 }

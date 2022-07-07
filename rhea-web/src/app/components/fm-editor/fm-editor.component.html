@@ -1,3 +1,4 @@
+
 <mat-tree [dataSource]="dataSource" [treeControl]="treeControl" class="example-tree">
     <!-- This is the tree node template for leaf nodes -->
     <!-- There is inline padding applied to this node using styles.
@@ -15,6 +16,15 @@
             </mat-icon>
           </button>
           {{node.name}}
+
+
+          <button mat-icon-button matTreeNodeToggle
+                   [attr.aria-label]="'Toggle ' + node.name">
+            <mat-icon class="mat-icon-rtl-mirror">
+              {{treeControl.isExpanded(node) ? 'add' : 'add'}}
+            </mat-icon>
+           </button>
+          
         </div>
         <!-- There is inline padding applied to this div using styles.
             This padding value depends on the mat-icon-button width.  -->
@@ -24,9 +34,10 @@
       </div>
     </mat-nested-tree-node>
   </mat-tree>
-  <hr>
-  <hr>
 
+
+<!--
+  
   <mat-card>
     <mat-card-content>
       <h2 class="example-h2">Checkbox configuration</h2>
@@ -68,5 +79,4 @@
       </section>
     </mat-card-content>
   </mat-card>
-
-  
+-->
