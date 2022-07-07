@@ -15,6 +15,8 @@ import {MatCardModule} from '@angular/material/card';
 import {MatRadioModule} from '@angular/material/radio';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatMenuModule} from '@angular/material/menu';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatButtonModule } from '@angular/material/button';
 
 
 
@@ -39,6 +41,8 @@ import {MatMenuModule} from '@angular/material/menu';
     FormsModule,
     MatFormFieldModule,
     ReactiveFormsModule,
+    MatButtonModule,
+    BrowserAnimationsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
