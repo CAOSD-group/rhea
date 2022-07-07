@@ -1,11 +1,83 @@
 <button mat-button [matMenuTriggerFor]="menu">Menu</button>
 <mat-menu #menu="matMenu">
-  <button mat-menu-item>Item 1</button>
+  <button (click)="sumar(aux,4)"    >suma 4</button>
   <button mat-menu-item>Item 2</button>
+  <mat-checkbox class="example-margin" >Checked</mat-checkbox>
+</mat-menu>
+<div></div>
+<button (click)="sumar(aux,aux2)"    >suma los valores</button>
+
+<mat-form-field>
+  <input matInput [(ngModel)]="aux" type="number" placeholder="Ingrese primer valor sin flechas subir/bajar">
+</mat-form-field>
+
+<mat-form-field>
+  <input matInput [(ngModel)]="aux2" type="number" placeholder="Ingrese segundo valor con">
+</mat-form-field>
+
+<div></div>
+
+        <mat-label>texto</mat-label>
+        <input matInput #itemValue2  placeholder="nombre">
+        <button (click)="actualizarvalores(itemValue2.value)">actualiza los valores</button>
+        <mat-checkbox class="example-margin" [(ngModel)]="marcado">Marcado</mat-checkbox>
+        <button (click)="crearValor()">crea el objeto</button>
+        <div></div>
+        <button (click)="escribirvalores()">escribe los valores actuales</button>
+        <button (click)="escribirlista()">escribe la lista</button>
+        <div></div>
+        <button (click)="eligeObjeto(identificador)">escribe el objeto en la posicion dada (objeto cero tiene posicion 1)</button>
+        <input matInput [(ngModel)]="identificador" type="number" placeholder="posicion">
+        <div></div>
+       
+        <button (click)="cambiar_estado(identificador)">cambia el estado </button>
+        <hr>
+        <hr>
+        <div></div>
+        <button (click)="anadir()">añade una rama aun doy problemas </button>
+<div></div>
+<div></div>
+
+          <!--<mat-selection-list #shoes>
+          <mat-list-option *ngFor="let Hijos of lista">
+            {{Hijos}}
+          </mat-list-option>
+        </mat-selection-list>
+        
+        <p>
+          Options selected: {{shoes.selectedOptions.selected.length}}
+        </p> -->
+
+
+<!--
+          this.nombre = texto;
+        aux=lista?.length || 0  ;
+        this.identificador =aux;
+        this.Hijos = new Array<Rama>() ;
+        this.Padre = new Array<Rama>();
+        this.marcado= false;
+        this.indeterminado=false;
+-->
+
+
+
+
+
+
+
+<!-- 
+<button mat-button [matMenuTriggerFor]="miMenu">soy un <menu></menu></button>
+<mat-menu #miMenu="matMenu">
+  <button mat-menu-item [matMenuTriggerFor]="segundomenu">menu</button>
+  <button mat-menu-item>o quizas no</button>
 </mat-menu>
 
+<mat-menu #segundomenu="matMenu">
+  <button mat-menu-item >primerboton</button>
+  <button mat-menu-item >sboton</button>
+</mat-menu>
 
-<!--  cambios aqui  -->
+ cambios aqui  
 
 <button mat-button [matMenuTriggerFor]="periodicos">Periódicos</button>
 
@@ -36,3 +108,4 @@
   <a mat-menu-item href="https://www.bing.com">Bing</a>
   <a mat-menu-item href="https://duckduckgo.com">DuckDuckGo</a>
 </mat-menu>
+-->

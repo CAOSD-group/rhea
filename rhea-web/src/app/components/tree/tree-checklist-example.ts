@@ -279,5 +279,6 @@ export class TreeChecklistExample {
   saveNode(node: TodoItemFlatNode, itemValue: string) {
     const nestedNode = this.flatNodeMap.get(node);
     this._database.updateItem(nestedNode!, itemValue);
+    console.log(this.flatNodeMap)  //abrir en consola para ver 
   }
 }

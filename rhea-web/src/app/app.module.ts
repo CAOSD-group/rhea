@@ -1,12 +1,13 @@
-import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
+import {NgModule } from '@angular/core';
+import {BrowserModule } from '@angular/platform-browser';
 import {FormsModule,ReactiveFormsModule } from '@angular/forms';
 
 
-import { AppComponent } from './app.component';
-import { FMEditor } from './components/fm-editor/fm-editor.component';
-import {TreeChecklistExample} from './components/fm-editor/tree/tree-checklist-example';
+import {AppComponent } from './app.component';
+import {FMEditor } from './components/fm-editor/fm-editor.component';
+import {TreeChecklistExample} from './components/tree/tree-checklist-example';
 import {Rama} from './components/miarbol/miarbol';
+import { arbol } from './components/arbol_pruebas/arbol';
 
 import {MatTreeModule} from '@angular/material/tree';
 import {MatIconModule} from '@angular/material/icon';
@@ -15,8 +16,10 @@ import {MatCardModule} from '@angular/material/card';
 import {MatRadioModule} from '@angular/material/radio';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatMenuModule} from '@angular/material/menu';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatButtonModule } from '@angular/material/button';
+import {BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {MatButtonModule } from '@angular/material/button';
+import {MatInputModule} from '@angular/material/input';
+import {MatListModule} from '@angular/material/list';
 
 
 
@@ -25,6 +28,7 @@ import { MatButtonModule } from '@angular/material/button';
   declarations: [
     AppComponent,
     FMEditor,
+    arbol,
     TreeChecklistExample,
     Rama,
     
@@ -34,8 +38,9 @@ import { MatButtonModule } from '@angular/material/button';
     BrowserModule,
     MatTreeModule,
     MatMenuModule,
-    MatIconModule,
+    MatIconModule,MatListModule,
     MatCheckboxModule,
+    MatInputModule,
     MatCardModule,
     MatRadioModule,
     FormsModule,
