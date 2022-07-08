@@ -1,41 +1,228 @@
-import {SelectionModel} from '@angular/cdk/collections';
-import {FlatTreeControl} from '@angular/cdk/tree';
-import {Component, Injectable} from '@angular/core';
-import {MatTreeFlatDataSource, MatTreeFlattener} from '@angular/material/tree';
-import {BehaviorSubject} from 'rxjs';
-import {ComponentFixture, TestBed} from '@angular/core/testing';
-import {TestbedHarnessEnvironment} from '@angular/cdk/testing/testbed';
-import {MatMenuHarness} from '@angular/material/menu/testing';
-import {HarnessLoader} from '@angular/cdk/testing';
-import {MatMenuModule} from '@angular/material/menu';
-import {NoopAnimationsModule} from '@angular/platform-browser/animations';
 
-
+import {Component} from '@angular/core';
+import {NestedTreeControl} from '@angular/cdk/tree';
+import {MatTreeNestedDataSource} from '@angular/material/tree';
 
     let ltexto ="";
     let laux =0;
     let laux2=0;
     let lposicion =0;
-    let lmarcado =false;
+    let lmarcado =true;
     let lindeterminado =false;
     var megaauxiliar :any;
     var seleccionado :Rama 
     var seleccionado2 :Rama;
     var lista: Array<Rama> =[];
+    var arbol:Array<Rama_controlada> =[];
 
-    var TREE_DATA = {
-     Groceries: {
-       'Almond Meal flour': null,
-       'Organic eggs': null,
-       'Protein Powder': null,
-        Fruits: {
-            Apple: null,
-            Berries: ['Blueberry', 'Raspberry'],
-            Orange: null,
-         },
-        },
-    };
+    
 
+    class Rama_controlada {
+        declare nombre: string;
+        declare marcado: boolean;
+        declare children?: Rama_controlada[];
+        //declare arbol:[];
+        constructor(Nnombre:string , Nmarcado:boolean){
+          this.nombre=Nnombre;
+          this.marcado=Nmarcado;
+          this.children=[];
+        }
+    }
+    const TREE_DATA2: Rama_controlada[]=[
+      megaauxiliar=new Rama_controlada ("hola",true),
+      arbol[arbol.length]=megaauxiliar,
+      new Rama_controlada ("valgo",true),
+      new Rama_controlada ("distinto",true),
+      new Rama_controlada ("hola",true),
+    ]
+
+    const TREE_DATA: Rama_controlada[]=[
+        {
+            "nombre": "truck",
+            "marcado": false,
+            "children": [
+              {
+                "nombre": "weight",
+                "marcado": true,
+                "children": [
+                  {
+                    "nombre": "lightweight",
+                    "marcado": true,
+                    "children": [
+                      {
+                        "nombre": "12tons",
+                        "marcado": true,
+                      },
+                      {
+                        "nombre": "18tons",
+                        "marcado": true,
+                      },
+                      {
+                        "nombre": "20tons",
+                        "marcado": true,
+                      }
+                    ]
+                  },
+                  {
+                    "nombre": "heavyweight",
+                    "marcado": true,
+                    "children": [
+                      {
+                        "nombre": "23tons",
+                        "marcado": true,
+                      },
+                      {
+                        "nombre": "40tons",
+                        "marcado": true,
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "nombre": "type",
+                "marcado": true,
+                "children": [
+                  {
+                    "nombre": "semitrailer",
+                    "marcado": true,
+                  },
+                  {
+                    "nombre": "tank",
+                    "marcado": true,
+                  },
+                  {
+                    "nombre": "flatbed",
+                    "marcado": true,
+                    "children": [
+                      {
+                        "nombre": "dumper",
+                        "marcado": true,
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "nombre": "prueba",
+                "marcado": true,
+                "children": [
+                  {
+                    "nombre": "prueba1",
+                    "marcado": true,
+                  },
+                  {
+                    "nombre": "prueba_hijo",
+                    "marcado": true,
+                    "children": [
+                      {
+                        "nombre": "ultima",
+                        "marcado": true,
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "nombre": "engine",
+                "marcado": true,
+                "children": [
+                  {
+                    "nombre": "160kw",
+                    "marcado": true,
+                  },
+                  {
+                    "nombre": "280kw",
+                    "marcado": true,
+                  },
+                  {
+                    "nombre": "400kw",
+                    "marcado": true,
+                  }
+                ]
+              },
+              {
+                "nombre": "cabin",
+                "marcado": true,
+                "children": [
+                  {
+                    "nombre": "highroof",
+                    "marcado": true,
+                  },
+                  {
+                    "nombre": "sleepercabin",
+                    "marcado": true,
+                    "children": [
+                      {
+                        "nombre": "1bed",
+                        "marcado": true,
+                      },
+                      {
+                        "nombre": "2beds",
+                        "marcado": true,
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "nombre": "axles",
+                "marcado": true,
+                "children": [
+                  {
+                    "nombre": "count",
+                    "marcado": true,
+                    "children": [
+                      {
+                        "nombre": "2axles",
+                        "marcado": true,
+                      },
+                      {
+                        "nombre": "multiplerearaxles",
+                        
+                    "marcado": true,
+                        "children": [
+                          {
+                            "nombre": "3axles",
+                            "marcado": true,
+                          },
+                          {
+                            "nombre": "4axles",
+                            "marcado": true,
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "nombre": "additionalsteeringaxle",
+                    "marcado": true,
+                  },
+                  {
+                    "nombre": "drivetrain",
+                    "marcado": true,
+                    "children": [
+                      {
+                        "nombre": "1drivenaxle",
+                        "marcado": true,
+                      },
+                      {
+                        "nombre": "2drivenaxles",
+                        "marcado": true,
+                      },
+                      {
+                        "nombre": "3drivenaxles",
+                        "marcado": true,
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+      ];
+
+    
 
 @Component({
     selector: 'miarbol',
@@ -43,7 +230,7 @@ import {NoopAnimationsModule} from '@angular/platform-browser/animations';
     styleUrls: ['./miarbol.css'],
 })
 
-export class Rama{
+export class Rama implements Rama_controlada{
     aux =laux;
     aux2=laux2;
     posicion =lposicion;
@@ -53,9 +240,14 @@ export class Rama{
     indeterminado=lindeterminado;
     Hijos: Array<Rama> =[] ;
     Padre: Array<Rama> =[] ;
+    lista: Array<Rama> =[];
+    treeControl = new NestedTreeControl<Rama_controlada>(node => node.children);
+    dataSource = new MatTreeNestedDataSource<Rama_controlada>();
  
+    
 
     constructor() {
+        this.dataSource.data = TREE_DATA2;
         this.nombre = ltexto;
         this.identificador =lista?.length || 0;
         this.posicion=this.identificador;
@@ -64,8 +256,9 @@ export class Rama{
         this.marcado= lmarcado;
         this.indeterminado=false;
     }
-  
 
+    hasChild = (_: number, node: Rama_controlada) => !!node.children && node.children.length >= 0;
+  
     borrar(elemento:number) {  //borra todos los hijos
         this.posicion=elemento-1;
         seleccionado=lista[this.posicion];
@@ -206,6 +399,17 @@ export class Rama{
 
         }
     }
+    crea_Rama_controlada(valor:string){
+      this.actualizarvalores(valor);
+      seleccionado=new Rama();
+      if(seleccionado!=undefined){
+      laux=lista.push(seleccionado);}
+      megaauxiliar=new Rama_controlada(seleccionado.nombre,seleccionado.marcado);
+  }
+
+
+
+
 
 
 
