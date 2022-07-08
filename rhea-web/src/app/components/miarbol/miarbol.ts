@@ -17,7 +17,10 @@ import {NoopAnimationsModule} from '@angular/platform-browser/animations';
     let laux2=0;
     let lposicion =0;
     let lmarcado =false;
+    let lindeterminado =false;
+    var megaauxiliar :any;
     var seleccionado :Rama 
+    var seleccionado2 :Rama;
     var lista: Array<Rama> =[];
 
     var TREE_DATA = {
@@ -47,12 +50,13 @@ export class Rama{
     nombre = "";
     identificador =0 ;
     marcado= lmarcado;
-    indeterminado=false;
+    indeterminado=lindeterminado;
     Hijos: Array<Rama> =[] ;
     Padre: Array<Rama> =[] ;
  
 
     constructor() {
+        this.nombre = ltexto;
         this.identificador =lista?.length || 0;
         this.posicion=this.identificador;
         this.Hijos = new Array<Rama>() ;
@@ -84,15 +88,14 @@ export class Rama{
         } else{
         alert("se ha intentado sumar algo que no son numeros")}
     }
-    crearValor(){
+    crearValor(valor:string){
+        this.actualizarvalores(valor);
         seleccionado=new Rama();
         if(seleccionado!=undefined){
         laux=lista.push(seleccionado);}
     }
 
     escribirvalores(){
-        alert("valores actuales:"+this.nombre+" ,"+this.identificador+" ,"+this.marcado+" ,"+this.indeterminado+" ,"+this.Hijos+" ,"+this.Padre)
-        alert(seleccionado);
         laux=lista.push(seleccionado);
         console.log(seleccionado);
     }
@@ -105,28 +108,106 @@ export class Rama{
         console.log(seleccionado);
         }
     }
+    actualizarvalores(elemento:string){
+        ltexto=elemento;
+        laux=this.aux
+        laux2=this.aux2;
+        lmarcado=this.marcado;
+        lindeterminado=this.marcado;
+        this.nombre=ltexto;
+    }
     
+    cambiar_nombre(posicion:number,nuevo_nombre:string){
+        if(posicion!=0){
+            seleccionado=lista[posicion-1];
+            seleccionado.nombre=nuevo_nombre;
+        }
+    }
 
-
-        
     cambiar_estado(posicion:number){
         laux=posicion-1
-        console.log(laux);
         if(posicion!=0){
        if (lista[laux].marcado) {
-        console.log(lista[laux].marcado);
         lista[laux].marcado=false;
         lista[laux].indeterminado=false;
        } else {
-        console.log(lista[laux].marcado);
         lista[laux].marcado=true;
         lista[laux].indeterminado=false;
-
        }
         if(lista[laux].Hijos[0]!=null){lista[laux].Cambiar_hijos()}; 
         if(lista[laux].Padre[0]!=null){lista[laux].Padre[0].Comprobar_padre();}
-        console.log(lista[laux].marcado + " deberia salir cambiado");
     }}
+    cambiar_identificador(posicion:number,nuevo_id:number){ //falta poner la condicion de que no exista otro elemento con es identificador
+        if(posicion!=0){
+            seleccionado=lista[posicion-1];
+            laux=0;
+            lista.forEach(element => {
+                if (element.identificador==nuevo_id){
+                    laux=1
+                } 
+            });
+            if (laux!=1) {
+                seleccionado.identificador=nuevo_id;    
+            } else {
+                console.log("Error: ya existe este identificador")
+            }
+        }
+    }
+    meter_hijo(hijo:number,padre:number){
+        if(lista[hijo-1]!=null && lista[padre-1]!=null){
+        seleccionado=lista[hijo-1];
+        seleccionado2=lista[padre-1];
+        laux=0;
+
+            if(seleccionado2.Hijos!=null){
+        seleccionado2.Hijos.forEach(element => {
+            if (element.identificador==seleccionado.identificador){
+                laux=1
+                console.log("ya existe este hijo");
+            } 
+        })};
+        if (laux!=1) {
+            seleccionado.Padre=[];
+            seleccionado.Padre.push(seleccionado2);
+            seleccionado2.Hijos.push(seleccionado);
+        }
+        }
+    }
+    quitar_un_hijo(padre:number,hijo:number){
+        if(lista[hijo-1]!=null && lista[padre-1]!=null){
+            seleccionado2=lista[hijo-1];
+            seleccionado=lista[padre-1];
+            laux=-1;
+            console.log("llego aqui")
+            seleccionado.Hijos.forEach(element =>{
+                laux++;
+                console.log("reviso hijos")
+                if(element==seleccionado2){
+                    seleccionado2.Padre=[];
+                    console.log("el hijo existia")
+                    laux--;
+                } else{
+                    megaauxiliar= new Array<Rama>();
+                    megaauxiliar.push(element);
+                }
+            })
+            seleccionado.Hijos=megaauxiliar;
+        }
+
+    }
+    quitar_hijos(padre:number){
+        if(lista[padre-1]!=null){
+        seleccionado=lista[padre-1];
+        if(seleccionado.Hijos!=null){
+            seleccionado.Hijos.forEach(element => {
+                element.Padre=[];
+            })};
+        seleccionado.Hijos=[];
+
+        }
+    }
+
+
 
 
     Cambiar_hijos(){
@@ -187,13 +268,7 @@ export class Rama{
             hijo.maximo_identificador() //si da error if(hijos no nulo)
         })
     }
-    cambiar_identificador(nuevo_id:number){
-        laux=nuevo_id+1;
-        this.identificador=nuevo_id;
-        this.Hijos.forEach(hijo => {    //si da error if(hijos no nulo)
-            hijo.cambiar_identificador(laux)
-        });
-    }
+
     reordenar(elemento:Rama){ //
         if(lista[laux].identificador!=elemento.identificador){
             console.log("1");
@@ -211,7 +286,7 @@ export class Rama{
             laux2++;
         }
         console.log("3");
-        lista[laux].cambiar_identificador(elemento.identificador-laux) //comprobar si elemento mantiene el valor hasta este momento o si ya se cambia
+        //lista[laux].cambiar_identificador(elemento.identificador-laux) //comprobar si elemento mantiene el valor hasta este momento o si ya se cambia
         } 
         else {
             console.log("2");
@@ -222,7 +297,7 @@ export class Rama{
             lista[laux2].identificador=lista[laux2].identificador+laux;
             laux2++;
         }
-        elemento.cambiar_identificador(lista[laux].identificador-laux) //comprobar si elemento mantiene el valor hasta este momento o si ya se cambia
+        //elemento.cambiar_identificador(lista[laux].identificador-laux) //comprobar si elemento mantiene el valor hasta este momento o si ya se cambia
         } 
         lista[laux].ordenar_elementos}
     }
