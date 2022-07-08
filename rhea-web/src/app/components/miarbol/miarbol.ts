@@ -15,7 +15,7 @@ import {NoopAnimationsModule} from '@angular/platform-browser/animations';
     let ltexto ="";
     let laux =0;
     let laux2=0;
-   // let lposicion =0;
+    let lposicion =0;
     let lmarcado =false;
     var seleccionado :Rama 
     var lista: Array<Rama> =[];
@@ -43,6 +43,7 @@ import {NoopAnimationsModule} from '@angular/platform-browser/animations';
 export class Rama{
     aux =laux;
     aux2=laux2;
+    posicion =lposicion;
     nombre = "";
     identificador =0 ;
     marcado= lmarcado;
@@ -52,8 +53,8 @@ export class Rama{
  
 
     constructor() {
-        this.nombre = ltexto;
         this.identificador =lista?.length || 0;
+        this.posicion=this.identificador;
         this.Hijos = new Array<Rama>() ;
         this.Padre = new Array<Rama>();
         this.marcado= lmarcado;
@@ -61,17 +62,19 @@ export class Rama{
     }
   
 
-    borrar() {  //borra todos los hijos
-        this.Hijos.forEach(element => {
-            element.borrar;
+    borrar(elemento:number) {  //borra todos los hijos
+        this.posicion=elemento-1;
+        seleccionado=lista[this.posicion];
+        seleccionado.Hijos.forEach(hijo => {
+            hijo.borrar(hijo.posicion);
         });
-        this.nombre = "";
-        lista.splice(this.identificador,1); //elimina el elemento cuya posicion coincide con la del identificador
-        this.identificador =-1 ;
-        this.Hijos.splice(0);
-        this.Padre.splice(0);
-        this.marcado= false;
-        this.indeterminado=false;
+        seleccionado.nombre = "";
+        lista.splice(seleccionado.identificador,1); //elimina el elemento cuya posicion coincide con la del identificador
+        seleccionado.identificador =-1 ;
+        seleccionado.Hijos.splice(0);
+        seleccionado.Padre.splice(0);
+        seleccionado.marcado= false;
+        seleccionado.indeterminado=false;
     }
 
     sumar(input:number,input2:number){
@@ -80,13 +83,6 @@ export class Rama{
             console.log("se ha sumado "+ input.toString() +" a " +input2.toString());
         } else{
         alert("se ha intentado sumar algo que no son numeros")}
-    }
-    actualizarvalores(elemento:string){
-        ltexto=elemento;
-        laux=this.aux
-        laux2=this.aux2;
-        lmarcado=this.marcado;
-        this.nombre=ltexto;
     }
     crearValor(){
         seleccionado=new Rama();
