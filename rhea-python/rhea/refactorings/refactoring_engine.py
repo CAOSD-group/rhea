@@ -1,4 +1,4 @@
-from refactorings.refactoring import Refactoring
+from rhea.refactorings import Refactoring
 
 from famapy.metamodels.fm_metamodel.models import FeatureModel
 
