@@ -1,9 +1,11 @@
 import os
+import filecmp
+from weakref import ref
 import pytest 
 
-from famapy.core.transformations import TextToModel
+from famapy.core.transformations import TextToModel, ModelToText
 from famapy.metamodels.fm_metamodel.models import FeatureModel
-from famapy.metamodels.fm_metamodel.transformations import UVLReader
+from famapy.metamodels.fm_metamodel.transformations import UVLReader, UVLWriter
 from famapy.metamodels.pysat_metamodel.operations import Glucose3ProductsNumber
 from famapy.metamodels.pysat_metamodel.transformations import FmToPysat
 
@@ -12,23 +14,12 @@ from rhea.refactorings.mutex_group_refactoring import MutexGroupRefactoring
 from rhea.refactorings.cardinality_group_refactoring import CardinalityGroupRefactoring
 
 
-MUTEX_GROUP_MODELS_PATH = 'tests/input_models/mutex_groups/'
-CARDINALITY_GROUP_MODELS_PATH = 'tests/input_models/cardinality_groups/'
-
-
-def get_tests() -> list[list[str, Refactoring]]:
-    """Return the list of tests to be executed.
-    
-    Each test receives a list of parameters containing:
-      - the filepath of the FM.
-      - the refactoring to test.
-    """
-    tests = []
-    mutex_group_tests = [[m, MutexGroupRefactoring] for m in get_models(MUTEX_GROUP_MODELS_PATH)]
-    tests.extend(mutex_group_tests)
-    cardinality_group_tests = [[m, CardinalityGroupRefactoring] for m in get_models(CARDINALITY_GROUP_MODELS_PATH)]
-    tests.extend(cardinality_group_tests)
-    return tests
+MODELS_BASE_PATH = os.path.join('tests', 'models')
+INPUT_MODELS = 'input_models'
+OUTPUT_MODELS = 'output_models'
+EXPECTED_MODELS = 'expected_models'
+MUTEX_GROUP_MODELS_PATH = 'mutex_groups'
+CARDINALITY_GROUP_MODELS_PATH = 'cardinality_groups'
 
 
 def get_models(dirpath: str) -> list[str]:
@@ -40,8 +31,37 @@ def get_models(dirpath: str) -> list[str]:
     return fms
 
 
+def get_tests_info(ref_path: str, refactoring: Refactoring) -> list[list[str, str, str, Refactoring]]:
+    input_path = os.path.join(MODELS_BASE_PATH, INPUT_MODELS, ref_path)
+    output_path = os.path.join(MODELS_BASE_PATH, OUTPUT_MODELS, ref_path)
+    expected_path = os.path.join(MODELS_BASE_PATH, EXPECTED_MODELS, ref_path)
+    input_models = get_models(input_path)
+    output_models = [os.path.join(output_path, os.path.basename(m)) for m in input_models]
+    expected_models = get_models(expected_path)
+    return [[a, b, c, refactoring] for a, b, c in zip(input_models, output_models, expected_models)]
+
+
+def get_tests() -> list[list[str, str, str, Refactoring]]:
+    """Return the list of tests to be executed.
+    
+    Each test receives a list of parameters containing:
+      - the filepath of the FM.
+      - the refactoring to test.
+    """
+    tests = []
+    mutex_group_tests = get_tests_info(MUTEX_GROUP_MODELS_PATH, MutexGroupRefactoring)
+    tests.extend(mutex_group_tests)
+    #cardinality_group_tests = get_tests_info(CARDINALITY_GROUP_MODELS_PATH, CardinalityGroupRefactoring)
+    #tests.extend(cardinality_group_tests)
+    return tests
+
+
 def load_model(filepath: str, reader: TextToModel) -> FeatureModel:
     return reader(filepath).transform()
+
+
+def save_model(filepath: str, fm: FeatureModel, writer: ModelToText) -> None:
+    writer(path=filepath, source_model=fm).transform()
 
 
 def apply_refactoring(fm: FeatureModel, refactoring: Refactoring) -> FeatureModel:
@@ -51,8 +71,10 @@ def apply_refactoring(fm: FeatureModel, refactoring: Refactoring) -> FeatureMode
     return fm
 
 
-@pytest.mark.parametrize('fm_path, refactoring', get_tests())
+@pytest.mark.parametrize('fm_path, refactoring', [[m, r] for m, _, _, r in get_tests()])
 def test_nof_configurations(fm_path: str, refactoring: Refactoring):
+    """Test that the number of configurations of the source feature model and the 
+    number of configurations of the refactored feature model are the same."""
     fm = load_model(fm_path, UVLReader)
     sat_model = FmToPysat(fm).transform()
     expected_configs = Glucose3ProductsNumber().execute(sat_model).get_result()
@@ -62,9 +84,21 @@ def test_nof_configurations(fm_path: str, refactoring: Refactoring):
     assert n_configs == expected_configs
 
 
-@pytest.mark.parametrize('fm_path, refactoring', get_tests())
+@pytest.mark.parametrize('fm_path, refactoring', [[m, r] for m, _, _, r in get_tests()])
 def test_nof_instances(fm_path: str, refactoring: Refactoring):
+    """Test that the number of instances to be refactored of the feature model after
+    refactorings is equals 0 (i.e., there is no remaining instances of the given refactoring)."""
     fm = load_model(fm_path, UVLReader)
     resulting_model = apply_refactoring(fm, refactoring)
     instances = refactoring.get_instances(resulting_model)
     assert len(instances) == 0
+
+
+@pytest.mark.parametrize('input_fm_path, output_fm_path, expected_fm_path, refactoring', get_tests())
+def test_feature_model_output(input_fm_path: str, output_fm_path: str, expected_fm_path: str, refactoring: Refactoring):
+    """Test that the refactored feature model is the same as the expected feature model."""
+    fm = load_model(input_fm_path, UVLReader)
+    expected_fm = load_model(expected_fm_path, UVLReader)
+    resulting_model = apply_refactoring(fm, refactoring)
+    save_model(output_fm_path, resulting_model, UVLWriter)
+    assert filecmp.cmp(output_fm_path, expected_fm_path, False)
