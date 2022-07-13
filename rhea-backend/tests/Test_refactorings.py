@@ -1,13 +1,15 @@
 import os
-import filecmp
-from weakref import ref
 import pytest 
+from typing import Any 
 
 from famapy.core.transformations import TextToModel, ModelToText
 from famapy.metamodels.fm_metamodel.models import FeatureModel
 from famapy.metamodels.fm_metamodel.transformations import UVLReader, UVLWriter
-from famapy.metamodels.pysat_metamodel.operations import Glucose3ProductsNumber
 from famapy.metamodels.pysat_metamodel.transformations import FmToPysat
+from famapy.metamodels.pysat_metamodel.operations import (
+    Glucose3ProductsNumber,
+    Glucose3Products
+)
 
 from rhea.refactorings import Refactoring
 from rhea.refactorings.mutex_group_refactoring import MutexGroupRefactoring
@@ -71,17 +73,32 @@ def apply_refactoring(fm: FeatureModel, refactoring: Refactoring) -> FeatureMode
     return fm
 
 
+# @pytest.mark.parametrize('fm_path, refactoring', [[m, r] for m, _, _, r in get_tests()])
+# def test_nof_configurations(fm_path: str, refactoring: Refactoring):
+#     """Test that the number of configurations of the source feature model and the 
+#     number of configurations of the refactored feature model are the same."""
+#     fm = load_model(fm_path, UVLReader)
+#     sat_model = FmToPysat(fm).transform()
+#     expected_n_configs = Glucose3ProductsNumber().execute(sat_model).get_result()
+#     resulting_model = apply_refactoring(fm, refactoring)
+#     sat_model = FmToPysat(resulting_model).transform()
+#     n_configs = Glucose3ProductsNumber().execute(sat_model).get_result()
+#     assert n_configs == expected_n_configs
+
+
 @pytest.mark.parametrize('fm_path, refactoring', [[m, r] for m, _, _, r in get_tests()])
-def test_nof_configurations(fm_path: str, refactoring: Refactoring):
-    """Test that the number of configurations of the source feature model and the 
-    number of configurations of the refactored feature model are the same."""
+def test_products(fm_path: str, refactoring: Refactoring):
+    """Test that the products of the source feature model and the 
+    products of the refactored feature model are the same."""
     fm = load_model(fm_path, UVLReader)
     sat_model = FmToPysat(fm).transform()
-    expected_configs = Glucose3ProductsNumber().execute(sat_model).get_result()
+    expected_configs = Glucose3Products().execute(sat_model).get_result()
+    expected_products = filter_products(fm, expected_configs)
     resulting_model = apply_refactoring(fm, refactoring)
     sat_model = FmToPysat(resulting_model).transform()
-    n_configs = Glucose3ProductsNumber().execute(sat_model).get_result()
-    assert n_configs == expected_configs
+    configs = Glucose3Products().execute(sat_model).get_result()
+    products = filter_products(resulting_model, configs)
+    assert expected_products == products
 
 
 @pytest.mark.parametrize('fm_path, refactoring', [[m, r] for m, _, _, r in get_tests()])
@@ -101,4 +118,13 @@ def test_feature_model_output(input_fm_path: str, output_fm_path: str, expected_
     expected_fm = load_model(expected_fm_path, UVLReader)
     resulting_model = apply_refactoring(fm, refactoring)
     save_model(output_fm_path, resulting_model, UVLWriter)
-    assert filecmp.cmp(output_fm_path, expected_fm_path, False)
+    assert expected_fm == resulting_model
+
+
+def filter_products(fm: FeatureModel, configurations: list[list[Any]]) -> list[list[Any]]:
+    filtered_configs = []
+    for config in configurations:
+        c = [f for f in config if not fm.get_feature_by_name(f).is_abstract]
+        if c not in filtered_configs:
+            filtered_configs.append(c)
+    return filtered_configs
