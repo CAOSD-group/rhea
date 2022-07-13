@@ -121,10 +121,9 @@ def test_feature_model_output(input_fm_path: str, output_fm_path: str, expected_
     assert expected_fm == resulting_model
 
 
-def filter_products(fm: FeatureModel, configurations: list[list[Any]]) -> list[list[Any]]:
-    filtered_configs = []
+def filter_products(fm: FeatureModel, configurations: list[list[Any]]) -> set[set[Any]]:
+    filtered_configs = set()
     for config in configurations:
-        c = [f for f in config if not fm.get_feature_by_name(f).is_abstract]
-        if c not in filtered_configs:
-            filtered_configs.append(c)
+        c = {f for f in config if not fm.get_feature_by_name(f).is_abstract}
+        filtered_configs.add(frozenset(c))
     return filtered_configs
