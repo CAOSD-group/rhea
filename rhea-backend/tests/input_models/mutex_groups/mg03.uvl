@@ -2,7 +2,7 @@ namespace Root
 
 features
 	Root {abstract}	
-		optional
+		mandatory
 			F1	
 				[0..1]
 					F2
