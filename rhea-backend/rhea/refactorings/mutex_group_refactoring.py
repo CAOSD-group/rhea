@@ -24,7 +24,7 @@ class MutexGroupRefactoring(Refactoring):
             raise Exception(f'Feature {instance.name} is not a mutex group.')
     
         new_name = utils.get_new_feature_name(model, instance.name)
-        f_p = Feature(name=new_name, parent=instance)
+        f_p = Feature(name=new_name, parent=instance, is_abstract=True)
         r_opt = Relation(instance, [f_p], 0, 1)  # optional
         r_mutex = next((r for r in instance.get_relations() if r.is_mutex()), None)
         r_mutex.parent = f_p
