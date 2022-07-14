@@ -1,0 +1,22 @@
+features
+	Root
+		optional
+			F1
+				optional
+					F1_p
+						alternative
+							F2
+							F3
+								optional
+									F3_p
+										alternative
+											F5
+											F6
+											F7
+							F4
+								optional
+									F4_p
+										alternative
+											F8
+											F9
+constraints

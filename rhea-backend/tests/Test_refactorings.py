@@ -14,6 +14,7 @@ from famapy.metamodels.pysat_metamodel.operations import (
 from rhea.refactorings import Refactoring
 from rhea.refactorings.mutex_group_refactoring import MutexGroupRefactoring
 from rhea.refactorings.cardinality_group_refactoring import CardinalityGroupRefactoring
+from rhea.refactorings.multiple_group_decomposition_refactoring import MultipleGroupDecompositionRefactoring
 
 
 MODELS_BASE_PATH = os.path.join('tests', 'models')
@@ -22,6 +23,7 @@ OUTPUT_MODELS = 'output_models'
 EXPECTED_MODELS = 'expected_models'
 MUTEX_GROUP_MODELS_PATH = 'mutex_groups'
 CARDINALITY_GROUP_MODELS_PATH = 'cardinality_groups'
+MULTIPLE_GROUP_DECOMPOSITION = 'multiple_group_decomposition'
 
 
 def get_models(dirpath: str) -> list[str]:
@@ -34,9 +36,9 @@ def get_models(dirpath: str) -> list[str]:
 
 
 def get_tests_info(ref_path: str, refactoring: Refactoring) -> list[list[str, str, str, Refactoring]]:
-    input_path = os.path.join(MODELS_BASE_PATH, INPUT_MODELS, ref_path)
-    output_path = os.path.join(MODELS_BASE_PATH, OUTPUT_MODELS, ref_path)
-    expected_path = os.path.join(MODELS_BASE_PATH, EXPECTED_MODELS, ref_path)
+    input_path = os.path.join(MODELS_BASE_PATH, ref_path, INPUT_MODELS)
+    output_path = os.path.join(MODELS_BASE_PATH, ref_path, OUTPUT_MODELS)
+    expected_path = os.path.join(MODELS_BASE_PATH, ref_path, EXPECTED_MODELS)
     input_models = get_models(input_path)
     output_models = [os.path.join(output_path, os.path.basename(m)) for m in input_models]
     expected_models = get_models(expected_path)
@@ -53,8 +55,10 @@ def get_tests() -> list[list[str, str, str, Refactoring]]:
     tests = []
     mutex_group_tests = get_tests_info(MUTEX_GROUP_MODELS_PATH, MutexGroupRefactoring)
     tests.extend(mutex_group_tests)
-    #cardinality_group_tests = get_tests_info(CARDINALITY_GROUP_MODELS_PATH, CardinalityGroupRefactoring)
-    #tests.extend(cardinality_group_tests)
+    cardinality_group_tests = get_tests_info(CARDINALITY_GROUP_MODELS_PATH, CardinalityGroupRefactoring)
+    tests.extend(cardinality_group_tests)
+    multiple_group_decomposition_tests = get_tests_info(MULTIPLE_GROUP_DECOMPOSITION, MultipleGroupDecompositionRefactoring)
+    tests.extend(multiple_group_decomposition_tests)
     return tests
 
 
@@ -73,17 +77,17 @@ def apply_refactoring(fm: FeatureModel, refactoring: Refactoring) -> FeatureMode
     return fm
 
 
-# @pytest.mark.parametrize('fm_path, refactoring', [[m, r] for m, _, _, r in get_tests()])
-# def test_nof_configurations(fm_path: str, refactoring: Refactoring):
-#     """Test that the number of configurations of the source feature model and the 
-#     number of configurations of the refactored feature model are the same."""
-#     fm = load_model(fm_path, UVLReader)
-#     sat_model = FmToPysat(fm).transform()
-#     expected_n_configs = Glucose3ProductsNumber().execute(sat_model).get_result()
-#     resulting_model = apply_refactoring(fm, refactoring)
-#     sat_model = FmToPysat(resulting_model).transform()
-#     n_configs = Glucose3ProductsNumber().execute(sat_model).get_result()
-#     assert n_configs == expected_n_configs
+@pytest.mark.parametrize('fm_path, refactoring', [[m, r] for m, _, _, r in get_tests()])
+def test_nof_configurations(fm_path: str, refactoring: Refactoring):
+    """Test that the number of configurations of the source feature model and the 
+    number of configurations of the refactored feature model are the same."""
+    fm = load_model(fm_path, UVLReader)
+    sat_model = FmToPysat(fm).transform()
+    expected_n_configs = Glucose3ProductsNumber().execute(sat_model).get_result()
+    resulting_model = apply_refactoring(fm, refactoring)
+    sat_model = FmToPysat(resulting_model).transform()
+    n_configs = Glucose3ProductsNumber().execute(sat_model).get_result()
+    assert n_configs == expected_n_configs
 
 
 @pytest.mark.parametrize('fm_path, refactoring', [[m, r] for m, _, _, r in get_tests()])

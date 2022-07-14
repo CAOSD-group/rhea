@@ -1,0 +1,40 @@
+features
+	Root
+		optional
+			F1
+				alternative
+					F1C
+					F2C
+				mandatory
+					F1_p
+						alternative
+							F1B
+							F2
+							F3
+								optional
+									F6
+										optional
+											F5
+												alternative
+													F7C
+													F8C
+													F8C
+												mandatory
+													F5_p
+														alternative
+															F7
+															F8
+															F8B
+										optional
+											F4
+												or
+													F9C
+													F10C
+													F10C
+												mandatory
+													F4_p
+														[<built-in function min>..<built-in function max>]
+															F9
+															F10
+															F10B
+constraints

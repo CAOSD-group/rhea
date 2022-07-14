@@ -1,0 +1,12 @@
+features
+	Root
+		alternative
+			F4
+			F5
+		mandatory
+			Root_p
+				or
+					F1
+					F2
+					F3
+constraints
