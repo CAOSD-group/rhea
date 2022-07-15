@@ -1,6 +1,11 @@
 from typing import Any
 
-from famapy.metamodels.fm_metamodel.models import FeatureModel, Feature, Relation
+from famapy.metamodels.fm_metamodel.models import FeatureModel, Feature, Relation, Constraint
+
+import itertools
+import functools
+
+from famapy.core.models.ast import AST, ASTOperation, Node
 
 from rhea.refactorings import Refactoring
 
@@ -30,8 +35,41 @@ class CardinalityGroupRefactoring(Refactoring):
             instance.add_relation(r_opt)
 
             instance.get_relations().remove(r_card)
-            # constraints = get_constraints_from_card(feature, r_card.card_min, r_card.card_max)
-
-            # fm.ctcs = constraints
+            constraint = get_constraint_for_cardinality_group(instance, r_card)
+            model.ctcs.append(constraint)
 
         return model
+
+
+def create_and_constraint_for_cardinality_group(positives: list[Feature], negatives: list[Feature]) -> Node:
+    elements = [Node(f.name) for f in positives]
+    elements += [AST.create_unary_operation(ASTOperation.NOT, Node(f.name)).root for f in negatives]
+    return functools.reduce(lambda left, right: Node(ASTOperation.AND, left, right), elements)
+
+
+def get_or_constraints_for_cardinality_group(feature: Feature, relation: Relation) -> Node:
+    card_min = relation.card_min
+    card_max = relation.card_max
+    children = set(relation.children)
+    and_nodes = []
+    for k in range(card_min, card_max + 1):
+        print(f'K: {k}')
+        combi_k = list(itertools.combinations(relation.children, k))
+        print(f'combi_k: {[str(f) for f in combi_k]}')
+        for positives in combi_k:
+            print(f'Posities: {[str(f) for f in positives]}')
+            negatives = children - set(positives)
+            print(f'Negatives: {[str(f) for f in negatives]}')
+            and_ctc = create_and_constraint_for_cardinality_group(positives, negatives)
+            print(f'Node: {and_ctc}')
+            and_nodes.append(and_ctc)
+            print('---')
+        print(f'Fin K {k}')
+    return functools.reduce(lambda left, right: Node(ASTOperation.OR, left, right), and_nodes)
+
+def get_constraint_for_cardinality_group(feature: Feature, relation: Relation) -> Constraint:
+    ast = AST.create_binary_operation(ASTOperation.IMPLIES,
+                                      Node(feature.name),
+                                      get_or_constraints_for_cardinality_group(feature, relation))
+    print(f'AST: {ast.pretty_str()}')
+    return Constraint('CG', ast)

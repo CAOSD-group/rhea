@@ -13,31 +13,17 @@ class MultipleGroupDecompositionRefactoring(Refactoring):
         return 'Multiple group decomposition refactoring'
 
     @staticmethod
-    def transform(model: FeatureModel, instance: Any) -> FeatureModel:
+    def transform(model: FeatureModel, instance: Any,) -> FeatureModel:
         if instance is None:
             raise Exception(f'There is not feature with name "{instance.name}".')
         if not is_mult_group_decomposition(instance):
             raise Exception(f'Feature {instance.name} is not a multiple group decomposition.')
 
-
-        for r in instance.get_relations():
+        relations = [r for r in instance.get_relations()]
+        for r in relations:
             if r.is_group():
-                new_name = utils.get_new_feature_name(model, r.parent.name)
-                f_p = Feature(name=new_name, parent=instance)
-                r_mand = Relation(instance, [f_p], 1, 1)  # mandatory
-                instance.add_relation(r_mand)
-                
-                r_group = next((r for r in instance.get_relations() if r.is_group()), None)
-                r_group.parent = f_p
+                model = new_decomposition(model, instance, r)
         
-                for child in r_group.children:
-                    child.parent = f_p
-                
-                instance.get_relations().remove(r_group)
-
-                # Add relations to features
-                f_p.add_relation(r_group)
-
         return model
 
 
@@ -51,3 +37,23 @@ def is_mult_group_decomposition(feature: Feature) -> bool:
     if len(suma)>1:
         is_mgd = True
     return is_mgd
+
+
+
+def new_decomposition(fm: FeatureModel, feature: Feature, r_group: Relation) -> FeatureModel:
+    new_name = utils.get_new_feature_name(fm, feature.name)
+    f_p = Feature(name=new_name, parent=feature, is_abstract=True)
+    r_mand = Relation(feature, [f_p], 1, 1)  # mandatory
+    feature.add_relation(r_mand)
+    
+    r_group.parent = f_p
+
+    for child in r_group.children:
+        child.parent = f_p
+
+    # Add relations to features
+    f_p.add_relation(r_group)
+
+    feature.get_relations().remove(r_group)
+
+    return fm
