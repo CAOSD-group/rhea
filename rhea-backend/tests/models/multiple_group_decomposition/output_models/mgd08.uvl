@@ -7,15 +7,16 @@ features
 						or
 							F2
 							F3
-								alternative
-									F5B
-									F6B
-									F7B
 								mandatory
 									F3_p
 										or
 											F5
 											F6
 											F7
+								mandatory
+									F3_p1
+										alternative
+											F5B
+											F6B
+											F7B
 							F4
-constraints

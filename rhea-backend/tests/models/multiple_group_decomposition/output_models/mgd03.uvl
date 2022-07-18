@@ -2,14 +2,15 @@ features
 	Root
 		mandatory
 			F1
-				alternative
-					F5
-					F6
-					F7
 				mandatory
 					F1_p
 						alternative
 							F2
 							F3
 							F4
-constraints
+				mandatory
+					F1_p1
+						alternative
+							F5
+							F6
+							F7

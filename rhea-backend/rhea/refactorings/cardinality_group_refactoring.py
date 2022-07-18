@@ -29,14 +29,14 @@ class CardinalityGroupRefactoring(Refactoring):
             raise Exception(f'Feature {instance.name} is not a cardinality group.')
     
         r_card = next((r for r in instance.get_relations() if r.is_cardinal()), None)
+        instance.get_relations().remove(r_card)
 
         for child in r_card.children:
             r_opt = Relation(instance, [child], 0, 1)  # optional
             instance.add_relation(r_opt)
-
-            instance.get_relations().remove(r_card)
-            constraint = get_constraint_for_cardinality_group(instance, r_card)
-            model.ctcs.append(constraint)
+    
+        constraint = get_constraint_for_cardinality_group(instance, r_card)
+        model.ctcs.append(constraint)
 
         return model
 

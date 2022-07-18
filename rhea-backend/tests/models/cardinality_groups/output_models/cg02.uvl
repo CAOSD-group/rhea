@@ -1,10 +1,12 @@
-namespace Root
-
 features
-	Root {abstract}	
+	Root
 		optional
-			F1	
-				[2..3]
+			F1
+				optional
 					F2
+				optional
 					F3
+				optional
 					F4
+constraints
+	F1 => (((((F2 & F3) & !F4) | ((F2 & F4) & !F3)) | ((F3 & F4) & !F2)) | ((F2 & F3) & F4))

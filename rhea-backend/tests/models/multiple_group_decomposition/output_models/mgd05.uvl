@@ -2,23 +2,26 @@ features
 	Root
 		optional
 			F1
-				alternative
-					F2B
-					F3B
 				mandatory
 					F1_p
 						alternative
 							F2
 							F3
-								alternative
-									F5B
-									F6B
-									F7B
 								mandatory
 									F3_p
 										alternative
 											F5
 											F6
 											F7
+								mandatory
+									F3_p1
+										alternative
+											F5B
+											F6B
+											F7B
 							F4
-constraints
+				mandatory
+					F1_p1
+						alternative
+							F2B
+							F3B
