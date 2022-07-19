@@ -17,8 +17,8 @@ from rhea.refactorings.multiple_group_decomposition_refactoring import MultipleG
 
 
 ##################################################################################################
-REFACTORING = MultipleGroupDecompositionRefactoring
-MODEL_PATH = 'tests/models/multiple_group_decomposition/input_models/mgd01.uvl'
+REFACTORING = CardinalityGroupRefactoring
+MODEL_PATH = 'tests/models/cardinality_groups/input_models/cg01.uvl'
 OUTPUT_PATH = 'output.uvl'
 OUTPUT_CONSOLE = 'output.txt'
 ##################################################################################################
