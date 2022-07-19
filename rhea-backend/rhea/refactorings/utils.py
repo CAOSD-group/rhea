@@ -8,3 +8,10 @@ def get_new_feature_name(fm: FeatureModel, name: str) -> str:
         new_name = f'{name}_p{count}'
         count += 1
     return new_name
+
+def is_there_mandatory(relations: List) -> bool:
+    mandatory = False
+    for rel in relations:
+        if rel.is_mandatory:
+            mandatory = True
+    return mandatory

@@ -6,54 +6,46 @@ from rhea.refactorings import Refactoring
 
 from rhea.refactorings import utils
 
-class MultipleGroupDecompositionRefactoring(Refactoring):
+class XorMandatoryRefactoring(Refactoring):
 
     @staticmethod
     def get_name() -> str:
-        return 'Multiple group decomposition refactoring'
+        return 'Xor and Mandatory refactoring'
 
     @staticmethod
     def transform(model: FeatureModel, instance: Any,) -> FeatureModel:
         if instance is None:
             raise Exception(f'There is not feature with name "{instance.name}".')
-        if not is_mult_group_decomposition(instance):
-            raise Exception(f'Feature {instance.name} is not a multiple group decomposition.')
+        if not instance.is_alternative_group:
+            raise Exception(f'Feature {instance.name} is not a cardinality group.')
+        if not utils.is_there_mandatory(instance.get_relations()):
+            raise Exception(f'Feature {instance.name} has no mandatory child.')
+        
+        r_alt = next((r for r in instance.get_relations() if r.is_alternative()), None)
+        r_alt.card_min = 0
+        r_alt.card_max = 0
+        
 
-        relations = [r for r in instance.get_relations()]
-        for r in relations:
-            if r.is_group():
-                model = new_decomposition(model, instance, r)
+        children_list = []
+        for child in r_alt.children:
+            if child.is_mandatory():
+                r_mand = next((r for r in instance.get_relations() if r.is_mandatory()), None)
+                instance.get_relations().remove(r_mand)
+                r_new_mand = Relation(instance, [child], 1, 1)  # mandatory
+                instance.add_relation(r_new_mand)
+            else:
+                children_list.append(child)
+
+        instance.get_relations().remove(r_alt)
+
+        r_opt = Relation(instance, children_list, 0, 0)  # dead
+
+        # Add relations to features
+        instance.add_relation(r_opt)
         
         return model
 
 
     @staticmethod
     def get_instances(model: FeatureModel) -> list[Any]:
-        return [f for f in model.get_features() if is_mult_group_decomposition(f)]
-
-def is_mult_group_decomposition(feature: Feature) -> bool:
-    is_mgd = False
-    suma = [r for r in feature.get_children() if feature.is_group()]
-    if len(suma)>1:
-        is_mgd = True
-    return is_mgd
-
-
-
-def new_decomposition(fm: FeatureModel, feature: Feature, r_group: Relation) -> FeatureModel:
-    new_name = utils.get_new_feature_name(fm, feature.name)
-    f_p = Feature(name=new_name, parent=feature, is_abstract=True)
-    r_mand = Relation(feature, [f_p], 1, 1)  # mandatory
-    feature.add_relation(r_mand)
-    
-    r_group.parent = f_p
-
-    for child in r_group.children:
-        child.parent = f_p
-
-    # Add relations to features
-    f_p.add_relation(r_group)
-
-    feature.get_relations().remove(r_group)
-
-    return fm
+        return [f for f in model.get_features() if f.is_alternative_group()]

@@ -1,8 +1,8 @@
-from typing import Any, List
+from typing import Any
 
 from famapy.metamodels.fm_metamodel.models import FeatureModel, Feature, Relation
 
-from rhea.refactorings import Refactoring
+from rhea.refactorings import Refactoring, utils
 
 
 class OrMandatoryRefactoring(Refactoring):
@@ -17,7 +17,7 @@ class OrMandatoryRefactoring(Refactoring):
             raise Exception(f'There is not feature with name "{instance.name}".')
         if not instance.is_or_group:
             raise Exception(f'Feature {instance.name} is not an or group.')
-        if not is_there_mandatory(instance.get_relations()):
+        if not utils.is_there_mandatory(instance.get_relations()):
             raise Exception(f'Feature {instance.name} has no mandatory child.')
 
         r_or = next((r for r in instance.get_relations() if r.is_or()), None)
@@ -41,9 +41,3 @@ class OrMandatoryRefactoring(Refactoring):
     def get_instances(model: FeatureModel) -> list[Any]:
         return [f for f in model.get_features() if f.is_or_group()]
 
-def is_there_mandatory(relations: List) -> bool:
-    mandatory = False
-    for rel in relations:
-        if rel.is_mandatory:
-            mandatory = True
-    return mandatory
