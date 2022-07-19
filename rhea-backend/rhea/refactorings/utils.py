@@ -1,5 +1,7 @@
 from famapy.metamodels.fm_metamodel.models import FeatureModel
 
+from typing import List
+
 
 def get_new_feature_name(fm: FeatureModel, name: str) -> str:
     count = 1
