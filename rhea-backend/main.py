@@ -1,7 +1,7 @@
 import os
 from typing import Any 
 
-from famapy.metamodels.fm_metamodel.transformations import UVLReader, UVLWriter, GlencoeReader, FeatureIDEReader
+from famapy.metamodels.fm_metamodel.transformations import UVLReader, UVLWriter, FeatureIDEReader
 from famapy.metamodels.pysat_metamodel.transformations import FmToPysat
 from famapy.metamodels.pysat_metamodel.operations import (
     Glucose3ProductsNumber,
@@ -16,6 +16,8 @@ from rhea.refactorings.cardinality_group_refactoring import CardinalityGroupRefa
 from rhea.refactorings.multiple_group_decomposition_refactoring import MultipleGroupDecompositionRefactoring
 from rhea.refactorings.xor_mandatory_refactoring import XorMandatoryRefactoring
 from rhea.refactorings.or_mandatory_refactoring import OrMandatoryRefactoring
+
+from rhea.flamapy.metamodels.fm_metamodel.transformations import GlencoeReader
 
 
 ##################################################################################################
