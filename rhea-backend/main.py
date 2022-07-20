@@ -19,8 +19,7 @@ from rhea.refactorings.xor_mandatory_refactoring import XorMandatoryRefactoring
 
 ##################################################################################################
 REFACTORING = XorMandatoryRefactoring
-MODEL_PATH = 'tests/models/xor_mandatory/input_models/xor_mandatory01.gfm.json'
-MODEL_PATH = 'output.uvl'
+MODEL_PATH = 'tests/models/xor_mandatory/input_models/xor_mandatory_BC1.gfm.json'
 OUTPUT_PATH = 'output.uvl'
 OUTPUT_CONSOLE = 'output.txt'
 ##################################################################################################

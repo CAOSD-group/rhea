@@ -2,6 +2,8 @@ from typing import Any
 
 from famapy.metamodels.fm_metamodel.models import FeatureModel, Feature, Relation
 
+from famapy.core.models.ast import AST, ASTOperation, Node
+
 from rhea.refactorings import Refactoring
 
 from rhea.refactorings import utils
@@ -18,8 +20,6 @@ class XorMandatoryRefactoring(Refactoring):
             raise Exception(f'There is not feature with name "{instance.name}".')
         if not instance.is_alternative_group:
             raise Exception(f'Feature {instance.name} is not a cardinality group.')
-        if not utils.is_there_mandatory(instance.get_relations()):
-            raise Exception(f'Feature {instance.name} has no mandatory child.')
         
         r_alt = next((r for r in instance.get_relations() if r.is_alternative()), None)
         r_alt.card_min = 0
@@ -27,8 +27,10 @@ class XorMandatoryRefactoring(Refactoring):
         
 
         children_list = []
+        count = 0
         for child in r_alt.children:
             if child.is_mandatory():
+                count += 1
                 r_mand = next((r for r in instance.get_relations() if r.is_mandatory()), None)
                 instance.get_relations().remove(r_mand)
                 r_new_mand = Relation(instance, [child], 1, 1)  # mandatory
@@ -36,13 +38,21 @@ class XorMandatoryRefactoring(Refactoring):
             else:
                 children_list.append(child)
 
+        if count>1:
+            raise Exception(f'More mandatory children than expected.')
+
         instance.get_relations().remove(r_alt)
 
-        r_opt = Relation(instance, children_list, 0, 0)  # dead
+        if len(children_list)<=1:
+            r_opt = Relation(instance, children_list, 0, 1)  # optional
+            constraint = AST.create_unary_operation(ASTOperation.NOT, children_list[0]).root
+            model.ctcs.append(constraint)
+        else:
+            r_opt = Relation(instance, children_list, 0, 0)  # dead
 
         # Add relations to features
         instance.add_relation(r_opt)
-        
+            
         return model
 
 

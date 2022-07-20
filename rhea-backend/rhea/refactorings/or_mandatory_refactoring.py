@@ -40,4 +40,3 @@ class OrMandatoryRefactoring(Refactoring):
     @staticmethod
     def get_instances(model: FeatureModel) -> list[Any]:
         return [f for f in model.get_features() if f.is_or_group()]
-
