@@ -15,11 +15,12 @@ from rhea.refactorings.mutex_group_refactoring import MutexGroupRefactoring
 from rhea.refactorings.cardinality_group_refactoring import CardinalityGroupRefactoring
 from rhea.refactorings.multiple_group_decomposition_refactoring import MultipleGroupDecompositionRefactoring
 from rhea.refactorings.xor_mandatory_refactoring import XorMandatoryRefactoring
+from rhea.refactorings.or_mandatory_refactoring import OrMandatoryRefactoring
 
 
 ##################################################################################################
-REFACTORING = XorMandatoryRefactoring
-MODEL_PATH = 'tests/models/xor_mandatory/input_models/xor_mandatory_BC1.gfm.json'
+REFACTORING = OrMandatoryRefactoring
+MODEL_PATH = 'tests/models/or_mandatory/input_models/or_mandatory_BC1.gfm.json'
 OUTPUT_PATH = 'output.uvl'
 OUTPUT_CONSOLE = 'output.txt'
 ##################################################################################################
