@@ -1,7 +1,7 @@
 import os
 from typing import Any 
 
-from famapy.metamodels.fm_metamodel.transformations import UVLReader, UVLWriter
+from famapy.metamodels.fm_metamodel.transformations import UVLReader, UVLWriter, GlencoeReader, FeatureIDEReader
 from famapy.metamodels.pysat_metamodel.transformations import FmToPysat
 from famapy.metamodels.pysat_metamodel.operations import (
     Glucose3ProductsNumber,
@@ -14,11 +14,13 @@ from rhea.refactorings import Refactoring
 from rhea.refactorings.mutex_group_refactoring import MutexGroupRefactoring
 from rhea.refactorings.cardinality_group_refactoring import CardinalityGroupRefactoring
 from rhea.refactorings.multiple_group_decomposition_refactoring import MultipleGroupDecompositionRefactoring
+from rhea.refactorings.xor_mandatory_refactoring import XorMandatoryRefactoring
 
 
 ##################################################################################################
-REFACTORING = CardinalityGroupRefactoring
-MODEL_PATH = 'tests/models/cardinality_groups/input_models/cg01.uvl'
+REFACTORING = XorMandatoryRefactoring
+MODEL_PATH = 'tests/models/xor_mandatory/input_models/xor_mandatory01.gfm.json'
+MODEL_PATH = 'output.uvl'
 OUTPUT_PATH = 'output.uvl'
 OUTPUT_CONSOLE = 'output.txt'
 ##################################################################################################
@@ -71,12 +73,20 @@ def print_fm(fm: FeatureModel, expected_results: dict[str, Any] = None) -> dict[
     
 
 def main():
-    if os.path.exists(OUTPUT_PATH):
-        os.remove(OUTPUT_PATH)
-    if os.path.exists(OUTPUT_CONSOLE):
-        os.remove(OUTPUT_CONSOLE)
+    # if os.path.exists(OUTPUT_PATH):
+    #     os.remove(OUTPUT_PATH)
+    # if os.path.exists(OUTPUT_CONSOLE):
+    #     os.remove(OUTPUT_CONSOLE)
 
-    fm = UVLReader(MODEL_PATH).transform()
+    if MODEL_PATH.endswith('.gfm.json'):
+        fm = GlencoeReader(MODEL_PATH).transform()
+    elif MODEL_PATH.endswith('.uvl'):
+        fm = UVLReader(MODEL_PATH).transform()
+    elif MODEL_PATH.endswith('.xml'):
+        fm = FeatureIDEReader(MODEL_PATH)
+    else:
+        raise Exception(f'Error, invalid model {MODEL_PATH}.')
+
     expected_results = print_fm(fm)
 
     # Apply the refactoring
@@ -84,7 +94,7 @@ def main():
     print(f'Applying the refactoring {REFACTORING.get_name()}...')
     fm = apply_refactoring(fm, REFACTORING)
     print('==================================================')
-    
+    #UVLWriter(fm, OUTPUT_PATH).transform()
     print_fm(fm, expected_results)
     UVLWriter(fm, OUTPUT_PATH).transform()
 
