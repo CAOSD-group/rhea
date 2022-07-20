@@ -1,10 +1,13 @@
-import {Component,Injectable, OnInit} from '@angular/core';
+import {Component,Input,Injectable, OnInit} from '@angular/core';
 import {CdkTreeModule, NestedTreeControl} from '@angular/cdk/tree';
 import {MatTreeNestedDataSource} from '@angular/material/tree';
 import { empty } from 'rxjs';
 import { matMenuAnimations } from '@angular/material/menu';
 import {MatTreeModule} from '@angular/material/tree';
 import {getMultipleValuesInSingleSelectionError } from '@angular/cdk/collections';
+import { DOCUMENT } from '@angular/common';
+
+
     let ltexto ="";
     let laux =0;
     let laux2=0;
@@ -21,7 +24,7 @@ import {getMultipleValuesInSingleSelectionError } from '@angular/cdk/collections
     var arbol:Array<Rama_controlada> =[];
     var arbolauxiliar:Array<Rama_controlada> =[];
     var arbolconduplicados:Array<Rama_controlada> =[];
-
+    const reader = new FileReader();
 
 
 @Component({
@@ -31,6 +34,7 @@ import {getMultipleValuesInSingleSelectionError } from '@angular/cdk/collections
 })
 
 export class Rama implements Rama_controlada  {
+    @Input() fileContent: any;
     aux =laux;
     aux2=laux2;
     posicion =lposicion;
@@ -43,7 +47,7 @@ export class Rama implements Rama_controlada  {
     lista: Array<Rama> =[];
     treeControl = new NestedTreeControl<Rama_controlada>(node => node.Hijos);
     dataSource = new MatTreeNestedDataSource<Rama_controlada>();
- 
+  
     
 
     constructor() {
@@ -59,7 +63,60 @@ export class Rama implements Rama_controlada  {
         TREE_DATA4=arbol;
     }
 
-  
+
+
+    saveAsProject(texto :string){
+        //you can enter your own file name and extension
+        this.writeContents(texto, 'Sample File'+'.txt', 'text/plain');
+      }
+      writeContents(content:string, fileName:string, contentType:string) {
+        var a = document.createElement('a');
+        var file = new Blob([JSON.stringify(arbol)], {type: contentType});
+        a.href = URL.createObjectURL(file);
+        this.leerarchivo(undefined,file)
+        this.textoArbol();
+    }
+    readContents(){
+        
+    }
+
+
+    descargarDocumento(a:HTMLAnchorElement){
+        a.download = 'Sample File'+'.txt';
+        a.click();
+    }
+    
+    leerarchivo(archivo?:File,file?:Blob){
+
+        if(file!=undefined){
+        var reader = new FileReader();
+        reader.onload = function() {
+            megaauxiliar=reader.result;
+            if(megaauxiliar!=null){
+                ltexto=megaauxiliar
+                seleccionado.textoArbol()
+                console.log(ltexto)
+            }else{alert(megaauxiliar+"no es un texto")}}
+        reader.readAsText(file);}
+
+
+        if(archivo!=undefined){
+            var reader = new FileReader();
+            reader.onload = function() {
+                megaauxiliar=reader.result;
+                if(megaauxiliar!=null){
+                    ltexto=megaauxiliar
+                    seleccionado.textoArbol()
+                }else{alert(megaauxiliar+"no es un texto")}}
+            reader.readAsText(archivo);}
+            console.log("llego")
+    }
+
+
+    textoArbol(){
+        arbol=JSON.parse(ltexto)  //salta error pero funciona
+        //arbol[6]=arbol[1];          //me ayuda a comprobar que funciona a pesar del error
+    }
    
 
     hasChild = (_: number, node: Rama_controlada) => !!node.Hijos && node.Hijos.length >= 0;
@@ -95,6 +152,11 @@ export class Rama implements Rama_controlada  {
         TREE_DATA4=arbol;
         
     }
+    escribirarbol(){
+        ltexto=JSON.stringify(arbol);
+        console.log(ltexto);
+    }
+   
 
     ordenarLista(){
         laux=0;
@@ -110,7 +172,10 @@ export class Rama implements Rama_controlada  {
         seleccionado=lista.filter(x=> x.nombre==id)[0];
         console.log(seleccionado+ " el actual es")
         console.log(seleccionado2+" el anterior era")
+        this.dataSource.data=arbol;
+        
     }
+
 
     escribirvalores(){
         console.log(seleccionado);
@@ -378,6 +443,7 @@ export class Rama implements Rama_controlada  {
 }
 
 meterHijos(){ 
+    if(seleccionado2.Padre[0]!=seleccionado){
     seleccionado.maximo_identificador();
     laux=laux2+1;
     //seleccionado2=lista[laux];
@@ -391,28 +457,15 @@ meterHijos(){
     seleccionado.Hijos.push(seleccionado2)
     this.dataSource.data=[]
     this.dataSource.data=arbol;
-    TREE_DATA4=arbol;
+    TREE_DATA4=arbol;}
 } 
 vereltreedata(){
   console.log(TREE_DATA4);
+  console.log("ver si funciona la lista");  
 }
-saveJson( ) {
-    localStorage.setItem("0", JSON.stringify(TREE_DATA4));
-}
-  
-
-
-
-
-
-    
-
-
 
    
 }
-
-
     class Rama_controlada  {
         declare nombre: string;
         declare marcado: boolean;
@@ -473,20 +526,22 @@ saveJson( ) {
                 ]   }
     ]
     
-    var TREE_DATA4: Rama_controlada[]=[]
+    var TREE_DATA4: any=null;
 
      const TREE_DATA2: Rama_controlada[]=[
-      actualizarvalores(),
-      new Rama_controlada ("hola"),
-      new Rama_controlada ("valgo"),
-      new Rama_controlada ("distinto"),
-      new Rama_controlada ("este"),
-      lista[0].eliminar_duplicados(),
-      actulizarhijos()
+        actualizarvalores(),
+        new Rama_controlada ("hola"),
+        new Rama_controlada ("valgo"),
+        new Rama_controlada ("distinto"),
+        new Rama_controlada ("este"),
+        lista[0].eliminar_duplicados(),
+        actulizarhijos()
     ]
+    
+
+
     function actualizarvalores(){
       TREE_DATA3.forEach(element => {
-
         arbol[arbol.length]= element as Rama_controlada;  // solo considera que tenga 2 elementos no 4
         ltexto=arbol[arbol.length-1].nombre;
         lista[arbol.length-1]=new Rama();
@@ -648,5 +703,18 @@ saveJson( ) {
 
     }    })
     return(lista)
+   }
+   function  escribirentexto(nlista:Array<Rama>){
+        nlista.forEach(element => {
+            ltexto=ltexto+'"nombre"' +':"' +element.nombre+'", "marcado" ' +':' +element.marcado+', "Hijos"' +':' +"["
+            if(element.Hijos.length>0){
+                ltexto=ltexto+"{"
+                escribirentexto(element.Hijos)
+                ltexto=ltexto+"},"
+            }
+            ltexto=ltexto+"],}"
+        });
+    return lista
+
    }
   

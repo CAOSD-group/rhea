@@ -76,9 +76,10 @@
   <div></div>
   <button (click)="vereltreedata()">ver arbol treedata4</button>
   <div></div>
-  <button (click)="saveJson()">guarda el json?</button>
+  <button (click)="escribirarbol()">escribir el arbol</button>
+  <div></div>
+ 
 </mat-menu>
-
 
 
 
@@ -103,3 +104,8 @@
        
 <div></div>
 <div></div>
+
+<div class="file-container">
+  <button class="file-button" (click)="saveAsProject(itemValue2.value)">crea un archivo de texto</button>
+  <br>
+</div>

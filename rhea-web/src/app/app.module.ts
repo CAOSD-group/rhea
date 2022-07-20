@@ -7,7 +7,7 @@ import {AppComponent } from './app.component';
 import {FMEditor } from './components/fm-editor/fm-editor.component';
 import {TreeChecklistExample} from './components/tree/tree-checklist-example';
 import {Rama} from './components/miarbol/miarbol';
-import { arbol } from './components/arbol_pruebas/arbol';
+import {arbol} from './components/arbol_pruebas/arbol';
 
 import {MatTreeModule} from '@angular/material/tree';
 import {MatIconModule} from '@angular/material/icon';
@@ -20,7 +20,8 @@ import {BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatButtonModule } from '@angular/material/button';
 import {MatInputModule} from '@angular/material/input';
 import {MatListModule} from '@angular/material/list';
-
+import {DragDropModule,CdkDragDrop, moveItemInArray, transferArrayItem} from '@angular/cdk/drag-drop';
+import { HttpClientModule  } from "@angular/common/http";
 
 
 
@@ -36,6 +37,8 @@ import {MatListModule} from '@angular/material/list';
   ],
   imports: [
     BrowserModule,
+    DragDropModule,
+    HttpClientModule,
     MatTreeModule,
     MatMenuModule,
     MatIconModule,MatListModule,
