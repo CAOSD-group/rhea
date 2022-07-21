@@ -1,11 +1,7 @@
-import {Component,Input,Injectable, OnInit} from '@angular/core';
-import {CdkTreeModule, NestedTreeControl} from '@angular/cdk/tree';
+import {Component,Input} from '@angular/core';
+import {NestedTreeControl} from '@angular/cdk/tree';
 import {MatTreeNestedDataSource} from '@angular/material/tree';
-import { empty } from 'rxjs';
-import { matMenuAnimations } from '@angular/material/menu';
-import {MatTreeModule} from '@angular/material/tree';
-import {getMultipleValuesInSingleSelectionError } from '@angular/cdk/collections';
-import { DOCUMENT } from '@angular/common';
+
 
 
     let ltexto ="";
@@ -24,7 +20,7 @@ import { DOCUMENT } from '@angular/common';
     var arbol:Array<Rama_controlada> =[];
     var arbolauxiliar:Array<Rama_controlada> =[];
     var arbolconduplicados:Array<Rama_controlada> =[];
-    const reader = new FileReader();
+    var mijson :JSON
 
 
 @Component({
@@ -65,59 +61,54 @@ export class Rama implements Rama_controlada  {
 
 
 
-    saveAsProject(texto :string){
+    saveAsProject(){
         //you can enter your own file name and extension
-        this.writeContents(texto, 'Sample File'+'.txt', 'text/plain');
+        //this.writeContents();
+        PedirJSON();
+        if(mijson!=undefined)   {this.leerJSON(mijson);}
+        else                    {this.leerJSON();}
+        this.dataSource.data=[];
+        this.dataSource.data=arbol;
       }
-      writeContents(content:string, fileName:string, contentType:string) {
-        var a = document.createElement('a');
-        var file = new Blob([JSON.stringify(arbol)], {type: contentType});
-        a.href = URL.createObjectURL(file);
-        this.leerarchivo(undefined,file)
-        this.textoArbol();
-    }
-    readContents(){
-        
-    }
-
-
-    descargarDocumento(a:HTMLAnchorElement){
-        a.download = 'Sample File'+'.txt';
-        a.click();
-    }
     
-    leerarchivo(archivo?:File,file?:Blob){
+    writeContents() {
+        var a = document.createElement('a');
+        var file = new Blob([JSON.stringify(arbol)], {type: 'text/plain'});
+        a.href = URL.createObjectURL(file);
+        // this.leerarchivo(file)
+        //a.download="save.txt";
+        //a.click();
+    }
 
-        if(file!=undefined){
+    leerarchivo(file:Blob){
+       
         var reader = new FileReader();
         reader.onload = function() {
             megaauxiliar=reader.result;
             if(megaauxiliar!=null){
                 ltexto=megaauxiliar
-                seleccionado.textoArbol()
+                arbol=JSON.parse(ltexto)  
+                arbol[6]=arbol[1];
                 console.log(ltexto)
             }else{alert(megaauxiliar+"no es un texto")}}
-        reader.readAsText(file);}
-
-
-        if(archivo!=undefined){
-            var reader = new FileReader();
-            reader.onload = function() {
-                megaauxiliar=reader.result;
-                if(megaauxiliar!=null){
-                    ltexto=megaauxiliar
-                    seleccionado.textoArbol()
-                }else{alert(megaauxiliar+"no es un texto")}}
-            reader.readAsText(archivo);}
-            console.log("llego")
+        reader.readAsText(file);
+        arbol=JSON.parse(ltexto)  
+        arbol[6]=arbol[1];
     }
 
+    
+    leerJSON(jason?:JSON){
+        if(jason!=undefined){ltexto=JSON.stringify(jason);}
+        else                {ltexto=JSON.stringify(arbol);}
+        
+        arbol=[]
+        console.log(arbol+" esto es el arbol actualmente (no se ve nada porque esta vacio justamente)")
+        arbol=JSON.parse(ltexto)  
+        console.log("aqui hemos metido el valor del json en el arbol")
+        arbol[6]=arbol[1];
+}
 
-    textoArbol(){
-        arbol=JSON.parse(ltexto)  //salta error pero funciona
-        //arbol[6]=arbol[1];          //me ayuda a comprobar que funciona a pesar del error
-    }
-   
+
 
     hasChild = (_: number, node: Rama_controlada) => !!node.Hijos && node.Hijos.length >= 0;
   
@@ -545,27 +536,22 @@ vereltreedata(){
         arbol[arbol.length]= element as Rama_controlada;  // solo considera que tenga 2 elementos no 4
         ltexto=arbol[arbol.length-1].nombre;
         lista[arbol.length-1]=new Rama();
-        if(element.Hijos) {actualizarvalores2(element)}             // aunque introduce los otros correctamente como los hijos
-      
-      });
+        if(element.Hijos) {actualizarvalores2(element)}})  // aunque introduce los otros correctamente como los hijos
       return(arbol[0])
     }
     function actualizarvalores2(objeto :Rama_controlada){
-      objeto.Hijos.forEach(element2 => {
+        objeto.Hijos.forEach(element2 => {
         arbol[arbol.length]= element2 as Rama_controlada;  // solo considera que tenga 2 elementos no 4
         ltexto=arbol[arbol.length-1].nombre;              // aunque introduce los otros correctamente como los hijos
-      lista[arbol.length-1]=new Rama();
-      if(element2.Hijos) {actualizarvalores2(element2)}  
-      });
-      return(arbol[0])
+        lista[arbol.length-1]=new Rama();
+        if(element2.Hijos) {actualizarvalores2(element2)}  });
+        return(arbol[0])
     }
     function numero_hijos(objeto :Rama_controlada){
         if(objeto.Hijos.length>0){
             megaauxiliar=megaauxiliar+objeto.Hijos.length;
             objeto.Hijos.forEach(element => {
-                numero_hijos(element)
-            });
-        }
+                numero_hijos(element)})}
     }
     function actulizarhijos(){
         lposicion=0;
@@ -585,29 +571,19 @@ vereltreedata(){
                             megaauxiliar=arbolconduplicados.indexOf(ramaselecionada)
                             elegirpadre();
                             lista[0].meter_hijo( padreactual+1,x.identificador+1); //el elegir padre falla
-                            
-                        }
-                    })
-
-                }
-                lposicion++;
-
-
-            }   
-
+                        }})}
+                lposicion++;}   
         }
         return(arbol[0])
     }
 
     function elegirpadre(){
-       
         if(lista[megaauxiliar-1].Hijos.length<arbolconduplicados[megaauxiliar-1].Hijos.length){
             padreactual=megaauxiliar-1;  
         }else{
             megaauxiliar--;
             elegirpadre();
         }
-
     }
 
 
@@ -617,29 +593,19 @@ vereltreedata(){
                 lmarcado=true
                 ramaselecionada=element;
             }else{
-                if(!lmarcado){
-                    megaauxiliar++;
-                }
-                if(element.Hijos!=null){
-                    if(soyhijo(element.Hijos,nombrebuscado)){
-                        megaauxiliar++;
-                    }
-                }
-            }
-        });
+                if(!lmarcado){megaauxiliar++;}
+                if(element.Hijos!=null)
+                    {if(soyhijo(element.Hijos,nombrebuscado)){megaauxiliar++;}}
+            }});
         return lmarcado
     }
+
      function borrarhijo(lista:Array<Rama_controlada>){ //mando aqui una lista de hijos
         lista.forEach(element => {
-   
             if(element.Hijos.length>0){
-                if(element.Hijos.length!=element.Hijos.filter(x=> x.nombre!=seleccionado.nombre).length){
-                    
-                    element.Hijos=element.Hijos.filter(x=> x.nombre!=seleccionado.nombre)
-                    
-                }
-                borrarhijo(element.Hijos)}
-        } );
+                if(element.Hijos.length!=element.Hijos.filter(x=> x.nombre!=seleccionado.nombre).length){ 
+                    element.Hijos=element.Hijos.filter(x=> x.nombre!=seleccionado.nombre)}
+                borrarhijo(element.Hijos)}});
         return(lista)
      }
    
@@ -686,35 +652,30 @@ vereltreedata(){
     } );
     return(lista)
    }
+
    function borrarRama(lista:Array<Rama_controlada>){
     lista.forEach(element=>{
-      if(element.nombre==seleccionado2.nombre){
-        if(laux==0){
-          laux++;
-        }
-        else{
-        lista=lista.filter(x=> x.nombre!=seleccionado2.nombre)  //cambia a la lista de hijos del elemento
-       
-      }}
+    if(element.nombre==seleccionado2.nombre){
+        if(laux==0){laux++;}
+        else{lista=lista.filter(x=> x.nombre!=seleccionado2.nombre)}}  //cambia a la lista de hijos del elemento
     else{
-      if(element.Hijos.length>0){
-        element.Hijos=borrarRama(element.Hijos)
-      }
-
-    }    })
+      if(element.Hijos.length>0){element.Hijos=borrarRama(element.Hijos)}}})
     return(lista)
    }
-   function  escribirentexto(nlista:Array<Rama>){
-        nlista.forEach(element => {
-            ltexto=ltexto+'"nombre"' +':"' +element.nombre+'", "marcado" ' +':' +element.marcado+', "Hijos"' +':' +"["
-            if(element.Hijos.length>0){
-                ltexto=ltexto+"{"
-                escribirentexto(element.Hijos)
-                ltexto=ltexto+"},"
-            }
-            ltexto=ltexto+"],}"
-        });
-    return lista
 
-   }
+  function PedirJSON(){
+    //se supone que solicito el valor del json al backend para meterlo en el mijson y asi poder usarlo
+
+    }
+
+
+
+
+
+
+
+
+
+
+
   

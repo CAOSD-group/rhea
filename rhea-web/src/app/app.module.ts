@@ -1,8 +1,3 @@
-import {NgModule } from '@angular/core';
-import {BrowserModule } from '@angular/platform-browser';
-import {FormsModule,ReactiveFormsModule } from '@angular/forms';
-
-
 import {AppComponent } from './app.component';
 import {FMEditor } from './components/fm-editor/fm-editor.component';
 import {TreeChecklistExample} from './components/tree/tree-checklist-example';
@@ -21,7 +16,12 @@ import {MatButtonModule } from '@angular/material/button';
 import {MatInputModule} from '@angular/material/input';
 import {MatListModule} from '@angular/material/list';
 import {DragDropModule,CdkDragDrop, moveItemInArray, transferArrayItem} from '@angular/cdk/drag-drop';
-import { HttpClientModule  } from "@angular/common/http";
+import {HttpClientModule} from "@angular/common/http";
+import {NgModule } from '@angular/core';
+import {BrowserModule } from '@angular/platform-browser';
+import {FormsModule,ReactiveFormsModule } from '@angular/forms';
+
+
 
 
 
