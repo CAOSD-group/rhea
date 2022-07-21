@@ -1,12 +1,12 @@
 {
   "id": "cl5tk4ifm001x3069c06ge0o9",
-  "name": "or_mandatory BC8",
-  "timestamp": "2022-07-20T12:07:49.902Z",
+  "name": "or_mandatory_BC8",
+  "timestamp": "2022-07-20T16:45:44.659Z",
   "features": {
     "cl5tad7pc00003069gbxkxz71": {
-      "name": "xor_mandatory",
+      "name": "or_mandatory_BC8",
       "optional": false,
-      "type": "OR",
+      "type": "XOR",
       "note": ""
     },
     "cl5tghifc000b3069vyaaobkj": {

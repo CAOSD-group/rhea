@@ -1,0 +1,13 @@
+features
+	xor_mandatory_BC3
+		optional
+			F1
+		mandatory
+			F2
+				mandatory
+					F2c
+				[0]
+					F2a
+					F2b
+		mandatory
+			F3
