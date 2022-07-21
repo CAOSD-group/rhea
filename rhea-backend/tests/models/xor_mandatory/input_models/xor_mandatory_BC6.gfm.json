@@ -1,10 +1,10 @@
 {
   "id": "cl5tgt8f1000q3069astkp7j3",
-  "name": "xor_mandatory BC6",
-  "timestamp": "2022-07-20T10:40:00.999Z",
+  "name": "xor_mandatory_BC6",
+  "timestamp": "2022-07-21T08:24:29.378Z",
   "features": {
     "cl5tad7pc00003069gbxkxz71": {
-      "name": "xor_mandatory",
+      "name": "xor_mandatory_BC6",
       "optional": false,
       "type": "FEATURE",
       "note": ""
@@ -18,7 +18,7 @@
     "cl5tghs7e000d3069o959s4su": {
       "name": "F2",
       "optional": false,
-      "type": "XOR",
+      "type": "FEATURE",
       "note": ""
     },
     "cl5tgi7js000h3069n2pgsgga": {

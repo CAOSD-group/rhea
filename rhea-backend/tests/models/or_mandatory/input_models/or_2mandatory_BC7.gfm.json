@@ -1,10 +1,10 @@
 {
-  "id": "cl5tk4dk2001v3069pak5m8qy",
-  "name": "or_mandatory_BC6",
-  "timestamp": "2022-07-20T16:27:37.315Z",
+  "id": "cl5tummop003v30695l02p2hc",
+  "name": "or_2mandatory_BC7",
+  "timestamp": "2022-07-20T17:02:56.420Z",
   "features": {
     "cl5tad7pc00003069gbxkxz71": {
-      "name": "or_mandatory_BC6",
+      "name": "or_mandatory_BC7",
       "optional": false,
       "type": "FEATURE",
       "note": ""
@@ -35,48 +35,60 @@
     },
     "cl5tgpfdu00043069ku1q6v67": {
       "name": "F1b",
-      "optional": true,
-      "type": "OR",
+      "optional": false,
+      "type": "FEATURE",
       "note": ""
     },
     "cl5tgpl99000630694cyzjj8k": {
       "name": "F1c",
       "optional": false,
-      "type": "OR",
+      "type": "XOR",
       "note": ""
     },
     "cl5tgrknj000i3069nql5qjzb": {
       "name": "F1b1",
       "optional": true,
-      "type": "FEATURE",
+      "type": "OR",
       "note": ""
     },
-    "cl5tgrqwd000k30694di64sxz": {
+    "cl5ttw0g800313069xzi0lzih": {
       "name": "F1b2",
+      "optional": false,
+      "type": "OR",
+      "note": ""
+    },
+    "cl5th6qxo00133069pvkqowov": {
+      "name": "F1b11",
       "optional": true,
       "type": "FEATURE",
       "note": ""
     },
-    "cl5tgrz3w000m306943avtxjg": {
-      "name": "F1b3",
+    "cl5th6ysd00153069an9aqfhy": {
+      "name": "F1b12",
       "optional": false,
       "type": "FEATURE",
       "note": ""
     },
-    "cl5tgttua000r3069ui88qgte": {
-      "name": "F1c1",
+    "cl5th74wj00173069afwnkog6": {
+      "name": "F1b13",
+      "optional": false,
+      "type": "FEATURE",
+      "note": ""
+    },
+    "cl5ttwde500333069l4427uzg": {
+      "name": "F1b21",
       "optional": true,
       "type": "FEATURE",
       "note": ""
     },
-    "cl5tgtycz000t3069o22lq0v3": {
-      "name": "F1c2",
-      "optional": true,
+    "cl5ttwjq000353069jdd9os9t": {
+      "name": "F1b22",
+      "optional": false,
       "type": "FEATURE",
       "note": ""
     },
-    "cl5tgu3wy000v3069zjruj7fr": {
-      "name": "F1c3",
+    "cl5ttwq4a003730690sfzsro1": {
+      "name": "F1b23",
       "optional": false,
       "type": "FEATURE",
       "note": ""
@@ -95,29 +107,37 @@
             "id": "cl5tgpfdu00043069ku1q6v67",
             "children": [
               {
-                "id": "cl5tgrknj000i3069nql5qjzb"
+                "id": "cl5tgrknj000i3069nql5qjzb",
+                "children": [
+                  {
+                    "id": "cl5th6qxo00133069pvkqowov"
+                  },
+                  {
+                    "id": "cl5th6ysd00153069an9aqfhy"
+                  },
+                  {
+                    "id": "cl5th74wj00173069afwnkog6"
+                  }
+                ]
               },
               {
-                "id": "cl5tgrqwd000k30694di64sxz"
-              },
-              {
-                "id": "cl5tgrz3w000m306943avtxjg"
+                "id": "cl5ttw0g800313069xzi0lzih",
+                "children": [
+                  {
+                    "id": "cl5ttwde500333069l4427uzg"
+                  },
+                  {
+                    "id": "cl5ttwjq000353069jdd9os9t"
+                  },
+                  {
+                    "id": "cl5ttwq4a003730690sfzsro1"
+                  }
+                ]
               }
             ]
           },
           {
-            "id": "cl5tgpl99000630694cyzjj8k",
-            "children": [
-              {
-                "id": "cl5tgttua000r3069ui88qgte"
-              },
-              {
-                "id": "cl5tgtycz000t3069o22lq0v3"
-              },
-              {
-                "id": "cl5tgu3wy000v3069zjruj7fr"
-              }
-            ]
+            "id": "cl5tgpl99000630694cyzjj8k"
           }
         ]
       },

@@ -1,0 +1,11 @@
+features
+	xor_mandatory_BC8
+		alternative
+			F1
+				mandatory
+					F1c
+				[0]
+					F1a
+					F1b
+			F2
+			F3

@@ -1,10 +1,10 @@
 {
-  "id": "cl5tgit3b000l3069xtviqhts",
-  "name": "xor_mandatory_BC2",
-  "timestamp": "2022-07-20T16:27:26.399Z",
+  "id": "cl5tumic1003t3069rtoa29bj",
+  "name": "or_2mandatory_BC5",
+  "timestamp": "2022-07-20T17:03:00.368Z",
   "features": {
     "cl5tad7pc00003069gbxkxz71": {
-      "name": "xor_mandatory_BC2",
+      "name": "or_mandatory_BC5",
       "optional": false,
       "type": "FEATURE",
       "note": ""
@@ -12,13 +12,13 @@
     "cl5tghifc000b3069vyaaobkj": {
       "name": "F1",
       "optional": true,
-      "type": "XOR",
+      "type": "OR",
       "note": ""
     },
     "cl5tghs7e000d3069o959s4su": {
       "name": "F2",
       "optional": false,
-      "type": "FEATURE",
+      "type": "XOR",
       "note": ""
     },
     "cl5tgi7js000h3069n2pgsgga": {
@@ -27,20 +27,38 @@
       "type": "FEATURE",
       "note": ""
     },
-    "cl5tgj3ut000m30697ynkmeec": {
+    "cl5tgp73f000230693bvv023w": {
       "name": "F1a",
       "optional": true,
       "type": "FEATURE",
       "note": ""
     },
-    "cl5tgja8g000o3069zrojr52x": {
+    "cl5tgpfdu00043069ku1q6v67": {
       "name": "F1b",
+      "optional": false,
+      "type": "OR",
+      "note": ""
+    },
+    "cl5tgpl99000630694cyzjj8k": {
+      "name": "F1c",
+      "optional": false,
+      "type": "FEATURE",
+      "note": ""
+    },
+    "cl5tgrknj000i3069nql5qjzb": {
+      "name": "F1b1",
       "optional": true,
       "type": "FEATURE",
       "note": ""
     },
-    "cl5tgjgtx000q3069j94vuppk": {
-      "name": "F1c",
+    "cl5tgrqwd000k30694di64sxz": {
+      "name": "F1b2",
+      "optional": false,
+      "type": "FEATURE",
+      "note": ""
+    },
+    "cl5tgrz3w000m306943avtxjg": {
+      "name": "F1b3",
       "optional": false,
       "type": "FEATURE",
       "note": ""
@@ -53,13 +71,24 @@
         "id": "cl5tghifc000b3069vyaaobkj",
         "children": [
           {
-            "id": "cl5tgj3ut000m30697ynkmeec"
+            "id": "cl5tgp73f000230693bvv023w"
           },
           {
-            "id": "cl5tgja8g000o3069zrojr52x"
+            "id": "cl5tgpfdu00043069ku1q6v67",
+            "children": [
+              {
+                "id": "cl5tgrknj000i3069nql5qjzb"
+              },
+              {
+                "id": "cl5tgrqwd000k30694di64sxz"
+              },
+              {
+                "id": "cl5tgrz3w000m306943avtxjg"
+              }
+            ]
           },
           {
-            "id": "cl5tgjgtx000q3069j94vuppk"
+            "id": "cl5tgpl99000630694cyzjj8k"
           }
         ]
       },

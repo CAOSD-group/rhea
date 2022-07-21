@@ -14,6 +14,6 @@ def get_new_feature_name(fm: FeatureModel, name: str) -> str:
 def is_there_mandatory(relations: List) -> bool:
     mandatory = False
     for rel in relations:
-        if rel.is_mandatory:
+        if rel.is_mandatory():
             mandatory = True
     return mandatory

@@ -17,22 +17,24 @@ class OrMandatoryRefactoring(Refactoring):
             raise Exception(f'There is not feature with name "{instance.name}".')
         if not instance.is_or_group:
             raise Exception(f'Feature {instance.name} is not an or group.')
-        if not utils.is_there_mandatory(instance.get_relations()):
-            raise Exception(f'Feature {instance.name} has no mandatory child.')
 
-        r_or = next((r for r in instance.get_relations() if r.is_or()), None)
+        relations = instance.get_relations()
 
-        for child in r_or.children:
-            r_opt = Relation(instance, [child], 0, 1)  # optional
-            instance.add_relation(r_opt)
-            if child.is_mandatory():
-                r_mand = next((r for r in instance.get_relations() if r.is_mandatory()), None)
-                instance.get_relations().remove(r_opt)
-                instance.get_relations().remove(r_mand)
-                r_new_mand = Relation(instance, [child], 1, 1)  # mandatory
-                instance.add_relation(r_new_mand)
+        r_or = next((r for r in relations if r.is_or() and (utils.is_there_mandatory(relations))), None)
 
-        instance.get_relations().remove(r_or)
+        if r_or!=None:
+
+            for child in r_or.children:
+                r_opt = Relation(instance, [child], 0, 1)  # optional
+                instance.add_relation(r_opt)
+                if child.is_mandatory():
+                    r_mand = next((r for r in instance.get_relations() if r.is_mandatory()), None)
+                    instance.get_relations().remove(r_opt)
+                    instance.get_relations().remove(r_mand)
+                    r_new_mand = Relation(instance, [child], 1, 1)  # mandatory
+                    instance.add_relation(r_new_mand)
+
+            instance.get_relations().remove(r_or)
         
         return model
 
