@@ -2,10 +2,10 @@ from typing import Any
 
 from famapy.metamodels.fm_metamodel.models import FeatureModel, Feature, Relation
 
-from rhea.refactorings import Refactoring, utils
+from rhea.refactorings import FMRefactoring, utils
 
 
-class OrMandatoryRefactoring(Refactoring):
+class OrMandatoryRefactoring(FMRefactoring):
 
     @staticmethod
     def get_name() -> str:

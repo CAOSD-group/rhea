@@ -2,10 +2,10 @@ from typing import Any
 
 from famapy.metamodels.fm_metamodel.models import FeatureModel, Feature, Relation
 
-from rhea.refactorings import Refactoring
+from rhea.refactorings import FMRefactoring
 
 
-class ComplexProLogCrossTreeConstraintRefactoring(Refactoring):
+class ComplexProLogCrossTreeConstraintRefactoring(FMRefactoring):
 
     @staticmethod
     def get_name() -> str:

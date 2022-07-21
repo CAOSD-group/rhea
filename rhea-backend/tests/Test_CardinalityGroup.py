@@ -11,7 +11,7 @@ from famapy.metamodels.pysat_metamodel.operations import (
     Glucose3Products
 )
 
-from rhea.refactorings import Refactoring
+from rhea.refactorings import FMRefactoring
 from rhea.refactorings.mutex_group_refactoring import MutexGroupRefactoring
 from rhea.refactorings.cardinality_group_refactoring import CardinalityGroupRefactoring
 from rhea.refactorings.multiple_group_decomposition_refactoring import MultipleGroupDecompositionRefactoring
@@ -33,7 +33,7 @@ def get_models(dirpath: str) -> list[str]:
     return fms
 
 
-def get_tests_info(ref_path: str, refactoring: Refactoring) -> list[list[str, str, str, Refactoring]]:
+def get_tests_info(ref_path: str, refactoring: FMRefactoring) -> list[list[str, str, str, FMRefactoring]]:
     input_path = os.path.join(MODELS_BASE_PATH, ref_path, INPUT_MODELS)
     output_path = os.path.join(MODELS_BASE_PATH, ref_path, OUTPUT_MODELS)
     expected_path = os.path.join(MODELS_BASE_PATH, ref_path, EXPECTED_MODELS)
@@ -43,7 +43,7 @@ def get_tests_info(ref_path: str, refactoring: Refactoring) -> list[list[str, st
     return [[a, b, c, refactoring] for a, b, c in zip(input_models, output_models, expected_models)]
 
 
-def get_tests() -> list[list[str, str, str, Refactoring]]:
+def get_tests() -> list[list[str, str, str, FMRefactoring]]:
     """Return the list of tests to be executed.
     
     Each test receives a list of parameters containing:
@@ -64,7 +64,7 @@ def save_model(filepath: str, fm: FeatureModel, writer: ModelToText) -> None:
     writer(path=filepath, source_model=fm).transform()
 
 
-def apply_refactoring(fm: FeatureModel, refactoring: Refactoring) -> FeatureModel:
+def apply_refactoring(fm: FeatureModel, refactoring: FMRefactoring) -> FeatureModel:
     instances = refactoring.get_instances(fm)
     for i in instances:
         fm = refactoring.transform(fm, i)
@@ -72,7 +72,7 @@ def apply_refactoring(fm: FeatureModel, refactoring: Refactoring) -> FeatureMode
 
 
 @pytest.mark.parametrize('fm_path, refactoring', [[m, r] for m, _, _, r in get_tests()])
-def test_nof_configurations(fm_path: str, refactoring: Refactoring):
+def test_nof_configurations(fm_path: str, refactoring: FMRefactoring):
     """Test that the number of configurations of the source feature model and the 
     number of configurations of the refactored feature model are the same."""
     fm = load_model(fm_path, UVLReader)
@@ -85,7 +85,7 @@ def test_nof_configurations(fm_path: str, refactoring: Refactoring):
 
 
 @pytest.mark.parametrize('fm_path, refactoring', [[m, r] for m, _, _, r in get_tests()])
-def test_products(fm_path: str, refactoring: Refactoring):
+def test_products(fm_path: str, refactoring: FMRefactoring):
     """Test that the products of the source feature model and the 
     products of the refactored feature model are the same."""
     fm = load_model(fm_path, UVLReader)
@@ -100,7 +100,7 @@ def test_products(fm_path: str, refactoring: Refactoring):
 
 
 @pytest.mark.parametrize('fm_path, refactoring', [[m, r] for m, _, _, r in get_tests()])
-def test_nof_instances(fm_path: str, refactoring: Refactoring):
+def test_nof_instances(fm_path: str, refactoring: FMRefactoring):
     """Test that the number of instances to be refactored of the feature model after
     refactorings is equals 0 (i.e., there is no remaining instances of the given refactoring)."""
     fm = load_model(fm_path, UVLReader)
@@ -110,7 +110,7 @@ def test_nof_instances(fm_path: str, refactoring: Refactoring):
 
 
 @pytest.mark.parametrize('input_fm_path, output_fm_path, expected_fm_path, refactoring', get_tests())
-def test_feature_model_output(input_fm_path: str, output_fm_path: str, expected_fm_path: str, refactoring: Refactoring):
+def test_feature_model_output(input_fm_path: str, output_fm_path: str, expected_fm_path: str, refactoring: FMRefactoring):
     """Test that the refactored feature model is the same as the expected feature model."""
     fm = load_model(input_fm_path, UVLReader)
     expected_fm = load_model(expected_fm_path, UVLReader)

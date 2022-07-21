@@ -3,7 +3,7 @@ from typing import Any
 from famapy.metamodels.fm_metamodel.models import FeatureModel
 
 from rhea.fm_concepts import FMConcept
-from rhea.refactorings import Refactoring
+from rhea.refactorings import FMRefactoring
 
 
 class FMCOptionalFeature(FMConcept):
@@ -17,5 +17,5 @@ class FMCOptionalFeature(FMConcept):
         return fm.get_optional_features()
 
     @staticmethod
-    def get_refactorings() -> list[Refactoring]:
+    def get_refactorings() -> list[FMRefactoring]:
         return []

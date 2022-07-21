@@ -4,11 +4,11 @@ from famapy.metamodels.fm_metamodel.models import FeatureModel, Feature, Relatio
 
 from famapy.core.models.ast import AST, ASTOperation, Node
 
-from rhea.refactorings import Refactoring
+from rhea.refactorings import FMRefactoring
 
 from rhea.refactorings import utils
 
-class XorMandatoryRefactoring(Refactoring):
+class XorMandatoryRefactoring(FMRefactoring):
 
     @staticmethod
     def get_name() -> str:

@@ -3,7 +3,7 @@ from abc import ABC, abstractmethod
 
 from famapy.metamodels.fm_metamodel.models import FeatureModel
 
-from rhea.refactorings import Refactoring
+from rhea.refactorings import FMRefactoring
 
 
 class FMConcept(ABC):
@@ -22,6 +22,6 @@ class FMConcept(ABC):
 
     @staticmethod
     @abstractmethod
-    def get_refactorings() -> list[Refactoring]:
+    def get_refactorings() -> list[FMRefactoring]:
         """Return the available refactorings to this FM concept."""
         pass

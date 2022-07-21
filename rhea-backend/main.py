@@ -10,7 +10,7 @@ from famapy.metamodels.pysat_metamodel.operations import (
 
 from famapy.metamodels.fm_metamodel.models import FeatureModel
 
-from rhea.refactorings import Refactoring
+from rhea.refactorings import FMRefactoring
 from rhea.refactorings.mutex_group_refactoring import MutexGroupRefactoring
 from rhea.refactorings.cardinality_group_refactoring import CardinalityGroupRefactoring
 from rhea.refactorings.multiple_group_decomposition_refactoring import MultipleGroupDecompositionRefactoring
@@ -28,7 +28,7 @@ OUTPUT_CONSOLE = 'output.txt'
 ##################################################################################################
 
 
-def apply_refactoring(fm: FeatureModel, refactoring: Refactoring) -> FeatureModel:
+def apply_refactoring(fm: FeatureModel, refactoring: FMRefactoring) -> FeatureModel:
     instances = refactoring.get_instances(fm)
     for i in instances:
         fm = refactoring.transform(fm, i)

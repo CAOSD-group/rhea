@@ -4,7 +4,7 @@ from typing import Any
 from famapy.metamodels.fm_metamodel.models import FeatureModel
 
 
-class Refactoring(ABC):
+class FMRefactoring(ABC):
 
     @staticmethod
     @abstractmethod

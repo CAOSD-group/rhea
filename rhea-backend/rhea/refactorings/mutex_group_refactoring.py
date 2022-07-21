@@ -2,11 +2,11 @@ from typing import Any
 
 from famapy.metamodels.fm_metamodel.models import FeatureModel, Feature, Relation
 
-from rhea.refactorings import Refactoring
+from rhea.refactorings import FMRefactoring
 from rhea.refactorings import utils
 
 
-class MutexGroupRefactoring(Refactoring):
+class MutexGroupRefactoring(FMRefactoring):
 
     @staticmethod
     def get_name() -> str:

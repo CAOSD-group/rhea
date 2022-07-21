@@ -1,3 +1,3 @@
-from .refactoring_interface import Refactoring
+from .refactoring_interface import FMRefactoring
 
-__all__ = ['Refactoring']
+__all__ = ['FMRefactoring']

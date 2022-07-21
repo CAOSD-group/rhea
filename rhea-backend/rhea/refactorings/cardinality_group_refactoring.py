@@ -7,10 +7,10 @@ import functools
 
 from famapy.core.models.ast import AST, ASTOperation, Node
 
-from rhea.refactorings import Refactoring
+from rhea.refactorings import FMRefactoring
 
 
-class CardinalityGroupRefactoring(Refactoring):
+class CardinalityGroupRefactoring(FMRefactoring):
 
     @staticmethod
     def get_name() -> str:

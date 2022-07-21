@@ -1,11 +1,11 @@
-from rhea.refactorings import Refactoring
+from rhea.refactorings import FMRefactoring
 
 from famapy.metamodels.fm_metamodel.models import FeatureModel
 
 
 class RefactoringEngine():
 
-    def __init__(self, refactorings: list[Refactoring]) -> None:
+    def __init__(self, refactorings: list[FMRefactoring]) -> None:
         self.refactorings = refactorings
 
     def apply_refactorings(self, model: FeatureModel) -> FeatureModel:
