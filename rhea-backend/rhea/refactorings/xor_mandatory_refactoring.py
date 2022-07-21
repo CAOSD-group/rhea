@@ -21,37 +21,39 @@ class XorMandatoryRefactoring(Refactoring):
         if not instance.is_alternative_group:
             raise Exception(f'Feature {instance.name} is not a cardinality group.')
         
-        r_alt = next((r for r in instance.get_relations() if r.is_alternative()), None)
-        r_alt.card_min = 0
-        r_alt.card_max = 0
+        relations = instance.get_relations()
+        r_alt = next((r for r in instance.get_relations() if r.is_alternative() and (utils.is_there_mandatory(relations))), None)
+
+        if r_alt != None:
+            r_alt.card_min = 0
+            r_alt.card_max = 0
         
+            children_list = []
+            count = 0
+            for child in r_alt.children:
+                if child.is_mandatory():
+                    count += 1
+                    r_mand = next((r for r in relations if r.is_mandatory()), None)
+                    relations.remove(r_mand)
+                    r_new_mand = Relation(instance, [child], 1, 1)  # mandatory
+                    instance.add_relation(r_new_mand)
+                else:
+                    children_list.append(child)
 
-        children_list = []
-        count = 0
-        for child in r_alt.children:
-            if child.is_mandatory():
-                count += 1
-                r_mand = next((r for r in instance.get_relations() if r.is_mandatory()), None)
-                instance.get_relations().remove(r_mand)
-                r_new_mand = Relation(instance, [child], 1, 1)  # mandatory
-                instance.add_relation(r_new_mand)
+            if count>1:
+                raise Exception(f'More mandatory children than expected.')
+
+            instance.get_relations().remove(r_alt)
+
+            if len(children_list)<=1:
+                r_opt = Relation(instance, children_list, 0, 1)  # optional
+                constraint = AST.create_unary_operation(ASTOperation.NOT, children_list[0]).root
+                model.ctcs.append(constraint)
             else:
-                children_list.append(child)
+                r_opt = Relation(instance, children_list, 0, 0)  # dead
 
-        if count>1:
-            raise Exception(f'More mandatory children than expected.')
-
-        instance.get_relations().remove(r_alt)
-
-        if len(children_list)<=1:
-            r_opt = Relation(instance, children_list, 0, 1)  # optional
-            constraint = AST.create_unary_operation(ASTOperation.NOT, children_list[0]).root
-            model.ctcs.append(constraint)
-        else:
-            r_opt = Relation(instance, children_list, 0, 0)  # dead
-
-        # Add relations to features
-        instance.add_relation(r_opt)
+            # Add relations to features
+            instance.add_relation(r_opt)
             
         return model
 

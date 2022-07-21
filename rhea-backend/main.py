@@ -22,7 +22,7 @@ from rhea.flamapy.metamodels.fm_metamodel.transformations import GlencoeReader
 
 ##################################################################################################
 REFACTORING = XorMandatoryRefactoring
-MODEL_PATH = 'tests/models/xor_mandatory/input_models/xor_mandatory_BC4.gfm.json'
+MODEL_PATH = 'tests/models/xor_mandatory/input_models/xor_mandatory_BC8.gfm.json'
 OUTPUT_PATH = 'output.uvl'
 OUTPUT_CONSOLE = 'output.txt'
 ##################################################################################################
