@@ -16,16 +16,18 @@ from rhea.refactorings.cardinality_group_refactoring import CardinalityGroupRefa
 from rhea.refactorings.multiple_group_decomposition_refactoring import MultipleGroupDecompositionRefactoring
 from rhea.refactorings.xor_mandatory_refactoring import XorMandatoryRefactoring
 from rhea.refactorings.or_mandatory_refactoring import OrMandatoryRefactoring
+from rhea.refactorings.elimination_simple_ctcs_requires import EliminationSimpleConstraintsRequires
 
 from rhea.flamapy.metamodels.fm_metamodel.transformations import GlencoeReader
 
 
 ##################################################################################################
-REFACTORING = XorMandatoryRefactoring
-MODEL_PATH = 'tests/models/xor_mandatory/input_models/xor_mandatory_BC8.gfm.json'
+REFACTORING = EliminationSimpleConstraintsRequires
+MODEL_PATH = 'tests/models/eliminate_simple_ctcs_requires/input_models/elimination_simple_ctcs_requires_01.gfm.json'
 OUTPUT_PATH = 'output.uvl'
 OUTPUT_CONSOLE = 'output.txt'
 ##################################################################################################
+
 
 
 def apply_refactoring(fm: FeatureModel, refactoring: FMRefactoring) -> FeatureModel:

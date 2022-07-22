@@ -60,4 +60,4 @@ class XorMandatoryRefactoring(FMRefactoring):
 
     @staticmethod
     def get_instances(model: FeatureModel) -> list[Any]:
-        return [f for f in model.get_features() if f.is_alternative_group()]
+        return [f for f in model.get_features() if f.is_alternative_group() and (utils.is_there_mandatory(f.get_relations()))]

@@ -41,4 +41,4 @@ class OrMandatoryRefactoring(FMRefactoring):
 
     @staticmethod
     def get_instances(model: FeatureModel) -> list[Any]:
-        return [f for f in model.get_features() if f.is_or_group()]
+        return [f for f in model.get_features() if f.is_or_group() and utils.is_there_mandatory(f.get_relations())]
