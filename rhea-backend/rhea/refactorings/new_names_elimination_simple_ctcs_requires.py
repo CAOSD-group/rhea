@@ -1,6 +1,7 @@
 import copy
 from typing import Any
 
+from famapy.core.models.ast import AST, ASTOperation, Node
 from famapy.metamodels.fm_metamodel.models import FeatureModel, Feature, Relation, Constraint
 
 from rhea.flamapy.metamodels.fm_metamodel.models.fm_helper import FMHelper, ConstraintHelper
@@ -8,15 +9,15 @@ from rhea.refactorings import FMRefactoring
 from rhea.refactorings import utils
 
 
-class EliminationSimpleConstraintsExcludes(FMRefactoring):
+class EliminationSimpleConstraintsRequires(FMRefactoring):
 
     @staticmethod
     def get_name() -> str:
-        return 'Elimination of Constraints from Feature Trees - Excludes'
+        return 'Elimination of Constraints from Feature Trees - Requires'
 
     @staticmethod
     def get_instances(model: FeatureModel) -> list[Feature]:
-        return [f for f in model.get_features() if f.is_mutex_group()]
+        return [ctc for ctc in model.get_constraints() if ConstraintHelper(ctc).is_requires_constraint()]
 
     @staticmethod
     def transform(model: FeatureModel, instance: Constraint) -> FeatureModel:
@@ -37,21 +38,21 @@ class EliminationSimpleConstraintsExcludes(FMRefactoring):
         left_original_feature = original_model.get_feature_by_name(left_feature_name)
 
         
-        tree_eliminate = eliminate_node_from_tree(model, right_feature)
-        print(f'T(+{right_feature}): {tree_eliminate}')
-        tree_eliminate_new = eliminate_node_from_tree(original_model, left_original_feature)
-        print(f'T(-{left_original_feature}): {tree_eliminate_new}')
-        tree_eliminate_add = add_node_to_tree(tree_eliminate, right_original_feature)
-        print(f'T(-{right_original_feature}): {tree_eliminate_add}')
+        tree_plus = add_node_to_tree(model, right_feature)
+        print(f'T(+{right_feature}): {tree_plus}')
+        eliminate1 = eliminate_node_from_tree(original_model, left_original_feature)
+        print(f'T(-{left_original_feature}): {eliminate1}')
+        tree_eliminate = eliminate_node_from_tree(eliminate1, right_original_feature)
+        print(f'T(-{right_original_feature}): {tree_eliminate}')
 
-        if tree_eliminate!=None and tree_eliminate_add!=None:
+        if tree_plus!=None and tree_eliminate!=None:
             new_root = Feature(utils.get_new_feature_name(model, 'root'), None, None, True)
-            rel = Relation(new_root, [tree_eliminate.root, tree_eliminate_add.root], 1, 1)  #XOR
+            rel = Relation(new_root, [tree_plus.root, tree_eliminate.root], 1, 1)  #XOR
             new_root.add_relation(rel)
             model.root = new_root
         elif tree_eliminate==None:
-            model = tree_eliminate_add
-        elif tree_eliminate_add==None:
+            model = tree_plus
+        elif tree_plus==None:
             model = tree_eliminate
         
         model.ctcs.remove(instance)
@@ -112,5 +113,10 @@ def eliminate_node_from_tree(model: FeatureModel, node: Feature) -> FeatureModel
 
             if r_group_new.is_optional():
                 r_group_new.card_min = 1
+            
+    # new_names = [new_names.append(feature.name) for feature in model.get_features()]
+    # each_feature = model.get_feature_by_name(f_name)
+    # for f_name in model.get_features():
+    #     f_name = utils.get_new_feature_name(model, f_name)
+    #     new_feature = Feature(f_name, each_feature.get_relations(), each_feature.get_parent(), each_feature.is_abstract())
     return model
-

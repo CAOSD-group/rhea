@@ -11,4 +11,4 @@ features
 					F
 					G
 constraints
-	D => F
+	D excludes F
