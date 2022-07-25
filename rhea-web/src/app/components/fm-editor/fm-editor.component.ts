@@ -4,156 +4,89 @@ import {MatTreeNestedDataSource} from '@angular/material/tree';
 
 
 interface FeatureNode {
-    name: string;
-    children?: FeatureNode[];
+    name: string;               // El nombre
+    feature_type: string;       // El tipo de condiciones que tiene
+    optional: boolean;          // Si el valor es opcional o no
+    children?: FeatureNode[];   // Los datos que estan enlacados a este 
+    constraints?: FeatureNode[];  // Las restricciones del modelo 
 }
 
 const TREE_DATA: FeatureNode[] = [
     {
-        "name": "truck",
-        "children": [
+      "name": "Pizza",
+      "feature_type" : "abstract",
+      "optional": false,
+      "children": [
           {
-            "name": "weight",
-            "children": [
-              {
-                "name": "lightweight",
-                "children": [
+              "name": "Topping",
+              "feature_type" : "or",
+              "optional": false,
+              "children": [
                   {
-                    "name": "12tons"
+                      "name": "Salami",
+                      "feature_type" : "concrete",
+                      "optional": true,
                   },
                   {
-                    "name": "18tons"
+                      "name": "Ham",
+                      "feature_type" : "concrete",
+                      "optional": true,
                   },
                   {
-                    "name": "20tons"
+                      "name": "Mozzarella",
+                      "feature_type" : "concrete",
+                      "optional": true,
                   }
-                ]
-              },
-              {
-                "name": "heavyweight",
-                "children": [
-                  {
-                    "name": "23tons"
-                  },
-                  {
-                    "name": "40tons"
-                  }
-                ]
-              }
-            ]
+              ]
           },
           {
-            "name": "type",
-            "children": [
-              {
-                "name": "semitrailer"
-              },
-              {
-                "name": "tank"
-              },
-              {
-                "name": "flatbed",
-                "children": [
+              "name": "Size",
+              "feature_type" : "mandatory",
+              "optional": false,
+              "children": [
                   {
-                    "name": "dumper"
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "name": "prueba",
-            "children": [
-              {
-                "name": "prueba1"
-              },
-              {
-                "name": "prueba_hijo",
-                "children": [
-                  {
-                    "name": "ultima"
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "name": "engine",
-            "children": [
-              {
-                "name": "160kw"
-              },
-              {
-                "name": "280kw"
-              },
-              {
-                "name": "400kw"
-              }
-            ]
-          },
-          {
-            "name": "cabin",
-            "children": [
-              {
-                "name": "highroof"
-              },
-              {
-                "name": "sleepercabin",
-                "children": [
-                  {
-                    "name": "1bed"
+                      "name": "Normal",
+                      "feature_type" : "concrete",
+                      "optional": true,
                   },
                   {
-                    "name": "2beds"
+                      "name": "Big",
+                      "feature_type" : "concrete",
+                      "optional": true,
                   }
-                ]
-              }
-            ]
+              ]
           },
           {
-            "name": "axles",
-            "children": [
-              {
-                "name": "count",
-                "children": [
+              "name": "Dough",
+              "feature_type" : "alternative",
+              "optional": false,
+              "children": [
                   {
-                    "name": "2axles"
+                      "name": "Neapolitan",
+                      "feature_type" : "concrete",
+                      "optional": true,
                   },
                   {
-                    "name": "multiplerearaxles",
-                    "children": [
-                      {
-                        "name": "3axles"
-                      },
-                      {
-                        "name": "4axles"
-                      }
-                    ]
+                      "name": "Sicilian",
+                      "feature_type" : "concrete",
+                      "optional": true,
                   }
-                ]
-              },
-              {
-                "name": "additionalsteeringaxle"
-              },
-              {
-                "name": "drivetrain",
-                "children": [
-                  {
-                    "name": "1drivenaxle"
-                  },
-                  {
-                    "name": "2drivenaxles"
-                  },
-                  {
-                    "name": "3drivenaxles"
-                  }
-                ]
-              }
-            ]
+              ]
+          },
+          {
+              "name": "CheesyCrust",
+              "feature_type" : "optional",
+              "optional": true,
           }
-        ]
-      },
-  ];
+      ],
+      "constraints": [{
+              "name": "if CheesyCrust must Big",
+              "feature_type" : "Constraint",
+              "optional": false,}
+      ],
+    }
+  ]
+;
 
 
 @Component({

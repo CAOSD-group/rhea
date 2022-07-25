@@ -65,11 +65,12 @@ export class Rama implements Rama_controlada  {
 
     crearRamaControlada(dato:JSON){
         console.log(dato)
-        console.log()
-
+        megaauxiliar=dato;
+        console.log(megaauxiliar.let.c);
+        console.log(megaauxiliar["mandatory"]);
     }
 
-
+    
 
     saveAsProject(dato:JSON){
         //you can enter your own file name and extension
