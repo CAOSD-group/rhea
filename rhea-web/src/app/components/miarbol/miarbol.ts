@@ -1,6 +1,8 @@
 import {Component,Input} from '@angular/core';
 import {NestedTreeControl} from '@angular/cdk/tree';
 import {MatTreeNestedDataSource} from '@angular/material/tree';
+import { data, getJSON } from 'jquery';
+import { jsDocComment } from '@angular/compiler';
 
 
 
@@ -43,6 +45,8 @@ export class Rama implements Rama_controlada  {
     lista: Array<Rama> =[];
     treeControl = new NestedTreeControl<Rama_controlada>(node => node.Hijos);
     dataSource = new MatTreeNestedDataSource<Rama_controlada>();
+    
+    
   
     
 
@@ -59,17 +63,24 @@ export class Rama implements Rama_controlada  {
         TREE_DATA4=arbol;
     }
 
+    crearRamaControlada(dato:JSON){
+        console.log(dato)
+        console.log()
+
+    }
 
 
-    saveAsProject(){
+
+    saveAsProject(dato:JSON){
         //you can enter your own file name and extension
         //this.writeContents();
-        PedirJSON();
+        mijson=dato;
         if(mijson!=undefined)   {this.leerJSON(mijson);}
         else                    {this.leerJSON();}
         this.dataSource.data=[];
         this.dataSource.data=arbol;
       }
+
     
     writeContents() {
         var a = document.createElement('a');
@@ -98,14 +109,12 @@ export class Rama implements Rama_controlada  {
 
     
     leerJSON(jason?:JSON){
-        if(jason!=undefined){ltexto=JSON.stringify(jason);}
+        if(jason!=undefined){ltexto=JSON.stringify(jason);console.log("aqui hemos metido el valor del json en el arbol")}
         else                {ltexto=JSON.stringify(arbol);}
-        
-        arbol=[]
-        console.log(arbol+" esto es el arbol actualmente (no se ve nada porque esta vacio justamente)")
         arbol=JSON.parse(ltexto)  
-        console.log("aqui hemos metido el valor del json en el arbol")
-        arbol[6]=arbol[1];
+        this.dataSource.data=[];
+        this.dataSource.data=arbol
+        console.log(arbol)
 }
 
 
@@ -663,10 +672,6 @@ vereltreedata(){
     return(lista)
    }
 
-  function PedirJSON(){
-    //se supone que solicito el valor del json al backend para meterlo en el mijson y asi poder usarlo
-
-    }
 
 
 

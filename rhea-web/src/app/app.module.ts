@@ -15,11 +15,12 @@ import {BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatButtonModule } from '@angular/material/button';
 import {MatInputModule} from '@angular/material/input';
 import {MatListModule} from '@angular/material/list';
-import {DragDropModule,CdkDragDrop, moveItemInArray, transferArrayItem} from '@angular/cdk/drag-drop';
+import {DragDropModule} from '@angular/cdk/drag-drop';
 import {HttpClientModule} from "@angular/common/http";
 import {NgModule } from '@angular/core';
 import {BrowserModule } from '@angular/platform-browser';
 import {FormsModule,ReactiveFormsModule } from '@angular/forms';
+import {MatSelectModule} from '@angular/material/select';
 
 
 
@@ -44,6 +45,7 @@ import {FormsModule,ReactiveFormsModule } from '@angular/forms';
     MatIconModule,MatListModule,
     MatCheckboxModule,
     MatInputModule,
+    MatSelectModule,
     MatCardModule,
     MatRadioModule,
     FormsModule,

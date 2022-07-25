@@ -1,10 +1,67 @@
+<h1>Titulo</h1>
+<h1>{{item}}</h1>
+<button (click)="getValues()">vuelve a pedir los valores</button>
+<div></div>
+<button (click)="returnValues(itemValue2.value)">buscar un archivo escribiendo el nombre</button>
+<input matInput #itemValue2  type="string" placeholder="nombre">
+<div></div>
+<button (click)="getRama()">getRama</button>
+<div></div>
+<h2>Elegir documento</h2>
+<button (click)="getArchivo(item)">busca el documento de la lista</button>
+<select [(ngModel)]="item" >
+  <option value="0">Selecciona una opción</option>
+  <option *ngFor="let documento of documentos">
+    {{documento}}
+  </option>
+</select>
 
-<div class="content" role="main">
+
+
+<mat-tree [dataSource]="dataSource" [treeControl]="treeControl" class="example-tree">
+  <!-- This is the tree node template for leaf nodes -->
+  <!-- There is inline padding applied to this node using styles.
+    This padding value depends on the mat-icon-button width. -->
+  <!-- This is the tree node template for expandable nodes -->
+  <mat-nested-tree-node *matTreeNodeDef="let node; when: hasChild">
+      <div class="mat-tree-node">
+        <button mat-icon-button matTreeNodeToggle
+                [attr.aria-label]="'Toggle ' + node">
+          <mat-icon class="mat-icon-rtl-mirror">
+            {{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
+          </mat-icon>
+        </button>
+        {{node}} 
+   
+       
+
+        
+   
+        
+      </div>
+      
+      <!-- There is inline padding applied to this div using styles.
+          This padding value depends on the mat-icon-button width.  -->
+      <div [class.example-tree-invisible]="!treeControl.isExpanded(node)"
+          role="group">
+        <ng-container matTreeNodeOutlet></ng-container>
+    </div>
+  </mat-nested-tree-node>
+</mat-tree>
+
+
+
+<fm-editor></fm-editor>
+
+<!--
+
+<div class="content" role="main">-->
   <!-- FM Editor component-->
   <!--<arbol></arbol>-->
   <!--<tree-checklist-example></tree-checklist-example>-->
   <!--<miarbol></miarbol>-->
   <!--<fm-editor></fm-editor>-->
-  <miarbol></miarbol>
+  <!--<miarbol></miarbol>
+  
 </div>
-
+-->
