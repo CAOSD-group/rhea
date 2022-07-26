@@ -43,7 +43,14 @@ def apply_refactoring(fm: FeatureModel, refactoring: FMRefactoring) -> FeatureMo
 def filter_products(fm: FeatureModel, configurations: list[list[Any]]) -> set[set[Any]]:
     filtered_configs = set()
     for config in configurations:
-        c = {f for f in config if not fm.get_feature_by_name(f).is_abstract}
+        #c = {f for f in config if not fm.get_feature_by_name(f).is_abstract}
+        c = set()
+        for f in config:
+            feature = fm.get_feature_by_name(f)
+            if not feature.is_abstract:
+                if hasattr(feature, 'reference'):
+                    feature = feature.reference
+                c.add(feature)
         filtered_configs.add(frozenset(c))
     return filtered_configs
 
