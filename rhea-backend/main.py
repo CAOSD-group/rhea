@@ -18,13 +18,15 @@ from rhea.refactorings.xor_mandatory_refactoring import XorMandatoryRefactoring
 from rhea.refactorings.or_mandatory_refactoring import OrMandatoryRefactoring
 from rhea.refactorings.elimination_simple_ctcs_requires import EliminationSimpleConstraintsRequires
 from rhea.refactorings.elimination_simple_ctcs_excludes import EliminationSimpleConstraintsExcludes
+from rhea.refactorings.new_names_elimination_simple_ctcs_requires import NewNamesEliminationSimpleConstraintsRequires
+from rhea.refactorings.new_names_elimination_simple_ctcs_excludes import NewNamesEliminationSimpleConstraintsExcludes
 
 from rhea.flamapy.metamodels.fm_metamodel.transformations import GlencoeReader
 
 
 ##################################################################################################
-REFACTORING = EliminationSimpleConstraintsExcludes
-MODEL_PATH = 'tests/models/eliminate_simple_ctcs_excludes/input_models/elimination_simple_ctcs_excludes_01.gfm.json'
+REFACTORING = NewNamesEliminationSimpleConstraintsRequires
+MODEL_PATH = 'tests/models/eliminate_simple_ctcs_requires/input_models/elimination_simple_ctcs_requires_01.gfm.json'
 OUTPUT_PATH = 'output.uvl'
 OUTPUT_CONSOLE = 'output.txt'
 ##################################################################################################
