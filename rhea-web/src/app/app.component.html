@@ -7,6 +7,8 @@
 <div></div>
 <button (click)="getRama()">getRama</button>
 <div></div>
+<button (click)="algoFM_editor()">algoFM_editor</button>
+<div></div>
 <h2>Elegir documento</h2>
 <button (click)="getArchivo(item)">busca el documento de la lista</button>
 <select [(ngModel)]="item" >
@@ -28,12 +30,6 @@
           </mat-icon>
         </button>
         {{node}} 
-   
-       
-
-        
-   
-        
       </div>
   
       <div [class.example-tree-invisible]="!treeControl.isExpanded(node)"

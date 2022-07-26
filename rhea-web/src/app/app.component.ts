@@ -8,6 +8,7 @@ import { ContentObserver } from '@angular/cdk/observers';
 import{Rama} from 'src/app/components/miarbol/miarbol'
 import {NestedTreeControl} from '@angular/cdk/tree';
 import {MatTreeNestedDataSource} from '@angular/material/tree';
+import { FMEditor } from './components/fm-editor/fm-editor.component';
 
 
 @Component({
@@ -18,13 +19,17 @@ import {MatTreeNestedDataSource} from '@angular/material/tree';
 export class AppComponent {
   url="http://172.16.51.94:5000"  //servidor 
   articulos: any;        //atributo donde guardo las respuestas
-  documentos:string[]= ['GPL.xml', 'JHipster.uvl', 'MobileMedia.xml', 'Pizzas.uvl', 'TankWar.xml', 'Truck.uvl','WeaFQAs.uvl'];
+  documentos:string[]= ['GPL.xml', 'JHipster.uvl', 'MobileMedia.xml', 'Pizzas.uvl', 'TankWar.xml', 'Truck.uvl','WeaFQAs.uvl','Pizzas.json'];
   item:string ='';       //variable para el titulo 
   declare mijson:JSON    //variable que guarda el objeto tipo JSON 
-  rama:Rama = new Rama();    //para poder llamar metodos Rama
+  rama:Rama =new Rama();    //para poder llamar metodos Rama
+  fmeditor:FMEditor =new FMEditor();
   children: Array<AppComponent> =[] ;
   treeControl = new NestedTreeControl<AppComponent>(node => node.children);
   dataSource = new MatTreeNestedDataSource<AppComponent>();
+  showFiller = false;   //controla si se ve mas contenido
+  istoggle=false;       // controla si el menu esta abierto o no
+  title:string ='rhea-web' // evita un error en app.component.spec.ts
 
   
 constructor(private http: HttpClient) { }  
@@ -34,6 +39,7 @@ getValues(){
   this.http.get(this.url,{responseType:'text'})   //direccion de donde saca los datos 
     .subscribe(resultado => {this.articulos = resultado});
     this.item=this.articulos;
+    
 }
 
 returnValues(texto?:string){
@@ -50,7 +56,6 @@ getArchivo(texto?:string){
   this.http.post(this.url,texto,{responseType:'text'}).subscribe(resultado => {
     this.articulos = resultado;
     this.mijson=this.articulos
-    console.log(this.mijson)
     this.item=texto||"";
     this.dataSource.data=[]
     this.dataSource.data=[this.articulos]})
@@ -61,4 +66,14 @@ getRama(){
   //this.rama.saveAsProject(this.mijson)
 }
 hasChild = (_: number, node: AppComponent) => !!node.children && node.children.length >= 0;
+
+algoFM_editor(){
+  this.fmeditor.nuevovalor2("ejemplo")
+ 
+}
+
+
+
+
+
 }

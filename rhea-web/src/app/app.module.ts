@@ -21,7 +21,7 @@ import {NgModule } from '@angular/core';
 import {BrowserModule } from '@angular/platform-browser';
 import {FormsModule,ReactiveFormsModule } from '@angular/forms';
 import {MatSelectModule} from '@angular/material/select';
-
+import {MatSidenavModule} from '@angular/material/sidenav';
 
 
 
@@ -32,13 +32,15 @@ import {MatSelectModule} from '@angular/material/select';
     FMEditor,
     arbol,
     TreeChecklistExample,
-    Rama,
-    
-    
+    Rama,    
   ],
+
+
+  
   imports: [
     BrowserModule,
     DragDropModule,
+    MatSidenavModule,
     HttpClientModule,
     MatTreeModule,
     MatMenuModule,
