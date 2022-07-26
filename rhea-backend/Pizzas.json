@@ -1,0 +1,108 @@
+{
+    "name": "FM_Pizza",
+    "features": {
+        "name": "Pizza",
+        "type": "FEATURE",
+        "optional": true,
+        "abstract": true,
+        "children": [
+            {
+                "name": "Topping",
+                "card_min": 1,
+                "card_max": 3,
+                "type": "OR",
+                "optional": false,
+                "abstract": false,
+                "children": [
+                    {
+                        "name": "Salami",
+                        "type": "FEATURE",
+                        "optional": true,
+                        "abstract": false
+                    },
+                    {
+                        "name": "Ham",
+                        "type": "FEATURE",
+                        "optional": true,
+                        "abstract": false
+                    },
+                    {
+                        "name": "Mozzarella",
+                        "type": "FEATURE",
+                        "optional": true,
+                        "abstract": false
+                    }
+                ]
+            },
+            {
+                "name": "Size",
+                "card_min": 1,
+                "card_max": 1,
+                "type": "XOR",
+                "optional": false,
+                "abstract": false,
+                "children": [
+                    {
+                        "name": "Normal",
+                        "type": "FEATURE",
+                        "optional": true,
+                        "abstract": false
+                    },
+                    {
+                        "name": "Big",
+                        "type": "FEATURE",
+                        "optional": true,
+                        "abstract": false
+                    }
+                ]
+            },
+            {
+                "name": "Dough",
+                "card_min": 1,
+                "card_max": 1,
+                "type": "XOR",
+                "optional": false,
+                "abstract": false,
+                "children": [
+                    {
+                        "name": "Neapolitan",
+                        "type": "FEATURE",
+                        "optional": true,
+                        "abstract": false
+                    },
+                    {
+                        "name": "Sicilian",
+                        "type": "FEATURE",
+                        "optional": true,
+                        "abstract": false
+                    }
+                ]
+            },
+            {
+                "name": "CheesyCrust",
+                "type": "FEATURE",
+                "optional": true,
+                "abstract": false
+            }
+        ]
+    },
+    "constraints": {
+        "CTC1": {
+            "type": "ImpliesTerm",
+            "operands": [
+                {
+                    "type": "FeatureTerm",
+                    "operands": [
+                        "CheesyCrust"
+                    ]
+                },
+                {
+                    "type": "FeatureTerm",
+                    "operands": [
+                        "Big"
+                    ]
+                }
+            ]
+        }
+    }
+}
