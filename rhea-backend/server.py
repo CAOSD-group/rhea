@@ -15,6 +15,8 @@ from famapy.metamodels.fm_metamodel.models import FeatureModel
 from famapy.metamodels.fm_metamodel.transformations import UVLReader, FeatureIDEReader, GlencoeReader
 from requests import JSONDecodeError
 
+from rhea.flamapy.metamodels.fm_metamodel.transformations.json_writer import JSONWriter
+
 
 static_url=''
 static_dir = 'template'
@@ -78,13 +80,11 @@ def index():
         texto=request.data.decode()   #transforma el bytes a string
         #fm_file = request.files[texto].name
         fm_file = request.from_values(texto)
-        fm = read_fm_file(texto)
+        fm = read_fm_file(fm_file)
         print(fm , "fm")
-        print (fm.__class__)
-        if fm.__class__ is not NoneType:
-            texto = str(fm)
-            print(texto)
-        return texto
+        if fm is not None:
+            json_fm = JSONWriter(path=None, source_model=fm).transform()
+        return json_fm
         if not fm_file:
             # The file is required and this is controlled in the front-end.
             data['file_error'] = 'Please upload a feature model or select one from the examples.'
