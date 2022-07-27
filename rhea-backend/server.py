@@ -28,10 +28,7 @@ app = Flask(__name__,static_url_path=static_url,static_folder=static_folder,temp
 CORS(app)
 
 def read_fm_file(filename: str) -> Optional[FeatureModel]:
-    print("llego al read_fm")
-    print(filename + "  nombre del archivo")
     try:
-        print("entro en try")
         if filename.endswith(".uvl"):
             print("archivo tipo .uvl")
             return UVLReader(filename).transform()
@@ -41,9 +38,6 @@ def read_fm_file(filename: str) -> Optional[FeatureModel]:
         elif filename.endswith('.gfm.json'):
             print("archivo tipo .gfm.json")
             return GlencoeReader(filename).transform()
-        elif filename.endswith('.json'):
-            print("archivo tipo .json")
-            return GlencoeReader(filename).translate()
     except:
         print("no se ha hecho el try")
         pass
@@ -80,11 +74,15 @@ def index():
         texto=request.data.decode()   #transforma el bytes a string
         #fm_file = request.files[texto].name
         fm_file = request.from_values(texto)
-        fm = read_fm_file(fm_file)
-        print(fm , "fm")
+        fm = read_fm_file(texto)
         if fm is not None:
             json_fm = JSONWriter(path=None, source_model=fm).transform()
-        return json_fm
+            #print (json_fm)
+            print(json_fm.__class__)
+            print("devuelvo el json_fm")
+            return json_fm
+        print("devuelvo el texto")
+        return texto
         if not fm_file:
             # The file is required and this is controlled in the front-end.
             data['file_error'] = 'Please upload a feature model or select one from the examples.'
