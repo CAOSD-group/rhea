@@ -1,15 +1,15 @@
-<h1>Titulo</h1>
+<mat-drawer-container class="example-container" autosize>  
+<h1 >Titulo</h1>
 <h1>{{item}}</h1>
-<button (click)="getValues()">vuelve a pedir los valores</button>
-<div></div>
+
 <button (click)="returnValues(itemValue2.value)">buscar un archivo escribiendo el nombre</button>
 <input matInput #itemValue2  type="string" placeholder="nombre">
 <div></div>
-<button (click)="getRama()">getRama</button>
+<button (click)="crearArbol()">crearArbol</button>
 <div></div>
-<button (click)="algoFM_editor()">algoFM_editor</button>
-<div></div>
-<h2>Elegir documento</h2>
+<button (click)="borrarArbol()">borrar</button>
+<h2>Elegir documento </h2>
+
 <button (click)="getArchivo(item)">busca el documento de la lista</button>
 <select [(ngModel)]="item" >
   <option value="0">Selecciona una opción</option>
@@ -29,7 +29,7 @@
             {{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
           </mat-icon>
         </button>
-        {{node}} 
+        {{node.name}} 
       </div>
   
       <div [class.example-tree-invisible]="!treeControl.isExpanded(node)"
@@ -41,17 +41,31 @@
 
 
 
-<fm-editor></fm-editor>
+  <mat-drawer #drawer class="example-sidenav" mode="side">
+    <p>se ajusta el tamaño</p>
+    <p *ngIf="showFiller">Lorem, ipsum dolor sit amet consectetur.</p>
+    <button (click)="showFiller = !showFiller" mat-raised-button>
+      permite ver texto extra 
+    </button>
+  </mat-drawer>
 
-<!--
+  <div class="example-sidenav-content">
+    <button type="button" mat-button (click)="drawer.toggle() ; istoggle = !istoggle" >
+      <mat-icon class="mat-icon-rtl-mirror">
+        {{istoggle? 'chevron_left' : 'chevron_right'}}
+      </mat-icon>menu lateral</button>
+  </div>
+  
+</mat-drawer-container>
 
-<div class="content" role="main">-->
+
+<!--      <div class="content" role="main">-->
   <!-- FM Editor component-->
   <!--<arbol></arbol>-->
   <!--<tree-checklist-example></tree-checklist-example>-->
   <!--<miarbol></miarbol>-->
   <!--<fm-editor></fm-editor>-->
+  <!--<arbol></arbol>-->
   <!--<miarbol></miarbol>
-  
-</div>
--->
+
+          </div>    -->
