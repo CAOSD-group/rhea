@@ -90,6 +90,21 @@ def add_node_to_tree(model: FeatureModel, node: Feature) -> FeatureModel:
                     parent.add_relation(r_opt)
             for rel in relations:
                 parent.get_relations().remove(rel)
+            
+            grandp = parent.get_parent()
+            r_grandp = Relation(grandp, [parent], 1, 1)  # mandatory
+            grandp.add_relation(r_grandp)
+
+            print(f'Grandparent relations BEFORE: {[str(r) for r in grandp.get_relations()]}')
+            print(f'PARENT: {parent.name}, GRANDPARENT: {grandp.name}')
+
+            print(f'Eliminamos: {[str(r) for r in grandp.get_relations() if r.is_optional() and  parent]}')  # TE QUEDASTE AQUÍ
+
+            eliminate_opt = next((r for r in grandp.get_relations() if r.is_optional() and parent in grandp.get_children()), None)
+            grandp.get_relations().remove(eliminate_opt)
+
+            print(f'Grandparent relations AFTER: {[str(r) for r in grandp.get_relations()]}')
+
     model = add_node_to_tree(model, parent)
     return model
 

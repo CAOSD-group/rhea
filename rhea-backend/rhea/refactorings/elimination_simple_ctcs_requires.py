@@ -66,8 +66,8 @@ def add_node_to_tree(model: FeatureModel, node: Feature) -> FeatureModel:
     else:
         parent = node.parent
         if (parent.is_mandatory() or parent.is_optional()) and node.is_optional():
-            r_opt = Relation(parent, [node], 1, 1)  # mandatory
-            parent.add_relation(r_opt)
+            r_mand = Relation(parent, [node], 1, 1)  # mandatory
+            parent.add_relation(r_mand)
         elif parent.is_alternative_group():
             parent.get_relations().remove(parent.get_relations())
             r_mand = Relation(parent, [node], 1, 1)  # mandatory
