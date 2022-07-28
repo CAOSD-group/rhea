@@ -1,6 +1,7 @@
 from asyncio.windows_events import NULL
 import json
 from pickle import TRUE
+import re
 import string
 from subprocess import CREATE_NEW_CONSOLE
 from types import NoneType
@@ -56,7 +57,31 @@ def read_fm_file(filename: str) -> Optional[FeatureModel]:
     return None
 
 
-@app.route('/', methods=['GET', 'POST'])
+@app.route('/saveFM', methods=['GET', 'POST'])
+def save_feature_model():
+    if request.method == 'GET':
+        texto=request.data.decode() 
+        return texto
+
+    if request.method == 'POST':
+        texto=request.data.decode() 
+        #print(request)                      <Request 'http://172.16.51.94:5000/saveFM' [POST]>
+        #print(texto)                         arbol con formato texto
+        fm_file = request.from_values(texto)
+        #print(fm_file)                   # <Request 'http://localhost/namespace%20Pizza%0A%0Afeatures%0A%09Pizza%20%7Babstract%7D%09%0A%09%09mandatory%0A%09%09%09Topping%09%0A%09%09%09%09or%0A%09%09%09%09%09Salami%0A%09%09%09%09%09Ham%0A%09%09%09%09%09Mozzarella%0A%09%09%09Size%09%0A%09%09%09%09alternative%0A%09%09%09%09%09Normal%0A%09%09%09%09%09Big%0A%09%09%09Dough%09%0A%09%09%09%09alternative%0A%09%09%09%09%09Neapolitan%0A%09%09%09%09%09Sicilian%0A%0A%09%09optional%0A%09%09%09CheesyCrust%0A%0Aconstraints%0A%09CheesyCrust%20%3D%3E%20Big' [GET]>
+        print("hola mundo")
+        #fm = read_fm_file(fm_file)
+        fm = read_fm_file(texto)
+        print(fm)                          # None si hago fm_file o texto
+        if fm is not None:
+            json_fm = JSONWriter(path=None, source_model=fm).transform()
+            print("entrego json")
+            return json_fm
+        print("texto")
+        return texto
+
+
+@app.route('/upload', methods=['GET', 'POST'])
 def index():
     texto = None
     #fm = read_fm_file(filepath)
@@ -64,21 +89,17 @@ def index():
     #texto = str(fm)
     data = {}
     if request.method == 'GET':
-        if texto is None:
-            texto = "ser o no ser"
-        if request.data is not None:
-            texto = "ser o no ser"
         return texto
 
-    if request.method == 'POST':
+    if request.method == 'POST': # enviar como texto
         texto=request.data.decode()   #transforma el bytes a string
-        #fm_file = request.files[texto].name
-        fm_file = request.from_values(texto)
-        fm = read_fm_file(texto)
+        #print(texto)                          devuelve Pizzas.uvl         
+        #print(request)                        devuelve <Request 'http://172.16.51.94:5000/upload' [POST]>
+        fm_file = request.from_values(texto)  #devuelve <Request 'http://localhost/Pizzas.uvl' [GET]>
+        fm = read_fm_file(texto)              #devuelve el arbol en tipo relation R0: .. R1: ... CTC0:... CTC1: ...
         if fm is not None:
             json_fm = JSONWriter(path=None, source_model=fm).transform()
-            #print (json_fm)
-            print(json_fm.__class__)
+            #print(json_fm)                    devuelve el arbol con formato "name": algo , "type": otro
             print("devuelvo el json_fm")
             return json_fm
         print("devuelvo el texto")
