@@ -9,6 +9,12 @@
 <button (click)="borrarArbol()">borrar</button>
 <div></div>
 <button (click)="recargarArbol()">recargar el arbol </button>
+<div></div>
+<button (click)="enviarArbol()">envia el arbol al server (de momento no) </button>
+<div></div>
+
+
+
 <h2>Elegir documento </h2>
 
 <button (click)="getArchivo(item)">busca el documento de la lista</button>
@@ -18,6 +24,10 @@
     {{documento}}
   </option>
 </select>
+
+
+<input type="file" (change)="changeListener($event)" #input />
+  <!--(change)="handleFileInput($event.target.files)"-->
 
 
 

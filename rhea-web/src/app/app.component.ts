@@ -1,7 +1,7 @@
 import { Component, Type } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import{ArticulosService} from'./components/miarbol/miservidor';
-import { empty, Observable } from 'rxjs';
+import { empty, from, Observable } from 'rxjs';
 import {MatSelectModule} from '@angular/material/select';
 import {FormControl} from '@angular/forms';
 import { ContentObserver } from '@angular/cdk/observers';
@@ -12,17 +12,19 @@ import { FMEditor } from './components/fm-editor/fm-editor.component';
 import { Arbol } from './components/arbol_pruebas/arbol';
 import {FlatTreeControl} from '@angular/cdk/tree';
 import {MatTreeFlatDataSource, MatTreeFlattener} from '@angular/material/tree';
+import { animate } from '@angular/animations';
 
-
+var aux:any;
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  url="http://172.16.51.94:5000"  //servidor 
+  urlup="http://172.16.51.94:5000/upload"  //servidor cargar datos
+  urlsave="http://172.16.51.94:5000/saveFM" //servidor guardar datos
   documentos:string[]= ['GPL.xml', 'JHipster.uvl', 'MobileMedia.xml', 'Pizzas.uvl', 'TankWar.xml', 'Truck.uvl','WeaFQAs.uvl'];
- 
+  file: File | null = null;
   
   articulos: any;        //atributo donde guardo las respuestas
   item:string ='';       //variable para el titulo 
@@ -45,7 +47,7 @@ ngOnInit() {}
 
 returnValues(texto?:string){
   if(texto==""){texto="te he escuchado"}
-  this.http.post(this.url,texto,{responseType:'text'}).subscribe(resultado => {
+  this.http.post(this.urlup,texto,{responseType:'text'}).subscribe(resultado => {
     this.articulos = resultado;
     this.item=texto||"";
     this.articulos=JSON.parse(this.articulos)
@@ -55,7 +57,8 @@ returnValues(texto?:string){
   })
 }
 getArchivo(texto?:string){
-  this.http.post(this.url,texto,{responseType:'text'}).subscribe(resultado => {
+  this.http.post(this.urlup,texto,{responseType:'text'}).subscribe(resultado => {
+    console.log(resultado)
     this.articulos = resultado;
     this.item=texto||"";
     this.articulos=JSON.parse(this.articulos)
@@ -66,8 +69,6 @@ getArchivo(texto?:string){
 }
 
 hasChild = (_: number, node: any) => !!node.children && node.children.length >= 0;
-
-
 
 crearArbol(){
   this.tree.splice(0,this.tree.length)
@@ -86,6 +87,26 @@ borrarArbol(){
 recargarArbol(){
   this.dataSource.data=this.tree
 }
+enviarArbol(){
+  this.http.post(this.urlsave,aux,{responseType:'text'}).subscribe(resultado => {
+    console.log(resultado)
+    this.articulos = resultado;
+    this.articulos=JSON.parse(resultado.toString())
+    this.json_nombre=this.articulos.features,
+    this.json_const=this.articulos.constraints
+    this.crearArbol()
+  })
+  //console.log(JSON.stringify(aux))     esto funciona aunque no se para que
+}
+changeListener($event): void {this.readThis($event.target);}
 
+readThis(inputValue: any): void {
+    var file: File = inputValue.files[0];
+    var myReader: FileReader = new FileReader();
+    myReader.onloadend = function (e) {
+        aux=myReader.result
+    }
+    myReader.readAsText(file);
+}
 }
  
