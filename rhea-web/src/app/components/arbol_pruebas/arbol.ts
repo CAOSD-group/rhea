@@ -20,14 +20,12 @@ let Nchildren:Array<Arbol>;
 let aux :any=0 // variable auxiliar 
 let arbol :Array<Arbol> =[]
 
-interface FeatureNode {
-    name: string;
-    children?: FeatureNode[];
-}
+
 
 @Component({
     selector: 'arbol',
     templateUrl: './arbol.html',
+    styleUrls: ['./arbol.css'],
 })
 
  export class Arbol  {
@@ -47,6 +45,7 @@ interface FeatureNode {
         this.abstract=Nabstract;
         this.optional=Noptional;
         this.type=Ntype;
+        this.children=[];
     }
 
     CrearArbol(valor: any){             // Crea los objetos pero no los introduce como hijos unos del otro
@@ -63,10 +62,25 @@ interface FeatureNode {
             aux=0
             valor.children.forEach(element => {
                 this.CrearArbol(element);
-                Nchildren.push(element)
             });
         }}
         return arbol
+    }
+    meterHijos(valor: any){  // mete todos los hijos pero solo en el primer valor 
+        if(valor.children!=undefined){  // el primer valor es el primer padre de todos, y mete los hijos en los hijos de este
+        valor.children.forEach(element => {// luego de todas formas el arbol deberia tener un solo elemento arriba
+            arbol.forEach(rama=> {// por lo que se pueden borrar todos los demas porque ya aparecen sus datos en el primero
+                if(rama.name==valor.name){
+                    rama.children.push(element)
+                } 
+            } )
+            if(element.children!=undefined){
+                if(element.children.length>0){
+                    this.meterHijos(element.children)
+                }
+            }
+        });}
+        return arbol[0]
     }
     
     valorHijos(algo:any){
@@ -78,11 +92,8 @@ interface FeatureNode {
             Nchildren=algo.children}
         else {Nchildren=[] }
     }
-    organizarArbol(valor: any,lista:Array<Arbol>){  // recorrer los dos archivos y compararlos para meter los hijos
-        
-        return arbol
-    }
 
-    hasChild = (_: number, node: FeatureNode) => !!node.children && node.children.length >= 0;
+
+    hasChild = (_: number, node: Arbol) => !!node.children && node.children.length >= 0;
     
 }
