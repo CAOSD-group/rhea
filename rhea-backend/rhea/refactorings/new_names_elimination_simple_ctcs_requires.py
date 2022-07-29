@@ -27,114 +27,42 @@ class NewNamesEliminationSimpleConstraintsRequires(FMRefactoring):
         if not ConstraintHelper(instance).is_requires_constraint():
             raise Exception(f'Operator {str(instance)} is not requires.')
 
-        original_model = copy.deepcopy(model)
         print(f'MODELO: {model}')
+        model_plus = copy.deepcopy(model)
+        model_less = copy.deepcopy(model)
 
-        right_feature_name = instance.ast.root.right.data
-        right_feature = model.get_feature_by_name(right_feature_name)
+        right_feature_name_ctc = instance.ast.root.right.data
+        right_feature_ctc_plus = model_plus.get_feature_by_name(right_feature_name_ctc)
+        right_feature_ctc_less = model_less.get_feature_by_name(right_feature_name_ctc)
 
-        left_feature_name = instance.ast.root.left.data
-
-        right_original_feature = original_model.get_feature_by_name(right_feature_name)
-        left_original_feature = original_model.get_feature_by_name(left_feature_name)
-
+        left_feature_name_ctc = instance.ast.root.left.data
+        left_feature_ctc_less = model_less.get_feature_by_name(left_feature_name_ctc)
         
-        tree_plus = add_node_to_tree(model, right_feature)
-        print(f'T(+{right_feature}): {tree_plus}')
-        eliminate1 = eliminate_node_from_tree(original_model, left_original_feature)
-        print(f'T(-{left_original_feature}): {eliminate1}')
-        tree_eliminate = eliminate_node_from_tree(eliminate1, right_original_feature)
-        print(f'T(-{right_original_feature}): {tree_eliminate}')
+        model_plus = utils.add_node_to_tree(model_plus, right_feature_ctc_plus)
+        model_less = utils.eliminate_node_from_tree(model_less, left_feature_ctc_less)
+        model_less = utils.eliminate_node_from_tree(model_less, right_feature_ctc_less)
 
-        if tree_plus!=None and tree_eliminate!=None:
+
+        # Construct T(+B) and T(-A-B).
+        if model_plus is not None and model_less is not None:
+            # If both trees are not equal to NIL, then the result consists of a new root, which
+            # is an Xor feature, with subfeatures T(+B) and T(-A-B).
             new_root = Feature('root', None, None, True)
-            rel = Relation(new_root, [tree_plus.root, tree_eliminate.root], 1, 1)  #XOR
+            rel = Relation(new_root, [model_plus.root, model_less.root], 1, 1)  #XOR
             new_root.add_relation(rel)
             model.root = new_root
-        elif tree_eliminate==None:
-            model = tree_plus
-        elif tree_plus==None:
-            model = tree_eliminate
+        elif model_less is None:
+            # If T(-A-B) is equal to NIL, then the result is T(+B).
+            model = model_plus
+        elif model_plus is None:
+            # If T(+B) is equal to NIL, then the result is T(-A-B). 
+            model = model_less
         
         model.ctcs.remove(instance)
 
-        # Changing names
-        for feature in model.get_features():
-            original_feature = original_model.get_feature_by_name(feature.name)
+        # Changing names to avoid duplicates
+        for feature in model_less.get_features():
+            feature_reference = model.get_feature_by_name(feature.name)
             feature.name = utils.get_new_feature_name(model, feature.name)
-            feature.reference = original_feature
-
+            feature.reference = feature_reference
         return model
-
-def add_node_to_tree(model: FeatureModel, node: Feature) -> FeatureModel:
-    if node not in model.get_features():
-        return None
-    elif model.root==node:
-        return model
-    else:
-        parent = node.parent
-        if (parent.is_mandatory() or parent.is_optional()) and node.is_optional():
-            r_opt = Relation(parent, [node], 1, 1)  # mandatory
-            parent.add_relation(r_opt)
-        elif parent.is_alternative_group():
-            parent.get_relations().remove(parent.get_relations())
-            r_mand = Relation(parent, [node], 1, 1)  # mandatory
-            parent.add_relation(r_mand)
-        elif parent.is_or_group():
-            relations = [r for r in parent.get_relations()]
-            r_mand = Relation(parent, [node], 1, 1)  # mandatory
-            parent.add_relation(r_mand)
-            for child in parent.get_children():
-                if child!=node:
-                    r_opt = Relation(parent, [child], 0, 1)  # optional
-                    parent.add_relation(r_opt)
-            for rel in relations:
-                parent.get_relations().remove(rel)
-            
-            grandp = parent.get_parent()
-            r_grandp = Relation(grandp, [parent], 1, 1)  # mandatory
-            grandp.add_relation(r_grandp)
-
-            print(f'Grandparent relations BEFORE: {[str(r) for r in grandp.get_relations()]}')
-            print(f'PARENT: {parent.name}, GRANDPARENT: {grandp.name}')
-
-            print(f'Eliminamos: {[str(r) for r in grandp.get_relations() if r.is_optional() and  parent]}')  # TE QUEDASTE AQUÍ
-
-            eliminate_opt = next((r for r in grandp.get_relations() if r.is_optional() and parent in grandp.get_children()), None)
-            grandp.get_relations().remove(eliminate_opt)
-
-            print(f'Grandparent relations AFTER: {[str(r) for r in grandp.get_relations()]}')
-
-    model = add_node_to_tree(model, parent)
-    return model
-
-def eliminate_node_from_tree(model: FeatureModel, node: Feature) -> FeatureModel:
-    if node not in model.get_features():
-        return model
-    elif model.root==node:
-        return None
-    else:
-        parent = node.parent
-        if (parent.is_mandatory() or parent.is_optional()) and node.is_mandatory():
-            model = eliminate_node_from_tree(model, parent)
-        elif (parent.is_mandatory() or parent.is_optional()) and node.is_optional():
-            r_opt = next((r for r in parent.get_relations() if r.is_optional() and node in parent.get_children()), None)
-            parent.get_relations().remove(r_opt)
-        elif parent.is_or_group() or parent.is_alternative_group():
-
-            rel = next((r for r in parent.get_relations()), None)
-
-            r_group = []
-            for child in rel.children:
-                if child != node:
-                    r_group.append(child)
-            r_group_new = Relation(parent, r_group, rel.card_min, 1)
-            parent.add_relation(r_group_new)
-
-            parent.get_relations().remove(rel)
-
-            if r_group_new.is_optional():
-                r_group_new.card_min = 1
-            
-    
-    return model

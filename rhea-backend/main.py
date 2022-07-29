@@ -16,8 +16,6 @@ from rhea.refactorings.cardinality_group_refactoring import CardinalityGroupRefa
 from rhea.refactorings.multiple_group_decomposition_refactoring import MultipleGroupDecompositionRefactoring
 from rhea.refactorings.xor_mandatory_refactoring import XorMandatoryRefactoring
 from rhea.refactorings.or_mandatory_refactoring import OrMandatoryRefactoring
-from rhea.refactorings.elimination_simple_ctcs_requires import EliminationSimpleConstraintsRequires
-from rhea.refactorings.elimination_simple_ctcs_excludes import EliminationSimpleConstraintsExcludes
 from rhea.refactorings.new_names_elimination_simple_ctcs_requires import NewNamesEliminationSimpleConstraintsRequires
 from rhea.refactorings.new_names_elimination_simple_ctcs_excludes import NewNamesEliminationSimpleConstraintsExcludes
 
@@ -25,8 +23,8 @@ from rhea.flamapy.metamodels.fm_metamodel.transformations import GlencoeReader
 
 
 ##################################################################################################
-REFACTORING = NewNamesEliminationSimpleConstraintsRequires
-MODEL_PATH = 'tests/models/eliminate_simple_ctcs_requires/input_models/elimination_simple_ctcs_requires_01.gfm.json'
+REFACTORING = NewNamesEliminationSimpleConstraintsExcludes
+MODEL_PATH = 'tests/models/eliminate_simple_ctcs_excludes/input_models/T2.uvl'
 OUTPUT_PATH = 'output.uvl'
 OUTPUT_CONSOLE = 'output.txt'
 ##################################################################################################
@@ -35,6 +33,8 @@ OUTPUT_CONSOLE = 'output.txt'
 
 def apply_refactoring(fm: FeatureModel, refactoring: FMRefactoring) -> FeatureModel:
     instances = refactoring.get_instances(fm)
+    print(f'Constraints: {[str(c) for c in fm.get_constraints()]}')
+    print(f'Instances: {[str(i) for i in instances]}')
     for i in instances:
         fm = refactoring.transform(fm, i)
     return fm
@@ -81,8 +81,12 @@ def print_fm(fm: FeatureModel, expected_results: dict[str, Any] = None) -> dict[
         expected_results['n_products'] = n_products
         return expected_results
     else:
-        assert products == expected_results['products']
         assert n_products == expected_results['n_products']
+        for p in products:
+            assert p in expected_results['products']
+        for p in expected_results['products']:
+            assert p in products
+        # assert products == expected_results['products']
         return None
     
 
@@ -97,7 +101,7 @@ def main():
     elif MODEL_PATH.endswith('.uvl'):
         fm = UVLReader(MODEL_PATH).transform()
     elif MODEL_PATH.endswith('.xml'):
-        fm = FeatureIDEReader(MODEL_PATH)
+        fm = FeatureIDEReader(MODEL_PATH).transform()
     else:
         raise Exception(f'Error, invalid model {MODEL_PATH}.')
 

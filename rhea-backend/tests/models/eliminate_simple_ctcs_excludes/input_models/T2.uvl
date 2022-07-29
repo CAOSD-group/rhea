@@ -1,14 +1,16 @@
+namespace A
+
 features
-	A
+	A {abstract}	
 		optional
-			B
+			B	
 				alternative
 					D
 					E
-		optional
-			C
+			C	
 				or
 					F
 					G
+
 constraints
-	D => F
+	D => !F

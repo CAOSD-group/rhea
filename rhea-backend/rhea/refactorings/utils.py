@@ -1,4 +1,5 @@
-from famapy.metamodels.fm_metamodel.models import FeatureModel
+from msilib.schema import Feature
+from famapy.metamodels.fm_metamodel.models import FeatureModel, Feature, Relation
 
 from typing import List
 
@@ -17,3 +18,92 @@ def is_there_mandatory(relations: List) -> bool:
         if rel.is_mandatory():
             mandatory = True
     return mandatory
+
+def is_there_node(parent: Feature, child_node: Feature) -> Feature:
+    result = ''
+    for child in parent.get_children():
+        if child==child_node:
+            result = child
+    return result
+
+def add_node_to_tree(model: FeatureModel, node: Feature) -> FeatureModel:
+    if node not in model.get_features(): 
+        #  If model does not contain F (node), the result is None
+        return None
+    elif model.root==node:
+        # If F (node) is the root of model, the result is model. 
+        return model
+    else:
+        parent = node.parent  # Let the parent feature of F (node) be P (parent).
+        if (parent.is_mandatory() or parent.is_optional()) and node.is_optional():
+            # If P is a MandOpt feature and F is an optional subfeature, make F a mandatory subfeature of P
+            r_opt = Relation(parent, [node], 1, 1)  # mandatory
+            parent.add_relation(r_opt)
+        elif parent.is_alternative_group():
+            # If P is an Xor feature, make P a MandOpt feature which has F as single
+            # mandatory subfeature and has no optional subfeatures. All other
+            # subfeatures of P are removed from the tree.
+            parent.get_relations().remove(parent.get_relations())
+            r_mand = Relation(parent, [node], 1, 1)  # mandatory
+            parent.add_relation(r_mand)
+        elif parent.is_or_group():
+            # If P is an Or feature, make P a MandOpt feature which has F as single
+            # mandatory subfeature, and has all other subfeatures of P as optional subfeatures. 
+            relations = [r for r in parent.get_relations()]
+            r_mand = Relation(parent, [node], 1, 1)  # mandatory
+            parent.add_relation(r_mand)
+            for child in parent.get_children():
+                if child!=node:
+                    r_opt = Relation(parent, [child], 0, 1)  # optional
+                    parent.add_relation(r_opt)
+            for rel in relations:
+                parent.get_relations().remove(rel)
+
+            # Convert P to mandatory.
+            grandp = parent.get_parent()
+            if grandp is not None:
+                rel_mand = next((r for r in grandp.relations if parent in r.children), None)
+                rel_mand.card_min = 1
+
+    # GOTO step 2 with P instead of F.
+    model = add_node_to_tree(model, parent)
+    return model
+
+def eliminate_node_from_tree(model: FeatureModel, node: Feature) -> FeatureModel:
+    if node not in model.get_features():
+        # If model does not contain node, the result is model.
+        return model
+    elif model.root==node:
+        # If F is the root of T, the result is NIL.
+        return None
+    else:
+        parent = node.parent  # Let the parent feature of F be P.
+        if (parent.is_mandatory() or parent.is_optional()) and node.is_mandatory():
+            # If P is a MandOpt feature and F is a mandatory subfeature of P, GOTO
+            # step 2 with P instead of F. 
+            model = eliminate_node_from_tree(model, parent)
+        elif (parent.is_mandatory() or parent.is_optional()) and node.is_optional():
+            # If P is a MandOpt feature and F is an optional subfeature of P, delete F. 
+            r_opt = next((r for r in parent.get_relations() if r.is_optional() and node in parent.get_children()), None)
+            parent.get_relations().remove(r_opt)
+        elif parent.is_or_group() or parent.is_alternative_group():
+            # If P is an Xor feature or an Or feature, delete F; if P has only one
+            # remaining subfeature, make P a MandOpt feature and
+            # its subfeature a mandatory subfeature. 
+
+            rel = next((r for r in parent.get_relations()), None)
+
+            r_group = []
+            for child in rel.children:
+                if child != node:
+                    r_group.append(child)
+            r_group_new = Relation(parent, r_group, rel.card_min, 1)
+            parent.add_relation(r_group_new)
+
+            parent.get_relations().remove(rel)
+
+            if r_group_new.is_optional():
+                r_group_new.card_min = 1
+            
+    
+    return model
