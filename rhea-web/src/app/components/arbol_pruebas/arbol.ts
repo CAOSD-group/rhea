@@ -18,8 +18,9 @@ let Nchildren:Array<Arbol>;
 
 
 let aux :any=0 // variable auxiliar 
+let aux2:any
 let arbol :Array<Arbol> =[]
-
+let lista:Array<Arbol> =[]
 
 
 @Component({
@@ -64,9 +65,10 @@ let arbol :Array<Arbol> =[]
                 this.CrearArbol(element);
             });
         }}
+        console.log(arbol)
         return arbol
     }
-    meterHijos(valor: any){  // mete todos los hijos pero solo en el primer valor 
+    meterHijos(valor: any ,padre?:string, hijo?:string){  // mete todos los hijos pero solo en el primer valor 
         if(valor.children!=undefined){  // el primer valor es el primer padre de todos, y mete los hijos en los hijos de este
         valor.children.forEach(element => {// luego de todas formas el arbol deberia tener un solo elemento arriba
             arbol.forEach(rama=> {// por lo que se pueden borrar todos los demas porque ya aparecen sus datos en el primero
@@ -80,7 +82,11 @@ let arbol :Array<Arbol> =[]
                 }
             }
         });}
+        this.crearLista()
         return arbol[0]
+    }
+    crearLista(){
+
     }
     
     valorHijos(algo:any){
@@ -92,7 +98,20 @@ let arbol :Array<Arbol> =[]
             Nchildren=algo.children}
         else {Nchildren=[] }
     }
-
+    crearHijo(nombre:string,padre:string){
+        aux=new Arbol()
+        aux.name=nombre;
+        aux.abstract=false
+        aux.optional=false;
+        aux.type=this.type;
+        aux.children=[];
+        aux2=true
+        
+        this.children.push(aux)
+        console.log(this)
+        console.log(arbol)
+        return arbol
+    }
 
     hasChild = (_: number, node: Arbol) => !!node.children && node.children.length >= 0;
     

@@ -1,5 +1,5 @@
 
-<mat-drawer-container class="example-container" autosize>  
+
 <h1 >Titulo</h1>
 <h1>{{item}}</h1>
 
@@ -11,6 +11,8 @@
 <button (click)="recargarArbol()">recargar el arbol </button>
 <div></div>
 <button (click)="enviarArbol()">envia el arbol al server (de momento no) </button>
+<div></div>
+<button (click)="buscarArbol()">busca el elemento en el arbol </button>
 <div></div>
 
 
@@ -40,16 +42,32 @@
             {{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
           </mat-icon>
         </button>
-        {{node.name}} 
+        {{node.name}} {{node.type}}
+     
+
+        <mat-checkbox  [(ngModel)]="node.abstract" margin="12px">abstract</mat-checkbox>
+        <mat-checkbox  [(ngModel)]="node.optional" margin="12px ">optional  </mat-checkbox>
+        <button mat-menu-item [matMenuTriggerFor]="menu"  (click)= "seleccionar(node.name)">Opciones  <mat-icon>dialpad</mat-icon> </button> 
       </div>
       <div [class.example-tree-invisible]="!treeControl.isExpanded(node)"
           role="group">
-        <ng-container matTreeNodeOutlet></ng-container>
+        <ng-container matTreeNodeOutlet></ng-container> 
+      
     </div>
+
+
+    <mat-menu #menu="matMenu">
+      <button (click)="crearValor(itemValue2.value,node.name)">crea nueva raiz</button>
+      <!--<button mat-menu-item [matMenuTriggerFor]="segundomenu">funciones de creacion</button>
+      <button mat-menu-item [matMenuTriggerFor]="tercermenu">funciones de visualizacion</button>
+      <button mat-menu-item [matMenuTriggerFor]="cuartomenu">funciones de actualizacion de valores</button>-->
+      </mat-menu>
+    
+
   </mat-nested-tree-node>
 </mat-tree>
 
-
+<mat-drawer-container class="example-container" autosize>  
 
   <mat-drawer #drawer class="example-sidenav" mode="side">
     <p>se ajusta el tamaño</p>
@@ -67,6 +85,10 @@
   </div>
   
 </mat-drawer-container>
+
+
+
+
 
 
 <!--      <div class="content" role="main">-->

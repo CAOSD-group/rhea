@@ -15,6 +15,9 @@ import {MatTreeFlatDataSource, MatTreeFlattener} from '@angular/material/tree';
 import { animate } from '@angular/animations';
 
 var aux:any;
+var aux2:string;
+var aux3: any;
+let baux=false;
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -32,7 +35,7 @@ export class AppComponent {
   istoggle=false;       // controla si el menu esta abierto o no
   title:string ='rhea-web' // evita un error en app.component.spec.ts
 
-
+  declare actual:Arbol      //valor actual del arbol
   tree:Array<Arbol> =[new Arbol()]  // el arbol de datos 
   declare json_nombre:any;    //guardo los valores de las features
   declare json_const:any;     //guardo los valores de las constraints
@@ -78,6 +81,7 @@ crearArbol(){
   this.tree.splice(1,this.tree.length)
   this.dataSource.data=this.tree
   console.log(this.tree)
+  this.item=this.tree[0].name
 }
 
 borrarArbol(){
@@ -88,13 +92,13 @@ recargarArbol(){
   this.dataSource.data=this.tree
 }
 enviarArbol(){
-  this.http.post(this.urlsave,aux,{responseType:'text'}).subscribe(resultado => {
-    console.log(resultado)
+  this.http.post(this.urlsave,aux3,{responseType:'text'}).subscribe(resultado => {
     this.articulos = resultado;
-    this.articulos=JSON.parse(resultado.toString())
+    this.item=aux3.name||"";
+    //this.articulos=JSON.parse(this.articulos)
     this.json_nombre=this.articulos.features,
     this.json_const=this.articulos.constraints
-    this.crearArbol()
+    //this.crearArbol()
   })
   //console.log(JSON.stringify(aux))     esto funciona aunque no se para que
 }
@@ -105,8 +109,44 @@ readThis(inputValue: any): void {
     var myReader: FileReader = new FileReader();
     myReader.onloadend = function (e) {
         aux=myReader.result
+        aux2=myReader.result?.toString()||""
+        aux3=file
     }
     myReader.readAsText(file);
+  }
+
+
+seleccionar(id:string,lista?:Array<any>){  // este devuelve un objeto tipo Object
+  if(lista==null){lista=this.tree}
+  if(lista.filter(x=> x.name==id)[0]==undefined){
+    lista.forEach(element => {
+      if(element.children){
+      if(element.children.length>0){
+        this.seleccionar(id,element.children)
+      }}
+    });
+  }else{
+    this.actual=lista.filter(x=> x.name==id)[0]
+    this.buscarArbol()
+    this.what(this.item)              // evita sobreescribir el nombre del primer valor 
+  }
+  }
+
+  buscarArbol(lista?:Array<any>){     // este busca el Object y devuelve el tipo Arbol , no se si sera necesario pero seguro evita algun problema
+    if(lista==null){lista=this.tree}
+    baux=false;
+    while(!baux){
+      lista.forEach(element => {
+        if(element.name=this.actual.name){
+          baux=true
+          this.actual=element
+          console.log(this.actual)}
+        else{if(element.children){if(element.children.length>0){this.buscarArbol(element.children)}}}
+      })}}
+what(id:string){this.tree[0].name=id}
+
+crearValor(nombre:string,padre:string){                // mete el elemento en el primer elemento, no en el que deberia
+  this.actual.crearHijo(nombre,padre)
+
 }
 }
- 
