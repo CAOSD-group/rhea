@@ -174,6 +174,7 @@ export class Rama implements Rama_controlada  {
         console.log(seleccionado+ " el actual es")
         console.log(seleccionado2+" el anterior era")
         this.dataSource.data=arbol;
+        console.log(this.dataSource)
         
     }
 

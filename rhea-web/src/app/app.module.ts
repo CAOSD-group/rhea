@@ -1,8 +1,7 @@
 import {AppComponent } from './app.component';
 import {FMEditor } from './components/fm-editor/fm-editor.component';
-import {TreeChecklistExample} from './components/tree/tree-checklist-example';
 import {Rama} from './components/miarbol/miarbol';
-import {arbol} from './components/arbol_pruebas/arbol';
+//import {arbol} from './components/arbol_pruebas/arbol';
 
 import {MatTreeModule} from '@angular/material/tree';
 import {MatIconModule} from '@angular/material/icon';
@@ -22,6 +21,7 @@ import {BrowserModule } from '@angular/platform-browser';
 import {FormsModule,ReactiveFormsModule } from '@angular/forms';
 import {MatSelectModule} from '@angular/material/select';
 import {MatSidenavModule} from '@angular/material/sidenav';
+import { Arbol } from './components/arbol_pruebas/arbol';
 
 
 
@@ -30,8 +30,7 @@ import {MatSidenavModule} from '@angular/material/sidenav';
   declarations: [
     AppComponent,
     FMEditor,
-    arbol,
-    TreeChecklistExample,
+    Arbol,
     Rama,    
   ],
 
