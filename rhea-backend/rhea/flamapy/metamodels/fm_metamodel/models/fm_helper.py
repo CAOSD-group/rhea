@@ -1,13 +1,38 @@
-from famapy.metamodels.fm_metamodel.models import FeatureModel, Constraint
+from typing import Any
 
-from famapy.core.models import ASTOperation, VariabilityModel, VariabilityElement
+from famapy.core.models import ASTOperation
+from famapy.metamodels.fm_metamodel.models import FeatureModel, Feature, Constraint
+
+from rhea.flamapy.metamodels.fm_metamodel.models import Attribute
+from rhea.flamapy.metamodels.fm_metamodel.models import fm_utils
 
 
-class FMHelper():
+class FM(FeatureModel):
 
     def __init__(self, feature_model: FeatureModel) -> None:
-        self._fm = feature_model
-    
+        self._fm: FeatureModel = feature_model
+        self._attributes: dict[Feature, list[Attribute]] = {}
+
+    @property
+    def attributes(self) -> dict[Feature, list[Attribute]]:
+        return self._attributes
+
+    @attributes.setter
+    def attributes(self, features_attributes: dict[str, dict[str, Any]]):
+        """features_attributes is a dictionary of 'feature name' -> 'attributes',
+        where attributes is another dictionary of 'attribute name' -> 'value'."""
+        self._attributes = {}
+        for feature_name in features_attributes.keys():
+            feature = self._fm.get_feature_by_name(feature_name)
+            if feature is None:
+                raise Exception(f'Feature {feature_name} does not exist in feature model.')
+            attributes = []
+            for attr in features_attributes[feature_name]:
+                type, value = fm_utils.parse_type_value(features_attributes[attr])
+                attribute = Attribute(attr, type, value)
+                attributes.append(attribute)
+            self._attributes[feature] = attributes
+
     def get_constraints(self) -> list[Constraint]:
         return self._fm.get_constraints()
 

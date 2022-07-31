@@ -66,12 +66,13 @@ class Annotation:
 
 class Attribute:
 
-    def __init__(self, name: str, type: Type):
+    def __init__(self, name: str, type: Type, value: Any):
         self.name = name
         self.type = type
+        self.value = value
 
     def __str__(self) -> str:
-        return f'{{{self.name}: {self.type}}}' 
+        return f'{{{self.name}: {self.type} = {self.value}}}' 
 
 
 class ExtendedFeature(Feature):
@@ -99,18 +100,18 @@ class ExtendedFeature(Feature):
         self.attributes = [] if attributes is None else attributes
         self.annotations = [] if annotations is None else annotations
     
-    @staticmethod
-    def extend_feature(feature: Feature, 
-                       type: Optional[Type] = None,
-                       attributes: Optional[list[Attribute]] = None,
-                       annotations: Optional[list[Annotation]] = None) -> 'ExtendedFeature':
-        return ExtendedFeature(feature.name, 
-                               feature.relations, 
-                               feature.parent, 
-                               feature.is_abstract,
-                               type,
-                               attributes,
-                               annotations)
+    # @staticmethod
+    # def extend_feature(feature: Feature, 
+    #                    type: Optional[Type] = None,
+    #                    attributes: Optional[list[Attribute]] = None,
+    #                    annotations: Optional[list[Annotation]] = None) -> 'ExtendedFeature':
+    #     return ExtendedFeature(feature.name, 
+    #                            feature.relations, 
+    #                            feature.parent, 
+    #                            feature.is_abstract,
+    #                            type,
+    #                            attributes,
+    #                            annotations)
 
 
 class ExtendedFeatureModel(FeatureModel):
