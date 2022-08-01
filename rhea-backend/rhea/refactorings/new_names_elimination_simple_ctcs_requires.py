@@ -5,7 +5,7 @@ from typing import Any
 from famapy.core.models.ast import AST, ASTOperation, Node
 from famapy.metamodels.fm_metamodel.models import FeatureModel, Feature, Relation, Constraint
 
-from rhea.flamapy.metamodels.fm_metamodel.models.fm_helper import FMHelper, ConstraintHelper
+from rhea.flamapy.metamodels.fm_metamodel.models import FM, ConstraintHelper
 from rhea.refactorings import FMRefactoring
 from rhea.refactorings import utils
 

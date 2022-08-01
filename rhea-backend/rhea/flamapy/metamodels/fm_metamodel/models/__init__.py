@@ -7,6 +7,8 @@ from .extended_feature_model import (
     Range,
     Domain
 )
+from .fm_helper import FM, ConstraintHelper
+
 
 __all__ = ['ExtendedFeatureModel',
            'ExtendedFeature',
@@ -14,4 +16,6 @@ __all__ = ['ExtendedFeatureModel',
            'Annotation',
            'Attribute',
            'Range',
-           'Domain']
+           'Domain',
+           'FM',
+           'ConstraintHelper']
