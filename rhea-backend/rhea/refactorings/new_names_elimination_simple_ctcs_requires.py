@@ -39,8 +39,11 @@ class NewNamesEliminationSimpleConstraintsRequires(FMRefactoring):
         left_feature_ctc_less = model_less.get_feature_by_name(left_feature_name_ctc)
         
         model_plus = utils.add_node_to_tree(model_plus, right_feature_ctc_plus)
+        print(f'T(+{right_feature_ctc_plus}): {model_plus}')
         model_less = utils.eliminate_node_from_tree(model_less, left_feature_ctc_less)
+        print(f'T(-{left_feature_ctc_less}): {model_less}')
         model_less = utils.eliminate_node_from_tree(model_less, right_feature_ctc_less)
+        print(f'T(-{right_feature_ctc_less}): {model_less}')
 
 
         # Construct T(+B) and T(-A-B).
@@ -62,7 +65,8 @@ class NewNamesEliminationSimpleConstraintsRequires(FMRefactoring):
 
         # Changing names to avoid duplicates
         for feature in model_less.get_features():
-            feature_reference = model.get_feature_by_name(feature.name)
-            feature.name = utils.get_new_feature_name(model, feature.name)
-            feature.reference = feature_reference
+            if feature in model_plus.get_features():
+                feature_reference = model.get_feature_by_name(feature.name)
+                feature.name = utils.get_new_feature_name(model, feature.name)
+                feature.reference = feature_reference
         return model

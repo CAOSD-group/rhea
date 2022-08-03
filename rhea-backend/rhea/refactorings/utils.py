@@ -5,7 +5,7 @@ from typing import List
 
 
 def get_new_feature_name(fm: FeatureModel, name: str) -> str:
-    count = 0
+    count = 1
     new_name = f'{name}'
     while fm.get_feature_by_name(new_name) is not None:
         new_name = f'{name}{count}'
@@ -43,7 +43,8 @@ def add_node_to_tree(model: FeatureModel, node: Feature) -> FeatureModel:
             # If P is an Xor feature, make P a MandOpt feature which has F as single
             # mandatory subfeature and has no optional subfeatures. All other
             # subfeatures of P are removed from the tree.
-            parent.get_relations().remove(parent.get_relations())
+            rel = next((r for r in parent.get_relations()), None)
+            parent.get_relations().remove(rel)
             r_mand = Relation(parent, [node], 1, 1)  # mandatory
             parent.add_relation(r_mand)
         elif parent.is_or_group():
@@ -78,12 +79,12 @@ def eliminate_node_from_tree(model: FeatureModel, node: Feature) -> FeatureModel
         return None
     else:
         parent = node.parent  # Let the parent feature of F be P.
-        if (parent.is_mandatory() or parent.is_optional()) and node.is_mandatory():
+        if (parent.is_mandatory() or parent.is_optional() or parent.is_root()) and node.is_mandatory():  # CASO DE QUE EL PADRE SEA LA ROOT
             # If P is a MandOpt feature and F is a mandatory subfeature of P, GOTO
             # step 2 with P instead of F. 
             model = eliminate_node_from_tree(model, parent)
-        elif (parent.is_mandatory() or parent.is_optional()) and node.is_optional():
-            # If P is a MandOpt feature and F is an optional subfeature of P, delete F. 
+        elif (parent.is_mandatory() or parent.is_optional() or parent.is_root()) and node.is_optional():  # CASO DE QUE EL PADRE SEA LA ROOT
+            # If P is a MandOpt feature and F is an optional subfeature of P, delete F.
             r_opt = next((r for r in parent.get_relations() if r.is_optional() and node in parent.get_children()), None)
             parent.get_relations().remove(r_opt)
         elif parent.is_or_group() or parent.is_alternative_group():
@@ -97,7 +98,7 @@ def eliminate_node_from_tree(model: FeatureModel, node: Feature) -> FeatureModel
             for child in rel.children:
                 if child != node:
                     r_group.append(child)
-            r_group_new = Relation(parent, r_group, rel.card_min, 1)
+            r_group_new = Relation(parent, r_group, rel.card_min, len(r_group))
             parent.add_relation(r_group_new)
 
             parent.get_relations().remove(rel)
@@ -105,5 +106,4 @@ def eliminate_node_from_tree(model: FeatureModel, node: Feature) -> FeatureModel
             if r_group_new.is_optional():
                 r_group_new.card_min = 1
             
-    
     return model

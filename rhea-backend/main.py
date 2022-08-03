@@ -23,8 +23,8 @@ from rhea.flamapy.metamodels.fm_metamodel.transformations import GlencoeReader
 
 
 ##################################################################################################
-REFACTORING = NewNamesEliminationSimpleConstraintsExcludes
-MODEL_PATH = 'tests/models/eliminate_simple_ctcs_excludes/input_models/T2.uvl'
+REFACTORING = NewNamesEliminationSimpleConstraintsRequires
+MODEL_PATH = 'tests/models/general_models/Pizzas.uvl'
 OUTPUT_PATH = 'output.uvl'
 OUTPUT_CONSOLE = 'output.txt'
 ##################################################################################################
