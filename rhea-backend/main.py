@@ -24,7 +24,7 @@ from rhea.flamapy.metamodels.fm_metamodel.transformations import GlencoeReader
 
 ##################################################################################################
 REFACTORING = NewNamesEliminationSimpleConstraintsRequires
-MODEL_PATH = 'tests/models/general_models/Pizzas.uvl'
+MODEL_PATH = 'tests/models/general_models/PIzzas_mult_ctcs.uvl'
 OUTPUT_PATH = 'output.uvl'
 OUTPUT_CONSOLE = 'output.txt'
 ##################################################################################################
