@@ -1,8 +1,18 @@
 features
 	root1
 		alternative
-			root{extended__}
+			root
 				mandatory
+					C
+						mandatory
+							G
+								mandatory
+									H
+										mandatory
+											J
+						optional
+							F
+				optional
 					A
 						optional
 							D
@@ -10,30 +20,18 @@ features
 					B
 						optional
 							E
-				optional
-					C
-						optional
-							F
-								optional
-									H
-										optional
-											I
-												optional
-													J
-						optional
-							G
-			root2{extended__}
-				optional
+			root2
+				or
 					B1
 						optional
 							E1
-				optional
 					C1
-						optional
+						or
 							F1
+							G1
 								optional
 									H1
-										optional
-											I1
-						optional
-							G1
+										mandatory
+											I
+												optional
+													K

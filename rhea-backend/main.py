@@ -24,7 +24,7 @@ from rhea.flamapy.metamodels.fm_metamodel.transformations import GlencoeReader
 
 ##################################################################################################
 REFACTORING = NewNamesEliminationSimpleConstraintsRequires
-MODEL_PATH = 'tests/models/general_models/PIzzas_mult_ctcs.uvl'
+MODEL_PATH = 'tests/models/general_models/prueba_ctcs.uvl'
 OUTPUT_PATH = 'output.uvl'
 OUTPUT_CONSOLE = 'output.txt'
 ##################################################################################################
@@ -33,8 +33,8 @@ OUTPUT_CONSOLE = 'output.txt'
 
 def apply_refactoring(fm: FeatureModel, refactoring: FMRefactoring) -> FeatureModel:
     instances = refactoring.get_instances(fm)
-    print(f'Constraints: {[str(c) for c in fm.get_constraints()]}')
-    print(f'Instances: {[str(i) for i in instances]}')
+    # print(f'Constraints: {[str(c) for c in fm.get_constraints()]}')
+    # print(f'Instances: {[str(i) for i in instances]}')
     for i in instances:
         fm = refactoring.transform(fm, i)
     return fm

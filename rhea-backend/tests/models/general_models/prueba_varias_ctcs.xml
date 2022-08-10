@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<featureModel>
+	<properties>
+		<graphics key="autolayoutconstraints" value="false"/>
+		<graphics key="legendautolayout" value="true"/>
+		<graphics key="showshortnames" value="false"/>
+		<graphics key="layout" value="horizontal"/>
+		<graphics key="showcollapsedconstraints" value="true"/>
+		<graphics key="legendhidden" value="false"/>
+		<graphics key="layoutalgorithm" value="1"/>
+	</properties>
+	<struct>
+		<and abstract="true" mandatory="true" name="A">
+			<or name="B">
+				<feature name="D"/>
+				<feature name="E"/>
+			</or>
+			<and name="C">
+				<feature name="F"/>
+			</and>
+		</and>
+	</struct>
+	<constraints>
+		<rule>
+			<imp>
+				<var>D</var>
+				<var>F</var>
+			</imp>
+		</rule>
+		<rule>
+			<imp>
+				<var>F</var>
+				<var>D</var>
+			</imp>
+		</rule>
+		<rule>
+			<imp>
+				<var>D</var>
+				<var>C</var>
+			</imp>
+		</rule>
+		<rule>
+			<imp>
+				<var>C</var>
+				<var>F</var>
+			</imp>
+		</rule>
+		<rule>
+			<imp>
+				<var>B</var>
+				<var>F</var>
+			</imp>
+		</rule>
+	</constraints>
+</featureModel>
