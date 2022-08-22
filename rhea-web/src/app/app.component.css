@@ -17,7 +17,7 @@
   background-repeat: no-repeat;
   background-position-x:740px,860px,1020px;
   background-position-y:  10px ;
-  background-attachment: sticky;
+  background-attachment: fixed;
   z-index:999;
   }
 
@@ -221,7 +221,7 @@
    }
    .titulo {
     margin-top: -8px;
-    position: fixed;
+    position: sticky;
     z-index: 2;
    }
    .example-sidenav {
