@@ -122,25 +122,28 @@ enviarArbol(){
 }
 changeListener($event): void {this.readThis($event.target);}
 
-readThis(inputValue: any): void { // de momento solo sirve con archivos .json
+readThis(inputValue: any): void { // de momento solo sirve con archivos .json o escritos similares 
  
     var file: File = inputValue.files[0];
     var myReader: FileReader = new FileReader();
+    myReader.readAsText(file);
     myReader.onloadend = function (e) {
         aux=myReader.result 
+        aux2=myReader.result?.toString()||""
         aux=JSON.parse(aux)
         aux=aux.features
-        console.log(aux)
     }
     
-    myReader.readAsText(file);
+   
 
-    setTimeout(() =>     //me permite asegurarme que el valor deñ archivo se ha leido a tiempo
-    { this.json_nombre=aux
+    setTimeout(() =>     //me permite asegurarme que el valor del archivo se ha leido a tiempo
+    { 
+      if(aux!=undefined){
+      this.json_nombre=aux
       console.log("estoy en espera")
-      this.crearArbol()
+      this.crearArbol()}
     },
-    1000);
+    2000);
     
   }
   
