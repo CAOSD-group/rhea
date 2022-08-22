@@ -105,11 +105,7 @@ let lista:Array<Arbol> =[]
         aux.optional=false;
         aux.type=this.type;
         aux.children=[];
-        aux2=true
         
-        this.children.push(aux)
-        console.log(this)
-        console.log(arbol)
         return arbol
     }
 

@@ -1,103 +1,138 @@
 
+<body>
+        asdfasdf
+        <div></div>
+        asdfasdf
+        <div></div>
+        asdfasdf
+        <div></div>
+        asdfasdf
+        <div></div>
+        asdfasdf
+        <div></div>
+        asdfasdf
+        <div></div>
+        asdfasdf
+        <div></div>
+        asdfasdf
+        <div></div>
+        
+        asdfasdf
+        <div></div>
+        asdfasdf
+        <div></div>
+        asdfasdf
+        <div></div>
+        asdfasdf
+        <div></div>
+        
+        asdfasdf
+        <div></div>
+        asdfasdf
+        <div></div>
+        asdfasdf
+        <div></div>
+        asdfasdf
+        <div></div>
+        
 
-<h1 >Titulo</h1>
-<h1>{{item}}</h1>
-
-<button (click)="returnValues(itemValue2.value)">buscar un archivo escribiendo el nombre</button>
-<input matInput #itemValue2  type="string" placeholder="nombre">
 <div></div>
-<button (click)="borrarArbol()">borrar</button>
-<div></div>
-<button (click)="recargarArbol()">recargar el arbol </button>
-<div></div>
-<button (click)="enviarArbol()">envia el arbol al server (de momento no) </button>
-<div></div>
-<button (click)="buscarArbol()">busca el elemento en el arbol </button>
-<div></div>
+<mat-toolbar color="primary" class="titulo" >
+ <button mat-icon-button (click)="drawer.toggle()">
+  <mat-icon>menu</mat-icon>
+ </button>
 
-
-
-<h2>Elegir documento </h2>
-
-<button (click)="getArchivo(item)">busca el documento de la lista</button>
-<select [(ngModel)]="item" >
-  <option value="0">Selecciona una opción</option>
-  <option *ngFor="let documento of documentos">
-    {{documento}}
-  </option>
-</select>
-
-
-<input type="file" (change)="changeListener($event)" #input />
-  <!--(change)="handleFileInput($event.target.files)"-->
-
-
-
-<mat-tree [dataSource]="dataSource" [treeControl]="treeControl" class="example-tree">
-  <mat-nested-tree-node *matTreeNodeDef="let node; when: hasChild">
-      <div class="mat-tree-node">
-        <button mat-icon-button matTreeNodeToggle
-                [attr.aria-label]="'Toggle ' + node.name">
-          <mat-icon class="mat-icon-rtl-mirror">
-            {{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
-          </mat-icon>
-        </button>
-        {{node.name}} {{node.type}}
-     
-
-        <mat-checkbox  [(ngModel)]="node.abstract" margin="12px">abstract</mat-checkbox>
-        <mat-checkbox  [(ngModel)]="node.optional" margin="12px ">optional  </mat-checkbox>
-        <button mat-menu-item [matMenuTriggerFor]="menu"  (click)= "seleccionar(node.name)">Opciones  <mat-icon>dialpad</mat-icon> </button> 
-      </div>
-      <div [class.example-tree-invisible]="!treeControl.isExpanded(node)"
-          role="group">
-        <ng-container matTreeNodeOutlet></ng-container> 
-      
-    </div>
-
-
-    <mat-menu #menu="matMenu">
-      <button (click)="crearValor(itemValue2.value,node.name)">crea nueva raiz</button>
-      <!--<button mat-menu-item [matMenuTriggerFor]="segundomenu">funciones de creacion</button>
-      <button mat-menu-item [matMenuTriggerFor]="tercermenu">funciones de visualizacion</button>
-      <button mat-menu-item [matMenuTriggerFor]="cuartomenu">funciones de actualizacion de valores</button>-->
-      </mat-menu>
-    
-
-  </mat-nested-tree-node>
-</mat-tree>
-
-<mat-drawer-container class="example-container" autosize>  
-
-  <mat-drawer #drawer class="example-sidenav" mode="side">
-    <p>se ajusta el tamaño</p>
-    <p *ngIf="showFiller">Lorem, ipsum dolor sit amet consectetur.</p>
-    <button (click)="showFiller = !showFiller" mat-raised-button>
-      permite ver texto extra 
-    </button>
-  </mat-drawer>
-
-  <div class="example-sidenav-content">
-    <button type="button" mat-button (click)="drawer.toggle() ; istoggle = !istoggle" >
-      <mat-icon class="mat-icon-rtl-mirror">
-        {{istoggle? 'chevron_left' : 'chevron_right'}}
-      </mat-icon>menu lateral</button>
-  </div>
+Toolbar Title
+</mat-toolbar>
+  <mat-drawer-container class="example-container" autosize >
+   <div class="example-sidenav-content"></div>
   
-</mat-drawer-container>
+   <mat-grid-list cols="5" rowHeight="2:1">
+    <mat-grid-tile [colspan]="4" [rowspan]="5">
+     <h1>{{item}}</h1>
+     <div></div>
+     
+     <mat-tree [dataSource]="dataSource" [treeControl]="treeControl" class="example-tree">
+        <mat-nested-tree-node *matTreeNodeDef="let node; when: hasChild">
+            <div class="mat-tree-node">
+              <button mat-icon-button matTreeNodeToggle
+                      [attr.aria-label]="'Toggle ' + node.name">
+                <mat-icon class="mat-icon-rtl-mirror">
+                  {{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
+                </mat-icon>
+              </button>
+              {{node.name}} {{node.type}}
+           
+      
+              <mat-checkbox  [(ngModel)]="node.abstract" margin="12px">abstract</mat-checkbox>
+              <mat-checkbox  [(ngModel)]="node.optional" margin="12px ">optional  </mat-checkbox>
+              <button mat-menu-item [matMenuTriggerFor]="menu"  (click)= "seleccionar(node.name)">Opciones  <mat-icon>dialpad</mat-icon> </button> 
+            </div>
+            <div [class.example-tree-invisible]="!treeControl.isExpanded(node)" role="group">
+              <ng-container matTreeNodeOutlet></ng-container> 
+            
+          </div>
+      
+      
+          <mat-menu #menu="matMenu">
+            <button (click)="crearValor(itemValue2.value,node.name)">crea nueva raiz</button>
+            <!--<button mat-menu-item [matMenuTriggerFor]="segundomenu">funciones de creacion</button>
+            <button mat-menu-item [matMenuTriggerFor]="tercermenu">funciones de visualizacion</button>
+            <button mat-menu-item [matMenuTriggerFor]="cuartomenu">funciones de actualizacion de valores</button>-->
+            </mat-menu>
+          
+      
+        </mat-nested-tree-node>
+      </mat-tree>
+   
+    
+    </mat-grid-tile>
+
+   
+    
+     
+   
+
+    <mat-grid-tile [colspan]="1" [rowspan]="5" class="miGrid">
+     <div class=internalMatGrid >
+      <mat-grid-list cols="2" rowHeight="1:1">
+       <mat-grid-tile>1</mat-grid-tile>
+       <div></div>
+       <mat-grid-tile>2</mat-grid-tile>
+       <mat-grid-tile>3</mat-grid-tile>
+       <mat-grid-tile>4</mat-grid-tile>
+      </mat-grid-list>
+     </div>
+    </mat-grid-tile>
+   </mat-grid-list>
+
+   <mat-drawer #drawer class="example-sidenav" mode="side" >
+    <button (click)="returnValues(itemValue2.value)">buscar un archivo escribiendo el nombre</button>
+    <div></div>
+    <input matInput #itemValue2 type="string" placeholder="nombre">
+    <div></div>
+    <button (click)="borrarArbol()">borrar</button>
+    <div></div>
+    <button (click)="recargarArbol()">recargar el arbol </button>
+    <div></div>
+    <button (click)="enviarArbol()">envia el arbol al server (de momento no) </button>
+    <div></div>
+
+    <button (click)="buscarArbol()">busca el elemento en el arbol </button>
+    <div></div>
+    <h2>Elegir documento </h2>
+    <button (click)="getArchivo(item)">busca el documento de la lista</button>
+    <select [(ngModel)]="item" >
+     <option value="tree name">Selecciona una opción</option>
+     <option *ngFor="let documento of documentos">
+      {{documento}}
+     </option>
+    </select>
+    <div></div>
+    <input type="file" (change)="changeListener($event)" #input />
+<!--(change)="handleFileInput($event.target.files)"-->
+   </mat-drawer>
+  </mat-drawer-container>
 
 
-
-
-
-
-<!--      <div class="content" role="main">-->
-  <!-- FM Editor component-->
-  <!--<arbol></arbol>-->
-  <!--<tree-checklist-example></tree-checklist-example>-->
-  <!--<miarbol></miarbol>-->
-  <!--<fm-editor></fm-editor>-->
-  <!--<arbol></arbol>-->
-  <!--<miarbol></miarbol>
-
-          </div>    -->
+</body>

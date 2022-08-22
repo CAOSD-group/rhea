@@ -18,6 +18,15 @@ var aux:any;
 var aux2:string;
 var aux3: any;
 let baux=false;
+
+export interface Tile {
+    color: string;
+    cols: number;
+    rows: number;
+    text: string;
+  }
+
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -28,19 +37,24 @@ export class AppComponent {
   urlsave="http://172.16.51.94:5000/saveFM" //servidor guardar datos
   documentos:string[]= ['GPL.xml', 'JHipster.uvl', 'MobileMedia.xml', 'Pizzas.uvl', 'TankWar.xml', 'Truck.uvl','WeaFQAs.uvl'];
   file: File | null = null;
-  
   articulos: any;        //atributo donde guardo las respuestas
-  item:string ='';       //variable para el titulo 
-  showFiller = false;   //controla si se ve mas contenido
-  istoggle=false;       // controla si el menu esta abierto o no
   title:string ='rhea-web' // evita un error en app.component.spec.ts
-
   declare actual:Arbol      //valor actual del arbol
   tree:Array<Arbol> =[new Arbol()]  // el arbol de datos 
   declare json_nombre:any;    //guardo los valores de las features
   declare json_const:any;     //guardo los valores de las constraints
   treeControl = new NestedTreeControl<Arbol>(node => node.children);
   dataSource = new MatTreeNestedDataSource<Arbol>();
+
+  // variables para la representacion web
+  tiles: Tile[] = [   // variables para la visualizacion del grid
+    {text: 'One', cols: 1, rows: 6, color:'lightblue'},  // acepta valores no enteros como 1.3
+    {text: 'Two', cols: 9, rows: 6, color:'lightgreen'},
+    {text: 'Three', cols: 7, rows: 6, color:'lightpink'},
+    {text: 'Four', cols: 2, rows: 6, color:'#DDBDF1'}]
+  item:string ='tree name';       //variable para el titulo 
+  showFiller = false;   //controla si se ve mas contenido
+  istoggle=false;       // controla si el menu esta abierto o no
 
   
 constructor(private http: HttpClient) { }  
@@ -113,6 +127,7 @@ readThis(inputValue: any): void {
         aux3=file
     }
     myReader.readAsText(file);
+    console.log("hola")
   }
 
 

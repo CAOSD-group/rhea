@@ -1,7 +1,6 @@
 import {AppComponent } from './app.component';
 import {FMEditor } from './components/fm-editor/fm-editor.component';
 import {Rama} from './components/miarbol/miarbol';
-//import {arbol} from './components/arbol_pruebas/arbol';
 
 import {MatTreeModule} from '@angular/material/tree';
 import {MatIconModule} from '@angular/material/icon';
@@ -22,7 +21,8 @@ import {FormsModule,ReactiveFormsModule } from '@angular/forms';
 import {MatSelectModule} from '@angular/material/select';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import { Arbol } from './components/arbol_pruebas/arbol';
-
+import {MatGridListModule} from '@angular/material/grid-list';
+import {MatToolbarModule} from '@angular/material/toolbar';
 
 
 
@@ -39,6 +39,8 @@ import { Arbol } from './components/arbol_pruebas/arbol';
   imports: [
     BrowserModule,
     DragDropModule,
+    MatToolbarModule,
+    MatGridListModule,
     MatSidenavModule,
     HttpClientModule,
     MatTreeModule,
