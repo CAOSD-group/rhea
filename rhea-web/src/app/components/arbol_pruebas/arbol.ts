@@ -65,7 +65,7 @@ let lista:Array<Arbol> =[]
                 this.CrearArbol(element);
             });
         }}
-        console.log(arbol)
+        
         return arbol
     }
     meterHijos(valor: any ,padre?:string, hijo?:string){  // mete todos los hijos pero solo en el primer valor 

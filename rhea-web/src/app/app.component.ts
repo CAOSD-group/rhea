@@ -13,6 +13,8 @@ import { Arbol } from './components/arbol_pruebas/arbol';
 import {FlatTreeControl} from '@angular/cdk/tree';
 import {MatTreeFlatDataSource, MatTreeFlattener} from '@angular/material/tree';
 import { animate } from '@angular/animations';
+import { data } from 'jquery';
+import { waitForAsync } from '@angular/core/testing';
 
 var aux:any;
 var aux2:string;
@@ -20,10 +22,10 @@ var aux3: any;
 let baux=false;
 
 export interface Tile {
-    color: string;
-    cols: number;
-    rows: number;
-    text: string;
+  color: string;
+  cols: number;
+  rows: number;
+  text: string;
   }
 
 
@@ -47,11 +49,11 @@ export class AppComponent {
   dataSource = new MatTreeNestedDataSource<Arbol>();
 
   // variables para la representacion web
-  tiles: Tile[] = [   // variables para la visualizacion del grid
-    {text: 'One', cols: 1, rows: 6, color:'lightblue'},  // acepta valores no enteros como 1.3
-    {text: 'Two', cols: 9, rows: 6, color:'lightgreen'},
-    {text: 'Three', cols: 7, rows: 6, color:'lightpink'},
-    {text: 'Four', cols: 2, rows: 6, color:'#DDBDF1'}]
+  tiles: Tile[] = [ // variables para la visualizacion del grid
+    {text: 'One', cols: 1, rows: 6, color:'lightblue'}, // acepta valores no enteros como 1.3
+    {text: 'Two', cols: 9, rows: 6, color:'lightgreen'},
+    {text: 'Three', cols: 7, rows: 6, color:'lightpink'},
+    {text: 'Four', cols: 2, rows: 6, color:'#DDBDF1'}]
   item:string ='tree name';       //variable para el titulo 
   showFiller = false;   //controla si se ve mas contenido
   istoggle=false;       // controla si el menu esta abierto o no
@@ -80,6 +82,7 @@ getArchivo(texto?:string){
     this.item=texto||"";
     this.articulos=JSON.parse(this.articulos)
     this.json_nombre=this.articulos.features,
+    console.log(this.json_nombre)
     this.json_const=this.articulos.constraints
     this.crearArbol()
   })
@@ -88,6 +91,7 @@ getArchivo(texto?:string){
 hasChild = (_: number, node: any) => !!node.children && node.children.length >= 0;
 
 crearArbol(){
+  console.log("creo arbol")
   this.tree.splice(0,this.tree.length)
   this.tree=[new Arbol()]
   this.tree=this.tree[0].CrearArbol(this.json_nombre)
@@ -118,18 +122,28 @@ enviarArbol(){
 }
 changeListener($event): void {this.readThis($event.target);}
 
-readThis(inputValue: any): void {
+readThis(inputValue: any): void { // de momento solo sirve con archivos .json
+ 
     var file: File = inputValue.files[0];
     var myReader: FileReader = new FileReader();
     myReader.onloadend = function (e) {
-        aux=myReader.result
-        aux2=myReader.result?.toString()||""
-        aux3=file
+        aux=myReader.result 
+        aux=JSON.parse(aux)
+        aux=aux.features
+        console.log(aux)
     }
+    
     myReader.readAsText(file);
-    console.log("hola")
-  }
 
+    setTimeout(() =>     //me permite asegurarme que el valor deñ archivo se ha leido a tiempo
+    { this.json_nombre=aux
+      console.log("estoy en espera")
+      this.crearArbol()
+    },
+    1000);
+    
+  }
+  
 
 seleccionar(id:string,lista?:Array<any>){  // este devuelve un objeto tipo Object
   if(lista==null){lista=this.tree}
