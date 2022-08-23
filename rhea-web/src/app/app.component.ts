@@ -116,9 +116,9 @@ createFile(texto:string){  // envia el nombre del arvhico a crear y el archivo a
 
 
 
-
-// crear el arbol de las resticciones 
 // comprobar las opciones de modificaciones (cuales tiene que haber)
+//    preguntar cuales van a ser los parametros finales
+//    tanto del arbol como de las constrains
 // consultar con jose miguel las funciones del servidor
 //
 //
