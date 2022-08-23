@@ -1,20 +1,10 @@
-import { Component, Type } from '@angular/core';
+import { Component} from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import{ArticulosService} from'./components/miarbol/miservidor';
-import { empty, from, Observable } from 'rxjs';
-import {MatSelectModule} from '@angular/material/select';
-import {FormControl} from '@angular/forms';
-import { ContentObserver } from '@angular/cdk/observers';
-import{Rama} from 'src/app/components/miarbol/miarbol'
 import {NestedTreeControl} from '@angular/cdk/tree';
 import {MatTreeNestedDataSource} from '@angular/material/tree';
-import { FMEditor } from './components/fm-editor/fm-editor.component';
 import { Arbol } from './components/arbol_pruebas/arbol';
-import {FlatTreeControl} from '@angular/cdk/tree';
-import {MatTreeFlatDataSource, MatTreeFlattener} from '@angular/material/tree';
-import { animate } from '@angular/animations';
-import { data } from 'jquery';
-import { waitForAsync } from '@angular/core/testing';
+import{Const} from './components/constrain/const';
+
 
 var aux:any;
 var aux2:string;
@@ -45,12 +35,13 @@ export class AppComponent {
   title:string ='rhea-web' // evita un error en app.component.spec.ts
   declare actual:Arbol      //valor actual del arbol
   tree:Array<Arbol> =[new Arbol()]  // el arbol de datos 
+  cons:Array<Const>=[new Const()]
   declare json_nombre:any;    //guardo los valores de las features
   declare json_const:any;     //guardo los valores de las constraints
   treeControl = new NestedTreeControl<Arbol>(node => node.children);
   dataSource = new MatTreeNestedDataSource<Arbol>();
-  constraintreeControl = new NestedTreeControl<Arbol>(constrainnode => constrainnode.children);
-  constraindataSource = new MatTreeNestedDataSource<Arbol>();
+  constraintreeControl = new NestedTreeControl<Const>(constrainnode => constrainnode.operands);
+  constraindataSource = new MatTreeNestedDataSource<Const>();
 
   // variables para la representacion web
   tiles: Tile[] = [ // variables para la visualizacion del grid
@@ -58,9 +49,8 @@ export class AppComponent {
     {text: 'Two', cols: 9, rows: 6, color:'lightgreen'},
     {text: 'Three', cols: 7, rows: 6, color:'lightpink'},
     {text: 'Four', cols: 2, rows: 6, color:'#DDBDF1'}]
-  item:string ='Pizzas.uvl';       //variable para el titulo 
-  showFiller = false;   //controla si se ve mas contenido
-  istoggle=false;       // controla si el menu esta abierto o no
+  item:string ='Truck.uvl';       //variable para el titulo 
+
 
   
 constructor(private http: HttpClient) { }  
@@ -89,6 +79,7 @@ returnValues(texto?:string){
     this.json_nombre=this.articulos.features,
     this.json_const=this.articulos.constraints
     console.log(this.json_const)
+    this.crearCons()
     this.crearArbol()
   })
 }
@@ -101,6 +92,7 @@ getArchivo(texto?:string){
     console.log(this.json_nombre)
     this.json_const=this.articulos.constraints
     console.log(this.json_const)
+    this.crearCons()
     this.crearArbol()
   })
 }
@@ -145,6 +137,15 @@ createFile(texto:string){  // envia el nombre del arvhico a crear y el archivo a
 constrainhasChild = (_: number, constrainnode: any) => !!constrainnode.children && constrainnode.children.length >= 0;
 hasChild = (_: number, node: any) => !!node.children && node.children.length >= 0;
 
+
+crearCons(){
+  console.log("creo constrains")
+  this.cons.splice(0,this.tree.length)
+  this.cons=[new Const()]
+  this.cons=this.cons[0].CrearConstrain(this.json_const)
+  console.log(this.cons)
+}
+
 crearArbol(){
   console.log("creo arbol")
   this.tree.splice(0,this.tree.length)
@@ -153,17 +154,19 @@ crearArbol(){
   this.tree[0]=this.tree[0].meterHijos(this.json_nombre);
   this.tree.splice(1,this.tree.length)
   this.dataSource.data=this.tree
+  this.constraindataSource.data=this.cons
   console.log(this.tree)
-  console.log(this.json_const)
 }
 
 borrarArbol(){
   this.dataSource.data=[]
+  this.constraindataSource.data=[]
 }
 
 recargarArbol(){
   console.log(this.tree)
   this.dataSource.data=this.tree
+  this.constraindataSource.data=this.cons
 }
 
 changeListener($event): void {this.readThis($event.target);}
@@ -188,6 +191,7 @@ readThis(inputValue: any): void { // de momento solo sirve con archivos .json o 
         this.json_nombre=aux
         this.json_const=aux2
         console.log("estoy en espera")
+        this.crearCons()
         this.crearArbol()}
       },
       2000);
