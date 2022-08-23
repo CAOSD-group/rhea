@@ -30,6 +30,9 @@
    z-index: 3;
     
 }
+.angular-with-newlines {
+  white-space: pre;
+}
   
   h1{ color: rgb(216, 63, 63);}                /* Permite
   cambiar el color*/

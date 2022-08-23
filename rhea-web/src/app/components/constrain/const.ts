@@ -1,6 +1,7 @@
 import { Component } from '@angular/core'
 import {NestedTreeControl} from '@angular/cdk/tree';
 import {MatTreeNestedDataSource} from '@angular/material/tree';
+import { keyframes } from '@angular/animations';
 
 
 
@@ -29,10 +30,10 @@ let constrain :Array<Const> =[]
     hasChild = (_: number, node: Const) => !!node.operands && node.operands.length >= 0;
 
     CrearConstrain(lista:any){
-        //lista.forEach(element => {constrain.push(element)});
-        console.log(constrain)
-        console.log(lista.CTC1)
+        for( const[key] of Object.entries(lista)){
+            console.log(lista[key])
+            constrain.push(lista[key])
+        }
         return constrain
-
     }
 }

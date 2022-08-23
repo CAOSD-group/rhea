@@ -78,7 +78,6 @@ returnValues(texto?:string){
     this.articulos=JSON.parse(this.articulos)
     this.json_nombre=this.articulos.features,
     this.json_const=this.articulos.constraints
-    console.log(this.json_const)
     this.crearCons()
     this.crearArbol()
   })
@@ -140,7 +139,7 @@ hasChild = (_: number, node: any) => !!node.children && node.children.length >= 
 
 crearCons(){
   console.log("creo constrains")
-  this.cons.splice(0,this.tree.length)
+  this.cons.splice(0,this.cons.length)
   this.cons=[new Const()]
   this.cons=this.cons[0].CrearConstrain(this.json_const)
   console.log(this.cons)
