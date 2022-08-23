@@ -35,8 +35,10 @@ export interface Tile {
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  urlup="http://172.16.51.94:5000/upload"  //servidor cargar datos
   urlsave="http://172.16.51.94:5000/saveFM" //servidor guardar datos
+  urldownload="http://172.16.51.94:5000/downloadFM"  //servidor cargar datos
+  urldelete="http://172.16.51.94:5000/deleteFM"  //servidor cargar datos
+  urlcreate="http://172.16.51.94:5000/createFM" //servidor guardar datos
   documentos:string[]= ['GPL.xml', 'JHipster.uvl', 'MobileMedia.xml', 'Pizzas.uvl', 'TankWar.xml', 'Truck.uvl','WeaFQAs.uvl'];
   file: File | null = null;
   articulos: any;        //atributo donde guardo las respuestas
@@ -47,6 +49,8 @@ export class AppComponent {
   declare json_const:any;     //guardo los valores de las constraints
   treeControl = new NestedTreeControl<Arbol>(node => node.children);
   dataSource = new MatTreeNestedDataSource<Arbol>();
+  constraintreeControl = new NestedTreeControl<Arbol>(constrainnode => constrainnode.children);
+  constraindataSource = new MatTreeNestedDataSource<Arbol>();
 
   // variables para la representacion web
   tiles: Tile[] = [ // variables para la visualizacion del grid
@@ -54,40 +58,91 @@ export class AppComponent {
     {text: 'Two', cols: 9, rows: 6, color:'lightgreen'},
     {text: 'Three', cols: 7, rows: 6, color:'lightpink'},
     {text: 'Four', cols: 2, rows: 6, color:'#DDBDF1'}]
-  item:string ='tree name';       //variable para el titulo 
+  item:string ='Pizzas.uvl';       //variable para el titulo 
   showFiller = false;   //controla si se ve mas contenido
   istoggle=false;       // controla si el menu esta abierto o no
 
   
 constructor(private http: HttpClient) { }  
 ngOnInit() {}
+//order : saveFM;downloadFM (2 ways) ;deleteFM;createFM; metodos auxiliares 
 
-
-
+saveFile(texto?:string){ // envio el nuevo archivo y el nuvo nombre opcional
+  // envia el treeControl (supongo que se borra aqui o alli o no da problemas)
+  if(texto==undefined || texto==""){
+    console.log("sin cambio de nombre")
+    this.http.post(this.urlsave,this.tree,{responseType:'text'}).subscribe(resultado => {
+    console.log(resultado)})}
+  else{
+    console.log("el nombre se cambia")
+    this.http.post(this.urlsave,[texto,this.tree],{responseType:'text'}).subscribe(resultado => {
+    console.log(resultado)
+  })}
+}
 returnValues(texto?:string){
-  if(texto==""){texto="te he escuchado"}
-  this.http.post(this.urlup,texto,{responseType:'text'}).subscribe(resultado => {
+  if(texto==""){texto=this.item}
+  if(texto==undefined){texto=this.item}
+  this.http.post(this.urldownload,texto,{responseType:'text'}).subscribe(resultado => {
     this.articulos = resultado;
     this.item=texto||"";
     this.articulos=JSON.parse(this.articulos)
     this.json_nombre=this.articulos.features,
     this.json_const=this.articulos.constraints
+    console.log(this.json_const)
     this.crearArbol()
   })
 }
 getArchivo(texto?:string){
-  this.http.post(this.urlup,texto,{responseType:'text'}).subscribe(resultado => {
-    console.log(resultado)
+  this.http.post(this.urldownload,texto,{responseType:'text'}).subscribe(resultado => {
     this.articulos = resultado;
     this.item=texto||"";
     this.articulos=JSON.parse(this.articulos)
     this.json_nombre=this.articulos.features,
     console.log(this.json_nombre)
     this.json_const=this.articulos.constraints
+    console.log(this.json_const)
     this.crearArbol()
   })
 }
 
+deleteFile(){  //envia el nombre del archivo a borrar
+  this.http.post(this.urldelete,this.item,{responseType:'text'}).subscribe(resultado => {
+    //¿Controlamos de alguna forma este metodo?¿Creo un arbol vacio o que no exista ningun arbol en la vista?
+    console.log(resultado)
+  })
+}
+createFile(texto:string){  // envia el nombre del arvhico a crear y el archivo a crear (1 o 2 pasos?)
+  console.log(this.tree)
+  this.http.post(this.urlcreate,[texto,this.tree],{responseType:'text'}).subscribe(resultado => {
+    //¿que pasa si el nombre ya existe?
+    console.log(resultado)
+  })
+}
+
+
+
+
+
+
+
+
+// crear el arbol de las resticciones 
+// comprobar las opciones de modificaciones
+// consultar con jose miguel las funciones del servidor
+//
+//
+// alertas para comprobar ciertas funciones como borrar? 
+// 
+
+
+
+
+
+
+
+
+
+constrainhasChild = (_: number, constrainnode: any) => !!constrainnode.children && constrainnode.children.length >= 0;
 hasChild = (_: number, node: any) => !!node.children && node.children.length >= 0;
 
 crearArbol(){
@@ -99,7 +154,7 @@ crearArbol(){
   this.tree.splice(1,this.tree.length)
   this.dataSource.data=this.tree
   console.log(this.tree)
-  this.item=this.tree[0].name
+  console.log(this.json_const)
 }
 
 borrarArbol(){
@@ -107,19 +162,10 @@ borrarArbol(){
 }
 
 recargarArbol(){
+  console.log(this.tree)
   this.dataSource.data=this.tree
 }
-enviarArbol(){
-  this.http.post(this.urlsave,aux3,{responseType:'text'}).subscribe(resultado => {
-    this.articulos = resultado;
-    this.item=aux3.name||"";
-    //this.articulos=JSON.parse(this.articulos)
-    this.json_nombre=this.articulos.features,
-    this.json_const=this.articulos.constraints
-    //this.crearArbol()
-  })
-  //console.log(JSON.stringify(aux))     esto funciona aunque no se para que
-}
+
 changeListener($event): void {this.readThis($event.target);}
 
 readThis(inputValue: any): void { // de momento solo sirve con archivos .json o escritos similares 
@@ -131,24 +177,25 @@ readThis(inputValue: any): void { // de momento solo sirve con archivos .json o 
         aux=myReader.result 
         aux2=myReader.result?.toString()||""
         aux=JSON.parse(aux)
+        aux2=aux.constraints
         aux=aux.features
-    }
+    }                       // implementar con while false, y tiempo mucho menor 
+    //(evita errores en tiempos muy largos y reduce tiempo de espera en los cortos)
     
-   
-
-    setTimeout(() =>     //me permite asegurarme que el valor del archivo se ha leido a tiempo
-    { 
-      if(aux!=undefined){
-      this.json_nombre=aux
-      console.log("estoy en espera")
-      this.crearArbol()}
-    },
-    2000);
-    
+      setTimeout(() =>     //me permite asegurarme que el valor del archivo se ha leido a tiempo
+      { 
+        if(aux!=undefined){
+        this.json_nombre=aux
+        this.json_const=aux2
+        console.log("estoy en espera")
+        this.crearArbol()}
+      },
+      2000);
   }
   
 
 seleccionar(id:string,lista?:Array<any>){  // este devuelve un objeto tipo Object
+  aux2=this.tree[0].name
   if(lista==null){lista=this.tree}
   if(lista.filter(x=> x.name==id)[0]==undefined){
     lista.forEach(element => {
@@ -160,7 +207,7 @@ seleccionar(id:string,lista?:Array<any>){  // este devuelve un objeto tipo Objec
   }else{
     this.actual=lista.filter(x=> x.name==id)[0]
     this.buscarArbol()
-    this.what(this.item)              // evita sobreescribir el nombre del primer valor 
+    this.tree[0].name=aux2
   }
   }
 
@@ -175,10 +222,11 @@ seleccionar(id:string,lista?:Array<any>){  // este devuelve un objeto tipo Objec
           console.log(this.actual)}
         else{if(element.children){if(element.children.length>0){this.buscarArbol(element.children)}}}
       })}}
-what(id:string){this.tree[0].name=id}
 
 crearValor(nombre:string,padre:string){                // mete el elemento en el primer elemento, no en el que deberia
-  this.actual.crearHijo(nombre,padre)
+  console.log(nombre,padre)
+  console.log(this.actual.crearHijo(nombre,padre))
+  // falta meter el hijo en la lista del padre
 
 }
 }

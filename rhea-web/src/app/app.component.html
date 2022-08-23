@@ -51,38 +51,38 @@
     
     </mat-grid-tile>
 
-   
-    
-     
-   
 
     <mat-grid-tile [colspan]="1" [rowspan]="5" class="miGrid">
      <div class=internalMatGrid >
       <mat-grid-list cols="2" rowHeight="1:1">
-       <mat-grid-tile>1</mat-grid-tile>
-       <div></div>
-       <mat-grid-tile>2</mat-grid-tile>
-       <mat-grid-tile>3</mat-grid-tile>
-       <mat-grid-tile>4</mat-grid-tile>
+       <mat-grid-tile>1
+        <button (click)="saveFile()">save </button>
+            </mat-grid-tile>
+       <mat-grid-tile>2
+        <button (click)="returnValues()">get </button>
+            </mat-grid-tile>
+       <mat-grid-tile>3
+        <button (click)="deleteFile()">delete </button>
+            </mat-grid-tile>
+       <mat-grid-tile>4
+        <button (click)="createFile('algo')">create </button>
+            </mat-grid-tile>
       </mat-grid-list>
      </div>
     </mat-grid-tile>
    </mat-grid-list>
 
    <mat-drawer #drawer class="example-sidenav" mode="side" >
-    <button (click)="returnValues(itemValue2.value)">buscar un archivo escribiendo el nombre</button>
+
     <div></div>
-    <input matInput #itemValue2 type="string" placeholder="nombre">
-    <div></div>
-    <button (click)="borrarArbol()">borrar</button>
+    <button (click)="borrarArbol()">borrar vista del arbol (se guarda en una variable)</button>
     <div></div>
     <button (click)="recargarArbol()">recargar el arbol </button>
     <div></div>
-    <button (click)="enviarArbol()">envia el arbol al server (de momento no) </button>
+    <button (click)="saveFile()">envia el arbol al server (de momento no) </button>
     <div></div>
 
-    <button (click)="buscarArbol()">busca el elemento en el arbol </button>
-    <div></div>
+  
     <h2>Elegir documento </h2>
     <button (click)="getArchivo(item)">busca el documento de la lista</button>
     <select [(ngModel)]="item" >
@@ -93,7 +93,10 @@
     </select>
     <div></div>
     <input type="file" (change)="changeListener($event)" #input />
-<!--(change)="handleFileInput($event.target.files)"-->
+    <div></div>
+    <button (click)="returnValues(itemValue2.value)">buscar un archivo escribiendo el nombre</button>
+    
+    <input matInput #itemValue2 type="string" placeholder="nombre">
    </mat-drawer>
   </mat-drawer-container>
 

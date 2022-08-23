@@ -72,41 +72,20 @@ let lista:Array<Arbol> =[]
         if(valor.children!=undefined){  // el primer valor es el primer padre de todos, y mete los hijos en los hijos de este
         valor.children.forEach(element => {// luego de todas formas el arbol deberia tener un solo elemento arriba
             arbol.forEach(rama=> {// por lo que se pueden borrar todos los demas porque ya aparecen sus datos en el primero
-                if(rama.name==valor.name){
-                    rama.children.push(element)
-                } 
-            } )
-            if(element.children!=undefined){
-                if(element.children.length>0){
-                    this.meterHijos(element.children)
-                }
-            }
+                if(rama.name==valor.name){rama.children.push(element)} })
+            if(element.children!=undefined){if(element.children.length>0){this.meterHijos(element.children)}}
         });}
-        this.crearLista()
         return arbol[0]
     }
-    crearLista(){
-
-    }
-    
-    valorHijos(algo:any){
-        Nname=algo.name;
-        Nabstract=algo.abstract;
-        Noptional=algo.optional;
-        Ntype=algo.type;
-        if(algo.children!=undefined){
-            Nchildren=algo.children}
-        else {Nchildren=[] }
-    }
-    crearHijo(nombre:string,padre:string){
+   
+    crearHijo(tnombre:string,padre:string){  //falta incorporarlo en el arbol 
         aux=new Arbol()
-        aux.name=nombre;
         aux.abstract=false
         aux.optional=false;
         aux.type=this.type;
         aux.children=[];
-        
-        return arbol
+        aux.name=tnombre;
+        return [arbol,aux]
     }
 
     hasChild = (_: number, node: Arbol) => !!node.children && node.children.length >= 0;
