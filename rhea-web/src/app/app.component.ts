@@ -4,7 +4,9 @@ import {NestedTreeControl} from '@angular/cdk/tree';
 import {MatTreeNestedDataSource} from '@angular/material/tree';
 import { Arbol } from './components/arbol_pruebas/arbol';
 import{Const} from './components/constrain/const';
-import {FormControl} from '@angular/forms';
+import {MatDialog,} from '@angular/material/dialog';
+
+
 
 var aux:any;
 var aux2:string;
@@ -57,7 +59,7 @@ export class AppComponent {
 
 
   
-constructor(private http: HttpClient) { }  
+constructor(private http: HttpClient,public dialog: MatDialog) { }  
 ngOnInit() {}
 //order : saveFM;downloadFM (2 ways) ;deleteFM;createFM; metodos auxiliares 
 
@@ -130,23 +132,29 @@ createFile(texto:string){  // envia el nombre del arvhico a crear y el archivo a
 //    Arbol
 //      Preguntar cuales van a ser los parametros finales del sistema
 //          Preguntar cuales de ellos hay que decidir en el momento de creacion de un elemento
-//          Preguntar cuales de ellos se van a poder modificar
+//          Preguntar cuales de ellos se van a poder modificar (todos?)
 //          Consider los problemas cuando se borra una rama en las Constrains
 //          Pueden haber elementos duplicados?
 //    Constrains
 //      Crear constrains con algun tipo de implementacion(Moore/Mealy)?
 //      Modificar constrains asegurandonos de que no exista ya de antes?
 //      Modificar constrains asegurandonos de que no sean contradictorias?
+//      Formato para crear y modificar igual o diferente
+//      
 //
 // Consultar con jose miguel las funciones del servidor
 //     Como deberiana funcionar los metodos
 //        Guardar/Actualizar
 //          Comprobar validez del sistema
 //          Comprobar si se cambia el nombre que pasa
+//          Se debe actualizar manualmente o automaticamente siempre que haya un cambio
+//              Confirmar modificaciones ha realizar?
 //        Cargar                                                           Implementado¿?
 //        Borrar
-//          Alertas para comprobar ciertas funciones como borrar? 
+//          Alertas para reconsiderar? 
 //        Crear
+//          Crear uno vacio, o desde el modelo actual 
+//              ((revisar pregunta de guardar automaticamente los cambios))
 //          Comprobar si ya existe el nombre
 //          Comprobar validez del sistema
 // 
@@ -281,4 +289,23 @@ togglevisibility(){
   }
   
 }
+
+openDialog() {
+  const dialogRef = this.dialog.open(DialogContentExampleDialog);
+
+  dialogRef.afterClosed().subscribe(result => {
+    console.log(`Dialog result: ${result}`);
+  });
+}
+}
+@Component({
+  selector: 'dialog-content-example-dialog',
+  templateUrl: './dialog-content-example-dialog.html',
+})
+export class DialogContentExampleDialog {
+  sirvo(texto:string){
+   console.log(texto)
+   alert(texto)
+    
+  }
 }

@@ -25,7 +25,7 @@ import {MatSelectModule} from '@angular/material/select';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatGridListModule} from '@angular/material/grid-list';
 import {MatToolbarModule} from '@angular/material/toolbar';
-
+import {MatDialogModule} from '@angular/material/dialog';
 
 
 @NgModule({
@@ -41,6 +41,7 @@ import {MatToolbarModule} from '@angular/material/toolbar';
   
   imports: [
     BrowserModule,
+    MatDialogModule,
     DragDropModule,
     MatToolbarModule,
     MatGridListModule,
