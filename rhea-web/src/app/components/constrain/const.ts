@@ -10,6 +10,9 @@ import { keyframes } from '@angular/animations';
 let aux :any // variable auxiliar 
 let aux2:any
 let constrain :Array<Const> =[]
+let lista :Array<Const> =[]
+let selecionado: Const
+
 
 
 
@@ -20,20 +23,46 @@ let constrain :Array<Const> =[]
 })
 
  export class Const  {
-    operands:Array<Const> =[];
-    constraintreeControl = new NestedTreeControl<Const>(constrainnode => constrainnode.operands);
+    type:any;
+    operands:Array<Const>=[];
+    feature:Array<Featureobjetc>=[];
+    consoperands:Array<Const> =[];
+    constraintreeControl = new NestedTreeControl<Const>(constrainnode => constrainnode.consoperands);
     constraindataSource = new MatTreeNestedDataSource<Const>();
     
     constructor() {
-       
     }
-    hasChild = (_: number, node: Const) => !!node.operands && node.operands.length >= 0;
+    hasChild = (_: number, node: Const) => !!node.consoperands && node.consoperands.length >= 0;
 
     CrearConstrain(lista:any){
         for( const[key] of Object.entries(lista)){
-            console.log(lista[key])
             constrain.push(lista[key])
         }
+        this.crearListaBuena(constrain)
         return constrain
+    }
+    crearListaBuena(list:Array<any>){
+        list.forEach(element => {
+            if(element.type=='FeatureTerm'){
+                element.type=element.operands[0]
+                element.operands=null
+            }
+            else{this.crearListaBuena(element.operands)}
+        });
+    }
+}
+
+
+class Featureobjetc{
+    constructor(){
+
+    }
+}
+class advanceConst{
+    operand1:any;
+    operand2:any;
+    constructor(){
+        this.operand1=null;
+        this.operand2=null;
     }
 }

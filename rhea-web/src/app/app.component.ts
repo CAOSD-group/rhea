@@ -4,7 +4,7 @@ import {NestedTreeControl} from '@angular/cdk/tree';
 import {MatTreeNestedDataSource} from '@angular/material/tree';
 import { Arbol } from './components/arbol_pruebas/arbol';
 import{Const} from './components/constrain/const';
-
+import {FormControl} from '@angular/forms';
 
 var aux:any;
 var aux2:string;
@@ -49,7 +49,11 @@ export class AppComponent {
     {text: 'Two', cols: 9, rows: 6, color:'lightgreen'},
     {text: 'Three', cols: 7, rows: 6, color:'lightpink'},
     {text: 'Four', cols: 2, rows: 6, color:'#DDBDF1'}]
-  item:string ='Truck.uvl';       //variable para el titulo 
+  // item:string ='Truck.uvl';       //variable para el titulo 
+  //item:string ='WeaFQAs.uvl';
+  item:string ='JHipster.uvl';
+  texto1="Ocultar Constrains";
+  texto2=this.item;
 
 
   
@@ -57,15 +61,17 @@ constructor(private http: HttpClient) { }
 ngOnInit() {}
 //order : saveFM;downloadFM (2 ways) ;deleteFM;createFM; metodos auxiliares 
 
+
+
 saveFile(texto?:string){ // envio el nuevo archivo y el nuvo nombre opcional
   // envia el treeControl (supongo que se borra aqui o alli o no da problemas)
   if(texto==undefined || texto==""){
     console.log("sin cambio de nombre")
-    this.http.post(this.urlsave,this.tree,{responseType:'text'}).subscribe(resultado => {
+    this.http.post(this.urlsave,[this.tree,this.cons],{responseType:'text'}).subscribe(resultado => {
     console.log(resultado)})}
   else{
     console.log("el nombre se cambia")
-    this.http.post(this.urlsave,[texto,this.tree],{responseType:'text'}).subscribe(resultado => {
+    this.http.post(this.urlsave,[texto,this.tree,this.cons],{responseType:'text'}).subscribe(resultado => {
     console.log(resultado)
   })}
 }
@@ -75,6 +81,7 @@ returnValues(texto?:string){
   this.http.post(this.urldownload,texto,{responseType:'text'}).subscribe(resultado => {
     this.articulos = resultado;
     this.item=texto||"";
+    this.texto2=this.item
     this.articulos=JSON.parse(this.articulos)
     this.json_nombre=this.articulos.features,
     this.json_const=this.articulos.constraints
@@ -86,6 +93,7 @@ getArchivo(texto?:string){
   this.http.post(this.urldownload,texto,{responseType:'text'}).subscribe(resultado => {
     this.articulos = resultado;
     this.item=texto||"";
+    this.texto2=this.item
     this.articulos=JSON.parse(this.articulos)
     this.json_nombre=this.articulos.features,
     console.log(this.json_nombre)
@@ -104,7 +112,7 @@ deleteFile(){  //envia el nombre del archivo a borrar
 }
 createFile(texto:string){  // envia el nombre del arvhico a crear y el archivo a crear (1 o 2 pasos?)
   console.log(this.tree)
-  this.http.post(this.urlcreate,[texto,this.tree],{responseType:'text'}).subscribe(resultado => {
+  this.http.post(this.urlcreate,[texto,this.tree,this.cons],{responseType:'text'}).subscribe(resultado => {
     //¿que pasa si el nombre ya existe?
     console.log(resultado)
   })
@@ -116,14 +124,41 @@ createFile(texto:string){  // envia el nombre del arvhico a crear y el archivo a
 
 
 
-// comprobar las opciones de modificaciones (cuales tiene que haber)
-//    preguntar cuales van a ser los parametros finales
-//    tanto del arbol como de las constrains
-// consultar con jose miguel las funciones del servidor
+
+
+
+//    Arbol
+//      Preguntar cuales van a ser los parametros finales del sistema
+//          Preguntar cuales de ellos hay que decidir en el momento de creacion de un elemento
+//          Preguntar cuales de ellos se van a poder modificar
+//          Consider los problemas cuando se borra una rama en las Constrains
+//          Pueden haber elementos duplicados?
+//    Constrains
+//      Crear constrains con algun tipo de implementacion(Moore/Mealy)?
+//      Modificar constrains asegurandonos de que no exista ya de antes?
+//      Modificar constrains asegurandonos de que no sean contradictorias?
 //
-//
-// alertas para comprobar ciertas funciones como borrar? 
+// Consultar con jose miguel las funciones del servidor
+//     Como deberiana funcionar los metodos
+//        Guardar/Actualizar
+//          Comprobar validez del sistema
+//          Comprobar si se cambia el nombre que pasa
+//        Cargar                                                           Implementado¿?
+//        Borrar
+//          Alertas para comprobar ciertas funciones como borrar? 
+//        Crear
+//          Comprobar si ya existe el nombre
+//          Comprobar validez del sistema
 // 
+//  Consultas de visualicacion de la pagina web
+//    Que formato final se va a aplicar
+//        Diseño grafico estatico y dinamico
+//        Paleta de colores
+//        Imagenes y simbolos
+//    Tenemos que considerar otros navegadores web ademas de google Chrome?
+//    
+
+
 
 
 
@@ -142,7 +177,6 @@ crearCons(){
   this.cons.splice(0,this.cons.length)
   this.cons=[new Const()]
   this.cons=this.cons[0].CrearConstrain(this.json_const)
-  console.log(this.cons)
 }
 
 crearArbol(){
@@ -170,7 +204,7 @@ recargarArbol(){
 
 changeListener($event): void {this.readThis($event.target);}
 
-readThis(inputValue: any): void { // de momento solo sirve con archivos .json o escritos similares 
+readThis(inputValue: any): void { 
  
     var file: File = inputValue.files[0];
     var myReader: FileReader = new FileReader();
@@ -194,6 +228,8 @@ readThis(inputValue: any): void { // de momento solo sirve con archivos .json o 
         this.crearArbol()}
       },
       2000);
+      this.item=file.name;
+      this.texto2=this.item;
   }
   
 
@@ -231,5 +267,18 @@ crearValor(nombre:string,padre:string){                // mete el elemento en el
   console.log(this.actual.crearHijo(nombre,padre))
   // falta meter el hijo en la lista del padre
 
+}
+togglevisibility(){
+  if(this.texto1=="Ocultar Constrains"){
+  this.texto1="Mostrar Constrains"
+  this.texto2=""
+  this.constraindataSource.data=[]
+  }
+  else{
+    this.texto1="Ocultar Constrains"
+    this.texto2=this.item
+    this.constraindataSource.data=this.cons
+  }
+  
 }
 }

@@ -13,7 +13,7 @@
    <mat-grid-list cols="5" rowHeight="1:1">
     <mat-grid-tile [colspan]="4" [rowspan]="5">
      <h1>{{item}}</h1>
-     <div></div>
+ 
      
      <mat-tree [dataSource]="dataSource" [treeControl]="treeControl" class="example-tree">
         <mat-nested-tree-node *matTreeNodeDef="let node; when: hasChild">
@@ -40,12 +40,10 @@
 
 
     <figure></figure> 
-
-     <div></div>
-      <h3>poder hacer invisible las constrains</h3>
-      <h1> {{item}}</h1>
-      <mat-tree [dataSource]="constraindataSource" [treeControl]="constraintreeControl" class="example-tree">
-        <mat-nested-tree-node *matTreeNodeDef="let constrainnode; when: hasChild">
+      <button (click)="togglevisibility()"> {{texto1}}</button>
+      <h1 >{{texto2}} </h1>
+      <mat-tree  [dataSource]="constraindataSource" [treeControl]="constraintreeControl" class="example-tree">
+        <mat-nested-tree-node  *matTreeNodeDef="let constrainnode; when: hasChild">
             <div class="mat-tree-node">
               <button mat-icon-button matTreeNodeToggle
                       [attr.aria-label]="'Toggle ' + constrainnode.name">
@@ -60,7 +58,6 @@
           </div>
         </mat-nested-tree-node>
       </mat-tree>
-    
     </mat-grid-tile>
 
 
@@ -97,7 +94,7 @@
   
     <h2>Elegir documento </h2>
     <button (click)="getArchivo(item)">busca el documento de la lista</button>
-    <select [(ngModel)]="item" >
+    <select [(ngModel)]="item" [(ngModel)]="texto2" >
      <option value="tree name">Selecciona una opción</option>
      <option *ngFor="let documento of documentos">
       {{documento}}
