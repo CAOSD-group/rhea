@@ -10,10 +10,9 @@ import { keyframes } from '@angular/animations';
 let aux :any // variable auxiliar 
 let aux2:any
 let constrain :Array<Const> =[]
-let lista :Array<Const> =[]
+let constrain2 :Array<Const> =[]
 let selecionado: Const
-
-
+// Que pasa con el Xor o con el Xand,no existen o si
 
 
 @Component({
@@ -35,11 +34,19 @@ let selecionado: Const
     hasChild = (_: number, node: Const) => !!node.consoperands && node.consoperands.length >= 0;
 
     CrearConstrain(lista:any){
+        constrain=[]
         for( const[key] of Object.entries(lista)){
             constrain.push(lista[key])
         }
         this.crearListaBuena(constrain)
         return constrain
+    }
+    CrearConstrain2(lista2:any){
+        constrain2=[]
+        for( const[key2] of Object.entries(lista2)){
+            constrain2.push(lista2[key2])
+        }
+        return constrain2
     }
     crearListaBuena(list:Array<any>){
         list.forEach(element => {

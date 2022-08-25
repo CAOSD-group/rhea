@@ -20,7 +20,7 @@ let Nchildren:Array<Arbol>;
 let aux :any=0 // variable auxiliar 
 let aux2:any
 let arbol :Array<Arbol> =[]
-let lista:Array<Arbol> =[]
+let lista:Array<string> =[]
 
 
 @Component({
@@ -48,16 +48,27 @@ let lista:Array<Arbol> =[]
         this.type=Ntype;
         this.children=[];
     }
+    borrarLista(){
+        lista.splice(0,lista.length)
+    }
+    listanombres(){
+        return lista
+    }
 
     CrearArbol(valor: any){             // Crea los objetos pero no los introduce como hijos unos del otro
         Nname=valor.name;
         Nabstract=valor.abstract;
         Noptional=valor.optional;
         Ntype=valor.type;
-        if(valor.children!=undefined){
+        if(valor.children!=undefined ){
         Nchildren=valor.children}
         else {Nchildren=[] }
         arbol[arbol.length]=new Arbol()
+
+        //se deben meter solo los features no abstract¿?
+        if(!Nabstract && valor.type=='FEATURE'){
+        lista.push(arbol[arbol.length-1].name)}
+
         if(valor.children!=undefined){
         if(Nchildren.length>0){
             aux=0

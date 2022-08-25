@@ -26,7 +26,7 @@ import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatGridListModule} from '@angular/material/grid-list';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatDialogModule} from '@angular/material/dialog';
-
+import {MatChipsModule} from '@angular/material/chips';
 
 @NgModule({
   declarations: [
@@ -45,7 +45,7 @@ import {MatDialogModule} from '@angular/material/dialog';
     DragDropModule,
     MatToolbarModule,
     MatGridListModule,
-    
+    MatChipsModule,
     MatSidenavModule,
     HttpClientModule,
     MatTreeModule,

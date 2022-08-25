@@ -5,8 +5,14 @@
       <mat-icon>menu</mat-icon>
     </button>
     <button mat-icon-button (click)="drawer2.toggle()">
-      <mat-icon>account_box</mat-icon>
+      <mat-icon>book</mat-icon>
     </button>
+
+    <button mat-icon-button (click)="pasoajson()">
+      <mat-icon>assignment_turned_in</mat-icon>
+    </button>
+
+
     Toolbar Title
     <label class="container"></label>
   </mat-toolbar>
@@ -44,6 +50,20 @@
         </mat-nested-tree-node>
       </mat-tree> 
 
+<div>
+
+<mat-chip-list class="mat-chip-list-stacked" >
+  <mat-chip *ngFor="let chip of tiposconstrains" (click)="eligochip(chip)" >
+    {{chip}}
+  </mat-chip>
+</mat-chip-list></div>
+<!--<div>  
+<mat-chip-list class="mat-chip-list-stacked" >
+  <mat-chip *ngFor="let chip of nombresFeatures" (click)="eligochip(chip)" >
+    {{chip}}
+  </mat-chip>
+</mat-chip-list></div>-->
+
 
       <figure></figure> 
       <button (click)="togglevisibility()"> {{texto1}}</button>
@@ -64,8 +84,12 @@
             </div>
         </mat-nested-tree-node>
       </mat-tree>
-
-      <button mat-button (click)="openDialog()">Open dialog</button>
+      
+      <button (click)="openDialog()"> Open dialog</button>
+      <button mat-icon-button (click)="drawer2.toggle()">
+        <mat-icon>add</mat-icon>
+      </button>
+      
     </mat-grid-tile>
 
 
@@ -83,6 +107,7 @@
           </mat-grid-tile>
           <mat-grid-tile>4
             <button (click)="createFile('algo')">create </button>
+            
           </mat-grid-tile>
         </mat-grid-list>
       </div>
@@ -118,8 +143,8 @@
     <!--Drawer2 section-->
     <!---->
 
-    <mat-drawer #drawer2 class="example-sidenav" mode="side" >
-      <h2>Elegir documento </h2>
+    <mat-drawer #drawer2 class="example-sidenav" position="end" mode="side" >
+      <h2>punto para insertar cosas nuevas </h2>
       <input matInput #itemValue2 type="string" placeholder="nombre">
     </mat-drawer>
 

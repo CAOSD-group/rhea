@@ -9,9 +9,13 @@ import {MatDialog,} from '@angular/material/dialog';
 
 
 var aux:any;
-var aux2:string;
+var aux2:any=""
 var aux3: any;
+var jsonconstrain: any;
+var jsonfeatures:string
 let baux=false;
+var diccionario:any
+
 
 export interface Tile {
   color: string;
@@ -51,9 +55,11 @@ export class AppComponent {
     {text: 'Two', cols: 9, rows: 6, color:'lightgreen'},
     {text: 'Three', cols: 7, rows: 6, color:'lightpink'},
     {text: 'Four', cols: 2, rows: 6, color:'#DDBDF1'}]
-  // item:string ='Truck.uvl';       //variable para el titulo 
-  //item:string ='WeaFQAs.uvl';
-  item:string ='JHipster.uvl';
+    //lista de constrains y nombres de las features
+    tiposconstrains:Array<string>=['OrTerm','AndTerm','NotTerm','ImpliesTerm']
+    nombresFeatures:Array<string>=[]
+  //otros
+  item:string ='Pizzas.uvl';
   texto1="Ocultar Constrains";
   texto2=this.item;
 
@@ -69,11 +75,11 @@ saveFile(texto?:string){ // envio el nuevo archivo y el nuvo nombre opcional
   // envia el treeControl (supongo que se borra aqui o alli o no da problemas)
   if(texto==undefined || texto==""){
     console.log("sin cambio de nombre")
-    this.http.post(this.urlsave,[this.tree,this.cons],{responseType:'text'}).subscribe(resultado => {
+    this.http.post(this.urlsave,[jsonfeatures,jsonconstrain],{responseType:'text'}).subscribe(resultado => {
     console.log(resultado)})}
   else{
     console.log("el nombre se cambia")
-    this.http.post(this.urlsave,[texto,this.tree,this.cons],{responseType:'text'}).subscribe(resultado => {
+    this.http.post(this.urlsave,[texto,jsonfeatures,jsonconstrain],{responseType:'text'}).subscribe(resultado => {
     console.log(resultado)
   })}
 }
@@ -87,6 +93,14 @@ returnValues(texto?:string){
     this.articulos=JSON.parse(this.articulos)
     this.json_nombre=this.articulos.features,
     this.json_const=this.articulos.constraints
+
+    aux2=""
+    diccionario = Object.assign({}, resultado);
+    for( const[key] of Object.entries(diccionario)){
+      aux2=aux2+diccionario[key]
+  }
+    aux=JSON.parse(aux2)
+    aux3=aux.constraints
     this.crearCons()
     this.crearArbol()
   })
@@ -98,9 +112,15 @@ getArchivo(texto?:string){
     this.texto2=this.item
     this.articulos=JSON.parse(this.articulos)
     this.json_nombre=this.articulos.features,
-    console.log(this.json_nombre)
     this.json_const=this.articulos.constraints
-    console.log(this.json_const)
+
+    aux2=""
+    diccionario = Object.assign({}, resultado);
+    for( const[key] of Object.entries(diccionario)){
+      aux2=aux2+diccionario[key]
+  }
+    aux=JSON.parse(aux2)
+    aux3=aux.constraints
     this.crearCons()
     this.crearArbol()
   })
@@ -113,8 +133,10 @@ deleteFile(){  //envia el nombre del archivo a borrar
   })
 }
 createFile(texto:string){  // envia el nombre del arvhico a crear y el archivo a crear (1 o 2 pasos?)
-  console.log(this.tree)
-  this.http.post(this.urlcreate,[texto,this.tree,this.cons],{responseType:'text'}).subscribe(resultado => {
+  console.log("valores que se van a crear")
+  console.log(jsonfeatures)
+  console.log(jsonconstrain)
+  this.http.post(this.urlcreate,[texto,jsonfeatures,jsonconstrain],{responseType:'text'}).subscribe(resultado => {
     //¿que pasa si el nombre ya existe?
     console.log(resultado)
   })
@@ -165,6 +187,11 @@ createFile(texto:string){  // envia el nombre del arvhico a crear y el archivo a
 //        Imagenes y simbolos
 //    Tenemos que considerar otros navegadores web ademas de google Chrome?
 //    
+//   OTROS CODIGOS
+//      Arbol
+//        Se deben meter solo los features no abstract¿?
+//      Constrain
+//        Que pasa con el Xor o con el Xand,no existen o si
 
 
 
@@ -183,20 +210,23 @@ hasChild = (_: number, node: any) => !!node.children && node.children.length >= 
 crearCons(){
   console.log("creo constrains")
   this.cons.splice(0,this.cons.length)
-  this.cons=[new Const()]
-  this.cons=this.cons[0].CrearConstrain(this.json_const)
+  aux=[new Const()]
+  aux2=[new Const()]
+  jsonconstrain=aux[0].CrearConstrain2(aux3)
+  this.cons=aux2[0].CrearConstrain(this.json_const)
+  this.constraindataSource.data=this.cons
 }
 
 crearArbol(){
   console.log("creo arbol")
   this.tree.splice(0,this.tree.length)
   this.tree=[new Arbol()]
+  this.tree[0].borrarLista();
   this.tree=this.tree[0].CrearArbol(this.json_nombre)
+  this.nombresFeatures=this.tree[0].listanombres();
   this.tree[0]=this.tree[0].meterHijos(this.json_nombre);
   this.tree.splice(1,this.tree.length)
   this.dataSource.data=this.tree
-  this.constraindataSource.data=this.cons
-  console.log(this.tree)
 }
 
 borrarArbol(){
@@ -271,7 +301,8 @@ seleccionar(id:string,lista?:Array<any>){  // este devuelve un objeto tipo Objec
       })}}
 
 crearValor(nombre:string,padre:string){                // mete el elemento en el primer elemento, no en el que deberia
-  console.log(nombre,padre)
+  console.log(padre)
+  console.log(nombre)
   console.log(this.actual.crearHijo(nombre,padre))
   // falta meter el hijo en la lista del padre
 
@@ -287,7 +318,10 @@ togglevisibility(){
     this.texto2=this.item
     this.constraindataSource.data=this.cons
   }
-  
+}
+
+eligochip(texto:string){
+  console.log(texto)
 }
 
 openDialog() {
@@ -297,6 +331,21 @@ openDialog() {
     console.log(`Dialog result: ${result}`);
   });
 }
+
+pasoajson(){
+  aux3=this.tree[0]
+  aux3.treeControl=null
+  aux3.aux=null
+  aux3.dataSource=null
+  jsonfeatures=JSON.stringify(aux3, (key, value) => {
+    if (value !== null) return value
+  })
+  jsonconstrain=JSON.stringify(jsonconstrain)
+  console.log(jsonfeatures)
+  console.log(jsonconstrain)
+
+}
+
 }
 @Component({
   selector: 'dialog-content-example-dialog',
