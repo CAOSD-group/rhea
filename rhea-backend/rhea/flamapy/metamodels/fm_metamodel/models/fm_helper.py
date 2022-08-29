@@ -61,7 +61,7 @@ class ConstraintHelper():
 
     def __init__(self, constraint: Constraint) -> None:
         self._constraint = constraint
-        self._formulas = fm_utils.split_constraint(constraint)
+#        self._formulas = fm_utils.split_constraint(constraint)
 
     def is_simple_constraint(self) -> bool:
         return self.is_requires_constraint() or self.is_excludes_constraint()

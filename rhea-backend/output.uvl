@@ -1,37 +1,24 @@
 features
-	root1
+	root
 		alternative
-			root
+			A
+				optional
+					B
+						alternative
+							D
+							E
 				mandatory
 					C
 						mandatory
-							G
-								mandatory
-									H
-										mandatory
-											J
-						optional
 							F
-				optional
-					A
 						optional
-							D
+							G
+			A1
 				optional
-					B
-						optional
-							E
-			root2
-				or
 					B1
-						optional
+						mandatory
 							E1
+				optional
 					C1
-						or
-							F1
+						mandatory
 							G1
-								optional
-									H1
-										mandatory
-											I
-												optional
-													K

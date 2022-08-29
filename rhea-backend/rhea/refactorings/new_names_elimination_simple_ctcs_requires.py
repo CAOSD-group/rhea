@@ -35,30 +35,39 @@ class NewNamesEliminationSimpleConstraintsRequires(FMRefactoring):
 
         right_feature_name_ctc = instance.ast.root.right.data
         right_feature_ctc_plus = model_plus.get_feature_by_name(right_feature_name_ctc)
+        print(f'feature de la derecha PLUS: {right_feature_ctc_plus}')
         right_feature_ctc_less = model_less.get_feature_by_name(right_feature_name_ctc)
+        print(f'feature de la derecha LESS: {right_feature_ctc_less}')
 
         left_feature_name_ctc = instance.ast.root.left.data
         left_feature_ctc_less = model_less.get_feature_by_name(left_feature_name_ctc)
+        print(f'feature de la izquierda LESS: {left_feature_ctc_less}')
 
 
         for feature_plus in model_plus.get_features():
             if hasattr(feature_plus, 'reference'):
-                print(f'ATRIBUTO DE {feature_plus}: {getattr(feature_plus, "reference")}')
-                right_feature_ctc_plus = feature_plus.reference
+                print(f'ATRIBUTO DE {feature_plus} en model plus: {getattr(feature_plus, "reference")}')
+                feature_plus = feature_plus.reference
         if model_plus is not None:
             model_plus = utils.add_node_to_tree(model_plus, right_feature_ctc_plus)
         print(f'T(+{right_feature_ctc_plus}): {model_plus}')
         
+
+        print(f'FEATURES DE MODEL LESS 1: {[str(f) for f in model_less.get_features()]}')
         for feature_less in model_less.get_features():
             if hasattr(feature_less, 'reference'):
-                left_feature_ctc_less = feature_less.reference
-        if model_plus is not None:
+                print(f'ATRIBUTO DE {feature_less} en model less 1: {getattr(feature_less, "reference")}')
+                feature_less = feature_less.reference
+        if model_less is not None:
             model_less = utils.eliminate_node_from_tree(model_less, left_feature_ctc_less)
         print(f'T(-{left_feature_ctc_less}): {model_less}')
         
+
+        print(f'FEATURES DE MODEL LESS 2: {[str(f) for f in model_less.get_features()]}')
         for feature_less in model_less.get_features():
             if hasattr(feature_less, 'reference'):
-                right_feature_ctc_less = feature_less.reference
+                print(f'ATRIBUTO DE {feature_less} en model less 2: {getattr(feature_less, "reference")}')
+                feature_less = feature_less.reference
         if model_less is not None:
             model_less = utils.eliminate_node_from_tree(model_less, right_feature_ctc_less)
         print(f'T(-{right_feature_ctc_less}): {model_less}')
