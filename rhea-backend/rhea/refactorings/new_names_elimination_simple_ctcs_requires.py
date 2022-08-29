@@ -47,42 +47,45 @@ class NewNamesEliminationSimpleConstraintsRequires(FMRefactoring):
         #print(f'features de la izquierda LESS: {list_left_feature_ctc_less}')
 
 
-        for feature_plus in model_plus.get_features():
-            if hasattr(feature_plus, 'reference'):
-                print(f'ATRIBUTO DE {feature_plus} en model plus: {getattr(feature_plus, "reference")}')
-                feature_plus.name = feature_plus.reference.name
+        if model_plus is not None:
+            for feature_plus in model_plus.get_features():
+                if hasattr(feature_plus, 'reference'):
+                    print(f'ATRIBUTO DE {feature_plus} en model plus: {getattr(feature_plus, "reference")}')
+                    feature_plus.name = feature_plus.reference.name
         if model_plus is not None:
             model_plus = utils.add_node_to_tree(model_plus, right_feature_ctc_plus)
-        print('----my relations PLUSS-----')
-        for r in model_plus.get_relations():
-            print(f'Relation (pluss): ({r.parent}, {[f.name for f in r.children]}, {r.card_min}, {r.card_max})')
+        # print('----my relations PLUSS-----')
+        # for r in model_plus.get_relations():
+        #     print(f'Relation (pluss): ({r.parent}, {[f.name for f in r.children]}, {r.card_min}, {r.card_max})')
         print(f'T(+{right_feature_ctc_plus}): {model_plus}')
         
 
-        print(f'FEATURES DE MODEL LESS 1: {[str(f) for f in model_less.get_features()]}')
-        for feature_less in model_less.get_features():
-            if hasattr(feature_less, 'reference'):
-                print(f'ATRIBUTO DE {feature_less} en model less 1: {getattr(feature_less, "reference")}')
-                feature_less.name = feature_less.reference.name
+        # print(f'FEATURES DE MODEL LESS 1: {[str(f) for f in model_less.get_features()]}')
+        if model_less is not None:
+            for feature_less in model_less.get_features():
+                if hasattr(feature_less, 'reference'):
+                    print(f'ATRIBUTO DE {feature_less} en model less 1: {getattr(feature_less, "reference")}')
+                    feature_less.name = feature_less.reference.name
         if model_less is not None:
             model_less = utils.eliminate_node_from_tree(model_less, left_feature_ctc_less)
 
-        print('----my relations LESS 1-----')
-        for r in model_less.get_relations():
-            print(f'Relation (less): ({r.parent}, {[f.name for f in r.children]}, {r.card_min}, {r.card_max})')
+        # print('----my relations LESS 1-----')
+        # for r in model_less.get_relations():
+        #     print(f'Relation (less): ({r.parent}, {[f.name for f in r.children]}, {r.card_min}, {r.card_max})')
         print(f'T(-{left_feature_ctc_less}): {model_less}')
         
 
-        print(f'FEATURES DE MODEL LESS 2: {[str(f) for f in model_less.get_features()]}')
-        for feature_less in model_less.get_features():
-            if hasattr(feature_less, 'reference'):
-                print(f'ATRIBUTO DE {feature_less} en model less 2: {getattr(feature_less, "reference")}')
-                feature_less.name = feature_less.reference.name
+        # print(f'FEATURES DE MODEL LESS 2: {[str(f) for f in model_less.get_features()]}')
+        if model_less is not None:
+            for feature_less in model_less.get_features():
+                if hasattr(feature_less, 'reference'):
+                    print(f'ATRIBUTO DE {feature_less} en model less 2: {getattr(feature_less, "reference")}')
+                    feature_less.name = feature_less.reference.name
         if model_less is not None:
             model_less = utils.eliminate_node_from_tree(model_less, right_feature_ctc_less)
-        print('----my relations LESS 2-----')
-        for r in model_less.get_relations():
-            print(f'Relation (less): ({r.parent}, {[f.name for f in r.children]}, {r.card_min}, {r.card_max})')
+        # print('----my relations LESS 2-----')
+        # for r in model_less.get_relations():
+        #     print(f'Relation (less): ({r.parent}, {[f.name for f in r.children]}, {r.card_min}, {r.card_max})')
         print(f'T(-{right_feature_ctc_less}): {model_less}')
         
         # for feature in list_right_feature_ctc_plus:

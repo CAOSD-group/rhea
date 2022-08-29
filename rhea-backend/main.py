@@ -23,8 +23,8 @@ from rhea.flamapy2.metamodels.fm_metamodel.transformations import GlencoeReader
 
 
 ##################################################################################################
-REFACTORING = MutexGroupRefactoring
-MODEL_PATH = 'tests/models/mutex_groups/input_models/mg01.uvl'
+REFACTORING = NewNamesEliminationSimpleConstraintsRequires
+MODEL_PATH = 'tests/models/general_models/prueba_varias_ctcs.uvl'
 OUTPUT_PATH = 'output.uvl'
 OUTPUT_CONSOLE = 'output.txt'
 ##################################################################################################
