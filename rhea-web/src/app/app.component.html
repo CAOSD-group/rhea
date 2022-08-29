@@ -1,3 +1,5 @@
+
+
 <body>
   
   <mat-toolbar color="primary" class="titulo" >
@@ -32,24 +34,31 @@
           <div class="mat-tree-node">
             <button mat-icon-button matTreeNodeToggle
                 [attr.aria-label]="'Toggle ' + node.name">
-              <mat-icon class="mat-icon-rtl-mirror">
+              <mat-icon >
                 {{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
               </mat-icon>
+              
+             <div></div>
             </button>
-            {{node.name}} {{node.type}}
-            <mat-checkbox  [(ngModel)]="node.abstract" margin="12px">abstract</mat-checkbox>
-            <mat-checkbox  [(ngModel)]="node.optional" margin="12px ">optional  </mat-checkbox>
-            <button mat-menu-item [matMenuTriggerFor]="menu"  (click)= "seleccionar(node.name)">Opciones  <mat-icon>dialpad</mat-icon> </button> 
-          </div>
+            {{node.name}} 
+            <button mat-menu-item [matMenuTriggerFor]="menu"  (click)= "seleccionar(node.name)"> <mat-icon>dialpad</mat-icon> </button> 
+          <div>
+          <mat-icon >
+            {{SimboloPorTipo(node.type) }} 
+          </mat-icon></div>
+        </div>
           <div [class.example-tree-invisible]="!treeControl.isExpanded(node)" role="group">
             <ng-container matTreeNodeOutlet></ng-container> 
           </div>
           <mat-menu #menu="matMenu">
-            <button (click)="crearValor(itemValue2.value,node.name)">crea nueva raiz</button>
+            <button (click)="modificarSeleccion()">modificar valores</button>
+            <button (click)="borrarRama()">borrar rama</button>
+            <button (click)="CrearHijo()">crear hijo</button>
+            <button (click)="CrearHermano()">crear hermano</button>
           </mat-menu>  
         </mat-nested-tree-node>
       </mat-tree> 
-
+<!--
 <div>
 
 <mat-chip-list class="mat-chip-list-stacked" >
@@ -57,12 +66,13 @@
     {{chip}}
   </mat-chip>
 </mat-chip-list></div>
-<!--<div>  
+<div>  
 <mat-chip-list class="mat-chip-list-stacked" >
   <mat-chip *ngFor="let chip of nombresFeatures" (click)="eligochip(chip)" >
     {{chip}}
   </mat-chip>
 </mat-chip-list></div>-->
+
 
 
       <figure></figure> 
@@ -85,10 +95,7 @@
         </mat-nested-tree-node>
       </mat-tree>
       
-      <button (click)="openDialog()"> Open dialog</button>
-      <button mat-icon-button (click)="drawer2.toggle()">
-        <mat-icon>add</mat-icon>
-      </button>
+    
       
     </mat-grid-tile>
 
@@ -103,7 +110,6 @@
             <button (click)="returnValues()">get </button>
           </mat-grid-tile>
         <mat-grid-tile>3
-            <button (click)="deleteFile()">delete </button>
           </mat-grid-tile>
           <mat-grid-tile>4
             <button (click)="createFile('algo')">create </button>
@@ -137,6 +143,8 @@
       <div></div>
       <button (click)="returnValues(itemValue2.value)">buscar un archivo escribiendo el nombre</button>
       <input matInput #itemValue2 type="string" placeholder="nombre">
+      <div></div>
+      <button (click)="openDialog()"> Open dialog</button>
     </mat-drawer>
 
     <!---->

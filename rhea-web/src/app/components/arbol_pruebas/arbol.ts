@@ -5,6 +5,7 @@ import { Injectable } from '@angular/core';
 import { NONE_TYPE } from '@angular/compiler';
 import { data, getJSON } from 'jquery';
 import { jsDocComment } from '@angular/compiler';
+import { Rama } from '../miarbol/miarbol';
 
 
 
@@ -48,6 +49,22 @@ let lista:Array<string> =[]
         this.type=Ntype;
         this.children=[];
     }
+
+    borrar(){
+        if(this.children!=undefined){
+            this.children.forEach(element => {
+                element.borrar
+            });
+        }
+        this.name=""
+        this.abstract=false;
+        this.optional=false;
+        this.type="";
+        this.children=[];
+        }
+
+
+
     borrarLista(){
         lista.splice(0,lista.length)
     }
@@ -65,8 +82,8 @@ let lista:Array<string> =[]
         else {Nchildren=[] }
         arbol[arbol.length]=new Arbol()
 
-        //se deben meter solo los features no abstract¿?
-        if(!Nabstract && valor.type=='FEATURE'){
+        if(valor.children==undefined)
+        {
         lista.push(arbol[arbol.length-1].name)}
 
         if(valor.children!=undefined){
@@ -79,24 +96,48 @@ let lista:Array<string> =[]
         
         return arbol
     }
-    meterHijos(valor: any ,padre?:string, hijo?:string){  // mete todos los hijos pero solo en el primer valor 
-        if(valor.children!=undefined){  // el primer valor es el primer padre de todos, y mete los hijos en los hijos de este
-        valor.children.forEach(element => {// luego de todas formas el arbol deberia tener un solo elemento arriba
-            arbol.forEach(rama=> {// por lo que se pueden borrar todos los demas porque ya aparecen sus datos en el primero
-                if(rama.name==valor.name){rama.children.push(element)} })
-            if(element.children!=undefined){if(element.children.length>0){this.meterHijos(element.children)}}
+    
+    meterHijos(valor: any ,padre?:any, control?:boolean){ 
+        if(valor.children!=undefined){  
+        valor.children.forEach(element => {
+            if(control==undefined){
+            arbol.forEach(rama=> {
+                if(rama.name==valor.name){
+                    this.crearHijoArbol(element)
+                    rama.children.push(aux)
+                    this.meterHijos(element,rama,true)
+                } })}
+            if(control){
+                padre.children.forEach(rama=> {
+                    if(rama.name==valor.name){
+                        this.crearHijoArbol(element)
+                        rama.children.push(aux)
+                        this.meterHijos(element,rama,true)
+                        //rama.children.splice(0,1)
+                    } 
+                    }) 
+            }
         });}
         return arbol[0]
     }
+
+    limpiarArbol(){
+        console.log("llego")
+        arbol[0].children.forEach(rama=>{
+            console.log(rama.children)
+        })
+        return arbol[0]
+    }
    
-    crearHijo(tnombre:string,padre:string){  //falta incorporarlo en el arbol 
+  
+    crearHijoArbol(valor:any){  
         aux=new Arbol()
-        aux.abstract=false
-        aux.optional=false;
-        aux.type=this.type;
-        aux.children=[];
-        aux.name=tnombre;
-        return [arbol,aux]
+        aux.name=valor.name;
+        aux.abstract=valor.abstract;
+        aux.optional=valor.optional;
+        aux.type=valor.type;
+        aux.children=valor.children;
+        return aux
     }
 
     hasChild = (_: number, node: Arbol) => !!node.children && node.children.length >= 0;

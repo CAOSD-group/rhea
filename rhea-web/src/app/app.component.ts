@@ -8,6 +8,7 @@ import {MatDialog,} from '@angular/material/dialog';
 
 
 
+
 var aux:any;
 var aux2:any=""
 var aux3: any;
@@ -15,6 +16,7 @@ var jsonconstrain: any;
 var jsonfeatures:string
 let baux=false;
 var diccionario:any
+
 
 
 export interface Tile {
@@ -44,6 +46,7 @@ export class AppComponent {
   cons:Array<Const>=[new Const()]
   declare json_nombre:any;    //guardo los valores de las features
   declare json_const:any;     //guardo los valores de las constraints
+  dictconst:Map<string,Object>=new Map<string,Object>();
   treeControl = new NestedTreeControl<Arbol>(node => node.children);
   dataSource = new MatTreeNestedDataSource<Arbol>();
   constraintreeControl = new NestedTreeControl<Const>(constrainnode => constrainnode.operands);
@@ -56,8 +59,9 @@ export class AppComponent {
     {text: 'Three', cols: 7, rows: 6, color:'lightpink'},
     {text: 'Four', cols: 2, rows: 6, color:'#DDBDF1'}]
     //lista de constrains y nombres de las features
-    tiposconstrains:Array<string>=['OrTerm','AndTerm','NotTerm','ImpliesTerm']
+    tiposconstrains:Array<string>=['NotTerm','OrTerm','AndTerm','ImpliesTerm','Xor','Xand','doubleImpliesTerm']
     nombresFeatures:Array<string>=[]
+    crearConstrains:Array<string>=[]
   //otros
   item:string ='Pizzas.uvl';
   texto1="Ocultar Constrains";
@@ -67,12 +71,14 @@ export class AppComponent {
   
 constructor(private http: HttpClient,public dialog: MatDialog) { }  
 ngOnInit() {}
-//order : saveFM;downloadFM (2 ways) ;deleteFM;createFM; metodos auxiliares 
+//orden : saveFM;downloadFM (2 ways) ;createFM;
+// metodos de modificacion,creacion y eliminacion de valores
+// otros metodos
 
 
 
 saveFile(texto?:string){ // envio el nuevo archivo y el nuvo nombre opcional
-  // envia el treeControl (supongo que se borra aqui o alli o no da problemas)
+  this.pasoajson()  //actualizo los valores del json
   if(texto==undefined || texto==""){
     console.log("sin cambio de nombre")
     this.http.post(this.urlsave,[jsonfeatures,jsonconstrain],{responseType:'text'}).subscribe(resultado => {
@@ -126,13 +132,8 @@ getArchivo(texto?:string){
   })
 }
 
-deleteFile(){  //envia el nombre del archivo a borrar
-  this.http.post(this.urldelete,this.item,{responseType:'text'}).subscribe(resultado => {
-    //¿Controlamos de alguna forma este metodo?¿Creo un arbol vacio o que no exista ningun arbol en la vista?
-    console.log(resultado)
-  })
-}
-createFile(texto:string){  // envia el nombre del arvhico a crear y el archivo a crear (1 o 2 pasos?)
+createFile(texto:string){  // envia el nombre del archivo a crear y el archivo a crear (1 o 2 pasos?)
+  this.pasoajson()
   console.log("valores que se van a crear")
   console.log(jsonfeatures)
   console.log(jsonconstrain)
@@ -142,62 +143,50 @@ createFile(texto:string){  // envia el nombre del arvhico a crear y el archivo a
   })
 }
 
+//se modifican todos los parametros 
+// grupos minimo dos hijos 
+//valores de selecciones minimo maximo
+// modificar type  (dos hijos minimo)
+
+//valores predeterminados abstra falso opcional true tipo feature sin hijos 
+//cuando se borra un elemento se borran todo los hijos 
+//elementos no duplicados  por nombre (temporalmente)
+//descargar el fichero y lo envia al servidor (mirar ejemplo FM-SPL carpetas bucador)
+//constrains van a tener forma de texto (mantener forma arbol)
+//cambios manuales  un boton para enviar al server 
+
+// documentacion explicar que hace cada metodo, las referencias que tiene
+//  explicar los elementos y que parametros tienen y los codigos que se usan
 
 
 
 
 
-
-
-
-
-//    Arbol
-//      Preguntar cuales van a ser los parametros finales del sistema
-//          Preguntar cuales de ellos hay que decidir en el momento de creacion de un elemento
-//          Preguntar cuales de ellos se van a poder modificar (todos?)
-//          Consider los problemas cuando se borra una rama en las Constrains
-//          Pueden haber elementos duplicados?
-//    Constrains
-//      Crear constrains con algun tipo de implementacion(Moore/Mealy)?
-//      Modificar constrains asegurandonos de que no exista ya de antes?
-//      Modificar constrains asegurandonos de que no sean contradictorias?
-//      Formato para crear y modificar igual o diferente
-//      
-//
-// Consultar con jose miguel las funciones del servidor
-//     Como deberiana funcionar los metodos
-//        Guardar/Actualizar
-//          Comprobar validez del sistema
-//          Comprobar si se cambia el nombre que pasa
-//          Se debe actualizar manualmente o automaticamente siempre que haya un cambio
-//              Confirmar modificaciones ha realizar?
-//        Cargar                                                           Implementado¿?
-//        Borrar
-//          Alertas para reconsiderar? 
-//        Crear
-//          Crear uno vacio, o desde el modelo actual 
-//              ((revisar pregunta de guardar automaticamente los cambios))
-//          Comprobar si ya existe el nombre
-//          Comprobar validez del sistema
+// Consultar las esperas de tiempo
 // 
 //  Consultas de visualicacion de la pagina web
 //    Que formato final se va a aplicar
 //        Diseño grafico estatico y dinamico
 //        Paleta de colores
 //        Imagenes y simbolos
-//    Tenemos que considerar otros navegadores web ademas de google Chrome?
-//    
-//   OTROS CODIGOS
-//      Arbol
-//        Se deben meter solo los features no abstract¿?
-//      Constrain
-//        Que pasa con el Xor o con el Xand,no existen o si
+  
 
 
 
-
-
-
+modificarSeleccion(){
+}
+borrarRama(){
+  this.actual.borrar()
+  console.log(this.actual)
+  this.borrarArbol()
+  this.recargarArbol()
+  
+}
+CrearHijo(){
+}
+CrearHermano(){
+  
+}
 
 
 
@@ -223,9 +212,13 @@ crearArbol(){
   this.tree=[new Arbol()]
   this.tree[0].borrarLista();
   this.tree=this.tree[0].CrearArbol(this.json_nombre)
+  console.log(this.tree)
   this.nombresFeatures=this.tree[0].listanombres();
   this.tree[0]=this.tree[0].meterHijos(this.json_nombre);
+  this.tree[0]=this.tree[0].limpiarArbol();
+  console.log(this.tree)
   this.tree.splice(1,this.tree.length)
+  console.log(this.tree)
   this.dataSource.data=this.tree
 }
 
@@ -283,30 +276,11 @@ seleccionar(id:string,lista?:Array<any>){  // este devuelve un objeto tipo Objec
     });
   }else{
     this.actual=lista.filter(x=> x.name==id)[0]
-    this.buscarArbol()
+    console.log(this.actual)
     this.tree[0].name=aux2
   }
   }
 
-  buscarArbol(lista?:Array<any>){     // este busca el Object y devuelve el tipo Arbol , no se si sera necesario pero seguro evita algun problema
-    if(lista==null){lista=this.tree}
-    baux=false;
-    while(!baux){
-      lista.forEach(element => {
-        if(element.name=this.actual.name){
-          baux=true
-          this.actual=element
-          console.log(this.actual)}
-        else{if(element.children){if(element.children.length>0){this.buscarArbol(element.children)}}}
-      })}}
-
-crearValor(nombre:string,padre:string){                // mete el elemento en el primer elemento, no en el que deberia
-  console.log(padre)
-  console.log(nombre)
-  console.log(this.actual.crearHijo(nombre,padre))
-  // falta meter el hijo en la lista del padre
-
-}
 togglevisibility(){
   if(this.texto1=="Ocultar Constrains"){
   this.texto1="Mostrar Constrains"
@@ -320,13 +294,18 @@ togglevisibility(){
   }
 }
 
-eligochip(texto:string){
-  console.log(texto)
+
+ContrainsToDictionary(){
+  aux=0
+  while(aux<this.cons.length){
+    aux++
+    aux2='CTC'+aux
+    this.dictconst.set(aux2,this.cons[aux-1])
+  }
 }
 
 openDialog() {
   const dialogRef = this.dialog.open(DialogContentExampleDialog);
-
   dialogRef.afterClosed().subscribe(result => {
     console.log(`Dialog result: ${result}`);
   });
@@ -340,11 +319,57 @@ pasoajson(){
   jsonfeatures=JSON.stringify(aux3, (key, value) => {
     if (value !== null) return value
   })
+  //jsonfeatures='"'+'name'+'"'+':'+'"'+ this.item+'"'+','+'"'+"features"+'"'+':'+jsonfeatures
   jsonconstrain=JSON.stringify(jsonconstrain)
-  console.log(jsonfeatures)
-  console.log(jsonconstrain)
+  jsonconstrain=jsonconstrain.slice(1,jsonconstrain.length-1)
+  alert("fallan los { } ")
+  //alert("a los json les faltaria incluir el nombre y el features;--constrains:--")
+  //alert("en los constrains habria que mirar el tema de diccionario key-value")
 
 }
+
+CreoConstrain(valor:string){
+  if(valor=="NotTerm")
+  {
+    if(this.crearConstrains[this.CreoConstrain.length-1]=="AndTerm" 
+    || this.crearConstrains[this.CreoConstrain.length-1]=="OrTerm" 
+    || this.crearConstrains[this.CreoConstrain.length-1]=="ImpliesTerm" 
+    || this.crearConstrains[this.CreoConstrain.length-1]=="Xor" 
+    || this.crearConstrains[this.CreoConstrain.length-1]=="Xand"
+    || this.crearConstrains[this.CreoConstrain.length-1]=="Xand"
+    || this.crearConstrains[this.CreoConstrain.length-1]=="doubleImpliesTerm"){
+
+     }
+  }
+  else{
+  if(valor=="AndTerm" || valor=="OrTerm" || valor=="ImpliesTerm" || valor=="Xor" || valor=="Xand" || valor=="doubleImpliesTerm" )
+  {
+    // toca faetureTerm o not
+  }
+  if(valor!="AndTerm" && valor!="OrTerm" && valor!="ImpliesTerm" && valor!="Xor" && valor!="Xand" && valor!="doubleImpliesTerm")
+  {
+    //toca condicionales o final
+  }}
+}
+
+
+SimboloPorTipo(tipo:string){
+  if(tipo=="FEATURE"){
+    aux='add'
+  }
+  if(tipo=="XOR"){
+    aux='menu'
+  }
+  if(tipo=="XOR"){
+    aux='sentiment_very_satisfied'
+  }
+  if(tipo=="OR"){
+    aux='pages'
+  }
+  return aux
+}
+
+
 
 }
 @Component({
