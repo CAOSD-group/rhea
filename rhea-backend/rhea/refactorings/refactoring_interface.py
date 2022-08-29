@@ -1,7 +1,7 @@
 from abc import abstractmethod, ABC
 from typing import Any
 
-from famapy.metamodels.fm_metamodel.models import FeatureModel
+from flamapy.metamodels.fm_metamodel.models import FeatureModel
 
 
 class FMRefactoring(ABC):

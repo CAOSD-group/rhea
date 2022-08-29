@@ -1,10 +1,10 @@
 from typing import Any
 
-from famapy.core.models import ASTOperation
-from famapy.metamodels.fm_metamodel.models import FeatureModel, Feature, Constraint
+from flamapy.core.models import ASTOperation
+from flamapy.metamodels.fm_metamodel.models import FeatureModel, Feature, Constraint
 
-from rhea.flamapy.metamodels.fm_metamodel.models import Attribute
-from rhea.flamapy.metamodels.fm_metamodel.models import fm_utils
+from rhea.flamapy2.metamodels.fm_metamodel.models import Attribute
+from rhea.flamapy2.metamodels.fm_metamodel.models import fm_utils
 
 
 class FM(FeatureModel):

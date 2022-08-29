@@ -1,8 +1,8 @@
 from typing import Any
 
-from famapy.metamodels.fm_metamodel.models import FeatureModel, Feature, Relation
+from flamapy.metamodels.fm_metamodel.models import FeatureModel, Feature, Relation
 
-from famapy.core.models.ast import AST, ASTOperation, Node
+from flamapy.core.models.ast import AST, ASTOperation, Node
 
 from rhea.refactorings import FMRefactoring
 

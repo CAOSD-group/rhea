@@ -1,11 +1,10 @@
 from typing import Any
 import datetime
 
-from famapy.core.models import AST, ASTOperation
-from famapy.core.models import ast
-from famapy.metamodels.fm_metamodel.models import Constraint
+from flamapy.core.models import AST, ASTOperation
+from flamapy.metamodels.fm_metamodel.models import Constraint
 
-from rhea.flamapy.metamodels.fm_metamodel.models import Type
+from rhea.flamapy2.metamodels.fm_metamodel.models import Type
 
 
 def parse_type_value(value: str) -> tuple[Type, Any]:

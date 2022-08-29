@@ -1,9 +1,9 @@
 import copy
 from typing import Any
 
-from famapy.metamodels.fm_metamodel.models import FeatureModel, Feature, Relation, Constraint
+from flamapy.metamodels.fm_metamodel.models import FeatureModel, Feature, Relation, Constraint
 
-from rhea.flamapy.metamodels.fm_metamodel.models import FM, ConstraintHelper
+from rhea.flamapy2.metamodels.fm_metamodel.models import FM, ConstraintHelper
 from rhea.refactorings import FMRefactoring
 from rhea.refactorings import utils
 

@@ -1,6 +1,6 @@
 from typing import Any, Optional
 
-from famapy.metamodels.fm_metamodel.models import FeatureModel, Feature, Relation, Constraint
+from flamapy.metamodels.fm_metamodel.models import FeatureModel, Feature, Relation, Constraint
 
 
 class Range:

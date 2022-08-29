@@ -1,5 +1,5 @@
 from logging import root
-from famapy.metamodels.fm_metamodel.models import FeatureModel, Feature, Relation
+from flamapy.metamodels.fm_metamodel.models import FeatureModel, Feature, Relation
 
 from typing import List
 
@@ -84,11 +84,11 @@ def eliminate_node_from_tree(model: FeatureModel, node: Feature) -> FeatureModel
         return None
     else:
         parent = node.parent  # Let the parent feature of F be P.
-        if (parent.is_root() or parent.is_mandatory() or parent.is_optional()) and node.is_mandatory():  # CASO DE QUE EL PADRE SEA LA ROOT
+        if (not parent.is_group()) and node.is_mandatory():  # parent.is_root() or parent.is_mandatory() or parent.is_optional()
             # If P is a MandOpt feature and F is a mandatory subfeature of P, GOTO
             # step 2 with P instead of F. 
             model = eliminate_node_from_tree(model, parent)
-        elif (parent.is_root() or parent.is_mandatory() or parent.is_optional()) and node.is_optional():  # CASO DE QUE EL PADRE SEA LA ROOT
+        elif (not parent.is_group()) and node.is_optional():  # parent.is_root() or parent.is_mandatory() or parent.is_optional()
             # If P is a MandOpt feature and F is an optional subfeature of P, delete F.
             r_opt = next((r for r in parent.get_relations() if r.is_optional() and node in r.children), None)
             parent.get_relations().remove(r_opt)
@@ -98,17 +98,22 @@ def eliminate_node_from_tree(model: FeatureModel, node: Feature) -> FeatureModel
             # its subfeature a mandatory subfeature. 
 
             rel = next((r for r in parent.get_relations()), None)
+            rel.children.remove(node)
+            if rel.card_max > 1:
+                rel.card_max -= 1
+            if len(rel.children) == 1:
+                rel.card_min = 1
 
-            r_group = []
-            for child in rel.children:
-                if child != node:
-                    r_group.append(child)
-            r_group_new = Relation(parent, r_group, rel.card_min, len(r_group))
-            parent.add_relation(r_group_new)
+            # r_group = []
+            # for child in rel.children:
+            #     if child != node:
+            #         r_group.append(child)
+            # r_group_new = Relation(parent, r_group, rel.card_min, len(r_group))
+            # parent.add_relation(r_group_new)
 
-            parent.get_relations().remove(rel)
+            # parent.get_relations().remove(rel)
 
-            if r_group_new.is_optional():
-                r_group_new.card_min = 1
+            # if r_group_new.is_optional():
+            #     r_group_new.card_min = 1
             
     return model

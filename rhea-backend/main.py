@@ -1,14 +1,14 @@
 import os
 from typing import Any 
 
-from famapy.metamodels.fm_metamodel.transformations import UVLReader, UVLWriter, FeatureIDEReader
-from famapy.metamodels.pysat_metamodel.transformations import FmToPysat
-from famapy.metamodels.pysat_metamodel.operations import (
+from flamapy.metamodels.fm_metamodel.transformations import UVLReader, UVLWriter, FeatureIDEReader
+from flamapy.metamodels.pysat_metamodel.transformations import FmToPysat
+from flamapy.metamodels.pysat_metamodel.operations import (
     Glucose3ProductsNumber,
     Glucose3Products
 )
 
-from famapy.metamodels.fm_metamodel.models import FeatureModel
+from flamapy.metamodels.fm_metamodel.models import FeatureModel
 
 from rhea.refactorings import FMRefactoring
 from rhea.refactorings.mutex_group_refactoring import MutexGroupRefactoring
@@ -19,12 +19,12 @@ from rhea.refactorings.or_mandatory_refactoring import OrMandatoryRefactoring
 from rhea.refactorings.new_names_elimination_simple_ctcs_requires import NewNamesEliminationSimpleConstraintsRequires
 from rhea.refactorings.new_names_elimination_simple_ctcs_excludes import NewNamesEliminationSimpleConstraintsExcludes
 
-from rhea.flamapy.metamodels.fm_metamodel.transformations import GlencoeReader
+from rhea.flamapy2.metamodels.fm_metamodel.transformations import GlencoeReader
 
 
 ##################################################################################################
-REFACTORING = NewNamesEliminationSimpleConstraintsRequires
-MODEL_PATH = 'tests/models/general_models/prueba_ctcs.uvl'
+REFACTORING = MutexGroupRefactoring
+MODEL_PATH = 'tests/models/mutex_groups/input_models/mg01.uvl'
 OUTPUT_PATH = 'output.uvl'
 OUTPUT_CONSOLE = 'output.txt'
 ##################################################################################################

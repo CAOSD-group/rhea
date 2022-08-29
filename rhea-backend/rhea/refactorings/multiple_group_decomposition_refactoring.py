@@ -1,6 +1,6 @@
 from typing import Any
 
-from famapy.metamodels.fm_metamodel.models import FeatureModel, Feature, Relation
+from flamapy.metamodels.fm_metamodel.models import FeatureModel, Feature, Relation
 
 from rhea.refactorings import FMRefactoring
 
