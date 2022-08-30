@@ -54,9 +54,9 @@ class NewNamesEliminationSimpleConstraintsRequires(FMRefactoring):
                     feature_plus.name = feature_plus.reference.name
         if model_plus is not None:
             model_plus = utils.add_node_to_tree(model_plus, right_feature_ctc_plus)
-        # print('----my relations PLUSS-----')
-        # for r in model_plus.get_relations():
-        #     print(f'Relation (pluss): ({r.parent}, {[f.name for f in r.children]}, {r.card_min}, {r.card_max})')
+        print('----my relations PLUSS-----')
+        for r in model_plus.get_relations():
+            print(f'Relation (pluss): ({r.parent}, {[f.name for f in r.children]}, {r.card_min}, {r.card_max})')
         print(f'T(+{right_feature_ctc_plus}): {model_plus}')
         
 
@@ -68,10 +68,9 @@ class NewNamesEliminationSimpleConstraintsRequires(FMRefactoring):
                     feature_less.name = feature_less.reference.name
         if model_less is not None:
             model_less = utils.eliminate_node_from_tree(model_less, left_feature_ctc_less)
-
-        # print('----my relations LESS 1-----')
-        # for r in model_less.get_relations():
-        #     print(f'Relation (less): ({r.parent}, {[f.name for f in r.children]}, {r.card_min}, {r.card_max})')
+        print('----my relations LESS 1-----')
+        for r in model_less.get_relations():
+            print(f'Relation (less): ({r.parent}, {[f.name for f in r.children]}, {r.card_min}, {r.card_max})')
         print(f'T(-{left_feature_ctc_less}): {model_less}')
         
 
@@ -83,9 +82,9 @@ class NewNamesEliminationSimpleConstraintsRequires(FMRefactoring):
                     feature_less.name = feature_less.reference.name
         if model_less is not None:
             model_less = utils.eliminate_node_from_tree(model_less, right_feature_ctc_less)
-        # print('----my relations LESS 2-----')
-        # for r in model_less.get_relations():
-        #     print(f'Relation (less): ({r.parent}, {[f.name for f in r.children]}, {r.card_min}, {r.card_max})')
+        print('----my relations LESS 2-----')
+        for r in model_less.get_relations():
+            print(f'Relation (less): ({r.parent}, {[f.name for f in r.children]}, {r.card_min}, {r.card_max})')
         print(f'T(-{right_feature_ctc_less}): {model_less}')
         
         # for feature in list_right_feature_ctc_plus:

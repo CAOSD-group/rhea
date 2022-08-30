@@ -76,6 +76,10 @@ def add_node_to_tree(model: FeatureModel, node: Feature) -> FeatureModel:
     return model
 
 def eliminate_node_from_tree(model: FeatureModel, node: Feature) -> FeatureModel:
+    
+    print(f'MODEL LESS PARA {node}: {model}')
+    print(f'{node} ES MANDATORY: {node.is_mandatory()}')
+
     if node not in model.get_features():
         # If model does not contain node, the result is model.
         return model
@@ -86,7 +90,7 @@ def eliminate_node_from_tree(model: FeatureModel, node: Feature) -> FeatureModel
         parent = node.parent  # Let the parent feature of F be P.
         if (not parent.is_group()) and node.is_mandatory():  # parent.is_root() or parent.is_mandatory() or parent.is_optional()
             # If P is a MandOpt feature and F is a mandatory subfeature of P, GOTO
-            # step 2 with P instead of F. 
+            # step 2 with P instead of F.
             model = eliminate_node_from_tree(model, parent)
         elif (not parent.is_group()) and node.is_optional():  # parent.is_root() or parent.is_mandatory() or parent.is_optional()
             # If P is a MandOpt feature and F is an optional subfeature of P, delete F.
