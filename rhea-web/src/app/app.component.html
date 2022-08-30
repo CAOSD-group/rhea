@@ -1,13 +1,8 @@
-
-
-<body>
+<body   (contextmenu)="onRightClick($event)" > 
   
   <mat-toolbar color="primary" class="titulo" >
-    <button mat-icon-button (click)="drawer.toggle()">
+    <button mat-icon-button (click)="sidenav.toggle()">
       <mat-icon>menu</mat-icon>
-    </button>
-    <button mat-icon-button (click)="drawer2.toggle()">
-      <mat-icon>book</mat-icon>
     </button>
 
     <button mat-icon-button (click)="pasoajson()">
@@ -21,7 +16,7 @@
 
 
 
-  <mat-drawer-container class="example-container" autosize >
+  <mat-sidenav-container class="example-container" autosize [hasBackdrop]="true" >
    <div class="example-sidenav-content"></div>
   
    <mat-grid-list cols="5" rowHeight="1:1">
@@ -41,7 +36,7 @@
              <div></div>
             </button>
             {{node.name}} 
-            <button mat-menu-item [matMenuTriggerFor]="menu"  (click)= "seleccionar(node.name)"> <mat-icon>dialpad</mat-icon> </button> 
+            <button mat-menu-item [matMenuTriggerFor]="menu"  (click)= 'seleccionar(node.name)'> <mat-icon>dialpad</mat-icon> </button> 
           <div>
           <mat-icon >
             {{SimboloPorTipo(node.type) }} 
@@ -51,13 +46,13 @@
             <ng-container matTreeNodeOutlet></ng-container> 
           </div>
           <mat-menu #menu="matMenu">
-            <button (click)="modificarSeleccion()">modificar valores</button>
+            <button (click)="sidenav2.toggle()">modificar valores</button>
             <div></div>
             <button (click)="borrarRama()">borrar rama</button>
             <div></div>
-            <button (click)="CrearHijo()">crear hijo</button>
+            <button (click)="sidenav3.toggle()">crear hijo</button>
             <div></div>
-            <button (click)="CrearHermano()">crear hermano</button>
+            <button (click)="sidenav4.toggle()">crear hermano</button>
           </mat-menu>  
         </mat-nested-tree-node>
       </mat-tree> 
@@ -98,6 +93,7 @@
         </mat-nested-tree-node>
       </mat-tree>
       
+      
     
       
     </mat-grid-tile>
@@ -123,9 +119,9 @@
     </mat-grid-tile>
    </mat-grid-list>
   <!---->
-  <!--Drawer section-->
+  <!--sidenav section-->
   <!---->
-    <mat-drawer #drawer class="example-sidenav" mode="side" >
+    <mat-sidenav #sidenav class="example-sidenav" mode="side" >
       <div></div>
       <button (click)="borrarArbol()">borrar vista del arbol (se guarda en una variable)</button>
       <div></div>
@@ -148,17 +144,55 @@
       <input matInput #itemValue2 type="string" placeholder="nombre">
       <div></div>
       <button (click)="openDialog()"> Open dialog</button>
-    </mat-drawer>
+    </mat-sidenav>
 
     <!---->
-    <!--Drawer2 section-->
+    <!--sidenav2 section-->
     <!---->
 
-    <mat-drawer #drawer2 class="example-sidenav" position="end" mode="side" >
-      <h2>punto para insertar cosas nuevas </h2>
-      <input matInput #itemValue2 type="string" placeholder="nombre">
-    </mat-drawer>
+    <mat-sidenav #sidenav2 class="example-sidenav" position="end" mode="side" >
+      <h2>Modificar valores</h2>
+      <h3>Nombre</h3>
+      <input matInput  type="string" [(ngModel)]="nombre">
+      <div></div>
+      <h3>Tipo</h3>
+      <input matInput  type="string" [(ngModel)]="type">
+      <div></div>
+      <h3>Card_max</h3>
+      <input matInput  type="number" [(ngModel)]="card_max">
+      <div></div>
+      <h3>Card_min</h3>
+      <input matInput  type="number" [(ngModel)]="card_min">
+      <div></div>
+      <mat-checkbox  [(ngModel)]="optional" > optional</mat-checkbox>
+      <div></div>
+      <mat-checkbox  [(ngModel)]="abstract" >abstract </mat-checkbox>
+      <div></div>
+      <h2>Guardar Cambios</h2>
+      <button (click)="modificarSeleccion()" >update</button>
+
+    </mat-sidenav>
+    <!---->
+    <!--sidenav3 section-->
+    <!---->
+
+    <mat-sidenav #sidenav3 class="example-sidenav" position="end" mode="side" >
+      <h2>Crear hijo </h2>
+      <h3>Nombre</h3>
+      <input matInput  type="string" [(ngModel)]="nombre">
+      <div></div>
+      <button (click)="CrearHijo()" (click)="sidenav3.toggle()">Create</button>
+    </mat-sidenav>
+    <!---->
+    <!--sidenav4 section-->
+    <!---->
+    <mat-sidenav #sidenav4 class="example-sidenav" position="end" mode="side" >
+      <h2>Crear hermano </h2>
+      <input matInput  type="string" [(ngModel)]="nombre">
+      <div></div>
+      <button (click)="CrearHermano()" (click)="sidenav4.toggle()">Create</button>
+    </mat-sidenav>
 
 
-  </mat-drawer-container>
+  </mat-sidenav-container>
 </body>

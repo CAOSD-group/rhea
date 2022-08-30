@@ -5,6 +5,7 @@ import {MatTreeNestedDataSource} from '@angular/material/tree';
 import { Arbol } from './components/arbol_pruebas/arbol';
 import{Const} from './components/constrain/const';
 import {MatDialog,} from '@angular/material/dialog';
+import { event } from 'jquery';
 
 
 
@@ -42,6 +43,7 @@ export class AppComponent {
   articulos: any;        //atributo donde guardo las respuestas
   title:string ='rhea-web' // evita un error en app.component.spec.ts
   declare actual:Arbol      //valor actual del arbol
+  declare padre:Arbol      //valor actual del padre del actual arbol
   tree:Array<Arbol> =[new Arbol()]  // el arbol de datos 
   cons:Array<Const>=[new Const()]
   declare json_nombre:any;    //guardo los valores de las features
@@ -52,20 +54,23 @@ export class AppComponent {
   constraintreeControl = new NestedTreeControl<Const>(constrainnode => constrainnode.operands);
   constraindataSource = new MatTreeNestedDataSource<Const>();
 
-  // variables para la representacion web
-  tiles: Tile[] = [ // variables para la visualizacion del grid
-    {text: 'One', cols: 1, rows: 6, color:'lightblue'}, // acepta valores no enteros como 1.3
-    {text: 'Two', cols: 9, rows: 6, color:'lightgreen'},
-    {text: 'Three', cols: 7, rows: 6, color:'lightpink'},
-    {text: 'Four', cols: 2, rows: 6, color:'#DDBDF1'}]
+  
+    
     //lista de constrains y nombres de las features
     tiposconstrains:Array<string>=['NotTerm','OrTerm','AndTerm','ImpliesTerm','Xor','Xand','doubleImpliesTerm']
     nombresFeatures:Array<string>=[]
     crearConstrains:Array<string>=[]
   //otros
-  item:string ='Pizzas.uvl';
+  item:string ='Truck.uvl';
   texto1="Ocultar Constrains";
   texto2=this.item;
+  // modificar o crear arbol
+  nombre:string="";
+  optional:boolean=false;
+  abstract:boolean=false;
+  type:string ="";
+  card_min:number=0;
+  card_max:number=0;
 
 
   
@@ -127,6 +132,7 @@ getArchivo(texto?:string){
   }
     aux=JSON.parse(aux2)
     aux3=aux.constraints
+    console.log("vengo por aqui")
     this.crearCons()
     this.crearArbol()
   })
@@ -143,23 +149,14 @@ createFile(texto:string){  // envia el nombre del archivo a crear y el archivo a
   })
 }
 
-//se modifican todos los parametros 
-// grupos minimo dos hijos 
-//valores de selecciones minimo maximo
-// modificar type  (dos hijos minimo)
 
-//valores predeterminados abstra falso opcional true tipo feature sin hijos 
-//cuando se borra un elemento se borran todo los hijos 
-//elementos no duplicados  por nombre (temporalmente)
+
 //descargar el fichero y lo envia al servidor (mirar ejemplo FM-SPL carpetas bucador)
 //constrains van a tener forma de texto (mantener forma arbol)
 //cambios manuales  un boton para enviar al server 
 
-// documentacion explicar que hace cada metodo, las referencias que tiene
+//  documentacion explicar que hace cada metodo, las referencias que tiene
 //  explicar los elementos y que parametros tienen y los codigos que se usan
-
-
-
 
 
 // Consultar las esperas de tiempo
@@ -169,22 +166,63 @@ createFile(texto:string){  // envia el nombre del archivo a crear y el archivo a
 //        Diseño grafico estatico y dinamico
 //        Paleta de colores
 //        Imagenes y simbolos
+//        Sidnav que se cierren automatico
   
 
 
-
 modificarSeleccion(){
+  if(this.actual.name!=this.nombre && this.actual.evitaDuplicados(this.nombre)){
+    alert("este nombre ya existe, por favor use otro")
+  }
+  else{
+  this.actual.name=this.nombre
+  if(this.actual.children==undefined){
+    alert("has intentado modificar un objeto que no tiene 2 o mas hijos")
+  }
+  if(this.actual.children!=undefined){
+  if(this.actual.children.length<2){
+    alert("has intentado modificar un objeto que no tiene 2 o mas hijos")
+  }
+  else{
+  this.actual.type=this.type
+  this.actual.card_max=this.card_max
+  this.actual.card_min=this.card_min
+  alert("no se comprueba que el tipo tenga concordancia con el maximo y minimo")
+}}
+  this.actual.optional=this.optional
+  this.actual.abstract=this.abstract
+}
+console.log(this.actual)
 }
 borrarRama(){
-  this.actual.borrar()
+  this.actual.borrar(this.padre)
   console.log(this.actual)
   this.borrarArbol()
   this.recargarArbol()
 }
 CrearHijo(){
+  if(this.actual.evitaDuplicados(this.nombre)){
+    alert("este nombre ya existe, por favor use otro")
+  }
+  else{
+  if(this.actual.children==undefined){this.actual.children=[]}
+  this.actual.children.push(this.actual.creardeafault(this.nombre))
+  this.borrarArbol()
+  this.recargarArbol()}
 }
 CrearHermano(){
-  
+  if(this.actual.evitaDuplicados(this.nombre)){
+    alert("este nombre ya existe, por favor use otro")
+  }
+  else{
+  if(this.padre==undefined){
+    alert("estas intentando crear una raiz")
+  }
+  else{
+  this.padre.children.push(this.actual.creardeafault(this.nombre))
+  this.borrarArbol()
+  this.recargarArbol()
+}}
 }
 
 
@@ -251,7 +289,9 @@ readThis(inputValue: any): void {
         if(aux!=undefined){
         this.json_nombre=aux
         this.json_const=aux2
+        aux3=aux2
         console.log("estoy en espera")
+        console.log("falla aux3 por la duplicacion del diccionario")
         this.crearCons()
         this.crearArbol()}
       },
@@ -261,19 +301,27 @@ readThis(inputValue: any): void {
   }
   
 
-seleccionar(id:string,lista?:Array<any>){  // este devuelve un objeto tipo Object
+seleccionar(id:string,lista?:Array<any>,padre?:any){  // este devuelve un objeto tipo Object
   aux2=this.tree[0].name
   if(lista==null){lista=this.tree}
   if(lista.filter(x=> x.name==id)[0]==undefined){
     lista.forEach(element => {
       if(element.children){
       if(element.children.length>0){
-        this.seleccionar(id,element.children)
+        this.seleccionar(id,element.children,element)
       }}
     });
   }else{
     this.actual=lista.filter(x=> x.name==id)[0]
+    this.padre=padre
+    this.nombre=this.actual.name
+    this.type=this.actual.type
+    this.optional=this.actual.optional
+    this.abstract=this.actual.abstract
+    this.card_max=this.actual.card_max
+    this.card_min=this.actual.card_min
     console.log(this.actual)
+    console.log(this.padre)
     this.tree[0].name=aux2
   }
   }
@@ -366,7 +414,10 @@ SimboloPorTipo(tipo:string){
   return aux
 }
 
-
+onRightClick($event) {
+  alert("hola")
+  return true
+}
 
 }
 @Component({

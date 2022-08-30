@@ -15,6 +15,8 @@ let Nabstract:boolean;
 let Noptional:boolean;
 let Ntype:string;
 let Nchildren:Array<Arbol>;
+let Ncard_max:number
+let Ncard_min:number
 
 
 
@@ -31,10 +33,12 @@ let lista:Array<string> =[]
 })
 
  export class Arbol  {
-    abstract:boolean =false;
-    optional:boolean =false;
     name:string ="";
+    card_min:number=0;
+    card_max:number=0;
     type:string ="";
+    optional:boolean =false;
+    abstract:boolean =false;
     children:Array<Arbol> =[];
     aux=0
     treeControl = new NestedTreeControl<Arbol>(node => node.children);
@@ -48,9 +52,16 @@ let lista:Array<string> =[]
         this.optional=Noptional;
         this.type=Ntype;
         this.children=[];
+        this.card_max=Ncard_max;
+        this.card_min=Ncard_min 
+        if(this.card_min==undefined){this.card_min=0}
+        if(this.card_max==undefined){this.card_max=0}
     }
 
-    borrar(){
+    borrar(lista:Arbol){
+        if(lista!=undefined){
+        if(lista.children!=undefined){
+        lista.children=lista.children.filter(x=>x.name!=this.name)}}
         if(this.children!=undefined){
             this.children.forEach(element => {
                 element.borrar
@@ -61,6 +72,8 @@ let lista:Array<string> =[]
         this.optional=false;
         this.type="";
         this.children=[];
+        this.card_max=-1;
+        this.card_min=-1;
         }
 
 
@@ -77,6 +90,8 @@ let lista:Array<string> =[]
         Nabstract=valor.abstract;
         Noptional=valor.optional;
         Ntype=valor.type;
+        Ncard_max=valor.card_max
+        Ncard_min=valor.card_min
         if(valor.children!=undefined ){
         Nchildren=valor.children}
         else {Nchildren=[] }
@@ -129,6 +144,20 @@ let lista:Array<string> =[]
         });
         return lista
     }
+    evitaDuplicados(duplicado:string,lista?:Array<Arbol>){
+        if(lista==undefined){
+            aux=false
+            lista=arbol
+        }
+        lista.forEach(element => {
+            if(element.name==duplicado){aux=true
+            console.log("Esta duplicado")}
+            else{
+            if(element.children!=undefined){
+            this.evitaDuplicados(duplicado,element.children)}}
+        });
+        return aux
+    }
    
   
     crearHijoArbol(valor:any){  
@@ -136,8 +165,23 @@ let lista:Array<string> =[]
         aux.name=valor.name;
         aux.abstract=valor.abstract;
         aux.optional=valor.optional;
+        aux.card_max=valor.card_max;
+        aux.card_min=valor.card_min 
+        if(aux.card_min==undefined){aux.card_min=0}
+        if(aux.card_max==undefined){aux.card_max=0}
         aux.type=valor.type;
         aux.children=valor.children;
+        return aux
+    }
+    creardeafault(nombre:string){  
+        aux=new Arbol()
+        aux.name=nombre
+        aux.card_max=0;
+        aux.card_min=0;
+        aux.abstract=false;
+        aux.optional=true
+        aux.type="FEATURE"
+        aux.children=[]
         return aux
     }
 
