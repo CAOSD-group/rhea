@@ -18,6 +18,8 @@ from rhea.refactorings.xor_mandatory_refactoring import XorMandatoryRefactoring
 from rhea.refactorings.or_mandatory_refactoring import OrMandatoryRefactoring
 from rhea.refactorings.new_names_elimination_simple_ctcs_requires import NewNamesEliminationSimpleConstraintsRequires
 from rhea.refactorings.new_names_elimination_simple_ctcs_excludes import NewNamesEliminationSimpleConstraintsExcludes
+from rhea.refactorings.elimination_complex_constraints import EliminationComplexConstraints
+
 
 from rhea.flamapy2.metamodels.fm_metamodel.transformations import GlencoeReader
 

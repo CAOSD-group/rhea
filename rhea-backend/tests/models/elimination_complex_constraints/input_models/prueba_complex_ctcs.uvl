@@ -7,11 +7,7 @@ features
 				or
 					D
 					E
-			C	
-				optional
-					F
+			C
 
 constraints
-	D => F
-	F => D
-	D => C
+	A | B | C | !D | !E

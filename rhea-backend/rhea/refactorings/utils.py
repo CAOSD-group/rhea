@@ -1,4 +1,5 @@
 from logging import root
+from multiprocessing import parent_process
 from flamapy.metamodels.fm_metamodel.models import FeatureModel, Feature, Relation
 
 from typing import List
@@ -29,8 +30,11 @@ def is_there_node(parent: Feature, child_node: Feature) -> Feature:
 def convert_parent_to_mandatory(fm: FeatureModel, f: Feature) -> FeatureModel:
     parent = f.get_parent()
     if parent is not None:
+        print(f'PARENT: {parent.name}')
+        print(f'PARENT RELATIONS: {[str(r) for r in parent.get_relations()]}')
         rel_mand = next((r for r in parent.relations if f in r.children), None)
-        rel_mand.card_min = 1
+        if rel_mand is not None:
+            rel_mand.card_min = 1
         fm = convert_parent_to_mandatory(fm, parent)
     return fm
 
@@ -77,8 +81,8 @@ def add_node_to_tree(model: FeatureModel, node: Feature) -> FeatureModel:
 
 def eliminate_node_from_tree(model: FeatureModel, node: Feature) -> FeatureModel:
     
-    print(f'MODEL LESS PARA {node}: {model}')
-    print(f'{node} ES MANDATORY: {node.is_mandatory()}')
+    # print(f'MODEL LESS PARA {node}: {model}')
+    # print(f'{node} ES MANDATORY: {node.is_mandatory()}')
 
     if node not in model.get_features():
         # If model does not contain node, the result is model.
