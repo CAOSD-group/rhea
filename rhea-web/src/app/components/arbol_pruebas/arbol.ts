@@ -113,7 +113,6 @@ let lista:Array<string> =[]
                         this.crearHijoArbol(element)
                         rama.children.push(aux)
                         this.meterHijos(element,rama,true)
-                        //rama.children.splice(0,1)
                     } 
                     }) 
             }
@@ -121,12 +120,14 @@ let lista:Array<string> =[]
         return arbol[0]
     }
 
-    limpiarArbol(){
-        console.log("llego")
-        arbol[0].children.forEach(rama=>{
-            console.log(rama.children)
-        })
-        return arbol[0]
+    limpiarArbol(lista?:Array<Arbol>){
+        if(lista==undefined){lista=arbol}
+        lista=lista.filter(x=> x instanceof Arbol)
+        lista.forEach(element => {
+            if(element.children!=undefined){
+                element.children=this.limpiarArbol(element.children)}
+        });
+        return lista
     }
    
   

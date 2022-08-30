@@ -180,7 +180,6 @@ borrarRama(){
   console.log(this.actual)
   this.borrarArbol()
   this.recargarArbol()
-  
 }
 CrearHijo(){
 }
@@ -212,12 +211,10 @@ crearArbol(){
   this.tree=[new Arbol()]
   this.tree[0].borrarLista();
   this.tree=this.tree[0].CrearArbol(this.json_nombre)
-  console.log(this.tree)
   this.nombresFeatures=this.tree[0].listanombres();
   this.tree[0]=this.tree[0].meterHijos(this.json_nombre);
-  this.tree[0]=this.tree[0].limpiarArbol();
-  console.log(this.tree)
   this.tree.splice(1,this.tree.length)
+  this.tree[0].limpiarArbol()
   console.log(this.tree)
   this.dataSource.data=this.tree
 }
@@ -378,8 +375,7 @@ SimboloPorTipo(tipo:string){
 })
 export class DialogContentExampleDialog {
   sirvo(texto:string){
-   console.log(texto)
-   alert(texto)
-    
+    console.log(texto)
+    alert(texto)
   }
 }
