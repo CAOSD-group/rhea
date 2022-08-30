@@ -1,10 +1,19 @@
 import json
 from typing import Any 
+from enum import Enum
 
-from famapy.core.models.ast import Node, ASTOperation
-from famapy.core.transformations import ModelToText
+from flamapy.core.models.ast import Node, ASTOperation
+from flamapy.core.transformations import ModelToText
 
-from famapy.metamodels.fm_metamodel.models import FeatureModel, Feature, Constraint
+from flamapy.metamodels.fm_metamodel.models import FeatureModel, Feature, Constraint
+
+
+class JSONFeatureType(Enum):
+    FEATURE = 'FEATURE'
+    XOR = 'XOR'
+    OR = 'OR'
+    MUTEX = 'MUTEX'
+    CARDINALITY = 'CARDINALITY'
 
 
 class JSONWriter(ModelToText):
@@ -45,16 +54,16 @@ def _to_json(feature_model: FeatureModel) -> dict[str, Any]:
 def _get_tree_info(feature: Feature) -> dict[str, Any]:
     feature_info = {}
     feature_info['name'] = feature.name
-    feature_type = 'FEATURE'
+    feature_type = JSONFeatureType.FEATURE.value
     if feature.is_alternative_group():
-        feature_type = 'XOR'
+        feature_type = JSONFeatureType.XOR.value
     elif feature.is_or_group():
-        feature_type = 'OR'
+        feature_type = JSONFeatureType.OR.value
     elif feature.is_mutex_group():
-        feature_type = 'MUTEX'
+        feature_type = JSONFeatureType.MUTEX.value
     elif feature.is_cardinality_group():
-        feature_type = 'CARDINALITY'
-    if feature_type != 'FEATURE':
+        feature_type = JSONFeatureType.CARDINALITY.value
+    if feature_type != JSONFeatureType.FEATURE.value:
         relation = next((r for r in feature.get_relations()), None)
         feature_info['card_min'] = relation.card_min
         feature_info['card_max'] = relation.card_max

@@ -1,47 +1,43 @@
-from asyncio.windows_events import NULL
-from cgitb import text
-import json
-from pickle import TRUE
-import re
-import string
-from subprocess import CREATE_NEW_CONSOLE
-from types import NoneType
 from typing import Optional
-from urllib import response
 from xml.etree.ElementTree import tostring
-import os
 
-from flask import Flask, flash, jsonify, render_template, request
+from flask import Flask, render_template, request, send_from_directory
 from flask_cors import CORS
 
-from famapy.metamodels.fm_metamodel.models import FeatureModel
-from famapy.metamodels.fm_metamodel.transformations import UVLReader, FeatureIDEReader, GlencoeReader
+from flamapy.metamodels.fm_metamodel.models import FeatureModel
+from flamapy.metamodels.fm_metamodel.transformations import UVLReader, UVLWriter, FeatureIDEReader, GlencoeReader
 from requests import JSONDecodeError
 
 from rhea.flamapy.metamodels.fm_metamodel.transformations.json_writer import JSONWriter
+from rhea.flamapy.metamodels.fm_metamodel.transformations.json_reader import JSONReader
 
 
-static_url=''
+static_url = ''
 static_dir = 'template'
-static_folder='web'
+static_folder = 'web'
 #static_dir = 'web'
 
-app = Flask(__name__,static_url_path=static_url,static_folder=static_folder,template_folder=static_dir)
+
+app = Flask(__name__,
+            static_url_path=static_url,
+            static_folder=static_folder,
+            template_folder=static_dir)
 CORS(app)
+
 
 def read_fm_file(filename: str) -> Optional[FeatureModel]:
     try:
         if filename.endswith(".uvl"):
-            print("archivo tipo .uvl")
+            print("UVL file type (.uvl)")
             return UVLReader(filename).transform()
         elif filename.endswith(".xml") or filename.endswith(".fide"):
-            print("archivo tipo .xml o .fide")
+            print("FeatureIDE file type (.xml, .fide).")
             return FeatureIDEReader(filename).transform()
         elif filename.endswith('.gfm.json'):
-            print("archivo tipo .gfm.json")
+            print("Glencoe file type (.gfm.json).")
             return GlencoeReader(filename).transform()
     except:
-        print("no se ha hecho el try")
+        print("Invalid FM format.")
         pass
     try:
         return UVLReader(filename).transform()
@@ -58,6 +54,29 @@ def read_fm_file(filename: str) -> Optional[FeatureModel]:
     return None
 
 #order : saveFM;downloadFM;deleteFM;createFM;
+
+
+@app.route('/uploadFM', methods=['POST'])
+def upload_feature_model():
+    if request.method == 'POST':
+        fm_file = request.files['inputFM']  # 'inputFM' is the name of the parameter in the POST request from the frontend
+        if fm_file:
+            filename = fm_file.filename
+            fm_file.save(filename)
+            fm = read_fm_file(filename)
+            if fm is None:
+                json_fm = JSONWriter(path=None, source_model=fm).transform()
+                return json_fm
+
+
+@app.route('/downloadFM', methods=['POST'])
+def upload_feature_model():
+    if request.method == 'POST':
+        json_model = request.data.decode() 
+        if json_model:
+            fm = JSONReader.parse_json(json_model)
+            UVLWriter(fm, path=fm.root.name).transform()
+            return send_from_directory('.', fm.root.name, as_attachment=True)
 
 
 @app.route('/saveFM', methods=['GET', 'POST'])
