@@ -61,7 +61,7 @@ export class AppComponent {
     nombresFeatures:Array<string>=[]
     crearConstrains:Array<string>=[]
   //otros
-  item:string ='Truck.uvl';
+  item:string ='Pizzas.uvl';
   texto1="Ocultar Constrains";
   texto2=this.item;
   // modificar o crear arbol
@@ -367,7 +367,7 @@ pasoajson(){
   //jsonfeatures='"'+'name'+'"'+':'+'"'+ this.item+'"'+','+'"'+"features"+'"'+':'+jsonfeatures
   jsonconstrain=JSON.stringify(jsonconstrain)
   jsonconstrain=jsonconstrain.slice(1,jsonconstrain.length-1)
-  alert("fallan los { } ")
+  alert("Los constrains se ponen como el atributo de algo (faltaria poner la key del value)")
   //alert("a los json les faltaria incluir el nombre y el features;--constrains:--")
   //alert("en los constrains habria que mirar el tema de diccionario key-value")
 

@@ -111,7 +111,8 @@ let lista:Array<string> =[]
         
         return arbol
     }
-    
+
+
     meterHijos(valor: any ,padre?:any, control?:boolean){ 
         if(valor.children!=undefined){  
         valor.children.forEach(element => {
@@ -135,7 +136,10 @@ let lista:Array<string> =[]
         return arbol[0]
     }
 
+
+
     limpiarArbol(lista?:Array<Arbol>){
+        
         if(lista==undefined){lista=arbol}
         lista=lista.filter(x=> x instanceof Arbol)
         lista.forEach(element => {
@@ -170,7 +174,7 @@ let lista:Array<string> =[]
         if(aux.card_min==undefined){aux.card_min=0}
         if(aux.card_max==undefined){aux.card_max=0}
         aux.type=valor.type;
-        aux.children=valor.children;
+        aux.children=[]
         return aux
     }
     creardeafault(nombre:string){  
