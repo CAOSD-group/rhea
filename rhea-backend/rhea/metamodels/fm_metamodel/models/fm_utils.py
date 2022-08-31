@@ -2,7 +2,7 @@ from typing import Any
 import datetime
 
 from flamapy.core.models import AST, ASTOperation
-from flamapy.metamodels.fm_metamodel.models import FeatureModel, Constraint
+from flamapy.metamodels.fm_metamodel.models import FeatureModel, Feature, Constraint
 
 from rhea.metamodels.fm_metamodel.models import Type
 
@@ -106,5 +106,30 @@ def filter_products(fm: FeatureModel, configurations: list[list[str]]) -> list[l
                 while hasattr(feature, 'reference'):
                     feature = feature.reference
                 c.add(feature.name)
+        filtered_configs.add(frozenset(c))
+    return filtered_configs
+
+
+def filter_products2(fm: FeatureModel, configurations: list[list[Feature]]) -> list[list[Feature]]:
+    """Given a list of configurations return it with the configurations filtered.
+    
+    This method takes into account that the features in the FM can be not unique. 
+    That is, features can have a 'reference' attribute indicating that the feature is non-unique
+    and appears in other part of the FM. The 'reference' points to the original feature.
+
+    The filters performed are the following:
+      a) Remove abstract features.
+      b) Substitute non-unique features with the original one.
+      c) Remove duplicate features.
+    """
+    filtered_configs = set()
+    for config in configurations:
+        c = set()
+        for feature in config:
+            if feature.name.endswith('1'):
+                name = feature.name[:-1]
+            else:
+                name = feature.name
+            c.add(name)
         filtered_configs.add(frozenset(c))
     return filtered_configs
