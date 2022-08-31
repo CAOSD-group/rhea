@@ -27,7 +27,7 @@ import {MatGridListModule} from '@angular/material/grid-list';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatChipsModule} from '@angular/material/chips';
-
+import {ScrollingModule} from '@angular/cdk/scrolling';
 @NgModule({
   declarations: [
     AppComponent,
@@ -43,6 +43,7 @@ import {MatChipsModule} from '@angular/material/chips';
     BrowserModule,
     MatDialogModule,
     DragDropModule,
+    ScrollingModule,
     MatToolbarModule,
     MatGridListModule,
     MatChipsModule,

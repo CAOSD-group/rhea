@@ -58,7 +58,7 @@ export class AppComponent {
   
     
     //lista de constrains y nombres de las features
-    tiposconstrains:Array<string>=['NotTerm','OrTerm','AndTerm','ImpliesTerm','Xor','Xand','doubleImpliesTerm']
+    tiposconstrains:Array<string>=['NotTerm','OrTerm','AndTerm','ImpliesTerm','Xor','Xand','doubleImpliesTerm','(',')']
     nombresFeatures:Array<string>=[]
     crearConstrains:Array<string>=[]
   //otros

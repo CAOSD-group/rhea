@@ -42,7 +42,22 @@
   h6 {
     margin: 8px 0;
   }
+  .example-viewport {
+    height: 350px;
+    width: 350px;
+  }
   
+  
+  .margen{
+    margin: 15px
+  }
+  .example-item-detail {
+    height: 18px;
+  }
+  
+  .example-alternate {
+    background: rgba(127, 127, 127, 0.3);
+  }
   .mat-grid-tile {
     background: lightblue;
   }
