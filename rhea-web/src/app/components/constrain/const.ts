@@ -9,9 +9,10 @@ import { keyframes } from '@angular/animations';
 
 let aux :any // variable auxiliar 
 let aux2:any
+let aux3:any
 let constrain :Array<Const> =[]
-let constrain2 :Array<Const> =[]
-let selecionado: Const
+let constrainarbol :Array<Const> =[]
+let constraintexto :Array<any> =[]
 // Que pasa con el Xor o con el Xand,no existen o si
 
 
@@ -22,32 +23,59 @@ let selecionado: Const
 })
 
  export class Const  {
-    type:any;
+    type:string=""
     operands:Array<Const>=[];
-    feature:Array<Featureobjetc>=[];
-    consoperands:Array<Const> =[];
-    constraintreeControl = new NestedTreeControl<Const>(constrainnode => constrainnode.consoperands);
+    constraintreeControl = new NestedTreeControl<Const>(constrainnode => constrainnode.operands);
     constraindataSource = new MatTreeNestedDataSource<Const>();
     
     constructor() {
     }
-    hasChild = (_: number, node: Const) => !!node.consoperands && node.consoperands.length >= 0;
+    hasChild = (_: number, node: Const) => !!node.operands && node.operands.length >= 0;
 
-    CrearConstrain(lista:any){
-        constrain=[]
-        for( const[key] of Object.entries(lista)){
-            constrain.push(lista[key])
-        }
-        this.crearListaBuena(constrain)
-        return constrain
-    }
-    CrearConstrain2(lista2:any){
-        constrain2=[]
+
+    CrearConstrain(lista2:any){
+        constrainarbol=[]
+        constraintexto=[]
         for( const[key2] of Object.entries(lista2)){
-            constrain2.push(lista2[key2])
+            aux2=this.CreanuevaConstrain(lista2[key2].ast)
+            constrain.push(aux2)
+            this.bucle(constrain)
+            constrainarbol.push(lista2[key2].ast)
+            constraintexto.push(lista2[key2].expr)
         }
-        return constrain2
+        return [constrainarbol,constraintexto]
     }
+
+
+    CreanuevaConstrain(valor:any){
+        aux=new Const()
+        aux.type=valor.type
+        aux.operands=valor.operands
+        return aux
+    }
+
+
+
+
+    bucle(lista:any){
+        if(lista.length!=undefined){
+            lista.forEach(element => {
+                if(element.operands.length!=undefined){
+                element.operands.forEach(hijo => {
+                    element.operands.push(this.CreanuevaConstrain(hijo))
+                })
+                element.operands.splice(0,element.operands.length/2)
+                this.bucle(element)
+            }
+            });
+    }
+    }
+
+
+
+
+
+
     crearListaBuena(list:Array<any>){
         list.forEach(element => {
             if(element.type=='FeatureTerm'){
@@ -56,20 +84,9 @@ let selecionado: Const
             }
             else{this.crearListaBuena(element.operands)}
         });
+        return list
     }
+        
+   
 }
 
-
-class Featureobjetc{
-    constructor(){
-
-    }
-}
-class advanceConst{
-    operand1:any;
-    operand2:any;
-    constructor(){
-        this.operand1=null;
-        this.operand2=null;
-    }
-}

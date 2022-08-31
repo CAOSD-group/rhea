@@ -19,8 +19,8 @@
   <mat-sidenav-container class="example-container" autosize [hasBackdrop]="true" >
    <div class="example-sidenav-content"></div>
   
-   <mat-grid-list cols="5" rowHeight="1:1">
-    <mat-grid-tile [colspan]="4" [rowspan]="5">
+   <mat-grid-list cols="5" >
+    <mat-grid-tile [colspan]="4" [rowspan]="3">
      <h1>{{item}}</h1>
  
      
@@ -56,11 +56,11 @@
           </mat-menu>  
         </mat-nested-tree-node>
       </mat-tree> 
-<!--
+
 <div>
 
 <mat-chip-list class="mat-chip-list-stacked" >
-  <mat-chip *ngFor="let chip of tiposconstrains" (click)="eligochip(chip)" >
+  <mat-chip *ngFor="let chip of tiposconstrains" (click)="eligochip(chip)">
     {{chip}}
   </mat-chip>
 </mat-chip-list></div>
@@ -69,7 +69,7 @@
   <mat-chip *ngFor="let chip of nombresFeatures" (click)="eligochip(chip)" >
     {{chip}}
   </mat-chip>
-</mat-chip-list></div>-->
+</mat-chip-list></div>
 
 
 
@@ -99,7 +99,7 @@
     </mat-grid-tile>
 
 
-    <mat-grid-tile [colspan]="1" [rowspan]="5" class="miGrid">
+    <mat-grid-tile [colspan]="1" [rowspan]="4" class="miGrid">
       <div class=internalMatGrid >
         <mat-grid-list cols="2" rowHeight="1:1">
           <mat-grid-tile>1
@@ -116,6 +116,15 @@
           </mat-grid-tile>
         </mat-grid-list>
       </div>
+    </mat-grid-tile>
+    <mat-grid-tile [colspan]="4" [rowspan]="1">
+      <mat-selection-list #constrains [multiple]="false">
+        <mat-list-option *ngFor="let constrainTexto of jsonconstrainTexto" [value]="constrainTexto"
+         (click)='cambioseleccionado(constrains.selectedOptions.selected[0].value)'>
+          {{constrainTexto}} 
+        </mat-list-option>
+      </mat-selection-list>
+      <button (click)="sidenav5.toggle()">Opciones constrain</button>
     </mat-grid-tile>
    </mat-grid-list>
   <!---->
@@ -191,6 +200,15 @@
       <input matInput  type="string" [(ngModel)]="nombre">
       <div></div>
       <button (click)="CrearHermano()" (click)="sidenav4.toggle()">Create</button>
+    </mat-sidenav>
+
+    <mat-sidenav #sidenav5 class="example-sidenav" position="end" mode="side" >
+      <h2>Modificar constrain </h2>
+      <input matInput  type="string" [(ngModel)]="ncons">
+      <div></div>
+      <button (click)="ModificarConsText()" (click)="sidenav5.toggle()">Modificar</button>
+      <button (click)="CrearConsText()" (click)="sidenav5.toggle()">Crear</button>
+      <button (click)="borrarConsText()" (click)="sidenav5.toggle()">borrar</button>
     </mat-sidenav>
 
 

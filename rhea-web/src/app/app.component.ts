@@ -1,4 +1,4 @@
-import { Component} from '@angular/core';
+import { ANALYZE_FOR_ENTRY_COMPONENTS, Component} from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import {NestedTreeControl} from '@angular/cdk/tree';
 import {MatTreeNestedDataSource} from '@angular/material/tree';
@@ -13,7 +13,8 @@ import { event } from 'jquery';
 var aux:any;
 var aux2:any=""
 var aux3: any;
-var jsonconstrain: any;
+var jsonconstrain: Array<Const>=[new Const()] 
+var constrainTexto:string;
 var jsonfeatures:string
 let baux=false;
 var diccionario:any
@@ -45,9 +46,9 @@ export class AppComponent {
   declare actual:Arbol      //valor actual del arbol
   declare padre:Arbol      //valor actual del padre del actual arbol
   tree:Array<Arbol> =[new Arbol()]  // el arbol de datos 
-  cons:Array<Const>=[new Const()]
-  declare json_nombre:any;    //guardo los valores de las features
-  declare json_const:any;     //guardo los valores de las constraints
+  cons:Array<Const>=[new Const()]   // El arbol de constrains con el nombre en la rama final
+  //declare json_nombre:any;    //guardo los valores de las features
+  //declare json_const:any;     //guardo los valores de las constraints
   dictconst:Map<string,Object>=new Map<string,Object>();
   treeControl = new NestedTreeControl<Arbol>(node => node.children);
   dataSource = new MatTreeNestedDataSource<Arbol>();
@@ -64,6 +65,7 @@ export class AppComponent {
   item:string ='Pizzas.uvl';
   texto1="Ocultar Constrains";
   texto2=this.item;
+  jsonconstrainTexto: Array<string>=[]
   // modificar o crear arbol
   nombre:string="";
   optional:boolean=false;
@@ -71,7 +73,7 @@ export class AppComponent {
   type:string ="";
   card_min:number=0;
   card_max:number=0;
-
+  ncons:string="";
 
   
 constructor(private http: HttpClient,public dialog: MatDialog) { }  
@@ -102,8 +104,8 @@ returnValues(texto?:string){
     this.item=texto||"";
     this.texto2=this.item
     this.articulos=JSON.parse(this.articulos)
-    this.json_nombre=this.articulos.features,
-    this.json_const=this.articulos.constraints
+    jsonfeatures=this.articulos.features,
+    jsonconstrain=this.articulos.constraints
 
     aux2=""
     diccionario = Object.assign({}, resultado);
@@ -122,8 +124,9 @@ getArchivo(texto?:string){
     this.item=texto||"";
     this.texto2=this.item
     this.articulos=JSON.parse(this.articulos)
-    this.json_nombre=this.articulos.features,
-    this.json_const=this.articulos.constraints
+    jsonfeatures=this.articulos.features,
+    jsonconstrain=this.articulos.constraints
+    console.log(JSON.stringify(jsonconstrain))
 
     aux2=""
     diccionario = Object.assign({}, resultado);
@@ -150,10 +153,12 @@ createFile(texto:string){  // envia el nombre del archivo a crear y el archivo a
 }
 
 
+//constrains van a tener forma de texto (mantener forma arbol)
+
 
 //descargar el fichero y lo envia al servidor (mirar ejemplo FM-SPL carpetas bucador)
-//constrains van a tener forma de texto (mantener forma arbol)
-//cambios manuales  un boton para enviar al server 
+
+//cambios manuales un boton para enviar al server 
 
 //  documentacion explicar que hace cada metodo, las referencias que tiene
 //  explicar los elementos y que parametros tienen y los codigos que se usan
@@ -237,10 +242,16 @@ crearCons(){
   console.log("creo constrains")
   this.cons.splice(0,this.cons.length)
   aux=[new Const()]
-  aux2=[new Const()]
-  jsonconstrain=aux[0].CrearConstrain2(aux3)
-  this.cons=aux2[0].CrearConstrain(this.json_const)
-  this.constraindataSource.data=this.cons
+  aux2=0
+  if(true){    //Porque hace falta poner el if para que no de error la siguiente linea?
+  [jsonconstrain,this.jsonconstrainTexto]=aux[0].CrearConstrain(aux3)
+  while(aux2<jsonconstrain.length){
+  jsonconstrain[aux2]=aux[0].CreanuevaConstrain(jsonconstrain[aux2])
+  aux2++}
+  console.log(jsonconstrain)
+  this.cons=aux[0].crearListaBuena(jsonconstrain)
+  this.constraindataSource.data=this.cons}
+  
 }
 
 crearArbol(){
@@ -248,9 +259,9 @@ crearArbol(){
   this.tree.splice(0,this.tree.length)
   this.tree=[new Arbol()]
   this.tree[0].borrarLista();
-  this.tree=this.tree[0].CrearArbol(this.json_nombre)
+  this.tree=this.tree[0].CrearArbol(jsonfeatures)
   this.nombresFeatures=this.tree[0].listanombres();
-  this.tree[0]=this.tree[0].meterHijos(this.json_nombre);
+  this.tree[0]=this.tree[0].meterHijos(jsonfeatures);
   this.tree.splice(1,this.tree.length)
   this.tree[0].limpiarArbol()
   console.log(this.tree)
@@ -287,8 +298,8 @@ readThis(inputValue: any): void {
       setTimeout(() =>     //me permite asegurarme que el valor del archivo se ha leido a tiempo
       { 
         if(aux!=undefined){
-        this.json_nombre=aux
-        this.json_const=aux2
+        jsonfeatures=aux
+        jsonconstrain=aux2
         aux3=aux2
         console.log("estoy en espera")
         console.log("falla aux3 por la duplicacion del diccionario")
@@ -361,13 +372,14 @@ pasoajson(){
   aux3.treeControl=null
   aux3.aux=null
   aux3.dataSource=null
-  jsonfeatures=JSON.stringify(aux3, (key, value) => {
+  jsonfeatures=JSON.stringify(jsonfeatures, (key, value) => {
     if (value !== null) return value
   })
   //jsonfeatures='"'+'name'+'"'+':'+'"'+ this.item+'"'+','+'"'+"features"+'"'+':'+jsonfeatures
-  jsonconstrain=JSON.stringify(jsonconstrain)
-  jsonconstrain=jsonconstrain.slice(1,jsonconstrain.length-1)
-  alert("Los constrains se ponen como el atributo de algo (faltaria poner la key del value)")
+  //jsonconstrain=JSON.stringify(jsonconstrain, (key, value) => {if (value !== null) return value})
+  //jsonconstrain=jsonconstrain.slice(1,jsonconstrain.length-1)
+  console.log(jsonconstrain)
+  alert("PARA LAs COnstrians USAR LA QUE MANTIENE EL TYPOE FEATURE MODEL")
   //alert("a los json les faltaria incluir el nombre y el features;--constrains:--")
   //alert("en los constrains habria que mirar el tema de diccionario key-value")
 
@@ -417,6 +429,37 @@ SimboloPorTipo(tipo:string){
 onRightClick($event) {
   alert("hola")
   return true
+}
+cambioseleccionado(v){
+  console.log(v)
+  constrainTexto=v;
+  this.ncons=v
+}
+ModificarConsText(){
+  aux=-1
+  this.jsonconstrainTexto.forEach(element => {
+    aux++;
+    if(element==constrainTexto){
+      this.jsonconstrainTexto[aux]=this.ncons
+    }
+  });
+}
+CrearConsText(){
+  this.jsonconstrainTexto.push(this.ncons)
+}
+borrarConsText(){
+  aux=-1
+  this.jsonconstrainTexto.forEach(element => {
+    aux++;
+    if(element==this.ncons){
+      this.jsonconstrainTexto=this.jsonconstrainTexto.filter(x=>x!=this.ncons)
+    }
+  });
+  
+}
+
+eligochip(texto:string){
+  console.log(texto)
 }
 
 }
