@@ -26,7 +26,7 @@ from rhea.flamapy2.metamodels.fm_metamodel.transformations import GlencoeReader
 
 ##################################################################################################
 REFACTORING = NewNamesEliminationSimpleConstraintsRequires
-MODEL_PATH = 'tests/models/general_models/prueba_varias_ctcs.uvl'
+MODEL_PATH = 'tests/models/general_models/Pizzas.uvl'
 OUTPUT_PATH = 'output.uvl'
 OUTPUT_CONSOLE = 'output.txt'
 ##################################################################################################
@@ -50,7 +50,7 @@ def filter_products(fm: FeatureModel, configurations: list[list[Any]]) -> set[se
         for f in config:
             feature = fm.get_feature_by_name(f)
             if not feature.is_abstract:
-                if hasattr(feature, 'reference'):
+                while hasattr(feature, 'reference'):
                     feature = feature.reference
                 c.add(feature)
         filtered_configs.add(frozenset(c))

@@ -30,8 +30,8 @@ def is_there_node(parent: Feature, child_node: Feature) -> Feature:
 def convert_parent_to_mandatory(fm: FeatureModel, f: Feature) -> FeatureModel:
     parent = f.get_parent()
     if parent is not None:
-        print(f'PARENT: {parent.name}')
-        print(f'PARENT RELATIONS: {[str(r) for r in parent.get_relations()]}')
+        # print(f'PARENT: {parent.name}')
+        # print(f'PARENT RELATIONS: {[str(r) for r in parent.get_relations()]}')
         rel_mand = next((r for r in parent.relations if f in r.children), None)
         if rel_mand is not None:
             rel_mand.card_min = 1
@@ -47,10 +47,11 @@ def add_node_to_tree(model: FeatureModel, node: Feature) -> FeatureModel:
         return model
     else:
         parent = node.parent  # Let the parent feature of F (node) be P (parent).
-        if (parent.is_root() or parent.is_mandatory() or parent.is_optional()) and node.is_optional():
+        if (not parent.is_group()) and node.is_optional():  # parent.is_root() or parent.is_mandatory() or parent.is_optional()
             # If P is a MandOpt feature and F is an optional subfeature, make F a mandatory subfeature of P
-            rel_mand = next((r for r in parent.relations if node in r.children), None)
+            rel_mand = next((r for r in parent.get_relations() if node in r.children), None)
             rel_mand.card_min = 1
+            # print(f'PARENT RELATIONS IN MODEL PLUS: {[str(r) for r in parent.get_relations()]}')
         elif parent.is_alternative_group():
             # If P is an Xor feature, make P a MandOpt feature which has F as single
             # mandatory subfeature and has no optional subfeatures. All other
@@ -77,6 +78,7 @@ def add_node_to_tree(model: FeatureModel, node: Feature) -> FeatureModel:
 
     # GOTO step 2 with P instead of F.
     model = add_node_to_tree(model, parent)
+    # print(f'NEW MODEL PLUS after: {model}')
     return model
 
 def eliminate_node_from_tree(model: FeatureModel, node: Feature) -> FeatureModel:

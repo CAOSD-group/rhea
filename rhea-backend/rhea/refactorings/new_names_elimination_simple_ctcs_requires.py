@@ -2,6 +2,7 @@ import copy
 from ctypes import util
 from hashlib import new
 from logging import root
+from msilib.schema import FeatureComponents
 from numbers import Real
 from pyexpat import model
 from typing import Any, List
@@ -34,24 +35,22 @@ class NewNamesEliminationSimpleConstraintsRequires(FMRefactoring):
         print(f'MODELO: {model}')
         model_plus = copy.deepcopy(model)
         model_less = copy.deepcopy(model)
-        new_model_plus = copy.deepcopy(model)
-        new_model_less = copy.deepcopy(model)
 
         right_feature_name_ctc = instance.ast.root.right.data
         right_feature_ctc_plus = model_plus.get_feature_by_name(right_feature_name_ctc)
         xor_plus = Feature(utils.get_new_feature_name(model_plus, 'XOR'), is_abstract=True)
         list_right_feature_ctc_plus = get_features_reference(model_plus, right_feature_ctc_plus)
-        print(f'features de la derecha PLUS: {[str(f) for f in list_right_feature_ctc_plus]}')
+        print(f'RIGHT FEATURES PLUS: {[str(f) for f in list_right_feature_ctc_plus]}')
         right_feature_ctc_less = model_less.get_feature_by_name(right_feature_name_ctc)
-        xor_right_less = Feature(utils.get_new_feature_name(model_plus, 'XOR'), is_abstract=True)
+        # xor_right_less = Feature(utils.get_new_feature_name(model_plus, 'XOR'), is_abstract=True)
         list_right_feature_ctc_less = get_features_reference(model_less, right_feature_ctc_less)
-        print(f'features de la derecha LESS: {[str(f) for f in list_right_feature_ctc_less]}')
+        print(f'RIGHT FEATURES LESS: {[str(f) for f in list_right_feature_ctc_less]}')
 
         left_feature_name_ctc = instance.ast.root.left.data
         left_feature_ctc_less = model_less.get_feature_by_name(left_feature_name_ctc)
-        xor_left_less = Feature(utils.get_new_feature_name(model_plus, 'XOR'), is_abstract=True)
+        # xor_left_less = Feature(utils.get_new_feature_name(model_plus, 'XOR'), is_abstract=True)
         list_left_feature_ctc_less = get_features_reference(model_less, left_feature_ctc_less)
-        print(f'features de la izquierda LESS: {[str(f) for f in list_left_feature_ctc_less]}')
+        print(f'LEFT FEATURES LESS: {[str(f) for f in list_left_feature_ctc_less]}')
 
 
         # if model_plus is not None:
@@ -61,23 +60,26 @@ class NewNamesEliminationSimpleConstraintsRequires(FMRefactoring):
         #             feature_plus.name = feature_plus.reference.name
         plus_roots = []
         for f_plus in list_right_feature_ctc_plus:
+            new_model_plus = copy.deepcopy(model)
             if hasattr(f_plus, 'reference') and new_model_plus is not None:
-                print(f'NEW MODEL PLUS: {new_model_plus}')
-                model_plus = utils.add_node_to_tree(new_model_plus, f_plus)
+                new_f_plus = new_model_plus.get_feature_by_name(f_plus.name)
+                # print(f'NEW MODEL PLUS: {new_model_plus}')
+                model_plus = utils.add_node_to_tree(new_model_plus, new_f_plus)
             elif model_plus is not None:
                 model_plus = utils.add_node_to_tree(model_plus, f_plus)
             if model_plus is not None:
+                if model_plus.root in plus_roots:
+                    model_plus.root.name = utils.get_new_feature_name(model, model_plus.root.name)
                 plus_roots.append(model_plus.root)
-            if new_model_plus is not None:
-                plus_roots.append(new_model_plus.root)
             print(f'T(+{f_plus}): {model_plus}')
-        if len(list_right_feature_ctc_less)>1:
+        if len(list_right_feature_ctc_plus)>1:
             r_xor_plus = Relation(xor_plus, plus_roots, 1, 1)  # XOR
             xor_plus.add_relation(r_xor_plus)
             model_plus.root = xor_plus
-        # print('----my relations PLUSS-----')
+            print(f'T(+{[str(f) for f in list_right_feature_ctc_plus]}): {model_plus}')
+        # print('----my relations PLUS-----')
         # for r in model_plus.get_relations():
-        #     print(f'Relation (pluss): ({r.parent}, {[f.name for f in r.children]}, {r.card_min}, {r.card_max})')
+        #     print(f'Relation (plus): ({str(r)})')
         
 
         # print(f'FEATURES DE MODEL LESS 1: {[str(f) for f in model_less.get_features()]}')
@@ -88,20 +90,21 @@ class NewNamesEliminationSimpleConstraintsRequires(FMRefactoring):
         #             feature_less.name = feature_less.reference.name
         less_left_roots = []
         for f_left_less in list_left_feature_ctc_less:
+            new_model_less = copy.deepcopy(model)
             if hasattr(f_left_less, 'reference') and new_model_less is not None:
+                new_f_left_less = new_model_plus.get_feature_by_name(f_left_less.name)
                 print(f'NEW MODEL LESS 1: {new_model_less}')
-                model_less = utils.add_node_to_tree(new_model_less, f_plus)
+                model_less = utils.add_node_to_tree(new_model_less, new_f_left_less)
             elif model_less is not None:
                 model_less = utils.eliminate_node_from_tree(model_less, f_left_less)
             if model_less is not None:
                 less_left_roots.append(model_less.root)
-            if new_model_less is not None:
-                less_left_roots.append(new_model_less.root)
             print(f'T(-{f_left_less}): {model_less}')
-        if len(list_left_feature_ctc_less)>1:
-            r_xor_left_less = Relation(xor_left_less, less_left_roots, 1, 1)  #XOR
-            xor_left_less.add_relation(r_xor_left_less)
-            model_less.root = xor_left_less
+        # if len(list_left_feature_ctc_less)>1:
+        #     r_xor_left_less = Relation(xor_left_less, less_left_roots, 1, 1)  #XOR
+        #     xor_left_less.add_relation(r_xor_left_less)
+        #     model_less.root = xor_left_less
+        # print(f'T(-{[str(f) for f in list_left_feature_ctc_less]}): {model_less}')
         # print('----my relations LESS 1-----')
         # for r in model_less.get_relations():
         #     print(f'Relation (less): ({r.parent}, {[f.name for f in r.children]}, {r.card_min}, {r.card_max})')
@@ -116,20 +119,16 @@ class NewNamesEliminationSimpleConstraintsRequires(FMRefactoring):
         #             feature_less.name = feature_less.reference.name
         less_right_roots = []
         for f_right_less in list_right_feature_ctc_less:
-            if hasattr(f_right_less, 'reference') and new_model_less is not None:
-                print(f'NEW MODEL LESS 1: {new_model_less}')
-                model_less = utils.add_node_to_tree(new_model_less, f_plus)
-            elif model_less is not None:
+            if model_less is not None:
                 model_less = utils.eliminate_node_from_tree(model_less, f_right_less)
             if model_less is not None:
                 less_right_roots.append(model_less.root)
-            if new_model_less is not None:
-                less_right_roots.append(new_model_less.root)
             print(f'T(-{f_right_less}): {model_less}')
-        if len(list_right_feature_ctc_less)>1:
-            r_xor_right_less = Relation(xor_right_less, less_right_roots, 1, 1)  #XOR
-            xor_right_less.add_relation(r_xor_right_less)
-            model_less.root = xor_left_less
+        # if len(list_right_feature_ctc_less)>1:
+        #     r_xor_right_less = Relation(xor_right_less, less_right_roots, 1, 1)  #XOR
+        #     xor_right_less.add_relation(r_xor_right_less)
+        #     model_less.root = xor_right_less
+        # print(f'T(-{[str(f) for f in list_right_feature_ctc_less]}): {model_less}')
         # print('----my relations LESS 2-----')
         # for r in model_less.get_relations():
         #     print(f'Relation (less): ({r.parent}, {[f.name for f in r.children]}, {r.card_min}, {r.card_max})')
@@ -179,7 +178,13 @@ class NewNamesEliminationSimpleConstraintsRequires(FMRefactoring):
                 if feature in model_plus.get_features():
                     feature_reference = model.get_feature_by_name(feature.name)
                     feature.name = utils.get_new_feature_name(model, feature.name)
-                    feature.reference = feature_reference
+                    if feature != feature_reference:
+                        feature.reference = feature_reference
+        
+        # for feature in model.get_features():
+        #     feature_reference = model.get_feature_by_name(feature.name)
+        #     feature.name = utils.get_new_feature_name(model, feature.name)
+        #     feature.reference = feature_reference
 
         # print('----my relations MODEL FINAL (new names-----')
         # for r in model.get_relations():
@@ -192,8 +197,18 @@ class NewNamesEliminationSimpleConstraintsRequires(FMRefactoring):
 def get_features_reference(fm: FeatureModel, feature: Feature) -> list[Feature]:
     features = [feature]
     for new_feature in fm.get_features():
+        feature_with_attr = new_feature
+        while hasattr(feature_with_attr, 'reference'):
+            feature_with_attr = feature_with_attr.reference
+        if hasattr(new_feature, 'reference') and feature_with_attr == feature:
+            features.append(new_feature)
+
         # print(f'TIPO DE {new_feature} (new_feature): {type(new_feature)}')
         # print(f'TIPO DE {feature} (feature): {type(feature)}')
-        if (hasattr(new_feature, 'reference') and getattr(new_feature, "reference") == feature):
-            features.append(new_feature)
+        # feature_with_attr = new_feature
+        # if hasattr(feature_with_attr, 'reference'):
+        #     print(f'FEATURE: {feature_with_attr}, REFERENCE: {feature_with_attr.reference}')
+        #     if getattr(new_feature, "reference") == feature:
+        #         features.append(new_feature)
+        #     feature_with_attr = feature_with_attr.reference
     return features
