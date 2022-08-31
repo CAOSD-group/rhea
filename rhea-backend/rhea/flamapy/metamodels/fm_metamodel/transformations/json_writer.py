@@ -78,10 +78,14 @@ def _get_tree_info(feature: Feature) -> dict[str, Any]:
     return feature_info
 
 
-def _get_constraints_info(constraints: list[Constraint]) -> dict[str, Any]:
-    constraints_info = {}
+def _get_constraints_info(constraints: list[Constraint]) -> list[dict[str, Any]]:
+    constraints_info = []
     for ctc in constraints:
-        constraints_info[ctc.name] = _get_ctc_info(ctc.ast.root)
+        ctc_info = {}
+        ctc_info['name'] = ctc.name
+        ctc_info['expr'] = ctc.ast.pretty_str()
+        ctc_info['ast'] = _get_ctc_info(ctc.ast.root)
+        constraints_info.append(ctc_info)
     return constraints_info
 
 

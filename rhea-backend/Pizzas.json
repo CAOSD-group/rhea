@@ -86,23 +86,27 @@
             }
         ]
     },
-    "constraints": {
-        "CTC1": {
-            "type": "ImpliesTerm",
-            "operands": [
-                {
-                    "type": "FeatureTerm",
-                    "operands": [
-                        "CheesyCrust"
-                    ]
-                },
-                {
-                    "type": "FeatureTerm",
-                    "operands": [
-                        "Big"
-                    ]
-                }
-            ]
+    "constraints": [
+        {
+            "name": "CTC1",
+            "expr": "CheesyCrust IMPLIES Big",
+            "ast": {
+                "type": "ImpliesTerm",
+                "operands": [
+                    {
+                        "type": "FeatureTerm",
+                        "operands": [
+                            "CheesyCrust"
+                        ]
+                    },
+                    {
+                        "type": "FeatureTerm",
+                        "operands": [
+                            "Big"
+                        ]
+                    }
+                ]
+            }
         }
-    }
+    ]
 }

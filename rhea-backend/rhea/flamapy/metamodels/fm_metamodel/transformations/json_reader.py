@@ -82,49 +82,47 @@ def parse_tree(parent: Feature, feature_node: dict[str, Any]) -> Feature:
     return feature
 
 
-def parse_constraints(ctcs_info: dict[str, Any], 
-                        features_info: dict[str, Any]) -> list[Constraint]:
+def parse_constraints(constraints_info: dict[str, Any]) -> list[Constraint]:
     constraints = []
-    print(ctcs_info)
-    for i, ctc_info in enumerate(ctcs_info.values(), 1):
-        ctc_node = parse_ast_constraint(ctc_info, features_info)
-        ctc = Constraint(f'CTC{i}', AST(ctc_node))
+    for ctc_info in constraints_info:
+        name = ctc_info['name']
+        ctc_expr = ctc_info['expr']  # not used now?
+        ctc_node = parse_ast_constraint(ctc_info)
+        ctc = Constraint(name, AST(ctc_node))
         constraints.append(ctc)
     return constraints
 
 
-def parse_ast_constraint(ctc_info: dict[str, Any], 
-                            features_info: dict[str, Any]) -> Node:
+def parse_ast_constraint(ctc_info: dict[str, Any]) -> Node:
     ctc_type = ctc_info['type']
     ctc_operands = ctc_info['operands']
     node = None
     if ctc_type == 'FeatureTerm':
-        feature_id = ctc_info['operands'][0]
-        feature_name = features_info[feature_id]['name']
+        feature_name = ctc_info['operands'][0]
         node = Node(feature_name)
     elif ctc_type == 'NotTerm':
-        left = parse_ast_constraint(ctc_operands[0], features_info)
+        left = parse_ast_constraint(ctc_operands[0])
         node = Node(ASTOperation.NOT, left)
     elif ctc_type == 'ImpliesTerm':
-        left = parse_ast_constraint(ctc_operands[0], features_info)
-        right = parse_ast_constraint(ctc_operands[1], features_info)
+        left = parse_ast_constraint(ctc_operands[0])
+        right = parse_ast_constraint(ctc_operands[1])
         node = Node(ASTOperation.IMPLIES, left, right)
     elif ctc_type == 'ExcludesTerm':
-        left = parse_ast_constraint(ctc_operands[0], features_info)
-        right = parse_ast_constraint(ctc_operands[1], features_info)
+        left = parse_ast_constraint(ctc_operands[0])
+        right = parse_ast_constraint(ctc_operands[1])
         node = Node(ASTOperation.EXCLUDES, left, right)
     elif ctc_type == 'EquivalentTerm':
-        left = parse_ast_constraint(ctc_operands[0], features_info)
-        right = parse_ast_constraint(ctc_operands[1], features_info)
+        left = parse_ast_constraint(ctc_operands[0])
+        right = parse_ast_constraint(ctc_operands[1])
         node = Node(ASTOperation.EQUIVALENCE, left, right)
     elif ctc_type == 'AndTerm':
-        op_list = [parse_ast_constraint(op, features_info) for op in ctc_operands]
+        op_list = [parse_ast_constraint(op) for op in ctc_operands]
         node = functools.reduce(lambda l, r: Node(ASTOperation.AND, l, r), op_list)
     elif ctc_type == 'OrTerm':
-        op_list = [parse_ast_constraint(op, features_info) for op in ctc_operands]
+        op_list = [parse_ast_constraint(op) for op in ctc_operands]
         node = functools.reduce(lambda l, r: Node(ASTOperation.OR, l, r), op_list)
     elif ctc_type == 'XorTerm':
-        op_list = [parse_ast_constraint(op, features_info) for op in ctc_operands]
+        op_list = [parse_ast_constraint(op) for op in ctc_operands]
         node = functools.reduce(lambda l, r: Node(ASTOperation.XOR, l, r), op_list)
     else:
         raise Exception(f'Invalid constraint: {ctc_info}')
