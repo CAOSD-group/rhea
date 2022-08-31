@@ -1,6 +1,6 @@
 from rhea.refactorings import FMRefactoring
 
-from famapy.metamodels.fm_metamodel.models import FeatureModel
+from flamapy.metamodels.fm_metamodel.models import FeatureModel
 
 
 class RefactoringEngine():

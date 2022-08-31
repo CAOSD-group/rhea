@@ -1,7 +1,7 @@
 from typing import Any
 from abc import ABC, abstractmethod
 
-from famapy.metamodels.fm_metamodel.models import FeatureModel
+from flamapy.metamodels.fm_metamodel.models import FeatureModel
 
 
 class LanguageConstruct(ABC):

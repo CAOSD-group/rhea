@@ -1,4 +1,4 @@
-from famapy.metamodels.fm_metamodel.transformations import UVLReader
+from flamapy.metamodels.fm_metamodel.transformations import UVLReader
 
 from rhea.fm_tools import FMToolInfo
 from rhea.fm_concepts import (

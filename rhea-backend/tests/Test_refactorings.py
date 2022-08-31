@@ -2,11 +2,11 @@ import os
 import pytest 
 from typing import Any 
 
-from famapy.core.transformations import TextToModel, ModelToText
-from famapy.metamodels.fm_metamodel.models import FeatureModel
-from famapy.metamodels.fm_metamodel.transformations import UVLReader, UVLWriter
-from famapy.metamodels.pysat_metamodel.transformations import FmToPysat
-from famapy.metamodels.pysat_metamodel.operations import (
+from flamapy.core.transformations import TextToModel, ModelToText
+from flamapy.metamodels.fm_metamodel.models import FeatureModel
+from flamapy.metamodels.fm_metamodel.transformations import UVLReader, UVLWriter
+from flamapy.metamodels.pysat_metamodel.transformations import FmToPysat
+from flamapy.metamodels.pysat_metamodel.operations import (
     Glucose3ProductsNumber,
     Glucose3Products
 )

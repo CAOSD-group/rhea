@@ -1,8 +1,6 @@
-from logging import root
-from multiprocessing import parent_process
 from flamapy.metamodels.fm_metamodel.models import FeatureModel, Feature, Relation
 
-from typing import List
+
 
 
 def get_new_feature_name(fm: FeatureModel, name: str) -> str:
@@ -13,7 +11,7 @@ def get_new_feature_name(fm: FeatureModel, name: str) -> str:
         count += 1
     return new_name
 
-def is_there_mandatory(relations: List) -> bool:
+def is_there_mandatory(relations: list[Relation]) -> bool:
     mandatory = False
     for rel in relations:
         if rel.is_mandatory():

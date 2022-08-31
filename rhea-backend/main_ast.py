@@ -1,9 +1,8 @@
-from famapy.metamodels.fm_metamodel.transformations import UVLReader
-from rhea.flamapy.metamodels.fm_metamodel.models import ast_helper
-from rhea.flamapy.metamodels.fm_metamodel.models import fm_utils
-from rhea.flamapy.metamodels.fm_metamodel.models.fm_helper import FM
-from famapy.core.models.ast import AST, ASTOperation, Node
-from famapy.core.models import ast
+from flamapy.metamodels.fm_metamodel.transformations import UVLReader
+from rhea.metamodels.fm_metamodel.models import fm_utils
+from rhea.metamodels.fm_metamodel.models.fm_helper import FM
+from flamapy.core.models import ast
+
 
 def main() -> None:
     fm = UVLReader('JHipster.uvl').transform()

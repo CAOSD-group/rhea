@@ -10,7 +10,7 @@ from typing import Any, List
 from flamapy.core.models.ast import AST, ASTOperation, Node
 from flamapy.metamodels.fm_metamodel.models import FeatureModel, Feature, Relation, Constraint
 
-from rhea.flamapy2.metamodels.fm_metamodel.models import FM, ConstraintHelper
+from rhea.metamodels.fm_metamodel.models import FM, ConstraintHelper
 from rhea.refactorings import FMRefactoring
 from rhea.refactorings import utils
 

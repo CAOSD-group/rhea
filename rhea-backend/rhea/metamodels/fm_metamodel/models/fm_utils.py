@@ -2,9 +2,9 @@ from typing import Any
 import datetime
 
 from flamapy.core.models import AST, ASTOperation
-from flamapy.metamodels.fm_metamodel.models import Constraint
+from flamapy.metamodels.fm_metamodel.models import FeatureModel, Constraint
 
-from rhea.flamapy2.metamodels.fm_metamodel.models import Type
+from rhea.metamodels.fm_metamodel.models import Type
 
 
 def parse_type_value(value: str) -> tuple[Type, Any]:
@@ -83,3 +83,28 @@ def is_excludes_constraint(constraint: Constraint) -> bool:
             neg_right = root_op.right.data == ASTOperation.NOT and root_op.right.left.is_term()
             return neg_left and neg_right
     return False
+
+
+def filter_products(fm: FeatureModel, configurations: list[list[str]]) -> list[list[str]]:
+    """Given a list of configurations return it with the configurations filtered.
+    
+    This method takes into account that the features in the FM can be not unique. 
+    That is, features can have a 'reference' attribute indicating that the feature is non-unique
+    and appears in other part of the FM. The 'reference' points to the original feature.
+
+    The filters performed are the following:
+      a) Remove abstract features.
+      b) Substitute non-unique features with the original one.
+      c) Remove duplicate features.
+    """
+    filtered_configs = set()
+    for config in configurations:
+        c = set()
+        for f in config:
+            feature = fm.get_feature_by_name(f)
+            if not feature.is_abstract:
+                while hasattr(feature, 'reference'):
+                    feature = feature.reference
+                c.add(feature.name)
+        filtered_configs.add(frozenset(c))
+    return filtered_configs

@@ -1,7 +1,7 @@
 import os
 from typing import Any 
 
-from flamapy.metamodels.fm_metamodel.transformations import UVLReader, UVLWriter, FeatureIDEReader
+from flamapy.metamodels.fm_metamodel.transformations import UVLReader, UVLWriter, FeatureIDEReader, GlencoeReader
 from flamapy.metamodels.pysat_metamodel.transformations import FmToPysat
 from flamapy.metamodels.pysat_metamodel.operations import (
     Glucose3ProductsNumber,
@@ -9,6 +9,8 @@ from flamapy.metamodels.pysat_metamodel.operations import (
 )
 
 from flamapy.metamodels.fm_metamodel.models import FeatureModel
+
+from rhea.metamodels.fm_metamodel.models import fm_utils
 
 from rhea.refactorings import FMRefactoring
 from rhea.refactorings.mutex_group_refactoring import MutexGroupRefactoring
@@ -19,9 +21,6 @@ from rhea.refactorings.or_mandatory_refactoring import OrMandatoryRefactoring
 from rhea.refactorings.new_names_elimination_simple_ctcs_requires import NewNamesEliminationSimpleConstraintsRequires
 from rhea.refactorings.new_names_elimination_simple_ctcs_excludes import NewNamesEliminationSimpleConstraintsExcludes
 from rhea.refactorings.elimination_complex_constraints import EliminationComplexConstraints
-
-
-from rhea.flamapy2.metamodels.fm_metamodel.transformations import GlencoeReader
 
 
 ##################################################################################################
@@ -42,21 +41,6 @@ def apply_refactoring(fm: FeatureModel, refactoring: FMRefactoring) -> FeatureMo
     return fm
 
 
-def filter_products(fm: FeatureModel, configurations: list[list[Any]]) -> set[set[Any]]:
-    filtered_configs = set()
-    for config in configurations:
-        #c = {f for f in config if not fm.get_feature_by_name(f).is_abstract}
-        c = set()
-        for f in config:
-            feature = fm.get_feature_by_name(f)
-            if not feature.is_abstract:
-                while hasattr(feature, 'reference'):
-                    feature = feature.reference
-                c.add(feature)
-        filtered_configs.add(frozenset(c))
-    return filtered_configs
-
-
 def print_fm(fm: FeatureModel, expected_results: dict[str, Any] = None) -> dict[str, Any]:
     print(f'FM:\n{fm}----------')
     
@@ -69,7 +53,7 @@ def print_fm(fm: FeatureModel, expected_results: dict[str, Any] = None) -> dict[
     n_configurations = Glucose3ProductsNumber().execute(sat_model).get_result()
     print(f'#Configurations: {n_configurations}')
     print('----------')
-    products = filter_products(fm, configurations)
+    products = fm_utils.filter_products(fm, configurations)
     print(f'Products:')
     for i, p in enumerate(products):
         print(f'P{i}: {[str(f) for f in p]}')

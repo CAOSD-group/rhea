@@ -1,12 +1,11 @@
 from typing import Any
 
+from flamapy.core.models.ast import AST, ASTOperation, Node
 from flamapy.metamodels.fm_metamodel.models import FeatureModel, Feature, Relation
 
-from flamapy.core.models.ast import AST, ASTOperation, Node
-
 from rhea.refactorings import FMRefactoring
-
 from rhea.refactorings import utils
+
 
 class XorMandatoryRefactoring(FMRefactoring):
 

@@ -1,6 +1,7 @@
 import copy
 import queue
-from famapy.metamodels.fm_metamodel.models import FeatureModel, Feature
+
+from flamapy.metamodels.fm_metamodel.models import FeatureModel, Feature
 
 from rhea import LanguageConstruct
 
