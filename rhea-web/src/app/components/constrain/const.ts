@@ -53,6 +53,19 @@ let constraintexto :Array<any> =[]
         aux.operands=valor.operands
         return aux
     }
+    buscar(lista:Array<Const>){
+        if(lista!=undefined && lista.length>0 && lista!= null){
+            lista.forEach(element => {
+                this.CreanuevaConstrain(element)
+                lista.push(aux)
+                if(element.operands!=undefined && element.operands.length>0 && element.operands!= null){
+                    this.buscar(element.operands)
+                }
+            });
+        }
+        lista.splice(0,lista.length/2)
+        return lista
+    }
 
 
 

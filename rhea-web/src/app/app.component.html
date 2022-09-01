@@ -36,7 +36,7 @@
              <div></div>
             </button>
             {{node.name}} 
-            <button mat-menu-item [matMenuTriggerFor]="menu"  (click)= 'seleccionar(node.name)'> <mat-icon>dialpad</mat-icon> </button> 
+            <button mat-menu-item [matMenuTriggerFor]="menu"  (click)= 'seleccionar(node)'> <mat-icon>dialpad</mat-icon> </button> 
           <div>
           <mat-icon >
             {{SimboloPorTipo(node.type) }} 
@@ -92,10 +92,20 @@
               </mat-icon>
             </button>
               {{constrainnode.type}} 
-          </div>
+              <button mat-menu-item [matMenuTriggerFor]="menu2"  (click)= 'seleccionarCons(constrainnode)'> <mat-icon>dialpad</mat-icon> </button> 
+        </div>
             <div [class.example-tree-invisible]="!constraintreeControl.isExpanded(constrainnode)" role="group">
               <ng-container matTreeNodeOutlet></ng-container> 
             </div>
+            <mat-menu #menu2="matMenu">
+              <button (click)="sidenav2.toggle()">modificar valores</button>
+              <div></div>
+              <button (click)="borrarRama()">borrar rama</button>
+              <div></div>
+              <button (click)="sidenav3.toggle()">crear hijo</button>
+              <div></div>
+              <button (click)="sidenav4.toggle()">crear hermano</button>
+            </mat-menu>  
         </mat-nested-tree-node>
       </mat-tree>
     </cdk-virtual-scroll-viewport>

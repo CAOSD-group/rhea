@@ -16,7 +16,6 @@ var aux3: any;
 var jsonconstrain: Array<Const>=[new Const()] 
 var constrainTexto:string;
 var jsonfeatures:string
-let baux=false;
 var diccionario:any
 
 
@@ -62,7 +61,7 @@ export class AppComponent {
     nombresFeatures:Array<string>=[]
     crearConstrains:Array<string>=[]
   //otros
-  item:string ='Pizzas.uvl';
+  item:string ='MobileMedia.xml';
   texto1="Ocultar Constrains";
   texto2=this.item;
   jsonconstrainTexto: Array<string>=[]
@@ -248,9 +247,12 @@ crearCons(){
   while(aux2<jsonconstrain.length){
   jsonconstrain[aux2]=aux[0].CreanuevaConstrain(jsonconstrain[aux2])
   aux2++}
-  console.log(jsonconstrain)
   this.cons=aux[0].crearListaBuena(jsonconstrain)
-  this.constraindataSource.data=this.cons}
+  jsonconstrain=aux[0].buscar(jsonconstrain)
+  console.log(jsonconstrain)
+  this.constraindataSource.data=this.cons
+  
+}
   
 }
 
@@ -311,15 +313,15 @@ readThis(inputValue: any): void {
       this.texto2=this.item;
   }
   
-
-seleccionar(id:string,lista?:Array<any>,padre?:any){  // este devuelve un objeto tipo Object
+/* fuera de uso pero funciona
+seleccionar2Opcional(id:string,lista?:Array<any>,padre?:any){  
   aux2=this.tree[0].name
   if(lista==null){lista=this.tree}
   if(lista.filter(x=> x.name==id)[0]==undefined){
     lista.forEach(element => {
       if(element.children){
       if(element.children.length>0){
-        this.seleccionar(id,element.children,element)
+        this.seleccionar2Opcional(id,element.children,element)
       }}
     });
   }else{
@@ -335,7 +337,36 @@ seleccionar(id:string,lista?:Array<any>,padre?:any){  // este devuelve un objeto
     console.log(this.padre)
     this.tree[0].name=aux2
   }
+  }*/
+  seleccionar(objeto:any){
+    this.actual=objeto
+    this.nombre=this.actual.name
+    this.type=this.actual.type
+    this.optional=this.actual.optional
+    this.abstract=this.actual.abstract
+    this.card_max=this.actual.card_max
+    this.card_min=this.actual.card_min
+    this.buscarPadre(objeto)
+    console.log(this.actual)
+    console.log(this.padre)
   }
+  seleccionarCons(objeto:any){
+    console.log(objeto)
+  }
+  buscarPadre(objeto:any,lista?:Array<any>,padre?:any){
+    if(lista==null){lista=this.tree}
+    if(lista.filter(x=> x==objeto)[0]==undefined){
+      lista.forEach(element => {
+        if(element.children){
+        if(element.children.length>0){
+          this.buscarPadre(objeto,element.children,element)
+        }}
+      });
+    }else{
+      this.padre=padre
+    }
+  }
+
 
 togglevisibility(){
   if(this.texto1=="Ocultar Constrains"){
@@ -431,7 +462,13 @@ onRightClick($event) {
   return true
 }
 cambioseleccionado(v){
-  console.log(v)
+  aux2=0
+  while (aux2<this.jsonconstrainTexto.length) {
+    if(this.jsonconstrainTexto[aux2]==v ){aux=aux2}
+    aux2++
+  }
+  console.log(jsonconstrain[aux])
+  console.log(aux)
   constrainTexto=v;
   this.ncons=v
 }
