@@ -17,6 +17,8 @@ var jsonconstrain: Array<Const>=[new Const()]
 var constrainTexto:string;
 var jsonfeatures:string
 var diccionario:any
+var listaconstrain:Array<Const>=[]
+var posicion:number;
 
 
 
@@ -43,6 +45,7 @@ export class AppComponent {
   articulos: any;        //atributo donde guardo las respuestas
   title:string ='rhea-web' // evita un error en app.component.spec.ts
   declare actual:Arbol      //valor actual del arbol
+  declare consactual:Const      //valor actual del arbol
   declare padre:Arbol      //valor actual del padre del actual arbol
   tree:Array<Arbol> =[new Arbol()]  // el arbol de datos 
   cons:Array<Const>=[new Const()]   // El arbol de constrains con el nombre en la rama final
@@ -56,13 +59,17 @@ export class AppComponent {
 
   
     
-    //lista de constrains y nombres de las features
-    tiposconstrains:Array<string>=['NotTerm','OrTerm','AndTerm','ImpliesTerm','Xor','Xand','doubleImpliesTerm','(',')']
-    nombresFeatures:Array<string>=[]
-    crearConstrains:Array<string>=[]
+  //lista de constrains y nombres de las features
+  tiposconstrains:Array<string>=['NotTerm','OrTerm','AndTerm','ImpliesTerm','Xor','Xand','doubleImpliesTerm']
+  tablachips:Array<string>=[]
+  nombresFeatures:Array<string>=[]
+  nombreschips:Array<string>=[]
+  crearConstrains:Array<string>=[]
   //otros
   item:string ='MobileMedia.xml';
   texto1="Ocultar Constrains";
+  texto3="Ocultar chips";
+  texto4="Ocultar Arbol";
   texto2=this.item;
   jsonconstrainTexto: Array<string>=[]
   // modificar o crear arbol
@@ -125,8 +132,6 @@ getArchivo(texto?:string){
     this.articulos=JSON.parse(this.articulos)
     jsonfeatures=this.articulos.features,
     jsonconstrain=this.articulos.constraints
-    console.log(JSON.stringify(jsonconstrain))
-
     aux2=""
     diccionario = Object.assign({}, resultado);
     for( const[key] of Object.entries(diccionario)){
@@ -134,7 +139,6 @@ getArchivo(texto?:string){
   }
     aux=JSON.parse(aux2)
     aux3=aux.constraints
-    console.log("vengo por aqui")
     this.crearCons()
     this.crearArbol()
   })
@@ -196,11 +200,9 @@ modificarSeleccion(){
   this.actual.optional=this.optional
   this.actual.abstract=this.abstract
 }
-console.log(this.actual)
 }
 borrarRama(){
   this.actual.borrar(this.padre)
-  console.log(this.actual)
   this.borrarArbol()
   this.recargarArbol()
 }
@@ -251,7 +253,11 @@ crearCons(){
   jsonconstrain=aux[0].buscar(jsonconstrain)
   console.log(jsonconstrain)
   this.constraindataSource.data=this.cons
-  
+  this.texto3="Mostrar chips"
+  this.texto1="Ocultar Constrains"
+  this.texto4="Ocultar Arbol"
+  this.tablachips=[]
+  this.nombreschips=[]
 }
   
 }
@@ -276,7 +282,6 @@ borrarArbol(){
 }
 
 recargarArbol(){
-  console.log(this.tree)
   this.dataSource.data=this.tree
   this.constraindataSource.data=this.cons
 }
@@ -303,8 +308,6 @@ readThis(inputValue: any): void {
         jsonfeatures=aux
         jsonconstrain=aux2
         aux3=aux2
-        console.log("estoy en espera")
-        console.log("falla aux3 por la duplicacion del diccionario")
         this.crearCons()
         this.crearArbol()}
       },
@@ -333,8 +336,6 @@ seleccionar2Opcional(id:string,lista?:Array<any>,padre?:any){
     this.abstract=this.actual.abstract
     this.card_max=this.actual.card_max
     this.card_min=this.actual.card_min
-    console.log(this.actual)
-    console.log(this.padre)
     this.tree[0].name=aux2
   }
   }*/
@@ -347,11 +348,15 @@ seleccionar2Opcional(id:string,lista?:Array<any>,padre?:any){
     this.card_max=this.actual.card_max
     this.card_min=this.actual.card_min
     this.buscarPadre(objeto)
-    console.log(this.actual)
-    console.log(this.padre)
   }
   seleccionarCons(objeto:any){
     console.log(objeto)
+    aux2=0
+    while (aux2<this.cons.length) {
+    if(this.cons[aux2]==objeto ){posicion=aux2}
+    aux2++
+  }
+  this.ncons=this.jsonconstrainTexto[posicion]
   }
   buscarPadre(objeto:any,lista?:Array<any>,padre?:any){
     if(lista==null){lista=this.tree}
@@ -371,13 +376,55 @@ seleccionar2Opcional(id:string,lista?:Array<any>,padre?:any){
 togglevisibility(){
   if(this.texto1=="Ocultar Constrains"){
   this.texto1="Mostrar Constrains"
-  this.texto2=""
   this.constraindataSource.data=[]
   }
-  else{
+  if(this.texto1=="Mostrar Constrains"){
     this.texto1="Ocultar Constrains"
-    this.texto2=this.item
     this.constraindataSource.data=this.cons
+  }
+  else{
+    console.log(listaconstrain.length)
+    if(listaconstrain!=undefined && listaconstrain!=[] && listaconstrain.length!=undefined){
+    if(listaconstrain.length==1){console.log("Es un featureTerm");jsonconstrain.push(listaconstrain[0])}
+    if(listaconstrain.length==2){
+      console.log("Es un featureTerm negado");
+      listaconstrain[0].operands.push(listaconstrain[1]);
+      listaconstrain[0].operands.splice(0,1);
+      jsonconstrain.push(listaconstrain[0])
+    }
+    if(listaconstrain.length>2){jsonconstrain.push(jsonconstrain[0].listaConstrains(listaconstrain))}
+    
+    listaconstrain=[]
+  }
+  this.texto1="Ocultar Constrains"
+  this.togglevisibilitychips()
+  this.constraindataSource.data=this.cons
+  console.log(listaconstrain)}
+  
+    
+}
+togglevisibilityarbol(){
+  if(this.texto4=="Ocultar Arbol"){
+  this.texto4="Mostrar Arbol"
+  this.texto2=""
+  this.dataSource.data=[]
+  }
+  else{
+    this.texto4="Ocultar Arbol"
+    this.texto2=this.item
+    this.dataSource.data=this.tree
+  }
+}
+togglevisibilitychips(){
+  if(this.texto3=="Ocultar chips"){
+  this.texto3="Mostrar chips"
+  this.tablachips=[]
+  this.nombreschips=[]
+  }
+  else{
+    this.texto3="Ocultar chips"
+    this.tablachips=this.tiposconstrains
+    this.nombreschips=this.nombresFeatures
   }
 }
 
@@ -416,29 +463,7 @@ pasoajson(){
 
 }
 
-CreoConstrain(valor:string){
-  if(valor=="NotTerm")
-  {
-    if(this.crearConstrains[this.CreoConstrain.length-1]=="AndTerm" 
-    || this.crearConstrains[this.CreoConstrain.length-1]=="OrTerm" 
-    || this.crearConstrains[this.CreoConstrain.length-1]=="ImpliesTerm" 
-    || this.crearConstrains[this.CreoConstrain.length-1]=="Xor" 
-    || this.crearConstrains[this.CreoConstrain.length-1]=="Xand"
-    || this.crearConstrains[this.CreoConstrain.length-1]=="Xand"
-    || this.crearConstrains[this.CreoConstrain.length-1]=="doubleImpliesTerm"){
 
-     }
-  }
-  else{
-  if(valor=="AndTerm" || valor=="OrTerm" || valor=="ImpliesTerm" || valor=="Xor" || valor=="Xand" || valor=="doubleImpliesTerm" )
-  {
-    // toca faetureTerm o not
-  }
-  if(valor!="AndTerm" && valor!="OrTerm" && valor!="ImpliesTerm" && valor!="Xor" && valor!="Xand" && valor!="doubleImpliesTerm")
-  {
-    //toca condicionales o final
-  }}
-}
 
 
 SimboloPorTipo(tipo:string){
@@ -456,21 +481,20 @@ SimboloPorTipo(tipo:string){
   }
   return aux
 }
-
+/*
 onRightClick($event) {
   alert("hola")
   return true
-}
+}*/
 cambioseleccionado(v){
   aux2=0
   while (aux2<this.jsonconstrainTexto.length) {
-    if(this.jsonconstrainTexto[aux2]==v ){aux=aux2}
+    if(this.jsonconstrainTexto[aux2]==v ){posicion=aux2}
     aux2++
   }
-  console.log(jsonconstrain[aux])
-  console.log(aux)
   constrainTexto=v;
   this.ncons=v
+  
 }
 ModificarConsText(){
   aux=-1
@@ -482,21 +506,39 @@ ModificarConsText(){
   });
 }
 CrearConsText(){
-  this.jsonconstrainTexto.push(this.ncons)
-}
-borrarConsText(){
-  aux=-1
-  this.jsonconstrainTexto.forEach(element => {
-    aux++;
-    if(element==this.ncons){
-      this.jsonconstrainTexto=this.jsonconstrainTexto.filter(x=>x!=this.ncons)
-    }
-  });
+  console.log(listaconstrain)
+  listaconstrain=[]
+  this.texto1="Crear Constrains lista"
+  this.togglevisibilitychips()
   
 }
+borrarConsText(){
+  this.jsonconstrainTexto[posicion]=""
+  this.jsonconstrainTexto=this.jsonconstrainTexto.filter(x=>x!="")
+  jsonconstrain.splice(posicion,1)
+  this.borrarArbol()
+  this.recargarArbol()
+}
 
-eligochip(texto:string){
-  console.log(texto)
+
+eligochiplogic(texto:string){
+  this.consactual=new Const()
+  this.consactual.type=texto
+  if(texto=="NotTerm"){
+    this.consactual.operands=[new Const()]
+  }else{
+    this.consactual.operands=[new Const(),new Const()]
+  }
+  listaconstrain.push(this.consactual)
+  console.log(listaconstrain)
+}
+
+eligochipfeature(texto:string){
+  this.consactual=new Const()
+  this.consactual.type=texto
+  this.consactual.operands=[]
+  listaconstrain.push(this.consactual)
+  console.log(listaconstrain)
 }
 
 }
@@ -506,7 +548,6 @@ eligochip(texto:string){
 })
 export class DialogContentExampleDialog {
   sirvo(texto:string){
-    console.log(texto)
     alert(texto)
   }
 }

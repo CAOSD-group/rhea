@@ -10,6 +10,7 @@ import { keyframes } from '@angular/animations';
 let aux :any // variable auxiliar 
 let aux2:any
 let aux3:any
+let aux4:any
 let constrain :Array<Const> =[]
 let constrainarbol :Array<Const> =[]
 let constraintexto :Array<any> =[]
@@ -99,6 +100,49 @@ let constraintexto :Array<any> =[]
         });
         return list
     }
+    listaConstrains(lista:Array<Const>){
+        aux=0
+        aux2=0
+        aux3=true
+        aux4=0
+        while(aux<lista.length){
+            console.log(lista[aux])
+            console.log(aux)
+            console.log(lista[aux].operands)
+            console.log(lista[aux].operands.length)
+            if(lista[aux].operands.length==0){ 
+                console.log("feature")
+                aux++}
+            
+            
+            if(lista[aux].operands.length==2){
+                console.log("logistic")
+                lista[aux].operands.push(lista[aux+1]);
+                aux4=aux+1
+                aux2=aux+1
+                while(aux3){
+                    aux4=aux4+lista[aux2].operands.length
+                    aux2++
+                    if(aux2>aux4){
+                        aux3=false
+                    }
+                }
+                aux3=true
+                lista[aux].operands.push(lista[aux2])
+                lista[aux].operands.splice(0,2);
+                aux++}
+
+                else{
+                    console.log("not")
+                    lista[aux].operands.push(lista[aux+1]);
+                    lista[aux].operands.splice(0,1);
+                    aux++
+                }
+        }
+        console.log(lista[0])
+        return lista[0]
+    }
+  
         
    
 }
