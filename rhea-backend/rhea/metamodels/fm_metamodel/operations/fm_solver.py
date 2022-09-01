@@ -130,7 +130,7 @@ def get_configurations(fm: FeatureModel) -> list[set[Feature]]:
                     copy_configurations = add_feature_to_configurations(child, copy_configurations)
                     xor_configurations.extend(copy_configurations)
                     features.append(child)
-                configurations.extend(xor_configurations)
+                configurations = xor_configurations
             elif relation.is_or():
                 or_configurations = []
                 for size in range(1, len(relation.children) + 1):
@@ -139,6 +139,6 @@ def get_configurations(fm: FeatureModel) -> list[set[Feature]]:
                         copy_configurations = copy.deepcopy(configurations)
                         copy_configurations = add_features_to_configurations(combi, copy_configurations)
                         or_configurations.extend(copy_configurations)
-                configurations.extend(xor_configurations)
+                configurations = or_configurations
                 features.extend(relation.children)
     return configurations
