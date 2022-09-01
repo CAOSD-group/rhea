@@ -68,15 +68,29 @@ class NewNamesEliminationSimpleConstraintsRequires(FMRefactoring):
             elif model_plus is not None:
                 model_plus = utils.add_node_to_tree(model_plus, f_plus)
             if model_plus is not None:
-                if model_plus.root in plus_roots:
-                    model_plus.root.name = utils.get_new_feature_name(model, model_plus.root.name)
+                # if model_plus.root in plus_roots:
+                #     print(f'MODEL PLUS ROOT NAME: {model_plus.root.name}')
+                #     model_plus.root.name = utils.get_new_feature_name(model, model_plus.root.name)
+                #     print(f'MODEL PLUS ROOT NAME: {model_plus.root.name}')
                 plus_roots.append(model_plus.root)
             print(f'T(+{f_plus}): {model_plus}')
         if len(list_right_feature_ctc_plus)>1:
             r_xor_plus = Relation(xor_plus, plus_roots, 1, 1)  # XOR
             xor_plus.add_relation(r_xor_plus)
             model_plus.root = xor_plus
+            count = 1
+            for r in xor_plus.get_children():
+                r.name = f'{r.name}{count}'
+                count += 1
+            
+            
+            model_plus = remove_abstract_child(model_plus, model_plus.root)
             print(f'T(+{[str(f) for f in list_right_feature_ctc_plus]}): {model_plus}')
+
+
+
+
+
         # print('----my relations PLUS-----')
         # for r in model_plus.get_relations():
         #     print(f'Relation (plus): ({str(r)})')
@@ -212,3 +226,12 @@ def get_features_reference(fm: FeatureModel, feature: Feature) -> list[Feature]:
         #         features.append(new_feature)
         #     feature_with_attr = feature_with_attr.reference
     return features
+
+def remove_abstract_child(fm: FeatureModel, feature: Feature) -> FeatureModel:
+    feature_relations = feature.get_relations()
+    feature_next_rel = next(r for r in feature_relations)
+    feature_next_abstract = next(c for c in feature.get_children())
+    if len(feature_relations)==1 and feature_next_rel.is_mandatory() and feature_next_abstract.is_abstract():
+        feature.get_relations().remove(feature_next_rel)
+    fm = remove_abstract_child(fm, feature.get_children())
+    return fm

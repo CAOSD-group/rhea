@@ -1,37 +1,34 @@
 features
-	root
+	root3
 		alternative
-			Pizza
-				mandatory
-					Topping
-						or
-							Salami
-							Ham
-							Mozzarella
-				mandatory
-					Size
+			XOR
+				alternative
+					root1
 						mandatory
-							Big
-				mandatory
-					Dough
-						alternative
-							Neapolitan
-							Sicilian
-				optional
-					CheesyCrust
-			Pizza1
-				mandatory
-					Topping1
-						or
-							Salami1
-							Ham1
-							Mozzarella1
-				mandatory
-					Size1
+							root
+								mandatory
+									A
+										mandatory
+											B
+												mandatory
+													D
+										mandatory
+											C
+												mandatory
+													E
+					root11
 						mandatory
-							Normal
+							root2
+								mandatory
+									A1
+										optional
+											B1
+										mandatory
+											C1
+			root12
 				mandatory
-					Dough1
-						alternative
-							Neapolitan1
-							Sicilian1
+					root21
+						mandatory
+							A11
+								optional
+									B11
