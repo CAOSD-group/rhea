@@ -72,8 +72,16 @@ class NewNamesEliminationSimpleConstraintsRequires(FMRefactoring):
                 #     print(f'MODEL PLUS ROOT NAME: {model_plus.root.name}')
                 #     model_plus.root.name = utils.get_new_feature_name(model, model_plus.root.name)
                 #     print(f'MODEL PLUS ROOT NAME: {model_plus.root.name}')
+                old_root = model_plus.root
+                model_plus = remove_abstract_child(model_plus, old_root)
+                if old_root != model_plus.root:
+                    new_rel = Relation(old_root, [model_plus.root], 1, 1)  # mandatory
+                    old_root.add_relation(new_rel)
                 plus_roots.append(model_plus.root)
             print(f'T(+{f_plus}): {model_plus}')
+
+
+
         if len(list_right_feature_ctc_plus)>1:
             r_xor_plus = Relation(xor_plus, plus_roots, 1, 1)  # XOR
             xor_plus.add_relation(r_xor_plus)
@@ -82,9 +90,6 @@ class NewNamesEliminationSimpleConstraintsRequires(FMRefactoring):
             for r in xor_plus.get_children():
                 r.name = f'{r.name}{count}'
                 count += 1
-            
-            
-            model_plus = remove_abstract_child(model_plus, model_plus.root)
             print(f'T(+{[str(f) for f in list_right_feature_ctc_plus]}): {model_plus}')
 
 
@@ -106,9 +111,9 @@ class NewNamesEliminationSimpleConstraintsRequires(FMRefactoring):
         for f_left_less in list_left_feature_ctc_less:
             new_model_less = copy.deepcopy(model)
             if hasattr(f_left_less, 'reference') and new_model_less is not None:
-                new_f_left_less = new_model_plus.get_feature_by_name(f_left_less.name)
+                new_f_left_less = new_model_less.get_feature_by_name(f_left_less.name)
                 print(f'NEW MODEL LESS 1: {new_model_less}')
-                model_less = utils.add_node_to_tree(new_model_less, new_f_left_less)
+                model_less = utils.eliminate_node_from_tree(new_model_less, new_f_left_less)
             elif model_less is not None:
                 model_less = utils.eliminate_node_from_tree(model_less, f_left_less)
             if model_less is not None:
@@ -185,8 +190,21 @@ class NewNamesEliminationSimpleConstraintsRequires(FMRefactoring):
 
         model.ctcs.remove(instance)
 
+
+
+
+
+
+
         # Changing names to avoid duplicates
         # CUIDADO!!! (puede que haya que modificarlo)
+        
+
+        # Changing names to avoid duplicates
+        # for feature in model.get_features():
+        #     model = changing_names(model, feature)
+
+        
         if model_less is not None and model_plus is not None:
             for feature in model_less.get_features():
                 if feature in model_plus.get_features():
@@ -194,7 +212,11 @@ class NewNamesEliminationSimpleConstraintsRequires(FMRefactoring):
                     feature.name = utils.get_new_feature_name(model, feature.name)
                     if feature != feature_reference:
                         feature.reference = feature_reference
-        
+
+
+
+
+
         # for feature in model.get_features():
         #     feature_reference = model.get_feature_by_name(feature.name)
         #     feature.name = utils.get_new_feature_name(model, feature.name)
@@ -228,10 +250,32 @@ def get_features_reference(fm: FeatureModel, feature: Feature) -> list[Feature]:
     return features
 
 def remove_abstract_child(fm: FeatureModel, feature: Feature) -> FeatureModel:
+    # print(f'FEATURE IN REMOVE ABSTRACT CHILD: {feature.name}')
     feature_relations = feature.get_relations()
+    # print(f'RELATIONS IN REMOVE ABSTRACT CHILD: {[str(f) for f in feature_relations]}')
     feature_next_rel = next(r for r in feature_relations)
+    # print(f'NEXT RELATION IN REMOVE ABSTRACT CHILD: {str(feature_next_rel)}')
     feature_next_abstract = next(c for c in feature.get_children())
-    if len(feature_relations)==1 and feature_next_rel.is_mandatory() and feature_next_abstract.is_abstract():
-        feature.get_relations().remove(feature_next_rel)
-    fm = remove_abstract_child(fm, feature.get_children())
+    # print(f'NEXT ABSTRACT IN REMOVE ABSTRACT CHILD: {feature_next_abstract}')
+    # print(f'NEXT ABSTRACT IS ABSTRACT: {feature_next_abstract.is_abstract}')
+    if len(feature_relations)==1 and feature_next_rel.is_mandatory() and feature_next_abstract.is_abstract:
+            feature.get_relations().remove(feature_next_rel)
+            fm.root = feature_next_abstract
+            fm = remove_abstract_child(fm, feature_next_abstract)
     return fm
+
+
+# def changing_names(model: FeatureModel, feature: Feature) -> FeatureModel:
+#     features_list = []
+#     for f in model.get_features():
+#         if f == feature:
+#             features_list.append(f)
+#     if len(features_list)>1:
+#         print(f'FEATURES LIST changing names before: {[f.name for f in features_list]}')
+#         for feat in features_list:
+#             feature_reference = model.get_feature_by_name(feat.name)
+#             feat.name = utils.get_new_feature_name(model, feat.name)
+#             if feat != feature_reference:
+#                 feat.reference = feature_reference
+#         print(f'FEATURES LIST changing names after: {[f.name for f in features_list]}')
+#     return model

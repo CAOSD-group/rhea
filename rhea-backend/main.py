@@ -25,7 +25,7 @@ from rhea.refactorings.elimination_complex_constraints import EliminationComplex
 
 ##################################################################################################
 REFACTORING = NewNamesEliminationSimpleConstraintsRequires
-MODEL_PATH = 'tests/models/general_models/prueba_elim_varias_ctcs_simple.uvl'
+MODEL_PATH = 'tests/models/general_models/Pizzas_mult_ctcs.uvl'
 OUTPUT_PATH = 'output.uvl'
 OUTPUT_CONSOLE = 'output.txt'
 ##################################################################################################
