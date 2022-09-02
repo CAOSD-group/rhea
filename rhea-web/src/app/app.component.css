@@ -9,10 +9,13 @@
   -moz-osx-font-smoothing: grayscale;
   }
   body{
-
-  z-index: 3;
+    margin-left: auto;
+    margin-right: auto;
+    z-index: 3;
   }
   .titulo {
+    margin-left: auto;
+    margin-right: auto;
     margin-top: -8px;
     position: fixed;
     z-index: 2;
@@ -23,11 +26,11 @@
     url(https://www.uma.es/media/cache/da/ff/daff99fc3059332df1754026367245cc.jpg) ;
     background-size: 124px,153px,300px;
     height: 220px;
-    width: 1500px;
+    width: 1900px;
     background-repeat: no-repeat;
-    background-position-x:875px,1000px,1160px;
+    background-position-x: 65%,76%,99.5%;
     background-position-y: 80px ;
-   z-index: 3;
+    z-index: 3;
     
 }
 

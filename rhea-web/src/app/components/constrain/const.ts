@@ -26,8 +26,7 @@ let constraintexto :Array<any> =[]
  export class Const  {
     type:string=""
     operands:Array<Const>=[];
-    constraintreeControl = new NestedTreeControl<Const>(constrainnode => constrainnode.operands);
-    constraindataSource = new MatTreeNestedDataSource<Const>();
+    
     
     constructor() {
     }

@@ -67,7 +67,7 @@ export class AppComponent {
   nombreschips:Array<string>=[]
   crearConstrains:Array<string>=[]
   //otros
-  item:string ='MobileMedia.xml';
+  item:string ='Pizzas.uvl';
   texto1="Ocultar Constrains";
   texto3="Ocultar chips";
   texto4="Ocultar Arbol";
@@ -316,29 +316,6 @@ readThis(inputValue: any): void {
       this.texto2=this.item;
   }
   
-/* fuera de uso pero funciona
-seleccionar2Opcional(id:string,lista?:Array<any>,padre?:any){  
-  aux2=this.tree[0].name
-  if(lista==null){lista=this.tree}
-  if(lista.filter(x=> x.name==id)[0]==undefined){
-    lista.forEach(element => {
-      if(element.children){
-      if(element.children.length>0){
-        this.seleccionar2Opcional(id,element.children,element)
-      }}
-    });
-  }else{
-    this.actual=lista.filter(x=> x.name==id)[0]
-    this.padre=padre
-    this.nombre=this.actual.name
-    this.type=this.actual.type
-    this.optional=this.actual.optional
-    this.abstract=this.actual.abstract
-    this.card_max=this.actual.card_max
-    this.card_min=this.actual.card_min
-    this.tree[0].name=aux2
-  }
-  }*/
   seleccionar(objeto:any){
     this.actual=objeto
     this.nombre=this.actual.name
@@ -500,23 +477,7 @@ openDialog() {
   });
 }
 
-pasoajson(){
-  aux3=this.tree[0]
-  aux3.treeControl=null
-  aux3.aux=null
-  aux3.dataSource=null
-  jsonfeatures=JSON.stringify(jsonfeatures, (key, value) => {
-    if (value !== null) return value
-  })
-  //jsonfeatures='"'+'name'+'"'+':'+'"'+ this.item+'"'+','+'"'+"features"+'"'+':'+jsonfeatures
-  //jsonconstrain=JSON.stringify(jsonconstrain, (key, value) => {if (value !== null) return value})
-  //jsonconstrain=jsonconstrain.slice(1,jsonconstrain.length-1)
-  console.log(jsonconstrain)
-  alert("PARA LAs COnstrians USAR LA QUE MANTIENE EL TYPOE FEATURE MODEL")
-  //alert("a los json les faltaria incluir el nombre y el features;--constrains:--")
-  //alert("en los constrains habria que mirar el tema de diccionario key-value")
 
-}
 
 
 
@@ -626,6 +587,23 @@ eligochipfeature(texto:string){
   listaconstrain.push(aux)
   console.log(listaconstrain)
 }
+
+
+pasoajson(){
+  
+  jsonfeatures=JSON.stringify(this.tree[0], (key, value) => {
+      if(value!==null) return value  
+  })
+  constrainTexto=JSON.stringify(this.cons, (key, value) => {
+    if(value!==null) return value  
+})
+  console.log(jsonfeatures)
+  console.log(constrainTexto)
+
+  console.log("algo")
+}
+
+
 
 }
 @Component({

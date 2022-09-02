@@ -24,8 +24,9 @@ let aux :any=0 // variable auxiliar
 let aux2:any
 let arbol :Array<Arbol> =[]
 let lista:Array<string> =[]
-
-
+let treeControl = new NestedTreeControl<Arbol>(node => node.children);
+let dataSource = new MatTreeNestedDataSource<Arbol>();
+let hasChild = (_: number, node: Arbol) => !!node.children && node.children.length >= 0;
 @Component({
     selector: 'arbol',
     templateUrl: './arbol.html',
@@ -40,9 +41,6 @@ let lista:Array<string> =[]
     optional:boolean =false;
     abstract:boolean =false;
     children:Array<Arbol> =[];
-    aux=0
-    treeControl = new NestedTreeControl<Arbol>(node => node.children);
-    dataSource = new MatTreeNestedDataSource<Arbol>();
     
 
 
@@ -189,6 +187,6 @@ let lista:Array<string> =[]
         return aux
     }
 
-    hasChild = (_: number, node: Arbol) => !!node.children && node.children.length >= 0;
+    
     
 }
