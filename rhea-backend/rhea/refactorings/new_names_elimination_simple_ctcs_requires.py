@@ -48,6 +48,11 @@ class NewNamesEliminationSimpleConstraintsRequires(FMRefactoring):
 
         left_feature_name_ctc = instance.ast.root.left.data
         left_feature_ctc_less = model_less.get_feature_by_name(left_feature_name_ctc)
+        if left_feature_ctc_less is None:
+            left_feature_ctc_less = next(f for f in model_less.get_features() if hasattr(f, 'reference') and f.reference.name==left_feature_name_ctc)
+            while hasattr(left_feature_ctc_less, 'reference'):
+                left_feature_ctc_less = left_feature_ctc_less.reference
+            print(f'FEATURE REFERENCE FOR MODEL LESS: {left_feature_ctc_less.name}')
         # xor_left_less = Feature(utils.get_new_feature_name(model_plus, 'XOR'), is_abstract=True)
         list_left_feature_ctc_less = get_features_reference(model_less, left_feature_ctc_less)
         print(f'LEFT FEATURES LESS: {[str(f) for f in list_left_feature_ctc_less]}')
@@ -109,12 +114,12 @@ class NewNamesEliminationSimpleConstraintsRequires(FMRefactoring):
         #             feature_less.name = feature_less.reference.name
         less_left_roots = []
         for f_left_less in list_left_feature_ctc_less:
-            new_model_less = copy.deepcopy(model)
-            if hasattr(f_left_less, 'reference') and new_model_less is not None:
-                new_f_left_less = new_model_less.get_feature_by_name(f_left_less.name)
-                print(f'NEW MODEL LESS 1: {new_model_less}')
-                model_less = utils.eliminate_node_from_tree(new_model_less, new_f_left_less)
-            elif model_less is not None:
+            # new_model_less = copy.deepcopy(model)
+            # if hasattr(f_left_less, 'reference') and new_model_less is not None:
+            #     new_f_left_less = new_model_less.get_feature_by_name(f_left_less.name)
+            #     print(f'NEW MODEL LESS 1: {new_model_less}')
+            #     model_less = utils.eliminate_node_from_tree(new_model_less, new_f_left_less)
+            if model_less is not None:
                 model_less = utils.eliminate_node_from_tree(model_less, f_left_less)
             if model_less is not None:
                 less_left_roots.append(model_less.root)

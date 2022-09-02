@@ -1,15 +1,17 @@
 features
-	root1
+	root3
 		alternative
 			XOR
 				alternative
-					Pizza1
+					Pizza111
 						mandatory
 							Topping
-								or
-									Salami
-									Ham
+								mandatory
 									Mozzarella
+								optional
+									Salami
+								optional
+									Ham
 						mandatory
 							Size
 								mandatory
@@ -20,30 +22,15 @@ features
 									Neapolitan
 						optional
 							CheesyCrust
-					Pizza12
-						mandatory
-							Topping1
-								or
-									Salami1
-									Ham1
-									Mozzarella1
-						mandatory
-							Size1
-								mandatory
-									Normal
-						mandatory
-							Dough1
-								mandatory
-									Neapolitan1
-			root
-				alternative
-					Pizza
+					Pizza22
 						mandatory
 							Topping2
-								or
-									Salami2
-									Ham2
+								mandatory
 									Mozzarella2
+								optional
+									Salami2
+								optional
+									Ham2
 						mandatory
 							Size2
 								mandatory
@@ -52,13 +39,15 @@ features
 							Dough2
 								mandatory
 									Sicilian
-					Pizza11
+					Pizza1113
 						mandatory
 							Topping11
-								or
-									Salami11
-									Ham11
+								mandatory
 									Mozzarella11
+								optional
+									Salami11
+								optional
+									Ham11
 						mandatory
 							Size11
 								mandatory
@@ -67,3 +56,52 @@ features
 							Dough11
 								mandatory
 									Sicilian1
+			root2
+				alternative
+					XOR1
+						alternative
+							Pizza11
+								mandatory
+									Topping1
+										mandatory
+											Ham1
+								mandatory
+									Size1
+										mandatory
+											Big2
+								mandatory
+									Dough1
+										mandatory
+											Neapolitan1
+								optional
+									CheesyCrust1
+							Pizza2
+								mandatory
+									Topping21
+										mandatory
+											Ham21
+								mandatory
+									Size21
+										mandatory
+											Big11
+								mandatory
+									Dough21
+										mandatory
+											Sicilian2
+					root1
+						mandatory
+							root
+								mandatory
+									Pizza1111
+										mandatory
+											Topping111
+												mandatory
+													Ham111
+										mandatory
+											Size111
+												mandatory
+													Normal11
+										mandatory
+											Dough111
+												mandatory
+													Sicilian11
