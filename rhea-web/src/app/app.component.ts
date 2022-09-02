@@ -47,6 +47,7 @@ export class AppComponent {
   declare actual:Arbol      //valor actual del arbol
   declare consactual:Const      //valor actual del arbol
   declare padre:Arbol      //valor actual del padre del actual arbol
+  declare conspadre:Const      //valor actual del padre del actual arbol
   tree:Array<Arbol> =[new Arbol()]  // el arbol de datos 
   cons:Array<Const>=[new Const()]   // El arbol de constrains con el nombre en la rama final
   //declare json_nombre:any;    //guardo los valores de las features
@@ -156,7 +157,6 @@ createFile(texto:string){  // envia el nombre del archivo a crear y el archivo a
 }
 
 
-//constrains van a tener forma de texto (mantener forma arbol)
 
 
 //descargar el fichero y lo envia al servidor (mirar ejemplo FM-SPL carpetas bucador)
@@ -347,29 +347,103 @@ seleccionar2Opcional(id:string,lista?:Array<any>,padre?:any){
     this.abstract=this.actual.abstract
     this.card_max=this.actual.card_max
     this.card_min=this.actual.card_min
-    this.buscarPadre(objeto)
+    this.buscarPadreArbol(objeto)
+    console.log(this.actual)
   }
-  seleccionarCons(objeto:any){
-    console.log(objeto)
-    aux2=0
-    while (aux2<this.cons.length) {
-    if(this.cons[aux2]==objeto ){posicion=aux2}
-    aux2++
-  }
-  this.ncons=this.jsonconstrainTexto[posicion]
-  }
-  buscarPadre(objeto:any,lista?:Array<any>,padre?:any){
+ 
+  buscarPadreArbol(objeto:any,lista?:Array<any>,padre?:any){
     if(lista==null){lista=this.tree}
     if(lista.filter(x=> x==objeto)[0]==undefined){
       lista.forEach(element => {
         if(element.children){
         if(element.children.length>0){
-          this.buscarPadre(objeto,element.children,element)
+          this.buscarPadreArbol(objeto,element.children,element)
         }}
       });
     }else{
       this.padre=padre
     }
+  }
+  seleccionarCons(objeto:any){
+    this.buscarPadreConst(objeto)
+    aux2=0
+    while (aux2<this.cons.length) {
+    if(this.cons[aux2]==objeto ){posicion=aux2}
+    aux2++
+  }
+  this.consactual=objeto
+  
+  this.ncons=this.jsonconstrainTexto[posicion]
+  console.log(this.consactual)
+  }
+  buscarPadreConst(objeto:any,lista?:Array<any>,padre?:any){
+    if(lista==null){lista=this.cons}
+    if(lista.filter(x=> x==objeto)[0]==undefined){
+      lista.forEach(element => {
+        if(element.operands){
+        if(element.operands.length>0){
+          this.buscarPadreConst(objeto,element.operands,element)
+        }}
+      });
+    }else{
+      this.conspadre=padre
+    }
+  }
+
+  borrarCons(){
+    if(this.consactual!=undefined){
+      if(this.conspadre!=undefined){
+        aux2=0
+      while(aux2<this.conspadre.operands.length){
+        if(this.conspadre.operands[aux2]==this.consactual){
+          aux=aux2
+          aux2++
+        }
+        else{aux2++}
+      }
+        this.conspadre.operands.splice(aux,1)
+      }
+      else{
+        this.cons.splice(posicion,1)
+        this.borrarConsText()
+      }
+    }
+    this.borrarArbol()
+    this.recargarArbol()
+  }
+
+  Crearlistaconstrain(){
+    if(listaconstrain.length==2){
+      listaconstrain[0].operands.push(listaconstrain[1]);
+      listaconstrain[0].operands.splice(0,1);
+    }
+    if(listaconstrain.length>2){
+      this.consactual.listaConstrains(listaconstrain)
+    }
+    return listaconstrain[0]
+  }
+
+  ModificarCons(){
+    if(listaconstrain.length!=0&&listaconstrain!=undefined){
+      this.Crearlistaconstrain()
+
+    if(this.conspadre==undefined){
+      this.cons[posicion]=listaconstrain[0]}
+
+    if(this.conspadre!=undefined){
+      aux2=0
+      while(aux2<this.conspadre.operands.length){
+        if(this.conspadre.operands[aux2]==this.consactual){
+          aux=aux2
+          aux2++
+        }
+        else{aux2++}
+      }
+      this.conspadre.operands[aux]=listaconstrain[0]}
+    }
+    this.borrarArbol()
+    this.recargarArbol()
+    listaconstrain=[]
   }
 
 
@@ -378,31 +452,12 @@ togglevisibility(){
   this.texto1="Mostrar Constrains"
   this.constraindataSource.data=[]
   }
-  if(this.texto1=="Mostrar Constrains"){
+  else{
     this.texto1="Ocultar Constrains"
     this.constraindataSource.data=this.cons
-  }
-  else{
-    console.log(listaconstrain.length)
-    if(listaconstrain!=undefined && listaconstrain!=[] && listaconstrain.length!=undefined){
-    if(listaconstrain.length==1){console.log("Es un featureTerm");jsonconstrain.push(listaconstrain[0])}
-    if(listaconstrain.length==2){
-      console.log("Es un featureTerm negado");
-      listaconstrain[0].operands.push(listaconstrain[1]);
-      listaconstrain[0].operands.splice(0,1);
-      jsonconstrain.push(listaconstrain[0])
-    }
-    if(listaconstrain.length>2){jsonconstrain.push(jsonconstrain[0].listaConstrains(listaconstrain))}
-    
-    listaconstrain=[]
-  }
-  this.texto1="Ocultar Constrains"
-  this.togglevisibilitychips()
-  this.constraindataSource.data=this.cons
-  console.log(listaconstrain)}
-  
-    
+  } 
 }
+
 togglevisibilityarbol(){
   if(this.texto4=="Ocultar Arbol"){
   this.texto4="Mostrar Arbol"
@@ -494,7 +549,7 @@ cambioseleccionado(v){
   }
   constrainTexto=v;
   this.ncons=v
-  
+  console.log(this.ncons)
 }
 ModificarConsText(){
   aux=-1
@@ -505,39 +560,70 @@ ModificarConsText(){
     }
   });
 }
-CrearConsText(){
-  console.log(listaconstrain)
+CrearConslista(){
+  if(listaconstrain!=undefined && listaconstrain.length!=0){
+    this.Crearlistaconstrain()
+    jsonconstrain.push(listaconstrain[0])
+  }
   listaconstrain=[]
-  this.texto1="Crear Constrains lista"
-  this.togglevisibilitychips()
-  
+  this.constraindataSource.data=this.cons
 }
+
+CrearConshermano(){
+  if(this.conspadre!=undefined){
+  if(listaconstrain!=undefined && listaconstrain.length!=0){
+    this.Crearlistaconstrain()
+    this.conspadre.operands.push(listaconstrain[0])
+  }}
+  else{this.CrearConslista(); alert("no habia padre por lo que se creo una nueva")}
+  listaconstrain=[]
+  this.borrarArbol()
+  this.recargarArbol()
+}
+
+CrearConshijo(){
+  if(this.consactual!=undefined){
+  if(listaconstrain!=undefined && listaconstrain.length!=0){
+    this.Crearlistaconstrain()
+    if(this.consactual.operands==null || this.consactual.operands==undefined ){
+      this.consactual.operands=[]
+      this.consactual.operands.push(listaconstrain[0])
+    }
+    else{
+    this.consactual.operands.push(listaconstrain[0])}
+  }}
+  else{this.CrearConslista(); alert("no habia padre por lo que se creo una nueva")}
+  listaconstrain=[]
+  this.borrarArbol()
+  this.recargarArbol()
+}
+
+
 borrarConsText(){
   this.jsonconstrainTexto[posicion]=""
   this.jsonconstrainTexto=this.jsonconstrainTexto.filter(x=>x!="")
-  jsonconstrain.splice(posicion,1)
   this.borrarArbol()
   this.recargarArbol()
 }
 
 
 eligochiplogic(texto:string){
-  this.consactual=new Const()
-  this.consactual.type=texto
+  aux=new Const()
+  aux.type=texto
   if(texto=="NotTerm"){
-    this.consactual.operands=[new Const()]
+    aux.operands=[new Const()]
   }else{
-    this.consactual.operands=[new Const(),new Const()]
+    aux.operands=[new Const(),new Const()]
   }
-  listaconstrain.push(this.consactual)
+  listaconstrain.push(aux)
   console.log(listaconstrain)
 }
 
 eligochipfeature(texto:string){
-  this.consactual=new Const()
-  this.consactual.type=texto
-  this.consactual.operands=[]
-  listaconstrain.push(this.consactual)
+  aux=new Const()
+  aux.type=texto
+  aux.operands=[]
+  listaconstrain.push(aux)
   console.log(listaconstrain)
 }
 

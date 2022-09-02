@@ -19,8 +19,8 @@
   <mat-sidenav-container class="example-container" autosize [hasBackdrop]="true" >
    <div class="example-sidenav-content"></div>
   
-   <mat-grid-list cols="5" >
-    <mat-grid-tile [colspan]="4" [rowspan]="3">
+   <mat-grid-list  cols="4">
+    <mat-grid-tile  [colspan]="4"  [rowspan]="3">
       <h1>{{item}}</h1>
 
     <button (click)="togglevisibilityarbol()"> {{texto4}}</button>
@@ -76,6 +76,11 @@
 
 
       <button (click)="togglevisibility()"> {{texto1}}</button>
+      <button (click)="CrearConslista()"> Crear constrain</button>
+      <button (click)="CrearConshermano()"> insertar hermano</button>
+      <button (click)="CrearConshijo()"> insertar hijo</button>
+      <button (click)="ModificarCons()"> Modificar constrain</button>
+      <button (click)="borrarCons()"> borrar constrain</button>
 
 
 
@@ -104,28 +109,12 @@
     </cdk-virtual-scroll-viewport>
       
     
-      
+      <button (click)="returnValues()">get </button>
+
     </mat-grid-tile>
 
 
-    <mat-grid-tile [colspan]="1" [rowspan]="4" class="miGrid">
-      <div class=internalMatGrid >
-        <mat-grid-list cols="2" rowHeight="1:1">
-          <mat-grid-tile>1
-            <button (click)="saveFile()">save </button>
-          </mat-grid-tile>
-          <mat-grid-tile>2
-            <button (click)="returnValues()">get </button>
-          </mat-grid-tile>
-        <mat-grid-tile>3
-          </mat-grid-tile>
-          <mat-grid-tile>4
-            <button (click)="createFile('algo')">create </button>
-            
-          </mat-grid-tile>
-        </mat-grid-list>
-      </div>
-    </mat-grid-tile>
+    
     <mat-grid-tile [colspan]="4" [rowspan]="1">
       <mat-selection-list #constrains [multiple]="false">
         <mat-list-option *ngFor="let constrainTexto of jsonconstrainTexto" [value]="constrainTexto"
@@ -214,9 +203,9 @@
       <h2>Modificar constrain </h2>
       <input matInput  type="string" [(ngModel)]="ncons">
       <div></div>
-      <button (click)="ModificarConsText()" (click)="sidenav5.toggle()">Modificar</button>
-      <button (click)="CrearConsText()" (click)="sidenav5.toggle()">Crear</button>
-      <button (click)="borrarConsText()" (click)="sidenav5.toggle()">borrar</button>
+      <button (click)="togglevisibilitychips()" (click)="sidenav5.toggle()">Modificar</button>
+      <button (click)="togglevisibilitychips()" (click)="sidenav5.toggle()">Crear</button>
+      <button (click)="togglevisibilitychips()" (click)="sidenav5.toggle()">borrar</button>
     </mat-sidenav>
 
 

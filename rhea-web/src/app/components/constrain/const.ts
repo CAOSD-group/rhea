@@ -106,15 +106,10 @@ let constraintexto :Array<any> =[]
         aux3=true
         aux4=0
         while(aux<lista.length){
-            console.log(lista[aux])
-            console.log(aux)
-            console.log(lista[aux].operands)
             console.log(lista[aux].operands.length)
             if(lista[aux].operands.length==0){ 
                 console.log("feature")
                 aux++}
-            
-            
             if(lista[aux].operands.length==2){
                 console.log("logistic")
                 lista[aux].operands.push(lista[aux+1]);
@@ -133,13 +128,11 @@ let constraintexto :Array<any> =[]
                 aux++}
 
                 else{
-                    console.log("not")
                     lista[aux].operands.push(lista[aux+1]);
                     lista[aux].operands.splice(0,1);
                     aux++
                 }
         }
-        console.log(lista[0])
         return lista[0]
     }
   
