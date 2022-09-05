@@ -21,7 +21,9 @@ features
 			CheesyCrust
 
 constraints
-	CheesyCrust => Big
-	CheesyCrust => Neapolitan
-	Neapolitan => Big
-	Salami => Mozzarella
+	CheesyCrust => !Normal
+	Salami => !Neapolitan
+	Mozzarella => !Sicilian
+	Ham => !Big
+	Normal => !CheesyCrust
+	Big => !Ham

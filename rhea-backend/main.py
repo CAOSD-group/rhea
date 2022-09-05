@@ -12,6 +12,7 @@ from flamapy.metamodels.fm_metamodel.models import FeatureModel
 
 from rhea.metamodels.fm_metamodel.models import fm_utils
 
+from rhea.metamodels.fm_metamodel.models import FM, ConstraintHelper
 from rhea.refactorings import FMRefactoring
 from rhea.refactorings.mutex_group_refactoring import MutexGroupRefactoring
 from rhea.refactorings.cardinality_group_refactoring import CardinalityGroupRefactoring
@@ -24,13 +25,17 @@ from rhea.refactorings.elimination_complex_constraints import EliminationComplex
 
 
 ##################################################################################################
-REFACTORING = NewNamesEliminationSimpleConstraintsRequires
-MODEL_PATH = 'tests/models/general_models/Pizzas_mult_ctcs2.uvl'
+REFACTORING = NewNamesEliminationSimpleConstraintsExcludes
+MODEL_PATH = 'tests/models/general_models/prueba_ctcs_excl.uvl'
 OUTPUT_PATH = 'output.uvl'
 OUTPUT_CONSOLE = 'output.txt'
 ##################################################################################################
 
-
+# print(f'INSTANCE I: {str(i)}')
+#         if ConstraintHelper(i).is_requires_constraint():
+#             REFACTORING = NewNamesEliminationSimpleConstraintsRequires
+#         elif ConstraintHelper(i).is_excludes_constraint():
+#             REFACTORING = NewNamesEliminationSimpleConstraintsExcludes
 
 def apply_refactoring(fm: FeatureModel, refactoring: FMRefactoring) -> FeatureModel:
     instances = refactoring.get_instances(fm)
