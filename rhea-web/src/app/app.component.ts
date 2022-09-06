@@ -11,6 +11,7 @@ import { event } from 'jquery';
 
 
 var aux:any;
+var consaux=new Const()
 var aux2:any=""
 var aux3: any;
 var jsonconstrain: Array<Const>=[new Const()] 
@@ -19,6 +20,11 @@ var jsonfeatures:string
 var diccionario:any
 var listaconstrain:Array<Const>=[]
 var posicion:number;
+var titulo:string='';
+var listanombresconstrains:Array<string>=[]
+var listaconstrainTexto:Array<string>=[]
+var json:string
+
 
 
 
@@ -67,6 +73,7 @@ export class AppComponent {
   nombreschips:Array<string>=[]
   crearConstrains:Array<string>=[]
   //otros
+ 
   item:string ='Pizzas.uvl';
   texto1="Ocultar Constrains";
   texto3="Ocultar chips";
@@ -111,6 +118,8 @@ returnValues(texto?:string){
     this.item=texto||"";
     this.texto2=this.item
     this.articulos=JSON.parse(this.articulos)
+    titulo=this.articulos.name
+    console.log(titulo)
     jsonfeatures=this.articulos.features,
     jsonconstrain=this.articulos.constraints
 
@@ -131,6 +140,7 @@ getArchivo(texto?:string){
     this.item=texto||"";
     this.texto2=this.item
     this.articulos=JSON.parse(this.articulos)
+    titulo=this.articulos.name
     jsonfeatures=this.articulos.features,
     jsonconstrain=this.articulos.constraints
     aux2=""
@@ -242,15 +252,18 @@ hasChild = (_: number, node: any) => !!node.children && node.children.length >= 
 crearCons(){
   console.log("creo constrains")
   this.cons.splice(0,this.cons.length)
-  aux=[new Const()]
   aux2=0
   if(true){    //Porque hace falta poner el if para que no de error la siguiente linea?
-  [jsonconstrain,this.jsonconstrainTexto]=aux[0].CrearConstrain(aux3)
+  [jsonconstrain,this.jsonconstrainTexto,listanombresconstrains]=consaux.CrearConstrain(aux3)
   while(aux2<jsonconstrain.length){
-  jsonconstrain[aux2]=aux[0].CreanuevaConstrain(jsonconstrain[aux2])
+  jsonconstrain[aux2]=consaux.CreanuevaConstrain(jsonconstrain[aux2])
   aux2++}
-  this.cons=aux[0].crearListaBuena(jsonconstrain)
-  jsonconstrain=aux[0].buscar(jsonconstrain)
+
+
+  this.cons=consaux.crearListaBuena(jsonconstrain)
+  jsonconstrain=consaux.buscar(jsonconstrain)
+  jsonconstrain=aux3
+  console.log(this.cons)
   console.log(jsonconstrain)
   this.constraindataSource.data=this.cons
   this.texto3="Mostrar chips"
@@ -295,8 +308,8 @@ readThis(inputValue: any): void {
     myReader.readAsText(file);
     myReader.onloadend = function (e) {
         aux=myReader.result 
-        aux2=myReader.result?.toString()||""
         aux=JSON.parse(aux)
+        titulo=aux.name;
         aux2=aux.constraints
         aux=aux.features
     }                       // implementar con while false, y tiempo mucho menor 
@@ -309,7 +322,8 @@ readThis(inputValue: any): void {
         jsonconstrain=aux2
         aux3=aux2
         this.crearCons()
-        this.crearArbol()}
+        this.crearArbol()
+      }
       },
       2000);
       this.item=file.name;
@@ -343,16 +357,12 @@ readThis(inputValue: any): void {
   }
   seleccionarCons(objeto:any){
     this.buscarPadreConst(objeto)
-    aux2=0
-    while (aux2<this.cons.length) {
-    if(this.cons[aux2]==objeto ){posicion=aux2}
-    aux2++
+    posicion=this.cons.indexOf(objeto) 
+    this.consactual=objeto
+    this.ncons=this.jsonconstrainTexto[posicion] // se supone que siempre que lo podre obtener cuando se actualice con los valores del server
+    console.log(this.consactual)
   }
-  this.consactual=objeto
-  
-  this.ncons=this.jsonconstrainTexto[posicion]
-  console.log(this.consactual)
-  }
+
   buscarPadreConst(objeto:any,lista?:Array<any>,padre?:any){
     if(lista==null){lista=this.cons}
     if(lista.filter(x=> x==objeto)[0]==undefined){
@@ -381,10 +391,12 @@ readThis(inputValue: any): void {
         this.conspadre.operands.splice(aux,1)
       }
       else{
+        console.log(posicion)
         this.cons.splice(posicion,1)
         this.borrarConsText()
       }
     }
+    if(this.cons.length==0){this.cons.push(new Const)}
     this.borrarArbol()
     this.recargarArbol()
   }
@@ -395,7 +407,9 @@ readThis(inputValue: any): void {
       listaconstrain[0].operands.splice(0,1);
     }
     if(listaconstrain.length>2){
-      this.consactual.listaConstrains(listaconstrain)
+      console.log(listaconstrain)
+      
+      listaconstrain[0]=consaux.listaConstrains(listaconstrain)
     }
     return listaconstrain[0]
   }
@@ -405,7 +419,7 @@ readThis(inputValue: any): void {
       this.Crearlistaconstrain()
 
     if(this.conspadre==undefined){
-      this.cons[posicion]=listaconstrain[0]}
+      jsonconstrain[posicion]=listaconstrain[0]}
 
     if(this.conspadre!=undefined){
       aux2=0
@@ -524,10 +538,19 @@ ModificarConsText(){
 CrearConslista(){
   if(listaconstrain!=undefined && listaconstrain.length!=0){
     this.Crearlistaconstrain()
-    jsonconstrain.push(listaconstrain[0])
+    this.cons.push(listaconstrain[0])
+    console.log(this.cons)
   }
   listaconstrain=[]
-  this.constraindataSource.data=this.cons
+  this.borrarArbol()
+  this.recargarArbol()
+}
+escribirlista(){
+  console.log(listaconstrain)
+}
+borrarlista(){
+  listaconstrain=[]
+  console.log(listaconstrain)
 }
 
 CrearConshermano(){
@@ -590,17 +613,35 @@ eligochipfeature(texto:string){
 
 
 pasoajson(){
-  
+  aux=consaux.crearListaescritura(this.cons,this.tiposconstrains)
   jsonfeatures=JSON.stringify(this.tree[0], (key, value) => {
       if(value!==null) return value  
   })
-  constrainTexto=JSON.stringify(this.cons, (key, value) => {
+  aux=0
+  while( aux<this.cons.length){
+     listaconstrainTexto[aux]=JSON.stringify(this.cons[aux], (key, value) => {
     if(value!==null) return value  
 })
-  console.log(jsonfeatures)
-  console.log(constrainTexto)
+aux++
+}
+ 
+ 
+  jsonfeatures= '"name"'+':'+titulo+","+'"features"'+':'+ jsonfeatures
+  aux=0
+  aux2=""
+  console.log(listanombresconstrains)
+  console.log(this.jsonconstrainTexto)
+  console.log(listaconstrainTexto)
+  while (aux<listanombresconstrains.length){
+    aux2=aux2+'{"name":'+listanombresconstrains[aux]+',"expr":'+this.jsonconstrainTexto[aux]+',"ast":'+listaconstrainTexto[aux]+'},'
+    aux++
+  }
+  aux2=aux2.slice(0,aux2.length-1)
+  aux2='"constraints": ['+aux2+']'
+  json='{'+jsonfeatures+'},{'+aux2+'}'
+  console.log(json)
 
-  console.log("algo")
+  this.cons=consaux.crearListaBuena(this.cons)
 }
 
 

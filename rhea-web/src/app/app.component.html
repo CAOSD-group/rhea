@@ -24,7 +24,7 @@
       <h1>{{item}}</h1>
 
     <button (click)="togglevisibilityarbol()"> {{texto4}}</button>
-     
+    <cdk-virtual-scroll-viewport [itemSize]="18 * 7" class="example-viewport" >
       <mat-tree [dataSource]="dataSource" [treeControl]="treeControl" class="example-tree">
         <mat-nested-tree-node *matTreeNodeDef="let node; when: hasChild">
           <div class="mat-tree-node">
@@ -37,7 +37,7 @@
              <div></div>
             </button>
             {{node.name}} 
-            <button mat-menu-item [matMenuTriggerFor]="menu"  (click)= 'seleccionar(node)'> <mat-icon>dialpad</mat-icon> </button> 
+            <button class="mibutton" mat-menu-item [matMenuTriggerFor]="menu"  (click)= 'seleccionar(node)'> <mat-icon>dialpad</mat-icon> </button> 
           <div>
           <mat-icon >
             {{SimboloPorTipo(node.type) }} 
@@ -58,6 +58,7 @@
           </mat-menu>  
         </mat-nested-tree-node>
       </mat-tree> 
+    </cdk-virtual-scroll-viewport>
 
     <mat-chip-list class="mat-chip-list-stacked" >
       <mat-chip *ngFor="let chip of tablachips" (click)="eligochiplogic(chip)">
@@ -66,25 +67,14 @@
     </mat-chip-list>
     <div class="margen"></div>
  
-          <cdk-virtual-scroll-viewport [itemSize]="18 * 7" class="example-viewport">
-            <mat-chip-list class="mat-chip-list-stacked" >
+          <cdk-virtual-scroll-viewport [itemSize]="18 * 7" class="example-viewport" >
+            <mat-chip-list class="mat-chip-list-stacked"  >
               <mat-chip *ngFor="let chip of nombreschips" (click)="eligochipfeature(chip)" >
               {{chip}}
               </mat-chip>
             </mat-chip-list>
           </cdk-virtual-scroll-viewport>
-
-
-      <button (click)="togglevisibility()"> {{texto1}}</button>
-      <button (click)="CrearConslista()"> Crear constrain</button>
-      <button (click)="CrearConshermano()"> insertar hermano</button>
-      <button (click)="CrearConshijo()"> insertar hijo</button>
-      <button (click)="ModificarCons()"> Modificar constrain</button>
-      <button (click)="borrarCons()"> borrar constrain</button>
-
-
-
-
+          
       <cdk-virtual-scroll-viewport [itemSize]="18 * 7" class="example-viewport" >
       <mat-tree  [dataSource]="constraindataSource" [treeControl]="constraintreeControl" class="example-tree">
         <mat-nested-tree-node  *matTreeNodeDef="let constrainnode; when: hasChild">
@@ -96,7 +86,7 @@
               </mat-icon>
             </button>
               {{constrainnode.type}} 
-              <button mat-menu-item [matMenuTriggerFor]="menu2" (click)="sidenav5.toggle()" (click)= 'seleccionarCons(constrainnode)'> <mat-icon>dialpad</mat-icon> </button> 
+              <button mat-menu-item [matMenuTriggerFor]="menu2" (click)= 'seleccionarCons(constrainnode)'> <mat-icon>dialpad</mat-icon> </button> 
         </div>
             <div [class.example-tree-invisible]="!constraintreeControl.isExpanded(constrainnode)" role="group">
               <ng-container matTreeNodeOutlet></ng-container> 
@@ -107,10 +97,25 @@
         </mat-nested-tree-node>
       </mat-tree>
     </cdk-virtual-scroll-viewport>
-      
-    
-      <button (click)="returnValues()">get </button>
-
+      <mat-list>
+        <button class="mibutton" (click)="togglevisibility()"> {{texto1}}</button>
+        <div></div>
+        <button class="mibutton" (click)="CrearConshermano()"> insertar hermano</button>
+        <div></div>
+        <button class="mibutton" (click)="CrearConshijo()"> insertar hijo</button>
+        <div></div>
+        <button class="mibutton" (click)="ModificarCons()"> Modificar constrain</button>
+        <div></div>
+        <button class="mibutton" (click)="borrarCons()"> borrar constrain</button>
+        <div></div>
+        <button class="mibutton" (click)="escribirlista()"> escribir lista</button>
+        <div></div>
+        <button class="mibutton" (click)="borrarlista()"> borrar lista</button>
+        <div></div>
+        <button class="mibutton" (click)="togglevisibilitychips()">Mostrar chips</button>  
+        <div></div>  
+        <button class="mibutton" (click)="returnValues()">get </button>
+      </mat-list>
     </mat-grid-tile>
 
 
