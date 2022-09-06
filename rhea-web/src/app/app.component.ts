@@ -6,6 +6,7 @@ import { Arbol } from './components/arbol_pruebas/arbol';
 import{Const} from './components/constrain/const';
 import {MatDialog,} from '@angular/material/dialog';
 import { event } from 'jquery';
+import * as saveAs from 'file-saver';
 
 
 
@@ -14,6 +15,7 @@ var aux:any;
 var consaux=new Const()
 var aux2:any=""
 var aux3: any;
+let simbolo:any; // evita solapar valores en los auxiliares 
 var jsonconstrain: Array<Const>=[new Const()] 
 var constrainTexto:string;
 var jsonfeatures:string
@@ -27,27 +29,19 @@ var json:string
 
 
 
-
-export interface Tile {
-  color: string;
-  cols: number;
-  rows: number;
-  text: string;
-  }
-
-
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
+
 export class AppComponent {
   urlsave="http://172.16.51.94:5000/saveFM" //servidor guardar datos
   urldownload="http://172.16.51.94:5000/downloadFM"  //servidor cargar datos
   urldelete="http://172.16.51.94:5000/deleteFM"  //servidor cargar datos
   urlcreate="http://172.16.51.94:5000/createFM" //servidor guardar datos
   documentos:string[]= ['GPL.xml', 'JHipster.uvl', 'MobileMedia.xml', 'Pizzas.uvl', 'TankWar.xml', 'Truck.uvl','WeaFQAs.uvl'];
-  file: File | null = null;
+  //file: File | null = null;
   articulos: any;        //atributo donde guardo las respuestas
   title:string ='rhea-web' // evita un error en app.component.spec.ts
   declare actual:Arbol      //valor actual del arbol
@@ -114,17 +108,21 @@ returnValues(texto?:string){
   if(texto==""){texto=this.item}
   if(texto==undefined){texto=this.item}
   this.http.post(this.urldownload,texto,{responseType:'text'}).subscribe(resultado => {
-    this.articulos = resultado;
-    this.item=texto||"";
+    this.CrearDatos(resultado,texto)
+  })
+}
+CrearDatos(objeto:any,nombre?:string){
+    console.log(objeto)
+    this.articulos = objeto;
+    this.item=nombre||"";
     this.texto2=this.item
     this.articulos=JSON.parse(this.articulos)
     titulo=this.articulos.name
     console.log(titulo)
     jsonfeatures=this.articulos.features,
     jsonconstrain=this.articulos.constraints
-
     aux2=""
-    diccionario = Object.assign({}, resultado);
+    diccionario = Object.assign({}, objeto);
     for( const[key] of Object.entries(diccionario)){
       aux2=aux2+diccionario[key]
   }
@@ -132,27 +130,6 @@ returnValues(texto?:string){
     aux3=aux.constraints
     this.crearCons()
     this.crearArbol()
-  })
-}
-getArchivo(texto?:string){
-  this.http.post(this.urldownload,texto,{responseType:'text'}).subscribe(resultado => {
-    this.articulos = resultado;
-    this.item=texto||"";
-    this.texto2=this.item
-    this.articulos=JSON.parse(this.articulos)
-    titulo=this.articulos.name
-    jsonfeatures=this.articulos.features,
-    jsonconstrain=this.articulos.constraints
-    aux2=""
-    diccionario = Object.assign({}, resultado);
-    for( const[key] of Object.entries(diccionario)){
-      aux2=aux2+diccionario[key]
-  }
-    aux=JSON.parse(aux2)
-    aux3=aux.constraints
-    this.crearCons()
-    this.crearArbol()
-  })
 }
 
 createFile(texto:string){  // envia el nombre del archivo a crear y el archivo a crear (1 o 2 pasos?)
@@ -168,7 +145,7 @@ createFile(texto:string){  // envia el nombre del archivo a crear y el archivo a
 
 
 
-
+//SimboloPorTipo esta constantemente llamandose, alguna opcion?
 //descargar el fichero y lo envia al servidor (mirar ejemplo FM-SPL carpetas bucador)
 
 //cambios manuales un boton para enviar al server 
@@ -302,33 +279,22 @@ recargarArbol(){
 changeListener($event): void {this.readThis($event.target);}
 
 readThis(inputValue: any): void { 
- 
+    console.log("llego 1")
+    aux=""
     var file: File = inputValue.files[0];
     var myReader: FileReader = new FileReader();
     myReader.readAsText(file);
     myReader.onloadend = function (e) {
         aux=myReader.result 
-        aux=JSON.parse(aux)
-        titulo=aux.name;
-        aux2=aux.constraints
-        aux=aux.features
-    }                       // implementar con while false, y tiempo mucho menor 
-    //(evita errores en tiempos muy largos y reduce tiempo de espera en los cortos)
-    
-      setTimeout(() =>     //me permite asegurarme que el valor del archivo se ha leido a tiempo
-      { 
-        if(aux!=undefined){
-        jsonfeatures=aux
-        jsonconstrain=aux2
-        aux3=aux2
-        this.crearCons()
-        this.crearArbol()
-      }
-      },
-      2000);
-      this.item=file.name;
-      this.texto2=this.item;
+        console.log(aux)
+        
   }
+  setTimeout(() => {
+    console.log(aux)
+    this.CrearDatos(aux,"hola")
+  },2000)
+  
+}
   
   seleccionar(objeto:any){
     this.actual=objeto
@@ -496,20 +462,23 @@ openDialog() {
 
 
 
-SimboloPorTipo(tipo:string){
+SimboloPorTipo(tipo:string){ 
   if(tipo=="FEATURE"){
-    aux='add'
+    simbolo='add'
+  }
+  if(tipo=="XAND"){
+    simbolo='menu'
   }
   if(tipo=="XOR"){
-    aux='menu'
-  }
-  if(tipo=="XOR"){
-    aux='sentiment_very_satisfied'
+    simbolo='sentiment_very_satisfied'
   }
   if(tipo=="OR"){
-    aux='pages'
+    simbolo='pages'
   }
-  return aux
+  if(tipo!="OR"&& tipo!="XOR" &&tipo!="FEATURE" &&tipo!="XAND"){
+    simbolo='help_outline'
+  }
+  return simbolo
 }
 /*
 onRightClick($event) {
@@ -624,27 +593,55 @@ pasoajson(){
 })
 aux++
 }
- 
- 
-  jsonfeatures= '"name"'+':'+titulo+","+'"features"'+':'+ jsonfeatures
+  jsonfeatures= '"name"'+':"'+titulo+'",'+'"features"'+':'+ jsonfeatures
   aux=0
   aux2=""
-  console.log(listanombresconstrains)
-  console.log(this.jsonconstrainTexto)
-  console.log(listaconstrainTexto)
   while (aux<listanombresconstrains.length){
-    aux2=aux2+'{"name":'+listanombresconstrains[aux]+',"expr":'+this.jsonconstrainTexto[aux]+',"ast":'+listaconstrainTexto[aux]+'},'
+    aux2=aux2+'{"name":"'+listanombresconstrains[aux]+'","expr":"'+this.jsonconstrainTexto[aux]+'","ast":'+listaconstrainTexto[aux]+'},'
     aux++
   }
   aux2=aux2.slice(0,aux2.length-1)
   aux2='"constraints": ['+aux2+']'
-  json='{'+jsonfeatures+'},{'+aux2+'}'
+  json='{'+jsonfeatures+','+aux2+'}'
   console.log(json)
-
   this.cons=consaux.crearListaBuena(this.cons)
 }
 
 
+
+updatevalues(){
+  aux=consaux.crearListaescritura(this.cons,this.tiposconstrains)
+  jsonfeatures=JSON.stringify(this.tree[0], (key, value) => {
+      if(value!==null) return value  
+  })
+  aux=0
+  while( aux<this.cons.length){
+     listaconstrainTexto[aux]=JSON.stringify(this.cons[aux], (key, value) => {
+    if(value!==null) return value  
+})
+aux++
+}
+  jsonfeatures= '"name"'+':"'+titulo+'",'+'"features"'+':'+ jsonfeatures
+  aux=0
+  aux2=""
+  while (aux<listaconstrainTexto.length){
+    aux2=aux2+'{"name":"","expr":"","ast":'+listaconstrainTexto[aux]+'},'
+    aux++
+  }
+  aux2=aux2.slice(0,aux2.length-1)
+  aux2='"constraints": ['+aux2+']'
+  json='{'+jsonfeatures+','+aux2+'}'
+  console.log(json)
+  console.log("enviar al servidor json y actualizar los valores (se pueden usar metodos similares a los de returnvalues")
+  this.cons=consaux.crearListaBuena(this.cons)
+  //no deberia hacer falta esta ultima linea si se solicita al server
+}
+
+SaveDemo() {
+  let file = new Blob([json], { type: 'js' });
+  saveAs(file, titulo+'.json')
+  
+}
 
 }
 @Component({

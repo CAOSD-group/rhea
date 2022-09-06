@@ -40,7 +40,7 @@
             <button class="mibutton" mat-menu-item [matMenuTriggerFor]="menu"  (click)= 'seleccionar(node)'> <mat-icon>dialpad</mat-icon> </button> 
           <div>
           <mat-icon >
-            {{SimboloPorTipo(node.type) }} 
+            {{SimboloPorTipo(node.type)}} 
           </mat-icon></div>
           </div>
         
@@ -115,6 +115,10 @@
         <button class="mibutton" (click)="togglevisibilitychips()">Mostrar chips</button>  
         <div></div>  
         <button class="mibutton" (click)="returnValues()">get </button>
+        <div></div>  
+        <button class="mibutton" (click)="updatevalues()">actualizarvalores </button>
+        <div></div>  
+        <button class="mibutton" (click)="SaveDemo()">descarga archivo</button>
       </mat-list>
     </mat-grid-tile>
 
@@ -141,7 +145,7 @@
       <button (click)="saveFile()">envia el arbol al server (de momento no) </button>
       <div></div> 
       <h2>Elegir documento </h2>
-      <button (click)="getArchivo(item)">busca el documento de la lista</button>
+      <button (click)="returnValues(item)">busca el documento de la lista</button>
       <select [(ngModel)]="item" [(ngModel)]="texto2" >
       <option value="tree name">Selecciona una opción</option>
       <option *ngFor="let documento of documentos">
