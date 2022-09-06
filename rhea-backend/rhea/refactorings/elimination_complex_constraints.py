@@ -40,7 +40,7 @@ class EliminationComplexConstraints(FMRefactoring):
 
         features_names = instance.get_features()  # string
         features_new_names = []
-        dict_constraint = read_complex_constraint(instance)  # para negar las que tengan un not en la constraint
+        dict_constraint = read_complex_constraint(instance)  # NOT before negatives (dict)
         print(f'NEW CONSTRAINT: {dict_constraint}')
         for i, f in enumerate(features_names):
             new_feature = Feature(utils.get_new_feature_name(model, f), parent=new_or, is_abstract=True)
@@ -48,17 +48,16 @@ class EliminationComplexConstraints(FMRefactoring):
             for d in dict_constraint:
                 if d == f:
                     if dict_constraint[d] is True:
-                        ctc = Constraint(f'CTC({i})', AST.create_binary_operation(ASTOperation.IMPLIES, new_feature, AST.create_unary_operation(ASTOperation.NOT, d)))
+                        ctc = Constraint(f'CTC({i})',
+                        AST.create_binary_operation(ASTOperation.IMPLIES, Node(new_feature.name),
+                        AST.create_unary_operation(ASTOperation.NOT, Node(d))))
                     else:
-                        ctc = Constraint(f'CTC({i})', AST.create_binary_operation(ASTOperation.IMPLIES, new_feature, d))
+                        ctc = Constraint(f'CTC({i})',
+                        AST.create_binary_operation(ASTOperation.IMPLIES,
+                        Node(new_feature.name), Node(d)))
             print(f'CONSTRAINT: {ctc}')
             model.ctcs.append(ctc)
 
-        
-
-
-
-            
 
         model.ctcs.remove(instance)
 
@@ -83,7 +82,7 @@ def read_complex_constraint(instance: Constraint) -> dict:
     stack = [instance.ast.root]
     while stack:
         node = stack.pop()
-        print(f'NODE: {node}')
+        # print(f'NODE: {node}')
         if node.is_unique_term():
             features[node.data] = False
         elif node.is_unary_op():
