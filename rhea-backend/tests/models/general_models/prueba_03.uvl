@@ -21,8 +21,8 @@ features
 					L
 
 constraints
-	B => E
-	B => H
-	H => E
-	J => K
-	K => L
+	B => !E
+	B => !H
+	H => !E
+	J => !K
+	K => !L

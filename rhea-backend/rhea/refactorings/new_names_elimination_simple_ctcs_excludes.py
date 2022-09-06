@@ -89,37 +89,43 @@ class NewNamesEliminationSimpleConstraintsExcludes(FMRefactoring):
                 model_less_plus = utils.eliminate_node_from_tree(model_less_plus, f_left_less_plus)
             print(f'T(-{f_left_less_plus}): {model_less_plus}')
 
+        new_model_less = copy.deepcopy(model_less_plus)
+        print(f'NEW MODEL LESS: {new_model_less}')
+
         plus_roots = []
         for f_less_plus in list_right_feature_ctc_less_plus:
-            new_model_less_plus = copy.deepcopy(model)
+            new_model_less_plus = copy.deepcopy(new_model_less)
+            print(f'NEW MODEL PLUS: {new_model_less_plus}')
             if hasattr(f_less_plus, 'reference') and new_model_less_plus is not None:
                 new_f_less_plus = new_model_less_plus.get_feature_by_name(f_less_plus.name)
-                # print(f'NEW MODEL PLUS: {new_model_plus}')
                 model_less_plus = utils.add_node_to_tree(new_model_less_plus, new_f_less_plus)
             elif model_less_plus is not None:
                 model_less_plus = utils.add_node_to_tree(model_less_plus, f_less_plus)
-            # if model_less_plus is not None:
-            #     # if model_plus.root in plus_roots:
-            #     #     print(f'MODEL PLUS ROOT NAME: {model_plus.root.name}')
-            #     #     model_plus.root.name = utils.get_new_feature_name(model, model_plus.root.name)
-            #     #     print(f'MODEL PLUS ROOT NAME: {model_plus.root.name}')
-            #     old_root = model_less_plus.root
-            #     model_less_plus = remove_abstract_child(model_less_plus, old_root)
-            #     if old_root != model_less_plus.root:
-            #         new_rel = Relation(old_root, [model_less_plus.root], 1, 1)  # mandatory
-            #         old_root.add_relation(new_rel)
-            #     plus_roots.append(model_less_plus.root)
+            if model_less_plus is not None:
+                # if model_plus.root in plus_roots:
+                #     print(f'MODEL PLUS ROOT NAME: {model_plus.root.name}')
+                #     model_plus.root.name = utils.get_new_feature_name(model, model_plus.root.name)
+                #     print(f'MODEL PLUS ROOT NAME: {model_plus.root.name}')
+                old_root = model_less_plus.root
+                model_less_plus = remove_abstract_child(model_less_plus, old_root)
+                if old_root != model_less_plus.root:
+                    new_rel = Relation(old_root, [model_less_plus.root], 1, 1)  # mandatory
+                    old_root.add_relation(new_rel)
+                plus_roots.append(model_less_plus.root)
             print(f'T(+{f_less_plus}): {model_less_plus}')
         # Joining all trees with XOR
-        # if len(list_right_feature_ctc_less_plus)>1:
-        #     r_xor_plus = Relation(xor_plus, plus_roots, 1, 1)  # XOR
-        #     xor_plus.add_relation(r_xor_plus)
-        #     model_less_plus.root = xor_plus
-        #     count = 1
-        #     for r in xor_plus.get_children():
-        #         r.name = f'{utils.get_new_feature_name(model, r.name)}{count}'
-        #         count += 1
-        #     print(f'T(+{[str(f) for f in list_right_feature_ctc_less_plus]}): {model_less_plus}')
+        if len(list_right_feature_ctc_less_plus)>1:
+            r_xor_plus = Relation(xor_plus, plus_roots, 1, 1)  # XOR
+            xor_plus.add_relation(r_xor_plus)
+            if model_less_plus is not None:
+                model_less_plus.root = xor_plus
+            else:
+                model_less_plus = FeatureModel(xor_plus, new_model_less_plus.ctcs)
+            count = 1
+            for r in xor_plus.get_children():
+                r.name = f'{utils.get_new_feature_name(model, r.name)}{count}'
+                count += 1
+            print(f'T(+{[str(f) for f in list_right_feature_ctc_less_plus]}): {model_less_plus}')
 
 
 

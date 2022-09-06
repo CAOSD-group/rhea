@@ -22,8 +22,8 @@ features
 
 constraints
 	CheesyCrust => !Normal
-	Salami => !Neapolitan
+	Salami => Neapolitan
 	Mozzarella => !Sicilian
-	Ham => !Big
+	Ham => Big
 	Normal => !CheesyCrust
 	Big => !Ham

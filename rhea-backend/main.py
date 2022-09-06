@@ -25,17 +25,15 @@ from rhea.refactorings.elimination_complex_constraints import EliminationComplex
 
 
 ##################################################################################################
-REFACTORING = NewNamesEliminationSimpleConstraintsExcludes
-MODEL_PATH = 'tests/models/general_models/prueba_ctcs_excl.uvl'
+REFACTORING_COMPLEX = EliminationComplexConstraints
+REFACTORING_REQUIRES = NewNamesEliminationSimpleConstraintsRequires
+REFACTORING_EXCLUDES = NewNamesEliminationSimpleConstraintsExcludes
+MODEL_PATH = 'tests/models/elimination_complex_constraints/input_models/prueba_complex_ctcs.uvl'
 OUTPUT_PATH = 'output.uvl'
 OUTPUT_CONSOLE = 'output.txt'
 ##################################################################################################
 
-# print(f'INSTANCE I: {str(i)}')
-#         if ConstraintHelper(i).is_requires_constraint():
-#             REFACTORING = NewNamesEliminationSimpleConstraintsRequires
-#         elif ConstraintHelper(i).is_excludes_constraint():
-#             REFACTORING = NewNamesEliminationSimpleConstraintsExcludes
+
 
 def apply_refactoring(fm: FeatureModel, refactoring: FMRefactoring) -> FeatureModel:
     instances = refactoring.get_instances(fm)
@@ -100,8 +98,17 @@ def main():
 
     # Apply the refactoring
     print('==================================================')
-    print(f'Applying the refactoring {REFACTORING.get_name()}...')
-    fm = apply_refactoring(fm, REFACTORING)
+    for i, ctc in enumerate(fm.ctcs):
+        print(f'CTC({i}): {str(ctc)}')
+        if ConstraintHelper(ctc).is_complex_constraint():
+            print(f'Applying the refactoring {REFACTORING_COMPLEX.get_name()}...')
+            fm = apply_refactoring(fm, REFACTORING_COMPLEX)
+        elif ConstraintHelper(ctc).is_requires_constraint():
+            print(f'Applying the refactoring {REFACTORING_REQUIRES.get_name()}...')
+            fm = apply_refactoring(fm, REFACTORING_REQUIRES)
+        elif ConstraintHelper(ctc).is_excludes_constraint():
+            print(f'Applying the refactoring {REFACTORING_EXCLUDES.get_name()}...')
+            fm = apply_refactoring(fm, REFACTORING_EXCLUDES)
     print('==================================================')
     #UVLWriter(fm, OUTPUT_PATH).transform()
     print_fm(fm, expected_results)

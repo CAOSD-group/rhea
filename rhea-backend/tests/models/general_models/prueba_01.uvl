@@ -16,6 +16,6 @@ features
 					H
 
 constraints
-	B => E
-	B => H
-	H => E
+	B => !E
+	B => !H
+	H => !E

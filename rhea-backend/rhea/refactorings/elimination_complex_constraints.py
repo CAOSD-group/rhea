@@ -1,4 +1,5 @@
 from asyncio import constants
+from turtle import left
 from typing import Any
 
 from flamapy.metamodels.fm_metamodel.models import FeatureModel, Feature, Relation, Constraint
@@ -30,13 +31,17 @@ class EliminationComplexConstraints(FMRefactoring):
         # print(f'MODELO: {model}')
 
         print(f'Constraint: {str(instance)}')
-        print(f'Constraint AST: {str(instance.ast)}')
-        print(f'Constraint AST.root: {str(instance.ast.root)}')
+        # print(f'Constraint AST: {str(instance.ast)}')
+        # print(f'Constraint AST.root: {str(instance.ast.root)}')
+        print(f'datos del nodo izquierdo: {instance.ast.root.left.data}')
         print(f'datos del nodo derecho: {instance.ast.root.right}')
         
         new_or = Feature(utils.get_new_feature_name(model, 'Or'), is_abstract=True)
-        features = instance.get_features()
-        new_or = read_complex_constraint(model, instance)
+        features = [utils.get_new_feature_name(model, f.name) for f in instance.get_features()]
+        for feature in features:
+            new_constraint = read_complex_constraint(model, instance, feature)  # para negar las que tengan un not en la constraint
+            model.ctcs.append(new_constraint)
+
 
         model.ctcs.remove(instance)
 
@@ -54,13 +59,20 @@ class EliminationComplexConstraints(FMRefactoring):
         
         return model
 
-def read_complex_constraint(model: FeatureModel, instance: Constraint) -> Constraint:
+def read_complex_constraint(model: FeatureModel, instance: Constraint, feature: Feature) -> Constraint:
     
-    data = instance.ast.root.left.data
-    if data is ASTOperation.NOT:
-        data = instance.ast.root.left.data
+    left_data = instance.ast.root.left.data
+    right_data = instance.ast.root.right.data
+    if left_data is ASTOperation.OR:
+        data = read_complex_constraint(model, instance.ast.root.left)
+    if right_data is ASTOperation.OR:
+        data = read_complex_constraint(model, instance.ast.root.right)
+    # if left_data is ASTOperation.NOT:
+    #     left_data = instance.ast.root.left.data
+    # if right_data is ASTOperation.NOT:
+    #     right_data = instance.ast.root.left.data
     feature_data = model.get_feature_by_name(data)
     new_feature = Feature(utils.get_new_feature_name(model, data.name), is_abstract=True)
     new_instance = AST.create_binary_operation(ASTOperation.IMPLIES, new_feature, feature_data)
     model.ctcs.append(new_instance)
-    return new_or
+    return new_instance

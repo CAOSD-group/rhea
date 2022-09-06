@@ -53,10 +53,10 @@ features
 							DrivenAxles3
 
 constraints
-	Beds2 => HighRoof
-	DrivenAxles2 => MultipleRearAxles
-	DrivenAxles3 => Axles4
-	Tons40 => KW400
-	AdditionalSteeringAxle => Axles4
-	HighRoof => Heavyweight
-	Semitrailer => Tons18
+	Beds2 => !HighRoof
+	DrivenAxles2 => !MultipleRearAxles
+	DrivenAxles3 => !Axles4
+	Tons40 => !KW400
+	AdditionalSteeringAxle => !Axles4
+	HighRoof => !Heavyweight
+	Semitrailer => !Tons18
