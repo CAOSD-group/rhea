@@ -23,7 +23,7 @@ class NewNamesEliminationSimpleConstraintsExcludes(FMRefactoring):
         if instance is None:
             raise Exception(f'There is not constraint with name "{str(instance)}".')
         if not ConstraintHelper(instance).is_excludes_constraint():
-            raise Exception(f'Operator {str(instance)} is not requires.')
+            raise Exception(f'Operator {str(instance)} is not excludes.')
 
         print(f'MODELO: {model}')
         model_less = copy.deepcopy(model)
