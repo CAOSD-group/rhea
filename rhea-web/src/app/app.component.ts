@@ -4,14 +4,13 @@ import {NestedTreeControl} from '@angular/cdk/tree';
 import {MatTreeNestedDataSource} from '@angular/material/tree';
 import {Arbol} from './components/arbol_pruebas/arbol';
 import{Const} from './components/constrain/const';
-import {MatDialog,} from '@angular/material/dialog';
+import {MatDialog} from '@angular/material/dialog';
 import * as saveAs from 'file-saver';
 
 
 
 
 var aux:any;
-var consaux=new Const()
 var aux2:any=""
 var aux3: any;
 let simbolo:any; // evita solapar valores en los auxiliares 
@@ -37,21 +36,21 @@ var json:string
 export class AppComponent {
   urlsave="http://172.16.51.94:5000/saveFM" //servidor guardar datos
   urldownload="http://172.16.51.94:5000/downloadFM"  //servidor cargar datos
+  urlupload="http://172.16.51.94:5000/uploadFM"  //servidor cargar datos
+  urldownload2="http://172.16.51.94:5000/downloadFM2"  //servidor cargar datos
   urldelete="http://172.16.51.94:5000/deleteFM"  //servidor cargar datos
   urlcreate="http://172.16.51.94:5000/createFM" //servidor guardar datos
   documentos:string[]= ['GPL.xml', 'JHipster.uvl', 'MobileMedia.xml', 'Pizzas.uvl', 'TankWar.xml', 'Truck.uvl','WeaFQAs.uvl'];
   //file: File | null = null;
-  articulos: any;        //atributo donde guardo las respuestas
   title:string ='rhea-web' // evita un error en app.component.spec.ts
   declare actual:Arbol      //valor actual del arbol
-  declare consactual:Const      //valor actual del arbol
+  consactual:Const =new Const()     //valor actual del arbol
   declare padre:Arbol      //valor actual del padre del actual arbol
-  declare conspadre:Const      //valor actual del padre del actual arbol
+  conspadre:Const =new Const()     //valor actual del padre del actual arbol
   tree:Array<Arbol> =[new Arbol()]  // el arbol de datos 
   cons:Array<Const>=[new Const()]   // El arbol de constrains con el nombre en la rama final
   //declare json_nombre:any;    //guardo los valores de las features
   //declare json_const:any;     //guardo los valores de las constraints
-  dictconst:Map<string,Object>=new Map<string,Object>();
   treeControl = new NestedTreeControl<Arbol>(node => node.children);
   dataSource = new MatTreeNestedDataSource<Arbol>();
   constraintreeControl = new NestedTreeControl<Const>(constrainnode => constrainnode.operands);
@@ -103,6 +102,18 @@ saveFile(texto?:string){ // envio el nuevo archivo y el nuvo nombre opcional
     console.log(resultado)
   })}
 }
+
+enviarJSON(){
+  console.log(aux)
+  this.http.post(this.urldownload2,aux,{responseType:'text'}).subscribe(resultado => {
+    console.log(resultado)})
+}
+
+enviarUVL(uvl:any){
+  this.http.post(this.urlupload,uvl,{responseType:'text'}).subscribe(resultado => {
+    console.log(resultado)})
+}
+
 returnValues(texto?:string){
   if(texto==""){texto=this.item}
   if(texto==undefined){texto=this.item}
@@ -111,14 +122,14 @@ returnValues(texto?:string){
   })
 }
 CrearDatos(objeto:any,nombre?:string){
-    this.articulos = objeto;
+    aux = objeto;
     this.item=nombre||"";
     this.texto2=this.item
-    this.articulos=JSON.parse(this.articulos)
-    this.titulo=this.articulos.name
+    aux=JSON.parse(aux)
+    this.titulo=aux.name
     console.log(this.titulo)
-    jsonfeatures=this.articulos.features,
-    jsonconstrain=this.articulos.constraints
+    jsonfeatures=aux.features,
+    jsonconstrain=aux.constraints
     aux2=""
     diccionario = Object.assign({}, objeto);
     for( const[key] of Object.entries(diccionario)){
@@ -228,14 +239,14 @@ crearCons(){
   this.cons.splice(0,this.cons.length)
   aux2=0
   if(true){    //Porque hace falta poner el if para que no de error la siguiente linea?
-  [jsonconstrain,this.jsonconstrainTexto,listanombresconstrains]=consaux.CrearConstrain(aux3)
+  [jsonconstrain,this.jsonconstrainTexto,listanombresconstrains]=this.consactual.CrearConstrain(aux3)
   while(aux2<jsonconstrain.length){
-  jsonconstrain[aux2]=consaux.CreanuevaConstrain(jsonconstrain[aux2])
+  jsonconstrain[aux2]=this.consactual.CreanuevaConstrain(jsonconstrain[aux2])
   aux2++}
 
 
-  this.cons=consaux.crearListaBuena(jsonconstrain)
-  jsonconstrain=consaux.buscar(jsonconstrain)
+  this.cons=this.consactual.crearListaBuena(jsonconstrain)
+  jsonconstrain=this.consactual.buscar(jsonconstrain)
   jsonconstrain=aux3
   console.log(this.cons)
   this.constraindataSource.data=this.cons
@@ -279,12 +290,22 @@ readThis(inputValue: any): void {
     var file: File = inputValue.files[0];
     var myReader: FileReader = new FileReader();
     myReader.readAsText(file);
-    myReader.onloadend = function (e) {
-        aux=myReader.result 
-  }
-  setTimeout(() => {
-    this.CrearDatos(aux,"hola")
-  },2000)
+    myReader.onloadend = function (e) { aux=myReader.result }
+    if(file.name.endsWith('.json')){
+      console.log("llega json")
+      setTimeout(() => {
+      this.CrearDatos(aux,"hola")
+      },2000)
+    }
+    if(file.name.endsWith('.uvl')){
+      console.log("llega uvl")
+      setTimeout(() => {
+        console.log(aux)
+        this.enviarUVL(aux)
+        },2000)
+    }
+
+  
   
 }
   
@@ -368,7 +389,7 @@ readThis(inputValue: any): void {
     if(listaconstrain.length>2){
       console.log(listaconstrain)
       
-      listaconstrain[0]=consaux.listaConstrains(listaconstrain)
+      listaconstrain[0]=this.consactual.listaConstrains(listaconstrain)
     }
     return listaconstrain[0]
   }
@@ -435,14 +456,6 @@ togglevisibilitychips(){
 }
 
 
-ContrainsToDictionary(){
-  aux=0
-  while(aux<this.cons.length){
-    aux++
-    aux2='CTC'+aux
-    this.dictconst.set(aux2,this.cons[aux-1])
-  }
-}
 
 openDialog() {
   const dialogRef = this.dialog.open(DialogContentExampleDialog);
@@ -457,7 +470,7 @@ openDialog() {
 
 
 SimboloPorTipo(tipo:string){ 
-  if(tipo=="FEATURE"){
+  if(tipo=="FeatureTerm"){
     simbolo='add'
   }
   if(tipo=="XAND"){
@@ -469,7 +482,7 @@ SimboloPorTipo(tipo:string){
   if(tipo=="OR"){
     simbolo='pages'
   }
-  if(tipo!="OR"&& tipo!="XOR" &&tipo!="FEATURE" &&tipo!="XAND"){
+  if(tipo!="OR"&& tipo!="XOR" &&tipo!="FeatureTerm" &&tipo!="XAND"){
     simbolo='help_outline'
   }
   return simbolo
@@ -576,7 +589,7 @@ eligochipfeature(texto:string){
 
 
 pasoajson(){
-  aux=consaux.crearListaescritura(this.cons,this.tiposconstrains)
+  aux=this.consactual.crearListaescritura(this.cons,this.tiposconstrains)
   jsonfeatures=JSON.stringify(this.tree[0], (key, value) => {
       if(value!==null) return value  
   })
@@ -598,23 +611,21 @@ aux++
   aux2='"constraints": ['+aux2+']'
   json='{'+jsonfeatures+','+aux2+'}'
   console.log(json)
-  this.cons=consaux.crearListaBuena(this.cons)
+  this.cons=this.consactual.crearListaBuena(this.cons)
 }
 
 
 
 updatevalues(){
-  aux=consaux.crearListaescritura(this.cons,this.tiposconstrains)
+  aux=this.consactual.crearListaescritura(this.cons,this.tiposconstrains)
   jsonfeatures=JSON.stringify(this.tree[0], (key, value) => {
-      if(value!==null) return value  
-  })
+      if(value!==null) return value  })
   aux=0
   while( aux<this.cons.length){
      listaconstrainTexto[aux]=JSON.stringify(this.cons[aux], (key, value) => {
-    if(value!==null) return value  
-})
-aux++
-}
+    if(value!==null) return value})
+  aux++
+  }
   jsonfeatures= '"name"'+':"'+this.titulo+'",'+'"features"'+':'+ jsonfeatures
   aux=0
   aux2=""
@@ -626,17 +637,27 @@ aux++
   aux2='"constraints": ['+aux2+']'
   json='{'+jsonfeatures+','+aux2+'}'
   console.log(json)
-  console.log("enviar al servidor json y actualizar los valores (se pueden usar metodos similares a los de returnvalues")
-  this.cons=consaux.crearListaBuena(this.cons)
-  //no deberia hacer falta esta ultima linea si se solicita al server
+  this.cons=this.consactual.crearListaBuena(this.cons)
 }
 
-SaveDemo() {
-  let file = new Blob([json], { type: 'js' });
+SaveDemoJson() {
+  this.pasoajson()
+  let file = new Blob([json], { type: 'json' });
   saveAs(file, this.titulo+'.json')
-  
-  
 }
+SaveDemo() {
+  this.pasoajson()
+  console.log("llego")
+  aux = new Blob([json], { type: 'json' });
+  console.log(aux)
+  this.enviarJSON()
+  //this.CrearDatos(resultado)
+  alert("le mando el json al servidor, y yo descargo la respuesta en formato UVL")
+  let file2 = new Blob(["resultado"], { type: 'uvl' });
+  saveAs(file2, this.titulo+'.uvl') 
+
+}
+
 
 }
 @Component({

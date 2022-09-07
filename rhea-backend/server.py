@@ -69,8 +69,8 @@ def upload_feature_model():
                 return json_fm
 
 
-@app.route('/downloadFM', methods=['POST'])
-def upload_feature_model():
+@app.route('/downloadFM2', methods=['POST'])
+def download2_feature_model():
     if request.method == 'POST':
         json_model = request.data.decode() 
         if json_model:
