@@ -3,6 +3,8 @@ from typing import Any
 
 from flamapy.metamodels.fm_metamodel.models import FeatureModel, Feature, Relation, Constraint
 
+from flamapy.core.models.ast import AST, ASTOperation, Node
+
 from rhea.metamodels.fm_metamodel.models import FM, ConstraintHelper
 from rhea.refactorings import FMRefactoring
 from rhea.refactorings import utils
@@ -15,7 +17,7 @@ class NewNamesEliminationSimpleConstraintsExcludes(FMRefactoring):
         return 'Elimination of Constraints from Feature Trees - Excludes (changing names)'
 
     @staticmethod
-    def get_instances(model: FeatureModel) -> list[Feature]:
+    def get_instances(model: FeatureModel) -> list[Constraint]:
         return [ctc for ctc in model.get_constraints() if ConstraintHelper(ctc).is_excludes_constraint()]
 
     @staticmethod
@@ -29,8 +31,11 @@ class NewNamesEliminationSimpleConstraintsExcludes(FMRefactoring):
         model_less = copy.deepcopy(model)
         model_less_plus = copy.deepcopy(model)
 
-        not_operation = instance.ast.root.right
-        right_feature_name_ctc = not_operation.left.data
+        if instance.ast.root in [ASTOperation.REQUIRES, ASTOperation.IMPLIES]:
+            not_operation = instance.ast.root.right
+            right_feature_name_ctc = not_operation.left.data
+        else:
+            right_feature_name_ctc = instance.ast.root.right.data
 
 
         right_feature_ctc_less = model_less.get_feature_by_name(right_feature_name_ctc)  # right feature for less tree

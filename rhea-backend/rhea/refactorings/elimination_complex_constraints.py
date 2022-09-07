@@ -18,7 +18,7 @@ class EliminationComplexConstraints(FMRefactoring):
         return 'Elimination of Complex Constraints from Feature Trees'
 
     @staticmethod
-    def get_instances(model: FeatureModel) -> list[Feature]:
+    def get_instances(model: FeatureModel) -> list[Constraint]:
         return [ctc for ctc in model.get_constraints() if ConstraintHelper(ctc).is_complex_constraint()]
 
     @staticmethod
@@ -40,21 +40,20 @@ class EliminationComplexConstraints(FMRefactoring):
 
         features_names = instance.get_features()  # string
         features_new_names = []
-        dict_constraint = read_complex_constraint(instance)  # NOT before negatives (dict)
+        dict_constraint = get_feature_clause(instance)  # NOT before negatives (dict)
         print(f'NEW CONSTRAINT: {dict_constraint}')
         for i, f in enumerate(features_names):
             new_feature = Feature(utils.get_new_feature_name(model, f), parent=new_or, is_abstract=True)
             features_new_names.append(new_feature)
             for d in dict_constraint:
+                print(f'TIPO DE D: {type(d)}')
                 if d == f:
-                    if dict_constraint[d] is True:
-                        ctc = Constraint(f'CTC({i})',
-                        AST.create_binary_operation(ASTOperation.IMPLIES, Node(new_feature.name),
-                        AST.create_unary_operation(ASTOperation.NOT, Node(d))))
+                    if not dict_constraint[f]:
+                        ast_operation = ASTOperation.EXCLUDES
                     else:
-                        ctc = Constraint(f'CTC({i})',
-                        AST.create_binary_operation(ASTOperation.IMPLIES,
-                        Node(new_feature.name), Node(d)))
+                        ast_operation = ASTOperation.IMPLIES
+                    ctc = Constraint(f'CTC({i})', AST.create_binary_operation(ast_operation,
+                    Node(new_feature.name), Node(d)))
             print(f'CONSTRAINT: {ctc}')
             model.ctcs.append(ctc)
 
@@ -77,18 +76,19 @@ class EliminationComplexConstraints(FMRefactoring):
         
         return model
 
-def read_complex_constraint(instance: Constraint) -> dict:
+
+def get_feature_clause(instance: Constraint) -> dict:
+    """Returns a dictionary of 'Features -> bool',
+    that sets 'bool' to FALSE if the feature has a negation"""
     features = {}
     stack = [instance.ast.root]
     while stack:
         node = stack.pop()
-        # print(f'NODE: {node}')
         if node.is_unique_term():
-            features[node.data] = False
+            features[node.data] = True
         elif node.is_unary_op():
-            features[node.left.data] = True
+            features[node.left.data] = False
         elif node.is_binary_op():
             stack.append(node.right)
             stack.append(node.left)
-
     return features

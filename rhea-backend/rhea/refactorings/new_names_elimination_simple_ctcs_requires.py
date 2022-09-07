@@ -22,7 +22,7 @@ class NewNamesEliminationSimpleConstraintsRequires(FMRefactoring):
         return 'Elimination of Constraints from Feature Trees - Requires (changing names)'
 
     @staticmethod
-    def get_instances(model: FeatureModel) -> list[Feature]:
+    def get_instances(model: FeatureModel) -> list[Constraint]:
         return [ctc for ctc in model.get_constraints() if ConstraintHelper(ctc).is_requires_constraint()]
 
     @staticmethod
