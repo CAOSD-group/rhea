@@ -36,7 +36,7 @@ class EliminationComplexConstraints(FMRefactoring):
         print(f'datos del nodo izquierdo: {instance.ast.root.left.data}')
         print(f'datos del nodo derecho: {instance.ast.root.right}')
         
-        new_or = Feature(utils.get_new_feature_name(model, 'Or'), is_abstract=True)
+        new_or = Feature(utils.get_new_feature_name(model, 'OR'), is_abstract=True)
 
         features_names = instance.get_features()  # string
         features_new_names = []
@@ -45,15 +45,12 @@ class EliminationComplexConstraints(FMRefactoring):
         for i, f in enumerate(features_names):
             new_feature = Feature(utils.get_new_feature_name(model, f), parent=new_or, is_abstract=True)
             features_new_names.append(new_feature)
-            for d in dict_constraint:
-                print(f'TIPO DE D: {type(d)}')
-                if d == f:
-                    if not dict_constraint[f]:
-                        ast_operation = ASTOperation.EXCLUDES
-                    else:
-                        ast_operation = ASTOperation.IMPLIES
-                    ctc = Constraint(f'CTC({i})', AST.create_binary_operation(ast_operation,
-                    Node(new_feature.name), Node(d)))
+            if not dict_constraint[f]:
+                ast_operation = ASTOperation.EXCLUDES
+            else:
+                ast_operation = ASTOperation.IMPLIES
+            ctc = Constraint(f'CTC({i})', AST.create_binary_operation(ast_operation,
+                                                                Node(new_feature.name), Node(f)))
             print(f'CONSTRAINT: {ctc}')
             model.ctcs.append(ctc)
 

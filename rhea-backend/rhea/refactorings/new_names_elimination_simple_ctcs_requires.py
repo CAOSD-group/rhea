@@ -72,7 +72,11 @@ class NewNamesEliminationSimpleConstraintsRequires(FMRefactoring):
         print(f'RIGHT FEATURES LESS: {[str(f) for f in list_right_feature_ctc_less]}')
 
 
-        left_feature_name_ctc = instance.ast.root.left.data
+        if instance.ast.root.data in [ASTOperation.REQUIRES, ASTOperation.IMPLIES]:
+            left_feature_name_ctc = instance.ast.root.left.data
+        elif instance.ast.root.data is ASTOperation.OR:
+            not_operation = instance.ast.root.left
+            left_feature_name_ctc = not_operation.left.data
         left_feature_ctc_less = model_less.get_feature_by_name(left_feature_name_ctc)
         if left_feature_ctc_less is None:
             for f in model_less.get_features():
