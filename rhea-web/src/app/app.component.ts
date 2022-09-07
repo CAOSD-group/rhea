@@ -1,11 +1,10 @@
-import { ANALYZE_FOR_ENTRY_COMPONENTS, Component} from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import {Component} from '@angular/core';
+import {HttpClient } from '@angular/common/http';
 import {NestedTreeControl} from '@angular/cdk/tree';
 import {MatTreeNestedDataSource} from '@angular/material/tree';
-import { Arbol } from './components/arbol_pruebas/arbol';
+import {Arbol} from './components/arbol_pruebas/arbol';
 import{Const} from './components/constrain/const';
 import {MatDialog,} from '@angular/material/dialog';
-import { event } from 'jquery';
 import * as saveAs from 'file-saver';
 
 
@@ -22,7 +21,7 @@ var jsonfeatures:string
 var diccionario:any
 var listaconstrain:Array<Const>=[]
 var posicion:number;
-var titulo:string='';
+
 var listanombresconstrains:Array<string>=[]
 var listaconstrainTexto:Array<string>=[]
 var json:string
@@ -67,7 +66,7 @@ export class AppComponent {
   nombreschips:Array<string>=[]
   crearConstrains:Array<string>=[]
   //otros
- 
+  titulo:string='';
   item:string ='Pizzas.uvl';
   texto1="Ocultar Constrains";
   texto3="Ocultar chips";
@@ -112,13 +111,12 @@ returnValues(texto?:string){
   })
 }
 CrearDatos(objeto:any,nombre?:string){
-    console.log(objeto)
     this.articulos = objeto;
     this.item=nombre||"";
     this.texto2=this.item
     this.articulos=JSON.parse(this.articulos)
-    titulo=this.articulos.name
-    console.log(titulo)
+    this.titulo=this.articulos.name
+    console.log(this.titulo)
     jsonfeatures=this.articulos.features,
     jsonconstrain=this.articulos.constraints
     aux2=""
@@ -146,7 +144,6 @@ createFile(texto:string){  // envia el nombre del archivo a crear y el archivo a
 
 
 //SimboloPorTipo esta constantemente llamandose, alguna opcion?
-//descargar el fichero y lo envia al servidor (mirar ejemplo FM-SPL carpetas bucador)
 
 //cambios manuales un boton para enviar al server 
 
@@ -241,7 +238,6 @@ crearCons(){
   jsonconstrain=consaux.buscar(jsonconstrain)
   jsonconstrain=aux3
   console.log(this.cons)
-  console.log(jsonconstrain)
   this.constraindataSource.data=this.cons
   this.texto3="Mostrar chips"
   this.texto1="Ocultar Constrains"
@@ -279,18 +275,14 @@ recargarArbol(){
 changeListener($event): void {this.readThis($event.target);}
 
 readThis(inputValue: any): void { 
-    console.log("llego 1")
     aux=""
     var file: File = inputValue.files[0];
     var myReader: FileReader = new FileReader();
     myReader.readAsText(file);
     myReader.onloadend = function (e) {
         aux=myReader.result 
-        console.log(aux)
-        
   }
   setTimeout(() => {
-    console.log(aux)
     this.CrearDatos(aux,"hola")
   },2000)
   
@@ -357,9 +349,10 @@ readThis(inputValue: any): void {
         this.conspadre.operands.splice(aux,1)
       }
       else{
-        console.log(posicion)
+        if(posicion!=-1){
         this.cons.splice(posicion,1)
         this.borrarConsText()
+        posicion=-1}
       }
     }
     if(this.cons.length==0){this.cons.push(new Const)}
@@ -437,6 +430,7 @@ togglevisibilitychips(){
     this.texto3="Ocultar chips"
     this.tablachips=this.tiposconstrains
     this.nombreschips=this.nombresFeatures
+    console.log(this.nombresFeatures)
   }
 }
 
@@ -593,7 +587,7 @@ pasoajson(){
 })
 aux++
 }
-  jsonfeatures= '"name"'+':"'+titulo+'",'+'"features"'+':'+ jsonfeatures
+  jsonfeatures= '"name"'+':"'+this.titulo+'",'+'"features"'+':'+ jsonfeatures
   aux=0
   aux2=""
   while (aux<listanombresconstrains.length){
@@ -621,7 +615,7 @@ updatevalues(){
 })
 aux++
 }
-  jsonfeatures= '"name"'+':"'+titulo+'",'+'"features"'+':'+ jsonfeatures
+  jsonfeatures= '"name"'+':"'+this.titulo+'",'+'"features"'+':'+ jsonfeatures
   aux=0
   aux2=""
   while (aux<listaconstrainTexto.length){
@@ -639,7 +633,8 @@ aux++
 
 SaveDemo() {
   let file = new Blob([json], { type: 'js' });
-  saveAs(file, titulo+'.json')
+  saveAs(file, this.titulo+'.json')
+  
   
 }
 

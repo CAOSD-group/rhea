@@ -1,36 +1,15 @@
-import { Component, OnInit, Input, Inject } from '@angular/core'
-import {NestedTreeControl} from '@angular/cdk/tree';
-import {MatTreeNestedDataSource} from '@angular/material/tree';
-import { Injectable } from '@angular/core';
-import { NONE_TYPE } from '@angular/compiler';
-import { data, getJSON } from 'jquery';
-import { jsDocComment } from '@angular/compiler';
-import { Rama } from '../miarbol/miarbol';
+import { Component } from '@angular/core'
 
 
 
 
-let Nname:string;
-let Nabstract:boolean;
-let Noptional:boolean;
-let Ntype:string;
 let Nchildren:Array<Arbol>;
-let Ncard_max:number
-let Ncard_min:number
-
-
-
-let aux :any=0 // variable auxiliar 
-let aux2:any
+let aux :any=0 
 let arbol :Array<Arbol> =[]
-let lista:Array<string> =[]
-let treeControl = new NestedTreeControl<Arbol>(node => node.children);
-let dataSource = new MatTreeNestedDataSource<Arbol>();
-let hasChild = (_: number, node: Arbol) => !!node.children && node.children.length >= 0;
+let nlista:Array<string> =[]
 @Component({
     selector: 'arbol',
     templateUrl: './arbol.html',
-    styleUrls: ['./arbol.css'],
 })
 
  export class Arbol  {
@@ -41,20 +20,7 @@ let hasChild = (_: number, node: Arbol) => !!node.children && node.children.leng
     optional:boolean =false;
     abstract:boolean =false;
     children:Array<Arbol> =[];
-    
-
-
-    constructor() {
-        this.name=Nname;
-        this.abstract=Nabstract;
-        this.optional=Noptional;
-        this.type=Ntype;
-        this.children=[];
-        this.card_max=Ncard_max;
-        this.card_min=Ncard_min 
-        if(this.card_min==undefined){this.card_min=0}
-        if(this.card_max==undefined){this.card_max=0}
-    }
+    constructor() {}
 
     borrar(lista:Arbol){
         if(lista!=undefined){
@@ -72,41 +38,37 @@ let hasChild = (_: number, node: Arbol) => !!node.children && node.children.leng
         this.children=[];
         this.card_max=-1;
         this.card_min=-1;
-        }
-
-
-
-    borrarLista(){
-        lista.splice(0,lista.length)
     }
-    listanombres(){
-        return lista
-    }
+
+    borrarLista(){nlista.splice(0,nlista.length)}
+    listanombres(){return nlista}
 
     CrearArbol(valor: any){             // Crea los objetos pero no los introduce como hijos unos del otro
-        Nname=valor.name;
-        Nabstract=valor.abstract;
-        Noptional=valor.optional;
-        Ntype=valor.type;
-        Ncard_max=valor.card_max
-        Ncard_min=valor.card_min
+        aux=new Arbol()
+        aux.name=valor.name;
+        aux.abstract=valor.abstract;
+        aux.optional=valor.optional;
+        aux.type=valor.type;
+        aux.card_max=valor.card_max
+        aux.card_min=valor.card_min
+        aux.children=[]
+        if(aux.card_min==undefined){aux.card_min=0}
+        if(aux.card_max==undefined){aux.card_max=0}
         if(valor.children!=undefined ){
         Nchildren=valor.children}
-        else {Nchildren=[] }
-        arbol[arbol.length]=new Arbol()
-
-        if(valor.children==undefined)
-        {
-        lista.push(arbol[arbol.length-1].name)}
-
+        
+       
+        if(valor.children==undefined || valor.children.length==0){
+        Nchildren=[] 
+        nlista.push(valor.name)}
+        arbol[arbol.length]=aux
         if(valor.children!=undefined){
-        if(Nchildren.length>0){
+        if(valor.children.length>0){
             aux=0
             valor.children.forEach(element => {
                 this.CrearArbol(element);
             });
         }}
-        
         return arbol
     }
 
@@ -186,7 +148,4 @@ let hasChild = (_: number, node: Arbol) => !!node.children && node.children.leng
         aux.children=[]
         return aux
     }
-
-    
-    
 }

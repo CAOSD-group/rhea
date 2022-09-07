@@ -15,14 +15,10 @@ let aux4:any
 let constrainarbol :Array<Const> =[]
 let constraintexto :Array<any> =[]
 let constrainnombre :Array<any> =[]
-let constrainvista :Array<any> =[]
-// Que pasa con el Xor o con el Xand,no existen o si
-let  hasChild = (_: number, node: Const) => !!node.operands && node.operands.length >= 0;
 
 @Component({
     selector: 'const',
     templateUrl: './const.html',
-    styleUrls: ['./const.css'],
 })
 
  export class Const  {
@@ -30,8 +26,7 @@ let  hasChild = (_: number, node: Const) => !!node.operands && node.operands.len
     operands:Array<any>=[];
     
     
-    constructor() {
-    }
+    constructor() {}
   
 
 
@@ -39,7 +34,6 @@ let  hasChild = (_: number, node: Const) => !!node.operands && node.operands.len
         constrainarbol=[]
         constraintexto=[]
         constrainnombre=[]
-        alert("salta error  si es seleccionado por el la falta de diferencia entre ast y expr para los valores")
         for( const[key2] of Object.entries(lista2)){
             aux2=this.CreanuevaConstrain(lista2[key2].ast)
             constrainarbol.push(lista2[key2].ast)

@@ -17,11 +17,10 @@
 
 
   <mat-sidenav-container class="example-container" autosize [hasBackdrop]="true" >
-   <div class="example-sidenav-content"></div>
   
-   <mat-grid-list  cols="4">
-    <mat-grid-tile  [colspan]="4"  [rowspan]="3">
-      <h1>{{item}}</h1>
+   <mat-grid-list  cols="8">
+    <mat-grid-tile  [colspan]="8"  [rowspan]="3">
+      <h1>{{titulo}}</h1>
 
     <button (click)="togglevisibilityarbol()"> {{texto4}}</button>
     <cdk-virtual-scroll-viewport [itemSize]="18 * 7" class="example-viewport" >
@@ -59,13 +58,13 @@
         </mat-nested-tree-node>
       </mat-tree> 
     </cdk-virtual-scroll-viewport>
-
+<div class="margen"></div>
     <mat-chip-list class="mat-chip-list-stacked" >
       <mat-chip *ngFor="let chip of tablachips" (click)="eligochiplogic(chip)">
       {{chip}}
       </mat-chip>
     </mat-chip-list>
-    <div class="margen"></div>
+<div class="margen"></div>
  
           <cdk-virtual-scroll-viewport [itemSize]="18 * 7" class="example-viewport" >
             <mat-chip-list class="mat-chip-list-stacked"  >
@@ -74,7 +73,9 @@
               </mat-chip>
             </mat-chip-list>
           </cdk-virtual-scroll-viewport>
-          
+<div class="margen"></div>
+          <input type="text" [(ngModel)]="titulo">
+<div class="margen"></div>
       <cdk-virtual-scroll-viewport [itemSize]="18 * 7" class="example-viewport" >
       <mat-tree  [dataSource]="constraindataSource" [treeControl]="constraintreeControl" class="example-tree">
         <mat-nested-tree-node  *matTreeNodeDef="let constrainnode; when: hasChild">
@@ -97,6 +98,7 @@
         </mat-nested-tree-node>
       </mat-tree>
     </cdk-virtual-scroll-viewport>
+    <div class="margen"></div>
       <mat-list>
         <button class="mibutton" (click)="togglevisibility()"> {{texto1}}</button>
         <div></div>
@@ -124,7 +126,7 @@
 
 
     
-    <mat-grid-tile [colspan]="4" [rowspan]="1">
+    <mat-grid-tile [colspan]="8" [rowspan]="1">
       <mat-selection-list #constrains [multiple]="false">
         <mat-list-option *ngFor="let constrainTexto of jsonconstrainTexto" [value]="constrainTexto"
          (click)='cambioseleccionado(constrains.selectedOptions.selected[0].value)'>
