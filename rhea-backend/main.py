@@ -19,15 +19,15 @@ from rhea.refactorings.cardinality_group_refactoring import CardinalityGroupRefa
 from rhea.refactorings.multiple_group_decomposition_refactoring import MultipleGroupDecompositionRefactoring
 from rhea.refactorings.xor_mandatory_refactoring import XorMandatoryRefactoring
 from rhea.refactorings.or_mandatory_refactoring import OrMandatoryRefactoring
-from rhea.refactorings.new_names_elimination_simple_ctcs_requires import NewNamesEliminationSimpleConstraintsRequires
-from rhea.refactorings.new_names_elimination_simple_ctcs_excludes import NewNamesEliminationSimpleConstraintsExcludes
+from rhea.refactorings.elimination_simple_ctcs_requires import EliminationSimpleConstraintsRequires
+from rhea.refactorings.elimination_simple_ctcs_excludes import EliminationSimpleConstraintsExcludes
 from rhea.refactorings.elimination_complex_constraints import EliminationComplexConstraints
 
 
 ##################################################################################################
 REFACTORING_COMPLEX = EliminationComplexConstraints
-REFACTORING_REQUIRES = NewNamesEliminationSimpleConstraintsRequires
-REFACTORING_EXCLUDES = NewNamesEliminationSimpleConstraintsExcludes
+REFACTORING_REQUIRES = EliminationSimpleConstraintsRequires
+REFACTORING_EXCLUDES = EliminationSimpleConstraintsExcludes
 MODEL_PATH = 'tests/models/elimination_complex_constraints/input_models/prueba_2.uvl'
 OUTPUT_PATH = 'output.uvl'
 OUTPUT_CONSOLE = 'output.txt'

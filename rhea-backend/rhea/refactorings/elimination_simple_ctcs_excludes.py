@@ -10,11 +10,11 @@ from rhea.refactorings import FMRefactoring
 from rhea.refactorings import utils
 
 
-class NewNamesEliminationSimpleConstraintsExcludes(FMRefactoring):
+class EliminationSimpleConstraintsExcludes(FMRefactoring):
 
     @staticmethod
     def get_name() -> str:
-        return 'Elimination of Constraints from Feature Trees - Excludes (changing names)'
+        return 'Elimination of Constraints from Feature Trees - Excludes'
 
     @staticmethod
     def get_instances(model: FeatureModel) -> list[Constraint]:
