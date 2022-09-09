@@ -32,7 +32,7 @@ class EliminationComplexConstraints(FMRefactoring):
         new_or = Feature(utils.get_new_feature_name(model, 'OR'), is_abstract=True)
         features = []
         dict_constraint = get_features_clauses(instance)  # NOT before negatives (dict)
-        print(dict_constraint)
+        # print(dict_constraint)
         for i, f in enumerate(dict_constraint.keys()):
             new_feature = Feature(utils.get_new_feature_name(model, f), parent=new_or, is_abstract=True)
             features.append(new_feature)

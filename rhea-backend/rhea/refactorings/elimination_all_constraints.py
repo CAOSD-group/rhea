@@ -32,6 +32,6 @@ class EliminationAllConstraints(FMRefactoring):
 
         model.ctcs.remove(instance)
 
-        print(f'MODEL (elimination all constraints): {model}')
+        #print(f'MODEL (elimination all constraints): {model}')
         
         return model

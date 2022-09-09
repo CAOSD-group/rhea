@@ -27,16 +27,14 @@ class EliminationSimpleConstraintsExcludes(FMRefactoring):
         if not ConstraintHelper(instance).is_excludes_constraint():
             raise Exception(f'Operator {str(instance)} is not excludes.')
 
-        print(f'MODELO: {model}')
-        model_less = copy.copy(model)
-        model_less_plus = copy.copy(model)
+        model_less = copy.deepcopy(model)
+        model_less_plus = copy.deepcopy(model)
 
         if instance.ast.root.data in [ASTOperation.REQUIRES, ASTOperation.IMPLIES, ASTOperation.OR]:
             not_operation = instance.ast.root.right
             right_feature_name_ctc = not_operation.left.data
         elif instance.ast.root.data is ASTOperation.EXCLUDES:
             right_feature_name_ctc = instance.ast.root.right.data
-        print(f'RIGHT FEATURE NAME: {right_feature_name_ctc}')
 
 
         right_feature_ctc_less = model_less.get_feature_by_name(right_feature_name_ctc)  # right feature for less tree
@@ -47,10 +45,7 @@ class EliminationSimpleConstraintsExcludes(FMRefactoring):
                 if f.name==right_feature_name_ctc:
                     right_feature_ctc_less = f
                     break
-        print(f'RIGHT FEATURE REFERENCE FOR MODEL LESS: {right_feature_ctc_less.name}')
         list_right_feature_ctc_less = get_features_reference(model_less, right_feature_ctc_less)
-        print(f'RIGHT FEATURES PLUS: {[str(f) for f in list_right_feature_ctc_less]}')
-        
         
 
         right_feature_ctc_less_plus = model_less_plus.get_feature_by_name(right_feature_name_ctc)  # right feature for less-plus
@@ -61,9 +56,7 @@ class EliminationSimpleConstraintsExcludes(FMRefactoring):
                 if f.name==right_feature_name_ctc:
                     right_feature_ctc_less_plus = f
                     break
-        print(f'RIGHT FEATURE REFERENCE FOR MODEL LESS-PLUS: {right_feature_ctc_less_plus.name}')
         list_right_feature_ctc_less_plus = get_features_reference(model_less_plus, right_feature_ctc_less_plus)
-        print(f'RIGHT FEATURES LESS-PLUS: {[str(f) for f in list_right_feature_ctc_less_plus]}')
 
 
         if instance.ast.root.data in [ASTOperation.REQUIRES, ASTOperation.IMPLIES, ASTOperation.EXCLUDES]:
@@ -79,29 +72,23 @@ class EliminationSimpleConstraintsExcludes(FMRefactoring):
                 if f.name==left_feature_name_ctc:
                     left_feature_ctc_less_plus = f
                     break
-        print(f'LESS FEATURE REFERENCE FOR MODEL LESS-PLUS: {left_feature_ctc_less_plus.name}')
         xor_plus = Feature(utils.get_new_feature_name(model_less, 'XOR'), is_abstract=True)
         list_left_feature_ctc_less_plus = get_features_reference(model_less_plus, left_feature_ctc_less_plus)
-        print(f'LEFT FEATURES LESS-PLUS: {[str(f) for f in list_left_feature_ctc_less_plus]}')
 
 
         for f_right_less in list_right_feature_ctc_less:
             if model_less is not None:
                 model_less = utils.eliminate_node_from_tree(model_less, f_right_less)
-            print(f'T(-{f_right_less}): {model_less}')
 
         for f_left_less_plus in list_left_feature_ctc_less_plus:
             if model_less_plus is not None:
                 model_less_plus = utils.eliminate_node_from_tree(model_less_plus, f_left_less_plus)
-            print(f'T(-{f_left_less_plus}): {model_less_plus}')
 
         new_model_less = copy.deepcopy(model_less_plus)
-        print(f'NEW MODEL LESS: {new_model_less}')
 
         plus_roots = []
         for f_less_plus in list_right_feature_ctc_less_plus:
             new_model_less_plus = copy.deepcopy(new_model_less)
-            print(f'NEW MODEL PLUS: {new_model_less_plus}')
             if hasattr(f_less_plus, 'reference') and new_model_less_plus is not None:
                 new_f_less_plus = new_model_less_plus.get_feature_by_name(f_less_plus.name)
                 model_less_plus = utils.add_node_to_tree(new_model_less_plus, new_f_less_plus)
@@ -115,7 +102,7 @@ class EliminationSimpleConstraintsExcludes(FMRefactoring):
                     old_root.add_relation(new_rel)
                     model_less_plus.root.parent = old_root
                 plus_roots.append(model_less_plus.root)
-            print(f'T(+{f_less_plus}): {model_less_plus}')
+        
         # Joining all trees with XOR
         if len(list_right_feature_ctc_less_plus)>1:
             r_xor_plus = Relation(xor_plus, plus_roots, 1, 1)  # XOR
@@ -130,7 +117,6 @@ class EliminationSimpleConstraintsExcludes(FMRefactoring):
             for r in xor_plus.get_children():
                 r.name = f'{utils.get_new_feature_name(model, r.name)}{count}'
                 count += 1
-            print(f'T(+{[str(f) for f in list_right_feature_ctc_less_plus]}): {model_less_plus}')
 
 
         # Construct T(-B) and T(-A+B).

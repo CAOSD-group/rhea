@@ -5,12 +5,12 @@ from flamapy.metamodels.fm_metamodel.models import FeatureModel, Feature, Constr
 from rhea.metamodels.fm_metamodel.models import Attribute, fm_utils
 
 
-class FM(FeatureModel):
+class FM():
 
     def __init__(self, feature_model: FeatureModel) -> None:
-        self._fm: FeatureModel = feature_model
+        self.fm: FeatureModel = feature_model
         self._attributes: dict[Feature, list[Attribute]] = {}
-        self._constraints: dict[Constraint, ConstraintHelper] = {ctc: ConstraintHelper(ctc) for ctc in self._fm.get_constraints()}
+        self._constraints: dict[Constraint, ConstraintHelper] = {ctc: ConstraintHelper(ctc) for ctc in self.fm.get_constraints()}
 
     @property
     def attributes(self) -> dict[Feature, list[Attribute]]:
@@ -22,7 +22,7 @@ class FM(FeatureModel):
         where attributes is another dictionary of 'attribute name' -> 'value'."""
         self._attributes = {}
         for feature_name in features_attributes.keys():
-            feature = self._fm.get_feature_by_name(feature_name)
+            feature = self.fm.get_feature_by_name(feature_name)
             if feature is None:
                 raise Exception(f'Feature {feature_name} does not exist in feature model.')
             attributes = []
@@ -59,7 +59,7 @@ class ConstraintHelper():
 
     def __init__(self, constraint: Constraint) -> None:
         self._constraint = constraint
-#        self._formulas = fm_utils.split_constraint(constraint)
+        self._formulas = fm_utils.split_constraint(constraint)
 
     def is_simple_constraint(self) -> bool:
         return self.is_requires_constraint() or self.is_excludes_constraint()
