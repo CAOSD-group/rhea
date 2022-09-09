@@ -1,7 +1,7 @@
 from typing import Any
 import datetime
 
-from flamapy.core.models import AST, ASTOperation
+from flamapy.core.models import AST, ASTOperation, ast
 from flamapy.metamodels.fm_metamodel.models import FeatureModel, Feature, Constraint
 
 from rhea.metamodels.fm_metamodel.models import Type

@@ -37,9 +37,6 @@ class EliminationComplexConstraints(FMRefactoring):
             new_feature = Feature(utils.get_new_feature_name(model, f), parent=new_or, is_abstract=True)
             features.append(new_feature)
             ast_operation = ASTOperation.REQUIRES if dict_constraint[f] else ASTOperation.EXCLUDES
-            node_left = Node(f) if dict_constraint[f] else Node(ASTOperation.NOT, Node(f))
-            #ctc = Constraint(f'CTC{i}', AST.create_binary_operation(ASTOperation.REQUIRES,
-            #                 Node(new_feature.name), node_left))
             ctc = Constraint(f'CTC{i}', AST.create_binary_operation(ast_operation,
                              Node(new_feature.name), Node(f)))
             model.ctcs.append(ctc)

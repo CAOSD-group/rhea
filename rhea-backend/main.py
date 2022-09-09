@@ -1,3 +1,4 @@
+from email.base64mime import body_decode
 import os
 from typing import Any 
 
@@ -7,6 +8,10 @@ from flamapy.metamodels.pysat_metamodel.operations import (
     Glucose3ProductsNumber,
     Glucose3Products
 )
+
+from flamapy.metamodels.fm_metamodel.operations import FMEstimatedProductsNumber
+from flamapy.metamodels.bdd_metamodel.transformations import FmToBDD
+from flamapy.metamodels.bdd_metamodel.operations import BDDProductsNumber
 
 from flamapy.metamodels.fm_metamodel.models import FeatureModel
 
@@ -19,16 +24,18 @@ from rhea.refactorings.cardinality_group_refactoring import CardinalityGroupRefa
 from rhea.refactorings.multiple_group_decomposition_refactoring import MultipleGroupDecompositionRefactoring
 from rhea.refactorings.xor_mandatory_refactoring import XorMandatoryRefactoring
 from rhea.refactorings.or_mandatory_refactoring import OrMandatoryRefactoring
+from rhea.refactorings.elimination_all_constraints import EliminationAllConstraints
+from rhea.refactorings.elimination_complex_constraints import EliminationComplexConstraints
 from rhea.refactorings.elimination_simple_ctcs_requires import EliminationSimpleConstraintsRequires
 from rhea.refactorings.elimination_simple_ctcs_excludes import EliminationSimpleConstraintsExcludes
-from rhea.refactorings.elimination_complex_constraints import EliminationComplexConstraints
 
 
 ##################################################################################################
+REFACTORING_ALL = EliminationAllConstraints
 REFACTORING_COMPLEX = EliminationComplexConstraints
 REFACTORING_REQUIRES = EliminationSimpleConstraintsRequires
 REFACTORING_EXCLUDES = EliminationSimpleConstraintsExcludes
-MODEL_PATH = 'tests/models/elimination_complex_constraints/input_models/prueba_2.uvl'
+MODEL_PATH = 'tests/models/elimination_all_constraints/input_models/JHipster.uvl'
 OUTPUT_PATH = 'output.uvl'
 OUTPUT_CONSOLE = 'output.txt'
 ##################################################################################################
@@ -42,6 +49,18 @@ def apply_refactoring(fm: FeatureModel, refactoring: FMRefactoring) -> FeatureMo
     for i in instances:
         fm = refactoring.transform(fm, i)
     return fm
+
+
+def print_fm_numbers(fm: FeatureModel, expected_results: dict[str, Any] = None) -> dict[str, Any]:
+    bdd_model = FmToBDD(fm).transform()
+    n_exact_configurations = BDDProductsNumber().execute(bdd_model).get_result()
+    print(f'#Exact configurations: {n_exact_configurations}')
+
+    #fm_without_references = remove_references(fm)
+    n_configurations = FMEstimatedProductsNumber().execute(fm).get_result()
+    print(f'#Estimated configurations: {n_configurations}')
+
+    assert n_exact_configurations == n_configurations
 
 
 def print_fm(fm: FeatureModel, expected_results: dict[str, Any] = None) -> dict[str, Any]:
@@ -98,12 +117,14 @@ def main():
 
     # Apply the refactoring
     print('==================================================')
+    print(f'Applying the refactoring {REFACTORING_ALL.get_name()}...')
+    fm = apply_refactoring(fm, REFACTORING_ALL)
     print(f'Applying the refactoring {REFACTORING_COMPLEX.get_name()}...')
     fm = apply_refactoring(fm, REFACTORING_COMPLEX)
-    # print(f'Applying the refactoring {REFACTORING_REQUIRES.get_name()}...')
-    # fm = apply_refactoring(fm, REFACTORING_REQUIRES)
-    # print(f'Applying the refactoring {REFACTORING_EXCLUDES.get_name()}...')
-    # fm = apply_refactoring(fm, REFACTORING_EXCLUDES)
+    print(f'Applying the refactoring {REFACTORING_REQUIRES.get_name()}...')
+    fm = apply_refactoring(fm, REFACTORING_REQUIRES)
+    print(f'Applying the refactoring {REFACTORING_EXCLUDES.get_name()}...')
+    fm = apply_refactoring(fm, REFACTORING_EXCLUDES)
     print('==================================================')
     #UVLWriter(fm, OUTPUT_PATH).transform()
     print_fm(fm, expected_results)
