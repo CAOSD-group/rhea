@@ -117,6 +117,9 @@ def main():
 
     # Apply the refactoring
     print('==================================================')
+
+    # fm.dict_references = {}
+
     print(f'Applying the refactoring {REFACTORING_ALL.get_name()}...')
     fm = apply_refactoring(fm, REFACTORING_ALL)
     print(f'Applying the refactoring {REFACTORING_COMPLEX.get_name()}...')

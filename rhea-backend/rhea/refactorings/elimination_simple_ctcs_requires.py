@@ -33,10 +33,11 @@ class EliminationSimpleConstraintsRequires(FMRefactoring):
             raise Exception(f'Operator {str(instance)} is not requires.')
 
         print(f'MODELO: {model}')
-        model_plus = copy.deepcopy(model)  # copy.copy(model)
-        model_less = copy.deepcopy(model)
+        model_plus = copy.copy(model)  # copy.copy(model)
+        model_less = copy.copy(model)
 
         right_feature_name_ctc = instance.ast.root.right.data
+        print(f'INSTANCE AST ROOT RIGHT DATA: {right_feature_name_ctc}')
         right_feature_ctc_plus = model_plus.get_feature_by_name(right_feature_name_ctc)
         if right_feature_ctc_plus is None:
             for f in model_plus.get_features():
@@ -77,7 +78,8 @@ class EliminationSimpleConstraintsRequires(FMRefactoring):
                 if f.name==left_feature_name_ctc:
                     left_feature_ctc_less = f
                     break
-        print(f'LESS FEATURE REFERENCE FOR MODEL LESS: {left_feature_ctc_less.name}')
+        if left_feature_ctc_less is not None:
+            print(f'LEFT FEATURE REFERENCE FOR MODEL LESS: {left_feature_ctc_less.name}')
         # xor_left_less = Feature(utils.get_new_feature_name(model_plus, 'XOR'), is_abstract=True)
         list_left_feature_ctc_less = get_features_reference(model_less, left_feature_ctc_less)
         print(f'LEFT FEATURES LESS: {[str(f) for f in list_left_feature_ctc_less]}')
@@ -85,7 +87,7 @@ class EliminationSimpleConstraintsRequires(FMRefactoring):
 
         plus_roots = []
         for f_plus in list_right_feature_ctc_plus:
-            new_model_plus = copy.deepcopy(model)
+            new_model_plus = copy.copy(model)
             if hasattr(f_plus, 'reference') and new_model_plus is not None:
                 new_f_plus = new_model_plus.get_feature_by_name(f_plus.name)
                 model_plus = utils.add_node_to_tree(new_model_plus, new_f_plus)

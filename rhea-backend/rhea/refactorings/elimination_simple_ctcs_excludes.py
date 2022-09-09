@@ -28,8 +28,8 @@ class EliminationSimpleConstraintsExcludes(FMRefactoring):
             raise Exception(f'Operator {str(instance)} is not excludes.')
 
         print(f'MODELO: {model}')
-        model_less = copy.deepcopy(model)
-        model_less_plus = copy.deepcopy(model)
+        model_less = copy.copy(model)
+        model_less_plus = copy.copy(model)
 
         if instance.ast.root.data in [ASTOperation.REQUIRES, ASTOperation.IMPLIES, ASTOperation.OR]:
             not_operation = instance.ast.root.right
