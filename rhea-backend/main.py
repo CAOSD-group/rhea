@@ -146,7 +146,7 @@ def main():
     # Apply the refactoring
     print('==================================================')
 
-    fm.dict_references = {}
+    fm.dict_references = {}  # dictionary for references: str (feature's name) -> Feature
 
     
     print_statistics(fm)
