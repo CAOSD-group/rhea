@@ -111,17 +111,5 @@ def eliminate_node_from_tree(model: FeatureModel, node: Feature) -> FeatureModel
                 rel.card_max -= 1
             if len(rel.children) == 1:
                 rel.card_min = 1
-
-            # r_group = []
-            # for child in rel.children:
-            #     if child != node:
-            #         r_group.append(child)
-            # r_group_new = Relation(parent, r_group, rel.card_min, len(r_group))
-            # parent.add_relation(r_group_new)
-
-            # parent.get_relations().remove(rel)
-
-            # if r_group_new.is_optional():
-            #     r_group_new.card_min = 1
             
     return model
