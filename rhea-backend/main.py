@@ -172,6 +172,15 @@ def main():
     print_statistics(fm)
 
     print('==================================================')
+
+    print(f'FM NUMBERS:')
+    print_fm_numbers(fm)
+
+    print('==================================================')
+
+    print(f'FM CONFIGURATIONS:')
+    print_fm(fm)
+
     #UVLWriter(fm, OUTPUT_PATH).transform()
     #print_fm(fm, expected_results)
     UVLWriter(fm, OUTPUT_PATH).transform()
