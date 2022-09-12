@@ -24,18 +24,18 @@ from rhea.refactorings.cardinality_group_refactoring import CardinalityGroupRefa
 from rhea.refactorings.multiple_group_decomposition_refactoring import MultipleGroupDecompositionRefactoring
 from rhea.refactorings.xor_mandatory_refactoring import XorMandatoryRefactoring
 from rhea.refactorings.or_mandatory_refactoring import OrMandatoryRefactoring
-from rhea.refactorings.elimination_all_constraints import EliminationAllConstraints
+from rhea.refactorings.split_constraints import SplitConstraints
 from rhea.refactorings.elimination_complex_constraints import EliminationComplexConstraints
 from rhea.refactorings.elimination_simple_ctcs_requires import EliminationSimpleConstraintsRequires
 from rhea.refactorings.elimination_simple_ctcs_excludes import EliminationSimpleConstraintsExcludes
 
 
 ##################################################################################################
-REFACTORING_ALL = EliminationAllConstraints
+REFACTORING_SPLIT = SplitConstraints
 REFACTORING_COMPLEX = EliminationComplexConstraints
 REFACTORING_REQUIRES = EliminationSimpleConstraintsRequires
 REFACTORING_EXCLUDES = EliminationSimpleConstraintsExcludes
-MODEL_PATH = 'tests/models/elimination_all_constraints/input_models/Pizzas_completo.uvl'
+MODEL_PATH = 'tests/models/split_constraints/input_models/Pizzas_completo.uvl'
 OUTPUT_PATH = 'output.uvl'
 OUTPUT_CONSOLE = 'output.txt'
 ##################################################################################################
@@ -151,8 +151,8 @@ def main():
     
     print_statistics(fm)
     
-    print(f'Applying the refactoring {REFACTORING_ALL.get_name()}...')
-    fm = apply_refactoring(fm, REFACTORING_ALL)
+    print(f'Applying the refactoring {REFACTORING_SPLIT.get_name()}...')
+    fm = apply_refactoring(fm, REFACTORING_SPLIT)
 
     print_statistics(fm)
 

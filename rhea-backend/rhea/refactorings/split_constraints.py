@@ -12,11 +12,11 @@ from rhea.refactorings import utils
 from rhea.metamodels.fm_metamodel.models import fm_utils
 
 
-class EliminationAllConstraints(FMRefactoring):
+class SplitConstraints(FMRefactoring):
 
     @staticmethod
     def get_name() -> str:
-        return 'Elimination of All Constraints from Feature Trees'
+        return 'Split all constraints to make them pseudo-complex or simple'
 
     @staticmethod
     def get_instances(model: FeatureModel) -> list[Constraint]:

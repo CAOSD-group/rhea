@@ -36,47 +36,27 @@ class EliminationSimpleConstraintsRequires(FMRefactoring):
         model_less = copy.deepcopy(model)
 
         right_feature_name_ctc = instance.ast.root.right.data
-        right_feature_ctc_plus = model_plus.get_feature_by_name(right_feature_name_ctc)
-        if right_feature_ctc_plus is None:
-            for f in model_plus.get_features():
-                while hasattr(f, 'reference'):
-                    f = f.reference
-                if f.name==right_feature_name_ctc:
-                    right_feature_ctc_plus = f
-                    break
         xor_plus = Feature(utils.get_new_feature_name(model_plus, 'XOR'), is_abstract=True)
-        list_right_feature_ctc_plus = get_features_reference(model_plus, right_feature_ctc_plus)
+        list_right_feature_ctc_plus = [key for key, value in model.dict_references.items() 
+                                        if value.name == right_feature_name_ctc]
 
-        right_feature_ctc_less = model_less.get_feature_by_name(right_feature_name_ctc)
-        if right_feature_ctc_less is None:
-            for f in model_less.get_features():
-                while hasattr(f, 'reference'):
-                    f = f.reference
-                if f.name==right_feature_name_ctc:
-                    right_feature_ctc_less = f
-                    break
-        list_right_feature_ctc_less = get_features_reference(model_less, right_feature_ctc_less)
+        list_right_feature_ctc_less = [key for key, value in model.dict_references.items() 
+                                        if value.name == right_feature_name_ctc]
 
         if instance.ast.root.data in [ASTOperation.REQUIRES, ASTOperation.IMPLIES]:
             left_feature_name_ctc = instance.ast.root.left.data
         elif instance.ast.root.data is ASTOperation.OR:
             not_operation = instance.ast.root.left
             left_feature_name_ctc = not_operation.left.data
-        left_feature_ctc_less = model_less.get_feature_by_name(left_feature_name_ctc)
-        if left_feature_ctc_less is None:
-            for f in model_less.get_features():
-                while hasattr(f, 'reference'):
-                    f = f.reference
-                if f.name==left_feature_name_ctc:
-                    left_feature_ctc_less = f
-                    break
-        list_left_feature_ctc_less = get_features_reference(model_less, left_feature_ctc_less)
+        list_left_feature_ctc_less = [key for key, value in model.dict_references.items() 
+                                        if value.name == left_feature_name_ctc]
+
 
         plus_roots = []
         for f_plus in list_right_feature_ctc_plus:
             new_model_plus = copy.deepcopy(model)
-            if hasattr(f_plus, 'reference') and new_model_plus is not None:
-                new_f_plus = new_model_plus.get_feature_by_name(f_plus.name)
+            if f_plus in model.dict_references.keys() and new_model_plus is not None:
+                new_f_plus = new_model_plus.get_feature_by_name(f_plus)
                 model_plus = utils.add_node_to_tree(new_model_plus, new_f_plus)
             elif model_plus is not None:
                 model_plus = utils.add_node_to_tree(model_plus, f_plus)
@@ -137,7 +117,6 @@ class EliminationSimpleConstraintsRequires(FMRefactoring):
                     feature_reference = model.get_feature_by_name(feature.name)
                     feature.name = utils.get_new_feature_name(model, feature.name)
                     if feature != feature_reference:
-                        feature.reference = feature_reference
                         model.dict_references[feature.name] = feature_reference
 
         #if hasattr(model, 'dict_references'):
@@ -145,16 +124,6 @@ class EliminationSimpleConstraintsRequires(FMRefactoring):
         return model
 
 
-
-def get_features_reference(fm: FeatureModel, feature: Feature) -> list[Feature]:
-    features = [feature]
-    for new_feature in fm.get_features():
-        feature_with_attr = new_feature
-        while hasattr(feature_with_attr, 'reference'):
-            feature_with_attr = feature_with_attr.reference
-        if hasattr(new_feature, 'reference') and feature_with_attr == feature:
-            features.append(new_feature)
-    return features
 
 def remove_abstract_child(fm: FeatureModel, feature: Feature) -> FeatureModel:
     feature_relations = feature.get_relations()

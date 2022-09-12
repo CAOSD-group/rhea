@@ -3,18 +3,14 @@ namespace Root
 features
 	A {abstract}	
 		optional
-			B
-
-		mandatory
-			C	
+			B	
 				alternative
 					D
 					E
-			F	
-				alternative
+			C	
+				or
+					F
 					G
-					H
 
 constraints
-	B => !E
-	B => H
+	F => D
