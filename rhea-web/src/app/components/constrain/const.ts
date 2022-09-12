@@ -1,9 +1,4 @@
 import { Component } from '@angular/core'
-import {NestedTreeControl} from '@angular/cdk/tree';
-import {MatTreeNestedDataSource} from '@angular/material/tree';
-import { keyframes } from '@angular/animations';
-
-
 
 
 
@@ -46,7 +41,7 @@ let constrainnombre :Array<any> =[]
 
 
     CreanuevaConstrain(valor:any){
-        if(valor.type!=undefined){
+        if(valor.type!=undefined || valor.type!=""){
         aux=new Const()
         aux.type=valor.type
         aux.operands=valor.operands
@@ -89,8 +84,6 @@ let constrainnombre :Array<any> =[]
             element.operands.push(element.type)
             element.type='FeatureTerm'
             console.log(element)
-            
-
             }
             else{this.crearListaescritura(element.operands,valores)}
         });}
@@ -103,19 +96,15 @@ let constrainnombre :Array<any> =[]
         aux2=0
         aux3=true
         aux4=0
-        console.log(lista)
         
         while(aux<lista.length){
-            console.log(lista[aux])
             if(lista[aux].operands.length==1){ 
                 console.log("vengo por negativo ")
-                console.log(lista[aux])
                 lista[aux].operands.push(lista[aux+1]);
                 lista[aux].operands.splice(0,1);
                 aux++}
             if(lista[aux].operands.length>=2){
                 console.log("vengo por logic")
-                console.log(lista[aux])
                 lista[aux].operands.push(lista[aux+1]);
                 aux4=aux+1
                 aux2=aux+1
@@ -135,11 +124,9 @@ let constrainnombre :Array<any> =[]
 
                 if(lista[aux].operands.length!=undefined && lista[aux].operands.length==0){
                     console.log("vengo por feature")
-                    console.log(lista[aux])
                     aux++
                 }
         }
-        console.log(lista[0])
         return lista[0]
     }
   

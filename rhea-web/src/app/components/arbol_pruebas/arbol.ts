@@ -144,7 +144,7 @@ let nlista:Array<string> =[]
         aux.card_min=0;
         aux.abstract=false;
         aux.optional=true
-        aux.type="FEATURE"
+        aux.type="FEATURETERM"
         aux.children=[]
         return aux
     }

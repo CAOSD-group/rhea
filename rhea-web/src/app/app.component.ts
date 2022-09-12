@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {HttpClient } from '@angular/common/http';
+import {HttpClient, HttpParams } from '@angular/common/http';
 import {NestedTreeControl} from '@angular/cdk/tree';
 import {MatTreeNestedDataSource} from '@angular/material/tree';
 import {Arbol} from './components/arbol_pruebas/arbol';
@@ -15,7 +15,6 @@ var aux2:any=""
 var aux3: any;
 let simbolo:any; // evita solapar valores en los auxiliares 
 var jsonconstrain: Array<Const>=[new Const()] 
-var constrainTexto:string;
 var jsonfeatures:string
 var diccionario:any
 var listaconstrain:Array<Const>=[]
@@ -103,16 +102,35 @@ saveFile(texto?:string){ // envio el nuevo archivo y el nuvo nombre opcional
   })}
 }
 
+
+
+
+
+
 enviarJSON(){
   console.log(aux)
   this.http.post(this.urldownload2,aux,{responseType:'text'}).subscribe(resultado => {
     console.log(resultado)})
 }
 
+
+
+
+
 enviarUVL(uvl:any){
+  let body ={'inputFM': uvl}
+  
+  //let body = new HttpParams();
+  //body.set('inputFM', uvl);
+  console.log(uvl)
+  console.log(body)
   this.http.post(this.urlupload,uvl,{responseType:'text'}).subscribe(resultado => {
     console.log(resultado)})
+
 }
+
+
+
 
 returnValues(texto?:string){
   if(texto==""){texto=this.item}
@@ -198,7 +216,6 @@ modificarSeleccion(){
 }
 borrarRama(){
   this.actual.borrar(this.padre)
-  this.borrarArbol()
   this.recargarArbol()
 }
 CrearHijo(){
@@ -208,7 +225,6 @@ CrearHijo(){
   else{
   if(this.actual.children==undefined){this.actual.children=[]}
   this.actual.children.push(this.actual.creardeafault(this.nombre))
-  this.borrarArbol()
   this.recargarArbol()}
 }
 CrearHermano(){
@@ -221,7 +237,6 @@ CrearHermano(){
   }
   else{
   this.padre.children.push(this.actual.creardeafault(this.nombre))
-  this.borrarArbol()
   this.recargarArbol()
 }}
 }
@@ -249,7 +264,7 @@ crearCons(){
   jsonconstrain=this.consactual.buscar(jsonconstrain)
   jsonconstrain=aux3
   console.log(this.cons)
-  this.constraindataSource.data=this.cons
+  this.constraindataSource.data=this.cons.filter(x=>this.cons.indexOf(x)==posicion)
   this.texto3="Mostrar chips"
   this.texto1="Ocultar Constrains"
   this.texto4="Ocultar Arbol"
@@ -279,8 +294,10 @@ borrarArbol(){
 }
 
 recargarArbol(){
+  this.borrarArbol()
   this.dataSource.data=this.tree
-  this.constraindataSource.data=this.cons
+  this.constraindataSource.data=this.cons.filter(x=>this.cons.indexOf(x)==posicion)
+  if(this.consactual==undefined){ this.consactual=new Const()}
 }
 
 changeListener($event): void {this.readThis($event.target);}
@@ -300,8 +317,7 @@ readThis(inputValue: any): void {
     if(file.name.endsWith('.uvl')){
       console.log("llega uvl")
       setTimeout(() => {
-        console.log(aux)
-        this.enviarUVL(aux)
+        this.enviarUVL(file)
         },2000)
     }
 
@@ -357,8 +373,13 @@ readThis(inputValue: any): void {
   }
 
   borrarCons(){
+    if( this.consactual.type=='' && posicion!= undefined && posicion!=-1){
+      this.cons.splice(posicion,1)
+      this.borrarConsText()
+      posicion=-1
+    }
     if(this.consactual!=undefined){
-      if(this.conspadre!=undefined){
+      if(this.conspadre!=undefined &&this.conspadre.type!=""){
         aux2=0
       while(aux2<this.conspadre.operands.length){
         if(this.conspadre.operands[aux2]==this.consactual){
@@ -367,7 +388,9 @@ readThis(inputValue: any): void {
         }
         else{aux2++}
       }
+        console.log(aux)
         this.conspadre.operands.splice(aux,1)
+        
       }
       else{
         if(posicion!=-1){
@@ -377,7 +400,7 @@ readThis(inputValue: any): void {
       }
     }
     if(this.cons.length==0){this.cons.push(new Const)}
-    this.borrarArbol()
+    this.cambioseleccionado(this.ncons)
     this.recargarArbol()
   }
 
@@ -391,6 +414,7 @@ readThis(inputValue: any): void {
       
       listaconstrain[0]=this.consactual.listaConstrains(listaconstrain)
     }
+    console.log(listaconstrain[0])
     return listaconstrain[0]
   }
 
@@ -398,21 +422,26 @@ readThis(inputValue: any): void {
     if(listaconstrain.length!=0&&listaconstrain!=undefined){
       this.Crearlistaconstrain()
 
-    if(this.conspadre==undefined){
-      jsonconstrain[posicion]=listaconstrain[0]}
+    if(this.conspadre==undefined ||  this.conspadre.type==""){
+      console.log("1")
+      this.cons[posicion]=listaconstrain[0]
+      this.jsonconstrainTexto[posicion]="New value" +posicion
+    }
 
-    if(this.conspadre!=undefined){
+    if(this.conspadre!=undefined  ){
+      console.log("2")
       aux2=0
       while(aux2<this.conspadre.operands.length){
+        console.log("3")
         if(this.conspadre.operands[aux2]==this.consactual){
           aux=aux2
           aux2++
         }
         else{aux2++}
       }
-      this.conspadre.operands[aux]=listaconstrain[0]}
+      this.conspadre.operands[aux]=listaconstrain[0]
     }
-    this.borrarArbol()
+    }
     this.recargarArbol()
     listaconstrain=[]
   }
@@ -425,7 +454,7 @@ togglevisibility(){
   }
   else{
     this.texto1="Ocultar Constrains"
-    this.constraindataSource.data=this.cons
+    this.constraindataSource.data=this.cons.filter(x=>this.cons.indexOf(x)==posicion)
   } 
 }
 
@@ -470,7 +499,7 @@ openDialog() {
 
 
 SimboloPorTipo(tipo:string){ 
-  if(tipo=="FeatureTerm"){
+  if( tipo.toUpperCase().startsWith("FEATURE")){
     simbolo='add'
   }
   if(tipo=="XAND"){
@@ -482,43 +511,35 @@ SimboloPorTipo(tipo:string){
   if(tipo=="OR"){
     simbolo='pages'
   }
-  if(tipo!="OR"&& tipo!="XOR" &&tipo!="FeatureTerm" &&tipo!="XAND"){
+  if(tipo!="OR"&& tipo!="XOR" && !tipo.toUpperCase().startsWith("FEATURE") &&tipo!="XAND"){
     simbolo='help_outline'
   }
   return simbolo
 }
-/*
+
 onRightClick($event) {
   alert("hola")
   return true
-}*/
+}
 cambioseleccionado(v){
   aux2=0
   while (aux2<this.jsonconstrainTexto.length) {
     if(this.jsonconstrainTexto[aux2]==v ){posicion=aux2}
     aux2++
   }
-  constrainTexto=v;
   this.ncons=v
-  console.log(this.ncons)
-}
-ModificarConsText(){
-  aux=-1
-  this.jsonconstrainTexto.forEach(element => {
-    aux++;
-    if(element==constrainTexto){
-      this.jsonconstrainTexto[aux]=this.ncons
-    }
-  });
+  this.consactual=this.cons[posicion]
+  console.log(this.consactual)
+  this.constraindataSource.data=this.cons.filter(x=>this.cons.indexOf(x)==posicion)
 }
 CrearConslista(){
   if(listaconstrain!=undefined && listaconstrain.length!=0){
     this.Crearlistaconstrain()
+    posicion=this.jsonconstrainTexto.length
+    this.jsonconstrainTexto.push("New constraint"+posicion)
     this.cons.push(listaconstrain[0])
-    console.log(this.cons)
   }
   listaconstrain=[]
-  this.borrarArbol()
   this.recargarArbol()
 }
 escribirlista(){
@@ -530,31 +551,46 @@ borrarlista(){
 }
 
 CrearConshermano(){
-  if(this.conspadre!=undefined){
+  if(this.conspadre!=undefined && this.conspadre.type!=""){
   if(listaconstrain!=undefined && listaconstrain.length!=0){
     this.Crearlistaconstrain()
-    this.conspadre.operands.push(listaconstrain[0])
+    if(this.conspadre.type.toLowerCase().startsWith("feature")){}
+    else{
+    if(this.conspadre.type.toLowerCase().startsWith("not") && this.conspadre.operands.length==1){}
+    else{
+    if(this.conspadre.operands.length==2){}
+    else{this.conspadre.operands.push(listaconstrain[0])
+      console.log("hermano valido")
+    }}}
   }}
-  else{this.CrearConslista(); alert("no habia padre por lo que se creo una nueva")}
+  else{
+  this.CrearConslista(); 
+  alert("no habia padre por lo que se creo una nueva")
+}
   listaconstrain=[]
-  this.borrarArbol()
   this.recargarArbol()
 }
 
 CrearConshijo(){
+  if(listaconstrain!=undefined && listaconstrain.length!=0){this.Crearlistaconstrain()}
   if(this.consactual!=undefined){
-  if(listaconstrain!=undefined && listaconstrain.length!=0){
-    this.Crearlistaconstrain()
-    if(this.consactual.operands==null || this.consactual.operands==undefined ){
-      this.consactual.operands=[]
-      this.consactual.operands.push(listaconstrain[0])
-    }
+  if(this.consactual.operands!=null||this.consactual.operands!=undefined){
+  if(this.consactual.operands.length!=0 ){
+    if(this.consactual.operands[0].type==""){this.consactual.operands.slice(0,1)}}
+
+  if(this.tiposconstrains.indexOf(this.consactual.type)==-1){}
     else{
-    this.consactual.operands.push(listaconstrain[0])}
-  }}
-  else{this.CrearConslista(); alert("no habia padre por lo que se creo una nueva")}
+      if(this.consactual.type.toLowerCase().startsWith("not") && this.consactual.operands.length==1){}
+        else{
+          if(this.consactual.operands.length==2){}
+          else{this.consactual.operands.push(listaconstrain[0])
+            console.log("hijo valido")
+          }
+      }
+    }
+  }
+}
   listaconstrain=[]
-  this.borrarArbol()
   this.recargarArbol()
 }
 
@@ -562,7 +598,7 @@ CrearConshijo(){
 borrarConsText(){
   this.jsonconstrainTexto[posicion]=""
   this.jsonconstrainTexto=this.jsonconstrainTexto.filter(x=>x!="")
-  this.borrarArbol()
+  console.log(posicion)
   this.recargarArbol()
 }
 
