@@ -28,6 +28,8 @@ from rhea.refactorings.split_constraints import SplitConstraints
 from rhea.refactorings.elimination_complex_constraints import EliminationComplexConstraints
 from rhea.refactorings.elimination_simple_ctcs_requires import EliminationSimpleConstraintsRequires
 from rhea.refactorings.elimination_simple_ctcs_excludes import EliminationSimpleConstraintsExcludes
+from rhea.refactorings.elimination_simple_ctcs_requires_without_dict import EliminationSimpleConstraintsRequiresWithoutDict
+from rhea.refactorings.elimination_simple_ctcs_excludes_without_dict import EliminationSimpleConstraintsExcludesWithoutDict
 
 
 ##################################################################################################
@@ -35,6 +37,8 @@ REFACTORING_SPLIT = SplitConstraints
 REFACTORING_COMPLEX = EliminationComplexConstraints
 REFACTORING_REQUIRES = EliminationSimpleConstraintsRequires
 REFACTORING_EXCLUDES = EliminationSimpleConstraintsExcludes
+REFACTORING_REQUIRES_WITHOUT_DICT = EliminationSimpleConstraintsRequiresWithoutDict
+REFACTORING_EXCLUDES_WIHOUT_DICT = EliminationSimpleConstraintsExcludesWithoutDict
 MODEL_PATH = 'tests/models/split_constraints/input_models/Pizzas_completo.uvl'
 OUTPUT_PATH = 'output.uvl'
 OUTPUT_CONSOLE = 'output.txt'
