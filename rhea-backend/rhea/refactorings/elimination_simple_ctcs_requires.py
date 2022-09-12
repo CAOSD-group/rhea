@@ -39,9 +39,11 @@ class EliminationSimpleConstraintsRequires(FMRefactoring):
         xor_plus = Feature(utils.get_new_feature_name(model_plus, 'XOR'), is_abstract=True)
         list_right_feature_ctc_plus = [key for key, value in model.dict_references.items() 
                                         if value.name == right_feature_name_ctc]
+        print(f'Lista de features right plus: {list_right_feature_ctc_plus}')
 
         list_right_feature_ctc_less = [key for key, value in model.dict_references.items() 
                                         if value.name == right_feature_name_ctc]
+        print(f'Lista de features right less: {list_right_feature_ctc_less}')
 
         if instance.ast.root.data in [ASTOperation.REQUIRES, ASTOperation.IMPLIES]:
             left_feature_name_ctc = instance.ast.root.left.data
@@ -50,7 +52,7 @@ class EliminationSimpleConstraintsRequires(FMRefactoring):
             left_feature_name_ctc = not_operation.left.data
         list_left_feature_ctc_less = [key for key, value in model.dict_references.items() 
                                         if value.name == left_feature_name_ctc]
-
+        print(f'Lista de features left less: {list_left_feature_ctc_less}')
 
         plus_roots = []
         for f_plus in list_right_feature_ctc_plus:
@@ -68,6 +70,7 @@ class EliminationSimpleConstraintsRequires(FMRefactoring):
                     old_root.add_relation(new_rel)
                     model_plus.root.parent = old_root
                 plus_roots.append(model_plus.root)
+        print(f'T(-{list_right_feature_ctc_plus}): {model_plus}')
         
         # Joining all trees with XOR
         if len(list_right_feature_ctc_plus)>1:
@@ -84,10 +87,12 @@ class EliminationSimpleConstraintsRequires(FMRefactoring):
         for f_left_less in list_left_feature_ctc_less:
             if model_less is not None:
                 model_less = utils.eliminate_node_from_tree(model_less, f_left_less)
+        print(f'T(-{list_left_feature_ctc_less}: {model_less}')
 
         for f_right_less in list_right_feature_ctc_less:
             if model_less is not None:
                 model_less = utils.eliminate_node_from_tree(model_less, f_right_less)
+        print(f'T(-{list_right_feature_ctc_less}: {model_less}')
 
 
         # Construct T(+B) and T(-A-B).
