@@ -1,32 +1,33 @@
 features
-	root1
+	root3
 		alternative
-			A1
-				mandatory
-					B1
-						optional
-							D1
-				optional
-					C1
-						optional
-							E1
-			root
+			root2
 				alternative
-					A
-						optional
+					A21
+						mandatory
 							B
-								optional
+								mandatory
 									D
-						optional
+						mandatory
 							C
-								optional
+								mandatory
 									E
-					A11
-						optional
-							B11
-								optional
-									D11
-						optional
-							C11
-								optional
-									E11
+					root1
+						alternative
+							XOR
+								mandatory
+									A112
+										mandatory
+											B1
+										optional
+											C1
+							root
+								mandatory
+									A1
+										optional
+											C11
+			A1121
+				mandatory
+					B11
+				mandatory
+					C12

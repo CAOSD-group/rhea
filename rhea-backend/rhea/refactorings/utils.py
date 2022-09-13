@@ -49,7 +49,6 @@ def add_node_to_tree(model: FeatureModel, node: Feature) -> FeatureModel:
             # If P is a MandOpt feature and F is an optional subfeature, make F a mandatory subfeature of P
             rel_mand = next((r for r in parent.get_relations() if node in r.children), None)
             rel_mand.card_min = 1
-            # print(f'PARENT RELATIONS IN MODEL PLUS: {[str(r) for r in parent.get_relations()]}')
         elif parent.is_alternative_group():
             # If P is an Xor feature, make P a MandOpt feature which has F as single
             # mandatory subfeature and has no optional subfeatures. All other
