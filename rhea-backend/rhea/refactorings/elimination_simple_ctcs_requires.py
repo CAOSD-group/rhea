@@ -39,11 +39,9 @@ class EliminationSimpleConstraintsRequires(FMRefactoring):
         list_right_feature_ctc_plus = [right_feature_name_ctc] + [key for key, value in model.dict_references.items() 
                                         if value.name == right_feature_name_ctc]
         xor_plus = Feature(utils.get_new_feature_name(model_plus, 'XOR'), is_abstract=True)
-        print(f'Lista de features right plus: {list_right_feature_ctc_plus}')
 
         list_right_feature_ctc_less = [right_feature_name_ctc] + [key for key, value in model.dict_references.items() 
                                         if value.name == right_feature_name_ctc]
-        print(f'Lista de features right less: {list_right_feature_ctc_less}')
 
         if instance.ast.root.data in [ASTOperation.REQUIRES, ASTOperation.IMPLIES]:
             left_feature_name_ctc = instance.ast.root.left.data
@@ -52,22 +50,20 @@ class EliminationSimpleConstraintsRequires(FMRefactoring):
             left_feature_name_ctc = not_operation.left.data
         list_left_feature_ctc_less = [left_feature_name_ctc] + [key for key, value in model.dict_references.items() 
                                         if value.name == left_feature_name_ctc]
-        print(f'Lista de features left less: {list_left_feature_ctc_less}')
 
         plus_roots = []
         for f_plus in list_right_feature_ctc_plus:
             new_model_plus = copy.deepcopy(model)
-            print(f'MODEL DICT REFERENCES KEYS: {model.dict_references.keys()}')
             if f_plus in model.dict_references.keys() and new_model_plus is not None:
-                print(f'f_plus: {f_plus}, type: {type(f_plus)}')
                 new_f_plus = new_model_plus.get_feature_by_name(f_plus)
-                model_plus = utils.add_node_to_tree(new_model_plus, new_f_plus)
+                new_model_plus = utils.add_node_to_tree(new_model_plus, new_f_plus)
+                if new_model_plus is not None:
+                    model_plus = new_model_plus
             elif model_plus is not None:
                 feature_plus = model_plus.get_feature_by_name(f_plus)
                 model_plus = utils.add_node_to_tree(model_plus, feature_plus)
             if model_plus is not None:
                 old_root = model_plus.root
-                print(f'old root : {old_root}')
                 model_plus = remove_abstract_child(model_plus, old_root)
                 if old_root != model_plus.root:
                     new_rel = Relation(old_root, [model_plus.root], 1, 1)  # mandatory
@@ -85,20 +81,17 @@ class EliminationSimpleConstraintsRequires(FMRefactoring):
             for r in xor_plus.get_children():
                 r.name = f'{utils.get_new_feature_name(model, r.name)}{count}'
                 count += 1
-        print(f'T(+{list_right_feature_ctc_plus}): {model_plus}')
 
 
         for f_left_less in list_left_feature_ctc_less:
             if model_less is not None:
                 feature_left_less = model_less.get_feature_by_name(f_left_less)
                 model_less = utils.eliminate_node_from_tree(model_less, feature_left_less)
-        print(f'T(-{list_left_feature_ctc_less}): {model_less}')
 
         for f_right_less in list_right_feature_ctc_less:
             if model_less is not None:
                 feature_right_less = model_less.get_feature_by_name(f_right_less)
                 model_less = utils.eliminate_node_from_tree(model_less, feature_right_less)
-        print(f'T(-{list_right_feature_ctc_less}): {model_less}')
 
 
         # Construct T(+B) and T(-A-B).
@@ -126,14 +119,18 @@ class EliminationSimpleConstraintsRequires(FMRefactoring):
             for feature in model_less.get_features():
                 if feature in model_plus.get_features():
                     feature_reference = model.get_feature_by_name(feature.name)
+                    print(f'feature reference: {feature_reference}')
                     feature.name = utils.get_new_feature_name(model, feature.name)
                     if feature != feature_reference:
                         model.dict_references[feature.name] = feature_reference
+                        #print(f'feature reference: {feature_reference}')
+
+        # string_prueba = 'ADRIANA'
+        # print(f'prueba de string: {string_prueba[:1]}')
 
         #if hasattr(model, 'dict_references'):
         #    feature_original = model.dict_references['A1']
 
-        print(f'MODEL: {model}')
         return model
 
 

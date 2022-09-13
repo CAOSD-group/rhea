@@ -11,7 +11,4 @@ features
 					E
 
 constraints
-	D => E
-	E => B
-	E => D
 	D => !C

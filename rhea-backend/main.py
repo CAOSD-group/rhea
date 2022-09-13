@@ -39,7 +39,7 @@ REFACTORING_REQUIRES = EliminationSimpleConstraintsRequires
 REFACTORING_EXCLUDES = EliminationSimpleConstraintsExcludes
 REFACTORING_REQUIRES_WITHOUT_DICT = EliminationSimpleConstraintsRequiresWithoutDict
 REFACTORING_EXCLUDES_WIHOUT_DICT = EliminationSimpleConstraintsExcludesWithoutDict
-MODEL_PATH = 'tests/models/split_constraints/input_models/prueba_elim_varias_ctcs_simple.uvl'
+MODEL_PATH = 'tests/models/split_constraints/input_models/Pizzas_1ctcs.uvl'
 OUTPUT_PATH = 'output.uvl'
 OUTPUT_CONSOLE = 'output.txt'
 ##################################################################################################
@@ -91,7 +91,7 @@ def print_fm(fm: FeatureModel, expected_results: dict[str, Any] = None) -> dict[
     n_configurations = Glucose3ProductsNumber().execute(sat_model).get_result()
     print(f'#Configurations: {n_configurations}')
     print('----------')
-    products = fm_utils.filter_products(fm, configurations)
+    products = fm_utils.filter_products_from_dict(fm, configurations)
     print(f'Products:')
     for i, p in enumerate(products):
         print(f'P{i}: {[str(f) for f in p]}')
@@ -152,7 +152,8 @@ def main():
 
     fm.dict_references = {}  # dictionary for references: str (feature's name) -> Feature
 
-    
+    print_fm(fm)
+
     print_statistics(fm)
     
     print(f'Applying the refactoring {REFACTORING_SPLIT.get_name()}...')
@@ -180,9 +181,6 @@ def main():
     print(f'FM NUMBERS:')
     print_fm_numbers(fm)
 
-    print('==================================================')
-
-    print(f'FM CONFIGURATIONS:')
     print_fm(fm)
 
     #UVLWriter(fm, OUTPUT_PATH).transform()

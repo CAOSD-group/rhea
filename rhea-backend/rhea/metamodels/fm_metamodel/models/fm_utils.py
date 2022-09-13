@@ -133,3 +133,29 @@ def filter_products2(fm: FeatureModel, configurations: list[list[Feature]]) -> l
             c.add(name)
         filtered_configs.add(frozenset(c))
     return filtered_configs
+
+
+def filter_products_from_dict(fm: FeatureModel, configurations: list[list[str]]) -> list[list[str]]:
+    """Given a list of configurations return it with the configurations filtered.
+    
+    This method takes into account that the features in the FM can be not unique. 
+    That is, features can have its corresponding features in a dictionary
+    indicating that the feature is non-unique and appears in other part of the FM.
+    The corresponding value in the dictionary points to the original feature.
+
+    The filters performed are the following:
+      a) Remove abstract features.
+      b) Substitute non-unique features with the original one.
+      c) Remove duplicate features.
+    """
+    filtered_configs = set()
+    for config in configurations:
+        c = set()
+        for f in config:
+            feature = fm.get_feature_by_name(f)
+            if not feature.is_abstract:
+                if f in fm.dict_references:
+                    feature = fm.dict_references[f]
+                c.add(feature.name)
+        filtered_configs.add(frozenset(c))
+    return filtered_configs

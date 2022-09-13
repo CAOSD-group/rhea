@@ -36,10 +36,9 @@ class EliminationSimpleConstraintsExcludes(FMRefactoring):
         elif instance.ast.root.data is ASTOperation.EXCLUDES:
             right_feature_name_ctc = instance.ast.root.right.data
 
-
-        list_right_feature_ctc_less = [key for key, value in model.dict_references.items() 
+        list_right_feature_ctc_less = [right_feature_name_ctc] + [key for key, value in model.dict_references.items() 
                                         if value.name == right_feature_name_ctc]
-        list_right_feature_ctc_less_plus = [key for key, value in model.dict_references.items() 
+        list_right_feature_ctc_less_plus = [right_feature_name_ctc] + [key for key, value in model.dict_references.items() 
                                             if value.name == right_feature_name_ctc]
 
 
@@ -50,17 +49,20 @@ class EliminationSimpleConstraintsExcludes(FMRefactoring):
             left_feature_name_ctc = not_operation.left.data
 
         xor_plus = Feature(utils.get_new_feature_name(model_less, 'XOR'), is_abstract=True)
-        list_left_feature_ctc_less_plus = [key for key, value in model.dict_references.items() 
+        list_left_feature_ctc_less_plus = [left_feature_name_ctc] + [key for key, value in model.dict_references.items() 
                                             if value.name == left_feature_name_ctc]
+
 
 
         for f_right_less in list_right_feature_ctc_less:
             if model_less is not None:
-                model_less = utils.eliminate_node_from_tree(model_less, f_right_less)
+                feature_right_less = model_less.get_feature_by_name(f_right_less)
+                model_less = utils.eliminate_node_from_tree(model_less, feature_right_less)
 
         for f_left_less_plus in list_left_feature_ctc_less_plus:
             if model_less_plus is not None:
-                model_less_plus = utils.eliminate_node_from_tree(model_less_plus, f_left_less_plus)
+                feature_left_less_plus = model_less_plus.get_feature_by_name(f_left_less_plus)
+                model_less_plus = utils.eliminate_node_from_tree(model_less_plus, feature_left_less_plus)
 
         new_model_less = copy.deepcopy(model_less_plus)
 
@@ -71,7 +73,8 @@ class EliminationSimpleConstraintsExcludes(FMRefactoring):
                 new_f_less_plus = new_model_less_plus.get_feature_by_name(f_less_plus)
                 model_less_plus = utils.add_node_to_tree(new_model_less_plus, new_f_less_plus)
             elif model_less_plus is not None:
-                model_less_plus = utils.add_node_to_tree(model_less_plus, f_less_plus)
+                feature_less_plus = model_less_plus.get_feature_by_name(f_less_plus)
+                model_less_plus = utils.add_node_to_tree(model_less_plus, feature_less_plus)
             if model_less_plus is not None:
                 old_root = model_less_plus.root
                 model_less_plus = remove_abstract_child(model_less_plus, old_root)
@@ -80,9 +83,8 @@ class EliminationSimpleConstraintsExcludes(FMRefactoring):
                     old_root.add_relation(new_rel)
                     model_less_plus.root.parent = old_root
                 plus_roots.append(model_less_plus.root)
-        
         # Joining all trees with XOR
-        if len(list_right_feature_ctc_less_plus)>1:
+        if len(plus_roots)>1:
             r_xor_plus = Relation(xor_plus, plus_roots, 1, 1)  # XOR
             xor_plus.add_relation(r_xor_plus)
             for child in plus_roots:
@@ -124,6 +126,7 @@ class EliminationSimpleConstraintsExcludes(FMRefactoring):
                     feature.name = utils.get_new_feature_name(model, feature.name)
                     if feature != feature_reference:
                         model.dict_references[feature.name] = feature_reference
+                        print(f'feature reference: {feature_reference}')
         return model
 
 
