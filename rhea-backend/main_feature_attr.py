@@ -1,5 +1,5 @@
 """
-This script generates all configurations of a feature model with feature attributes.
+This script generates a CSV with all features with their respective attributes in a FM.
 The attributes are randomly generated for X attributes.
 """
 
@@ -11,7 +11,7 @@ from xml.dom.minidom import Attr
 from flamapy.metamodels.fm_metamodel.transformations import UVLReader, UVLWriter, FeatureIDEReader, GlencoeReader
 from flamapy.metamodels.fm_metamodel.transformations import FeatureIDEReader
 
-from config_attr_writer import ConfigurationAttributeWriter
+from feature_attr_writer import FeatureAttributeWriter
 
 from flamapy.metamodels.pysat_metamodel.transformations import FmToPysat
 from flamapy.metamodels.pysat_metamodel.operations import (
@@ -24,16 +24,15 @@ from flamapy.metamodels.fm_metamodel.models import FeatureModel
 from rhea.refactorings import utils
 
 
-MODEL_PATH = 'tests/models/general_models/Truck.uvl'
-n_attr = random.randint(1, 5)
+MODEL_PATH = 'tests/models/general_models/VNS.xml'
 
 
-def main(fm_path: str, n_attributes: int):
+def main(fm_path: str):
     # Create path to the output file
     fm_basename = os.path.basename(fm_path)
     fm_dirname = os.path.dirname(fm_path)
     fm_name = fm_basename[:fm_basename.find('.')]  # Remove extension
-    output_path = os.path.join('tests/config_output', fm_name + '_config_attr' + ConfigurationAttributeWriter.get_destination_extension())
+    output_path = os.path.join('tests/feature_attr_output', fm_name + '_feature_attr' + FeatureAttributeWriter.get_destination_extension())
     
     # Load the feature model
     if MODEL_PATH.endswith('.gfm.json'):
@@ -45,33 +44,43 @@ def main(fm_path: str, n_attributes: int):
     else:
         raise Exception(f'Error, invalid model {MODEL_PATH}.')
 
-    # ct_str = generate_configurations(fm, n_attributes)
-    ct_str = ConfigurationAttributeWriter(path=output_path, source_model=fm).transform()
+    # ct_str = generate_features_attr(fm, fm_name)
+    ct_str = FeatureAttributeWriter(path=output_path, source_model=fm).transform()
 
     # Print the result (optional)
     print(ct_str)
 
-def generate_configurations(fm: FeatureModel, n_attr: int) -> str: 
-    # Transform the configurations to csv
-    sat_model = FmToPysat(fm).transform()
-    configurations = Glucose3Products().execute(sat_model).get_result()
+def generate_features_attr(fm: FeatureModel, fm_name: str) -> str: 
+    # Transform the feature attributes to csv
 
     features_list = []
     features_list = fm.get_features()
-    header = ','.join((f.name for f in features_list))
+
+
+    attributes_list = {}
+    for f in features_list:
+        if fm_name == 'Pizzas':
+            n_attr = random.randint(5, 25)
+        elif fm_name == 'Truck':
+            n_attr = random.randint(0, 10)
+        else:
+            n_attr = random.randint(0, 7)
+        attributes_list[f] = n_attr
+    
+    header = 'FEATURE'
 
     header_attr = []
-    for i in range(n_attr):
-        header_attr.append(utils.get_new_attr_name(header_attr, 'Config_Attribute'))
+    for i in range(max(attributes_list.values())):
+        header_attr.append(utils.get_new_attr_name(header_attr, 'Attribute'))
     header_attr = ','.join(header_attr)
     if len(header_attr)>=1:
         header = header + ',' + header_attr
 
     result = f'{header}'
-    for c in configurations:
-        row = ','.join((str(f.name in c) for f in features_list))
+    for feature in features_list:
+        row = feature.name
         if len(header_attr)>=1:
-            row = row + ',' + ','.join([str(random.randint(0, 10)) for i in range(n_attr)])
+            row = row + ',' + ','.join([str(random.randint(0, 10)) for i in range(attributes_list[feature])])
         result += f'\n{row}'
     
     return result
@@ -79,4 +88,4 @@ def generate_configurations(fm: FeatureModel, n_attr: int) -> str:
 
 
 if __name__ == '__main__':
-    main(MODEL_PATH, n_attr)
+    main(MODEL_PATH)
