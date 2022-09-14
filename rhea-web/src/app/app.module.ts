@@ -1,5 +1,5 @@
 import {AppComponent } from './app.component';
-import{Const} from './components/constrain/const';
+import{Const} from './components/constraint/const';
 import { Arbol } from './components/arbol_pruebas/arbol';
 
 

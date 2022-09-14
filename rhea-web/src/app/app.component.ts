@@ -3,7 +3,7 @@ import {HttpClient, HttpParams } from '@angular/common/http';
 import {NestedTreeControl} from '@angular/cdk/tree';
 import {MatTreeNestedDataSource} from '@angular/material/tree';
 import {Arbol} from './components/arbol_pruebas/arbol';
-import{Const} from './components/constrain/const';
+import{Const} from './components/constraint/const';
 import {MatDialog} from '@angular/material/dialog';
 import * as saveAs from 'file-saver';
 
@@ -47,7 +47,7 @@ export class AppComponent {
   declare padre:Arbol      //valor actual del padre del actual arbol
   conspadre:Const =new Const()     //valor actual del padre del actual arbol
   tree:Array<Arbol> =[new Arbol()]  // el arbol de datos 
-  cons:Array<Const>=[new Const()]   // El arbol de constrains con el nombre en la rama final
+  cons:Array<Const>=[new Const()]   // El arbol de constraints con el nombre en la rama final
   //declare json_nombre:any;    //guardo los valores de las features
   //declare json_const:any;     //guardo los valores de las constraints
   treeControl = new NestedTreeControl<Arbol>(node => node.children);
@@ -57,7 +57,7 @@ export class AppComponent {
 
   
     
-  //lista de constrains y nombres de las features
+  //lista de constraints y nombres de las features
   tiposconstrains:Array<string>=['NotTerm','OrTerm','AndTerm','ImpliesTerm','Xor','Xand','doubleImpliesTerm']
   tablachips:Array<string>=[]
   nombresFeatures:Array<string>=[]
@@ -66,9 +66,9 @@ export class AppComponent {
   //otros
   titulo:string='';
   item:string ='Pizzas.uvl';
-  texto1="Ocultar Constrains";
+  texto1="Ocultar Constraints";
   texto3="Ocultar chips";
-  texto4="Ocultar Arbol";
+  texto4="Ocultar Tree";
   texto2=this.item;
   jsonconstrainTexto: Array<string>=[]
   // modificar o crear arbol
@@ -192,6 +192,7 @@ createFile(texto:string){  // envia el nombre del archivo a crear y el archivo a
 
 
 modificarSeleccion(){
+  aux=this.actual.name
   if(this.actual.name!=this.nombre && this.actual.evitaDuplicados(this.nombre)){
     alert("este nombre ya existe, por favor use otro")
   }
@@ -213,6 +214,7 @@ modificarSeleccion(){
   this.actual.optional=this.optional
   this.actual.abstract=this.abstract
 }
+this.nombresFeatures=this.tree[0].listanombresModificar(this.actual.name,aux)
 }
 borrarRama(){
   this.actual.borrar(this.padre)
@@ -250,13 +252,13 @@ hasChild = (_: number, node: any) => !!node.children && node.children.length >= 
 
 
 crearCons(){
-  console.log("creo constrains")
+  console.log("creo constraints")
   this.cons.splice(0,this.cons.length)
   aux2=0
   if(true){    //Porque hace falta poner el if para que no de error la siguiente linea?
-  [jsonconstrain,this.jsonconstrainTexto,listanombresconstrains]=this.consactual.CrearConstrain(aux3)
+  [jsonconstrain,this.jsonconstrainTexto,listanombresconstrains]=this.consactual.CrearConstraint(aux3)
   while(aux2<jsonconstrain.length){
-  jsonconstrain[aux2]=this.consactual.CreanuevaConstrain(jsonconstrain[aux2])
+  jsonconstrain[aux2]=this.consactual.CreanuevaConstraint(jsonconstrain[aux2])
   aux2++}
 
 
@@ -266,7 +268,7 @@ crearCons(){
   console.log(this.cons)
   this.constraindataSource.data=this.cons.filter(x=>this.cons.indexOf(x)==posicion)
   this.texto3="Mostrar chips"
-  this.texto1="Ocultar Constrains"
+  this.texto1="Ocultar Constraints"
   this.texto4="Ocultar Arbol"
   this.tablachips=[]
   this.nombreschips=[]
@@ -312,13 +314,13 @@ readThis(inputValue: any): void {
       console.log("llega json")
       setTimeout(() => {
       this.CrearDatos(aux,"hola")
-      },2000)
+      },100)
     }
     if(file.name.endsWith('.uvl')){
       console.log("llega uvl")
       setTimeout(() => {
         this.enviarUVL(file)
-        },2000)
+        },100)
     }
 
   
@@ -412,7 +414,7 @@ readThis(inputValue: any): void {
     if(listaconstrain.length>2){
       console.log(listaconstrain)
       
-      listaconstrain[0]=this.consactual.listaConstrains(listaconstrain)
+      listaconstrain[0]=this.consactual.listaConstraints(listaconstrain)
     }
     console.log(listaconstrain[0])
     return listaconstrain[0]
@@ -448,12 +450,12 @@ readThis(inputValue: any): void {
 
 
 togglevisibility(){
-  if(this.texto1=="Ocultar Constrains"){
-  this.texto1="Mostrar Constrains"
+  if(this.texto1=="Ocultar Constraints"){
+  this.texto1="Mostrar Constraints"
   this.constraindataSource.data=[]
   }
   else{
-    this.texto1="Ocultar Constrains"
+    this.texto1="Ocultar Constraints"
     this.constraindataSource.data=this.cons.filter(x=>this.cons.indexOf(x)==posicion)
   } 
 }
@@ -543,6 +545,11 @@ CrearConslista(){
   this.recargarArbol()
 }
 escribirlista(){
+  aux=""
+  listaconstrain.forEach(element => {
+    aux=aux+element.type+" "
+  })
+  alert(aux)
   console.log(listaconstrain)
 }
 borrarlista(){

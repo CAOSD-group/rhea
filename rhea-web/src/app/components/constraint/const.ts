@@ -7,9 +7,9 @@ let aux2:any
 let aux3:any
 let aux4:any
 
-let constrainarbol :Array<Const> =[]
-let constraintexto :Array<any> =[]
-let constrainnombre :Array<any> =[]
+let constraintarbol :Array<Const> =[]
+let constrainttexto :Array<any> =[]
+let constraintnombre :Array<any> =[]
 
 @Component({
     selector: 'const',
@@ -25,22 +25,22 @@ let constrainnombre :Array<any> =[]
   
 
 
-    CrearConstrain(lista2:any){
-        constrainarbol=[]
-        constraintexto=[]
-        constrainnombre=[]
+    CrearConstraint(lista2:any){
+        constraintarbol=[]
+        constrainttexto=[]
+        constraintnombre=[]
         for( const[key2] of Object.entries(lista2)){
-            aux2=this.CreanuevaConstrain(lista2[key2].ast)
-            constrainarbol.push(lista2[key2].ast)
-            constraintexto.push(lista2[key2].expr)
-            constrainnombre.push(lista2[key2].name)
+            aux2=this.CreanuevaConstraint(lista2[key2].ast)
+            constraintarbol.push(lista2[key2].ast)
+            constrainttexto.push(lista2[key2].expr)
+            constraintnombre.push(lista2[key2].name)
             
         }
-        return [constrainarbol,constraintexto,constrainnombre]
+        return [constraintarbol,constrainttexto,constraintnombre]
     }
 
 
-    CreanuevaConstrain(valor:any){
+    CreanuevaConstraint(valor:any){
         if(valor.type!=undefined || valor.type!=""){
         aux=new Const()
         aux.type=valor.type
@@ -52,7 +52,7 @@ let constrainnombre :Array<any> =[]
     buscar(lista:Array<any>){
         if(lista!=undefined && lista.length>0 && lista!= null){
             lista.forEach(element => {
-                this.CreanuevaConstrain(element)
+                this.CreanuevaConstraint(element)
                 lista.push(aux)
                 if(element.operands!=undefined && element.operands.length>0 && element.operands!= null){
                     this.buscar(element.operands)
@@ -91,7 +91,7 @@ let constrainnombre :Array<any> =[]
         return list
     }
 
-    listaConstrains(lista:Array<any>){
+    listaConstraints(lista:Array<any>){
         aux=0
         aux2=0
         aux3=true

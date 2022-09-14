@@ -42,6 +42,10 @@ let nlista:Array<string> =[]
 
     borrarLista(){nlista.splice(0,nlista.length)}
     listanombres(){return nlista}
+    listanombresModificar(nuevonombre:string,viejonombre:string){
+        aux=nlista.indexOf(viejonombre)
+        nlista[aux]=nuevonombre
+        return nlista}
 
     CrearArbol(valor: any){             // Crea los objetos pero no los introduce como hijos unos del otro
         aux=new Arbol()
