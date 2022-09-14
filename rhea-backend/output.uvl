@@ -54,27 +54,28 @@ features
 						alternative
 							root31
 								mandatory
-									Pizza2
+									Pizza
 										mandatory
-											Topping2
+											Topping
 												or
-													Salami2
-													Ham2
-													Mozzarella2
+													Salami
+													Ham
+													Mozzarella
 										mandatory
-											Size2
+											Size
 												mandatory
 													Big2
 										mandatory
-											Dough2
-												mandatory
-													Neapolitan2
+											Dough
+												alternative
+													Neapolitan
+													Sicilian
 										mandatory
 											CheesyCrust
 								mandatory
-									OR2
+									OR
 										or
-											Sicilian12
+											Sicilian1
 											Big11
 							root212
 								mandatory
@@ -91,11 +92,10 @@ features
 													Normal1
 										mandatory
 											Dough11
-												alternative
+												mandatory
 													Neapolitan11
-													Sicilian21
 										mandatory
-											CheesyCrust2
+											CheesyCrust21
 								mandatory
 									OR11
 										mandatory
@@ -104,26 +104,26 @@ features
 				alternative
 					root41
 						mandatory
-							Pizza3
+							Pizza
 								mandatory
-									Topping3
+									Topping
 										or
-											Salami3
-											Ham3
-											Mozzarella3
+											Salami
+											Ham
+											Mozzarella
 								mandatory
-									Size3
+									Size
 										mandatory
-											Big3
+											Big
 								mandatory
-									Dough3
+									Dough
 										mandatory
 											Sicilian
 						mandatory
-							OR3
+							OR
 								or
-									CheesyCrust12
-									Big12
+									CheesyCrust1
+									Big1
 					root2121
 						mandatory
 							Pizza12
@@ -136,35 +136,12 @@ features
 								mandatory
 									Size12
 										mandatory
-											Normal2
+											Normal
 								mandatory
 									Dough12
 										mandatory
-											Sicilian2
+											Sicilian21
 						mandatory
 							OR12
 								mandatory
 									CheesyCrust111
-					root3113
-						mandatory
-							Pizza21
-								mandatory
-									Topping21
-										or
-											Salami21
-											Ham21
-											Mozzarella21
-								mandatory
-									Size21
-										mandatory
-											Big21
-								mandatory
-									Dough21
-										mandatory
-											Sicilian3
-								mandatory
-									CheesyCrust3
-						mandatory
-							OR21
-								mandatory
-									Big111

@@ -2,7 +2,8 @@ from typing import Any
 
 from flamapy.metamodels.fm_metamodel.models import FeatureModel, Feature, Relation
 
-from rhea.refactorings import FMRefactoring, utils
+from rhea.refactorings import FMRefactoring
+from rhea.refactorings import utils
 
 
 class OrMandatoryRefactoring(FMRefactoring):

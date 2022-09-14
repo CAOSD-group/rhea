@@ -11,6 +11,14 @@ def get_new_feature_name(fm: FeatureModel, name: str) -> str:
         count += 1
     return new_name
 
+def get_new_attr_name(header: list, name: str) -> str:
+    count = 1
+    new_name = f'{name}'
+    while new_name in header:
+        new_name = f'{name}{count}'
+        count += 1
+    return new_name
+
 def is_there_mandatory(relations: list[Relation]) -> bool:
     mandatory = False
     for rel in relations:

@@ -117,19 +117,21 @@ class EliminationSimpleConstraintsRequires(FMRefactoring):
         # CUIDADO!!! (puede que haya que modificarlo)
         if model_less is not None and model_plus is not None:
             for feature in model_less.get_features():
-                if feature in model_plus.get_features():
-                    feature_reference = model.get_feature_by_name(feature.name)
-                    print(f'feature reference: {feature_reference}')
+                if feature in model_plus.get_features() and not feature.name in model.dict_references.keys():
+                    print(f'feature NOT in model dict reference: {feature.name}')
+                    feature_reference = model.get_feature_by_name(feature.name)  # aquí se va a poner el nombre que se encuentre en el feature model
+                    # hay que ponerle el nombre de la feature que haya en dict_references.values()
                     feature.name = utils.get_new_feature_name(model, feature.name)
                     if feature != feature_reference:
                         model.dict_references[feature.name] = feature_reference
-                        #print(f'feature reference: {feature_reference}')
-
-        # string_prueba = 'ADRIANA'
-        # print(f'prueba de string: {string_prueba[:1]}')
-
-        #if hasattr(model, 'dict_references'):
-        #    feature_original = model.dict_references['A1']
+                elif feature.name in model.dict_references.keys():
+                    feature_dict_value = model.dict_references[feature.name]
+                    print(f'feature in model dict reference: {feature.name}')
+                    feature.name = utils.get_new_feature_name(model, feature.name)
+                    if feature != feature_dict_value:
+                        model.dict_references[feature.name] = feature_dict_value
+        
+        print(f'Dict references requires: {[value.name for value in model.dict_references.values()]}')
 
         return model
 
