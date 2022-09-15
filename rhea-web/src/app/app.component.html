@@ -50,15 +50,15 @@
   </li>
 
   <li class="nav-item">
-    <button class="btn-primary-bottom" (click)="borrarArbol()">Borrar vista del arbol</button>
+    <button class="btn-primary-bottom" (click)="DeleteFMTree()">Hide Tree</button>
   </li>
 
   <li class="nav-item">
-    <button class="btn-primary-bottom" (click)="recargarArbol()">Recargar arbol</button>
+    <button class="btn-primary-bottom" (click)="ReloadFMTree()">Show Tree</button>
   </li>
 
   <li class="nav-item">
-    <button class="btn-primary-bottom" (click)="saveFile()">Enviar arbol al server</button>
+    <button class="btn-primary-bottom" (click)="saveFile()">Send data to server</button>
   </li>
   </ul>
 
@@ -72,22 +72,27 @@
 
     <button class="btn-primary-search" (click)="returnValues(item)"><i class="fa fa-search"></i></button>
     
-    <select class="btn-primary-select" [(ngModel)]="item" [(ngModel)]="texto2" >
-      <option value="tree name">Seleccionar una opción</option>
-      <option *ngFor="let documento of documentos">
+    <select class="btn-primary-select" [(ngModel)]="item" [(ngModel)]="text2" >
+      <option value="tree name">Select an option</option>
+      <option *ngFor="let documento of documents">
       {{documento}}
       </option>
     </select>
   </li>
 
   <li class="nav-item">
-    <input type="file" (change)="changeListener($event)" #input />
+    <div id="xslUpload">
+      <label for="file-input">
+        <button class="btn importar" type="button">Attach file</button>
+      </label>
+      <input class="file-input" (change)="changeListener($event)" #input id="file-input" type="file"/>
+    </div>
   </li>
   
 
   <li class="nav-item">
     <button class="btn-primary-search" (click)="returnValues(itemValue2.value)"><i class="fa fa-search"></i></button>
-    <input matInput class="btn-primary-select" #itemValue2 type="string" placeholder=" Nombre">
+    <input matInput class="btn-primary-select" #itemValue2 type="string" placeholder=" Name">
   </li><!-- End Tables Nav -->
 
   <li class="nav-item">
@@ -95,7 +100,7 @@
   </li><!-- End Charts Nav -->
 
   <li class="nav-item">
-    <button mat-icon-button (click)="pasoajson()">
+    <button mat-icon-button (click)="TransformJSON()">
       <mat-icon>assignment_turned_in</mat-icon>
     </button>
   </li>
@@ -135,10 +140,6 @@
               <li>It is advisable to make the changes as small as posible to avoid any mistake we could make </li>
               <li>The order in wich you write constraints must be done as a tree model, so first, the root, and then if it has two childrens the first one should be the one who came before the logical preposition.
                  Example: (A ^ B) will be written as ^AB. </li>
-              <li>¿¿¿¿ Es realmente necesario????</li>
-              <li>When you change a value with more than one word, put them all clustered and with the first letter in capital. Examples: AppleTree, ILoveMusic. </li>
-              <li>¿¿¿¿ Es realmente necesario????</li>
-              <li>If you are goning to change any name in the tree remember to modify the corresponding values in the constraints.</li>
               <li>If unsure of the values selected try 'Write list' so you can see the current values, if any mistakes where made use 'Delete List' to start over or go ahead and then correct the mistake</li>
               <li>If you try to change a value from a constraint, be sure of the number of references each type of term can have. The program allows you to put less references but you should then insert those values.</li>
             </ul>
@@ -169,7 +170,7 @@
                   <mat-grid-tile  [colspan]="8"  [rowspan]="3">
                     
               
-                  <button class="btn-primary" (click)="togglevisibilityarbol()"> {{texto4}}</button>
+                  <button class="btn-primary" (click)="togglevisibilityFMTree()"> {{text4}}</button>
 
                   <cdk-virtual-scroll-viewport [itemSize]="18 * 7" class="example-viewport" >
                           <mat-tree [dataSource]="dataSource" [treeControl]="treeControl" class="example-tree">
@@ -184,10 +185,10 @@
                                       <div></div>
                                     </button>
                                     {{node.name}} 
-                                    <button class="" mat-menu-item [matMenuTriggerFor]="menu"  (click)= 'seleccionar(node)'> <mat-icon>dialpad</mat-icon> </button> 
+                                    <button class="" mat-menu-item [matMenuTriggerFor]="menu"  (click)= 'select(node)'> <mat-icon>dialpad</mat-icon> </button> 
                                   <div>
                                   <mat-icon >
-                                    {{SimboloPorTipo(node.type)}} 
+                                    {{SymbolPerType(node.type)}} 
                                   </mat-icon></div>
                               </div>
                             
@@ -211,7 +212,7 @@
 
                         
                             <mat-chip-list class="mat-chip-list-stacked" >
-                              <mat-chip *ngFor="let chip of tablachips" (click)="eligochiplogic(chip)">
+                              <mat-chip *ngFor="let chip of tablechips" (click)="SelectChipLogic(chip)">
                               {{chip}}
                               </mat-chip>
                             </mat-chip-list>
@@ -220,7 +221,7 @@
                 
                         <cdk-virtual-scroll-viewport [itemSize]="18 * 7" class="example-viewport" >
                           <mat-chip-list class="mat-chip-list-stacked"  >
-                            <mat-chip *ngFor="let chip of nombreschips" (click)="eligochipfeature(chip)" >
+                            <mat-chip *ngFor="let chip of nameschips" (click)="SelectChipFeature(chip)" >
                             {{chip}}
                             </mat-chip>
                           </mat-chip-list>
@@ -242,7 +243,7 @@
                                   </mat-icon>
                                 </button>
                                   {{constrainnode.type}} 
-                                  <button mat-menu-item [matMenuTriggerFor]="menu2" (click)= 'seleccionarCons(constrainnode)'> <mat-icon>dialpad</mat-icon> </button> 
+                                  <button mat-menu-item [matMenuTriggerFor]="menu2" (click)= 'SelectCons(constrainnode)'> <mat-icon>dialpad</mat-icon> </button> 
                             </div>
                                 <div [class.example-tree-invisible]="!constraintreeControl.isExpanded(constrainnode)" role="group">
                                   <ng-container matTreeNodeOutlet></ng-container> 
@@ -262,8 +263,8 @@
                 <mat-grid-tile [colspan]="8" [rowspan]="3">
                   <cdk-virtual-scroll-viewport [itemSize]="10 * 5" class="example-viewport" >
                   <mat-selection-list #constraints [multiple]="false">
-                    <mat-list-option *ngFor="let constrainTexto of jsonconstrainTexto" [value]="constrainTexto"
-                      (click)='cambioseleccionado(constraints.selectedOptions.selected[0].value)'>
+                    <mat-list-option *ngFor="let constrainTexto of jsonconstraintTexto" [value]="constrainTexto"
+                      (click)='SelectedChange(constraints.selectedOptions.selected[0].value)'>
                       {{constrainTexto}} 
                     </mat-list-option>
                   </mat-selection-list>
@@ -285,16 +286,16 @@
 					  <div class="modal-dialog modal-lg">
 						<div class="modal-content">
 						  <div class="modal-header">
-							<h4 class="modal-title" id="exampleModalLabel">Modificar valores</h4>
+							<h4 class="modal-title" id="exampleModalLabel">Modify values</h4>
 							<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 						  </div>
 							<div class="modal-body">
 								<div class="col-10">
                   
-                    <h2>Nombre</h2>
-                    <input matInput  type="string" [(ngModel)]="nombre">
+                    <h2>Name</h2>
+                    <input matInput  type="string" [(ngModel)]="name">
                     <hr>
-                    <h3>Tipo</h3>
+                    <h3>Type</h3>
                     <input matInput  type="string" [(ngModel)]="type">
                     <hr>
                     <h3>Card_max</h3>
@@ -307,8 +308,8 @@
                     <hr>
                     <mat-checkbox  [(ngModel)]="abstract" >abstract </mat-checkbox>
                     <hr>
-                    <h2>Guardar Cambios</h2>
-                    <button (click)="modificarSeleccion()" class="btn btn-primary">update</button>
+                    <h2>Save Changes</h2>
+                    <button (click)="ModifySelecction()" class="btn btn-primary">update</button>
                   
 								</div>
 							</div>
@@ -331,10 +332,10 @@
 							<div class="modal-body">
 								<div class="col-10">
                   
-                    <h3>Nombre</h3>
-                    <input matInput  type="string" [(ngModel)]="nombre">
+                    <h3>Name</h3>
+                    <input matInput  type="string" [(ngModel)]="name">
                     <div></div>
-                    <button (click)="CrearHijo()" class="btn btn-primary">Create</button>
+                    <button (click)="CreateChildren()" class="btn btn-primary">Create</button>
                   
 								</div>
 							</div>
@@ -356,8 +357,8 @@
 						  </div>
 							<div class="modal-body">
 								<div class="col-10">
-               <input matInput  type="string" [(ngModel)]="nombre">
-               <button (click)="CrearHermano()" class="btn btn-primary">Create</button>
+               <input matInput  type="string" [(ngModel)]="name">
+               <button (click)="CreateBrother()" class="btn btn-primary">Create</button>
 								</div>
 							</div>
 						  <div class="modal-footer">
@@ -381,8 +382,8 @@
 							<div class="modal-body">
 								<div class="col-10">
                   
-               <input matInput  type="string" [(ngModel)]="nombre">
-               <button (click)="CrearHermano()" class="btn btn-primary">Create</button>
+               <input matInput  type="string" [(ngModel)]="name">
+               <button (click)="CreateBrother()" class="btn btn-primary">Create</button>
 								</div>
 							</div>
 						  <div class="modal-footer">
@@ -404,7 +405,7 @@
 							<div class="modal-body">
 								<div class="col-10">
                     <h3>Are you sure?</h3>
-                    <button (click)="borrarRama()" class="btn btn-primary" data-bs-dismiss="modal">Proceed</button>
+                    <button (click)="DeleteNode()" class="btn btn-primary" data-bs-dismiss="modal">Proceed</button>
 								</div>
 							</div>
 						  <div class="modal-footer">
@@ -424,14 +425,14 @@
                 
                 <div class="menu2">
 
-                    <button class="bottom-style" (click)="togglevisibility()"> {{texto1}}</button>
-                    <button class="bottom-style" (click)="CrearConshermano()">Insert brother</button>
-                    <button class="bottom-style" (click)="CrearConshijo()">Insert child</button>
-                    <button class="bottom-style" (click)="ModificarCons()">Edit Constrain</button>
-                    <button class="bottom-style" (click)="borrarCons()">Delete Constrain</button>
-                    <button class="bottom-style" (click)="escribirlista()">Write List</button>
-                    <button class="bottom-style" (click)="borrarlista()">Delete List</button>
-                    <button class="bottom-style" (click)="togglevisibilitychips()">{{texto3}}</button>
+                    <button class="bottom-style" (click)="togglevisibility()"> {{text1}}</button>
+                    <button class="bottom-style" (click)="CreateConsBrother()">Insert brother</button>
+                    <button class="bottom-style" (click)="CreateConsSon()">Insert child</button>
+                    <button class="bottom-style" (click)="ModifyCons()">Edit Constrain</button>
+                    <button class="bottom-style" (click)="DeleteCons()">Delete Constrain</button>
+                    <button class="bottom-style" (click)="Writelist()">Write List</button>
+                    <button class="bottom-style" (click)="DeleteList()">Delete List</button>
+                    <button class="bottom-style" (click)="togglevisibilitychips()">{{text3}}</button>
                     <button class="bottom-style" (click)="returnValues()">Get</button>
                     <button class="bottom-style" (click)="SaveDemoJson()">Download .json</button>
                     <button class="bottom-style" (click)="SaveDemo()">Download .uvl</button>  

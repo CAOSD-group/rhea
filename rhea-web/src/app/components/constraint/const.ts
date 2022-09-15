@@ -2,14 +2,14 @@ import { Component } from '@angular/core'
 
 
 
-let aux :any // variable auxiliar 
+let aux :any 
 let aux2:any
 let aux3:any
 let aux4:any
 
-let constraintarbol :Array<Const> =[]
-let constrainttexto :Array<any> =[]
-let constraintnombre :Array<any> =[]
+let constraintTree :Array<Const> =[]
+let constraintText :Array<any> =[]
+let constraintName :Array<any> =[]
 
 @Component({
     selector: 'const',
@@ -25,109 +25,110 @@ let constraintnombre :Array<any> =[]
   
 
 
-    CrearConstraint(lista2:any){
-        constraintarbol=[]
-        constrainttexto=[]
-        constraintnombre=[]
-        for( const[key2] of Object.entries(lista2)){
-            aux2=this.CreanuevaConstraint(lista2[key2].ast)
-            constraintarbol.push(lista2[key2].ast)
-            constrainttexto.push(lista2[key2].expr)
-            constraintnombre.push(lista2[key2].name)
+    CreateConstraint(list2:any){
+        constraintTree=[]
+        constraintText=[]
+        constraintName=[]
+        for( const[key2] of Object.entries(list2)){
+            aux2=this.CreateNewConstraint(list2[key2].ast)
+            constraintTree.push(list2[key2].ast)
+            constraintText.push(list2[key2].expr)
+            constraintName.push(list2[key2].name)
             
         }
-        return [constraintarbol,constrainttexto,constraintnombre]
+        return [constraintTree,constraintText,constraintName]
     }
 
 
-    CreanuevaConstraint(valor:any){
-        if(valor.type!=undefined || valor.type!=""){
+    CreateNewConstraint(value:any){
+        if(value.type!=undefined || value.type!=""){
         aux=new Const()
-        aux.type=valor.type
-        aux.operands=valor.operands
+        aux.type=value.type
+        aux.operands=value.operands
         }
-        else{aux=valor}
+        else{aux=value}
         return aux
     }
-    buscar(lista:Array<any>){
-        if(lista!=undefined && lista.length>0 && lista!= null){
-            lista.forEach(element => {
-                this.CreanuevaConstraint(element)
-                lista.push(aux)
+    TransformToCons(list:Array<any>){
+        if(list!=undefined && list.length>0 && list!= null){
+            list.forEach(element => {
+                this.CreateNewConstraint(element)
+                list.push(aux)
                 if(element.operands!=undefined && element.operands.length>0 && element.operands!= null){
-                    this.buscar(element.operands)
+                    this.TransformToCons(element.operands)
                 }
             });
         }
-        lista.splice(0,lista.length/2)
-        return lista
+        list.splice(0,list.length/2)
+        return list
+    }
+    checkName(list:Array<any>,newname:string,oldname:string){
+        list.forEach(element => {
+            if(element.type==oldname){element.type=newname}
+            if(element.operands!=null){if (element.operands.length>0){
+                element.checkName(element.operands,newname,oldname)
+            }}
+        });
     }
 
 
-    crearListaBuena(list:Array<any>){
+    createListForTree(list:Array<any>){
         list.forEach(element => {
             if(element.type=='FeatureTerm'){
             element.type=element.operands[0]
             element.operands=null
             }
-            else{this.crearListaBuena(element.operands)}
+            else{this.createListForTree(element.operands)}
         });
         return list
     }
 
-    crearListaescritura(list:Array<any>,valores:Array<string>){
+    createListForFile(list:Array<any>,values:Array<string>){
         if(list!=undefined){
         list.forEach(element => {
-            console.log(element)
-            if(valores.indexOf(element.type)==-1){
+            if(values.indexOf(element.type)==-1){
             element.operands=[]
             element.operands.push(element.type)
             element.type='FeatureTerm'
-            console.log(element)
             }
-            else{this.crearListaescritura(element.operands,valores)}
+            else{this.createListForFile(element.operands,values)}
         });}
         else {list=[new Const]}
         return list
     }
 
-    listaConstraints(lista:Array<any>){
+    ListOfNewConstraint(list:Array<any>){
         aux=0
         aux2=0
         aux3=true
         aux4=0
         
-        while(aux<lista.length){
-            if(lista[aux].operands.length==1){ 
-                console.log("vengo por negativo ")
-                lista[aux].operands.push(lista[aux+1]);
-                lista[aux].operands.splice(0,1);
+        while(aux<list.length){
+            if(list[aux].operands.length==1){ 
+                list[aux].operands.push(list[aux+1]);
+                list[aux].operands.splice(0,1);
                 aux++}
-            if(lista[aux].operands.length>=2){
-                console.log("vengo por logic")
-                lista[aux].operands.push(lista[aux+1]);
+            if(list[aux].operands.length>=2){
+                list[aux].operands.push(list[aux+1]);
                 aux4=aux+1
                 aux2=aux+1
                 while(aux3){
-                    alert("comprobar que pasa cuando esta mal y se podria introducir como bien")
-                    // si se meten multiples features con un solo logic , se meteran los dos primeros en vez de saltar error
-                    aux4=aux4+lista[aux2].operands.length
+                    aux4=aux4+list[aux2].operands.length
                     aux2++
                     if(aux2>aux4){
                         aux3=false
                     }
                 }
                 aux3=true
-                lista[aux].operands.push(lista[aux2])
-                lista[aux].operands.splice(0,2);
+                list[aux].operands.push(list[aux2])
+                list[aux].operands.splice(0,2);
                 aux++}
 
-                if(lista[aux].operands.length!=undefined && lista[aux].operands.length==0){
-                    console.log("vengo por feature")
+                if(list[aux].operands.length!=undefined && list[aux].operands.length==0){
                     aux++
                 }
         }
-        return lista[0]
+        return list[0]
     }
   
         

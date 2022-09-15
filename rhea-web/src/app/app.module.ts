@@ -1,6 +1,6 @@
 import {AppComponent } from './app.component';
 import{Const} from './components/constraint/const';
-import { Arbol } from './components/arbol_pruebas/arbol';
+import { FMTree } from './components/FMTree_pruebas/FMTree';
 
 
 import {MatTreeModule} from '@angular/material/tree';
@@ -26,7 +26,7 @@ import {ScrollingModule} from '@angular/cdk/scrolling';
 @NgModule({
   declarations: [
     AppComponent,
-    Arbol,
+    FMTree,
     Const,  
   ],
 

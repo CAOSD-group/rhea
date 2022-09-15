@@ -2,7 +2,7 @@ import {Component} from '@angular/core';
 import {HttpClient, HttpParams } from '@angular/common/http';
 import {NestedTreeControl} from '@angular/cdk/tree';
 import {MatTreeNestedDataSource} from '@angular/material/tree';
-import {Arbol} from './components/arbol_pruebas/arbol';
+import {FMTree} from './components/FMTree_pruebas/FMTree';
 import{Const} from './components/constraint/const';
 import {MatDialog} from '@angular/material/dialog';
 import * as saveAs from 'file-saver';
@@ -13,15 +13,15 @@ import * as saveAs from 'file-saver';
 var aux:any;
 var aux2:any=""
 var aux3: any;
-let simbolo:any; // evita solapar valores en los auxiliares 
-var jsonconstrain: Array<Const>=[new Const()] 
+let symbol:any; // evita solapar valores en los auxiliares 
+var jsonconstraint: Array<Const>=[new Const()] 
 var jsonfeatures:string
-var diccionario:any
-var listaconstrain:Array<Const>=[]
-var posicion:number;
+var dictionary:any
+var listofconstraint:Array<Const>=[]
+var position:number;
 
-var listanombresconstrains:Array<string>=[]
-var listaconstrainTexto:Array<string>=[]
+var listnamesconstraints:Array<string>=[]
+var listnamestext:Array<string>=[]
 var json:string
 
 
@@ -39,40 +39,39 @@ export class AppComponent {
   urldownload2="http://172.16.51.94:5000/downloadFM2"  //servidor cargar datos
   urldelete="http://172.16.51.94:5000/deleteFM"  //servidor cargar datos
   urlcreate="http://172.16.51.94:5000/createFM" //servidor guardar datos
-  documentos:string[]= ['GPL.xml', 'JHipster.uvl', 'MobileMedia.xml', 'Pizzas.uvl', 'TankWar.xml', 'Truck.uvl','WeaFQAs.uvl'];
+  documents:string[]= ['GPL.xml', 'JHipster.uvl', 'MobileMedia.xml', 'Pizzas.uvl', 'TankWar.xml', 'Truck.uvl','WeaFQAs.uvl','Automotive2_1-basic.uvl'];
   //file: File | null = null;
   title:string ='rhea-web' // evita un error en app.component.spec.ts
-  declare actual:Arbol      //valor actual del arbol
-  consactual:Const =new Const()     //valor actual del arbol
-  declare padre:Arbol      //valor actual del padre del actual arbol
-  conspadre:Const =new Const()     //valor actual del padre del actual arbol
-  tree:Array<Arbol> =[new Arbol()]  // el arbol de datos 
-  cons:Array<Const>=[new Const()]   // El arbol de constraints con el nombre en la rama final
+  declare actual:FMTree      //valor actual del FMTree
+  consactual:Const =new Const()     //valor actual del FMTree
+  declare actualfather:FMTree      //valor actual del actualfather del actual FMTree
+  consactualfather:Const =new Const()     //valor actual del actualfather del actual FMTree
+  tree:Array<FMTree> =[new FMTree()]  // el FMTree de datos 
+  cons:Array<Const>=[new Const()]   // El FMTree de constraints con el name en la rama final
   //declare json_nombre:any;    //guardo los valores de las features
   //declare json_const:any;     //guardo los valores de las constraints
-  treeControl = new NestedTreeControl<Arbol>(node => node.children);
-  dataSource = new MatTreeNestedDataSource<Arbol>();
+  treeControl = new NestedTreeControl<FMTree>(node => node.children);
+  dataSource = new MatTreeNestedDataSource<FMTree>();
   constraintreeControl = new NestedTreeControl<Const>(constrainnode => constrainnode.operands);
   constraindataSource = new MatTreeNestedDataSource<Const>();
 
   
     
-  //lista de constraints y nombres de las features
-  tiposconstrains:Array<string>=['NotTerm','OrTerm','AndTerm','ImpliesTerm','Xor','Xand','doubleImpliesTerm']
-  tablachips:Array<string>=[]
-  nombresFeatures:Array<string>=[]
-  nombreschips:Array<string>=[]
-  crearConstrains:Array<string>=[]
+  //list de constraints y nombres de las features
+  typesofcons:Array<string>=['NotTerm','OrTerm','AndTerm','ImpliesTerm','Xor','Xand','doubleImpliesTerm']
+  tablechips:Array<string>=[]
+  namesFeatures:Array<string>=[]
+  nameschips:Array<string>=[]
   //otros
   titulo:string='';
   item:string ='Pizzas.uvl';
-  texto1="Ocultar Constraints";
-  texto3="Ocultar chips";
-  texto4="Ocultar Tree";
-  texto2=this.item;
-  jsonconstrainTexto: Array<string>=[]
-  // modificar o crear arbol
-  nombre:string="";
+  text1="Hide Constraints";
+  text3="Hide chips";
+  text4="Hide Tree";
+  text2=this.item;
+  jsonconstraintTexto: Array<string>=[]
+  // modificar o crear FMTree
+  name:string="";
   optional:boolean=false;
   abstract:boolean=false;
   type:string ="";
@@ -89,15 +88,15 @@ ngOnInit() {}
 
 
 
-saveFile(texto?:string){ // envio el nuevo archivo y el nuvo nombre opcional
-  this.pasoajson()  //actualizo los valores del json
-  if(texto==undefined || texto==""){
-    console.log("sin cambio de nombre")
-    this.http.post(this.urlsave,[jsonfeatures,jsonconstrain],{responseType:'text'}).subscribe(resultado => {
+saveFile(text?:string){ // envio el nuevo archivo y el nuvo name opcional
+  this.TransformJSON()  //actualizo los valores del json
+  if(text==undefined || text==""){
+    console.log("sin cambio de name")
+    this.http.post(this.urlsave,[jsonfeatures,jsonconstraint],{responseType:'text'}).subscribe(resultado => {
     console.log(resultado)})}
   else{
-    console.log("el nombre se cambia")
-    this.http.post(this.urlsave,[texto,jsonfeatures,jsonconstrain],{responseType:'text'}).subscribe(resultado => {
+    console.log("el name se cambia")
+    this.http.post(this.urlsave,[text,jsonfeatures,jsonconstraint],{responseType:'text'}).subscribe(resultado => {
     console.log(resultado)
   })}
 }
@@ -107,7 +106,7 @@ saveFile(texto?:string){ // envio el nuevo archivo y el nuvo nombre opcional
 
 
 
-enviarJSON(){
+sendJSON(){
   console.log(aux)
   this.http.post(this.urldownload2,aux,{responseType:'text'}).subscribe(resultado => {
     console.log(resultado)})
@@ -117,11 +116,8 @@ enviarJSON(){
 
 
 
-enviarUVL(uvl:any){
+sendUVL(uvl:any){
   let body ={'inputFM': uvl}
-  
-  //let body = new HttpParams();
-  //body.set('inputFM', uvl);
   console.log(uvl)
   console.log(body)
   this.http.post(this.urlupload,uvl,{responseType:'text'}).subscribe(resultado => {
@@ -132,47 +128,47 @@ enviarUVL(uvl:any){
 
 
 
-returnValues(texto?:string){
-  if(texto==""){texto=this.item}
-  if(texto==undefined){texto=this.item}
-  this.http.post(this.urldownload,texto,{responseType:'text'}).subscribe(resultado => {
-    this.CrearDatos(resultado,texto)
+returnValues(text?:string){
+  if(text==""){text=this.item}
+  if(text==undefined){text=this.item}
+  this.http.post(this.urldownload,text,{responseType:'text'}).subscribe(resultado => {
+    this.CreateData(resultado,text)
   })
 }
-CrearDatos(objeto:any,nombre?:string){
-    aux = objeto;
-    this.item=nombre||"";
-    this.texto2=this.item
+CreateData(object:any,name?:string){
+    aux = object;
+    this.item=name||"";
+    this.text2=this.item
     aux=JSON.parse(aux)
     this.titulo=aux.name
     console.log(this.titulo)
     jsonfeatures=aux.features,
-    jsonconstrain=aux.constraints
+    jsonconstraint=aux.constraints
     aux2=""
-    diccionario = Object.assign({}, objeto);
-    for( const[key] of Object.entries(diccionario)){
-      aux2=aux2+diccionario[key]
+    dictionary = Object.assign({}, object);
+    for( const[key] of Object.entries(dictionary)){
+      aux2=aux2+dictionary[key]
   }
     aux=JSON.parse(aux2)
     aux3=aux.constraints
-    this.crearCons()
-    this.crearArbol()
+    this.CreateCons()
+    this.CreateFMTree()
 }
 
-createFile(texto:string){  // envia el nombre del archivo a crear y el archivo a crear (1 o 2 pasos?)
-  this.pasoajson()
+CreateFile(text:string){  // envia el name del archivo a crear y el archivo a crear (1 o 2 pasos?)
+  this.TransformJSON()
   console.log("valores que se van a crear")
   console.log(jsonfeatures)
-  console.log(jsonconstrain)
-  this.http.post(this.urlcreate,[texto,jsonfeatures,jsonconstrain],{responseType:'text'}).subscribe(resultado => {
-    //¿que pasa si el nombre ya existe?
+  console.log(jsonconstraint)
+  this.http.post(this.urlcreate,[text,jsonfeatures,jsonconstraint],{responseType:'text'}).subscribe(resultado => {
+    //¿que pasa si el name ya existe?
     console.log(resultado)
   })
 }
 
 
 
-//SimboloPorTipo esta constantemente llamandose, alguna opcion?
+//SymbolPerType esta constantemente llamandose, alguna opcion?
 
 //cambios manuales un boton para enviar al server 
 
@@ -191,55 +187,57 @@ createFile(texto:string){  // envia el nombre del archivo a crear y el archivo a
   
 
 
-modificarSeleccion(){
+ModifySelecction(){
   aux=this.actual.name
-  if(this.actual.name!=this.nombre && this.actual.evitaDuplicados(this.nombre)){
-    alert("este nombre ya existe, por favor use otro")
+  if(this.actual.name!=this.name && this.actual.AvoidDuplicates(this.name)){
+    alert("this name is already in use")
   }
   else{
-  this.actual.name=this.nombre
-  if(this.actual.children==undefined){
-    alert("has intentado modificar un objeto que no tiene 2 o mas hijos")
-  }
+  this.actual.name=this.name
+  if(this.actual.children==undefined){}
   if(this.actual.children!=undefined){
   if(this.actual.children.length<2){
-    alert("has intentado modificar un objeto que no tiene 2 o mas hijos")
   }
   else{
   this.actual.type=this.type
   this.actual.card_max=this.card_max
   this.actual.card_min=this.card_min
-  alert("no se comprueba que el tipo tenga concordancia con el maximo y minimo")
 }}
   this.actual.optional=this.optional
   this.actual.abstract=this.abstract
+
+this.namesFeatures=this.tree[0].ListOfNamesModified(this.actual.name,aux)
+this.cons[0].checkName(this.cons,this.actual.name,aux)
 }
-this.nombresFeatures=this.tree[0].listanombresModificar(this.actual.name,aux)
 }
-borrarRama(){
-  this.actual.borrar(this.padre)
-  this.recargarArbol()
+DeleteNode(){
+  this.actual.Delete(this.actualfather)
+  this.ReloadFMTree()
 }
-CrearHijo(){
-  if(this.actual.evitaDuplicados(this.nombre)){
-    alert("este nombre ya existe, por favor use otro")
+CreateChildren(){
+  if(this.actual.AvoidDuplicates(this.name)){
+    alert("this name is already in use")
   }
   else{
   if(this.actual.children==undefined){this.actual.children=[]}
-  this.actual.children.push(this.actual.creardeafault(this.nombre))
-  this.recargarArbol()}
+  this.actual.children.push(this.actual.CreateDefault(this.name))
+  this.ReloadFMTree()
+  console.log(this.name)
+  this.tree[0].ExpandList(this.name)}
 }
-CrearHermano(){
-  if(this.actual.evitaDuplicados(this.nombre)){
-    alert("este nombre ya existe, por favor use otro")
+CreateBrother(){
+  if(this.actual.AvoidDuplicates(this.name)){
+    alert("this name is already in use")
   }
   else{
-  if(this.padre==undefined){
-    alert("estas intentando crear una raiz")
+  if(this.actualfather==undefined){
+    alert("You are trying to create a new root")
   }
   else{
-  this.padre.children.push(this.actual.creardeafault(this.nombre))
-  this.recargarArbol()
+  this.actualfather.children.push(this.actual.CreateDefault(this.name))
+  this.ReloadFMTree()
+  console.log(this.name)
+  this.tree[0].ExpandList(this.name)
 }}
 }
 
@@ -247,58 +245,60 @@ CrearHermano(){
 
 
 
-constrainhasChild = (_: number, constrainnode: any) => !!constrainnode.children && constrainnode.children.length >= 0;
+constrainthasChild = (_: number, constrainnode: any) => !!constrainnode.children && constrainnode.children.length >= 0;
 hasChild = (_: number, node: any) => !!node.children && node.children.length >= 0;
 
 
-crearCons(){
+CreateCons(){
   console.log("creo constraints")
+  position=-1
   this.cons.splice(0,this.cons.length)
   aux2=0
   if(true){    //Porque hace falta poner el if para que no de error la siguiente linea?
-  [jsonconstrain,this.jsonconstrainTexto,listanombresconstrains]=this.consactual.CrearConstraint(aux3)
-  while(aux2<jsonconstrain.length){
-  jsonconstrain[aux2]=this.consactual.CreanuevaConstraint(jsonconstrain[aux2])
+  [jsonconstraint,this.jsonconstraintTexto,listnamesconstraints]=this.consactual.CreateConstraint(aux3)
+  while(aux2<jsonconstraint.length){
+  jsonconstraint[aux2]=this.consactual.CreateNewConstraint(jsonconstraint[aux2])
   aux2++}
 
 
-  this.cons=this.consactual.crearListaBuena(jsonconstrain)
-  jsonconstrain=this.consactual.buscar(jsonconstrain)
-  jsonconstrain=aux3
+  this.cons=this.consactual.createListForTree(jsonconstraint)
+  //console.log(jsonconstraint)
+  jsonconstraint=this.consactual.TransformToCons(jsonconstraint)
+  jsonconstraint=aux3
   console.log(this.cons)
-  this.constraindataSource.data=this.cons.filter(x=>this.cons.indexOf(x)==posicion)
-  this.texto3="Mostrar chips"
-  this.texto1="Ocultar Constraints"
-  this.texto4="Ocultar Arbol"
-  this.tablachips=[]
-  this.nombreschips=[]
+  this.constraindataSource.data=this.cons.filter(x=>this.cons.indexOf(x)==position)
+  this.text3="Show chips"
+  this.text1="Hide Constraints"
+  this.text4="Hide FMTree"
+  this.tablechips=[]
+  this.nameschips=[]
 }
   
 }
 
-crearArbol(){
-  console.log("creo arbol")
+CreateFMTree(){
+  console.log("creo FMTree")
   this.tree.splice(0,this.tree.length)
-  this.tree=[new Arbol()]
-  this.tree[0].borrarLista();
-  this.tree=this.tree[0].CrearArbol(jsonfeatures)
-  this.nombresFeatures=this.tree[0].listanombres();
-  this.tree[0]=this.tree[0].meterHijos(jsonfeatures);
+  this.tree=[new FMTree()]
+  this.tree[0].DeleteList();
+  this.tree=this.tree[0].CrearNewFMTree(jsonfeatures)
+  this.namesFeatures=this.tree[0].ListOfNames();
+  this.tree[0]=this.tree[0].IncorporateChildren(jsonfeatures);
   this.tree.splice(1,this.tree.length)
-  this.tree[0].limpiarArbol()
+  this.tree[0].CleanFMTree()
   console.log(this.tree)
   this.dataSource.data=this.tree
 }
 
-borrarArbol(){
+DeleteFMTree(){
   this.dataSource.data=[]
   this.constraindataSource.data=[]
 }
 
-recargarArbol(){
-  this.borrarArbol()
+ReloadFMTree(){
+  this.DeleteFMTree()
   this.dataSource.data=this.tree
-  this.constraindataSource.data=this.cons.filter(x=>this.cons.indexOf(x)==posicion)
+  this.constraindataSource.data=this.cons.filter(x=>this.cons.indexOf(x)==position)
   if(this.consactual==undefined){ this.consactual=new Const()}
 }
 
@@ -313,13 +313,13 @@ readThis(inputValue: any): void {
     if(file.name.endsWith('.json')){
       console.log("llega json")
       setTimeout(() => {
-      this.CrearDatos(aux,"hola")
+      this.CreateData(aux,"hola")
       },100)
     }
     if(file.name.endsWith('.uvl')){
       console.log("llega uvl")
       setTimeout(() => {
-        this.enviarUVL(file)
+        this.sendUVL(file)
         },100)
     }
 
@@ -327,162 +327,163 @@ readThis(inputValue: any): void {
   
 }
   
-  seleccionar(objeto:any){
-    this.actual=objeto
-    this.nombre=this.actual.name
+  select(object:any){
+    this.actual=object
+    this.name=this.actual.name
     this.type=this.actual.type
     this.optional=this.actual.optional
     this.abstract=this.actual.abstract
     this.card_max=this.actual.card_max
     this.card_min=this.actual.card_min
-    this.buscarPadreArbol(objeto)
+    this.TransformToConsPadreFMTree(object)
     console.log(this.actual)
   }
  
-  buscarPadreArbol(objeto:any,lista?:Array<any>,padre?:any){
-    if(lista==null){lista=this.tree}
-    if(lista.filter(x=> x==objeto)[0]==undefined){
-      lista.forEach(element => {
+  TransformToConsPadreFMTree(object:any,list?:Array<any>,actualfather?:any){
+    if(list==null){list=this.tree}
+    if(list.filter(x=> x==object)[0]==undefined){
+      list.forEach(element => {
         if(element.children){
         if(element.children.length>0){
-          this.buscarPadreArbol(objeto,element.children,element)
+          this.TransformToConsPadreFMTree(object,element.children,element)
         }}
       });
     }else{
-      this.padre=padre
+      this.actualfather=actualfather
     }
   }
-  seleccionarCons(objeto:any){
-    this.buscarPadreConst(objeto)
-    posicion=this.cons.indexOf(objeto) 
-    this.consactual=objeto
-    this.ncons=this.jsonconstrainTexto[posicion] // se supone que siempre que lo podre obtener cuando se actualice con los valores del server
+  SelectCons(object:any){
+    this.TransformToConsPadreConst(object)
+    position=this.cons.indexOf(object) 
+    this.consactual=object
+    this.ncons=this.jsonconstraintTexto[position] // se supone que siempre que lo podre obtener cuando se actualice con los valores del server
     console.log(this.consactual)
   }
 
-  buscarPadreConst(objeto:any,lista?:Array<any>,padre?:any){
-    if(lista==null){lista=this.cons}
-    if(lista.filter(x=> x==objeto)[0]==undefined){
-      lista.forEach(element => {
+  TransformToConsPadreConst(object:any,list?:Array<any>,actualfather?:any){
+    if(list==null){list=this.cons}
+    if(list.filter(x=> x==object)[0]==undefined){
+      list.forEach(element => {
         if(element.operands){
         if(element.operands.length>0){
-          this.buscarPadreConst(objeto,element.operands,element)
+          this.TransformToConsPadreConst(object,element.operands,element)
         }}
       });
     }else{
-      this.conspadre=padre
+      this.consactualfather=actualfather
     }
   }
 
-  borrarCons(){
-    if( this.consactual.type=='' && posicion!= undefined && posicion!=-1){
-      this.cons.splice(posicion,1)
-      this.borrarConsText()
-      posicion=-1
+  DeleteCons(){
+    if( this.consactual.type=='' && position!= undefined && position!=-1){
+      this.cons.splice(position,1)
+      this.DeleteConsText()
+      position=-1
     }
     if(this.consactual!=undefined){
-      if(this.conspadre!=undefined &&this.conspadre.type!=""){
+      if(this.consactualfather!=undefined &&this.consactualfather.type!=""){
         aux2=0
-      while(aux2<this.conspadre.operands.length){
-        if(this.conspadre.operands[aux2]==this.consactual){
+      while(aux2<this.consactualfather.operands.length){
+        if(this.consactualfather.operands[aux2]==this.consactual){
           aux=aux2
           aux2++
         }
         else{aux2++}
       }
         console.log(aux)
-        this.conspadre.operands.splice(aux,1)
+        this.consactualfather.operands.splice(aux,1)
         
       }
       else{
-        if(posicion!=-1){
-        this.cons.splice(posicion,1)
-        this.borrarConsText()
-        posicion=-1}
+        if(position!=-1){
+        this.cons.splice(position,1)
+        this.DeleteConsText()
+        position=-1}
       }
     }
     if(this.cons.length==0){this.cons.push(new Const)}
-    this.cambioseleccionado(this.ncons)
-    this.recargarArbol()
+    this.SelectedChange(this.ncons)
+    this.ReloadFMTree()
   }
 
-  Crearlistaconstrain(){
-    if(listaconstrain.length==2){
-      listaconstrain[0].operands.push(listaconstrain[1]);
-      listaconstrain[0].operands.splice(0,1);
+  CreateListCons(){
+    if(listofconstraint.length==2){
+      listofconstraint[0].operands.push(listofconstraint[1]);
+      listofconstraint[0].operands.splice(0,1);
     }
-    if(listaconstrain.length>2){
-      console.log(listaconstrain)
+    if(listofconstraint.length>2){
+      console.log(listofconstraint)
       
-      listaconstrain[0]=this.consactual.listaConstraints(listaconstrain)
+      listofconstraint[0]=this.consactual.ListOfNewConstraint(listofconstraint)
     }
-    console.log(listaconstrain[0])
-    return listaconstrain[0]
+    console.log(listofconstraint[0])
+    return listofconstraint[0]
   }
 
-  ModificarCons(){
-    if(listaconstrain.length!=0&&listaconstrain!=undefined){
-      this.Crearlistaconstrain()
+  ModifyCons(){
+    if(listofconstraint.length!=0&&listofconstraint!=undefined){
+      this.CreateListCons()
 
-    if(this.conspadre==undefined ||  this.conspadre.type==""){
+    if(this.consactualfather==undefined ||  this.consactualfather.type==""){
       console.log("1")
-      this.cons[posicion]=listaconstrain[0]
-      this.jsonconstrainTexto[posicion]="New value" +posicion
+      this.cons[position]=listofconstraint[0]
+      this.jsonconstraintTexto[position]="New value" +position
     }
 
-    if(this.conspadre!=undefined  ){
+    if(this.consactualfather!=undefined  ){
       console.log("2")
       aux2=0
-      while(aux2<this.conspadre.operands.length){
+      while(aux2<this.consactualfather.operands.length){
         console.log("3")
-        if(this.conspadre.operands[aux2]==this.consactual){
+        if(this.consactualfather.operands[aux2]==this.consactual){
           aux=aux2
           aux2++
         }
         else{aux2++}
       }
-      this.conspadre.operands[aux]=listaconstrain[0]
+      console.log(position)
+      this.consactualfather.operands[aux]=listofconstraint[0]
     }
     }
-    this.recargarArbol()
-    listaconstrain=[]
+    this.ReloadFMTree()
+    listofconstraint=[]
   }
 
 
 togglevisibility(){
-  if(this.texto1=="Ocultar Constraints"){
-  this.texto1="Mostrar Constraints"
+  if(this.text1=="Hide Constraints"){
+  this.text1="Show Constraints"
   this.constraindataSource.data=[]
   }
   else{
-    this.texto1="Ocultar Constraints"
-    this.constraindataSource.data=this.cons.filter(x=>this.cons.indexOf(x)==posicion)
+    this.text1="Hide Constraints"
+    this.constraindataSource.data=this.cons.filter(x=>this.cons.indexOf(x)==position)
   } 
 }
 
-togglevisibilityarbol(){
-  if(this.texto4=="Ocultar Arbol"){
-  this.texto4="Mostrar Arbol"
-  this.texto2=""
+togglevisibilityFMTree(){
+  if(this.text4=="Hide FMTree"){
+  this.text4="Show FMTree"
+  this.text2=""
   this.dataSource.data=[]
   }
   else{
-    this.texto4="Ocultar Arbol"
-    this.texto2=this.item
+    this.text4="Hide FMTree"
+    this.text2=this.item
     this.dataSource.data=this.tree
   }
 }
 togglevisibilitychips(){
-  if(this.texto3=="Ocultar chips"){
-  this.texto3="Mostrar chips"
-  this.tablachips=[]
-  this.nombreschips=[]
+  if(this.text3=="Hide chips"){
+  this.text3="Show chips"
+  this.tablechips=[]
+  this.nameschips=[]
   }
   else{
-    this.texto3="Ocultar chips"
-    this.tablachips=this.tiposconstrains
-    this.nombreschips=this.nombresFeatures
-    console.log(this.nombresFeatures)
+    this.text3="Hide chips"
+    this.tablechips=this.typesofcons
+    this.nameschips=this.namesFeatures
+    console.log(this.namesFeatures)
   }
 }
 
@@ -500,145 +501,145 @@ openDialog() {
 
 
 
-SimboloPorTipo(tipo:string){ 
-  if( tipo.toUpperCase().startsWith("FEATURE")){
-    simbolo='add'
+SymbolPerType(type:string){ 
+  if( type.toUpperCase().startsWith("FEATURE")){
+    symbol='add'
   }
-  if(tipo=="XAND"){
-    simbolo='menu'
+  if(type=="XAND"){
+    symbol='menu'
   }
-  if(tipo=="XOR"){
-    simbolo='sentiment_very_satisfied'
+  if(type=="XOR"){
+    symbol='sentiment_very_satisfied'
   }
-  if(tipo=="OR"){
-    simbolo='pages'
+  if(type=="OR"){
+    symbol='pages'
   }
-  if(tipo!="OR"&& tipo!="XOR" && !tipo.toUpperCase().startsWith("FEATURE") &&tipo!="XAND"){
-    simbolo='help_outline'
+  if(type!="OR"&& type!="XOR" && !type.toUpperCase().startsWith("FEATURE") &&type!="XAND"){
+    symbol='help_outline'
   }
-  return simbolo
+  return symbol
 }
 
 onRightClick($event) {
-  alert("hola")
   return true
 }
-cambioseleccionado(v){
+SelectedChange(v){
   aux2=0
-  while (aux2<this.jsonconstrainTexto.length) {
-    if(this.jsonconstrainTexto[aux2]==v ){posicion=aux2}
+  while (aux2<this.jsonconstraintTexto.length) {
+    if(this.jsonconstraintTexto[aux2]==v ){position=aux2}
     aux2++
   }
   this.ncons=v
-  this.consactual=this.cons[posicion]
+  this.consactual=this.cons[position]
   console.log(this.consactual)
-  this.constraindataSource.data=this.cons.filter(x=>this.cons.indexOf(x)==posicion)
+  this.constraindataSource.data=this.cons.filter(x=>this.cons.indexOf(x)==position)
 }
-CrearConslista(){
-  if(listaconstrain!=undefined && listaconstrain.length!=0){
-    this.Crearlistaconstrain()
-    posicion=this.jsonconstrainTexto.length
-    this.jsonconstrainTexto.push("New constraint"+posicion)
-    this.cons.push(listaconstrain[0])
+CreateConsList(){
+  if(listofconstraint!=undefined && listofconstraint.length!=0){
+    this.CreateListCons()
+    position=this.jsonconstraintTexto.length
+    this.jsonconstraintTexto.push("New constraint"+position)
+    this.cons.push(listofconstraint[0])
   }
-  listaconstrain=[]
-  this.recargarArbol()
+  listofconstraint=[]
+  this.ReloadFMTree()
 }
-escribirlista(){
+Writelist(){
   aux=""
-  listaconstrain.forEach(element => {
+  listofconstraint.forEach(element => {
     aux=aux+element.type+" "
   })
   alert(aux)
-  console.log(listaconstrain)
+  console.log(listofconstraint)
+  console.log(position)
 }
-borrarlista(){
-  listaconstrain=[]
-  console.log(listaconstrain)
+DeleteList(){
+  listofconstraint=[]
+  console.log(listofconstraint)
 }
 
-CrearConshermano(){
-  if(this.conspadre!=undefined && this.conspadre.type!=""){
-  if(listaconstrain!=undefined && listaconstrain.length!=0){
-    this.Crearlistaconstrain()
-    if(this.conspadre.type.toLowerCase().startsWith("feature")){}
+CreateConsBrother(){
+  if(this.consactualfather!=undefined && this.consactualfather.type!=""){
+  if(listofconstraint!=undefined && listofconstraint.length!=0){
+    this.CreateListCons()
+    if(this.consactualfather.type.toLowerCase().startsWith("feature")){}
     else{
-    if(this.conspadre.type.toLowerCase().startsWith("not") && this.conspadre.operands.length==1){}
+    if(this.consactualfather.type.toLowerCase().startsWith("not") && this.consactualfather.operands.length==1){}
     else{
-    if(this.conspadre.operands.length==2){}
-    else{this.conspadre.operands.push(listaconstrain[0])
+    if(this.consactualfather.operands.length==2){}
+    else{this.consactualfather.operands.push(listofconstraint[0])
       console.log("hermano valido")
     }}}
   }}
   else{
-  this.CrearConslista(); 
-  alert("no habia padre por lo que se creo una nueva")
+  this.CreateConsList(); 
+  alert("there was no father so a new one was created")
 }
-  listaconstrain=[]
-  this.recargarArbol()
+  listofconstraint=[]
+  this.ReloadFMTree()
 }
 
-CrearConshijo(){
-  if(listaconstrain!=undefined && listaconstrain.length!=0){this.Crearlistaconstrain()}
+CreateConsSon(){
+  if(listofconstraint!=undefined && listofconstraint.length!=0){this.CreateListCons()}
   if(this.consactual!=undefined){
   if(this.consactual.operands!=null||this.consactual.operands!=undefined){
   if(this.consactual.operands.length!=0 ){
     if(this.consactual.operands[0].type==""){this.consactual.operands.slice(0,1)}}
 
-  if(this.tiposconstrains.indexOf(this.consactual.type)==-1){}
+  if(this.typesofcons.indexOf(this.consactual.type)==-1){}
     else{
       if(this.consactual.type.toLowerCase().startsWith("not") && this.consactual.operands.length==1){}
         else{
           if(this.consactual.operands.length==2){}
-          else{this.consactual.operands.push(listaconstrain[0])
+          else{this.consactual.operands.push(listofconstraint[0])
             console.log("hijo valido")
           }
       }
     }
   }
 }
-  listaconstrain=[]
-  this.recargarArbol()
+  listofconstraint=[]
+  this.ReloadFMTree()
 }
 
 
-borrarConsText(){
-  this.jsonconstrainTexto[posicion]=""
-  this.jsonconstrainTexto=this.jsonconstrainTexto.filter(x=>x!="")
-  console.log(posicion)
-  this.recargarArbol()
+DeleteConsText(){
+  this.jsonconstraintTexto[position]=""
+  this.jsonconstraintTexto=this.jsonconstraintTexto.filter(x=>x!="")
+  console.log(position)
+  this.ReloadFMTree()
 }
 
 
-eligochiplogic(texto:string){
+SelectChipLogic(text:string){
   aux=new Const()
-  aux.type=texto
-  if(texto=="NotTerm"){
+  aux.type=text
+  if(text=="NotTerm"){
     aux.operands=[new Const()]
   }else{
     aux.operands=[new Const(),new Const()]
   }
-  listaconstrain.push(aux)
-  console.log(listaconstrain)
+  listofconstraint.push(aux)
+  console.log(listofconstraint)
 }
 
-eligochipfeature(texto:string){
+SelectChipFeature(text:string){
   aux=new Const()
-  aux.type=texto
+  aux.type=text
   aux.operands=[]
-  listaconstrain.push(aux)
-  console.log(listaconstrain)
+  listofconstraint.push(aux)
+  console.log(listofconstraint)
 }
 
 
-pasoajson(){
-  aux=this.consactual.crearListaescritura(this.cons,this.tiposconstrains)
+TransformJSON(){
+  aux=this.consactual.createListForFile(this.cons,this.typesofcons)
   jsonfeatures=JSON.stringify(this.tree[0], (key, value) => {
       if(value!==null) return value  
   })
   aux=0
   while( aux<this.cons.length){
-     listaconstrainTexto[aux]=JSON.stringify(this.cons[aux], (key, value) => {
+     listnamestext[aux]=JSON.stringify(this.cons[aux], (key, value) => {
     if(value!==null) return value  
 })
 aux++
@@ -646,56 +647,56 @@ aux++
   jsonfeatures= '"name"'+':"'+this.titulo+'",'+'"features"'+':'+ jsonfeatures
   aux=0
   aux2=""
-  while (aux<listanombresconstrains.length){
-    aux2=aux2+'{"name":"'+listanombresconstrains[aux]+'","expr":"'+this.jsonconstrainTexto[aux]+'","ast":'+listaconstrainTexto[aux]+'},'
+  while (aux<listnamesconstraints.length){
+    aux2=aux2+'{"name":"'+listnamesconstraints[aux]+'","expr":"'+this.jsonconstraintTexto[aux]+'","ast":'+listnamestext[aux]+'},'
     aux++
   }
   aux2=aux2.slice(0,aux2.length-1)
   aux2='"constraints": ['+aux2+']'
   json='{'+jsonfeatures+','+aux2+'}'
   console.log(json)
-  this.cons=this.consactual.crearListaBuena(this.cons)
+  this.cons=this.consactual.createListForTree(this.cons)
 }
 
 
 
 updatevalues(){
-  aux=this.consactual.crearListaescritura(this.cons,this.tiposconstrains)
+  aux=this.consactual.createListForFile(this.cons,this.typesofcons)
   jsonfeatures=JSON.stringify(this.tree[0], (key, value) => {
       if(value!==null) return value  })
   aux=0
   while( aux<this.cons.length){
-     listaconstrainTexto[aux]=JSON.stringify(this.cons[aux], (key, value) => {
+     listnamestext[aux]=JSON.stringify(this.cons[aux], (key, value) => {
     if(value!==null) return value})
   aux++
   }
   jsonfeatures= '"name"'+':"'+this.titulo+'",'+'"features"'+':'+ jsonfeatures
   aux=0
   aux2=""
-  while (aux<listaconstrainTexto.length){
-    aux2=aux2+'{"name":"","expr":"","ast":'+listaconstrainTexto[aux]+'},'
+  while (aux<listnamestext.length){
+    aux2=aux2+'{"name":"","expr":"","ast":'+listnamestext[aux]+'},'
     aux++
   }
   aux2=aux2.slice(0,aux2.length-1)
   aux2='"constraints": ['+aux2+']'
   json='{'+jsonfeatures+','+aux2+'}'
   console.log(json)
-  this.cons=this.consactual.crearListaBuena(this.cons)
+  this.cons=this.consactual.createListForTree(this.cons)
 }
 
 SaveDemoJson() {
-  this.pasoajson()
+  this.TransformJSON()
   let file = new Blob([json], { type: 'json' });
   saveAs(file, this.titulo+'.json')
 }
 SaveDemo() {
-  this.pasoajson()
+  this.TransformJSON()
   console.log("llego")
   aux = new Blob([json], { type: 'json' });
   console.log(aux)
-  this.enviarJSON()
-  //this.CrearDatos(resultado)
-  alert("le mando el json al servidor, y yo descargo la respuesta en formato UVL")
+  this.sendJSON()
+  //this.CreateData(resultado)
+  alert("I send the json file to the server,and then download the data as an UVL file")
   let file2 = new Blob(["resultado"], { type: 'uvl' });
   saveAs(file2, this.titulo+'.uvl') 
 
@@ -708,7 +709,8 @@ SaveDemo() {
   templateUrl: './dialog-content-example-dialog.html',
 })
 export class DialogContentExampleDialog {
-  sirvo(texto:string){
-    alert(texto)
+ 
+  example(text:string){
+    alert(text)
   }
 }

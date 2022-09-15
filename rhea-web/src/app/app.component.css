@@ -754,7 +754,40 @@ h6 {
   margin-right: 5px;
   border-radius: 5px;
 }
+.sidebar-nav #xslUpload {
+  margin-bottom: 15px;
+  
+}
 
+.sidebar-nav #xslUpload  > label {
+  margin:0;
+  cursor: pointer;
+}
+.sidebar-nav #xslUpload  > .file-input {
+  display: none;
+}
+
+.sidebar-nav #xslUpload .importar {
+  border-radius: 5px;
+  pointer-events: none;
+  background: url('https://cdn4.iconfinder.com/data/icons/bloggers-1-to-7-vol-PNG/512/attach_folder.png');
+  background-color: #012970;
+  background-repeat: no-repeat;
+  background-position: 10px 0px;
+  background-size: 40px 40px;
+  padding-left: 60px;
+  color: #fff;
+  padding-top: 12px;
+  font-weight: 700;
+  padding-bottom: 10px;
+}
+
+.sidebar-nav #xslUpload > label:hover > .importar{
+  
+  color: #012970;
+  border-color: #012970;
+  background-color: #fff;
+}
 /*--------------------------------------------------------------
 # Dashboard
 --------------------------------------------------------------*/
