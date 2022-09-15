@@ -39,7 +39,7 @@ REFACTORING_REQUIRES = EliminationSimpleConstraintsRequires
 REFACTORING_EXCLUDES = EliminationSimpleConstraintsExcludes
 REFACTORING_REQUIRES_WITHOUT_DICT = EliminationSimpleConstraintsRequiresWithoutDict
 REFACTORING_EXCLUDES_WIHOUT_DICT = EliminationSimpleConstraintsExcludesWithoutDict
-MODEL_PATH = 'tests/models/split_constraints/input_models/Pizzas_1ctcs.uvl'
+MODEL_PATH = 'tests/models/split_constraints/input_models/JHipster.uvl'
 OUTPUT_PATH = 'output.uvl'
 OUTPUT_CONSOLE = 'output.txt'
 ##################################################################################################
@@ -152,7 +152,7 @@ def main():
 
     fm.dict_references = {}  # dictionary for references: str (feature's name) -> Feature
 
-    print_fm(fm)
+    # print_fm(fm)
 
     print_statistics(fm)
     
@@ -182,6 +182,8 @@ def main():
     print_fm_numbers(fm)
 
     print_fm(fm)
+
+    # print_fm_numbers(fm)
 
     #UVLWriter(fm, OUTPUT_PATH).transform()
     #print_fm(fm, expected_results)

@@ -13,5 +13,5 @@ features
 
 constraints
 	B | F => E
-	E => F
+	E => !F
 	F => E

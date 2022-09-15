@@ -30,6 +30,10 @@ class EliminationSimpleConstraintsExcludes(FMRefactoring):
         model_less = copy.deepcopy(model)
         model_less_plus = copy.deepcopy(model)
 
+        # print(f'Dict FIRST excludes: {[key for key in model.dict_references.keys()]}')
+
+        # print(f'MODEL EXCLUDES before: {model}')
+
         if instance.ast.root.data in [ASTOperation.REQUIRES, ASTOperation.IMPLIES, ASTOperation.OR]:
             not_operation = instance.ast.root.right
             right_feature_name_ctc = not_operation.left.data
@@ -38,8 +42,10 @@ class EliminationSimpleConstraintsExcludes(FMRefactoring):
 
         list_right_feature_ctc_less = [right_feature_name_ctc] + [key for key, value in model.dict_references.items() 
                                         if value.name == right_feature_name_ctc]
+        # print(f'LIST RIGHT FEATURE CTC LESS: {[f for f in list_right_feature_ctc_less]}')
         list_right_feature_ctc_less_plus = [right_feature_name_ctc] + [key for key, value in model.dict_references.items() 
                                             if value.name == right_feature_name_ctc]
+        # print(f'LIST RIGHT FEATURE CTC LESS PLUS: {[f for f in list_right_feature_ctc_less_plus]}')
 
 
         if instance.ast.root.data in [ASTOperation.REQUIRES, ASTOperation.IMPLIES, ASTOperation.EXCLUDES]:
@@ -51,6 +57,7 @@ class EliminationSimpleConstraintsExcludes(FMRefactoring):
         xor_plus = Feature(utils.get_new_feature_name(model_less, 'XOR'), is_abstract=True)
         list_left_feature_ctc_less_plus = [left_feature_name_ctc] + [key for key, value in model.dict_references.items() 
                                             if value.name == left_feature_name_ctc]
+        # print(f'LIST LEFT FEATURE CTC LESS PLUS: {[f for f in list_left_feature_ctc_less_plus]}')
 
 
 
@@ -122,20 +129,22 @@ class EliminationSimpleConstraintsExcludes(FMRefactoring):
         if model_less is not None and model_less_plus is not None:
             for feature in model_less_plus.get_features():
                 if feature in model_less.get_features() and not feature.name in model.dict_references.keys():
-                    if not feature in model.dict_references.values():
-                        feature_reference = model.get_feature_by_name(feature.name)
-                        print(f'feature reference: {feature_reference}')
-                        feature.name = utils.get_new_feature_name(model, feature.name)
-                        if feature != feature_reference:
-                            model.dict_references[feature.name] = feature_reference
-                            print(f'feature reference: {feature_reference}')
+                    feature_reference = model.get_feature_by_name(feature.name)
+                    # print(f'feature reference: {feature_reference}')
+                    feature.name = utils.get_new_feature_name(model, feature.name)
+                    if feature != feature_reference:
+                        model.dict_references[feature.name] = feature_reference
+                        # print(f'feature reference: {feature_reference}')
                 elif feature.name in model.dict_references.keys():
                     feature_dict_value = model.dict_references[feature.name]
                     feature.name = utils.get_new_feature_name(model, feature.name)
                     if feature != feature_dict_value:
                         model.dict_references[feature.name] = feature_dict_value
                 
-        print(f'Dict references excludes: {[value.name for value in model.dict_references.values()]}')
+        # print(f'Dict references excludes: {[value.name for value in model.dict_references.values()]}')
+        # print(f'Dict keys excludes: {[key for key in model.dict_references.keys()]}')
+
+        # print(f'MODEL EXCLUDES after: {model}')
 
         return model
 

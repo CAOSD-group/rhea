@@ -35,6 +35,9 @@ class EliminationSimpleConstraintsRequires(FMRefactoring):
         model_plus = copy.deepcopy(model)  # copy.deepcopy(model)
         model_less = copy.deepcopy(model)
 
+        # print(f'Dict FIRST requires: {[key for key in model.dict_references.keys()]}')
+        # print(f'MODEL REQUIRES before: {model}')
+
         right_feature_name_ctc = instance.ast.root.right.data
         list_right_feature_ctc_plus = [right_feature_name_ctc] + [key for key, value in model.dict_references.items() 
                                         if value.name == right_feature_name_ctc]
@@ -118,7 +121,7 @@ class EliminationSimpleConstraintsRequires(FMRefactoring):
         if model_less is not None and model_plus is not None:
             for feature in model_less.get_features():
                 if feature in model_plus.get_features() and not feature.name in model.dict_references.keys():
-                    print(f'feature NOT in model dict reference: {feature.name}')
+                    # print(f'feature NOT in model dict reference: {feature.name}')
                     feature_reference = model.get_feature_by_name(feature.name)  # aquí se va a poner el nombre que se encuentre en el feature model
                     # hay que ponerle el nombre de la feature que haya en dict_references.values()
                     feature.name = utils.get_new_feature_name(model, feature.name)
@@ -126,13 +129,15 @@ class EliminationSimpleConstraintsRequires(FMRefactoring):
                         model.dict_references[feature.name] = feature_reference
                 elif feature.name in model.dict_references.keys():
                     feature_dict_value = model.dict_references[feature.name]
-                    print(f'feature in model dict reference: {feature.name}')
+                    # print(f'feature in model dict reference: {feature.name}')
                     feature.name = utils.get_new_feature_name(model, feature.name)
                     if feature != feature_dict_value:
                         model.dict_references[feature.name] = feature_dict_value
         
-        print(f'Dict references requires: {[value.name for value in model.dict_references.values()]}')
+        # print(f'Dict references requires: {[value.name for value in model.dict_references.values()]}')
 
+        # print(f'MODEL REQUIRES after: {model}')
+        
         return model
 
 
