@@ -1,6 +1,6 @@
 import {AppComponent } from './app.component';
 import{Const} from './components/constraint/const';
-import { FMTree } from './components/FMTree_pruebas/FMTree';
+import { FMTree } from './components/FMTree/FMTree';
 
 
 import {MatTreeModule} from '@angular/material/tree';

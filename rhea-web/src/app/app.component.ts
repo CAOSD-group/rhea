@@ -2,7 +2,7 @@ import {Component} from '@angular/core';
 import {HttpClient, HttpParams } from '@angular/common/http';
 import {NestedTreeControl} from '@angular/cdk/tree';
 import {MatTreeNestedDataSource} from '@angular/material/tree';
-import {FMTree} from './components/FMTree_pruebas/FMTree';
+import {FMTree} from './components/FMTree/FMTree';
 import{Const} from './components/constraint/const';
 import {MatDialog} from '@angular/material/dialog';
 import * as saveAs from 'file-saver';
@@ -17,7 +17,7 @@ let symbol:any; // evita solapar valores en los auxiliares
 var jsonconstraint: Array<Const>=[new Const()] 
 var jsonfeatures:string
 var dictionary:any
-var listofconstraint:Array<Const>=[]
+var ListOfConstraint:Array<Const>=[]
 var position:number;
 
 var listnamesconstraints:Array<string>=[]
@@ -58,7 +58,7 @@ export class AppComponent {
   
     
   //list de constraints y nombres de las features
-  typesofcons:Array<string>=['NotTerm','OrTerm','AndTerm','ImpliesTerm','Xor','Xand','doubleImpliesTerm']
+  typesofcons:Array<string>=['NotTerm','OrTerm','AndTerm','ImpliesTerm','Xor','Xand','DoubleImpliesTerm']
   tablechips:Array<string>=[]
   namesFeatures:Array<string>=[]
   nameschips:Array<string>=[]
@@ -81,14 +81,19 @@ export class AppComponent {
 
   
 constructor(private http: HttpClient,public dialog: MatDialog) { }  
-ngOnInit() {}
+ngOnInit() {
+  console.log("Comprobar iteracion en json cual usa")
+  console.log("determinar diseño final")
+  console.log("cambiar comentarios a ingles o borrarlos")
+  
+}
 //orden : saveFM;downloadFM (2 ways) ;createFM;
 // metodos de modificacion,creacion y eliminacion de valores
 // otros metodos
 
 
 
-saveFile(text?:string){ // envio el nuevo archivo y el nuvo name opcional
+saveFile(text?:string){ // envio el nuevo archivo y el nuevo name opcional
   this.TransformJSON()  //actualizo los valores del json
   if(text==undefined || text==""){
     console.log("sin cambio de name")
@@ -169,21 +174,14 @@ CreateFile(text:string){  // envia el name del archivo a crear y el archivo a cr
 
 
 //SymbolPerType esta constantemente llamandose, alguna opcion?
-
-//cambios manuales un boton para enviar al server 
-
 //  documentacion explicar que hace cada metodo, las referencias que tiene
 //  explicar los elementos y que parametros tienen y los codigos que se usan
-
-
-// Consultar las esperas de tiempo
 // 
 //  Consultas de visualicacion de la pagina web
 //    Que formato final se va a aplicar
 //        Diseño grafico estatico y dinamico
 //        Paleta de colores
 //        Imagenes y simbolos
-//        Sidnav que se cierren automatico
   
 
 
@@ -211,7 +209,7 @@ this.cons[0].checkName(this.cons,this.actual.name,aux)
 }
 }
 DeleteNode(){
-  this.actual.Delete(this.actualfather)
+  this.namesFeatures=this.actual.Delete(this.actualfather)
   this.ReloadFMTree()
 }
 CreateChildren(){
@@ -269,7 +267,7 @@ CreateCons(){
   this.constraindataSource.data=this.cons.filter(x=>this.cons.indexOf(x)==position)
   this.text3="Show chips"
   this.text1="Hide Constraints"
-  this.text4="Hide FMTree"
+  this.text4="Hide Tree"
   this.tablechips=[]
   this.nameschips=[]
 }
@@ -353,20 +351,19 @@ readThis(inputValue: any): void {
     }
   }
   SelectCons(object:any){
-    this.TransformToConsPadreConst(object)
-    position=this.cons.indexOf(object) 
+    this.GetFatherCons(object)
     this.consactual=object
     this.ncons=this.jsonconstraintTexto[position] // se supone que siempre que lo podre obtener cuando se actualice con los valores del server
     console.log(this.consactual)
   }
 
-  TransformToConsPadreConst(object:any,list?:Array<any>,actualfather?:any){
+  GetFatherCons(object:any,list?:Array<any>,actualfather?:any){
     if(list==null){list=this.cons}
     if(list.filter(x=> x==object)[0]==undefined){
       list.forEach(element => {
         if(element.operands){
         if(element.operands.length>0){
-          this.TransformToConsPadreConst(object,element.operands,element)
+          this.GetFatherCons(object,element.operands,element)
         }}
       });
     }else{
@@ -392,7 +389,7 @@ readThis(inputValue: any): void {
       }
         console.log(aux)
         this.consactualfather.operands.splice(aux,1)
-        
+        this.jsonconstraintTexto[position]="New value at " +(position+1)+"º"
       }
       else{
         if(position!=-1){
@@ -407,27 +404,26 @@ readThis(inputValue: any): void {
   }
 
   CreateListCons(){
-    if(listofconstraint.length==2){
-      listofconstraint[0].operands.push(listofconstraint[1]);
-      listofconstraint[0].operands.splice(0,1);
+    if(ListOfConstraint.length==2){
+      ListOfConstraint[0].operands.push(ListOfConstraint[1]);
+      ListOfConstraint[0].operands.splice(0,1);
     }
-    if(listofconstraint.length>2){
-      console.log(listofconstraint)
+    if(ListOfConstraint.length>2){
+      console.log(ListOfConstraint)
       
-      listofconstraint[0]=this.consactual.ListOfNewConstraint(listofconstraint)
+      ListOfConstraint[0]=this.consactual.ListOfNewConstraint(ListOfConstraint)
     }
-    console.log(listofconstraint[0])
-    return listofconstraint[0]
+    console.log(ListOfConstraint[0])
+    return ListOfConstraint[0]
   }
 
   ModifyCons(){
-    if(listofconstraint.length!=0&&listofconstraint!=undefined){
+    if(ListOfConstraint.length!=0&&ListOfConstraint!=undefined){
       this.CreateListCons()
 
     if(this.consactualfather==undefined ||  this.consactualfather.type==""){
       console.log("1")
-      this.cons[position]=listofconstraint[0]
-      this.jsonconstraintTexto[position]="New value" +position
+      this.cons[position]=ListOfConstraint[0]
     }
 
     if(this.consactualfather!=undefined  ){
@@ -442,11 +438,12 @@ readThis(inputValue: any): void {
         else{aux2++}
       }
       console.log(position)
-      this.consactualfather.operands[aux]=listofconstraint[0]
+      this.consactualfather.operands[aux]=ListOfConstraint[0]
     }
+    this.jsonconstraintTexto[position]="New value at " +(position+1)+"º"
     }
     this.ReloadFMTree()
-    listofconstraint=[]
+    ListOfConstraint=[]
   }
 
 
@@ -462,13 +459,13 @@ togglevisibility(){
 }
 
 togglevisibilityFMTree(){
-  if(this.text4=="Hide FMTree"){
-  this.text4="Show FMTree"
+  if(this.text4=="Hide Tree"){
+  this.text4="Show Tree"
   this.text2=""
   this.dataSource.data=[]
   }
   else{
-    this.text4="Hide FMTree"
+    this.text4="Hide Tree"
     this.text2=this.item
     this.dataSource.data=this.tree
   }
@@ -502,7 +499,7 @@ openDialog() {
 
 
 SymbolPerType(type:string){ 
-  if( type.toUpperCase().startsWith("FEATURE")){
+  if(type.toUpperCase().startsWith("FEATURE")){
     symbol='add'
   }
   if(type=="XAND"){
@@ -535,39 +532,39 @@ SelectedChange(v){
   this.constraindataSource.data=this.cons.filter(x=>this.cons.indexOf(x)==position)
 }
 CreateConsList(){
-  if(listofconstraint!=undefined && listofconstraint.length!=0){
+  if(ListOfConstraint!=undefined && ListOfConstraint.length!=0){
     this.CreateListCons()
     position=this.jsonconstraintTexto.length
-    this.jsonconstraintTexto.push("New constraint"+position)
-    this.cons.push(listofconstraint[0])
+    this.jsonconstraintTexto.push("New constraint at " +(position+1)+"º")
+    this.cons.push(ListOfConstraint[0])
   }
-  listofconstraint=[]
+  ListOfConstraint=[]
   this.ReloadFMTree()
 }
 Writelist(){
   aux=""
-  listofconstraint.forEach(element => {
+  ListOfConstraint.forEach(element => {
     aux=aux+element.type+" "
   })
   alert(aux)
-  console.log(listofconstraint)
+  console.log(ListOfConstraint)
   console.log(position)
 }
 DeleteList(){
-  listofconstraint=[]
-  console.log(listofconstraint)
+  ListOfConstraint=[]
+  console.log(ListOfConstraint)
 }
 
 CreateConsBrother(){
   if(this.consactualfather!=undefined && this.consactualfather.type!=""){
-  if(listofconstraint!=undefined && listofconstraint.length!=0){
+  if(ListOfConstraint!=undefined && ListOfConstraint.length!=0){
     this.CreateListCons()
     if(this.consactualfather.type.toLowerCase().startsWith("feature")){}
     else{
     if(this.consactualfather.type.toLowerCase().startsWith("not") && this.consactualfather.operands.length==1){}
     else{
     if(this.consactualfather.operands.length==2){}
-    else{this.consactualfather.operands.push(listofconstraint[0])
+    else{this.consactualfather.operands.push(ListOfConstraint[0])
       console.log("hermano valido")
     }}}
   }}
@@ -575,12 +572,12 @@ CreateConsBrother(){
   this.CreateConsList(); 
   alert("there was no father so a new one was created")
 }
-  listofconstraint=[]
+  ListOfConstraint=[]
   this.ReloadFMTree()
 }
 
 CreateConsSon(){
-  if(listofconstraint!=undefined && listofconstraint.length!=0){this.CreateListCons()}
+  if(ListOfConstraint!=undefined && ListOfConstraint.length!=0){this.CreateListCons()}
   if(this.consactual!=undefined){
   if(this.consactual.operands!=null||this.consactual.operands!=undefined){
   if(this.consactual.operands.length!=0 ){
@@ -591,14 +588,14 @@ CreateConsSon(){
       if(this.consactual.type.toLowerCase().startsWith("not") && this.consactual.operands.length==1){}
         else{
           if(this.consactual.operands.length==2){}
-          else{this.consactual.operands.push(listofconstraint[0])
+          else{this.consactual.operands.push(ListOfConstraint[0])
             console.log("hijo valido")
           }
       }
     }
   }
 }
-  listofconstraint=[]
+  ListOfConstraint=[]
   this.ReloadFMTree()
 }
 
@@ -619,16 +616,16 @@ SelectChipLogic(text:string){
   }else{
     aux.operands=[new Const(),new Const()]
   }
-  listofconstraint.push(aux)
-  console.log(listofconstraint)
+  ListOfConstraint.push(aux)
+  console.log(ListOfConstraint)
 }
 
 SelectChipFeature(text:string){
   aux=new Const()
   aux.type=text
   aux.operands=[]
-  listofconstraint.push(aux)
-  console.log(listofconstraint)
+  ListOfConstraint.push(aux)
+  console.log(ListOfConstraint)
 }
 
 
@@ -641,15 +638,31 @@ TransformJSON(){
   while( aux<this.cons.length){
      listnamestext[aux]=JSON.stringify(this.cons[aux], (key, value) => {
     if(value!==null) return value  
-})
-aux++
-}
+  })
+  aux++
+  }
   jsonfeatures= '"name"'+':"'+this.titulo+'",'+'"features"'+':'+ jsonfeatures
   aux=0
-  aux2=""
-  while (aux<listnamesconstraints.length){
-    aux2=aux2+'{"name":"'+listnamesconstraints[aux]+'","expr":"'+this.jsonconstraintTexto[aux]+'","ast":'+listnamestext[aux]+'},'
+  aux2=listnamesconstraints[listnamesconstraints.length-1]
+  if(aux2==undefined){aux2="CTC 1"}
+  else{listnamesconstraints.splice(0,listnamesconstraints.length)}
+  while(this.jsonconstraintTexto.length>listnamesconstraints.length){
+  aux2=listnamesconstraints[listnamesconstraints.length-1]
+  if(aux2==undefined){aux2="CTC 1"}
+  aux=0
+  aux3=""
+  while(!Number.parseInt(aux2[aux])){
+    aux3=aux3+aux2[aux]
     aux++
+  }
+  aux3=aux3+(listnamesconstraints.length+1)
+  listnamesconstraints.push(aux3)
+}
+  aux=0
+  aux2=""
+  while (aux<listnamestext.length){
+  aux2=aux2+'{"name":"'+listnamesconstraints[aux]+'","expr":"'+this.jsonconstraintTexto[aux]+'","ast":'+listnamestext[aux]+'},'
+  aux++
   }
   aux2=aux2.slice(0,aux2.length-1)
   aux2='"constraints": ['+aux2+']'

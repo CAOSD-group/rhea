@@ -25,9 +25,11 @@ let nlist:Array<string> =[]
     Delete(list:FMTree){
         if(list!=undefined){
         if(list.children!=undefined){
-        list.children=list.children.filter(x=>x.name!=this.name)}}
+        list.children=list.children.filter(x=>x.name!=this.name)
+        }}
         if(this.children!=undefined){
             this.children.forEach(element => {
+                nlist=nlist.filter(x=>x!=element.name)
                 element.Delete
             });
         }
@@ -38,6 +40,7 @@ let nlist:Array<string> =[]
         this.children=[];
         this.card_max=-1;
         this.card_min=-1;
+        return nlist
     }
 
     DeleteList(){nlist.splice(0,nlist.length)}
