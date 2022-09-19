@@ -1,3 +1,4 @@
+from asyncio.windows_events import NULL
 from typing import Optional
 from xml.etree.ElementTree import tostring
 
@@ -59,11 +60,21 @@ def read_fm_file(filename: str) -> Optional[FeatureModel]:
 @app.route('/uploadFM', methods=['POST'])
 def upload_feature_model():
     if request.method == 'POST':
-        fm_file = request.files['inputFM']  # 'inputFM' is the name of the parameter in the POST request from the frontend
+        print('Error en fm_file')
+        print('Error en fm_file')
+        print('Error en fm_file')
+        print(request.args.get(all))
+        print(request.data.decode())
+        print(request.files.get(all))
+        print(request.form.get(all))
+        #fm_file = request.files['inputFM']  # 'inputFM' is the name of the parameter in the POST request from the frontend 
+        #print(fm_file)
+        return 'hola'
         if fm_file:
             filename = fm_file.filename
             fm_file.save(filename)
             fm = read_fm_file(filename)
+            print(fm)
             if fm is None:
                 json_fm = JSONWriter(path=None, source_model=fm).transform()
                 return json_fm
@@ -74,7 +85,15 @@ def download2_feature_model():
     if request.method == 'POST':
         json_model = request.data.decode() 
         if json_model:
+            print('Error en JSONReader ')
+            print('Error en JSONReader ')
+            print('Error en JSONReader ')
+            print('Error en JSONReader ')
+            print('Error en JSONReader ')
+            print('Error en JSONReader ')
+            print('Error en JSONReader ')
             fm = JSONReader.parse_json(json_model)
+            print(fm)
             UVLWriter(fm, path=fm.root.name).transform()
             return send_from_directory('.', fm.root.name, as_attachment=True)
 
@@ -97,7 +116,6 @@ def save_feature_model():
             return json_fm
         print(texto)
         return "true"
-        return texto
 
 
 @app.route('/downloadFM', methods=['GET', 'POST'])

@@ -1,4 +1,5 @@
 import { Component } from '@angular/core'
+import { Refactoring } from '../refactor/refactoring'
 
 
 
@@ -10,6 +11,7 @@ let aux4:any
 let constraintTree :Array<Const> =[]
 let constraintText :Array<any> =[]
 let constraintName :Array<any> =[]
+let constraintRefactoring :Array<Refactoring> =[]
 
 @Component({
     selector: 'const',
@@ -19,8 +21,6 @@ let constraintName :Array<any> =[]
  export class Const  {
     type:string=""
     operands:Array<any>=[];
-    
-    
     constructor() {}
   
 
@@ -29,14 +29,16 @@ let constraintName :Array<any> =[]
         constraintTree=[]
         constraintText=[]
         constraintName=[]
+        constraintRefactoring=[]
         for( const[key2] of Object.entries(list2)){
             aux2=this.CreateNewConstraint(list2[key2].ast)
             constraintTree.push(list2[key2].ast)
             constraintText.push(list2[key2].expr)
             constraintName.push(list2[key2].name)
+            constraintRefactoring.push(list2[key2].refactoring||undefined)
             
         }
-        return [constraintTree,constraintText,constraintName]
+        return [constraintTree,constraintText,constraintName,constraintRefactoring]
     }
 
 

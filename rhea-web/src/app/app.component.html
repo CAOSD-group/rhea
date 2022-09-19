@@ -8,6 +8,7 @@
         <mat-icon>menu</mat-icon>
       </button></a>
     </div><!-- End Logo -->
+    <script> drawer.toggle()</script>
 
     <nav class="header-nav ms-auto">
       <ul class="d-flex align-items-center">
@@ -161,18 +162,13 @@
       <!-- Left side columns -->
         <div class="row">
 
-          <div class="col-lg-10">
+          <div class="col-lg-6">
             <div class="card block">
+              <div class="borde">
+                <h5>Data Tree</h5>
 
-
-                <mat-grid-list  cols="8">
-                
-                  <mat-grid-tile  [colspan]="8"  [rowspan]="3">
-                    
-              
-                  <button class="btn btn-primary" (click)="togglevisibilityFMTree()"> {{text4}}</button>
-
-                  <cdk-virtual-scroll-viewport [itemSize]="18 * 7" class="example-viewport" >
+                          <!-- Features Tree -->
+                 
                           <mat-tree [dataSource]="dataSource" [treeControl]="treeControl" class="example-tree">
                             <mat-nested-tree-node *matTreeNodeDef="let node; when: hasChild">
                               <div class="mat-tree-node">
@@ -181,17 +177,22 @@
                                       <mat-icon >
                                         {{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
                                       </mat-icon>
-                                      
-                                      <div></div>
                                     </button>
-                                    {{node.name}} 
-                                    <button class="" mat-menu-item [matMenuTriggerFor]="menu"  (click)= 'select(node)'> <mat-icon>dialpad</mat-icon> </button> 
-                                  <div>
                                   <mat-icon >
                                     {{SymbolPerType(node.type)}} 
-                                  </mat-icon></div>
-                              </div>
-                            
+                                  </mat-icon> 
+                                  <div class="margen"></div>
+                                    {{node.name}} 
+                                    
+                                    <button class="" mat-menu-item [matMenuTriggerFor]="menu" (click)= 'select(node)'> 
+                                      <mat-icon #tooltip="matTooltip"  matTooltip={{escribeme(node)}} >more_vert
+
+                                      </mat-icon> 
+
+                                </button> 
+                                </div>
+                              
+                            <!-- Menu Features Tree -->
                               <div [class.example-tree-invisible]="!treeControl.isExpanded(node)" role="group">
                                 <ng-container matTreeNodeOutlet></ng-container> 
                               </div>
@@ -207,32 +208,31 @@
 
                             </mat-nested-tree-node>
                           </mat-tree> 
-                        </cdk-virtual-scroll-viewport>
-                        
-
-                        
+                  
+                          
+                        </div>
+                        <!-- Logic Chip -->
+                        <div class="borde">
+                          <h5>Logic chips</h5>
                             <mat-chip-list class="mat-chip-list-stacked" >
                               <mat-chip *ngFor="let chip of tablechips" (click)="SelectChipLogic(chip)">
                               {{chip}}
                               </mat-chip>
                             </mat-chip-list>
-                        
-                            
-                
-                        <cdk-virtual-scroll-viewport [itemSize]="18 * 7" class="example-viewport" >
+                        </div>
+                        <!-- Features Chip -->
+                            <div class="borde">
+                              <h5>Features chips</h5>
                           <mat-chip-list class="mat-chip-list-stacked"  >
                             <mat-chip *ngFor="let chip of nameschips" (click)="SelectChipFeature(chip)" >
                             {{chip}}
                             </mat-chip>
                           </mat-chip-list>
-                        </cdk-virtual-scroll-viewport>
+                        </div>
 
-                        
-                                  <input type="text" [(ngModel)]="titulo">
-                        <div class="margen"></div>
-
-                        <cdk-virtual-scroll-viewport [itemSize]="18 * 8" class="example-viewport" >
-                          
+                        <!-- Constraints Tree -->
+                        <div class="borde">
+                          <h5>Constraint Tree</h5>
                           <mat-tree  [dataSource]="constraindataSource" [treeControl]="constraintreeControl" class="example-tree">
                             <mat-nested-tree-node  *matTreeNodeDef="let constrainnode; when: hasChild">
                               <div class="mat-tree-node">
@@ -243,38 +243,26 @@
                                   </mat-icon>
                                 </button>
                                   {{constrainnode.type}} 
-                                  <button mat-menu-item [matMenuTriggerFor]="menu2" (click)= 'SelectCons(constrainnode)'> <mat-icon>dialpad</mat-icon> </button> 
+                                  <button mat-menu-item [matMenuTriggerFor]="menu2" (click)= 'SelectCons(constrainnode)'> <mat-icon>more_vert</mat-icon> </button> 
                             </div>
                                 <div [class.example-tree-invisible]="!constraintreeControl.isExpanded(constrainnode)" role="group">
                                   <ng-container matTreeNodeOutlet></ng-container> 
                                 </div>
                                 <mat-menu #menu2="matMenu">
-                                
                                 </mat-menu>  
                             </mat-nested-tree-node>
                           </mat-tree>
-
-                        </cdk-virtual-scroll-viewport>
-                  
-                  
-                  </mat-grid-tile>
-            
-                
-                <mat-grid-tile [colspan]="8" [rowspan]="3">
-                  <cdk-virtual-scroll-viewport [itemSize]="10 * 5" class="example-viewport" >
+                         </div>
+                  <!-- Constraints Text --> 
+                  <div class="borde">
+                    <h5>Constraint Text</h5>
                   <mat-selection-list #constraints [multiple]="false">
                     <mat-list-option *ngFor="let constrainTexto of jsonconstraintTexto" [value]="constrainTexto"
                       (click)='SelectedChange(constraints.selectedOptions.selected[0].value)'>
-                      {{constrainTexto}} 
+                      <div>{{constrainTexto}}  <mat-icon (click)="escribe('hola')"> {{SymbolPerTypeCons(constrainTexto)}}</mat-icon></div> 
                     </mat-list-option>
-                  </mat-selection-list>
-                </cdk-virtual-scroll-viewport>
-                </mat-grid-tile>
-
-                </mat-grid-list>
-
-         
-             
+                     
+                  </mat-selection-list></div>
             </div>
 
 					
@@ -395,36 +383,34 @@
 
            	<!-- Modal -->
 					<div class="modal fade" id="sidebar6" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-
 					  <div class="modal-dialog modal-lg">
-						<div class="modal-content">
-						  <div class="modal-header">
-							<h4 class="modal-title" id="exampleModalLabel">Delete node</h4>
-							<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+						  <div class="modal-content">
+						    <div class="modal-header">
+							    <h4 class="modal-title" id="exampleModalLabel">Delete node</h4>
+							    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+						    </div>
+							  <div class="modal-body">
+							    <div class="col-10">
+                      <h3>Are you sure?</h3>
+                      <button (click)="DeleteNode()" class="btn btn-primary" data-bs-dismiss="modal">Proceed</button>
+							    </div>
+							  </div>
+						    <div class="modal-footer">
+							    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Go back</button>
+						    </div>
 						  </div>
-							<div class="modal-body">
-								<div class="col-10">
-                    <h3>Are you sure?</h3>
-                    <button (click)="DeleteNode()" class="btn btn-primary" data-bs-dismiss="modal">Proceed</button>
-								</div>
-							</div>
-						  <div class="modal-footer">
-							<button type="button" class="btn btn-primary" data-bs-dismiss="modal">Go back</button>
-						  </div>
-						</div>
+					    </div>
 					  </div>
-					</div>
+          </div>
 
-					
-
-        </div>
-
-             <div class="col-2 justify-content-center">
-
-              <div class="card" >
+        <!-- Buttons -->
+            <div class="col-2 justify-content-center">
+              <div class="borde">
+                <div class="card" >
                 
-                <div class="menu2">
-
+                  <div class="menu2">
+                    <input class="bottom-style" type="text" [(ngModel)]="titulo">
+                    <button class="bottom-style" (click)="togglevisibilityFMTree()"> {{text4}}</button>
                     <button class="bottom-style" (click)="togglevisibility()"> {{text1}}</button>
                     <button class="bottom-style" (click)="CreateConsBrother()">Insert brother</button>
                     <button class="bottom-style" (click)="CreateConsSon()">Insert child</button>
@@ -437,20 +423,20 @@
                     <button class="bottom-style" (click)="SaveDemoJson()">Download .json</button>
                     <button class="bottom-style" (click)="SaveDemo()">Download .uvl</button>  
                     <button class="bottom-style" >Refactoring</button> 
-                  
+                  </div>
+                </div>
               </div>
             </div>
-          </div>
+        <!-- Info -->
+            <div class="col-2 justify-content-center">
+              <div class="borde">
+                <div class="menu2">
+                  <label class="bottom-style" > hola mundo</label>
+                  <button class="bottom-style" > Refactort all</button> 
+                </div>
+              </div>
+            </div>
 
-
-         
-         
 </div>
-
-
-
-
-        
-      
-  </section>
+</section>
 </main>

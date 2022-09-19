@@ -1,4 +1,5 @@
 import { Component } from '@angular/core'
+import { Refactoring } from '../refactor/refactoring';
 
 
 
@@ -19,6 +20,7 @@ let nlist:Array<string> =[]
     type:string ="";
     optional:boolean =false;
     abstract:boolean =false;
+    refactoring?:Refactoring
     children:Array<FMTree> =[];
     constructor() {}
 
@@ -37,6 +39,7 @@ let nlist:Array<string> =[]
         this.abstract=false;
         this.optional=false;
         this.type="";
+        this.refactoring=undefined
         this.children=[];
         this.card_max=-1;
         this.card_min=-1;
@@ -63,6 +66,7 @@ let nlist:Array<string> =[]
         aux.optional=value.optional;
         aux.type=value.type;
         aux.card_max=value.card_max
+        if(value.refactoring!=undefined){aux.refactoring=value.refactoring}
         aux.card_min=value.card_min
         aux.children=[]
         if(aux.card_min==undefined){aux.card_min=0}
@@ -142,6 +146,7 @@ let nlist:Array<string> =[]
         aux.abstract=value.abstract;
         aux.optional=value.optional;
         aux.card_max=value.card_max;
+        if(value.refactoring!=undefined){aux.refactoring=value.refactoring}
         aux.card_min=value.card_min 
         if(aux.card_min==undefined){aux.card_min=0}
         if(aux.card_max==undefined){aux.card_max=0}

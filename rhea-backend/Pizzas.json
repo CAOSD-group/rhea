@@ -46,7 +46,12 @@
                         "name": "Normal",
                         "type": "FEATURE",
                         "optional": true,
-                        "abstract": false
+                        "abstract": false,
+                        "refactoring": {
+                            "id": "GROUP_REFACTORING",
+                            "name": "transform group feature",
+                            "description": "trasnforma un group feature en opcionales."
+                        }
                     },
                     {
                         "name": "Big",
@@ -89,7 +94,33 @@
     "constraints": [
         {
             "name": "CTC1",
+            "refactoring": {
+                "id": "REQUIRES_REFACTORING",
+                "name": "Refactor REQUIRES.",
+                "description": "elimina la constraint pasandola al arbo."
+            },
             "expr": "CheesyCrust IMPLIES Big",
+            "ast": {
+                "type": "ImpliesTerm",
+                "operands": [
+                    {
+                        "type": "FeatureTerm",
+                        "operands": [
+                            "CheesyCrust"
+                        ]
+                    },
+                    {
+                        "type": "FeatureTerm",
+                        "operands": [
+                            "Big"
+                        ]
+                    }
+                ]
+            }
+        },
+        {
+            "name": "CTC2",
+            "expr": "CheesyCrustsfsd IMPLIES Big",
             "ast": {
                 "type": "ImpliesTerm",
                 "operands": [

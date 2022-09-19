@@ -1,7 +1,7 @@
 import {AppComponent } from './app.component';
 import{Const} from './components/constraint/const';
 import { FMTree } from './components/FMTree/FMTree';
-
+import { Refactoring } from './components/refactor/refactoring';
 
 import {MatTreeModule} from '@angular/material/tree';
 import {MatIconModule} from '@angular/material/icon';
@@ -23,11 +23,15 @@ import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatChipsModule} from '@angular/material/chips';
 import {ScrollingModule} from '@angular/cdk/scrolling';
+import {MatTooltipModule} from '@angular/material/tooltip';
+
+
 @NgModule({
   declarations: [
     AppComponent,
     FMTree,
-    Const,  
+    Const, 
+    Refactoring, 
   ],
 
 
@@ -35,6 +39,7 @@ import {ScrollingModule} from '@angular/cdk/scrolling';
   imports: [
     BrowserModule,
     MatDialogModule,
+    MatTooltipModule,
     DragDropModule,
     ScrollingModule,
     MatToolbarModule,

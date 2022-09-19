@@ -6,6 +6,8 @@ import {FMTree} from './components/FMTree/FMTree';
 import{Const} from './components/constraint/const';
 import {MatDialog} from '@angular/material/dialog';
 import * as saveAs from 'file-saver';
+import {TooltipPosition} from '@angular/material/tooltip';
+import { Refactoring } from './components/refactor/refactoring';
 
 
 
@@ -21,6 +23,7 @@ var ListOfConstraint:Array<Const>=[]
 var position:number;
 
 var listnamesconstraints:Array<string>=[]
+var listRefactorconstraints:Array<Refactoring>=[]
 var listnamestext:Array<string>=[]
 var json:string
 
@@ -39,7 +42,7 @@ export class AppComponent {
   urldownload2="http://172.16.51.94:5000/downloadFM2"  //servidor cargar datos
   urldelete="http://172.16.51.94:5000/deleteFM"  //servidor cargar datos
   urlcreate="http://172.16.51.94:5000/createFM" //servidor guardar datos
-  documents:string[]= ['GPL.xml', 'JHipster.uvl', 'MobileMedia.xml', 'Pizzas.uvl', 'TankWar.xml', 'Truck.uvl','WeaFQAs.uvl','Automotive2_1-basic.uvl'];
+  documents:string[]= ['GPL.xml', 'JHipster.uvl', 'MobileMedia.xml', 'Pizzas.uvl','Pizzas.json', 'TankWar.xml', 'Truck.uvl','WeaFQAs.uvl','Automotive2_1-basic.uvl'];
   //file: File | null = null;
   title:string ='rhea-web' // evita un error en app.component.spec.ts
   declare actual:FMTree      //valor actual del FMTree
@@ -64,7 +67,7 @@ export class AppComponent {
   nameschips:Array<string>=[]
   //otros
   titulo:string='';
-  item:string ='Pizzas.uvl';
+  item:string ='GPL.xml';
   text1="Hide Constraints";
   text3="Hide chips";
   text4="Hide Tree";
@@ -81,10 +84,19 @@ export class AppComponent {
 
   
 constructor(private http: HttpClient,public dialog: MatDialog) { }  
+
+
+
 ngOnInit() {
   console.log("Comprobar iteracion en json cual usa")
   console.log("determinar diseño final")
   console.log("cambiar comentarios a ingles o borrarlos")
+  console.log("cambiar CSS a ingles")
+  console.log("usar tooltips https://material.angular.io/components/tooltip/examples")
+  this.returnValues()
+  while(this.text3=="Hide chips"){
+    this.togglevisibilitychips()
+  }
   
 }
 //orden : saveFM;downloadFM (2 ways) ;createFM;
@@ -253,7 +265,7 @@ CreateCons(){
   this.cons.splice(0,this.cons.length)
   aux2=0
   if(true){    //Porque hace falta poner el if para que no de error la siguiente linea?
-  [jsonconstraint,this.jsonconstraintTexto,listnamesconstraints]=this.consactual.CreateConstraint(aux3)
+  [jsonconstraint,this.jsonconstraintTexto,listnamesconstraints,listRefactorconstraints]=this.consactual.CreateConstraint(aux3)
   while(aux2<jsonconstraint.length){
   jsonconstraint[aux2]=this.consactual.CreateNewConstraint(jsonconstraint[aux2])
   aux2++}
@@ -270,6 +282,7 @@ CreateCons(){
   this.text4="Hide Tree"
   this.tablechips=[]
   this.nameschips=[]
+  console.log(listRefactorconstraints)
 }
   
 }
@@ -493,9 +506,23 @@ openDialog() {
   });
 }
 
-
-
-
+escribe(t:string){
+  alert(t)
+}
+escribeme(node:FMTree){
+  if(node.refactoring!=undefined ){
+    return node.refactoring.name
+  }
+  else{return}
+}
+SymbolPerTypeCons(type:string){
+  symbol=this.jsonconstraintTexto.indexOf(type)
+  if(listRefactorconstraints[symbol]!=undefined){
+    symbol='more_vert'
+  }
+  else{symbol=''}
+  return symbol
+}
 
 
 SymbolPerType(type:string){ 
@@ -521,6 +548,7 @@ onRightClick($event) {
   return true
 }
 SelectedChange(v){
+  this.text1="Hide Constraints"
   aux2=0
   while (aux2<this.jsonconstraintTexto.length) {
     if(this.jsonconstraintTexto[aux2]==v ){position=aux2}
