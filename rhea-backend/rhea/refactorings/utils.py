@@ -19,6 +19,11 @@ def get_new_attr_name(header: list, name: str) -> str:
         count += 1
     return new_name
 
+def get_top_feature(f: Feature) -> Feature:
+    if not f.is_root():
+        f = get_top_feature(f.parent)
+    return f
+
 def is_there_mandatory(relations: list[Relation]) -> bool:
     mandatory = False
     for rel in relations:

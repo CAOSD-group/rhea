@@ -39,7 +39,7 @@ REFACTORING_REQUIRES = EliminationSimpleConstraintsRequires
 REFACTORING_EXCLUDES = EliminationSimpleConstraintsExcludes
 REFACTORING_REQUIRES_WITHOUT_DICT = EliminationSimpleConstraintsRequiresWithoutDict
 REFACTORING_EXCLUDES_WIHOUT_DICT = EliminationSimpleConstraintsExcludesWithoutDict
-MODEL_PATH = 'tests/models/split_constraints/input_models/JHipster.uvl'
+MODEL_PATH = 'tests/models/split_constraints/input_models/Pizzas2.uvl'
 OUTPUT_PATH = 'output.uvl'
 OUTPUT_CONSOLE = 'output.txt'
 ##################################################################################################
@@ -51,6 +51,7 @@ def apply_refactoring(fm: FeatureModel, refactoring: FMRefactoring) -> FeatureMo
     # print(f'Constraints: {[str(c) for c in fm.get_constraints()]}')
     # print(f'Instances: {[str(i) for i in instances]}')
     for i in instances:
+        print(f'::::::::::=======================|-Applying {refactoring.get_name()} to {i}.')
         fm = refactoring.transform(fm, i)
     return fm
 
@@ -181,7 +182,7 @@ def main():
     print(f'FM NUMBERS:')
     print_fm_numbers(fm)
 
-    print_fm(fm)
+    # print_fm(fm)
 
     # print_fm_numbers(fm)
 

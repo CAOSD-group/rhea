@@ -1,88 +1,41 @@
 features
-	JHipster{extended__}
-		mandatory
-			Generator
-				alternative
-					Server
-						alternative
-							MicroserviceApplication
-							UaaServer
-					Application
-						alternative
-							MicroserviceGateway
-							Monolithic
-		mandatory
-			Authentication
-				alternative
-					HTTPSession
-					OAuth2
-					Uaa
-					JWT
-		optional
-			SocialLogin
-		optional
-			Database
-				alternative
-					SQL
-						optional
-							Hibernate2ndLvlCache
-								alternative
-									HazelCast
-									EhCache
+	root
+		alternative
+			Pizza
+				mandatory
+					Topping
 						mandatory
-							Development
-								alternative
-									H2
-										alternative
-											DiskBased
-											InMemory
-									PostgreSQLDev
-									MariaDBDev
-									MySql
-						mandatory
-							Production
-								alternative
-									MySQL
-									MariaDB
-									PostgreSQL
+							Ham
 						optional
-							ElasticSearch
-					Cassandra
-					MongoDB
-		optional
-			SpringWebSockets
-		optional
-			Libsass
-		optional
-			ClusteredSession
-		mandatory
-			BackEnd
-				alternative
-					Gradle
-					Maven
-		optional
-			InternationalizationSupport
-		optional
-			Docker
-		mandatory
-			TestingFrameworks
+							Salami
+						optional
+							Mozzarella
+				mandatory
+					Size
+						alternative
+							Normal
+							Big
+				mandatory
+					Dough
+						alternative
+							Neapolitan
+							Sicilian
 				optional
-					Protractor
+					CheesyCrust
+			Pizza1
 				mandatory
-					Gatling
+					Topping1
+						or
+							Salami1
+							Mozzarella1
 				mandatory
-					Cucumber
-constraints
-	((OAuth2 & !SocialLogin) & !MicroserviceApplication) => (SQL | MongoDB)
-	SocialLogin => (((HTTPSession | JWT) & Monolithic) & (SQL | MongoDB))
-	UaaServer => Uaa
-	((!OAuth2 & !SocialLogin) & !MicroserviceApplication) => ((SQL | MongoDB) | Cassandra)
-	Server => !Protractor
-	!Server => Protractor
-	MySQL => (H2 | MySql)
-	(MicroserviceApplication | MicroserviceGateway) => (JWT | Uaa)
-	Monolithic => ((JWT | HTTPSession) | OAuth2)
-	MariaDB => (H2 | MariaDBDev)
-	PostgreSQL => (H2 | PostgreSQLDev)
-	(SpringWebSockets | ClusteredSession) => Application
-	Libsass => Application
+					Size1
+						mandatory
+							Normal1
+				mandatory
+					Dough1
+						alternative
+							Neapolitan1
+							Sicilian1
+				optional
+					CheesyCrust1

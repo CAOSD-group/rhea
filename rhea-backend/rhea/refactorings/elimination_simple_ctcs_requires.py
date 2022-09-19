@@ -32,12 +32,6 @@ class EliminationSimpleConstraintsRequires(FMRefactoring):
         if not ConstraintHelper(instance).is_requires_constraint():
             raise Exception(f'Operator {str(instance)} is not requires.')
 
-        model_plus = copy.deepcopy(model)  # copy.deepcopy(model)
-        model_less = copy.deepcopy(model)
-
-        # print(f'Dict FIRST requires: {[key for key in model.dict_references.keys()]}')
-        # print(f'MODEL REQUIRES before: {model}')
-
         right_feature_name_ctc = instance.ast.root.right.data
         list_right_feature_ctc_plus = [right_feature_name_ctc] + [key for key, value in model.dict_references.items() 
                                         if value.name == right_feature_name_ctc]
@@ -58,11 +52,15 @@ class EliminationSimpleConstraintsRequires(FMRefactoring):
         for f_plus in list_right_feature_ctc_plus:
             new_model_plus = copy.deepcopy(model)
             if f_plus in model.dict_references.keys() and new_model_plus is not None:
+                new_root_f_plus = utils.get_top_feature(f_plus)
+                new_model_plus = FeatureModel(new_root_f_plus)
                 new_f_plus = new_model_plus.get_feature_by_name(f_plus)
                 new_model_plus = utils.add_node_to_tree(new_model_plus, new_f_plus)
                 if new_model_plus is not None:
                     model_plus = new_model_plus
             elif model_plus is not None:
+                root_f_plus = utils.get_top_feature(f_plus)
+                model_plus = FeatureModel(root_f_plus)
                 feature_plus = model_plus.get_feature_by_name(f_plus)
                 model_plus = utils.add_node_to_tree(model_plus, feature_plus)
             if model_plus is not None:
@@ -88,11 +86,15 @@ class EliminationSimpleConstraintsRequires(FMRefactoring):
 
         for f_left_less in list_left_feature_ctc_less:
             if model_less is not None:
+                root_left_less = utils.get_top_feature(f_left_less)
+                model_less = FeatureModel(root_left_less)
                 feature_left_less = model_less.get_feature_by_name(f_left_less)
                 model_less = utils.eliminate_node_from_tree(model_less, feature_left_less)
 
         for f_right_less in list_right_feature_ctc_less:
             if model_less is not None:
+                root_right_less = utils.get_top_feature(f_right_less)
+                model_less = FeatureModel(root_right_less)
                 feature_right_less = model_less.get_feature_by_name(f_right_less)
                 model_less = utils.eliminate_node_from_tree(model_less, feature_right_less)
 
@@ -101,12 +103,18 @@ class EliminationSimpleConstraintsRequires(FMRefactoring):
         if model_plus is not None and model_less is not None:
             # If both trees are not equal to NIL, then the result consists of a new root, which
             # is an Xor feature, with subfeatures T(+B) and T(-A-B).
-            new_root = Feature(utils.get_new_feature_name(model, 'root'), is_abstract=True)
-            rel = Relation(new_root, [model_plus.root, model_less.root], 1, 1)  #XOR
-            new_root.add_relation(rel)
-            model.root = new_root
-            model_plus.root.parent = new_root
-            model_less.root.parent = new_root
+            new_xor = Feature(utils.get_new_feature_name(model, 'new_xor'), is_abstract=True)
+            rel = Relation(new_xor, [model_plus.root, model_less.root], 1, 1)  #XOR
+            new_xor.add_relation(rel)
+            m_root = model.root
+            m_root.get_children().append(new_xor)
+            if m_root.is_or_group():
+                root_rel = next((r for r in m_root.get_relations()), None)
+                root_rel.card_max+=1
+            elif not m_root.is_group():
+                new_root_rel = Relation(m_root, [new_xor], 1, 1)  # mandatory
+                m_root.get_relations().append(new_root_rel)
+            new_xor.parent = m_root
         elif model_less is None:
             # If T(-A-B) is equal to NIL, then the result is T(+B).
             model = model_plus
