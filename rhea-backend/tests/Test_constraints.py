@@ -17,7 +17,7 @@ from rhea.refactorings.cardinality_group_refactoring import CardinalityGroupRefa
 from rhea.refactorings.multiple_group_decomposition_refactoring import MultipleGroupDecompositionRefactoring
 
 
-MODELS_BASE_PATH = os.path.join('tests', 'models')
+MODELS_BASE_PATH = os.path.join('tests', 'models', 'real_models')
 INPUT_MODELS = 'input_models'
 OUTPUT_MODELS = 'output_models'
 EXPECTED_MODELS = 'expected_models'
