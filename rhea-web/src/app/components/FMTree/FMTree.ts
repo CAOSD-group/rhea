@@ -15,12 +15,14 @@ let nlist:Array<string> =[]
 
  export class FMTree  {
     name:string ="";
-    card_min:number=0;
-    card_max:number=0;
+    card_min?:number;
+    card_max?:number;
     type:string ="";
     optional:boolean =false;
     abstract:boolean =false;
     refactoring?:Refactoring
+    description?:string
+    attributes?:Array<any>
     children:Array<FMTree> =[];
     constructor() {}
 
@@ -40,6 +42,8 @@ let nlist:Array<string> =[]
         this.optional=false;
         this.type="";
         this.refactoring=undefined
+        this.description=""
+        this.attributes=[]
         this.children=[];
         this.card_max=-1;
         this.card_min=-1;
@@ -65,12 +69,12 @@ let nlist:Array<string> =[]
         aux.abstract=value.abstract;
         aux.optional=value.optional;
         aux.type=value.type;
-        aux.card_max=value.card_max
+        if(value.card_max!=undefined){aux.card_max=value.card_max}
+        if(value.card_min!=undefined){aux.card_min=value.card_min}
         if(value.refactoring!=undefined){aux.refactoring=value.refactoring}
-        aux.card_min=value.card_min
+        if(value.description!=undefined){aux.description=value.description}
+        if(value.attributes!=undefined){aux.attributes=value.attributes}
         aux.children=[]
-        if(aux.card_min==undefined){aux.card_min=0}
-        if(aux.card_max==undefined){aux.card_max=0}
         if(value.children!=undefined ){
         Newchildren=value.children}
         
@@ -145,11 +149,11 @@ let nlist:Array<string> =[]
         aux.name=value.name;
         aux.abstract=value.abstract;
         aux.optional=value.optional;
-        aux.card_max=value.card_max;
+        if(value.card_max!=undefined){aux.card_max=value.card_max}
+        if(value.card_min!=undefined){aux.card_min=value.card_min}
         if(value.refactoring!=undefined){aux.refactoring=value.refactoring}
-        aux.card_min=value.card_min 
-        if(aux.card_min==undefined){aux.card_min=0}
-        if(aux.card_max==undefined){aux.card_max=0}
+        if(value.description!=undefined){aux.description=value.description}
+        if(value.attributes!=undefined){aux.attributes=value.attributes}
         aux.type=value.type;
         aux.children=[]
         return aux
@@ -157,8 +161,6 @@ let nlist:Array<string> =[]
     CreateDefault(name:string){  
         aux=new FMTree()
         aux.name=name
-        aux.card_max=0;
-        aux.card_min=0;
         aux.abstract=false;
         aux.optional=true
         aux.type="FEATURE"

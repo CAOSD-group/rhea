@@ -85,7 +85,7 @@
       <label for="file-input">
         <button class="btn importar" type="button">Attach file</button>
       </label>
-      <input class="file-input" (change)="changeListener($event)" #input id="file-input" type="file"/>
+      <input class="file-input" (change)="changeListener($event)" id="file-input" type="file"/>
     </div>
   </li>
   
@@ -156,8 +156,12 @@
 
     </div><!-- End Reports -->
 
+   
+     
+       
+ 
 
-
+  
 
       <!-- Left side columns -->
         <div class="row">
@@ -178,16 +182,14 @@
                                         {{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
                                       </mat-icon>
                                     </button>
-                                  <mat-icon >
-                                    {{SymbolPerType(node.type)}} 
-                                  </mat-icon> 
-                                  <div class="margen"></div>
-                                    {{node.name}} 
+                                    <div class="imagenes">
+                                  <img src={{SymbolPerType(node)}} ></div>
+                                  <div class="margen" ></div>
+                                      <div  #tooltip="matTooltip"  matTooltip={{ToolTip(node)}} >
+                                    {{node.name}}</div>
                                     
                                     <button class="" mat-menu-item [matMenuTriggerFor]="menu" (click)= 'select(node)'> 
-                                      <mat-icon #tooltip="matTooltip"  matTooltip={{escribeme(node)}} >more_vert
-
-                                      </mat-icon> 
+                                      <mat-icon >more_vert</mat-icon> 
 
                                 </button> 
                                 </div>
@@ -204,6 +206,11 @@
                                 <a data-bs-toggle="modal" href="#sidebar3">Create a child</a>
                                 <hr>
                                 <a data-bs-toggle="modal" href="#sidebar4">Create brother</a>
+                                <div *ngIf="SymbolPerType2(node)" #tooltip="matTooltip"  matTooltip={{ToolTipRefa(node)}}>
+                                <hr>
+                                <a data-bs-toggle="modal" href="#sidebar5" >Refactoring</a>
+
+                                </div>
                               </mat-menu>
 
                             </mat-nested-tree-node>
@@ -259,7 +266,13 @@
                   <mat-selection-list #constraints [multiple]="false">
                     <mat-list-option *ngFor="let constrainTexto of jsonconstraintTexto" [value]="constrainTexto"
                       (click)='SelectedChange(constraints.selectedOptions.selected[0].value)'>
-                      <div>{{constrainTexto}}  <mat-icon (click)="escribe('hola')"> {{SymbolPerTypeCons(constrainTexto)}}</mat-icon></div> 
+                      <div>
+                        {{constrainTexto}}
+                        
+                        <button class="empty" (click)="openDialog()" *ngIf="SymbolPerTypeCons2(constrainTexto)" >
+                          <mat-icon>{{SymbolPerTypeCons(constrainTexto)}}</mat-icon>
+                        </button>
+                      </div> 
                     </mat-list-option>
                      
                   </mat-selection-list></div>
@@ -291,6 +304,10 @@
                     <hr>
                     <h3>Card_min</h3>
                     <input matInput  type="number" [(ngModel)]="card_min">
+                    <hr>
+                    <h3>Attributes</h3>
+                    <div ng-repeat="a in attributes">
+                    <h1>hola</h1></div>
                     <hr>
                     <mat-checkbox  [(ngModel)]="optional" > optional</mat-checkbox>
                     <hr>
@@ -360,38 +377,37 @@
 
           	<!-- Modal -->
 					<div class="modal fade" id="sidebar5" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-
-					  <div class="modal-dialog modal-lg">
-						<div class="modal-content">
-						  <div class="modal-header">
-							<h2 class="modal-title" id="exampleModalLabel">Crear hermano</h2>
-							<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            <div class="modal-dialog modal-lg">
+						  <div class="modal-content">
+						    <div class="modal-header">
+							    <h2 class="modal-title" id="exampleModalLabel">Refactoring</h2>
+							    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+						    </div>
+							  <div class="modal-body">
+							    <div class="col-10">
+                      <h4>Are you sure?</h4>
+                      <button  class="btn btn-primary" data-bs-dismiss="modal">Proceed</button>
+							    </div>
+							  </div>
+						    <div class="modal-footer">
+							    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Go back</button>
+						    </div>
 						  </div>
-							<div class="modal-body">
-								<div class="col-10">
-                  
-               <input matInput  type="string" [(ngModel)]="name">
-               <button (click)="CreateBrother()" class="btn btn-primary">Create</button>
-								</div>
-							</div>
-						  <div class="modal-footer">
-							<button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
-						  </div>
-						</div>
+					    </div>
 					  </div>
-					</div>
+        
 
            	<!-- Modal -->
 					<div class="modal fade" id="sidebar6" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 					  <div class="modal-dialog modal-lg">
 						  <div class="modal-content">
 						    <div class="modal-header">
-							    <h4 class="modal-title" id="exampleModalLabel">Delete node</h4>
+							    <h2 class="modal-title" id="exampleModalLabel">Delete node</h2>
 							    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 						    </div>
 							  <div class="modal-body">
 							    <div class="col-10">
-                      <h3>Are you sure?</h3>
+                      <h4>Are you sure?</h4>
                       <button (click)="DeleteNode()" class="btn btn-primary" data-bs-dismiss="modal">Proceed</button>
 							    </div>
 							  </div>

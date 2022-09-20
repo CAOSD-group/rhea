@@ -15,6 +15,7 @@ import { Refactoring } from './components/refactor/refactoring';
 var aux:any;
 var aux2:any=""
 var aux3: any;
+var aux4:any;
 let symbol:any; // evita solapar valores en los auxiliares 
 var jsonconstraint: Array<Const>=[new Const()] 
 var jsonfeatures:string
@@ -48,7 +49,7 @@ export class AppComponent {
   declare actual:FMTree      //valor actual del FMTree
   consactual:Const =new Const()     //valor actual del FMTree
   declare actualfather:FMTree      //valor actual del actualfather del actual FMTree
-  consactualfather:Const =new Const()     //valor actual del actualfather del actual FMTree
+  consactualfather:Const =new Const()     //valor actual del consactual del actual cons
   tree:Array<FMTree> =[new FMTree()]  // el FMTree de datos 
   cons:Array<Const>=[new Const()]   // El FMTree de constraints con el name en la rama final
   //declare json_nombre:any;    //guardo los valores de las features
@@ -67,7 +68,7 @@ export class AppComponent {
   nameschips:Array<string>=[]
   //otros
   titulo:string='';
-  item:string ='GPL.xml';
+  item:string ='Pizzas.uvl';
   text1="Hide Constraints";
   text3="Hide chips";
   text4="Hide Tree";
@@ -78,6 +79,7 @@ export class AppComponent {
   optional:boolean=false;
   abstract:boolean=false;
   type:string ="";
+  attributes:Array<any>=[];
   card_min:number=0;
   card_max:number=0;
   ncons:string="";
@@ -282,7 +284,7 @@ CreateCons(){
   this.text4="Hide Tree"
   this.tablechips=[]
   this.nameschips=[]
-  console.log(listRefactorconstraints)
+
 }
   
 }
@@ -344,8 +346,9 @@ readThis(inputValue: any): void {
     this.type=this.actual.type
     this.optional=this.actual.optional
     this.abstract=this.actual.abstract
-    this.card_max=this.actual.card_max
-    this.card_min=this.actual.card_min
+    this.card_max=this.actual.card_max||0
+    this.card_min=this.actual.card_min||0
+    this.attributes=this.actual.attributes||[]
     this.TransformToConsPadreFMTree(object)
     console.log(this.actual)
   }
@@ -370,7 +373,7 @@ readThis(inputValue: any): void {
     console.log(this.consactual)
   }
 
-  GetFatherCons(object:any,list?:Array<any>,actualfather?:any){
+  GetFatherCons(object:any,list?:Array<any>,cactualfather?:any){
     if(list==null){list=this.cons}
     if(list.filter(x=> x==object)[0]==undefined){
       list.forEach(element => {
@@ -380,7 +383,7 @@ readThis(inputValue: any): void {
         }}
       });
     }else{
-      this.consactualfather=actualfather
+      this.consactualfather=cactualfather
     }
   }
 
@@ -505,16 +508,15 @@ openDialog() {
     console.log(`Dialog result: ${result}`);
   });
 }
-
-escribe(t:string){
-  alert(t)
-}
-escribeme(node:FMTree){
-  if(node.refactoring!=undefined ){
-    return node.refactoring.name
+SymbolPerTypeCons2(type:string){
+  symbol=this.jsonconstraintTexto.indexOf(type)
+  if(listRefactorconstraints[symbol]!=undefined){
+    symbol=true
   }
-  else{return}
+  else{symbol=false}
+  return symbol
 }
+
 SymbolPerTypeCons(type:string){
   symbol=this.jsonconstraintTexto.indexOf(type)
   if(listRefactorconstraints[symbol]!=undefined){
@@ -523,23 +525,65 @@ SymbolPerTypeCons(type:string){
   else{symbol=''}
   return symbol
 }
+GetFather(nodechild:FMTree,list:any){
+    list.forEach(element => {
+      if(element==nodechild){aux4=undefined}
+      else{
+        if(element.children.length>0){
+          if(element.children.indexOf(nodechild)!=-1){
+            aux4=element
+          }
+          else{this.GetFather(nodechild,element.children)}
+      }
+    }
+    });
+  
+return aux4;
+}
 
 
-SymbolPerType(type:string){ 
-  if(type.toUpperCase().startsWith("FEATURE")){
-    symbol='add'
+ToolTip(nodetooltip:FMTree){
+  let text
+  if(nodetooltip.description!=undefined){
+    text="Description: "
+    text=text+nodetooltip.description.toString()+" \n"
   }
-  if(type=="XAND"){
-    symbol='menu'
+if(nodetooltip.attributes!=undefined){
+  text=text+ "Attributes: "
+  nodetooltip.attributes.forEach(element => {
+    text=text+" "+element.name+": "+element.value+"; "
+  })
+}
+return text
+}
+ToolTipRefa(nodetooltiprefa:FMTree){
+  let text
+  if(nodetooltiprefa.refactoring!=undefined){
+    text="Refactoring: "
+    text=text+"Id: "+nodetooltiprefa.refactoring.id+" Name: "+nodetooltiprefa.refactoring.name+" Description: "+nodetooltiprefa.refactoring.description
   }
-  if(type=="XOR"){
-    symbol='sentiment_very_satisfied'
+return text
+}
+SymbolPerType2(nodeRefactor:FMTree){
+  if(nodeRefactor.refactoring!=undefined){
+  return true}
+  else{
+    return false}
+ }
+SymbolPerType(nodechild:FMTree){ 
+  this.actualfather=this.GetFather(nodechild,this.tree)
+  if(this.actualfather==undefined){
+    symbol=""
   }
-  if(type=="OR"){
-    symbol='pages'
-  }
-  if(type!="OR"&& type!="XOR" && !type.toUpperCase().startsWith("FEATURE") &&type!="XAND"){
-    symbol='help_outline'
+  else{
+    if(this.actualfather.type.toUpperCase().startsWith("FEATURE")){
+      if(nodechild.optional){ symbol="../assets/img/Optional.png"}
+      else{symbol="../assets/img/Mandatory.png"}
+    }
+    if(this.actualfather.type=="OR"){symbol="../assets/img/Or_Group.png"}
+    if(this.actualfather.type=="XOR"){symbol="../assets/img/Alternative_Group.png"}
+    if(this.actualfather.type!="OR"&& this.actualfather.type!="XOR" && !this.actualfather.type.toUpperCase().startsWith("FEATURE") )
+    {symbol="../assets/img/unknown.png"}
   }
   return symbol
 }

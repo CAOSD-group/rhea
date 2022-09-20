@@ -47,6 +47,17 @@
                         "type": "FEATURE",
                         "optional": true,
                         "abstract": false,
+                        "description": "descripción de la feature.",
+                        "attributes": [
+                            {
+                                "name": "precio",
+                                "value": 2.5
+                            },
+                            {   
+                                "name": "date",
+                                "value": "15 sep"
+                            }
+                        ],
                         "refactoring": {
                             "id": "GROUP_REFACTORING",
                             "name": "transform group feature",
