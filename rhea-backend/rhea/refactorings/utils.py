@@ -1,3 +1,4 @@
+from hashlib import new
 from flamapy.metamodels.fm_metamodel.models import FeatureModel, Feature, Relation
 
 
@@ -20,8 +21,9 @@ def get_new_attr_name(header: list, name: str) -> str:
     return new_name
 
 def get_top_feature(f: Feature) -> Feature:
-    if not f.is_root():
-        f = get_top_feature(f.parent)
+    parent = f.parent
+    if not parent.is_root():
+        f = get_top_feature(parent)
     return f
 
 def is_there_mandatory(relations: list[Relation]) -> bool:
@@ -50,6 +52,7 @@ def convert_parent_to_mandatory(fm: FeatureModel, f: Feature) -> FeatureModel:
     return fm
 
 def add_node_to_tree(model: FeatureModel, node: Feature) -> FeatureModel:
+
     if node not in model.get_features(): 
         #  If model does not contain F (node), the result is None
         return None
