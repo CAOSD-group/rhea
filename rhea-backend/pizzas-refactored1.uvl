@@ -1,0 +1,38 @@
+features
+	Pizza{abstract}
+		mandatory
+			Dough
+				alternative
+					Neapolitan
+					Sicilian
+		optional
+			CheesyCrust
+		mandatory
+			new_xor{abstract}
+				alternative
+					plus{abstract}
+						mandatory
+							Topping
+								mandatory
+									Ham
+								optional
+									Salami
+								optional
+									Mozzarella
+						mandatory
+							Size
+								alternative
+									Normal
+									Big
+					less{abstract}
+						mandatory
+							Topping1
+								or
+									Salami1
+									Mozzarella1
+						mandatory
+							Size1
+								mandatory
+									Normal1
+constraints
+	Sicilian => Mozzarella

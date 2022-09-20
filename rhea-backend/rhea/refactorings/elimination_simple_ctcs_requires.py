@@ -182,6 +182,7 @@ class EliminationSimpleConstraintsRequires(FMRefactoring):
         # print(f'Dict references requires: {[value.name for value in model.dict_references.values()]}')
 
         print(f'MODEL REQUIRES after: {model}')
+        print(f'dict reference: {[(key, value.name) for key, value in model.dict_references.items()]}')
         
         return model
 

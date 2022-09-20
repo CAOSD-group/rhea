@@ -153,42 +153,29 @@ def main():
 
     fm.dict_references = {}  # dictionary for references: str (feature's name) -> Feature
 
-    # print_fm(fm)
-
-    print_statistics(fm)
-    
-    print(f'Applying the refactoring {REFACTORING_SPLIT.get_name()}...')
-    fm = apply_refactoring(fm, REFACTORING_SPLIT)
-
     print_statistics(fm)
 
-    print(f'Applying the refactoring {REFACTORING_COMPLEX.get_name()}...')
-    fm = apply_refactoring(fm, REFACTORING_COMPLEX)
-
-    print_statistics(fm)
+    ctc = fm.get_constraints()[0]
+    print(f'CTC_0: {ctc.ast.pretty_str()}')
 
     print(f'Applying the refactoring {REFACTORING_REQUIRES.get_name()}...')
-    fm = apply_refactoring(fm, REFACTORING_REQUIRES)
+    fm = REFACTORING_REQUIRES.transform(fm, ctc)
+    
+    print_statistics(fm)
+    print_fm(fm)
+
+    UVLWriter(fm, 'pizzas-refactored1.uvl').transform()
+
+    ctc = fm.get_constraints()[0]
+    print(f'CTC_1: {ctc.ast.pretty_str()}')
+
+    print(f'Applying the refactoring {REFACTORING_REQUIRES.get_name()}...')
+    fm = REFACTORING_REQUIRES.transform(fm, ctc)
 
     print_statistics(fm)
+    print_fm(fm)
 
-    print(f'Applying the refactoring {REFACTORING_EXCLUDES.get_name()}...')
-    fm = apply_refactoring(fm, REFACTORING_EXCLUDES)
-
-    print_statistics(fm)
-
-    print('==================================================')
-
-    print(f'FM NUMBERS:')
-    print_fm_numbers(fm)
-
-    # print_fm(fm)
-
-    # print_fm_numbers(fm)
-
-    #UVLWriter(fm, OUTPUT_PATH).transform()
-    #print_fm(fm, expected_results)
-    UVLWriter(fm, OUTPUT_PATH).transform()
+    UVLWriter(fm, 'pizzas-refactored2.uvl').transform()
 
 
 if __name__ == '__main__':
