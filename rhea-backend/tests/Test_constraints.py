@@ -18,7 +18,7 @@ from rhea.refactorings.multiple_group_decomposition_refactoring import MultipleG
 from rhea.metamodels.fm_metamodel.models import fm_utils
 
 
-MODELS_BASE_PATH = os.path.join('tests', 'models')
+MODELS_BASE_PATH = os.path.join('tests', 'models', 'real_models')
 INPUT_MODELS = 'input_models'
 OUTPUT_MODELS = 'output_models'
 EXPECTED_MODELS = 'expected_models'
