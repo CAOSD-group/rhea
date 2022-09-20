@@ -40,7 +40,7 @@ REFACTORING_EXCLUDES = EliminationSimpleConstraintsExcludes
 REFACTORING_REQUIRES_WITHOUT_DICT = EliminationSimpleConstraintsRequiresWithoutDict
 REFACTORING_EXCLUDES_WIHOUT_DICT = EliminationSimpleConstraintsExcludesWithoutDict
 #MODEL_PATH = 'tests/models/split_constraints/input_models/Pizza.uvl'
-MODEL_PATH = 'tests/models/real_models/input_models/Pizzas.uvl'
+MODEL_PATH = 'tests/models/requires/input_models/Pizzas.uvl'
 OUTPUT_PATH = 'output.uvl'
 OUTPUT_CONSOLE = 'output.txt'
 ##################################################################################################

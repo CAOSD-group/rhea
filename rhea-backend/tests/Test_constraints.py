@@ -15,6 +15,7 @@ from rhea.refactorings import FMRefactoring
 from rhea.refactorings.mutex_group_refactoring import MutexGroupRefactoring
 from rhea.refactorings.cardinality_group_refactoring import CardinalityGroupRefactoring
 from rhea.refactorings.multiple_group_decomposition_refactoring import MultipleGroupDecompositionRefactoring
+from rhea.metamodels.fm_metamodel.models import fm_utils
 
 
 MODELS_BASE_PATH = os.path.join('tests', 'models')
@@ -53,12 +54,13 @@ def get_tests() -> list[list[str, str, str, FMRefactoring]]:
       - the refactoring to test.
     """
     tests = []
-    mutex_group_tests = get_tests_info(MUTEX_GROUP_MODELS_PATH, MutexGroupRefactoring)
-    tests.extend(mutex_group_tests)
-    cardinality_group_tests = get_tests_info(CARDINALITY_GROUP_MODELS_PATH, CardinalityGroupRefactoring)
-    tests.extend(cardinality_group_tests)
-    multiple_group_decomposition_tests = get_tests_info(MULTIPLE_GROUP_DECOMPOSITION, MultipleGroupDecompositionRefactoring)
-    tests.extend(multiple_group_decomposition_tests)
+    #mutex_group_tests = get_tests_info(MUTEX_GROUP_MODELS_PATH, MutexGroupRefactoring)
+    #tests.extend(mutex_group_tests)
+    #cardinality_group_tests = get_tests_info(CARDINALITY_GROUP_MODELS_PATH, CardinalityGroupRefactoring)
+    #tests.extend(cardinality_group_tests)
+    #multiple_group_decomposition_tests = get_tests_info(MULTIPLE_GROUP_DECOMPOSITION, MultipleGroupDecompositionRefactoring)
+    #tests.extend(multiple_group_decomposition_tests)
+    requires_ctc_tests = get_tests_info()
     return tests
 
 
@@ -97,11 +99,11 @@ def test_products(fm_path: str, refactoring: FMRefactoring):
     fm = load_model(fm_path, UVLReader)
     sat_model = FmToPysat(fm).transform()
     expected_configs = Glucose3Products().execute(sat_model).get_result()
-    expected_products = filter_products(fm, expected_configs)
+    expected_products = fm_utils.filter_products_from_dict(fm, expected_configs)
     resulting_model = apply_refactoring(fm, refactoring)
     sat_model = FmToPysat(resulting_model).transform()
     configs = Glucose3Products().execute(sat_model).get_result()
-    products = filter_products(resulting_model, configs)
+    products = fm_utils.filter_products_from_dict(resulting_model, configs)
     assert expected_products == products
 
 
@@ -124,10 +126,3 @@ def test_feature_model_output(input_fm_path: str, output_fm_path: str, expected_
     save_model(output_fm_path, resulting_model, UVLWriter)
     assert expected_fm == resulting_model
 
-
-def filter_products(fm: FeatureModel, configurations: list[list[Any]]) -> set[set[Any]]:
-    filtered_configs = set()
-    for config in configurations:
-        c = {f for f in config if not fm.get_feature_by_name(f).is_abstract}
-        filtered_configs.add(frozenset(c))
-    return filtered_configs

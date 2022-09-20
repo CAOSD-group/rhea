@@ -110,31 +110,6 @@ def filter_products(fm: FeatureModel, configurations: list[list[str]]) -> list[l
     return filtered_configs
 
 
-def filter_products2(fm: FeatureModel, configurations: list[list[Feature]]) -> list[list[Feature]]:
-    """Given a list of configurations return it with the configurations filtered.
-    
-    This method takes into account that the features in the FM can be not unique. 
-    That is, features can have a 'reference' attribute indicating that the feature is non-unique
-    and appears in other part of the FM. The 'reference' points to the original feature.
-
-    The filters performed are the following:
-      a) Remove abstract features.
-      b) Substitute non-unique features with the original one.
-      c) Remove duplicate features.
-    """
-    filtered_configs = set()
-    for config in configurations:
-        c = set()
-        for feature in config:
-            if feature.name.endswith('1'):
-                name = feature.name[:-1]
-            else:
-                name = feature.name
-            c.add(name)
-        filtered_configs.add(frozenset(c))
-    return filtered_configs
-
-
 def filter_products_from_dict(fm: FeatureModel, configurations: list[list[str]]) -> list[list[str]]:
     """Given a list of configurations return it with the configurations filtered.
     
@@ -154,8 +129,19 @@ def filter_products_from_dict(fm: FeatureModel, configurations: list[list[str]])
         for f in config:
             feature = fm.get_feature_by_name(f)
             if not feature.is_abstract:
-                if f in fm.dict_references:
+                if hasattr(fm, 'dict_references') and f in fm.dict_references:
                     feature = fm.dict_references[f]
                 c.add(feature.name)
         filtered_configs.add(frozenset(c))
     return filtered_configs
+
+
+def remove_references(fm: FeatureModel) -> FeatureModel:
+    """Given a feature model with a references dictionary, 
+    substitute each reference with the original feature 
+    giving as result a feature model with non-unique features."""
+    if hasattr(fm, 'dict_references'):    
+        for feature in fm.get_features():
+            if feature.name in fm.dict_references:
+                feature.name = fm.dict_references[feature.name]
+    return fm

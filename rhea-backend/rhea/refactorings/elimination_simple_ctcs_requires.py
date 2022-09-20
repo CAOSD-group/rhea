@@ -32,6 +32,8 @@ class EliminationSimpleConstraintsRequires(FMRefactoring):
         if not ConstraintHelper(instance).is_requires_constraint():
             raise Exception(f'Operator {str(instance)} is not requires.')
 
+        if not hasattr(model, 'dict_references'):
+            model.dict_references = {}
         model_plus = copy.deepcopy(model)  # copy.deepcopy(model)
         model_less = copy.deepcopy(model)
 
@@ -39,25 +41,32 @@ class EliminationSimpleConstraintsRequires(FMRefactoring):
         # print(f'MODEL REQUIRES before: {model}')
 
         right_feature_name_ctc = instance.ast.root.right.data
-        list_right_feature_ctc_plus = [right_feature_name_ctc] + [key for key, value in model.dict_references.items() 
-                                        if value.name == right_feature_name_ctc]
+        list_right_feature_ctc_plus = [right_feature_name_ctc]
+        if hasattr(model, 'dict_references'):
+            list_right_feature_ctc_plus += [key for key, value in model.dict_references.items() 
+                                            if value.name == right_feature_name_ctc]
         xor_plus = Feature(utils.get_new_feature_name(model_plus, 'XOR'), is_abstract=True)
 
-        list_right_feature_ctc_less = [right_feature_name_ctc] + [key for key, value in model.dict_references.items() 
-                                        if value.name == right_feature_name_ctc]
+        list_right_feature_ctc_less = [right_feature_name_ctc]
+        if hasattr(model, 'dict_references'):
+            list_right_feature_ctc_less += [key for key, value in model.dict_references.items() 
+                                            if value.name == right_feature_name_ctc]
 
         if instance.ast.root.data in [ASTOperation.REQUIRES, ASTOperation.IMPLIES]:
             left_feature_name_ctc = instance.ast.root.left.data
         elif instance.ast.root.data is ASTOperation.OR:
             not_operation = instance.ast.root.left
             left_feature_name_ctc = not_operation.left.data
-        list_left_feature_ctc_less = [left_feature_name_ctc] + [key for key, value in model.dict_references.items() 
-                                        if value.name == left_feature_name_ctc]
+        
+        list_left_feature_ctc_less = [left_feature_name_ctc]
+        if hasattr(model, 'dict_references'):
+            list_left_feature_ctc_less += [key for key, value in model.dict_references.items() 
+                                           if value.name == left_feature_name_ctc]
 
         plus_roots = []
         for f_plus in list_right_feature_ctc_plus:
             new_model_plus = copy.deepcopy(model)
-            if f_plus in model.dict_references.keys() and new_model_plus is not None:
+            if hasattr(model, 'dict_references') and f_plus in model.dict_references.keys() and new_model_plus is not None:
                 new_f_plus = new_model_plus.get_feature_by_name(f_plus)
                 new_model_plus = utils.add_node_to_tree(new_model_plus, new_f_plus)
                 if new_model_plus is not None:
@@ -120,14 +129,14 @@ class EliminationSimpleConstraintsRequires(FMRefactoring):
         # CUIDADO!!! (puede que haya que modificarlo)
         if model_less is not None and model_plus is not None:
             for feature in model_less.get_features():
-                if feature in model_plus.get_features() and not feature.name in model.dict_references.keys():
+                if feature in model_plus.get_features() and hasattr(model, 'dict_references') and not feature.name in model.dict_references.keys():
                     # print(f'feature NOT in model dict reference: {feature.name}')
                     feature_reference = model.get_feature_by_name(feature.name)  # aquí se va a poner el nombre que se encuentre en el feature model
                     # hay que ponerle el nombre de la feature que haya en dict_references.values()
                     feature.name = utils.get_new_feature_name(model, feature.name)
                     if feature != feature_reference:
                         model.dict_references[feature.name] = feature_reference
-                elif feature.name in model.dict_references.keys():
+                elif hasattr(model, 'dict_references') and feature.name in model.dict_references.keys():
                     feature_dict_value = model.dict_references[feature.name]
                     # print(f'feature in model dict reference: {feature.name}')
                     feature.name = utils.get_new_feature_name(model, feature.name)

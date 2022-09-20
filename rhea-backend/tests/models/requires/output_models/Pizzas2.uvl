@@ -4,13 +4,16 @@ features
 			Pizza {abstract}
 				mandatory
 					Topping 
-						or
-							Salami 
+						mandatory
 							Ham 
+						optional
+							Salami 
+						optional
 							Mozzarella 
 				mandatory
 					Size 
-						mandatory
+						alternative
+							Normal 
 							Big 
 				mandatory
 					Dough 
@@ -24,14 +27,15 @@ features
 					Topping1 
 						or
 							Salami1 
-							Ham1 
 							Mozzarella1 
 				mandatory
 					Size1 
 						mandatory
-							Normal 
+							Normal1 
 				mandatory
 					Dough1 
 						alternative
 							Neapolitan1 
 							Sicilian1 
+				optional
+					CheesyCrust1 
