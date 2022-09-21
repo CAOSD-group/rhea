@@ -27,6 +27,8 @@ class EliminationSimpleConstraintsExcludes(FMRefactoring):
         if not ConstraintHelper(instance).is_excludes_constraint():
             raise Exception(f'Operator {str(instance)} is not excludes.')
 
+        if not hasattr(model, 'dict_references'):
+            model.dict_references = {}
         model_less = copy.deepcopy(model)
         model_less_plus = copy.deepcopy(model)
 
@@ -40,11 +42,16 @@ class EliminationSimpleConstraintsExcludes(FMRefactoring):
         elif instance.ast.root.data is ASTOperation.EXCLUDES:
             right_feature_name_ctc = instance.ast.root.right.data
 
-        list_right_feature_ctc_less = [right_feature_name_ctc] + [key for key, value in model.dict_references.items() 
-                                        if value.name == right_feature_name_ctc]
-        # print(f'LIST RIGHT FEATURE CTC LESS: {[f for f in list_right_feature_ctc_less]}')
-        list_right_feature_ctc_less_plus = [right_feature_name_ctc] + [key for key, value in model.dict_references.items() 
+        list_right_feature_ctc_less = [right_feature_name_ctc]
+        if hasattr(model, 'dict_references'):
+            list_right_feature_ctc_less += [key for key, value in model.dict_references.items() 
                                             if value.name == right_feature_name_ctc]
+        # print(f'LIST RIGHT FEATURE CTC LESS: {[f for f in list_right_feature_ctc_less]}')
+
+        list_right_feature_ctc_less_plus = [right_feature_name_ctc]
+        if hasattr(model, 'dict_references'):
+            list_right_feature_ctc_less_plus += [key for key, value in model.dict_references.items() 
+                                                 if value.name == right_feature_name_ctc]
         # print(f'LIST RIGHT FEATURE CTC LESS PLUS: {[f for f in list_right_feature_ctc_less_plus]}')
 
 
@@ -55,8 +62,10 @@ class EliminationSimpleConstraintsExcludes(FMRefactoring):
             left_feature_name_ctc = not_operation.left.data
 
         xor_plus = Feature(utils.get_new_feature_name(model_less, 'XOR'), is_abstract=True)
-        list_left_feature_ctc_less_plus = [left_feature_name_ctc] + [key for key, value in model.dict_references.items() 
-                                            if value.name == left_feature_name_ctc]
+        list_left_feature_ctc_less_plus = [left_feature_name_ctc]
+        if hasattr(model, 'dict_references'):
+            list_left_feature_ctc_less_plus += [key for key, value in model.dict_references.items() 
+                                                if value.name == left_feature_name_ctc]
         # print(f'LIST LEFT FEATURE CTC LESS PLUS: {[f for f in list_left_feature_ctc_less_plus]}')
 
 

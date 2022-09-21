@@ -94,16 +94,19 @@ class EliminationSimpleConstraintsRequires(FMRefactoring):
                 r.name = f'{utils.get_new_feature_name(model, r.name)}{count}'
                 count += 1
 
+        # print(f'T(+{list_right_feature_ctc_plus}): {model_plus}')
 
         for f_left_less in list_left_feature_ctc_less:
             if model_less is not None:
                 feature_left_less = model_less.get_feature_by_name(f_left_less)
                 model_less = utils.eliminate_node_from_tree(model_less, feature_left_less)
+            # print(f'T(-{f_left_less}): {model_less}')
 
         for f_right_less in list_right_feature_ctc_less:
             if model_less is not None:
                 feature_right_less = model_less.get_feature_by_name(f_right_less)
                 model_less = utils.eliminate_node_from_tree(model_less, feature_right_less)
+            # print(f'T(-{f_right_less}): {model_less}')
 
 
         # Construct T(+B) and T(-A-B).

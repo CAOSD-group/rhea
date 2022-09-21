@@ -40,7 +40,7 @@ REFACTORING_REQUIRES = EliminationSimpleConstraintsRequires
 REFACTORING_EXCLUDES = EliminationSimpleConstraintsExcludes
 REFACTORING_REQUIRES_WITHOUT_DICT = EliminationSimpleConstraintsRequiresWithoutDict
 REFACTORING_EXCLUDES_WIHOUT_DICT = EliminationSimpleConstraintsExcludesWithoutDict
-MODEL_PATH = 'tests/models/requires/input_models/Pizzas3.uvl'
+MODEL_PATH = 'tests/models/excludes/input_models/Pizzas6.uvl'
 OUTPUT_PATH = os.path.basename(MODEL_PATH)
 ##################################################################################################
 
@@ -97,12 +97,13 @@ def main():
     print_statistics(fm)
     
     print('==================================================')
-    print(f'Applying the refactoring {REFACTORING_REQUIRES.get_name()}...')
-    fm = apply_refactoring(fm, REFACTORING_REQUIRES)
+    print(f'Applying the refactoring {REFACTORING_EXCLUDES.get_name()}...')
+    fm = apply_refactoring(fm, REFACTORING_EXCLUDES)
     print('==================================================')
 
     print_statistics(fm)
 
+    print(fm)
     UVLWriter(fm, OUTPUT_PATH).transform()
 
 

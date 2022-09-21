@@ -1,41 +1,41 @@
 features
-	root {abstract}
+	root{abstract}
 		alternative
-			Pizza {abstract}
+			Pizza{abstract}
 				mandatory
-					Topping 
+					Topping
 						mandatory
-							Ham 
+							Ham
 						optional
-							Salami 
+							Salami
 						optional
-							Mozzarella 
+							Mozzarella
 				mandatory
-					Size 
+					Size
 						alternative
-							Normal 
-							Big 
+							Normal
+							Big
 				mandatory
-					Dough 
+					Dough
 						alternative
-							Neapolitan 
-							Sicilian 
+							Neapolitan
+							Sicilian
 				optional
-					CheesyCrust 
-			Pizza1 {abstract}
+					CheesyCrust
+			Pizza1{abstract}
 				mandatory
-					Topping1 
+					Topping1
 						or
-							Salami1 
-							Mozzarella1 
+							Salami1
+							Mozzarella1
 				mandatory
-					Size1 
+					Size1
 						mandatory
-							Normal1 
+							Normal1
 				mandatory
-					Dough1 
+					Dough1
 						alternative
-							Neapolitan1 
-							Sicilian1 
+							Neapolitan1
+							Sicilian1
 				optional
-					CheesyCrust1 
+					CheesyCrust1

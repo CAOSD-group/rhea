@@ -127,10 +127,12 @@ def filter_products_from_dict(fm: FeatureModel, configurations: list[list[str]])
     for config in configurations:
         c = set()
         for f in config:
-            feature = fm.get_feature_by_name(f)
+            if hasattr(fm, 'dict_references') and f in fm.dict_references:
+                feature = fm.dict_references[f]
+                feature = fm.get_feature_by_name(feature.name)
+            else:
+                feature = fm.get_feature_by_name(f)
             if not feature.is_abstract:
-                if hasattr(fm, 'dict_references') and f in fm.dict_references:
-                    feature = fm.dict_references[f]
                 c.add(feature.name)
         filtered_configs.add(frozenset(c))
     return filtered_configs
@@ -143,5 +145,5 @@ def remove_references(fm: FeatureModel) -> FeatureModel:
     if hasattr(fm, 'dict_references'):    
         for feature in fm.get_features():
             if feature.name in fm.dict_references:
-                feature.name = fm.dict_references[feature.name]
+                feature = fm.dict_references[feature.name]
     return fm

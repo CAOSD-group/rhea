@@ -1,17 +1,13 @@
 features
 	root1{abstract}
 		alternative
-			XOR{abstract}
+			root{abstract}
 				alternative
-					Pizza21{abstract}
+					Pizza{abstract}
 						mandatory
 							Topping
 								mandatory
-									Ham
-								optional
 									Salami
-								mandatory
-									Mozzarella
 						mandatory
 							Size
 								alternative
@@ -24,11 +20,11 @@ features
 									Sicilian
 						optional
 							CheesyCrust
-					Pizza112{abstract}
+					Pizza1{abstract}
 						mandatory
 							Topping1
 								mandatory
-									Mozzarella1
+									Ham
 								optional
 									Salami1
 						mandatory
@@ -42,13 +38,13 @@ features
 									Sicilian1
 						optional
 							CheesyCrust1
-			root{abstract}
+			XOR{abstract}
 				alternative
-					Pizza{abstract}
+					Pizza21{abstract}
 						mandatory
 							Topping2
 								mandatory
-									Ham1
+									Mozzarella
 								optional
 									Salami2
 						mandatory
@@ -62,11 +58,15 @@ features
 									Neapolitan2
 						optional
 							CheesyCrust2
-					Pizza11{abstract}
+					Pizza112{abstract}
 						mandatory
 							Topping11
 								mandatory
+									Ham1
+								optional
 									Salami11
+								mandatory
+									Mozzarella11
 						mandatory
 							Size11
 								mandatory

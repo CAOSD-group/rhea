@@ -16,7 +16,10 @@ from rhea.refactorings import FMRefactoring
 from rhea.refactorings.mutex_group_refactoring import MutexGroupRefactoring
 from rhea.refactorings.cardinality_group_refactoring import CardinalityGroupRefactoring
 from rhea.refactorings.multiple_group_decomposition_refactoring import MultipleGroupDecompositionRefactoring
+from rhea.refactorings.split_constraints import SplitConstraints
+from rhea.refactorings.elimination_complex_constraints import EliminationComplexConstraints
 from rhea.refactorings.elimination_simple_ctcs_requires import EliminationSimpleConstraintsRequires
+from rhea.refactorings.elimination_simple_ctcs_excludes import EliminationSimpleConstraintsExcludes
 from rhea.metamodels.fm_metamodel.models import fm_utils
 
 MODELS_BASE_PATH = os.path.join('tests', 'models')
@@ -26,6 +29,8 @@ EXPECTED_MODELS = 'expected_models'
 MUTEX_GROUP_MODELS_PATH = 'mutex_groups'
 CARDINALITY_GROUP_MODELS_PATH = 'cardinality_groups'
 MULTIPLE_GROUP_DECOMPOSITION = 'multiple_group_decomposition'
+SPLIT_CONSTRAINTS_FOLDER = 'split'
+COMPLEX_CONSTRAINTS_FOLDER = 'complex'
 REQUIRES_CONSTRAINTS_FOLDER = 'requires'
 EXCLUDES_CONSTRAINTS_FOLDER = 'excludes'
 
@@ -68,8 +73,15 @@ def get_tests() -> list[list[str, str, str, FMRefactoring]]:
     #tests.extend(cardinality_group_tests)
     #multiple_group_decomposition_tests = get_tests_info(MULTIPLE_GROUP_DECOMPOSITION, MultipleGroupDecompositionRefactoring)
     #tests.extend(multiple_group_decomposition_tests)
+    # split_tests = get_tests_info(SPLIT_CONSTRAINTS_FOLDER, SplitConstraints)
+    # tests.extend(split_tests)
+    # complex_tests = get_tests_info(REQUIRES_CONSTRAINTS_FOLDER, EliminationComplexConstraints)
+    # tests.extend(complex_tests)
     requires_tests = get_tests_info(REQUIRES_CONSTRAINTS_FOLDER, EliminationSimpleConstraintsRequires)
     tests.extend(requires_tests)
+    excludes_tests = get_tests_info(EXCLUDES_CONSTRAINTS_FOLDER, EliminationSimpleConstraintsExcludes)
+    tests.extend(excludes_tests)
+    
     return tests
 
 
