@@ -8,6 +8,7 @@ let Newchildren:Array<FMTree>;
 let aux :any=0 
 let MyTree  :Array<FMTree> =[]
 let nlist:Array<string> =[]
+let refac=new Refactoring()
 @Component({
     selector: 'FMTree',
     templateUrl: './FMTree.html',
@@ -71,7 +72,7 @@ let nlist:Array<string> =[]
         aux.type=value.type;
         if(value.card_max!=undefined){aux.card_max=value.card_max}
         if(value.card_min!=undefined){aux.card_min=value.card_min}
-        if(value.refactoring!=undefined){aux.refactoring=value.refactoring}
+        if(value.refactoring!=undefined){aux.refactoring=refac.create(value.refactoring)}
         if(value.description!=undefined){aux.description=value.description}
         if(value.attributes!=undefined){aux.attributes=value.attributes}
         aux.children=[]
@@ -151,7 +152,7 @@ let nlist:Array<string> =[]
         aux.optional=value.optional;
         if(value.card_max!=undefined){aux.card_max=value.card_max}
         if(value.card_min!=undefined){aux.card_min=value.card_min}
-        if(value.refactoring!=undefined){aux.refactoring=value.refactoring}
+        if(value.refactoring!=undefined){aux.refactoring=refac.create(value.refactoring)}
         if(value.description!=undefined){aux.description=value.description}
         if(value.attributes!=undefined){aux.attributes=value.attributes}
         aux.type=value.type;

@@ -1,4 +1,5 @@
 from asyncio.windows_events import NULL
+import re
 from typing import Optional
 from xml.etree.ElementTree import tostring
 
@@ -55,6 +56,20 @@ def read_fm_file(filename: str) -> Optional[FeatureModel]:
     return None
 
 #order : saveFM;downloadFM;deleteFM;createFM;
+
+@app.route('/refactor', methods=['POST'])
+def refactor():
+    # RECIBE LOS PARAMETROS
+
+    # devuelve un json.
+    if request.method == 'POST':
+        texto=request.data.decode()   
+        print (texto) 
+        print("devuelvo el texto")
+        return texto
+
+
+
 
 
 @app.route('/uploadFM', methods=['POST'])

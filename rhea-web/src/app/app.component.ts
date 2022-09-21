@@ -43,6 +43,7 @@ export class AppComponent {
   urldownload2="http://172.16.51.94:5000/downloadFM2"  //servidor cargar datos
   urldelete="http://172.16.51.94:5000/deleteFM"  //servidor cargar datos
   urlcreate="http://172.16.51.94:5000/createFM" //servidor guardar datos
+  urlrefactor="http://172.16.51.94:5000/refactor" //servidor guardar datos
   documents:string[]= ['GPL.xml', 'JHipster.uvl', 'MobileMedia.xml', 'Pizzas.uvl','Pizzas.json', 'TankWar.xml', 'Truck.uvl','WeaFQAs.uvl','Automotive2_1-basic.uvl'];
   //file: File | null = null;
   title:string ='rhea-web' // evita un error en app.component.spec.ts
@@ -62,6 +63,7 @@ export class AppComponent {
   
     
   //list de constraints y nombres de las features
+  ejemplo:Array<object>=[{name:1},{name:2},{name:2}]
   typesofcons:Array<string>=['NotTerm','OrTerm','AndTerm','ImpliesTerm','Xor','Xand','DoubleImpliesTerm']
   tablechips:Array<string>=[]
   namesFeatures:Array<string>=[]
@@ -80,10 +82,10 @@ export class AppComponent {
   abstract:boolean=false;
   type:string ="";
   attributes:Array<any>=[];
+  declare refactoring:Refactoring;
   card_min:number=0;
   card_max:number=0;
   ncons:string="";
-
   
 constructor(private http: HttpClient,public dialog: MatDialog) { }  
 
@@ -94,7 +96,6 @@ ngOnInit() {
   console.log("determinar diseño final")
   console.log("cambiar comentarios a ingles o borrarlos")
   console.log("cambiar CSS a ingles")
-  console.log("usar tooltips https://material.angular.io/components/tooltip/examples")
   this.returnValues()
   while(this.text3=="Hide chips"){
     this.togglevisibilitychips()
@@ -144,12 +145,19 @@ sendUVL(uvl:any){
 
 }
 
-
+refactor(refac?:any){
+  if(refac==""|| refac==undefined){refac=this.refactoring}
+  if(refac.name==""){console.log("no tiene refactoring")}
+  else{
+  this.TransformJSON()
+  this.http.post(this.urlrefactor,{json,refac},{responseType:'text'}).subscribe(resultado => {
+    console.log(resultado)
+  })}
+}
 
 
 returnValues(text?:string){
-  if(text==""){text=this.item}
-  if(text==undefined){text=this.item}
+  if(text==""|| text==undefined){text=this.item}
   this.http.post(this.urldownload,text,{responseType:'text'}).subscribe(resultado => {
     this.CreateData(resultado,text)
   })
@@ -211,9 +219,12 @@ ModifySelecction(){
   if(this.actual.children.length<2){
   }
   else{
-  this.actual.type=this.type
+  
+  if(this.actual.type=="CARDINALITY"){
   this.actual.card_max=this.card_max
   this.actual.card_min=this.card_min
+  }
+
 }}
   this.actual.optional=this.optional
   this.actual.abstract=this.abstract
@@ -349,6 +360,8 @@ readThis(inputValue: any): void {
     this.card_max=this.actual.card_max||0
     this.card_min=this.actual.card_min||0
     this.attributes=this.actual.attributes||[]
+    if(this.actual.refactoring!=undefined){this.refactoring=this.actual.refactoring}
+    else{this.refactoring=new Refactoring}
     this.TransformToConsPadreFMTree(object)
     console.log(this.actual)
   }
@@ -508,6 +521,17 @@ openDialog() {
     console.log(`Dialog result: ${result}`);
   });
 }
+
+cardhidden(){
+  let bool =true
+  let dis =true
+  if(this.actual!=undefined){
+  if(this.actual.card_max!=undefined || this.actual.card_min!=undefined){
+    bool=false
+    if(this.actual.type=="CARDINALITY"){dis=false}
+  }}
+  return [bool,dis]
+}
 SymbolPerTypeCons2(type:string){
   symbol=this.jsonconstraintTexto.indexOf(type)
   if(listRefactorconstraints[symbol]!=undefined){
@@ -572,20 +596,25 @@ SymbolPerType2(nodeRefactor:FMTree){
  }
 SymbolPerType(nodechild:FMTree){ 
   this.actualfather=this.GetFather(nodechild,this.tree)
+  let text
   if(this.actualfather==undefined){
-    symbol=""
+    symbol="../assets/img/featuretree.ico"
+    text="root"
   }
   else{
     if(this.actualfather.type.toUpperCase().startsWith("FEATURE")){
-      if(nodechild.optional){ symbol="../assets/img/Optional.png"}
-      else{symbol="../assets/img/Mandatory.png"}
+      if(nodechild.optional){ symbol="../assets/img/optional.gif";text="optional"}
+      else{symbol="../assets/img/mandatory.gif";text="mandatory"}
+      
     }
-    if(this.actualfather.type=="OR"){symbol="../assets/img/Or_Group.png"}
-    if(this.actualfather.type=="XOR"){symbol="../assets/img/Alternative_Group.png"}
-    if(this.actualfather.type!="OR"&& this.actualfather.type!="XOR" && !this.actualfather.type.toUpperCase().startsWith("FEATURE") )
-    {symbol="../assets/img/unknown.png"}
+    if(this.actualfather.type=="OR"){symbol="../assets/img/or.gif";text="or <1..*>"}
+    if(this.actualfather.type=="XOR"){symbol="../assets/img/xor.gif";text="xor <1..1>"}
+    if(this.actualfather.type=="MUTEX"){symbol="../assets/img/mutex.gif";text="mutex  <0..1>"}
+    if(this.actualfather.type=="CARDINALITY"){symbol="../assets/img/cardinality.gif";text="cardinality " +this.actualfather.card_min+".."+this.actualfather.card_max}
+    if(this.actualfather.type!="OR"&&  this.actualfather.type!="CARDINALITY"&&this.actualfather.type!="MUTEX"&& this.actualfather.type!="XOR" && !this.actualfather.type.toUpperCase().startsWith("FEATURE") )
+    {symbol="../assets/img/icon_error.gif";text="error"}
   }
-  return symbol
+  return [symbol,text]
 }
 
 onRightClick($event) {
@@ -739,7 +768,6 @@ TransformJSON(){
   aux2=aux2.slice(0,aux2.length-1)
   aux2='"constraints": ['+aux2+']'
   json='{'+jsonfeatures+','+aux2+'}'
-  console.log(json)
   this.cons=this.consactual.createListForTree(this.cons)
 }
 

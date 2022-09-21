@@ -12,6 +12,7 @@ let constraintTree :Array<Const> =[]
 let constraintText :Array<any> =[]
 let constraintName :Array<any> =[]
 let constraintRefactoring :Array<Refactoring> =[]
+let refac=new Refactoring()
 
 @Component({
     selector: 'const',
@@ -35,7 +36,11 @@ let constraintRefactoring :Array<Refactoring> =[]
             constraintTree.push(list2[key2].ast)
             constraintText.push(list2[key2].expr)
             constraintName.push(list2[key2].name)
-            constraintRefactoring.push(list2[key2].refactoring||undefined)
+            if(list2[key2].refactoring!=undefined){
+            constraintRefactoring.push(refac.create(list2[key2].refactoring)||undefined)}
+            else{
+                constraintRefactoring.push(list2[key2].refactoring)||undefined
+            }
             
         }
         return [constraintTree,constraintText,constraintName,constraintRefactoring]

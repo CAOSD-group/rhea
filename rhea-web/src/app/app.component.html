@@ -144,6 +144,7 @@
               <li>If you try to change a value from a constraint, be sure of the number of references each type of term can have. The program allows you to put less references but you should then insert those values.</li>
               <li>The program adjust de values of the keys in the constraint dictionary when downloading as a json file.</li>
             </ul>
+
         </div>
 
         <div class="col-lg-5 order-1 order-lg-2 hero-img" data-aos="zoom-out">
@@ -183,7 +184,7 @@
                                       </mat-icon>
                                     </button>
                                     <div class="imagenes">
-                                  <img src={{SymbolPerType(node)}} ></div>
+                                  <img src={{SymbolPerType(node)[0]}} #tooltip="matTooltip"  matTooltip={{SymbolPerType(node)[1]}}></div>
                                   <div class="margen" ></div>
                                       <div  #tooltip="matTooltip"  matTooltip={{ToolTip(node)}} >
                                     {{node.name}}</div>
@@ -236,7 +237,6 @@
                             </mat-chip>
                           </mat-chip-list>
                         </div>
-
                         <!-- Constraints Tree -->
                         <div class="borde">
                           <h5>Constraint Tree</h5>
@@ -293,26 +293,29 @@
 							<div class="modal-body">
 								<div class="col-10">
                   
-                    <h2>Name</h2>
-                    <input matInput  type="string" [(ngModel)]="name">
+                    <h5>Name
+                    <input matInput  type="string" [(ngModel)]="name"></h5>
                     <hr>
-                    <h3>Type</h3>
-                    <input matInput  type="string" [(ngModel)]="type">
+                    <h5>Type
+                    <input matInput  type="string" [(ngModel)]="type" disabled="true"></h5>
                     <hr>
-                    <h3>Card_max</h3>
-                    <input matInput  type="number" [(ngModel)]="card_max">
-                    <hr>
-                    <h3>Card_min</h3>
-                    <input matInput  type="number" [(ngModel)]="card_min">
-                    <hr>
-                    <h3>Attributes</h3>
-                    <div ng-repeat="a in attributes">
-                    <h1>hola</h1></div>
-                    <hr>
+                    <h5 [hidden]="cardhidden()[0]">Card_max
+                    <input matInput  type="number" [(ngModel)]="card_max" disabled={{cardhidden()[1]}}>
+                    <hr></h5>
+                    <h5 [hidden]="cardhidden()[0]" >Card_min
+                    <input matInput  type="number" [(ngModel)]="card_min" disabled={{cardhidden()[1]}}>
+                    <hr></h5>
                     <mat-checkbox  [(ngModel)]="optional" > optional</mat-checkbox>
                     <hr>
                     <mat-checkbox  [(ngModel)]="abstract" >abstract </mat-checkbox>
                     <hr>
+                    <h5>Attributes</h5>
+                      <div *ngFor="let valor of attributes"  >
+                        <input type="string" [(ngModel)]="valor.name">
+                        <input type="string" [(ngModel)]="valor.value">
+                      </div>
+
+                     <hr>
                     <h2>Save Changes</h2>
                     <button (click)="ModifySelecction()" class="btn btn-primary">update</button>
                   
@@ -438,7 +441,7 @@
                     <button class="bottom-style" (click)="returnValues()">Get</button>
                     <button class="bottom-style" (click)="SaveDemoJson()">Download .json</button>
                     <button class="bottom-style" (click)="SaveDemo()">Download .uvl</button>  
-                    <button class="bottom-style" >Refactoring</button> 
+                    <button class="bottom-style" (click)="refactor()">Refactoring</button> 
                   </div>
                 </div>
               </div>

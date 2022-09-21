@@ -10,7 +10,7 @@
                 "name": "Topping",
                 "card_min": 1,
                 "card_max": 3,
-                "type": "OR",
+                "type": "MUTEX",
                 "optional": false,
                 "abstract": false,
                 "children": [
@@ -56,6 +56,22 @@
                             {   
                                 "name": "date",
                                 "value": "15 sep"
+                            },
+                            {
+                                "name": "pr5675757ecio",
+                                "value": 2.65755
+                            },
+                            {
+                                "name": "pr575675ecio",
+                                "value": 2.5755
+                            },
+                            {
+                                "name": "pr5675475ecio",
+                                "value": true
+                            },
+                            {
+                                "name": "prec567io",
+                                "value": 2.5675
                             }
                         ],
                         "refactoring": {
@@ -74,9 +90,9 @@
             },
             {
                 "name": "Dough",
-                "card_min": 1,
-                "card_max": 1,
-                "type": "XOR",
+                "card_min": 2,
+                "card_max": 5,
+                "type": "CARDINALITY",
                 "optional": false,
                 "abstract": false,
                 "children": [
@@ -88,6 +104,28 @@
                     },
                     {
                         "name": "Sicilian",
+                        "type": "FEATURE",
+                        "optional": true,
+                        "abstract": false
+                    }
+                ]
+            },
+            {
+                "name": "wertrt",
+                "card_min": 2,
+                "card_max": 5,
+                "type": "OR",
+                "optional": false,
+                "abstract": false,
+                "children": [
+                    {
+                        "name": "wert",
+                        "type": "FEATURE",
+                        "optional": true,
+                        "abstract": false
+                    },
+                    {
+                        "name": "Siweran",
                         "type": "FEATURE",
                         "optional": true,
                         "abstract": false
