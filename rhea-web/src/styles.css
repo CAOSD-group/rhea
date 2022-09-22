@@ -1886,7 +1886,7 @@
     background: #3e4f6f;
   }
   
-  @media (min-width: 992px) {
+  @media (min-width: 270px) {
     .error-404 img {
       max-width: 50%;
     }

@@ -1,116 +1,93 @@
   <!-- ======= Header ======= -->
   <header id="header" class="header fixed-top d-flex align-items-center">
-
     <div class="d-flex align-items-center justify-content-between">
       <a  class="logo d-flex align-items-center">
         <span class="d-none d-lg-block">RheaWeb</span>
-      <button mat-icon-button (click)="drawer.toggle()" class="botonmenu">
-        <mat-icon>menu</mat-icon>
-      </button></a>
-    </div><!-- End Logo -->
+        <button mat-icon-button (click)="drawer.toggle()" class="botonmenu">
+          <mat-icon>menu</mat-icon>
+        </button>
+      </a>
+    </div>
+    <!-- End Logo -->
     <script> drawer.toggle()</script>
-
     <nav class="header-nav ms-auto">
       <ul class="d-flex align-items-center">
-
         <li class="nav-item_pe-3">
           <a target="_blank" href="https://www.gisum.uma.es/" class=" nav-profile d-flex align-items-center pe-0">
             <img src="../assets/img/logorhea.png" alt="Profile">
           </a>
-
         </li>
-
         <li class="nav-item_pe-3">
           <a target="_blank" href="https://caosd.lcc.uma.es/" class=" nav-profile d-flex align-items-center pe-0">
             <img src="../assets/img/caosd.png" alt="Profile">
           </a>
-
         </li>
-
         <li class="nav-item_pe-3">
           <a target="_blank" href="https://www.uma.es/" class=" nav-profile d-flex align-items-center pe-0">
             <img src="../assets/img/uma.jpg" alt="Profile">
           </a>
-
         </li>
-
       </ul>
-    </nav><!-- End Icons Navigation -->
-
-  </header><!-- End Header -->
-
+    </nav>
+    <!-- End Icons Navigation -->
+  </header>
+  <!-- End Header -->
   <!-- ======= Sidebar ======= -->
   <mat-drawer-container >
-  <mat-drawer  #drawer id="sidebar" class="sidebar" >
-  
+    <mat-drawer  #drawer id="sidebar" class="sidebar" >
+      <ul class="sidebar-nav" id="sidebar-nav">
+        <li class="nav-item">
+          <h2>Action</h2>
+        </li>
+        <li class="nav-item">
+          <button class="btn-primary-bottom" (click)="togglevisibilityFMTree()"> {{text4}}</button>
+        </li>
+        <li class="nav-item">
+          <button class="btn-primary-bottom" (click)="togglevisibility()"> {{text1}}</button>
+        </li>
+        <li class="nav-item">
+          <button class="btn-primary-bottom" (click)="saveFile()">Send data to server</button>
+        </li>
+        
+      </ul>
+      <ul class="sidebar-nav" id="sidebar-nav">
+        <li class="nav-item">
+          <h2>Select Document </h2>
+        </li>
+        <li class="nav-item">
+          <button class="btn-primary-search" (click)="returnValues(item)"><i class="fa fa-search"></i></button>
+          <select class="btn-primary-select" [(ngModel)]="item" [(ngModel)]="text2" >
+            <option value="tree name">Select an option</option>
+            <option *ngFor="let documento of documents">{{documento}}</option>
+          </select>
+        </li>
 
-  <ul class="sidebar-nav" id="sidebar-nav">
-  <li class="nav-item">
-    <h2>Action</h2>
-  </li>
+        <li class="nav-item">
+          <div id="xslUpload">
+            <label for="file-input">
+              <button class="btn importar" type="button">Attach file</button>
+            </label>
+            <input class="file-input" (change)="changeListener($event)" id="file-input" type="file"/>
+          </div>
+        </li>
+        <input class="margen" type="text" [(ngModel)]="titulo">
+        <!-- End Tables Nav -->
 
-  <li class="nav-item">
-    <button class="btn-primary-bottom" (click)="DeleteFMTree()">Hide Tree</button>
-  </li>
+        <li class="nav-item">
+          <button class="btn-primary-bottom" (click)="openDialog()">Open dialog</button>
+        </li>
+        <!-- End Charts Nav -->
 
-  <li class="nav-item">
-    <button class="btn-primary-bottom" (click)="ReloadFMTree()">Show Tree</button>
-  </li>
+        <li class="nav-item">
+          <button mat-icon-button (click)="TransformJSON()">
+            <mat-icon>assignment_turned_in</mat-icon>
+          </button>
+        </li>
+      </ul>
+    </mat-drawer>
+  </mat-drawer-container>
 
-  <li class="nav-item">
-    <button class="btn-primary-bottom" (click)="saveFile()">Send data to server</button>
-  </li>
-  </ul>
-
-  <ul class="sidebar-nav" id="sidebar-nav">
-
-  <li class="nav-item">
-    <h2>Select Document </h2>
-  </li>
-
-  <li class="nav-item">
-
-    <button class="btn-primary-search" (click)="returnValues(item)"><i class="fa fa-search"></i></button>
-    
-    <select class="btn-primary-select" [(ngModel)]="item" [(ngModel)]="text2" >
-      <option value="tree name">Select an option</option>
-      <option *ngFor="let documento of documents">
-      {{documento}}
-      </option>
-    </select>
-  </li>
-
-  <li class="nav-item">
-    <div id="xslUpload">
-      <label for="file-input">
-        <button class="btn importar" type="button">Attach file</button>
-      </label>
-      <input class="file-input" (change)="changeListener($event)" id="file-input" type="file"/>
-    </div>
-  </li>
-  
-
-  <li class="nav-item">
-    <button class="btn-primary-search" (click)="returnValues(itemValue2.value)"><i class="fa fa-search"></i></button>
-    <input matInput class="btn-primary-select" #itemValue2 type="string" placeholder=" Name">
-  </li><!-- End Tables Nav -->
-
-  <li class="nav-item">
-    <button class="btn-primary-bottom" (click)="openDialog()">Open dialog</button>
-  </li><!-- End Charts Nav -->
-
-  <li class="nav-item">
-    <button mat-icon-button (click)="TransformJSON()">
-      <mat-icon>assignment_turned_in</mat-icon>
-    </button>
-  </li>
-
-</ul>
-
-</mat-drawer>
-</mat-drawer-container>
-
-
+<!-- Main Page -->
 <main id="main" class="main">
 
   <div class="pagetitle">
@@ -121,7 +98,8 @@
         <li class="breadcrumb-item active">Dashboard</li>
       </ol>
     </nav>
-  </div><!-- End Page Title -->
+  </div>
+  <!-- End Page Title -->
 
   <section class="section dashboard">
 
@@ -129,170 +107,109 @@
     <div class="col-12 pe-3">
       <div class="card">
         <div class="hero">
-      <div class="row d-flex justify-content-between">
-        <div class="col-lg-6   d-flex flex-column justify-content-center">
-          <h2 data-aos="fade-up">Welcome to ReaWeb</h2>
-          <p data-aos="fade-up" data-aos-delay="100">Welcome to the RHEA.
-            Some user caveats are the following:</p>
-            <ul>
-              <li>To visualize the constraints as a tree you have to select the corresponding text.</li>
-              <li>When downloading the data it won't change the original file.</li>
-              <li>It is advisable to make the changes as small as posible to avoid any mistake we could make. </li>
-              <li>The order in wich you write constraints must be done as a tree model, so first, the root, and then if it has two childrens the first one should be the one who came before the logical preposition.
-                 Example: (A ^ B) will be written as ^AB. </li>
-              <li>If unsure of the values selected try 'Write list' so you can see the current values, if any mistakes where made use 'Delete List' to start over or go ahead and then correct the mistake.</li>
-              <li>If you try to change a value from a constraint, be sure of the number of references each type of term can have. The program allows you to put less references but you should then insert those values.</li>
-              <li>The program adjust de values of the keys in the constraint dictionary when downloading as a json file.</li>
-            </ul>
-
+          <div class="row d-flex justify-content-between">
+            <div class="col-lg-6   d-flex flex-column justify-content-center">
+              <h2 data-aos="fade-up">Welcome to ReaWeb</h2>
+              <p data-aos="fade-up" data-aos-delay="100">Welcome to the RHEA.
+              Some user caveats are the following:</p>
+              <ul>
+                <li>To visualize the constraints as a tree you have to select the corresponding text.</li>
+                <li>When downloading the data it won't change the original file.</li>
+                <li>It is advisable to make the changes as small as posible to avoid any mistake we could make. </li>
+                <li>The order in wich you write constraints must be done as a tree model, so first, the root, and then if it has two childrens the first one should be the one who came before the logical preposition.
+                Example: (A ^ B) will be written as ^AB. </li>
+                <li>If unsure of the values selected try 'Write list' so you can see the current values, if any mistakes where made use 'Delete List' to start over or go ahead and then correct the mistake.</li>
+                <li>If you try to change a value from a constraint, be sure of the number of references each type of term can have. The program allows you to put less references but you should then insert those values.</li>
+                <li>The program adjust de values of the keys in the constraint dictionary when downloading as a json file.</li>
+              </ul>
+            </div>
+            <div class="col-lg-5 order-1 order-lg-2 hero-img" data-aos="zoom-out">
+              <img src="./assets/img/hero-img.png" class="img-fluid mb-3 mb-lg-0" alt="">
+            </div>
+          </div>
         </div>
-
-        <div class="col-lg-5 order-1 order-lg-2 hero-img" data-aos="zoom-out">
-          <img src="./assets/img/hero-img.png" class="img-fluid mb-3 mb-lg-0" alt="">
-        </div>
-
       </div>
     </div>
-  </div>
-
-    </div><!-- End Reports -->
-
-   
-     
-       
- 
-
-  
-
+    <!-- End Reports -->
       <!-- Left side columns -->
-        <div class="row">
-
-          <div class="col-lg-6">
-            <div class="card block">
-              <div class="borde">
-                <h5>Data Tree</h5>
-
-                          <!-- Features Tree -->
-                 
-                          <mat-tree [dataSource]="dataSource" [treeControl]="treeControl" class="example-tree">
-                            <mat-nested-tree-node *matTreeNodeDef="let node; when: hasChild">
-                              <div class="mat-tree-node">
-                                    <button mat-icon-button matTreeNodeToggle
-                                        [attr.aria-label]="'Toggle ' + node.name">
-                                      <mat-icon >
-                                        {{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
-                                      </mat-icon>
-                                    </button>
-                                    <div class="imagenes">
-                                  <img src={{SymbolPerType(node)[0]}} #tooltip="matTooltip"  matTooltip={{SymbolPerType(node)[1]}}></div>
-                                  <div class="margen" ></div>
-                                      <div  #tooltip="matTooltip"  matTooltip={{ToolTip(node)}} >
-                                    {{node.name}}</div>
-                                    
-                                    <button class="" mat-menu-item [matMenuTriggerFor]="menu" (click)= 'select(node)'> 
-                                      <mat-icon >more_vert</mat-icon> 
-
-                                </button> 
-                                </div>
-                              
-                            <!-- Menu Features Tree -->
-                              <div [class.example-tree-invisible]="!treeControl.isExpanded(node)" role="group">
-                                <ng-container matTreeNodeOutlet></ng-container> 
-                              </div>
-                              <mat-menu #menu="matMenu">
-                                <a data-bs-toggle="modal" href="#sidebar2">Edit values</a>
-                                <hr>
-                                <a data-bs-toggle="modal" href="#sidebar6">Delete branch</a>
-                                <hr>
-                                <a data-bs-toggle="modal" href="#sidebar3">Create a child</a>
-                                <hr>
-                                <a data-bs-toggle="modal" href="#sidebar4">Create brother</a>
-                                <div *ngIf="SymbolPerType2(node)" #tooltip="matTooltip"  matTooltip={{ToolTipRefa(node)}}>
-                                <hr>
-                                <a data-bs-toggle="modal" href="#sidebar5" >Refactoring</a>
-
-                                </div>
-                              </mat-menu>
-
-                            </mat-nested-tree-node>
-                          </mat-tree> 
-                  
-                          
-                        </div>
-                        <!-- Logic Chip -->
-                        <div class="borde">
-                          <h5>Logic chips</h5>
-                            <mat-chip-list class="mat-chip-list-stacked" >
-                              <mat-chip *ngFor="let chip of tablechips" (click)="SelectChipLogic(chip)">
-                              {{chip}}
-                              </mat-chip>
-                            </mat-chip-list>
-                        </div>
-                        <!-- Features Chip -->
-                            <div class="borde">
-                              <h5>Features chips</h5>
-                          <mat-chip-list class="mat-chip-list-stacked"  >
-                            <mat-chip *ngFor="let chip of nameschips" (click)="SelectChipFeature(chip)" >
-                            {{chip}}
-                            </mat-chip>
-                          </mat-chip-list>
-                        </div>
-                        <!-- Constraints Tree -->
-                        <div class="borde">
-                          <h5>Constraint Tree</h5>
-                          <mat-tree  [dataSource]="constraindataSource" [treeControl]="constraintreeControl" class="example-tree">
-                            <mat-nested-tree-node  *matTreeNodeDef="let constrainnode; when: hasChild">
-                              <div class="mat-tree-node">
-                                <button mat-icon-button matTreeNodeToggle
-                                  [attr.aria-label]="'Toggle ' + constrainnode.name">
-                                  <mat-icon class="mat-icon-rtl-mirror">
-                                    {{constraintreeControl.isExpanded(constrainnode) ? 'expand_more' : 'chevron_right'}}
-                                  </mat-icon>
-                                </button>
-                                  {{constrainnode.type}} 
-                                  <button mat-menu-item [matMenuTriggerFor]="menu2" (click)= 'SelectCons(constrainnode)'> <mat-icon>more_vert</mat-icon> </button> 
-                            </div>
-                                <div [class.example-tree-invisible]="!constraintreeControl.isExpanded(constrainnode)" role="group">
-                                  <ng-container matTreeNodeOutlet></ng-container> 
-                                </div>
-                                <mat-menu #menu2="matMenu">
-                                </mat-menu>  
-                            </mat-nested-tree-node>
-                          </mat-tree>
-                         </div>
-                  <!-- Constraints Text --> 
-                  <div class="borde">
-                    <h5>Constraint Text</h5>
-                  <mat-selection-list #constraints [multiple]="false">
-                    <mat-list-option *ngFor="let constrainTexto of jsonconstraintTexto" [value]="constrainTexto"
-                      (click)='SelectedChange(constraints.selectedOptions.selected[0].value)'>
-                      <div>
-                        {{constrainTexto}}
-                        
-                        <button class="empty" (click)="openDialog()" *ngIf="SymbolPerTypeCons2(constrainTexto)" >
-                          <mat-icon>{{SymbolPerTypeCons(constrainTexto)}}</mat-icon>
-                        </button>
-                      </div> 
-                    </mat-list-option>
-                     
-                  </mat-selection-list></div>
+    <div class="row">
+      <div class="col-lg-6">
+        <div class="card block">
+          <div class="borde">
+            <div class="row">
+              <div class="col-10">
+                <h5>Features</h5>
+              </div>
+              <div class="col-1"></div>
+              <div class="col col-sm-1">
+                <button class="margennegative" mat-menu-item [matMenuTriggerFor]="menu3" >
+                  <mat-icon >more_vert</mat-icon> 
+                </button>
+              </div>
             </div>
+            <mat-menu #menu3="matMenu">
+              <a (click)="returnValues()">Get</a>
+              <hr>
+              <a (click)="SaveDemoJson()">Download .json</a>
+              <hr>
+              <a (click)="SaveDemo()">Download .uvl</a>
+              <hr>
+              <a (click)="refactor()">Refactoring</a>
+          </mat-menu>
 
-					
-						
-						
-						<!-- Modal -->
-					<div class="modal fade" id="sidebar2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-
+            <!-- Features Tree -->   
+            <mat-tree [dataSource]="dataSource" [treeControl]="treeControl" class="example-tree">
+              <mat-nested-tree-node *matTreeNodeDef="let node; when: hasChild">
+                <div class="mat-tree-node">
+                  <button mat-icon-button matTreeNodeToggle
+                    [attr.aria-label]="'Toggle ' + node.name">
+                    <mat-icon >
+                      {{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
+                    </mat-icon>
+                  </button>
+                  <div class="imagenes">
+                    <img src={{SymbolPerType(node)[0]}} #tooltip="matTooltip"  matTooltip={{SymbolPerType(node)[1]}}>
+                  </div>
+                  <div class="margen" ></div>
+                  <div  #tooltip="matTooltip"  matTooltip={{ToolTip(node)}} >{{node.name}}</div>         
+                  <button class="" mat-menu-item [matMenuTriggerFor]="menu" (click)= 'select(node)'> 
+                    <mat-icon >more_vert</mat-icon> 
+                  </button> 
+                </div>
+                              
+                <!-- Menu Features Tree -->
+                <div [class.example-tree-invisible]="!treeControl.isExpanded(node)" role="group">
+                  <ng-container matTreeNodeOutlet></ng-container> 
+                </div>
+                <mat-menu #menu="matMenu">
+                    <a data-bs-toggle="modal" href="#sidebar0">Edit values</a>
+                    <hr>
+                    <a data-bs-toggle="modal" href="#sidebar1">Create a child</a>
+                    <hr>
+                    <a data-bs-toggle="modal" href="#sidebar2">Create brother</a>
+                    <hr>
+                    <a data-bs-toggle="modal" href="#sidebar3">Delete branch</a>
+                    <div *ngIf="SymbolPerType2(node)" #tooltip="matTooltip"  matTooltip={{ToolTipRefa(node)}}>
+                      <hr>
+                      <a data-bs-toggle="modal" href="#sidebar4" >Refactoring</a>
+                    </div>
+                </mat-menu>
+              </mat-nested-tree-node>
+            </mat-tree> 
+          </div>
+      
+          </div>
+					<!--Modal Tree-->
+					<!-- Modal -->
+					<div class="modal fade" id="sidebar0" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 					  <div class="modal-dialog modal-lg">
-						<div class="modal-content">
-						  <div class="modal-header">
-							<h4 class="modal-title" id="exampleModalLabel">Modify values</h4>
-							<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-						  </div>
-							<div class="modal-body">
-								<div class="col-10">
-                  
+						  <div class="modal-content">
+						    <div class="modal-header">
+							    <h4 class="modal-title" id="exampleModalLabel">Modify values</h4>
+							    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+						    </div>
+							  <div class="modal-body">
+								  <div class="col-10">
                     <h5>Name
                     <input matInput  type="string" [(ngModel)]="name"></h5>
                     <hr>
@@ -305,103 +222,70 @@
                     <h5 [hidden]="cardhidden()[0]" >Card_min
                     <input matInput  type="number" [(ngModel)]="card_min" disabled={{cardhidden()[1]}}>
                     <hr></h5>
-                    <mat-checkbox  [(ngModel)]="optional" > optional</mat-checkbox>
+                    <input class="form-check-input" type="checkbox" [(ngModel)]="optional" > optional
                     <hr>
-                    <mat-checkbox  [(ngModel)]="abstract" >abstract </mat-checkbox>
+                    <mat-checkbox class="" [(ngModel)]="abstract" ></mat-checkbox> abstract
                     <hr>
                     <h5>Attributes</h5>
-                      <div *ngFor="let valor of attributes"  >
-                        <input type="string" [(ngModel)]="valor.name">
-                        <input type="string" [(ngModel)]="valor.value">
-                      </div>
-
-                     <hr>
+                    <div *ngFor="let valor of attributes"  >
+                      <input type="string" [(ngModel)]="valor.name">
+                      <input type="string" [(ngModel)]="valor.value">
+                    </div>
+                    <hr>
                     <h2>Save Changes</h2>
                     <button (click)="ModifySelecction()" class="btn btn-primary">update</button>
-                  
-								</div>
-							</div>
-						  <div class="modal-footer">
-							<button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
+								  </div>
+							  </div>
+						    <div class="modal-footer">
+							    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
+						    </div>
 						  </div>
-						</div>
 					  </div>
 					</div>
-
-          	<!-- Modal -->
-					<div class="modal fade" id="sidebar3" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-
+          <!-- Modal -->
+					<div class="modal fade" id="sidebar1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 					  <div class="modal-dialog modal-lg">
-						<div class="modal-content">
-						  <div class="modal-header">
-							<h4 class="modal-title" id="exampleModalLabel">Crear hijo</h4>
-							<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-						  </div>
-							<div class="modal-body">
-								<div class="col-10">
-                  
+						  <div class="modal-content">
+						    <div class="modal-header">
+							    <h4 class="modal-title" id="exampleModalLabel">Crear hijo</h4>
+							    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+						    </div>
+							  <div class="modal-body">
+								  <div class="col-10">
                     <h3>Name</h3>
                     <input matInput  type="string" [(ngModel)]="name">
                     <div></div>
                     <button (click)="CreateChildren()" class="btn btn-primary">Create</button>
-                  
-								</div>
-							</div>
-						  <div class="modal-footer">
-							<button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
+								  </div>
+							  </div>
+						    <div class="modal-footer">
+							    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
+						    </div>
 						  </div>
-						</div>
 					  </div>
 					</div>
-
-          	<!-- Modal -->
-					<div class="modal fade" id="sidebar4" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-
+          <!-- Modal -->
+					<div class="modal fade" id="sidebar2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 					  <div class="modal-dialog modal-lg">
-						<div class="modal-content">
-						  <div class="modal-header">
-							<h4 class="modal-title" id="exampleModalLabel">Crear hermano</h4>
-							<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-						  </div>
-							<div class="modal-body">
-								<div class="col-10">
-               <input matInput  type="string" [(ngModel)]="name">
-               <button (click)="CreateBrother()" class="btn btn-primary">Create</button>
-								</div>
-							</div>
-						  <div class="modal-footer">
-							<button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
-						  </div>
-						</div>
-					  </div>
-					</div>
-
-          
-
-          	<!-- Modal -->
-					<div class="modal fade" id="sidebar5" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-lg">
 						  <div class="modal-content">
 						    <div class="modal-header">
-							    <h2 class="modal-title" id="exampleModalLabel">Refactoring</h2>
+							    <h4 class="modal-title" id="exampleModalLabel">Crear hermano</h4>
 							    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 						    </div>
 							  <div class="modal-body">
-							    <div class="col-10">
-                      <h4>Are you sure?</h4>
-                      <button  class="btn btn-primary" data-bs-dismiss="modal">Proceed</button>
-							    </div>
+								  <div class="col-10">
+                    <input matInput  type="string" [(ngModel)]="name">
+                    <button (click)="CreateBrother()" class="btn btn-primary">Create</button>
+								  </div>
 							  </div>
 						    <div class="modal-footer">
-							    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Go back</button>
+							    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
 						    </div>
 						  </div>
-					    </div>
 					  </div>
-        
-
-           	<!-- Modal -->
-					<div class="modal fade" id="sidebar6" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+					</div>
+          <!-- Modal -->
+					<div class="modal fade" id="sidebar3" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 					  <div class="modal-dialog modal-lg">
 						  <div class="modal-content">
 						    <div class="modal-header">
@@ -419,43 +303,156 @@
 						    </div>
 						  </div>
 					    </div>
-					  </div>
-          </div>
-
-        <!-- Buttons -->
-            <div class="col-2 justify-content-center">
-              <div class="borde">
-                <div class="card" >
-                
-                  <div class="menu2">
-                    <input class="bottom-style" type="text" [(ngModel)]="titulo">
-                    <button class="bottom-style" (click)="togglevisibilityFMTree()"> {{text4}}</button>
-                    <button class="bottom-style" (click)="togglevisibility()"> {{text1}}</button>
-                    <button class="bottom-style" (click)="CreateConsBrother()">Insert brother</button>
-                    <button class="bottom-style" (click)="CreateConsSon()">Insert child</button>
-                    <button class="bottom-style" (click)="ModifyCons()">Edit Constrain</button>
-                    <button class="bottom-style" (click)="DeleteCons()">Delete Constrain</button>
-                    <button class="bottom-style" (click)="Writelist()">Write List</button>
-                    <button class="bottom-style" (click)="DeleteList()">Delete List</button>
-                    <button class="bottom-style" (click)="togglevisibilitychips()">{{text3}}</button>
-                    <button class="bottom-style" (click)="returnValues()">Get</button>
-                    <button class="bottom-style" (click)="SaveDemoJson()">Download .json</button>
-                    <button class="bottom-style" (click)="SaveDemo()">Download .uvl</button>  
-                    <button class="bottom-style" (click)="refactor()">Refactoring</button> 
+				  </div>
+      </div>
+      <!-- Modal -->
+      <div class="modal fade" id="sidebar4" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+                  <div class="modal-header">
+                    <h2 class="modal-title" id="exampleModalLabel">Refactoring</h2>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body">
+                    <div class="col-10">
+                        <h4>Are you sure?</h4>
+                        <button  class="btn btn-primary" data-bs-dismiss="modal">Proceed</button>
+                    </div>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Go back</button>
                   </div>
                 </div>
               </div>
-            </div>
-        <!-- Info -->
-            <div class="col-2 justify-content-center">
-              <div class="borde">
-                <div class="menu2">
-                  <label class="bottom-style" > hola mundo</label>
-                  <button class="bottom-style" > Refactort all</button> 
+      </div>
+      <!--Modal Constraint-->
+      <!-- Modal -->
+			<div class="modal fade" id="sidebar10" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+					<div class="modal-dialog modal-lg">
+						<div class="modal-content">
+						  <div class="modal-header">
+						  <h4 class="modal-title" id="exampleModalLabel">Options</h4>
+						  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+					  </div>
+						<div class="modal-body">
+              <div class="col-12">
+              <div class="row">
+                <!-- Logic Chip -->
+                <div class="col-6">
+                  <div class="bordemodal">
+                    <h5>Logic chips</h5>
+                    <mat-chip-list class="mat-chip-list-stacked"  >
+                      <mat-chip *ngFor="let chip of typesofcons" (click)="SelectChipFeature(chip)" >
+                        {{chip}}
+                      </mat-chip>
+                    </mat-chip-list>
+                  </div>
+                </div>
+                <!-- Features Chip -->
+                <div class="col-6">
+                  <div class="bordemodal">
+                    <h5>Features chips</h5>
+                    <cdk-virtual-scroll-viewport [itemSize]="6 * 7" class="example-viewport" >
+                      <mat-chip-list class="mat-chip-list-stacked" >
+                        <mat-chip *ngFor="let chip of namesFeatures" (click)="SelectChipLogic(chip)">
+                          {{chip}}
+                        </mat-chip>
+                      </mat-chip-list>
+                    </cdk-virtual-scroll-viewport>
+                  </div>
                 </div>
               </div>
+              </div>
+              <!--Write list-->
+              <div class="margen"></div>
+              <div class="bordemodal">
+                <p  >{{Writelist()}}</p>
+                <button class="btn btn-secondary "  (click)="DeleteList()">Delete List</button>
+              </div>
+              <div class="col-12">
+                <!--Buttons-->
+                <div class="row">
+                  <div class="col-3"><button class="btn btn-primary btn-lg" (click)="CreateConsBrother()"> Insert brother </button></div>
+                  <div class="col-3"><button class="btn btn-primary btn-lg" (click)="CreateConsSon()"> Insert child </button></div>
+                  <div class="col-3"><button class="btn btn-primary btn-lg" (click)="ModifyCons()"> Edit Constrain </button></div>
+                  <div class="col-3"><button class="btn btn-primary btn-lg" (click)="DeleteCons()"> Delete Constrain </button></div>
+							  </div>
+              </div>
+						</div>
+					  <div class="modal-footer">
+						  <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
+					  </div>
+					</div>
+				</div>
+			</div>
+      <!-- Info -->
+      <div class="col-6 justify-content-center">
+        <div class="card block">
+          <div class="borde">
+            <div class="menu">
+              <label class="bottom-style" > hola mundo</label>
+              <button class="bottom-style" > Refactort all</button> 
             </div>
+          </div>
+        </div>
+      </div>
+      <!-- Pruebas constraint -->
+      
+      <div class="container">
+        <div class="row">
+          <div class="col-6">
+            <div class="card block">
+              <!-- Constraints Text --> 
+              <div class="borde">
+                <h5>Constraint</h5>
+                <mat-selection-list #constraints [multiple]="false">
+                  <mat-list-option *ngFor="let constrainTexto of jsonconstraintTexto" [value]="constrainTexto"
+                    (click)='SelectedChange(constraints.selectedOptions.selected[0].value)'>
+                    <div>
+                      {{constrainTexto}}
+                      <button class="empty" (click)="openDialog()" *ngIf="SymbolPerTypeCons2(constrainTexto)" >
+                        <mat-icon>{{SymbolPerTypeCons(constrainTexto)}}</mat-icon>
+                      </button>
+                    </div> 
+                  </mat-list-option>   
+                </mat-selection-list>
+              </div>
+            </div>
+          </div>
 
-</div>
-</section>
+          <div class="col-6">
+            <div class="card block">
+              <!-- Constraints Tree -->
+              <div class="borde">
+                <h5>Constraint Tree</h5>
+                <mat-tree  [dataSource]="constraindataSource" [treeControl]="constraintreeControl" class="example-tree">
+                  <mat-nested-tree-node  *matTreeNodeDef="let constrainnode; when: hasChild">
+                    <div class="mat-tree-node">
+                      <button mat-icon-button matTreeNodeToggle
+                        [attr.aria-label]="'Toggle ' + constrainnode.name">
+                        <mat-icon class="mat-icon-rtl-mirror">
+                          {{constraintreeControl.isExpanded(constrainnode) ? 'expand_more' : 'chevron_right'}}
+                        </mat-icon>
+                      </button>
+                      {{constrainnode.type}} 
+                      <button mat-menu-item [matMenuTriggerFor]="menu2" (click)= 'SelectCons(constrainnode)'>
+                        <mat-icon>more_vert</mat-icon>
+                      </button> 
+                    </div>
+                    <div [class.example-tree-invisible]="!constraintreeControl.isExpanded(constrainnode)" role="group">
+                      <ng-container matTreeNodeOutlet></ng-container> 
+                    </div>
+                    <mat-menu #menu2="matMenu">
+                      <a data-bs-toggle="modal" href="#sidebar10">Options</a>
+                    </mat-menu>  
+                  </mat-nested-tree-node>
+                </mat-tree>
+              </div>
+            </div>
+          </div>
+          
+        </div>
+      </div>
+    </div>
+  </section>
 </main>

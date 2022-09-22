@@ -1,17 +1,27 @@
 
   .example-viewport {
-    height: 350px;
-    width: 550px;
+    height: 272px;
   }
   .botonmenu{
     color: #012970;
   }
+  .botondownload{
+    color: #012970;
+  }
+ 
 
+  .margennegative{
+    margin: -5px;
+  }
   .margen{
     margin: 5px;
   }
   .borde{
     margin: 15px;
+    padding: 25px;
+    border: 3px solid rgba(0, 0, 0, 0.2);
+  }
+  .bordemodal{
     padding: 25px;
     border: 3px solid rgba(0, 0, 0, 0.2);
   }

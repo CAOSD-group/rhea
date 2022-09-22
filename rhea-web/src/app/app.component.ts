@@ -65,14 +65,11 @@ export class AppComponent {
   //list de constraints y nombres de las features
   ejemplo:Array<object>=[{name:1},{name:2},{name:2}]
   typesofcons:Array<string>=['NotTerm','OrTerm','AndTerm','ImpliesTerm','Xor','Xand','DoubleImpliesTerm']
-  tablechips:Array<string>=[]
   namesFeatures:Array<string>=[]
-  nameschips:Array<string>=[]
   //otros
   titulo:string='';
   item:string ='Pizzas.uvl';
   text1="Hide Constraints";
-  text3="Hide chips";
   text4="Hide Tree";
   text2=this.item;
   jsonconstraintTexto: Array<string>=[]
@@ -97,9 +94,6 @@ ngOnInit() {
   console.log("cambiar comentarios a ingles o borrarlos")
   console.log("cambiar CSS a ingles")
   this.returnValues()
-  while(this.text3=="Hide chips"){
-    this.togglevisibilitychips()
-  }
   
 }
 //orden : saveFM;downloadFM (2 ways) ;createFM;
@@ -282,20 +276,14 @@ CreateCons(){
   while(aux2<jsonconstraint.length){
   jsonconstraint[aux2]=this.consactual.CreateNewConstraint(jsonconstraint[aux2])
   aux2++}
-
-
   this.cons=this.consactual.createListForTree(jsonconstraint)
   //console.log(jsonconstraint)
   jsonconstraint=this.consactual.TransformToCons(jsonconstraint)
   jsonconstraint=aux3
   console.log(this.cons)
   this.constraindataSource.data=this.cons.filter(x=>this.cons.indexOf(x)==position)
-  this.text3="Show chips"
   this.text1="Hide Constraints"
   this.text4="Hide Tree"
-  this.tablechips=[]
-  this.nameschips=[]
-
 }
   
 }
@@ -499,19 +487,7 @@ togglevisibilityFMTree(){
     this.dataSource.data=this.tree
   }
 }
-togglevisibilitychips(){
-  if(this.text3=="Hide chips"){
-  this.text3="Show chips"
-  this.tablechips=[]
-  this.nameschips=[]
-  }
-  else{
-    this.text3="Hide chips"
-    this.tablechips=this.typesofcons
-    this.nameschips=this.namesFeatures
-    console.log(this.namesFeatures)
-  }
-}
+
 
 
 
@@ -643,13 +619,11 @@ CreateConsList(){
   this.ReloadFMTree()
 }
 Writelist(){
-  aux=""
+  let textlista=""
   ListOfConstraint.forEach(element => {
-    aux=aux+element.type+" "
+    textlista=textlista+element.type+" "
   })
-  alert(aux)
-  console.log(ListOfConstraint)
-  console.log(position)
+  return textlista
 }
 DeleteList(){
   ListOfConstraint=[]
