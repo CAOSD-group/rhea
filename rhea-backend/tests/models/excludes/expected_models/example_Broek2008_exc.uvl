@@ -2,7 +2,7 @@ namespace Root
 
 features
 	root {abstract}	
-		optional
+		alternative
 			A {abstract}	
 				optional
 					B	

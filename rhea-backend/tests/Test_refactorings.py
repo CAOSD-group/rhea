@@ -56,6 +56,7 @@ def get_tests_info(ref_path: str, refactoring: FMRefactoring) -> list[list[str, 
     print(f'inputs: {input_path}')
     print(f'output_path: {output_path}')
     print(f'expected_path: {expected_path}')
+    assert len(input_models) == len(expected_models)
     return [[a, b, c, refactoring] for a, b, c in zip(input_models, output_models, expected_models)]
 
 

@@ -25,6 +25,7 @@ from rhea.refactorings.cardinality_group_refactoring import CardinalityGroupRefa
 from rhea.refactorings.multiple_group_decomposition_refactoring import MultipleGroupDecompositionRefactoring
 from rhea.refactorings.xor_mandatory_refactoring import XorMandatoryRefactoring
 from rhea.refactorings.or_mandatory_refactoring import OrMandatoryRefactoring
+from rhea.refactorings.elimination_any_constraint import EliminationAnyConstraints
 from rhea.refactorings.split_constraints import SplitConstraints
 from rhea.refactorings.elimination_complex_constraints import EliminationComplexConstraints
 from rhea.refactorings.elimination_simple_ctcs_requires import EliminationSimpleConstraintsRequires
@@ -34,13 +35,14 @@ from rhea.refactorings.elimination_simple_ctcs_excludes_without_dict import Elim
 
 
 ##################################################################################################
+REFACTORING_ANY_CTCS = EliminationAnyConstraints
 REFACTORING_SPLIT = SplitConstraints
 REFACTORING_COMPLEX = EliminationComplexConstraints
 REFACTORING_REQUIRES = EliminationSimpleConstraintsRequires
 REFACTORING_EXCLUDES = EliminationSimpleConstraintsExcludes
 REFACTORING_REQUIRES_WITHOUT_DICT = EliminationSimpleConstraintsRequiresWithoutDict
 REFACTORING_EXCLUDES_WIHOUT_DICT = EliminationSimpleConstraintsExcludesWithoutDict
-MODEL_PATH = 'tests/models/excludes/input_models/Pizzas6.uvl'
+MODEL_PATH = 'tests/models/general_models/Pizzas_any_ctcs.uvl'
 OUTPUT_PATH = os.path.basename(MODEL_PATH)
 ##################################################################################################
 
@@ -94,14 +96,14 @@ def print_statistics(fm: FeatureModel) -> None:
 def main():
     fm = UVLReader(MODEL_PATH).transform()
     
-    print_statistics(fm)
+    # print_statistics(fm)
     
     print('==================================================')
-    print(f'Applying the refactoring {REFACTORING_EXCLUDES.get_name()}...')
-    fm = apply_refactoring(fm, REFACTORING_EXCLUDES)
+    print(f'Applying the refactoring {REFACTORING_ANY_CTCS.get_name()}...')
+    fm = apply_refactoring(fm, REFACTORING_ANY_CTCS)
     print('==================================================')
 
-    print_statistics(fm)
+    # print_statistics(fm)
 
     print(fm)
     UVLWriter(fm, OUTPUT_PATH).transform()
