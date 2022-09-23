@@ -6,6 +6,10 @@
         <button mat-icon-button (click)="drawer.toggle()" class="botonmenu">
           <mat-icon>menu</mat-icon>
         </button>
+        <button mat-icon-button (click)="openDialog()" class="botonmenu">
+          <mat-icon>help</mat-icon>
+        </button>
+        
       </a>
     </div>
     <!-- End Logo -->
@@ -37,21 +41,6 @@
     <mat-drawer  #drawer id="sidebar" class="sidebar" >
       <ul class="sidebar-nav" id="sidebar-nav">
         <li class="nav-item">
-          <h2>Action</h2>
-        </li>
-        <li class="nav-item">
-          <button class="btn-primary-bottom" (click)="togglevisibilityFMTree()"> {{text4}}</button>
-        </li>
-        <li class="nav-item">
-          <button class="btn-primary-bottom" (click)="togglevisibility()"> {{text1}}</button>
-        </li>
-        <li class="nav-item">
-          <button class="btn-primary-bottom" (click)="saveFile()">Send data to server</button>
-        </li>
-        
-      </ul>
-      <ul class="sidebar-nav" id="sidebar-nav">
-        <li class="nav-item">
           <h2>Select Document </h2>
         </li>
         <li class="nav-item">
@@ -72,64 +61,16 @@
         </li>
         <input class="margen" type="text" [(ngModel)]="titulo">
         <!-- End Tables Nav -->
-
-        <li class="nav-item">
-          <button class="btn-primary-bottom" (click)="openDialog()">Open dialog</button>
-        </li>
-        <!-- End Charts Nav -->
-
-        <li class="nav-item">
-          <button mat-icon-button (click)="TransformJSON()">
-            <mat-icon>assignment_turned_in</mat-icon>
-          </button>
-        </li>
       </ul>
     </mat-drawer>
   </mat-drawer-container>
 
 <!-- Main Page -->
 <main id="main" class="main">
-
-  <div class="pagetitle">
-    <h1>Dashboard</h1>
-    <nav>
-      <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-        <li class="breadcrumb-item active">Dashboard</li>
-      </ol>
-    </nav>
-  </div>
   <!-- End Page Title -->
-
   <section class="section dashboard">
-
     <!-- Reports -->
-    <div class="col-12 pe-3">
-      <div class="card">
-        <div class="hero">
-          <div class="row d-flex justify-content-between">
-            <div class="col-lg-6   d-flex flex-column justify-content-center">
-              <h2 data-aos="fade-up">Welcome to ReaWeb</h2>
-              <p data-aos="fade-up" data-aos-delay="100">Welcome to the RHEA.
-              Some user caveats are the following:</p>
-              <ul>
-                <li>To visualize the constraints as a tree you have to select the corresponding text.</li>
-                <li>When downloading the data it won't change the original file.</li>
-                <li>It is advisable to make the changes as small as posible to avoid any mistake we could make. </li>
-                <li>The order in wich you write constraints must be done as a tree model, so first, the root, and then if it has two childrens the first one should be the one who came before the logical preposition.
-                Example: (A ^ B) will be written as ^AB. </li>
-                <li>If unsure of the values selected try 'Write list' so you can see the current values, if any mistakes where made use 'Delete List' to start over or go ahead and then correct the mistake.</li>
-                <li>If you try to change a value from a constraint, be sure of the number of references each type of term can have. The program allows you to put less references but you should then insert those values.</li>
-                <li>The program adjust de values of the keys in the constraint dictionary when downloading as a json file.</li>
-              </ul>
-            </div>
-            <div class="col-lg-5 order-1 order-lg-2 hero-img" data-aos="zoom-out">
-              <img src="./assets/img/hero-img.png" class="img-fluid mb-3 mb-lg-0" alt="">
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+
     <!-- End Reports -->
       <!-- Left side columns -->
     <div class="row">
@@ -155,6 +96,8 @@
               <a (click)="SaveDemo()">Download .uvl</a>
               <hr>
               <a (click)="refactor()">Refactoring</a>
+              <hr>
+              <a (click)="saveFile()">Send data to server</a>
           </mat-menu>
 
             <!-- Features Tree -->   
@@ -224,7 +167,7 @@
                     <hr></h5>
                     <input class="form-check-input" type="checkbox" [(ngModel)]="optional" > optional
                     <hr>
-                    <mat-checkbox class="" [(ngModel)]="abstract" ></mat-checkbox> abstract
+                    <mat-checkbox  color="primary" [(ngModel)]="abstract" ></mat-checkbox> abstract
                     <hr>
                     <h5>Attributes</h5>
                     <div *ngFor="let valor of attributes"  >

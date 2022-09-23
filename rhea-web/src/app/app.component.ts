@@ -69,8 +69,6 @@ export class AppComponent {
   //otros
   titulo:string='';
   item:string ='Pizzas.uvl';
-  text1="Hide Constraints";
-  text4="Hide Tree";
   text2=this.item;
   jsonconstraintTexto: Array<string>=[]
   // modificar o crear FMTree
@@ -282,8 +280,6 @@ CreateCons(){
   jsonconstraint=aux3
   console.log(this.cons)
   this.constraindataSource.data=this.cons.filter(x=>this.cons.indexOf(x)==position)
-  this.text1="Hide Constraints"
-  this.text4="Hide Tree"
 }
   
 }
@@ -464,29 +460,9 @@ readThis(inputValue: any): void {
   }
 
 
-togglevisibility(){
-  if(this.text1=="Hide Constraints"){
-  this.text1="Show Constraints"
-  this.constraindataSource.data=[]
-  }
-  else{
-    this.text1="Hide Constraints"
-    this.constraindataSource.data=this.cons.filter(x=>this.cons.indexOf(x)==position)
-  } 
-}
 
-togglevisibilityFMTree(){
-  if(this.text4=="Hide Tree"){
-  this.text4="Show Tree"
-  this.text2=""
-  this.dataSource.data=[]
-  }
-  else{
-    this.text4="Hide Tree"
-    this.text2=this.item
-    this.dataSource.data=this.tree
-  }
-}
+
+
 
 
 
@@ -597,7 +573,6 @@ onRightClick($event) {
   return true
 }
 SelectedChange(v){
-  this.text1="Hide Constraints"
   aux2=0
   while (aux2<this.jsonconstraintTexto.length) {
     if(this.jsonconstraintTexto[aux2]==v ){position=aux2}
