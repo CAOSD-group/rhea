@@ -38,31 +38,51 @@ class EliminationAnyConstraints(FMRefactoring):
         REFACTORING_REQUIRES = EliminationSimpleConstraintsRequires
         REFACTORING_EXCLUDES = EliminationSimpleConstraintsExcludes
 
-        print(f'INSTANCE: {instance}')
-        ctc_list = model.get_constraints()
-        print(f'ctc list: {[str(ctc) for ctc in ctc_list]}')
+        ctc_list = set(model.get_constraints())
         
+        
+        if ConstraintHelper(instance).is_strictcomplex_constraint():
+            print(f'Applying the refactoring {REFACTORING_SPLIT.get_name()}...')
+            model = REFACTORING_SPLIT.transform(model, instance)
 
-        print(f'Applying the refactoring {REFACTORING_SPLIT.get_name()}...')
-        model = REFACTORING_SPLIT.transform(model, instance)
+            ctc_list_after_split = set(model.get_constraints())
 
-        ctc_list_after_split = model.get_constraints()
-        print(f'ctc list after split: {[str(ctc) for ctc in ctc_list_after_split]}')
+            difference_after_split = ctc_list_after_split - ctc_list
+            for i in difference_after_split:
+                if ConstraintHelper(i).is_complex_constraint():
+                    print(f'Applying the refactoring {REFACTORING_COMPLEX.get_name()}...')
+                    model = REFACTORING_COMPLEX.transform(model, i)
 
-        for i in ctc_list - ctc_list_after_split:
+            ctc_list_after_complex = set(model.get_constraints())
+            
+            for i in ctc_list_after_complex - ctc_list_after_split:
+                if ConstraintHelper(i).is_requires_constraint():
+                    print(f'Applying the refactoring {REFACTORING_REQUIRES.get_name()}...')
+                    model = REFACTORING_REQUIRES.transform(model, i)
+                if ConstraintHelper(i).is_excludes_constraint():
+                    print(f'Applying the refactoring {REFACTORING_EXCLUDES.get_name()}...')
+                    model = REFACTORING_EXCLUDES.transform(model, i)
+        
+        elif ConstraintHelper(instance).is_complex_constraint():
             print(f'Applying the refactoring {REFACTORING_COMPLEX.get_name()}...')
-            model = REFACTORING_COMPLEX.transform(model, i)
+            model = REFACTORING_COMPLEX.transform(model, instance)
 
-        ctc_list_after_complex = model.get_constraints()
-        print(f'ctc list after split: {[str(ctc) for ctc in ctc_list_after_complex]}')
-
+            ctc_list_after_complex = set(model.get_constraints())
+            
+            for i in ctc_list_after_complex - ctc_list:
+                if ConstraintHelper(i).is_requires_constraint():
+                    print(f'Applying the refactoring {REFACTORING_REQUIRES.get_name()}...')
+                    model = REFACTORING_REQUIRES.transform(model, i)
+                if ConstraintHelper(i).is_excludes_constraint():
+                    print(f'Applying the refactoring {REFACTORING_EXCLUDES.get_name()}...')
+                    model = REFACTORING_EXCLUDES.transform(model, i)
         
-        for i in ctc_list - ctc_list_after_split:
-            if i.is_requires_constraint():
+        else:
+            if ConstraintHelper(i).is_requires_constraint():
                 print(f'Applying the refactoring {REFACTORING_REQUIRES.get_name()}...')
                 model = REFACTORING_REQUIRES.transform(model, i)
-            if i.is_excludes_constraint():
+            if ConstraintHelper(i).is_excludes_constraint():
                 print(f'Applying the refactoring {REFACTORING_EXCLUDES.get_name()}...')
                 model = REFACTORING_EXCLUDES.transform(model, i)
-        return model
 
+        return model

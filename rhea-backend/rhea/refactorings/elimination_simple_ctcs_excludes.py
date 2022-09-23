@@ -27,6 +27,8 @@ class EliminationSimpleConstraintsExcludes(FMRefactoring):
         if not ConstraintHelper(instance).is_excludes_constraint():
             raise Exception(f'Operator {str(instance)} is not excludes.')
 
+        print(f'Instrance: {str(instance)}')
+
         if not hasattr(model, 'dict_references'):
             model.dict_references = {}
         model_less = copy.deepcopy(model)
@@ -153,7 +155,7 @@ class EliminationSimpleConstraintsExcludes(FMRefactoring):
         # print(f'Dict references excludes: {[value.name for value in model.dict_references.values()]}')
         # print(f'Dict keys excludes: {[key for key in model.dict_references.keys()]}')
 
-        # print(f'MODEL EXCLUDES after: {model}')
+        print(f'MODEL EXCLUDES after: {model}')
 
         return model
 

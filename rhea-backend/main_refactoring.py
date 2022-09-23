@@ -42,7 +42,7 @@ REFACTORING_REQUIRES = EliminationSimpleConstraintsRequires
 REFACTORING_EXCLUDES = EliminationSimpleConstraintsExcludes
 REFACTORING_REQUIRES_WITHOUT_DICT = EliminationSimpleConstraintsRequiresWithoutDict
 REFACTORING_EXCLUDES_WIHOUT_DICT = EliminationSimpleConstraintsExcludesWithoutDict
-MODEL_PATH = 'tests/models/general_models/Pizzas_any_ctcs.uvl'
+MODEL_PATH = 'tests/models/eliminate_any_ctcs/input_models/test_all_ctcs1.uvl'
 OUTPUT_PATH = os.path.basename(MODEL_PATH)
 ##################################################################################################
 
@@ -51,6 +51,11 @@ def apply_refactoring(fm: FeatureModel, refactoring: FMRefactoring) -> FeatureMo
     instances = refactoring.get_instances(fm)
     for i in instances:
         fm = refactoring.transform(fm, i)
+    return fm
+
+def apply_specific_refactoring(fm: FeatureModel, refactoring: FMRefactoring, ctc: int) -> FeatureModel:
+    instance = refactoring.get_instances(fm)[ctc]
+    fm = refactoring.transform(fm, instance)
     return fm
 
 
@@ -96,12 +101,20 @@ def print_statistics(fm: FeatureModel) -> None:
 def main():
     fm = UVLReader(MODEL_PATH).transform()
     
+    print(fm)
     # print_statistics(fm)
     
+    # print('==================================================')
+    # print(f'Applying the refactoring {REFACTORING_ANY_CTCS.get_name()}...')
+    # fm = apply_refactoring(fm, REFACTORING_ANY_CTCS)
+    # print('==================================================')
+
     print('==================================================')
     print(f'Applying the refactoring {REFACTORING_ANY_CTCS.get_name()}...')
-    fm = apply_refactoring(fm, REFACTORING_ANY_CTCS)
+    fm = apply_specific_refactoring(fm, REFACTORING_ANY_CTCS, 0)
     print('==================================================')
+
+
 
     # print_statistics(fm)
 
