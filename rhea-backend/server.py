@@ -75,24 +75,22 @@ def refactor():
 @app.route('/uploadFM', methods=['POST'])
 def upload_feature_model():
     if request.method == 'POST':
-        print('Error en fm_file')
-        print('Error en fm_file')
-        print('Error en fm_file')
-        print(request.args.get(all))
-        print(request.data.decode())
-        print(request.files.get(all))
-        print(request.form.get(all))
-        #fm_file = request.files['inputFM']  # 'inputFM' is the name of the parameter in the POST request from the frontend 
-        #print(fm_file)
-        return 'hola'
+        fm_file=request.files['file']
+        print (fm_file)
         if fm_file:
+            print("llego1")
             filename = fm_file.filename
             fm_file.save(filename)
             fm = read_fm_file(filename)
+            print("llego2")
             print(fm)
+            print("llego3")
             if fm is None:
+                print("llego4")
                 json_fm = JSONWriter(path=None, source_model=fm).transform()
                 return json_fm
+        print ("llego5")
+        return fm
 
 
 @app.route('/downloadFM2', methods=['POST'])

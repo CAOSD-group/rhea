@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {HttpClient, HttpParams } from '@angular/common/http';
+import {HttpClient, HttpParams ,HttpHeaders} from '@angular/common/http';
 import {NestedTreeControl} from '@angular/cdk/tree';
 import {MatTreeNestedDataSource} from '@angular/material/tree';
 import {FMTree} from './components/FMTree/FMTree';
@@ -15,16 +15,14 @@ import { Refactoring } from './components/refactor/refactoring';
 var aux:any;
 var aux2:any=""
 var aux3: any;
-var aux4:any;
-let symbol:any; // evita solapar valores en los auxiliares 
+let aux4:any;
 var jsonconstraint: Array<Const>=[new Const()] 
 var jsonfeatures:string
-var dictionary:any
 var ListOfConstraint:Array<Const>=[]
 var position:number;
 
 var listnamesconstraints:Array<string>=[]
-var listRefactorconstraints:Array<Refactoring>=[]
+var listRefactorconstraints:Array<Refactoring>=[]  
 var listnamestext:Array<string>=[]
 var json:string
 
@@ -37,39 +35,34 @@ var json:string
 })
 
 export class AppComponent {
-  urlsave="http://172.16.51.94:5000/saveFM" //servidor guardar datos
-  urldownload="http://172.16.51.94:5000/downloadFM"  //servidor cargar datos
-  urlupload="http://172.16.51.94:5000/uploadFM"  //servidor cargar datos
-  urldownload2="http://172.16.51.94:5000/downloadFM2"  //servidor cargar datos
-  urldelete="http://172.16.51.94:5000/deleteFM"  //servidor cargar datos
-  urlcreate="http://172.16.51.94:5000/createFM" //servidor guardar datos
-  urlrefactor="http://172.16.51.94:5000/refactor" //servidor guardar datos
-  documents:string[]= ['GPL.xml', 'JHipster.uvl', 'MobileMedia.xml', 'Pizzas.uvl','Pizzas.json', 'TankWar.xml', 'Truck.uvl','WeaFQAs.uvl','Automotive2_1-basic.uvl'];
-  //file: File | null = null;
-  title:string ='rhea-web' // evita un error en app.component.spec.ts
-  declare actual:FMTree      //valor actual del FMTree
-  consactual:Const =new Const()     //valor actual del FMTree
-  declare actualfather:FMTree      //valor actual del actualfather del actual FMTree
-  consactualfather:Const =new Const()     //valor actual del consactual del actual cons
-  tree:Array<FMTree> =[new FMTree()]  // el FMTree de datos 
-  cons:Array<Const>=[new Const()]   // El FMTree de constraints con el name en la rama final
-  //declare json_nombre:any;    //guardo los valores de las features
-  //declare json_const:any;     //guardo los valores de las constraints
+
+  urlsave="http://172.16.51.94:5000/saveFM" 
+  urldownload="http://172.16.51.94:5000/downloadFM"  
+  urlupload="http://172.16.51.94:5000/uploadFM"  
+  urldownload2="http://172.16.51.94:5000/downloadFM2" 
+  urldelete="http://172.16.51.94:5000/deleteFM" 
+  urlcreate="http://172.16.51.94:5000/createFM" 
+  urlrefactor="http://172.16.51.94:5000/refactor" 
+
+  declare actual:FMTree     
+  declare actualfather:FMTree 
+  tree:Array<FMTree> =[new FMTree()]  
+
+  consactual:Const =new Const()     
+  consactualfather:Const =new Const()     
+  cons:Array<Const>=[new Const()]  
+
   treeControl = new NestedTreeControl<FMTree>(node => node.children);
   dataSource = new MatTreeNestedDataSource<FMTree>();
   constraintreeControl = new NestedTreeControl<Const>(constrainnode => constrainnode.operands);
   constraindataSource = new MatTreeNestedDataSource<Const>();
-
-  
     
   //list de constraints y nombres de las features
-  ejemplo:Array<object>=[{name:1},{name:2},{name:2}]
   typesofcons:Array<string>=['NotTerm','OrTerm','AndTerm','ImpliesTerm','Xor','Xand','DoubleImpliesTerm']
   namesFeatures:Array<string>=[]
   //otros
-  titulo:string='';
+  title:string='';
   item:string ='Pizzas.uvl';
-  text2=this.item;
   jsonconstraintTexto: Array<string>=[]
   // modificar o crear FMTree
   name:string="";
@@ -81,27 +74,23 @@ export class AppComponent {
   card_min:number=0;
   card_max:number=0;
   ncons:string="";
-  
-constructor(private http: HttpClient,public dialog: MatDialog) { }  
+  documents:string[]= ['GPL.xml', 'JHipster.uvl', 'MobileMedia.xml', 'Pizzas.uvl','Pizzas.json', 'TankWar.xml', 'Truck.uvl','WeaFQAs.uvl','Automotive2_1-basic.uvl'];
+
+constructor(private http: HttpClient ,public dialog: MatDialog) { }  
 
 
 
 ngOnInit() {
-  console.log("Comprobar iteracion en json cual usa")
   console.log("determinar diseño final")
+  console.log("¿¿mandar lista refactoring al JSON??")
   console.log("cambiar comentarios a ingles o borrarlos")
-  console.log("cambiar CSS a ingles")
   this.returnValues()
   
 }
-//orden : saveFM;downloadFM (2 ways) ;createFM;
-// metodos de modificacion,creacion y eliminacion de valores
-// otros metodos
 
 
-
-saveFile(text?:string){ // envio el nuevo archivo y el nuevo name opcional
-  this.TransformJSON()  //actualizo los valores del json
+saveFile(text?:string){ 
+  this.TransformJSON()  
   if(text==undefined || text==""){
     console.log("sin cambio de name")
     this.http.post(this.urlsave,[jsonfeatures,jsonconstraint],{responseType:'text'}).subscribe(resultado => {
@@ -113,11 +102,6 @@ saveFile(text?:string){ // envio el nuevo archivo y el nuevo name opcional
   })}
 }
 
-
-
-
-
-
 sendJSON(){
   console.log(aux)
   this.http.post(this.urldownload2,aux,{responseType:'text'}).subscribe(resultado => {
@@ -128,23 +112,69 @@ sendJSON(){
 
 
 
-sendUVL(uvl:any){
-  let body ={'inputFM': uvl}
-  console.log(uvl)
-  console.log(body)
-  this.http.post(this.urlupload,uvl,{responseType:'text'}).subscribe(resultado => {
-    console.log(resultado)})
 
+
+
+
+
+
+
+
+
+
+sendUVL(uvl:any){
+  console.log(uvl)
+  
+  const httpOptions = {
+    headers: new HttpHeaders({
+  //  'Content-Type': 'multipart/form-data',
+  //  'Content-Disposition': 'form-data',
+  //  name:"file",
+  //  filename:"download.jpg",
+  //  responseType:'text',
+  //  Authorization: 'my-auth-token',
+  //  withCredentials:'true',
+      })
+  };
+  const formData: FormData = new FormData();
+  formData.append('file', uvl, uvl.name);
+  this.http.post(this.urlupload,formData,{responseType:'text'}).subscribe(resultado => {
+    console.log(resultado)})
 }
 
-refactor(refac?:any){
-  if(refac==""|| refac==undefined){refac=this.refactoring}
-  if(refac.name==""){console.log("no tiene refactoring")}
+
+
+
+
+
+
+
+
+
+
+
+
+
+refactor(typeref:string){
+  let object
+  let ref =this.refactoring
+  if( this.refactoring==undefined ||this.refactoring.name==""){console.log("no tiene refactoring")}
   else{
-  this.TransformJSON()
-  this.http.post(this.urlrefactor,{json,refac},{responseType:'text'}).subscribe(resultado => {
+    if(typeref=="node"){object=this.actual.name}
+    if(typeref=="cons"){object=listnamesconstraints[position]}
+    //if(typeref=="all"){this.TransformJSON();object=json}
+    if(typeref=="node"||typeref=="cons"
+    //||typeref=="all"
+    ){
+    console.log(object)
+    console.log(this.refactoring)
+  this.http.post(this.urlrefactor,{object, ref},{responseType:'text'}).subscribe(resultado => {
     console.log(resultado)
   })}
+  else{
+    console.log("error in type of refactor")
+  }
+}
 }
 
 
@@ -157,14 +187,13 @@ returnValues(text?:string){
 CreateData(object:any,name?:string){
     aux = object;
     this.item=name||"";
-    this.text2=this.item
     aux=JSON.parse(aux)
-    this.titulo=aux.name
-    console.log(this.titulo)
+    this.title=aux.name
+    console.log(this.title)
     jsonfeatures=aux.features,
     jsonconstraint=aux.constraints
     aux2=""
-    dictionary = Object.assign({}, object);
+    let dictionary = Object.assign({}, object);
     for( const[key] of Object.entries(dictionary)){
       aux2=aux2+dictionary[key]
   }
@@ -226,6 +255,7 @@ this.cons[0].checkName(this.cons,this.actual.name,aux)
 }
 }
 DeleteNode(){
+  this.actualfather=this.GetFather(this.actual,this.tree)
   this.namesFeatures=this.actual.Delete(this.actualfather)
   this.ReloadFMTree()
 }
@@ -251,7 +281,6 @@ CreateBrother(){
   else{
   this.actualfather.children.push(this.actual.CreateDefault(this.name))
   this.ReloadFMTree()
-  console.log(this.name)
   this.tree[0].ExpandList(this.name)
 }}
 }
@@ -269,15 +298,13 @@ CreateCons(){
   position=-1
   this.cons.splice(0,this.cons.length)
   aux2=0
-  if(true){    //Porque hace falta poner el if para que no de error la siguiente linea?
+  if(true){    
   [jsonconstraint,this.jsonconstraintTexto,listnamesconstraints,listRefactorconstraints]=this.consactual.CreateConstraint(aux3)
   while(aux2<jsonconstraint.length){
   jsonconstraint[aux2]=this.consactual.CreateNewConstraint(jsonconstraint[aux2])
   aux2++}
   this.cons=this.consactual.createListForTree(jsonconstraint)
-  //console.log(jsonconstraint)
   jsonconstraint=this.consactual.TransformToCons(jsonconstraint)
-  jsonconstraint=aux3
   console.log(this.cons)
   this.constraindataSource.data=this.cons.filter(x=>this.cons.indexOf(x)==position)
 }
@@ -346,27 +373,15 @@ readThis(inputValue: any): void {
     this.attributes=this.actual.attributes||[]
     if(this.actual.refactoring!=undefined){this.refactoring=this.actual.refactoring}
     else{this.refactoring=new Refactoring}
-    this.TransformToConsPadreFMTree(object)
+    this.actualfather=this.GetFather(this.actual,this.tree)
     console.log(this.actual)
   }
  
-  TransformToConsPadreFMTree(object:any,list?:Array<any>,actualfather?:any){
-    if(list==null){list=this.tree}
-    if(list.filter(x=> x==object)[0]==undefined){
-      list.forEach(element => {
-        if(element.children){
-        if(element.children.length>0){
-          this.TransformToConsPadreFMTree(object,element.children,element)
-        }}
-      });
-    }else{
-      this.actualfather=actualfather
-    }
-  }
+
   SelectCons(object:any){
     this.GetFatherCons(object)
     this.consactual=object
-    this.ncons=this.jsonconstraintTexto[position] // se supone que siempre que lo podre obtener cuando se actualice con los valores del server
+    this.ncons=this.jsonconstraintTexto[position] 
     console.log(this.consactual)
   }
 
@@ -484,24 +499,28 @@ cardhidden(){
   }}
   return [bool,dis]
 }
-SymbolPerTypeCons2(type:string){
-  symbol=this.jsonconstraintTexto.indexOf(type)
-  if(listRefactorconstraints[symbol]!=undefined){
-    symbol=true
-  }
-  else{symbol=false}
-  return symbol
+treeConsHideen(node:any){
+  if(node.operands==null){return true}
+  else{return false }
+}
+treeHideen(node:any){
+  if(node.children.length==0){return true}
+  else{return false }
 }
 
 SymbolPerTypeCons(type:string){
+  let hiddensymbol=true
+  let symbol
   symbol=this.jsonconstraintTexto.indexOf(type)
   if(listRefactorconstraints[symbol]!=undefined){
     symbol='more_vert'
+
   }
-  else{symbol=''}
-  return symbol
+  else{symbol='';hiddensymbol=false}
+  return [symbol,hiddensymbol]
 }
 GetFather(nodechild:FMTree,list:any){
+  
     list.forEach(element => {
       if(element==nodechild){aux4=undefined}
       else{
@@ -537,33 +556,27 @@ ToolTipRefa(nodetooltiprefa:FMTree){
   if(nodetooltiprefa.refactoring!=undefined){
     text="Refactoring: "
     text=text+"Id: "+nodetooltiprefa.refactoring.id+" Name: "+nodetooltiprefa.refactoring.name+" Description: "+nodetooltiprefa.refactoring.description
-  }
-return text
+  
+return [true,text]}
+else{return false}
 }
-SymbolPerType2(nodeRefactor:FMTree){
-  if(nodeRefactor.refactoring!=undefined){
-  return true}
-  else{
-    return false}
- }
+
 SymbolPerType(nodechild:FMTree){ 
-  this.actualfather=this.GetFather(nodechild,this.tree)
-  let text
-  if(this.actualfather==undefined){
-    symbol="../assets/img/featuretree.ico"
-    text="root"
-  }
+  let symbol="../assets/img/mandatory.gif"
+  let text="mandatory"
+
+  if(this.GetFather(nodechild,this.tree)==undefined){symbol="../assets/img/featuretree.ico";text="root"}
   else{
-    if(this.actualfather.type.toUpperCase().startsWith("FEATURE")){
+    if(nodechild.type.toUpperCase().startsWith("FEATURE")){
       if(nodechild.optional){ symbol="../assets/img/optional.gif";text="optional"}
       else{symbol="../assets/img/mandatory.gif";text="mandatory"}
       
     }
-    if(this.actualfather.type=="OR"){symbol="../assets/img/or.gif";text="or <1..*>"}
-    if(this.actualfather.type=="XOR"){symbol="../assets/img/xor.gif";text="xor <1..1>"}
-    if(this.actualfather.type=="MUTEX"){symbol="../assets/img/mutex.gif";text="mutex  <0..1>"}
-    if(this.actualfather.type=="CARDINALITY"){symbol="../assets/img/cardinality.gif";text="cardinality " +this.actualfather.card_min+".."+this.actualfather.card_max}
-    if(this.actualfather.type!="OR"&&  this.actualfather.type!="CARDINALITY"&&this.actualfather.type!="MUTEX"&& this.actualfather.type!="XOR" && !this.actualfather.type.toUpperCase().startsWith("FEATURE") )
+    if(nodechild.type=="OR"){symbol="../assets/img/or.gif";text="or <1..*>"}
+    if(nodechild.type=="XOR"){symbol="../assets/img/xor.gif";text="xor <1..1>"}
+    if(nodechild.type=="MUTEX"){symbol="../assets/img/mutex.gif";text="mutex  <0..1>"}
+    if(nodechild.type=="CARDINALITY"){symbol="../assets/img/cardinality.gif";text="cardinality " +nodechild.card_min+".."+nodechild.card_max}
+    if(nodechild.type!="OR"&& nodechild.type!="CARDINALITY"&&nodechild.type!="MUTEX"&& nodechild.type!="XOR" && !nodechild.type.toUpperCase().startsWith("FEATURE") )
     {symbol="../assets/img/icon_error.gif";text="error"}
   }
   return [symbol,text]
@@ -580,6 +593,8 @@ SelectedChange(v){
   }
   this.ncons=v
   this.consactual=this.cons[position]
+  if(listRefactorconstraints[position]!=undefined){this.refactoring=listRefactorconstraints[position]}
+  else{this.refactoring=new Refactoring}
   console.log(this.consactual)
   this.constraindataSource.data=this.cons.filter(x=>this.cons.indexOf(x)==position)
 }
@@ -691,7 +706,7 @@ TransformJSON(){
   })
   aux++
   }
-  jsonfeatures= '"name"'+':"'+this.titulo+'",'+'"features"'+':'+ jsonfeatures
+  jsonfeatures= '"name"'+':"'+this.title+'",'+'"features"'+':'+ jsonfeatures
   aux=0
   aux2=listnamesconstraints[listnamesconstraints.length-1]
   if(aux2==undefined){aux2="CTC 1"}
@@ -732,7 +747,7 @@ updatevalues(){
     if(value!==null) return value})
   aux++
   }
-  jsonfeatures= '"name"'+':"'+this.titulo+'",'+'"features"'+':'+ jsonfeatures
+  jsonfeatures= '"name"'+':"'+this.title+'",'+'"features"'+':'+ jsonfeatures
   aux=0
   aux2=""
   while (aux<listnamestext.length){
@@ -749,7 +764,7 @@ updatevalues(){
 SaveDemoJson() {
   this.TransformJSON()
   let file = new Blob([json], { type: 'json' });
-  saveAs(file, this.titulo+'.json')
+  saveAs(file, this.title+'.json')
 }
 SaveDemo() {
   this.TransformJSON()
@@ -760,7 +775,7 @@ SaveDemo() {
   //this.CreateData(resultado)
   alert("I send the json file to the server,and then download the data as an UVL file")
   let file2 = new Blob(["resultado"], { type: 'uvl' });
-  saveAs(file2, this.titulo+'.uvl') 
+  saveAs(file2, this.title+'.uvl') 
 
 }
 
