@@ -1,10 +1,11 @@
-from asyncio.windows_events import NULL
-import re
+import os
 from typing import Optional
 from xml.etree.ElementTree import tostring
 
-from flask import Flask, render_template, request, send_from_directory
+from flask import Flask, flash, render_template, request, redirect, send_from_directory, url_for, session
 from flask_cors import CORS
+from flask_session import Session
+from werkzeug.utils import secure_filename
 
 from flamapy.metamodels.fm_metamodel.models import FeatureModel
 from flamapy.metamodels.fm_metamodel.transformations import UVLReader, UVLWriter, FeatureIDEReader, GlencoeReader
@@ -12,6 +13,12 @@ from requests import JSONDecodeError
 
 from rhea.flamapy.metamodels.fm_metamodel.transformations.json_writer import JSONWriter
 from rhea.flamapy.metamodels.fm_metamodel.transformations.json_reader import JSONReader
+
+
+COOKIE_SESSION = 'UserID'
+FEATURE_MODEL_SESSION = 'FeatureModel'
+UPLOAD_FOLDER = '/tmp'
+ALLOWED_EXTENSIONS = {'uvl', 'xml'}
 
 
 static_url = ''
@@ -24,7 +31,15 @@ app = Flask(__name__,
             static_url_path=static_url,
             static_folder=static_folder,
             template_folder=static_dir)
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 CORS(app)
+Session(app)
+
+
+def allowed_file(filename):
+    return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+
+
 
 
 def read_fm_file(filename: str) -> Optional[FeatureModel]:
@@ -59,6 +74,9 @@ def read_fm_file(filename: str) -> Optional[FeatureModel]:
 
 @app.route('/refactor', methods=['POST'])
 def refactor():
+    if not session.get(FEATURE_MODEL_SESSION):
+        # if not there in the session then redirect to the login page
+        return None
     # RECIBE LOS PARAMETROS
 
     # devuelve un json.
@@ -69,30 +87,31 @@ def refactor():
         return texto
 
 
-
-
-
 @app.route('/uploadFM', methods=['POST'])
 def upload_feature_model():
     if request.method == 'POST':
-        print('Error en fm_file')
-        print('Error en fm_file')
-        print('Error en fm_file')
-        print(request.args.get(all))
-        print(request.data.decode())
-        print(request.files.get(all))
-        print(request.form.get(all))
-        #fm_file = request.files['inputFM']  # 'inputFM' is the name of the parameter in the POST request from the frontend 
-        #print(fm_file)
-        return 'hola'
-        if fm_file:
-            filename = fm_file.filename
-            fm_file.save(filename)
-            fm = read_fm_file(filename)
-            print(fm)
-            if fm is None:
-                json_fm = JSONWriter(path=None, source_model=fm).transform()
-                return json_fm
+        # check if the post request has the file part
+        if 'file' not in request.files:
+            flash('No file part')
+            return redirect(request.url)
+        file = request.files['file']
+        # If the user does not select a file, the browser submits an empty file without a filename.
+        if file.filename == '':
+            flash('No selected file')
+            return redirect(request.url)
+        if file and allowed_file(file.filename):
+            filename = secure_filename(file.filename)
+            filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename) 
+            file.save(filepath)
+            fm = read_fm_file(filepath)
+            os.remove(filepath)
+            # record the feature model for the session
+            session[FEATURE_MODEL_SESSION] = fm
+            json_fm = JSONWriter(path=None, source_model=fm).transform()
+            #session_id = request.cookies.get(COOKIE_SESSION)
+            return json_fm
+            #return redirect(url_for('uploadFM', name=filename))
+    return None
 
 
 @app.route('/downloadFM2', methods=['POST'])
