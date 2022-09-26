@@ -80,7 +80,7 @@ def get_tests() -> list[list[str, str, str, FMRefactoring]]:
     tests.extend(any_ctcs_tests)
     split_tests = get_tests_info(SPLIT_CONSTRAINTS_FOLDER, SplitConstraints)
     tests.extend(split_tests)
-    complex_tests = get_tests_info(REQUIRES_CONSTRAINTS_FOLDER, EliminationComplexConstraints)
+    complex_tests = get_tests_info(COMPLEX_CONSTRAINTS_FOLDER, EliminationComplexConstraints)
     tests.extend(complex_tests)
     requires_tests = get_tests_info(REQUIRES_CONSTRAINTS_FOLDER, EliminationSimpleConstraintsRequires)
     tests.extend(requires_tests)

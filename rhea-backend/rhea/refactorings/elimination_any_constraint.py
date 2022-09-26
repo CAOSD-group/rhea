@@ -17,6 +17,11 @@ from rhea.refactorings import utils
 from rhea.metamodels.fm_metamodel.models import fm_utils
 
 
+REFACTORING_COMPLEX = EliminationComplexConstraints
+REFACTORING_REQUIRES = EliminationSimpleConstraintsRequires
+REFACTORING_EXCLUDES = EliminationSimpleConstraintsExcludes
+
+
 class EliminationAnyConstraints(FMRefactoring):
 
     @staticmethod
@@ -31,58 +36,38 @@ class EliminationAnyConstraints(FMRefactoring):
     def transform(model: FeatureModel, instance: Constraint) -> FeatureModel:
         if instance is None:
             raise Exception(f'Constraint {instance} is None.')
-
         
-        REFACTORING_SPLIT = SplitConstraints
-        REFACTORING_COMPLEX = EliminationComplexConstraints
-        REFACTORING_REQUIRES = EliminationSimpleConstraintsRequires
-        REFACTORING_EXCLUDES = EliminationSimpleConstraintsExcludes
-
-        ctc_list = set(model.get_constraints())
-        
-        
-        if ConstraintHelper(instance).is_strictcomplex_constraint():
-            print(f'Applying the refactoring {REFACTORING_SPLIT.get_name()}...')
-            model = REFACTORING_SPLIT.transform(model, instance)
-
-            ctc_list_after_split = set(model.get_constraints())
-
-            difference_after_split = ctc_list_after_split - ctc_list
-            for i in difference_after_split:
-                if ConstraintHelper(i).is_complex_constraint():
-                    print(f'Applying the refactoring {REFACTORING_COMPLEX.get_name()}...')
-                    model = REFACTORING_COMPLEX.transform(model, i)
-
-            ctc_list_after_complex = set(model.get_constraints())
+        if fm_utils.is_complex_constraint(instance):
+            # split
+            ctc_list = fm_utils.split_constraint(instance)
+            model.get_constraints().remove(instance)
+            original_ctcs = set(model.get_constraints())
+            model.get_constraints().extend(ctc_list)
             
-            for i in ctc_list_after_complex - ctc_list_after_split:
-                if ConstraintHelper(i).is_requires_constraint():
-                    print(f'Applying the refactoring {REFACTORING_REQUIRES.get_name()}...')
-                    model = REFACTORING_REQUIRES.transform(model, i)
-                if ConstraintHelper(i).is_excludes_constraint():
-                    print(f'Applying the refactoring {REFACTORING_EXCLUDES.get_name()}...')
-                    model = REFACTORING_EXCLUDES.transform(model, i)
-        
-        elif ConstraintHelper(instance).is_complex_constraint():
-            print(f'Applying the refactoring {REFACTORING_COMPLEX.get_name()}...')
-            model = REFACTORING_COMPLEX.transform(model, instance)
+            for ctc in ctc_list:
+                if fm_utils.is_complex_constraint(ctc):
+                    # aplicas el refactoring del complex
+                    model = REFACTORING_COMPLEX.transform(model, ctc)
 
-            ctc_list_after_complex = set(model.get_constraints())
-            
-            for i in ctc_list_after_complex - ctc_list:
-                if ConstraintHelper(i).is_requires_constraint():
-                    print(f'Applying the refactoring {REFACTORING_REQUIRES.get_name()}...')
-                    model = REFACTORING_REQUIRES.transform(model, i)
-                if ConstraintHelper(i).is_excludes_constraint():
-                    print(f'Applying the refactoring {REFACTORING_EXCLUDES.get_name()}...')
-                    model = REFACTORING_EXCLUDES.transform(model, i)
-        
+            new_ctcs = set(model.get_constraints()) - original_ctcs
+
+            for ctc in new_ctcs:
+                if fm_utils.is_requires_constraint(ctc):
+                    #print(f'Applying the refactoring {REFACTORING_REQUIRES.get_name()}...')
+                    model = REFACTORING_REQUIRES.transform(model, ctc)
+                elif fm_utils.is_excludes_constraint(ctc):
+                    #print(f'Applying the refactoring {REFACTORING_EXCLUDES.get_name()}...')
+                    model = REFACTORING_EXCLUDES.transform(model, ctc)
+                else:
+                    raise Exception(f'Invalid simple constraint: {ctc}')
         else:
-            if ConstraintHelper(i).is_requires_constraint():
-                print(f'Applying the refactoring {REFACTORING_REQUIRES.get_name()}...')
-                model = REFACTORING_REQUIRES.transform(model, i)
-            if ConstraintHelper(i).is_excludes_constraint():
-                print(f'Applying the refactoring {REFACTORING_EXCLUDES.get_name()}...')
-                model = REFACTORING_EXCLUDES.transform(model, i)
+            if fm_utils.is_requires_constraint(instance):
+                #print(f'Applying the refactoring {REFACTORING_REQUIRES.get_name()}...')
+                model = REFACTORING_REQUIRES.transform(model, instance)
+            elif fm_utils.is_excludes_constraint(instance):
+                #print(f'Applying the refactoring {REFACTORING_EXCLUDES.get_name()}...')
+                model = REFACTORING_EXCLUDES.transform(model, instance)
+            else:
+                raise Exception(f'Invalid simple constraint: {instance}')
 
         return model

@@ -39,6 +39,7 @@ class EliminationComplexConstraints(FMRefactoring):
             ast_operation = ASTOperation.REQUIRES if dict_constraint[f] else ASTOperation.EXCLUDES
             ctc = Constraint(f'CTC{i}', AST.create_binary_operation(ast_operation,
                              Node(new_feature.name), Node(f)))
+            # llamar a un new name, pero tienes que hacer un new_name para constraint en lugar de "CTC{i}"
             model.ctcs.append(ctc)
 
         model.ctcs.remove(instance)

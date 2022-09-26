@@ -42,7 +42,7 @@ REFACTORING_REQUIRES = EliminationSimpleConstraintsRequires
 REFACTORING_EXCLUDES = EliminationSimpleConstraintsExcludes
 REFACTORING_REQUIRES_WITHOUT_DICT = EliminationSimpleConstraintsRequiresWithoutDict
 REFACTORING_EXCLUDES_WIHOUT_DICT = EliminationSimpleConstraintsExcludesWithoutDict
-MODEL_PATH = 'tests/models/requires/input_models/test3_req.uvl'
+MODEL_PATH = 'tests/models/eliminate_any_ctcs/input_models/Pizzas_any_ctcs.uvl'
 OUTPUT_PATH = os.path.basename(MODEL_PATH)
 ##################################################################################################
 
@@ -104,10 +104,10 @@ def main():
     # print(fm)
     print_statistics(fm)
     
-    # print('==================================================')
-    # print(f'Applying the refactoring {REFACTORING_ANY_CTCS.get_name()}...')
-    # fm = apply_refactoring(fm, REFACTORING_ANY_CTCS)
-    # print('==================================================')
+    print('==================================================')
+    print(f'Applying the refactoring {REFACTORING_ANY_CTCS.get_name()}...')
+    fm = apply_refactoring(fm, REFACTORING_ANY_CTCS)
+    print('==================================================')
 
     # print('==================================================')
     # print(f'Applying the refactoring {REFACTORING_ANY_CTCS.get_name()}...')
@@ -122,11 +122,11 @@ def main():
     # print(f'FM_JOSEMI: {fm}')
     # UVLWriter(fm, "salida1.uvl").transform()
 
-    # print('==================================================')
-    ctc = next((c for c in fm.get_constraints() if fm_utils.is_requires_constraint(c)), None)
-    print(f'Applying the refactoring {REFACTORING_REQUIRES.get_name()} for {ctc.ast.pretty_str()}...')
-    fm = REFACTORING_REQUIRES.transform(fm, ctc)
-    # print('==================================================')
+    # # print('==================================================')
+    # ctc = next((c for c in fm.get_constraints() if fm_utils.is_requires_constraint(c)), None)
+    # print(f'Applying the refactoring {REFACTORING_REQUIRES.get_name()} for {ctc.ast.pretty_str()}...')
+    # fm = REFACTORING_REQUIRES.transform(fm, ctc)
+    # # print('==================================================')
 
     # UVLWriter(fm, "salida2.uvl").transform()
 
@@ -144,7 +144,7 @@ def main():
     # fm = REFACTORING_EXCLUDES.transform(fm, ctc)
     # # print('==================================================')
 
-    # UVLWriter(fm, "salida4.uvl").transform()
+    UVLWriter(fm, "salida4.uvl").transform()
 
     print_statistics(fm)
 
