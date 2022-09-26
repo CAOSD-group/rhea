@@ -64,7 +64,8 @@ def get_features_clauses(instance: Constraint) -> dict:
     """Returns a dictionary of 'Features -> bool',
     that sets 'bool' to FALSE if the feature has a negation"""
     features = {}
-    stack = [instance.ast.root]
+    clauses = instance.ast.to_cnf()
+    stack = [clauses.root]
     while stack:
         node = stack.pop()
         if node.is_unique_term():

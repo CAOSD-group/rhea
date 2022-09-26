@@ -37,6 +37,15 @@ class EliminationSimpleConstraintsRequires(FMRefactoring):
         model_plus = copy.deepcopy(model)  # copy.deepcopy(model)
         model_less = copy.deepcopy(model)
 
+        dict_keys = []
+        for key, value in model.dict_references.items():
+            if value not in model.get_features():
+                dict_keys.append(key)
+        for k in dict_keys:
+            del model.dict_references[k]
+
+        print(f'Instance: {str(instance)}')
+
         # print(f'Dict FIRST requires: {[key for key in model.dict_references.keys()]}')
         # print(f'MODEL REQUIRES before: {model}')
 
@@ -148,7 +157,8 @@ class EliminationSimpleConstraintsRequires(FMRefactoring):
         
         # print(f'Dict references requires: {[value.name for value in model.dict_references.values()]}')
 
-        print(f'MODEL REQUIRES after: {model}')
+        print(f'MODEL DICT REQUIRES: {[(name, value.name) for name, value in model.dict_references.items()]}')
+        # print(f'MODEL REQUIRES after: {model}')
         
         return model
 
