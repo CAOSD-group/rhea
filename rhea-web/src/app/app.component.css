@@ -2,33 +2,29 @@
   .example-viewport {
     height: 272px;
   }
-  .botonmenu{
+  .buttonmenu{
     color: #012970;
   }
-  .botondownload{
-    color: #012970;
-  }
- 
-
-  .margennegative{
+  .marginnegative{
     margin: -5px;
   }
-  .margen{
+  .margin{
     margin: 5px;
   }
-  .borde{
+  .border{
     margin: 15px;
     padding: 25px;
     border: 3px solid rgba(0, 0, 0, 0.2);
   }
-  .bordemodal{
+  .bordermodal{
     padding: 25px;
     border: 3px solid rgba(0, 0, 0, 0.2);
   }
   .empty{
+    background-color: #fff;
     border: 0px dashed rgb(255, 255, 255);
   }
-  .imagenes{
+  .symbols{
     size: 10px;
   }
   .block{
