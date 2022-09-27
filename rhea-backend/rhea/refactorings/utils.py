@@ -1,4 +1,5 @@
-from flamapy.metamodels.fm_metamodel.models import FeatureModel, Feature, Relation
+from genericpath import exists
+from flamapy.metamodels.fm_metamodel.models import FeatureModel, Feature, Relation, Constraint
 
 
 
@@ -7,6 +8,22 @@ def get_new_feature_name(fm: FeatureModel, name: str) -> str:
     count = 1
     new_name = f'{name}'
     while fm.get_feature_by_name(new_name) is not None:
+        new_name = f'{name}{count}'
+        count += 1
+    return new_name
+
+def get_new_feature_complex_name(fm: FeatureModel, name: str) -> str:
+    count = 1
+    new_name = f'{name}'
+    while fm.get_feature_by_name(new_name) is not None:
+        new_name = f'{name}_{count}'
+        count += 1
+    return new_name
+
+def get_new_ctc_name(ctcs_names: list[str], name: str) -> str:
+    count = 1
+    new_name = f'{name}'
+    while new_name in ctcs_names:
         new_name = f'{name}{count}'
         count += 1
     return new_name

@@ -34,7 +34,7 @@ class EliminationSimpleConstraintsExcludes(FMRefactoring):
         model_less = copy.deepcopy(model)
         model_less_plus = copy.deepcopy(model)
 
-        print(f'MODEL DICT EXCLUDES - before: {[(name, value.name) for name, value in model.dict_references.items()]}')
+        # print(f'MODEL DICT EXCLUDES - before: {[(name, value.name) for name, value in model.dict_references.items()]}')
 
         dict_keys = []
         for key, value in model.dict_references.items():
@@ -55,13 +55,13 @@ class EliminationSimpleConstraintsExcludes(FMRefactoring):
         if hasattr(model, 'dict_references'):
             list_right_feature_ctc_less += [key for key, value in model.dict_references.items() 
                                             if value.name == right_feature_name_ctc]
-        print(f'LIST RIGHT FEATURE CTC LESS: {[f for f in list_right_feature_ctc_less]}')
+        # print(f'LIST RIGHT FEATURE CTC LESS: {[f for f in list_right_feature_ctc_less]}')
 
         list_right_feature_ctc_less_plus = [right_feature_name_ctc]
         if hasattr(model, 'dict_references'):
             list_right_feature_ctc_less_plus += [key for key, value in model.dict_references.items() 
                                                  if value.name == right_feature_name_ctc]
-        print(f'LIST RIGHT FEATURE CTC LESS PLUS: {[f for f in list_right_feature_ctc_less_plus]}')
+        # print(f'LIST RIGHT FEATURE CTC LESS PLUS: {[f for f in list_right_feature_ctc_less_plus]}')
 
 
         if instance.ast.root.data in [ASTOperation.REQUIRES, ASTOperation.IMPLIES, ASTOperation.EXCLUDES]:
@@ -75,13 +75,14 @@ class EliminationSimpleConstraintsExcludes(FMRefactoring):
         if hasattr(model, 'dict_references'):
             list_left_feature_ctc_less_plus += [key for key, value in model.dict_references.items() 
                                                 if value.name == left_feature_name_ctc]
-        print(f'LIST LEFT FEATURE CTC LESS PLUS: {[f for f in list_left_feature_ctc_less_plus]}')
+        # print(f'LIST LEFT FEATURE CTC LESS PLUS: {[f for f in list_left_feature_ctc_less_plus]}')
 
 
         for f_right_less in list_right_feature_ctc_less:
             if model_less is not None:
                 feature_right_less = model_less.get_feature_by_name(f_right_less)
                 model_less = utils.eliminate_node_from_tree(model_less, feature_right_less)
+
 
         for f_left_less_plus in list_left_feature_ctc_less_plus:
             if model_less_plus is not None:
@@ -106,7 +107,8 @@ class EliminationSimpleConstraintsExcludes(FMRefactoring):
                     new_rel = Relation(old_root, [model_less_plus.root], 1, 1)  # mandatory
                     old_root.add_relation(new_rel)
                     model_less_plus.root.parent = old_root
-                plus_roots.append(model_less_plus.root)
+                if model_less_plus.root not in plus_roots:
+                    plus_roots.append(model_less_plus.root)
         # Joining all trees with XOR
         if len(plus_roots)>1:
             r_xor_plus = Relation(xor_plus, plus_roots, 1, 1)  # XOR
@@ -161,7 +163,7 @@ class EliminationSimpleConstraintsExcludes(FMRefactoring):
         # print(f'Dict references excludes: {[value.name for value in model.dict_references.values()]}')
         # print(f'Dict keys excludes: {[key for key in model.dict_references.keys()]}')
 
-        print(f'MODEL DICT EXCLUDES - after: {[(name, value.name) for name, value in model.dict_references.items()]}')
+        # print(f'MODEL DICT EXCLUDES - after: {[(name, value.name) for name, value in model.dict_references.items()]}')
         # print(f'MODEL EXCLUDES after: {model}')
 
         return model

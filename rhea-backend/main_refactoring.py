@@ -42,7 +42,7 @@ REFACTORING_REQUIRES = EliminationSimpleConstraintsRequires
 REFACTORING_EXCLUDES = EliminationSimpleConstraintsExcludes
 REFACTORING_REQUIRES_WITHOUT_DICT = EliminationSimpleConstraintsRequiresWithoutDict
 REFACTORING_EXCLUDES_WIHOUT_DICT = EliminationSimpleConstraintsExcludesWithoutDict
-MODEL_PATH = 'tests/models/eliminate_any_ctcs/input_models/Pizzas_any_ctcs.uvl'
+MODEL_PATH = 'tests/models/eliminate_any_ctcs/input_models/test_all_ctcs2.uvl'
 OUTPUT_PATH = os.path.basename(MODEL_PATH)
 ##################################################################################################
 
@@ -143,8 +143,6 @@ def main():
     # print(f'Applying the refactoring {REFACTORING_EXCLUDES.get_name()} for {ctc.ast.pretty_str()}...')
     # fm = REFACTORING_EXCLUDES.transform(fm, ctc)
     # # print('==================================================')
-
-    UVLWriter(fm, "salida4.uvl").transform()
 
     print_statistics(fm)
 

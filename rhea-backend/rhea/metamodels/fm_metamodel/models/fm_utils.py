@@ -129,7 +129,7 @@ def filter_products_from_dict(fm: FeatureModel, configurations: list[list[str]])
         for f in config:
             if hasattr(fm, 'dict_references') and f in fm.dict_references:
                 feature = fm.dict_references[f]
-                feature = fm.get_feature_by_name(feature.name)
+                # feature = fm.get_feature_by_name(feature.name)
             else:
                 feature = fm.get_feature_by_name(f)
             if not feature.is_abstract:

@@ -4,6 +4,7 @@ from turtle import left
 from typing import Any, Dict
 
 from flamapy.metamodels.fm_metamodel.models import FeatureModel, Feature, Relation, Constraint
+from flamapy.metamodels.fm_metamodel.transformations import UVLWriter
 
 from flamapy.core.models.ast import AST, ASTOperation, Node
 from rhea.refactorings.split_constraints import SplitConstraints
@@ -51,13 +52,16 @@ class EliminationAnyConstraints(FMRefactoring):
 
             new_ctcs = set(model.get_constraints()) - original_ctcs
 
+            UVLWriter(model, f"salida_complex.uvl").transform()
             for ctc in new_ctcs:
                 if fm_utils.is_requires_constraint(ctc):
                     #print(f'Applying the refactoring {REFACTORING_REQUIRES.get_name()}...')
                     model = REFACTORING_REQUIRES.transform(model, ctc)
+                    UVLWriter(model, f"salida{ctc}.uvl").transform()
                 elif fm_utils.is_excludes_constraint(ctc):
                     #print(f'Applying the refactoring {REFACTORING_EXCLUDES.get_name()}...')
                     model = REFACTORING_EXCLUDES.transform(model, ctc)
+                    UVLWriter(model, f"salida{ctc}.uvl").transform()
                 else:
                     raise Exception(f'Invalid simple constraint: {ctc}')
         else:

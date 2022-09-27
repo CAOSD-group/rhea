@@ -29,15 +29,16 @@ class EliminationComplexConstraints(FMRefactoring):
         if not fm_utils.is_complex_constraint(instance):
             raise Exception(f'Constraint {instance} is not complex.')
 
+        ctcs_names = [ctc.name for ctc in model.get_constraints()]
         new_or = Feature(utils.get_new_feature_name(model, 'OR'), is_abstract=True)
         features = []
         dict_constraint = get_features_clauses(instance)  # NOT before negatives (dict)
         # print(dict_constraint)
         for i, f in enumerate(dict_constraint.keys()):
-            new_feature = Feature(utils.get_new_feature_name(model, f), parent=new_or, is_abstract=True)
+            new_feature = Feature(utils.get_new_feature_complex_name(model, f), parent=new_or, is_abstract=True)
             features.append(new_feature)
             ast_operation = ASTOperation.REQUIRES if dict_constraint[f] else ASTOperation.EXCLUDES
-            ctc = Constraint(f'CTC{i}', AST.create_binary_operation(ast_operation,
+            ctc = Constraint(utils.get_new_ctc_name(ctcs_names, 'CTC'), AST.create_binary_operation(ast_operation,
                              Node(new_feature.name), Node(f)))
             # llamar a un new name, pero tienes que hacer un new_name para constraint en lugar de "CTC{i}"
             model.ctcs.append(ctc)

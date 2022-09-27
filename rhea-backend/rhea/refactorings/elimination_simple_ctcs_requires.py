@@ -37,6 +37,8 @@ class EliminationSimpleConstraintsRequires(FMRefactoring):
         model_plus = copy.deepcopy(model)  # copy.deepcopy(model)
         model_less = copy.deepcopy(model)
 
+        # print(f'MODEL DICT REQUIRES - before: {[(name, value.name) for name, value in model.dict_references.items()]}')
+
         dict_keys = []
         for key, value in model.dict_references.items():
             if value not in model.get_features():
@@ -55,11 +57,13 @@ class EliminationSimpleConstraintsRequires(FMRefactoring):
             list_right_feature_ctc_plus += [key for key, value in model.dict_references.items() 
                                             if value.name == right_feature_name_ctc]
         xor_plus = Feature(utils.get_new_feature_name(model_plus, 'XOR'), is_abstract=True)
+        # print(f'LIST RIGHT FEATURE CTC PLUS: {[f for f in list_right_feature_ctc_plus]}')
 
         list_right_feature_ctc_less = [right_feature_name_ctc]
         if hasattr(model, 'dict_references'):
             list_right_feature_ctc_less += [key for key, value in model.dict_references.items() 
                                             if value.name == right_feature_name_ctc]
+        # print(f'LIST RIGHT FEATURE CTC LESS: {[f for f in list_right_feature_ctc_less]}')
 
         if instance.ast.root.data in [ASTOperation.REQUIRES, ASTOperation.IMPLIES]:
             left_feature_name_ctc = instance.ast.root.left.data
@@ -71,6 +75,7 @@ class EliminationSimpleConstraintsRequires(FMRefactoring):
         if hasattr(model, 'dict_references'):
             list_left_feature_ctc_less += [key for key, value in model.dict_references.items() 
                                            if value.name == left_feature_name_ctc]
+        # print(f'LIST LEFT FEATURE CTC LESS: {[f for f in list_left_feature_ctc_less]}')
 
         plus_roots = []
         for f_plus in list_right_feature_ctc_plus:
@@ -90,13 +95,17 @@ class EliminationSimpleConstraintsRequires(FMRefactoring):
                     new_rel = Relation(old_root, [model_plus.root], 1, 1)  # mandatory
                     old_root.add_relation(new_rel)
                     model_plus.root.parent = old_root
-                plus_roots.append(model_plus.root)
+                if model_plus.root not in plus_roots:
+                    plus_roots.append(model_plus.root)
         # Joining all trees with XOR
+
         if len(plus_roots)>1:
             r_xor_plus = Relation(xor_plus, plus_roots, 1, 1)  # XOR
             xor_plus.add_relation(r_xor_plus)
             model_plus.root = xor_plus
             for child in plus_roots:
+                featuremodel = FeatureModel(child)
+                # print(f'FEATURE MODEL OF EACH ROOT PLUS: {featuremodel}')
                 child.parent = xor_plus
             count = 1
             for r in xor_plus.get_children():
@@ -157,7 +166,7 @@ class EliminationSimpleConstraintsRequires(FMRefactoring):
         
         # print(f'Dict references requires: {[value.name for value in model.dict_references.values()]}')
 
-        print(f'MODEL DICT REQUIRES: {[(name, value.name) for name, value in model.dict_references.items()]}')
+        # print(f'MODEL DICT REQUIRES - after: {[(name, value.name) for name, value in model.dict_references.items()]}')
         # print(f'MODEL REQUIRES after: {model}')
         
         return model
