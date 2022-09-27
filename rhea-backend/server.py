@@ -100,8 +100,12 @@ def upload_feature_model():
             flash('No selected file')
             return redirect(request.url)
         if file and allowed_file(file.filename):
+            print(file.filename)
             filename = secure_filename(file.filename)
+            print(filename)
             filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename) 
+            print(filepath)
+            filepath = secure_filename(filepath)
             file.save(filepath)
             fm = read_fm_file(filepath)
             os.remove(filepath)
