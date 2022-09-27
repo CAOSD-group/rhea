@@ -5,7 +5,7 @@ from enum import Enum
 from flamapy.core.models.ast import Node, ASTOperation
 from flamapy.core.transformations import ModelToText
 
-from flamapy.metamodels.fm_metamodel.models import FeatureModel, Feature, Constraint
+from flamapy.metamodels.fm_metamodel.models import FeatureModel, Feature, Constraint, Attribute
 
 
 class JSONFeatureType(Enum):
@@ -48,6 +48,7 @@ def _to_json(feature_model: FeatureModel) -> dict[str, Any]:
     result['name'] = f'FM_{feature_model.root.name}'
     result['features'] = _get_tree_info(feature_model.root)
     result['constraints'] = _get_constraints_info(feature_model.get_constraints())
+    result['refactorings'] = _get_refactorings_info(feature_model)
     return result
 
 
@@ -72,10 +73,24 @@ def _get_tree_info(feature: Feature) -> dict[str, Any]:
     feature_info['optional'] = not feature.is_mandatory()
     feature_info['abstract'] = feature.is_abstract
 
+    # Attributes
+    feature_info['attributes'] = _get_attributes_info(feature.get_attributes())
+
     children = [_get_tree_info(child) for child in feature.get_children()]
     if children:
         feature_info['children'] = children
     return feature_info
+
+
+def _get_attributes_info(attributes: list[Attribute]) -> list[dict[str, Any]]:
+    attributes_info = []
+    for attribute in attributes:
+        attr_info = {}
+        attr_info['name'] = attribute.name
+        if attribute.default_value is not None:
+            attr_info['value'] = attribute.default_value
+        attributes_info.append(attr_info)
+    return attributes_info
 
 
 def _get_constraints_info(constraints: list[Constraint]) -> list[dict[str, Any]]:
@@ -104,3 +119,9 @@ def _get_ctc_info(ast_node: Node) -> dict[str, Any]:
             operands.append(right)
         ctc_info['operands'] = operands
     return ctc_info
+
+
+def _get_refactorings_info(feature_model: FeatureModel) -> list[dict[str, Any]]:
+    refactorings_info = []
+
+    return refactorings_info
