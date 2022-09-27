@@ -34,12 +34,12 @@ app = Flask(__name__,
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 CORS(app)
 Session(app)
+app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
+app.config['SESSION_TYPE'] = 'filesystem'
 
 
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
-
-
 
 
 def read_fm_file(filename: str) -> Optional[FeatureModel]:
@@ -100,11 +100,8 @@ def upload_feature_model():
             flash('No selected file')
             return redirect(request.url)
         if file and allowed_file(file.filename):
-            print(file.filename)
             filename = secure_filename(file.filename)
-            print(filename)
             filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename) 
-            print(filepath)
             filepath = secure_filename(filepath)
             file.save(filepath)
             fm = read_fm_file(filepath)
