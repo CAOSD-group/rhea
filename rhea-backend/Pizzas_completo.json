@@ -1,0 +1,269 @@
+{
+    "name": "FM_Pizza",
+    "features": {
+        "name": "Pizza",
+        "type": "FEATURE",
+        "optional": true,
+        "abstract": true,
+        "attributes": [],
+        "children": [
+            {
+                "name": "Topping",
+                "card_min": 2,
+                "card_max": 5,
+                "type": "CARDINALITY",
+                "optional": false,
+                "abstract": false,
+                "attributes": [],
+                "children": [
+                    {
+                        "name": "Salami",
+                        "type": "FEATURE",
+                        "optional": true,
+                        "abstract": false,
+                        "attributes": [
+                            {
+                                "name": "cost",
+                                "value": "1.5"
+                            },
+                            {
+                                "name": "price",
+                                "value": "3"
+                            }
+                        ]
+                    },
+                    {
+                        "name": "Ham",
+                        "type": "FEATURE",
+                        "optional": true,
+                        "abstract": false,
+                        "attributes": [
+                            {
+                                "name": "cost",
+                                "value": "1.25"
+                            },
+                            {
+                                "name": "price",
+                                "value": "2.5"
+                            }
+                        ]
+                    },
+                    {
+                        "name": "Mozzarella",
+                        "type": "FEATURE",
+                        "optional": true,
+                        "abstract": false,
+                        "attributes": [
+                            {
+                                "name": "price",
+                                "value": "1.75"
+                            },
+                            {
+                                "name": "cost",
+                                "value": "0"
+                            }
+                        ]
+                    },
+                    {
+                        "name": "Tuna",
+                        "type": "FEATURE",
+                        "optional": true,
+                        "abstract": false,
+                        "attributes": [
+                            {
+                                "name": "cost",
+                                "value": "2.10"
+                            },
+                            {
+                                "name": "price",
+                                "value": "3.20"
+                            }
+                        ]
+                    },
+                    {
+                        "name": "Bacon",
+                        "type": "FEATURE",
+                        "optional": true,
+                        "abstract": false,
+                        "attributes": [
+                            {
+                                "name": "cost",
+                                "value": "1.4"
+                            },
+                            {
+                                "name": "price",
+                                "value": "2.80"
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "name": "Size",
+                "card_min": 1,
+                "card_max": 1,
+                "type": "XOR",
+                "optional": false,
+                "abstract": false,
+                "attributes": [],
+                "children": [
+                    {
+                        "name": "Normal",
+                        "type": "FEATURE",
+                        "optional": true,
+                        "abstract": false,
+                        "attributes": [
+                            {
+                                "name": "default"
+                            }
+                        ]
+                    },
+                    {
+                        "name": "Big",
+                        "type": "FEATURE",
+                        "optional": true,
+                        "abstract": false,
+                        "attributes": []
+                    }
+                ]
+            },
+            {
+                "name": "Dough",
+                "card_min": 1,
+                "card_max": 1,
+                "type": "XOR",
+                "optional": false,
+                "abstract": false,
+                "attributes": [],
+                "children": [
+                    {
+                        "name": "Neapolitan",
+                        "type": "FEATURE",
+                        "optional": true,
+                        "abstract": false,
+                        "attributes": [
+                            {
+                                "name": "default"
+                            }
+                        ]
+                    },
+                    {
+                        "name": "Sicilian",
+                        "type": "FEATURE",
+                        "optional": true,
+                        "abstract": false,
+                        "attributes": []
+                    }
+                ]
+            },
+            {
+                "name": "CheesyCrust",
+                "type": "FEATURE",
+                "optional": true,
+                "abstract": false,
+                "attributes": []
+            },
+            {
+                "name": "Spicy",
+                "card_min": 0,
+                "card_max": 1,
+                "type": "MUTEX",
+                "optional": true,
+                "abstract": false,
+                "attributes": [],
+                "children": [
+                    {
+                        "name": "Cayenne",
+                        "type": "FEATURE",
+                        "optional": true,
+                        "abstract": false,
+                        "attributes": []
+                    },
+                    {
+                        "name": "Jalapino",
+                        "type": "FEATURE",
+                        "optional": true,
+                        "abstract": false,
+                        "attributes": []
+                    }
+                ]
+            }
+        ]
+    },
+    "constraints": [
+        {
+            "name": "CTC1",
+            "expr": "(CheesyCrust AND Sicilian) IMPLIES Big",
+            "ast": {
+                "type": "ImpliesTerm",
+                "operands": [
+                    {
+                        "type": "AndTerm",
+                        "operands": [
+                            {
+                                "type": "FeatureTerm",
+                                "operands": [
+                                    "CheesyCrust"
+                                ]
+                            },
+                            {
+                                "type": "FeatureTerm",
+                                "operands": [
+                                    "Sicilian"
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "type": "FeatureTerm",
+                        "operands": [
+                            "Big"
+                        ]
+                    }
+                ]
+            }
+        },
+        {
+            "name": "CTC2",
+            "expr": "Neapolitan IMPLIES (NOT Salami AND NOT Ham)",
+            "ast": {
+                "type": "ImpliesTerm",
+                "operands": [
+                    {
+                        "type": "FeatureTerm",
+                        "operands": [
+                            "Neapolitan"
+                        ]
+                    },
+                    {
+                        "type": "AndTerm",
+                        "operands": [
+                            {
+                                "type": "NotTerm",
+                                "operands": [
+                                    {
+                                        "type": "FeatureTerm",
+                                        "operands": [
+                                            "Salami"
+                                        ]
+                                    }
+                                ]
+                            },
+                            {
+                                "type": "NotTerm",
+                                "operands": [
+                                    {
+                                        "type": "FeatureTerm",
+                                        "operands": [
+                                            "Ham"
+                                        ]
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            }
+        }
+    ]
+}

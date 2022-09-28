@@ -1,0 +1,838 @@
+{
+    "name": "FM_JHipster",
+    "features": {
+        "name": "JHipster",
+        "type": "FEATURE",
+        "optional": true,
+        "abstract": true,
+        "children": [
+            {
+                "name": "Generator",
+                "card_min": 1,
+                "card_max": 1,
+                "type": "XOR",
+                "optional": false,
+                "abstract": true,
+                "children": [
+                    {
+                        "name": "Server",
+                        "card_min": 1,
+                        "card_max": 1,
+                        "type": "XOR",
+                        "optional": true,
+                        "abstract": true,
+                        "children": [
+                            {
+                                "name": "MicroserviceApplication",
+                                "type": "FEATURE",
+                                "optional": true,
+                                "abstract": false
+                            },
+                            {
+                                "name": "UaaServer",
+                                "type": "FEATURE",
+                                "optional": true,
+                                "abstract": false
+                            }
+                        ]
+                    },
+                    {
+                        "name": "Application",
+                        "card_min": 1,
+                        "card_max": 1,
+                        "type": "XOR",
+                        "optional": true,
+                        "abstract": true,
+                        "children": [
+                            {
+                                "name": "MicroserviceGateway",
+                                "type": "FEATURE",
+                                "optional": true,
+                                "abstract": false
+                            },
+                            {
+                                "name": "Monolithic",
+                                "type": "FEATURE",
+                                "optional": true,
+                                "abstract": false
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "name": "Authentication",
+                "card_min": 1,
+                "card_max": 1,
+                "type": "XOR",
+                "optional": false,
+                "abstract": true,
+                "children": [
+                    {
+                        "name": "HTTPSession",
+                        "type": "FEATURE",
+                        "optional": true,
+                        "abstract": false
+                    },
+                    {
+                        "name": "OAuth2",
+                        "type": "FEATURE",
+                        "optional": true,
+                        "abstract": false
+                    },
+                    {
+                        "name": "Uaa",
+                        "type": "FEATURE",
+                        "optional": true,
+                        "abstract": false
+                    },
+                    {
+                        "name": "JWT",
+                        "type": "FEATURE",
+                        "optional": true,
+                        "abstract": false
+                    }
+                ]
+            },
+            {
+                "name": "SocialLogin",
+                "type": "FEATURE",
+                "optional": true,
+                "abstract": false
+            },
+            {
+                "name": "Database",
+                "card_min": 1,
+                "card_max": 1,
+                "type": "XOR",
+                "optional": true,
+                "abstract": true,
+                "children": [
+                    {
+                        "name": "SQL",
+                        "type": "FEATURE",
+                        "optional": true,
+                        "abstract": true,
+                        "children": [
+                            {
+                                "name": "Hibernate2ndLvlCache",
+                                "card_min": 1,
+                                "card_max": 1,
+                                "type": "XOR",
+                                "optional": true,
+                                "abstract": true,
+                                "children": [
+                                    {
+                                        "name": "HazelCast",
+                                        "type": "FEATURE",
+                                        "optional": true,
+                                        "abstract": false
+                                    },
+                                    {
+                                        "name": "EhCache",
+                                        "type": "FEATURE",
+                                        "optional": true,
+                                        "abstract": false
+                                    }
+                                ]
+                            },
+                            {
+                                "name": "Development",
+                                "card_min": 1,
+                                "card_max": 1,
+                                "type": "XOR",
+                                "optional": false,
+                                "abstract": true,
+                                "children": [
+                                    {
+                                        "name": "H2",
+                                        "card_min": 1,
+                                        "card_max": 1,
+                                        "type": "XOR",
+                                        "optional": true,
+                                        "abstract": true,
+                                        "children": [
+                                            {
+                                                "name": "DiskBased",
+                                                "type": "FEATURE",
+                                                "optional": true,
+                                                "abstract": false
+                                            },
+                                            {
+                                                "name": "InMemory",
+                                                "type": "FEATURE",
+                                                "optional": true,
+                                                "abstract": false
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "name": "PostgreSQLDev",
+                                        "type": "FEATURE",
+                                        "optional": true,
+                                        "abstract": false
+                                    },
+                                    {
+                                        "name": "MariaDBDev",
+                                        "type": "FEATURE",
+                                        "optional": true,
+                                        "abstract": false
+                                    },
+                                    {
+                                        "name": "MySql",
+                                        "type": "FEATURE",
+                                        "optional": true,
+                                        "abstract": false
+                                    }
+                                ]
+                            },
+                            {
+                                "name": "Production",
+                                "card_min": 1,
+                                "card_max": 1,
+                                "type": "XOR",
+                                "optional": false,
+                                "abstract": true,
+                                "children": [
+                                    {
+                                        "name": "MySQL",
+                                        "type": "FEATURE",
+                                        "optional": true,
+                                        "abstract": false
+                                    },
+                                    {
+                                        "name": "MariaDB",
+                                        "type": "FEATURE",
+                                        "optional": true,
+                                        "abstract": false
+                                    },
+                                    {
+                                        "name": "PostgreSQL",
+                                        "type": "FEATURE",
+                                        "optional": true,
+                                        "abstract": false
+                                    }
+                                ]
+                            },
+                            {
+                                "name": "ElasticSearch",
+                                "type": "FEATURE",
+                                "optional": true,
+                                "abstract": false
+                            }
+                        ]
+                    },
+                    {
+                        "name": "Cassandra",
+                        "type": "FEATURE",
+                        "optional": true,
+                        "abstract": false
+                    },
+                    {
+                        "name": "MongoDB",
+                        "type": "FEATURE",
+                        "optional": true,
+                        "abstract": false
+                    }
+                ]
+            },
+            {
+                "name": "SpringWebSockets",
+                "type": "FEATURE",
+                "optional": true,
+                "abstract": false
+            },
+            {
+                "name": "Libsass",
+                "type": "FEATURE",
+                "optional": true,
+                "abstract": false
+            },
+            {
+                "name": "ClusteredSession",
+                "type": "FEATURE",
+                "optional": true,
+                "abstract": false
+            },
+            {
+                "name": "BackEnd",
+                "card_min": 1,
+                "card_max": 1,
+                "type": "XOR",
+                "optional": false,
+                "abstract": true,
+                "children": [
+                    {
+                        "name": "Gradle",
+                        "type": "FEATURE",
+                        "optional": true,
+                        "abstract": false
+                    },
+                    {
+                        "name": "Maven",
+                        "type": "FEATURE",
+                        "optional": true,
+                        "abstract": false
+                    }
+                ]
+            },
+            {
+                "name": "InternationalizationSupport",
+                "type": "FEATURE",
+                "optional": true,
+                "abstract": false
+            },
+            {
+                "name": "Docker",
+                "type": "FEATURE",
+                "optional": true,
+                "abstract": false
+            },
+            {
+                "name": "TestingFrameworks",
+                "type": "FEATURE",
+                "optional": false,
+                "abstract": true,
+                "children": [
+                    {
+                        "name": "Protractor",
+                        "type": "FEATURE",
+                        "optional": true,
+                        "abstract": false
+                    },
+                    {
+                        "name": "Gatling",
+                        "type": "FEATURE",
+                        "optional": false,
+                        "abstract": false
+                    },
+                    {
+                        "name": "Cucumber",
+                        "type": "FEATURE",
+                        "optional": false,
+                        "abstract": false
+                    }
+                ]
+            }
+        ]
+    },
+    "constraints": [
+        {
+            "name": "CTC1",
+            "expr": "((OAuth2 AND NOT SocialLogin) AND NOT MicroserviceApplication) IMPLIES (SQL OR MongoDB)",
+            "ast": {
+                "type": "ImpliesTerm",
+                "operands": [
+                    {
+                        "type": "AndTerm",
+                        "operands": [
+                            {
+                                "type": "AndTerm",
+                                "operands": [
+                                    {
+                                        "type": "FeatureTerm",
+                                        "operands": [
+                                            "OAuth2"
+                                        ]
+                                    },
+                                    {
+                                        "type": "NotTerm",
+                                        "operands": [
+                                            {
+                                                "type": "FeatureTerm",
+                                                "operands": [
+                                                    "SocialLogin"
+                                                ]
+                                            }
+                                        ]
+                                    }
+                                ]
+                            },
+                            {
+                                "type": "NotTerm",
+                                "operands": [
+                                    {
+                                        "type": "FeatureTerm",
+                                        "operands": [
+                                            "MicroserviceApplication"
+                                        ]
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "type": "OrTerm",
+                        "operands": [
+                            {
+                                "type": "FeatureTerm",
+                                "operands": [
+                                    "SQL"
+                                ]
+                            },
+                            {
+                                "type": "FeatureTerm",
+                                "operands": [
+                                    "MongoDB"
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            }
+        },
+        {
+            "name": "CTC2",
+            "expr": "SocialLogin IMPLIES (((HTTPSession OR JWT) AND Monolithic) AND (SQL OR MongoDB))",
+            "ast": {
+                "type": "ImpliesTerm",
+                "operands": [
+                    {
+                        "type": "FeatureTerm",
+                        "operands": [
+                            "SocialLogin"
+                        ]
+                    },
+                    {
+                        "type": "AndTerm",
+                        "operands": [
+                            {
+                                "type": "AndTerm",
+                                "operands": [
+                                    {
+                                        "type": "OrTerm",
+                                        "operands": [
+                                            {
+                                                "type": "FeatureTerm",
+                                                "operands": [
+                                                    "HTTPSession"
+                                                ]
+                                            },
+                                            {
+                                                "type": "FeatureTerm",
+                                                "operands": [
+                                                    "JWT"
+                                                ]
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "FeatureTerm",
+                                        "operands": [
+                                            "Monolithic"
+                                        ]
+                                    }
+                                ]
+                            },
+                            {
+                                "type": "OrTerm",
+                                "operands": [
+                                    {
+                                        "type": "FeatureTerm",
+                                        "operands": [
+                                            "SQL"
+                                        ]
+                                    },
+                                    {
+                                        "type": "FeatureTerm",
+                                        "operands": [
+                                            "MongoDB"
+                                        ]
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            }
+        },
+        {
+            "name": "CTC3",
+            "expr": "UaaServer IMPLIES Uaa",
+            "ast": {
+                "type": "ImpliesTerm",
+                "operands": [
+                    {
+                        "type": "FeatureTerm",
+                        "operands": [
+                            "UaaServer"
+                        ]
+                    },
+                    {
+                        "type": "FeatureTerm",
+                        "operands": [
+                            "Uaa"
+                        ]
+                    }
+                ]
+            }
+        },
+        {
+            "name": "CTC4",
+            "expr": "((NOT OAuth2 AND NOT SocialLogin) AND NOT MicroserviceApplication) IMPLIES ((SQL OR MongoDB) OR Cassandra)",
+            "ast": {
+                "type": "ImpliesTerm",
+                "operands": [
+                    {
+                        "type": "AndTerm",
+                        "operands": [
+                            {
+                                "type": "AndTerm",
+                                "operands": [
+                                    {
+                                        "type": "NotTerm",
+                                        "operands": [
+                                            {
+                                                "type": "FeatureTerm",
+                                                "operands": [
+                                                    "OAuth2"
+                                                ]
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "NotTerm",
+                                        "operands": [
+                                            {
+                                                "type": "FeatureTerm",
+                                                "operands": [
+                                                    "SocialLogin"
+                                                ]
+                                            }
+                                        ]
+                                    }
+                                ]
+                            },
+                            {
+                                "type": "NotTerm",
+                                "operands": [
+                                    {
+                                        "type": "FeatureTerm",
+                                        "operands": [
+                                            "MicroserviceApplication"
+                                        ]
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "type": "OrTerm",
+                        "operands": [
+                            {
+                                "type": "OrTerm",
+                                "operands": [
+                                    {
+                                        "type": "FeatureTerm",
+                                        "operands": [
+                                            "SQL"
+                                        ]
+                                    },
+                                    {
+                                        "type": "FeatureTerm",
+                                        "operands": [
+                                            "MongoDB"
+                                        ]
+                                    }
+                                ]
+                            },
+                            {
+                                "type": "FeatureTerm",
+                                "operands": [
+                                    "Cassandra"
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            }
+        },
+        {
+            "name": "CTC5",
+            "expr": "Server IMPLIES NOT Protractor",
+            "ast": {
+                "type": "ImpliesTerm",
+                "operands": [
+                    {
+                        "type": "FeatureTerm",
+                        "operands": [
+                            "Server"
+                        ]
+                    },
+                    {
+                        "type": "NotTerm",
+                        "operands": [
+                            {
+                                "type": "FeatureTerm",
+                                "operands": [
+                                    "Protractor"
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            }
+        },
+        {
+            "name": "CTC6",
+            "expr": "NOT Server IMPLIES Protractor",
+            "ast": {
+                "type": "ImpliesTerm",
+                "operands": [
+                    {
+                        "type": "NotTerm",
+                        "operands": [
+                            {
+                                "type": "FeatureTerm",
+                                "operands": [
+                                    "Server"
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "type": "FeatureTerm",
+                        "operands": [
+                            "Protractor"
+                        ]
+                    }
+                ]
+            }
+        },
+        {
+            "name": "CTC7",
+            "expr": "MySQL IMPLIES (H2 OR MySql)",
+            "ast": {
+                "type": "ImpliesTerm",
+                "operands": [
+                    {
+                        "type": "FeatureTerm",
+                        "operands": [
+                            "MySQL"
+                        ]
+                    },
+                    {
+                        "type": "OrTerm",
+                        "operands": [
+                            {
+                                "type": "FeatureTerm",
+                                "operands": [
+                                    "H2"
+                                ]
+                            },
+                            {
+                                "type": "FeatureTerm",
+                                "operands": [
+                                    "MySql"
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            }
+        },
+        {
+            "name": "CTC8",
+            "expr": "(MicroserviceApplication OR MicroserviceGateway) IMPLIES (JWT OR Uaa)",
+            "ast": {
+                "type": "ImpliesTerm",
+                "operands": [
+                    {
+                        "type": "OrTerm",
+                        "operands": [
+                            {
+                                "type": "FeatureTerm",
+                                "operands": [
+                                    "MicroserviceApplication"
+                                ]
+                            },
+                            {
+                                "type": "FeatureTerm",
+                                "operands": [
+                                    "MicroserviceGateway"
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "type": "OrTerm",
+                        "operands": [
+                            {
+                                "type": "FeatureTerm",
+                                "operands": [
+                                    "JWT"
+                                ]
+                            },
+                            {
+                                "type": "FeatureTerm",
+                                "operands": [
+                                    "Uaa"
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            }
+        },
+        {
+            "name": "CTC9",
+            "expr": "Monolithic IMPLIES ((JWT OR HTTPSession) OR OAuth2)",
+            "ast": {
+                "type": "ImpliesTerm",
+                "operands": [
+                    {
+                        "type": "FeatureTerm",
+                        "operands": [
+                            "Monolithic"
+                        ]
+                    },
+                    {
+                        "type": "OrTerm",
+                        "operands": [
+                            {
+                                "type": "OrTerm",
+                                "operands": [
+                                    {
+                                        "type": "FeatureTerm",
+                                        "operands": [
+                                            "JWT"
+                                        ]
+                                    },
+                                    {
+                                        "type": "FeatureTerm",
+                                        "operands": [
+                                            "HTTPSession"
+                                        ]
+                                    }
+                                ]
+                            },
+                            {
+                                "type": "FeatureTerm",
+                                "operands": [
+                                    "OAuth2"
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            }
+        },
+        {
+            "name": "CTC10",
+            "expr": "MariaDB IMPLIES (H2 OR MariaDBDev)",
+            "ast": {
+                "type": "ImpliesTerm",
+                "operands": [
+                    {
+                        "type": "FeatureTerm",
+                        "operands": [
+                            "MariaDB"
+                        ]
+                    },
+                    {
+                        "type": "OrTerm",
+                        "operands": [
+                            {
+                                "type": "FeatureTerm",
+                                "operands": [
+                                    "H2"
+                                ]
+                            },
+                            {
+                                "type": "FeatureTerm",
+                                "operands": [
+                                    "MariaDBDev"
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            }
+        },
+        {
+            "name": "CTC11",
+            "expr": "PostgreSQL IMPLIES (H2 OR PostgreSQLDev)",
+            "ast": {
+                "type": "ImpliesTerm",
+                "operands": [
+                    {
+                        "type": "FeatureTerm",
+                        "operands": [
+                            "PostgreSQL"
+                        ]
+                    },
+                    {
+                        "type": "OrTerm",
+                        "operands": [
+                            {
+                                "type": "FeatureTerm",
+                                "operands": [
+                                    "H2"
+                                ]
+                            },
+                            {
+                                "type": "FeatureTerm",
+                                "operands": [
+                                    "PostgreSQLDev"
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            }
+        },
+        {
+            "name": "CTC12",
+            "expr": "(SpringWebSockets OR ClusteredSession) IMPLIES Application",
+            "ast": {
+                "type": "ImpliesTerm",
+                "operands": [
+                    {
+                        "type": "OrTerm",
+                        "operands": [
+                            {
+                                "type": "FeatureTerm",
+                                "operands": [
+                                    "SpringWebSockets"
+                                ]
+                            },
+                            {
+                                "type": "FeatureTerm",
+                                "operands": [
+                                    "ClusteredSession"
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "type": "FeatureTerm",
+                        "operands": [
+                            "Application"
+                        ]
+                    }
+                ]
+            }
+        },
+        {
+            "name": "CTC13",
+            "expr": "Libsass IMPLIES Application",
+            "ast": {
+                "type": "ImpliesTerm",
+                "operands": [
+                    {
+                        "type": "FeatureTerm",
+                        "operands": [
+                            "Libsass"
+                        ]
+                    },
+                    {
+                        "type": "FeatureTerm",
+                        "operands": [
+                            "Application"
+                        ]
+                    }
+                ]
+            }
+        }
+    ]
+}
