@@ -138,7 +138,7 @@
               <hr>
               <a (click)="SaveDemo()">Download .uvl</a>
               <hr>
-              <a (click)="refactor('all')">Refactoring</a>
+              <a (click)="Refactor('all')">Refactoring</a>
               <hr>
               <a (click)="saveFile()">Send data to server</a>
             </mat-menu>
@@ -222,7 +222,7 @@
                     (click)='SelectedChange(constraints.selectedOptions.selected[0].value)'>
                     <div>
                       <div class="text">
-                        <button class="empty" (click)="refactor('cons')" *ngIf="SymbolPerTypeCons(constrainTexto)[1]" >
+                        <button class="empty" (click)="Refactor('cons')" *ngIf="SymbolPerTypeCons(constrainTexto)[1]" >
                           <mat-icon>{{SymbolPerTypeCons(constrainTexto)[0]}}</mat-icon>
                         </button>
                         {{jsonconstraintTexto.indexOf(constrainTexto)+1+". "}}
@@ -398,7 +398,7 @@
       <div class="modal-body">
         <div class="col-10">
           <h4>Are you sure?</h4>
-          <button (click)="refactor('node')" class="btn btn-primary" data-bs-dismiss="modal">Proceed</button>
+          <button (click)="Refactor('node')" class="btn btn-primary" data-bs-dismiss="modal">Proceed</button>
         </div>
       </div>
       <div class="modal-footer">

@@ -17,12 +17,12 @@ var aux2:any=""
 var aux3: any;
 let aux4:any;
 var jsonconstraint: Array<Const>=[new Const()] 
+var jsonrefactors: Array<Refactoring>=[new Refactoring()] 
 var jsonfeatures:string
 var ListOfConstraint:Array<Const>=[]
 var position:number;
-
+var ListOfRefactors:Array<Refactoring>=[]
 var listnamesconstraints:Array<string>=[]
-var listRefactorconstraints:Array<Refactoring>=[]  
 var listnamestext:Array<string>=[]
 var json:string
 
@@ -51,6 +51,10 @@ export class AppComponent {
   consactual:Const =new Const()     
   consactualfather:Const =new Const()     
   cons:Array<Const>=[new Const()]  
+
+  refactor:Refactoring =new Refactoring()
+
+
 
   treeControl = new NestedTreeControl<FMTree>(node => node.children);
   dataSource = new MatTreeNestedDataSource<FMTree>();
@@ -159,7 +163,7 @@ casFMTree(object:any){ fm(object)}
 
 
 
-refactor(typeref:string){
+Refactor(typeref:string){
   let object
   let ref =this.refactoring
   if( this.refactoring==undefined ||this.refactoring.name==""){console.log("no tiene refactoring")}
@@ -196,6 +200,8 @@ CreateData(object:any,name?:string){
     console.log(this.title)
     jsonfeatures=aux.features,
     jsonconstraint=aux.constraints
+    alert ("linea 203 aux.refactors como se llamara??")
+    //jsonrefactors=aux.refactors
     aux2=""
     let dictionary = Object.assign({}, object);
     for( const[key] of Object.entries(dictionary)){
@@ -205,6 +211,7 @@ CreateData(object:any,name?:string){
     aux3=aux.constraints
     this.CreateCons()
     this.CreateFMTree()
+    this.CreateRefactor()
 }
 
 CreateFile(text:string){  
@@ -302,7 +309,7 @@ CreateCons(){
   this.cons.splice(0,this.cons.length)
   aux2=0
   if(true){    
-  [jsonconstraint,this.jsonconstraintTexto,listnamesconstraints,listRefactorconstraints]=this.consactual.CreateConstraint(aux3)
+  [jsonconstraint,this.jsonconstraintTexto,listnamesconstraints]=this.consactual.CreateConstraint(aux3)
   while(aux2<jsonconstraint.length){
   jsonconstraint[aux2]=this.consactual.CreateNewConstraint(jsonconstraint[aux2])
   aux2++}
@@ -319,13 +326,20 @@ CreateFMTree(){
   this.tree.splice(0,this.tree.length)
   this.tree=[new FMTree()]
   this.tree[0].DeleteList();
-  this.tree=this.tree[0].CrearNewFMTree(jsonfeatures)
+  this.tree=this.tree[0].CreateNewFMTree(jsonfeatures)
   this.namesFeatures=this.tree[0].ListOfNames();
   this.tree[0]=this.tree[0].IncorporateChildren(jsonfeatures);
   this.tree.splice(1,this.tree.length)
   this.tree[0].CleanFMTree()
   console.log(this.tree)
   this.dataSource.data=this.tree
+}
+
+CreateRefactor(){
+  console.log("creo Refactor")
+  this.refactor.DeleteList()
+  ListOfRefactors=this.refactor.Create(jsonrefactors);
+  console.log(ListOfRefactors)
 }
 
 DeleteFMTree(){
@@ -381,8 +395,6 @@ readThis(inputValue: any): void {
     this.card_max=this.actual.card_max||0
     this.card_min=this.actual.card_min||0
     this.attributes=this.actual.attributes||[]
-    if(this.actual.refactoring!=undefined){this.refactoring=this.actual.refactoring}
-    else{this.refactoring=new Refactoring}
     this.actualfather=this.GetFather(this.actual,this.tree)
     console.log(this.actual)
   }
@@ -522,7 +534,7 @@ SymbolPerTypeCons(type:string){
   let hiddensymbol=true
   let symbol
   symbol=this.jsonconstraintTexto.indexOf(type)
-  if(listRefactorconstraints[symbol]!=undefined){
+  if(true!=undefined){
     symbol='more_vert'
 
   }
@@ -548,24 +560,24 @@ return aux4;
 
 
 ToolTip(nodetooltip:FMTree){
-  let text
-  if(nodetooltip.description!=undefined){
-    text="Description: "
-    text=text+nodetooltip.description.toString()+" \n"
-  }
-if(nodetooltip.attributes!=undefined){
-  text=text+ "Attributes: "
+  let text=""
+  
+if(nodetooltip.attributes!=undefined&&nodetooltip.attributes.length>0){
+  text=text+ "Attributes"
   nodetooltip.attributes.forEach(element => {
-    text=text+" "+element.name+": "+element.value+"; "
+    if(element.name!= undefined){text=text+":"+element.name}
+    if(element.value!= undefined){text=text+":"+element.value}
+    
   })
+  text=text+" ;"
 }
 return text
 }
 ToolTipRefa(nodetooltiprefa:FMTree){
   let text
-  if(nodetooltiprefa.refactoring!=undefined){
+  if(false){
     text="Refactoring: "
-    text=text+"Id: "+nodetooltiprefa.refactoring.id+" Name: "+nodetooltiprefa.refactoring.name+" Description: "+nodetooltiprefa.refactoring.description
+    text=text
   
 return [true,text]}
 else{return false}
@@ -603,7 +615,7 @@ SelectedChange(v){
   }
   this.ncons=v
   this.consactual=this.cons[position]
-  if(listRefactorconstraints[position]!=undefined){this.refactoring=listRefactorconstraints[position]}
+  if(true){}
   else{this.refactoring=new Refactoring}
   console.log(this.consactual)
   this.constraindataSource.data=this.cons.filter(x=>this.cons.indexOf(x)==position)

@@ -11,8 +11,6 @@ let aux4:any
 let constraintTree :Array<Const> =[]
 let constraintText :Array<any> =[]
 let constraintName :Array<any> =[]
-let constraintRefactoring :Array<Refactoring> =[]
-let refac=new Refactoring()
 
 @Component({
     selector: 'const',
@@ -30,20 +28,15 @@ let refac=new Refactoring()
         constraintTree=[]
         constraintText=[]
         constraintName=[]
-        constraintRefactoring=[]
         for( const[key2] of Object.entries(list2)){
             aux2=this.CreateNewConstraint(list2[key2].ast)
             constraintTree.push(list2[key2].ast)
             constraintText.push(list2[key2].expr)
             constraintName.push(list2[key2].name)
-            if(list2[key2].refactoring!=undefined){
-            constraintRefactoring.push(refac.create(list2[key2].refactoring)||undefined)}
-            else{
-                constraintRefactoring.push(list2[key2].refactoring)||undefined
-            }
+            
             
         }
-        return [constraintTree,constraintText,constraintName,constraintRefactoring]
+        return [constraintTree,constraintText,constraintName]
     }
 
 

@@ -8,7 +8,6 @@ let Newchildren:Array<FMTree>;
 let aux :any=0 
 let MyTree  :Array<FMTree> =[]
 let nlist:Array<string> =[]
-let refac=new Refactoring()
 @Component({
     selector: 'FMTree',
     templateUrl: './FMTree.html',
@@ -21,8 +20,6 @@ let refac=new Refactoring()
     type:string ="";
     optional:boolean =false;
     abstract:boolean =false;
-    refactoring?:Refactoring
-    description?:string
     attributes?:Array<any>
     children:Array<FMTree> =[];
     constructor() {}
@@ -42,8 +39,6 @@ let refac=new Refactoring()
         this.abstract=false;
         this.optional=false;
         this.type="";
-        this.refactoring=undefined
-        this.description=""
         this.attributes=[]
         this.children=[];
         this.card_max=-1;
@@ -64,7 +59,7 @@ let refac=new Refactoring()
         return nlist
     }
 
-    CrearNewFMTree(value: any){            
+    CreateNewFMTree(value: any){            
         aux=new FMTree()
         aux.name=value.name;
         aux.abstract=value.abstract;
@@ -72,14 +67,10 @@ let refac=new Refactoring()
         aux.type=value.type;
         if(value.card_max!=undefined){aux.card_max=value.card_max}
         if(value.card_min!=undefined){aux.card_min=value.card_min}
-        if(value.refactoring!=undefined){aux.refactoring=refac.create(value.refactoring)}
-        if(value.description!=undefined){aux.description=value.description}
-        if(value.attributes!=undefined){aux.attributes=value.attributes}
+        if(value.attributes!=undefined &&value.attributes.length>0){aux.attributes=value.attributes}
         aux.children=[]
         if(value.children!=undefined ){
         Newchildren=value.children}
-        
-       
         if(value.children==undefined || value.children.length==0){
         Newchildren=[] 
         nlist.push(value.name)}
@@ -88,7 +79,7 @@ let refac=new Refactoring()
         if(value.children.length>0){
             aux=0
             value.children.forEach(element => {
-                this.CrearNewFMTree(element);
+                this.CreateNewFMTree(element);
             });
         }}
         return MyTree
@@ -146,18 +137,17 @@ let refac=new Refactoring()
    
   
     CreateNewChildren(value:any){  
-        aux=new FMTree()
-        aux.name=value.name;
-        aux.abstract=value.abstract;
-        aux.optional=value.optional;
-        if(value.card_max!=undefined){aux.card_max=value.card_max}
-        if(value.card_min!=undefined){aux.card_min=value.card_min}
-        if(value.refactoring!=undefined){aux.refactoring=refac.create(value.refactoring)}
-        if(value.description!=undefined){aux.description=value.description}
-        if(value.attributes!=undefined){aux.attributes=value.attributes}
-        aux.type=value.type;
-        aux.children=[]
-        return aux
+        let children
+        children=new FMTree()
+        children.name=value.name;
+        children.abstract=value.abstract;
+        children.optional=value.optional;
+        if(value.card_max!=undefined){children.card_max=value.card_max}
+        if(value.card_min!=undefined){children.card_min=value.card_min}
+        if(value.attributes!=undefined && value.attributes.length>0){children.attributes=value.attributes; console.log("hola")}
+        children.type=value.type;
+        children.children=[]
+        aux=children
     }
     CreateDefault(name:string){  
         aux=new FMTree()
