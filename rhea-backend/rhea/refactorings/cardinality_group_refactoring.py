@@ -17,6 +17,16 @@ class CardinalityGroupRefactoring(FMRefactoring):
         return 'Cardinality group refactoring'
 
     @staticmethod
+    def get_description() -> str:
+        return """It changes the cardinality group to an and-group where all sub-features are 
+                  optionals and add a new complex constraint with all feature combinations of the
+                  sub-features where each combination has at least 'a' and at most 'b' elements."""
+
+    @staticmethod
+    def get_language_construct_name() -> str:
+        return 'Cardinality group'
+
+    @staticmethod
     def get_instances(model: FeatureModel) -> list[Feature]:
         return [f for f in model.get_features() if f.is_cardinality_group()]
 
