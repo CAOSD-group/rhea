@@ -43,6 +43,16 @@ def is_there_mandatory(relations: list[Relation]) -> bool:
             mandatory = True
     return mandatory
 
+def remove_abstract_child(fm: FeatureModel, feature: Feature) -> FeatureModel:
+    feature_relations = feature.get_relations()
+    feature_next_rel = next(r for r in feature_relations)
+    feature_next_abstract = next(c for c in feature.get_children())
+    if len(feature_relations)==1 and feature_next_rel.is_mandatory() and feature_next_abstract.is_abstract:
+            feature.get_relations().remove(feature_next_rel)
+            fm.root = feature_next_abstract
+            fm = remove_abstract_child(fm, feature_next_abstract)
+    return fm
+
 def is_there_node(parent: Feature, child_node: Feature) -> Feature:
     result = ''
     for child in parent.get_children():

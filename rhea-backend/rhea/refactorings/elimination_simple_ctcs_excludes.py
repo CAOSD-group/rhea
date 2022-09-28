@@ -102,7 +102,7 @@ class EliminationSimpleConstraintsExcludes(FMRefactoring):
                 model_less_plus = utils.add_node_to_tree(model_less_plus, feature_less_plus)
             if model_less_plus is not None:
                 old_root = model_less_plus.root
-                model_less_plus = remove_abstract_child(model_less_plus, old_root)
+                model_less_plus = utils.remove_abstract_child(model_less_plus, old_root)
                 if old_root != model_less_plus.root:
                     new_rel = Relation(old_root, [model_less_plus.root], 1, 1)  # mandatory
                     old_root.add_relation(new_rel)
@@ -124,6 +124,16 @@ class EliminationSimpleConstraintsExcludes(FMRefactoring):
                 r.name = f'{utils.get_new_feature_name(model, r.name)}{count}'
                 count += 1
 
+
+        # Removing all abbstract LEAF nodes without contraint (before joining subtrees)
+        if model_less is not None:
+            for feat in model.get_features():
+                ctc = next((ctc for ctc in model.get_constraints() if ctc.ast.root.left.data == feat 
+                                                                    or (ctc.ast.root.left.data == ASTOperation.NOT 
+                                                                    and ctc.ast.root.left.left == feat)), None)
+                if ctc is not None:
+                    if feat.is_leaf() and feat.is_abstract and ctc.ast.root.right.left.data not in model_less:
+                        model_less = utils.eliminate_node_from_tree(model_less, feat)
 
         # Construct T(-B) and T(-A+B).
         if model_less is not None and model_less_plus is not None:
@@ -167,14 +177,3 @@ class EliminationSimpleConstraintsExcludes(FMRefactoring):
         # print(f'MODEL EXCLUDES after: {model}')
 
         return model
-
-
-def remove_abstract_child(fm: FeatureModel, feature: Feature) -> FeatureModel:
-    feature_relations = feature.get_relations()
-    feature_next_rel = next(r for r in feature_relations)
-    feature_next_abstract = next(c for c in feature.get_children())
-    if len(feature_relations)==1 and feature_next_rel.is_mandatory() and feature_next_abstract.is_abstract:
-            feature.get_relations().remove(feature_next_rel)
-            fm.root = feature_next_abstract
-            fm = remove_abstract_child(fm, feature_next_abstract)
-    return fm

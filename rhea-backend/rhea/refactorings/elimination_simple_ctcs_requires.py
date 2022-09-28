@@ -90,7 +90,7 @@ class EliminationSimpleConstraintsRequires(FMRefactoring):
                 model_plus = utils.add_node_to_tree(model_plus, feature_plus)
             if model_plus is not None:
                 old_root = model_plus.root
-                model_plus = remove_abstract_child(model_plus, old_root)
+                model_plus = utils.remove_abstract_child(model_plus, old_root)
                 if old_root != model_plus.root:
                     new_rel = Relation(old_root, [model_plus.root], 1, 1)  # mandatory
                     old_root.add_relation(new_rel)
@@ -170,15 +170,3 @@ class EliminationSimpleConstraintsRequires(FMRefactoring):
         # print(f'MODEL REQUIRES after: {model}')
         
         return model
-
-
-
-def remove_abstract_child(fm: FeatureModel, feature: Feature) -> FeatureModel:
-    feature_relations = feature.get_relations()
-    feature_next_rel = next(r for r in feature_relations)
-    feature_next_abstract = next(c for c in feature.get_children())
-    if len(feature_relations)==1 and feature_next_rel.is_mandatory() and feature_next_abstract.is_abstract:
-            feature.get_relations().remove(feature_next_rel)
-            fm.root = feature_next_abstract
-            fm = remove_abstract_child(fm, feature_next_abstract)
-    return fm
