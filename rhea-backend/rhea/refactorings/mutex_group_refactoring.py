@@ -14,9 +14,8 @@ class MutexGroupRefactoring(FMRefactoring):
 
     @staticmethod
     def get_description() -> str:
-        return """It changes the mutex group to an and-group with one optional abstract
-                  sub-feature f which becomes an alternative-group with the original 
-                  sub-features."""
+        return ("It changes the mutex group to an and-group with one optional abstract "
+                "sub-feature f which becomes an alternative-group with the original sub-features.")
 
     @staticmethod
     def get_language_construct_name() -> str:
