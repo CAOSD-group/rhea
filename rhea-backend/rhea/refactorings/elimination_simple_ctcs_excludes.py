@@ -34,14 +34,14 @@ class EliminationSimpleConstraintsExcludes(FMRefactoring):
         model_less = copy.deepcopy(model)
         model_less_plus = copy.deepcopy(model)
 
-        # print(f'MODEL DICT EXCLUDES - before: {[(name, value.name) for name, value in model.dict_references.items()]}')
+        print(f'MODEL DICT EXCLUDES - before: {[(name, value.name) for name, value in model.dict_references.items()]}')
 
-        dict_keys = []
-        for key, value in model.dict_references.items():
-            if value not in model.get_features():
-                dict_keys.append(key)
-        for k in dict_keys:
-            del model.dict_references[k]
+        # dict_keys = []
+        # for key, value in model.dict_references.items():
+        #     if value not in model.get_features():
+        #         dict_keys.append(key)
+        # for k in dict_keys:
+        #     del model.dict_references[k]
 
         # print(f'MODEL EXCLUDES before: {model}')
 
@@ -128,11 +128,17 @@ class EliminationSimpleConstraintsExcludes(FMRefactoring):
         # Removing all abbstract LEAF nodes without contraint (before joining subtrees)
         if model_less is not None:
             for feat in model.get_features():
-                ctc = next((ctc for ctc in model.get_constraints() if ctc.ast.root.left.data == feat 
-                                                                    or (ctc.ast.root.left.data == ASTOperation.NOT 
-                                                                    and ctc.ast.root.left.left == feat)), None)
+                print(f'FEATURE: {feat}')
+                constra = next((c for c in model.get_constraints()), None)
+                print(f'CONSTRAINT: {str(constra)}')
+                left_node = constra.ast.root.left.data
+                print(f'LEFT NODE: {left_node}')
+                ctc = next((c for c in model.get_constraints() if c.ast.root.left.data == feat.name 
+                                                                    or (c.ast.root.left == ASTOperation.NOT 
+                                                                    and c.ast.root.left.left == feat.name)), None)
+                print(f'CTC removing abstract leaf nodes: {str(ctc)}')
                 if ctc is not None:
-                    if feat.is_leaf() and feat.is_abstract and ctc.ast.root.right.left.data not in model_less:
+                    if feat.is_leaf() and feat.is_abstract and ctc.ast.root.right.data not in model_less.get_features():
                         model_less = utils.eliminate_node_from_tree(model_less, feat)
 
         # Construct T(-B) and T(-A+B).
@@ -155,15 +161,14 @@ class EliminationSimpleConstraintsExcludes(FMRefactoring):
         model.ctcs.remove(instance)
 
         # Changing names to avoid duplicates
+        # CUIDADO!!! (puede que haya que modificarlo)
         if model_less is not None and model_less_plus is not None:
             for feature in model_less_plus.get_features():
                 if feature in model_less.get_features() and not feature.name in model.dict_references.keys():
                     feature_reference = model.get_feature_by_name(feature.name)
-                    # print(f'feature reference: {feature_reference}')
                     feature.name = utils.get_new_feature_name(model, feature.name)
                     if feature != feature_reference:
                         model.dict_references[feature.name] = feature_reference
-                        # print(f'feature reference: {feature_reference}')
                 elif feature.name in model.dict_references.keys():
                     feature_dict_value = model.dict_references[feature.name]
                     feature.name = utils.get_new_feature_name(model, feature.name)
@@ -173,7 +178,7 @@ class EliminationSimpleConstraintsExcludes(FMRefactoring):
         # print(f'Dict references excludes: {[value.name for value in model.dict_references.values()]}')
         # print(f'Dict keys excludes: {[key for key in model.dict_references.keys()]}')
 
-        # print(f'MODEL DICT EXCLUDES - after: {[(name, value.name) for name, value in model.dict_references.items()]}')
+        print(f'MODEL DICT EXCLUDES - after: {[(name, value.name) for name, value in model.dict_references.items()]}')
         # print(f'MODEL EXCLUDES after: {model}')
 
         return model

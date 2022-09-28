@@ -37,14 +37,14 @@ class EliminationSimpleConstraintsRequires(FMRefactoring):
         model_plus = copy.deepcopy(model)  # copy.deepcopy(model)
         model_less = copy.deepcopy(model)
 
-        # print(f'MODEL DICT REQUIRES - before: {[(name, value.name) for name, value in model.dict_references.items()]}')
+        print(f'MODEL DICT REQUIRES - before: {[(name, value.name) for name, value in model.dict_references.items()]}')
 
-        dict_keys = []
-        for key, value in model.dict_references.items():
-            if value not in model.get_features():
-                dict_keys.append(key)
-        for k in dict_keys:
-            del model.dict_references[k]
+        # dict_keys = []
+        # for key, value in model.dict_references.items():
+        #     if value not in model.get_features():
+        #         dict_keys.append(key)
+        # for k in dict_keys:
+        #     del model.dict_references[k]
 
         print(f'Instance: {str(instance)}')
 
@@ -104,8 +104,6 @@ class EliminationSimpleConstraintsRequires(FMRefactoring):
             xor_plus.add_relation(r_xor_plus)
             model_plus.root = xor_plus
             for child in plus_roots:
-                featuremodel = FeatureModel(child)
-                # print(f'FEATURE MODEL OF EACH ROOT PLUS: {featuremodel}')
                 child.parent = xor_plus
             count = 1
             for r in xor_plus.get_children():
@@ -126,6 +124,15 @@ class EliminationSimpleConstraintsRequires(FMRefactoring):
                 model_less = utils.eliminate_node_from_tree(model_less, feature_right_less)
             # print(f'T(-{f_right_less}): {model_less}')
 
+        # Removing all abbstract LEAF nodes without contraint (before joining subtrees)
+        if model_plus is not None:
+            for feat in model.get_features():
+                ctc = next((c for c in model.get_constraints() if c.ast.root.left.data == feat 
+                                                                    or (c.ast.root.left.data == ASTOperation.NOT 
+                                                                    and c.ast.root.left.left == feat)), None)
+                if ctc is not None:
+                    if feat.is_leaf() and feat.is_abstract and ctc.ast.root.right.left.data not in model_plus:
+                        model_plus = utils.eliminate_node_from_tree(model_plus, feat)
 
         # Construct T(+B) and T(-A-B).
         if model_plus is not None and model_less is not None:
@@ -150,23 +157,20 @@ class EliminationSimpleConstraintsRequires(FMRefactoring):
         # CUIDADO!!! (puede que haya que modificarlo)
         if model_less is not None and model_plus is not None:
             for feature in model_less.get_features():
-                if feature in model_plus.get_features() and hasattr(model, 'dict_references') and not feature.name in model.dict_references.keys():
-                    # print(f'feature NOT in model dict reference: {feature.name}')
-                    feature_reference = model.get_feature_by_name(feature.name)  # aquí se va a poner el nombre que se encuentre en el feature model
-                    # hay que ponerle el nombre de la feature que haya en dict_references.values()
+                if feature in model_plus.get_features() and not feature.name in model.dict_references.keys():
+                    feature_reference = model.get_feature_by_name(feature.name)
                     feature.name = utils.get_new_feature_name(model, feature.name)
                     if feature != feature_reference:
                         model.dict_references[feature.name] = feature_reference
-                elif hasattr(model, 'dict_references') and feature.name in model.dict_references.keys():
+                elif feature.name in model.dict_references.keys():
                     feature_dict_value = model.dict_references[feature.name]
-                    # print(f'feature in model dict reference: {feature.name}')
                     feature.name = utils.get_new_feature_name(model, feature.name)
                     if feature != feature_dict_value:
                         model.dict_references[feature.name] = feature_dict_value
         
         # print(f'Dict references requires: {[value.name for value in model.dict_references.values()]}')
 
-        # print(f'MODEL DICT REQUIRES - after: {[(name, value.name) for name, value in model.dict_references.items()]}')
+        print(f'MODEL DICT REQUIRES - after: {[(name, value.name) for name, value in model.dict_references.items()]}')
         # print(f'MODEL REQUIRES after: {model}')
         
         return model

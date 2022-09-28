@@ -144,6 +144,7 @@ def remove_references(fm: FeatureModel) -> FeatureModel:
     giving as result a feature model with non-unique features."""
     if hasattr(fm, 'dict_references'):    
         for feature in fm.get_features():
-            if feature.name in fm.dict_references:
+            if feature.name in fm.dict_references.keys():
                 feature = fm.dict_references[feature.name]
+                print(f'FEATURE remove reference: {feature.name}')
     return fm

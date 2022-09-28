@@ -37,6 +37,11 @@ class EliminationAnyConstraints(FMRefactoring):
     def transform(model: FeatureModel, instance: Constraint) -> FeatureModel:
         if instance is None:
             raise Exception(f'Constraint {instance} is None.')
+
+        if not hasattr(model, 'dict_references'):
+            model.dict_references = {}
+        
+        print(f'MODEL DICT - before: {[(name, value.name) for name, value in model.dict_references.items()]}')
         
         if fm_utils.is_complex_constraint(instance):
             # split
@@ -52,7 +57,7 @@ class EliminationAnyConstraints(FMRefactoring):
 
             new_ctcs = set(model.get_constraints()) - original_ctcs
 
-            UVLWriter(model, f"salida_complex.uvl").transform()
+            UVLWriter(model, f"salida_{str(instance)}.uvl").transform()
             for ctc in new_ctcs:
                 if fm_utils.is_requires_constraint(ctc):
                     #print(f'Applying the refactoring {REFACTORING_REQUIRES.get_name()}...')
@@ -73,5 +78,7 @@ class EliminationAnyConstraints(FMRefactoring):
                 model = REFACTORING_EXCLUDES.transform(model, instance)
             else:
                 raise Exception(f'Invalid simple constraint: {instance}')
+
+        print(f'MODEL DICT - after: {[(name, value.name) for name, value in model.dict_references.items()]}')
 
         return model
