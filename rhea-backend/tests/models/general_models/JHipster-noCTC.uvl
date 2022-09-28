@@ -1,0 +1,75 @@
+namespace JHipster
+
+features
+	JHipster {abstract, extended__}	
+		mandatory
+			Generator {abstract}	
+				alternative
+					Server {abstract}	
+						alternative
+							MicroserviceApplication
+							UaaServer
+					Application {abstract}	
+						alternative
+							MicroserviceGateway
+							Monolithic
+			Authentication {abstract}	
+				alternative
+					HTTPSession
+					OAuth2
+					Uaa
+					JWT
+
+		optional
+			SocialLogin
+			Database {abstract}	
+				alternative
+					SQL {abstract}	
+						optional
+							Hibernate2ndLvlCache {abstract}	
+								alternative
+									HazelCast
+									EhCache
+
+						mandatory
+							Development {abstract}	
+								alternative
+									H2 {abstract}	
+										alternative
+											DiskBased
+											InMemory
+									PostgreSQLDev
+									MariaDBDev
+									MySql
+							Production {abstract}	
+								alternative
+									MySQL
+									MariaDB
+									PostgreSQL
+
+						optional
+							ElasticSearch
+					Cassandra
+					MongoDB
+			SpringWebSockets
+			Libsass
+			ClusteredSession
+
+		mandatory
+			BackEnd {abstract}	
+				alternative
+					Gradle
+					Maven
+
+		optional
+			InternationalizationSupport
+			Docker
+
+		mandatory
+			TestingFrameworks {abstract}	
+				optional
+					Protractor
+
+				mandatory
+					Gatling
+					Cucumber

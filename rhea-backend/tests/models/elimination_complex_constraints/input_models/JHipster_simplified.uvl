@@ -1,0 +1,30 @@
+namespace JHipster
+
+features
+	JHipster {abstract, extended__}	
+		mandatory
+			Generator {abstract}	
+				alternative
+					Server {abstract}	
+						optional
+							MicroserviceApplication
+					Application {abstract}	
+						alternative
+							MicroserviceGateway
+							Monolithic
+			Authentication {abstract}	
+				alternative
+					HTTPSession
+					OAuth2
+					Uaa
+					JWT
+
+		optional
+			SocialLogin
+			Database {abstract}	
+				alternative
+					SQL {abstract}
+					MongoDB
+
+constraints
+	SocialLogin => (HTTPSession | JWT) & Monolithic & (SQL | MongoDB)

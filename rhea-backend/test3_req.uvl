@@ -1,0 +1,16 @@
+features
+	A{abstract}
+		mandatory
+			B
+				optional
+					E
+				optional
+					F
+		mandatory
+			C
+				mandatory
+					G
+		optional
+			D
+				optional
+					H

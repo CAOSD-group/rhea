@@ -1,0 +1,87 @@
+{
+  "id": "cl5tgit3b000l3069xtviqhts",
+  "name": "xor_mandatory_BC2",
+  "timestamp": "2022-07-20T16:27:26.399Z",
+  "features": {
+    "cl5tad7pc00003069gbxkxz71": {
+      "name": "xor_mandatory_BC2",
+      "optional": false,
+      "type": "FEATURE",
+      "note": ""
+    },
+    "cl5tghifc000b3069vyaaobkj": {
+      "name": "F1",
+      "optional": true,
+      "type": "XOR",
+      "note": ""
+    },
+    "cl5tghs7e000d3069o959s4su": {
+      "name": "F2",
+      "optional": false,
+      "type": "FEATURE",
+      "note": ""
+    },
+    "cl5tgi7js000h3069n2pgsgga": {
+      "name": "F3",
+      "optional": false,
+      "type": "FEATURE",
+      "note": ""
+    },
+    "cl5tgj3ut000m30697ynkmeec": {
+      "name": "F1a",
+      "optional": true,
+      "type": "FEATURE",
+      "note": ""
+    },
+    "cl5tgja8g000o3069zrojr52x": {
+      "name": "F1b",
+      "optional": true,
+      "type": "FEATURE",
+      "note": ""
+    },
+    "cl5tgjgtx000q3069j94vuppk": {
+      "name": "F1c",
+      "optional": false,
+      "type": "FEATURE",
+      "note": ""
+    }
+  },
+  "tree": {
+    "id": "cl5tad7pc00003069gbxkxz71",
+    "children": [
+      {
+        "id": "cl5tghifc000b3069vyaaobkj",
+        "children": [
+          {
+            "id": "cl5tgj3ut000m30697ynkmeec"
+          },
+          {
+            "id": "cl5tgja8g000o3069zrojr52x"
+          },
+          {
+            "id": "cl5tgjgtx000q3069j94vuppk"
+          }
+        ]
+      },
+      {
+        "id": "cl5tghs7e000d3069o959s4su"
+      },
+      {
+        "id": "cl5tgi7js000h3069n2pgsgga"
+      }
+    ]
+  },
+  "constraints": {},
+  "conjectures": {},
+  "checks": {
+    "CONSISTENCY": null,
+    "CONJECTURES": null,
+    "COMMONFEATURES": null,
+    "UNIQUEFEATURES": null,
+    "DEADFEATURES": null,
+    "ATOMICSETS": null,
+    "POSSIBLECONFIGURATIONS": null,
+    "COMMONALITIES": null
+  },
+  "configurations": {}
+}
