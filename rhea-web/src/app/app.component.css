@@ -1,7 +1,12 @@
 
-  .example-viewport {
+  .example-viewport-chip {
     height: 272px;
   }
+  .example-viewport {
+    height: 350px;
+    min-width: 30px;
+  }
+
   .buttonmenu{
     color: #012970;
   }
@@ -16,6 +21,12 @@
     padding: 25px;
     border: 3px solid rgba(0, 0, 0, 0.2);
   }
+  .bordercons{
+    margin: 15px;
+    padding: 25px;
+    width: 530px;
+    border: 3px solid rgba(0, 0, 0, 0.2);
+  }
   .bordermodal{
     padding: 25px;
     border: 3px solid rgba(0, 0, 0, 0.2);
@@ -24,12 +35,60 @@
     background-color: #fff;
     border: 0px dashed rgb(255, 255, 255);
   }
+  .text{
+    width: 900px;
+  }
+  .thumbcell {
+    height: 300px;
+    width: 400px;
+    background-color: #dddddd;
+    margin: 0;
+    padding: 0;
+    cursor: pointer;
+  }
+  
+  .viewport {
+    height: 300px;
+  }
+  
+  .cdk-virtual-scroll-content-wrapper {
+    display: flex;
+    flex-direction: row;
+  }
+  
+  .ngxImageZoomFullContainer {
+    cursor: zoom-out;
+  }
+  
+  .ngxImageZoomThumbnail {
+    cursor: zoom-in;
+  }
+  .cdk-virtual-scroll-content-wrapper .viewport {
+    display: flex;
+    flex-direction: row;
+  }
+
   .symbols{
     size: 10px;
+  }
+  .symbols2{
+    size: 50px;
   }
   .block{
     padding:40px;
   }
+  .header-nav img {
+    width: 45%;
+  }
+  .header-nav .img1 img {
+    width: 45%;
+  }
+  .header-nav .img3 img {
+    width: 70%;
+  }
+
+
+
  
    .card svg.material-icons path {
     fill: #888;
