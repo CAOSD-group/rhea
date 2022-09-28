@@ -1,6 +1,7 @@
-from rhea.flamapy.metamodels.fm_metamodel.transformations.json_writer import JSONWriter
 from flamapy.metamodels.fm_metamodel.transformations import UVLReader
 from flamapy.metamodels.fm_metamodel.models import Feature, Relation
+
+from rhea.metamodels.fm_metamodel.transformations import JSONWriter
 
 
 FM_NAME = 'Pizzas_completo'

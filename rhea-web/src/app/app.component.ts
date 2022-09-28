@@ -8,7 +8,7 @@ import {MatDialog} from '@angular/material/dialog';
 import * as saveAs from 'file-saver';
 import {TooltipPosition} from '@angular/material/tooltip';
 import { Refactoring } from './components/refactor/refactoring';
-
+import {drawFMFactLabel as fm} from './fm_fact_label.js';
 
 
 
@@ -74,6 +74,7 @@ export class AppComponent {
   card_min:number=0;
   card_max:number=0;
   ncons:string="";
+  myfile:any
   documents:string[]= ['GPL.xml', 'JHipster.uvl', 'MobileMedia.xml', 'Pizzas.uvl','Pizzas.json', 'TankWar.xml', 'Truck.uvl','WeaFQAs.uvl','Automotive2_1-basic.uvl'];
 
 constructor(private http: HttpClient ,public dialog: MatDialog) { }  
@@ -84,7 +85,7 @@ ngOnInit() {
   console.log("determinar diseño final")
   console.log("¿¿mandar lista refactoring al JSON??")
   console.log("cambiar comentarios a ingles o borrarlos")
-  this.returnValues()
+  this.returnValues("JHipster.uvl")
   
 }
 
@@ -106,6 +107,7 @@ sendJSON(){
   console.log(aux)
   this.http.post(this.urldownload2,aux,{responseType:'text'}).subscribe(resultado => {
     console.log(resultado)})
+   
 }
 
 
@@ -139,10 +141,12 @@ sendUVL(uvl:any){
   const formData: FormData = new FormData();
   formData.append('file', uvl, uvl.name);
   this.http.post(this.urlupload,formData,{responseType:'text'}).subscribe(resultado => {
-    console.log(resultado)})
+    this.CreateData(resultado)
+    json=resultado}
+    )
 }
 
-
+casFMTree(object:any){ fm(object)}
 
 
 
@@ -203,13 +207,12 @@ CreateData(object:any,name?:string){
     this.CreateFMTree()
 }
 
-CreateFile(text:string){  // envia el name del archivo a crear y el archivo a crear (1 o 2 pasos?)
+CreateFile(text:string){  
   this.TransformJSON()
   console.log("valores que se van a crear")
   console.log(jsonfeatures)
   console.log(jsonconstraint)
   this.http.post(this.urlcreate,[text,jsonfeatures,jsonconstraint],{responseType:'text'}).subscribe(resultado => {
-    //¿que pasa si el name ya existe?
     console.log(resultado)
   })
 }
@@ -337,11 +340,13 @@ ReloadFMTree(){
   if(this.consactual==undefined){ this.consactual=new Const()}
 }
 
-changeListener($event): void {this.readThis($event.target);}
+changeListener($event): void {this.readThis($event.target);this.myfile=$event.target
+}
 
 readThis(inputValue: any): void { 
     aux=""
     var file: File = inputValue.files[0];
+    console.log(file)
     var myReader: FileReader = new FileReader();
     myReader.readAsText(file);
     myReader.onloadend = function (e) { aux=myReader.result }
@@ -357,8 +362,13 @@ readThis(inputValue: any): void {
         this.sendUVL(file)
         },100)
     }
-
-  
+    if(file.name.endsWith('.xml')){
+      console.log("llega uvl")
+      setTimeout(() => {
+        this.sendUVL(file)
+        },100)
+    }
+    
   
 }
   

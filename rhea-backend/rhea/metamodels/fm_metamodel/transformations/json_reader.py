@@ -7,7 +7,7 @@ from flamapy.core.transformations import TextToModel
 
 from flamapy.metamodels.fm_metamodel.models import FeatureModel, Relation, Feature, Constraint
 
-from rhea.flamapy.metamodels.fm_metamodel.transformations.json_writer import JSONFeatureType
+from rhea.metamodels.fm_metamodel.transformations.json_writer import JSONFeatureType
 
 
 class JSONReader(TextToModel):
