@@ -1,10 +1,24 @@
+import inspect
+import importlib
+import sys
 import json
 from typing import Any 
+from enum import Enum
 
-from famapy.core.models.ast import Node, ASTOperation
-from famapy.core.transformations import ModelToText
+from flamapy.core.models.ast import Node, ASTOperation
+from flamapy.core.transformations import ModelToText
 
-from famapy.metamodels.fm_metamodel.models import FeatureModel, Feature, Constraint
+from flamapy.metamodels.fm_metamodel.models import FeatureModel, Feature, Constraint, Attribute
+
+from rhea import refactorings
+
+
+class JSONFeatureType(Enum):
+    FEATURE = 'FEATURE'
+    XOR = 'XOR'
+    OR = 'OR'
+    MUTEX = 'MUTEX'
+    CARDINALITY = 'CARDINALITY'
 
 
 class JSONWriter(ModelToText):
@@ -28,8 +42,9 @@ class JSONWriter(ModelToText):
 
     def transform(self) -> str:
         json_object = _to_json(self.source_model)
-        with open(self.path, 'w', encoding='utf8') as file:
-            json.dump(json_object, file, indent=4)
+        if self.path is not None:
+            with open(self.path, 'w', encoding='utf8') as file:
+                json.dump(json_object, file, indent=4)
         return json.dumps(json_object, indent=4)
 
 
@@ -38,22 +53,23 @@ def _to_json(feature_model: FeatureModel) -> dict[str, Any]:
     result['name'] = f'FM_{feature_model.root.name}'
     result['features'] = _get_tree_info(feature_model.root)
     result['constraints'] = _get_constraints_info(feature_model.get_constraints())
+    result['refactorings'] = _get_refactorings_info(feature_model)
     return result
 
 
 def _get_tree_info(feature: Feature) -> dict[str, Any]:
     feature_info = {}
     feature_info['name'] = feature.name
-    feature_type = 'FEATURE'
+    feature_type = JSONFeatureType.FEATURE.value
     if feature.is_alternative_group():
-        feature_type = 'XOR'
+        feature_type = JSONFeatureType.XOR.value
     elif feature.is_or_group():
-        feature_type = 'OR'
+        feature_type = JSONFeatureType.OR.value
     elif feature.is_mutex_group():
-        feature_type = 'MUTEX'
+        feature_type = JSONFeatureType.MUTEX.value
     elif feature.is_cardinality_group():
-        feature_type = 'CARDINALITY'
-    if feature_type != 'FEATURE':
+        feature_type = JSONFeatureType.CARDINALITY.value
+    if feature_type != JSONFeatureType.FEATURE.value:
         relation = next((r for r in feature.get_relations()), None)
         feature_info['card_min'] = relation.card_min
         feature_info['card_max'] = relation.card_max
@@ -62,16 +78,34 @@ def _get_tree_info(feature: Feature) -> dict[str, Any]:
     feature_info['optional'] = not feature.is_mandatory()
     feature_info['abstract'] = feature.is_abstract
 
+    # Attributes
+    feature_info['attributes'] = _get_attributes_info(feature.get_attributes())
+
     children = [_get_tree_info(child) for child in feature.get_children()]
     if children:
         feature_info['children'] = children
     return feature_info
 
 
-def _get_constraints_info(constraints: list[Constraint]) -> dict[str, Any]:
-    constraints_info = {}
+def _get_attributes_info(attributes: list[Attribute]) -> list[dict[str, Any]]:
+    attributes_info = []
+    for attribute in attributes:
+        attr_info = {}
+        attr_info['name'] = attribute.name
+        if attribute.default_value is not None:
+            attr_info['value'] = attribute.default_value
+        attributes_info.append(attr_info)
+    return attributes_info
+
+
+def _get_constraints_info(constraints: list[Constraint]) -> list[dict[str, Any]]:
+    constraints_info = []
     for ctc in constraints:
-        constraints_info[ctc.name] = _get_ctc_info(ctc.ast.root)
+        ctc_info = {}
+        ctc_info['name'] = ctc.name
+        ctc_info['expr'] = ctc.ast.pretty_str()
+        ctc_info['ast'] = _get_ctc_info(ctc.ast.root)
+        constraints_info.append(ctc_info)
     return constraints_info
 
 
@@ -90,3 +124,26 @@ def _get_ctc_info(ast_node: Node) -> dict[str, Any]:
             operands.append(right)
         ctc_info['operands'] = operands
     return ctc_info
+
+
+def _get_refactorings_info(feature_model: FeatureModel) -> list[dict[str, Any]]:
+    # Get class names
+    class_list = list(refactorings.__all__)
+    class_list.remove('FMRefactoring')
+
+    # Get modules and class objects
+    modules = inspect.getmembers(refactorings)
+    modules = filter(lambda x: inspect.ismodule(x[1]), modules)
+    modules = [importlib.import_module(m[1].__name__) for m in modules]
+    classes = [getattr(m, c) for m in modules for c in class_list if hasattr(m, c)]
+
+    refactorings_info = []
+    for class_ in classes:
+        ref_info = {}
+        ref_info['id'] = class_.__name__
+        ref_info['name'] = class_.get_name()
+        ref_info['description'] = class_.get_description()
+        ref_info['type'] = class_.get_language_construct_name()
+        ref_info['instances'] = [i.name for i in class_.get_instances(feature_model)]
+        refactorings_info.append(ref_info)
+    return refactorings_info

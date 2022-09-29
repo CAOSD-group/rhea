@@ -13,6 +13,15 @@ class MutexGroupRefactoring(FMRefactoring):
         return 'Mutex group refactoring'
 
     @staticmethod
+    def get_description() -> str:
+        return ("It changes the mutex group to an and-group with one optional abstract "
+                "sub-feature f which becomes an alternative-group with the original sub-features.")
+
+    @staticmethod
+    def get_language_construct_name() -> str:
+        return 'Mutex group'
+
+    @staticmethod
     def get_instances(model: FeatureModel) -> list[Feature]:
         return [f for f in model.get_features() if f.is_mutex_group()]
 
@@ -39,4 +48,3 @@ class MutexGroupRefactoring(FMRefactoring):
         instance.add_relation(r_opt)
         f_p.add_relation(r_mutex)
         return model
-

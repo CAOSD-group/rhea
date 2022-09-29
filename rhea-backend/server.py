@@ -1,4 +1,6 @@
 import os
+import inspect
+import importlib
 from typing import Optional
 from xml.etree.ElementTree import tostring
 
@@ -11,8 +13,8 @@ from flamapy.metamodels.fm_metamodel.models import FeatureModel
 from flamapy.metamodels.fm_metamodel.transformations import UVLReader, UVLWriter, FeatureIDEReader, GlencoeReader
 from requests import JSONDecodeError
 
-from rhea.flamapy.metamodels.fm_metamodel.transformations.json_writer import JSONWriter
-from rhea.flamapy.metamodels.fm_metamodel.transformations.json_reader import JSONReader
+from rhea.metamodels.fm_metamodel.transformations import JSONWriter, JSONReader
+from rhea import refactorings
 
 
 COOKIE_SESSION = 'UserID'
@@ -33,9 +35,9 @@ app = Flask(__name__,
             template_folder=static_dir)
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 CORS(app)
-Session(app)
 app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
 app.config['SESSION_TYPE'] = 'filesystem'
+Session(app)
 
 
 def allowed_file(filename):
@@ -76,15 +78,31 @@ def read_fm_file(filename: str) -> Optional[FeatureModel]:
 def refactor():
     if not session.get(FEATURE_MODEL_SESSION):
         # if not there in the session then redirect to the login page
+        flash('There is no session.')
         return None
-    # RECIBE LOS PARAMETROS
-
-    # devuelve un json.
+    fm = session.get(FEATURE_MODEL_SESSION)
     if request.method == 'POST':
-        texto=request.data.decode()   
-        print (texto) 
-        print("devuelvo el texto")
-        return texto
+        class_name = request.form['refactoring_id']
+        instance_name = request.form['instance_name']
+
+        modules = inspect.getmembers(refactorings)
+        modules = filter(lambda x: inspect.ismodule(x[1]), modules)
+        modules = [importlib.import_module(m[1].__name__) for m in modules]
+        class_ = next((getattr(m, class_name) for m in modules if hasattr(m, class_name)), None)
+        if class_ is None:
+            flash('Invalid identifier for refactoring.')
+            return None
+        instance = fm.get_feature_by_name(instance_name)
+        if instance is None:
+            instance = next((ctc for ctc in fm.get_constraints() if ctc.name == instance_name), None)
+        if instance is None:
+            flash('Invalid feature/constraint identifier.')
+            return None
+        fm = class_.transform(fm, instance)
+        session[FEATURE_MODEL_SESSION] = fm
+        json_fm = JSONWriter(path=None, source_model=fm).transform()
+        return json_fm
+    return None
 
 
 @app.route('/uploadFM', methods=['POST'])

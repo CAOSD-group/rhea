@@ -14,6 +14,16 @@ class FMRefactoring(ABC):
 
     @staticmethod
     @abstractmethod
+    def get_description() -> str:
+        pass
+
+    @staticmethod
+    @abstractmethod
+    def get_language_construct_name() -> str:
+        pass
+
+    @staticmethod
+    @abstractmethod
     def transform(model: FeatureModel, instance: Any) -> FeatureModel:
         """Apply the refactoring to the given instance."""
         pass

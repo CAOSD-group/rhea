@@ -265,5 +265,34 @@
                 ]
             }
         }
+    ],
+    "refactorings": [
+        {
+            "id": "CardinalityGroupRefactoring",
+            "name": "Cardinality group refactoring",
+            "description": "It changes the cardinality group to an and-group where all sub-features are optionals and add a new complex constraint with all feature combinations of the sub-features where each combination has at least 'a' and at most 'b' elements.",
+            "type": "Cardinality group",
+            "instances": [
+                "Topping"
+            ]
+        },
+        {
+            "id": "MutexGroupRefactoring",
+            "name": "Mutex group refactoring",
+            "description": "It changes the mutex group to an and-group with one optional abstract sub-feature f which becomes an alternative-group with the original sub-features.",
+            "type": "Mutex group",
+            "instances": [
+                "Spicy"
+            ]
+        },
+        {
+            "id": "SplitConstraint",
+            "name": "Split constraint",
+            "description": "It splits a constraint in multiple constraints dividing it by the AND operator when possible.",
+            "type": "Constraint",
+            "instances": [
+                "CTC2"
+            ]
+        }
     ]
 }
