@@ -42,8 +42,9 @@ class MultipleGroupDecompositionRefactoring(FMRefactoring):
 
 def is_mult_group_decomposition(feature: Feature) -> bool:
     is_mgd = False
-    suma = [r for r in feature.get_children() if feature.is_group()]
-    if len(suma)>1:
+    groups = [r for r in feature.get_children() if feature.is_group()]
+    ands = [r for r in feature.get_children() if not feature.is_group()]
+    if len(groups)>1 or (len(groups)>0 and len(ands)>0):
         is_mgd = True
     return is_mgd
 
