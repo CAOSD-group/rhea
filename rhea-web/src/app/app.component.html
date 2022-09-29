@@ -134,9 +134,9 @@
             <mat-menu #menu3="matMenu">
               <a (click)="returnValues()">Get</a>
               <hr>
-              <a (click)="SaveDemoJson()">Download .json</a>
+              <a (click)="SaveJson()">Download .json</a>
               <hr>
-              <a (click)="SaveDemo()">Download .uvl</a>
+              <a (click)="SaveUVL()">Download .uvl</a>
               <hr>
               <a (click)="Refactor('all')">Refactoring</a>
               <hr>
@@ -201,9 +201,14 @@
         <div class="card block">
           <div class="border">
             <div class="menu">
-              <label class="bottom-style" > hola mundo</label>
-              <input class="file-input" (change)="casFMTree($event.target)" id="file-input" type="file"/>
+              <mat-chip-list class="mat-chip-list-stacked"  >
+                <mat-chip class="bottom-style" *ngFor="let ref of ListOfRefactors" >
+                  <label class="labelcenter">{{ref.name}}</label>
+                </mat-chip>
+              </mat-chip-list>
+              <!--<input class="file-input" (change)="casFMTree($event.target)" id="file-input" type="file"/>-->
               <!--  <button class="bottom-style"  (click)="casFMTree()"> Refactort all</button> -->
+              <button class="bottom-style"  (click)="Refactor('all')"> Refactort all</button>
             </div>
           </div>
         </div>
@@ -221,11 +226,11 @@
                   <mat-list-option *ngFor="let constrainTexto of jsonconstraintTexto" [value]="constrainTexto"
                     (click)='SelectedChange(constraints.selectedOptions.selected[0].value)'>
                     <div>
-                      <div class="text">
-                        <button class="empty" (click)="Refactor('cons')" *ngIf="SymbolPerTypeCons(constrainTexto)[1]" >
+                      <div class="text"> 
+                        {{jsonconstraintTexto.indexOf(constrainTexto)+1+". "}}
+                        <button class="empty" data-bs-toggle="modal" href="#sidebar5"  *ngIf="SymbolPerTypeCons(constrainTexto)[1]" >
                           <mat-icon>{{SymbolPerTypeCons(constrainTexto)[0]}}</mat-icon>
                         </button>
-                        {{jsonconstraintTexto.indexOf(constrainTexto)+1+". "}}
                         {{constrainTexto}}
                       </div>
                     </div> 
@@ -316,7 +321,7 @@
           </div>
           <hr>
           <h2>Save Changes</h2>
-          <button (click)="ModifySelecction()" class="btn btn-primary">update</button>
+          <button (click)="ModifySelecction()" data-bs-dismiss="modal" class="btn btn-primary">update</button>
 				</div>
 			</div>
 			<div class="modal-footer">
@@ -338,7 +343,7 @@
           <h3>Name</h3>
           <input matInput  type="string" [(ngModel)]="name">
           <div></div>
-          <button (click)="CreateChildren()" class="btn btn-primary">Create</button>
+          <button (click)="CreateChildren()" data-bs-dismiss="modal" class="btn btn-primary">Create</button>
 				  </div>
 	 	  </div>
 	    <div class="modal-footer">
@@ -358,7 +363,7 @@
 			<div class="modal-body">
 				<div class="col-10">
           <input matInput  type="string" [(ngModel)]="name">
-          <button (click)="CreateBrother()" class="btn btn-primary">Create</button>
+          <button (click)="CreateBrother()" data-bs-dismiss="modal" class="btn btn-primary">Create</button>
 		  	</div>
 			</div>
 			<div class="modal-footer">
@@ -387,7 +392,7 @@
 	  </div>
   </div>
 </div>
-<!-- Modal Refactoring-->
+<!-- Modal Refactoring Feature-->
 <div class="modal fade" id="sidebar4" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
@@ -397,8 +402,12 @@
       </div>
       <div class="modal-body">
         <div class="col-10">
-          <h4>Are you sure?</h4>
-          <button (click)="Refactor('node')" class="btn btn-primary" data-bs-dismiss="modal">Proceed</button>
+          <h4>Select one to Proceed</h4>
+          <mat-chip-list class="mat-chip-list-stacked"  >
+            <mat-chip *ngFor="let ref of ListOfRefactors" [hidden]='RefactorvisibleFeature(ref)' data-bs-dismiss="modal" (click)="SelectChipRefactor(ref,'node')" >
+              {{ref.name}}
+            </mat-chip>
+          </mat-chip-list>
         </div>
       </div>
       <div class="modal-footer">
@@ -407,6 +416,32 @@
     </div>
   </div>
 </div>
+
+<!-- Modal Refactoring Constraint-->
+<div class="modal fade" id="sidebar5" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title" id="exampleModalLabel">Refactoring</h2>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="col-10">
+          <h4>Select one to Proceed</h4>
+          <mat-chip-list class="mat-chip-list-stacked"  >
+            <mat-chip *ngFor="let ref of ListOfRefactors" [hidden]='RefactorvisibleCons(ref)' data-bs-dismiss="modal" (click)="SelectChipRefactor(ref,'cons')" >
+              {{ref.name}}
+            </mat-chip>
+          </mat-chip-list>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Go back</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 
 <!--Modal Constraint-->
 <div class="modal fade" id="sidebar10" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -457,7 +492,7 @@
             <div class="col-3"><button class="btn btn-primary btn-lg" (click)="CreateConsBrother()"> Insert brother </button></div>
             <div class="col-3"><button class="btn btn-primary btn-lg" (click)="CreateConsSon()"> Insert child </button></div>
             <div class="col-3"><button class="btn btn-primary btn-lg" (click)="ModifyCons()"> Edit Constrain </button></div>
-            <div class="col-3"><button class="btn btn-primary btn-lg" (click)="DeleteCons()"> Delete Constrain </button></div>
+            <div class="col-3"><button class="btn btn-primary btn-lg" data-bs-dismiss="modal" (click)="DeleteCons()"> Delete Constrain </button></div>
           </div>
         </div>
       </div>

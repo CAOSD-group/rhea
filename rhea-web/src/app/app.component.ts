@@ -21,10 +21,10 @@ var jsonrefactors: Array<Refactoring>=[new Refactoring()]
 var jsonfeatures:string
 var ListOfConstraint:Array<Const>=[]
 var position:number;
-var ListOfRefactors:Array<Refactoring>=[]
 var listnamesconstraints:Array<string>=[]
 var listnamestext:Array<string>=[]
 var json:string
+var refactor:Refactoring =new Refactoring()
 
 
 
@@ -52,7 +52,7 @@ export class AppComponent {
   consactualfather:Const =new Const()     
   cons:Array<Const>=[new Const()]  
 
-  refactor:Refactoring =new Refactoring()
+  ListOfRefactors:Array<Refactoring>=[]
 
 
 
@@ -74,10 +74,11 @@ export class AppComponent {
   abstract:boolean=false;
   type:string ="";
   attributes:Array<any>=[];
-  declare refactoring:Refactoring;
+
   card_min:number=0;
   card_max:number=0;
   ncons:string="";
+  npos:number=-1;
   myfile:any
   documents:string[]= ['GPL.xml', 'JHipster.uvl', 'MobileMedia.xml', 'Pizzas.uvl','Pizzas.json', 'TankWar.xml', 'Truck.uvl','WeaFQAs.uvl','Automotive2_1-basic.uvl'];
 
@@ -115,33 +116,7 @@ sendJSON(){
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 sendUVL(uvl:any){
-  console.log(uvl)
-  
-  const httpOptions = {
-    headers: new HttpHeaders({
-  //  'Content-Type': 'multipart/form-data',
-  //  'Content-Disposition': 'form-data',
-  //  name:"file",
-  //  filename:"download.jpg",
-  //  responseType:'text',
-  //  Authorization: 'my-auth-token',
-  //  withCredentials:'true',
-      })
-  };
   const formData: FormData = new FormData();
   formData.append('file', uvl, uvl.name);
   this.http.post(this.urlupload,formData,{responseType:'text'}).subscribe(resultado => {
@@ -150,38 +125,40 @@ sendUVL(uvl:any){
     )
 }
 
-casFMTree(object:any){ fm(object)}
-
-
-
-
-
-
-
-
-
-
-
-
 Refactor(typeref:string){
   let object
-  let ref =this.refactoring
-  if( this.refactoring==undefined ||this.refactoring.name==""){console.log("no tiene refactoring")}
+  const formData: FormData = new FormData();
+  if( typeref!="all" &&( refactor==undefined ||refactor.name=="")){console.log("no tiene refactoring")}
   else{
     if(typeref=="node"){object=this.actual.name}
-    if(typeref=="cons"){object=listnamesconstraints[position]}
-    //if(typeref=="all"){this.TransformJSON();object=json}
-    if(typeref=="node"||typeref=="cons"
-    //||typeref=="all"
-    ){
-    console.log(object)
-    console.log(this.refactoring)
-  this.http.post(this.urlrefactor,{object, ref},{responseType:'text'}).subscribe(resultado => {
+    if(typeref=="cons"){object=listnamesconstraints[this.npos]}
+    
+    if(typeref=="node"||typeref=="cons"){
+      const httpOptions = {
+      headers: new HttpHeaders({
+      })
+    };
+    formData.append('refactoring',refactor.id);
+    
+
+    console.log(refactor.id)
+    this.http.post(this.urlrefactor,formData,{responseType:'text'}).subscribe(resultado => {
     console.log(resultado)
   })}
-  else{
+  else {
+    if(typeref=="all"){
+      this.TransformJSON()
+      object=json
+      console.log(this.ListOfRefactors)
+      formData.append('refactoring',this.ListOfRefactors.toString());
+      formData.append('object',object);
+      this.http.post(this.urlrefactor,formData,{responseType:'text'}).subscribe(resultado => {
+      console.log(resultado)
+    })
+    }
+    else{
     console.log("error in type of refactor")
-  }
+  }}
 }
 }
 
@@ -193,6 +170,7 @@ returnValues(text?:string){
   })
 }
 CreateData(object:any,name?:string){
+    console.log(object)
     aux = object;
     this.item=name||"";
     aux=JSON.parse(aux)
@@ -200,8 +178,7 @@ CreateData(object:any,name?:string){
     console.log(this.title)
     jsonfeatures=aux.features,
     jsonconstraint=aux.constraints
-    alert ("linea 203 aux.refactors como se llamara??")
-    //jsonrefactors=aux.refactors
+    jsonrefactors=aux.refactorings
     aux2=""
     let dictionary = Object.assign({}, object);
     for( const[key] of Object.entries(dictionary)){
@@ -211,7 +188,8 @@ CreateData(object:any,name?:string){
     aux3=aux.constraints
     this.CreateCons()
     this.CreateFMTree()
-    this.CreateRefactor()
+    if(jsonrefactors!=undefined){
+    this.CreateRefactor()}
 }
 
 CreateFile(text:string){  
@@ -304,7 +282,7 @@ hasChild = (_: number, node: any) => !!node.children && node.children.length >= 
 
 
 CreateCons(){
-  console.log("creo constraints")
+  console.log("create constraints")
   position=-1
   this.cons.splice(0,this.cons.length)
   aux2=0
@@ -322,7 +300,7 @@ CreateCons(){
 }
 
 CreateFMTree(){
-  console.log("creo FMTree")
+  console.log("create FMTree")
   this.tree.splice(0,this.tree.length)
   this.tree=[new FMTree()]
   this.tree[0].DeleteList();
@@ -336,10 +314,10 @@ CreateFMTree(){
 }
 
 CreateRefactor(){
-  console.log("creo Refactor")
-  this.refactor.DeleteList()
-  ListOfRefactors=this.refactor.Create(jsonrefactors);
-  console.log(ListOfRefactors)
+  console.log("create Refactor")
+  refactor.DeleteList()
+  this.ListOfRefactors=refactor.Create(jsonrefactors);
+  console.log(this.ListOfRefactors)
 }
 
 DeleteFMTree(){
@@ -359,11 +337,18 @@ changeListener($event): void {this.readThis($event.target);this.myfile=$event.ta
 
 readThis(inputValue: any): void { 
     aux=""
+    this.dataSource.data=[]
+    this.constraindataSource.data=[]
+    listnamestext=[]
+    this.jsonconstraintTexto=[]
+
     var file: File = inputValue.files[0];
     console.log(file)
     var myReader: FileReader = new FileReader();
     myReader.readAsText(file);
-    myReader.onloadend = function (e) { aux=myReader.result }
+    myReader.onloadend = function (e) {
+    aux=myReader.result;}
+  
     if(file.name.endsWith('.json')){
       console.log("llega json")
       setTimeout(() => {
@@ -403,7 +388,8 @@ readThis(inputValue: any): void {
   SelectCons(object:any){
     this.GetFatherCons(object)
     this.consactual=object
-    this.ncons=this.jsonconstraintTexto[position] 
+    this.ncons=this.jsonconstraintTexto[position]
+    this.npos=position
     console.log(this.consactual)
   }
 
@@ -531,15 +517,20 @@ treeHideen(node:any){
 }
 
 SymbolPerTypeCons(type:string){
-  let hiddensymbol=true
-  let symbol
-  symbol=this.jsonconstraintTexto.indexOf(type)
-  if(true!=undefined){
-    symbol='more_vert'
-
+  let hiddensymbol=false
+  let textcons='';
+  aux2=0
+  while (aux2<this.jsonconstraintTexto.length) {
+    if(this.jsonconstraintTexto[aux2]==type ){position=aux2}
+    aux2++
   }
-  else{symbol='';hiddensymbol=false}
-  return [symbol,hiddensymbol]
+  this.ListOfRefactors.forEach(element => {
+    if(element.instances.includes(listnamesconstraints[position])){
+    textcons='more_vert'
+    hiddensymbol=true
+    }
+  });  
+  return [textcons,hiddensymbol]
 }
 GetFather(nodechild:FMTree,list:any){
   
@@ -575,13 +566,17 @@ return text
 }
 ToolTipRefa(nodetooltiprefa:FMTree){
   let text
-  if(false){
-    text="Refactoring: "
-    text=text
-  
-return [true,text]}
-else{return false}
+  let bool=false
+  this.ListOfRefactors.forEach(element => {
+    if(element.instances.includes(nodetooltiprefa.name)){
+    text="Refactoring: "+element.name
+    bool=true
+    }
+  });
+return [bool,text]
 }
+
+
 
 SymbolPerType(nodechild:FMTree){ 
   let symbol="../assets/img/mandatory.gif"
@@ -614,9 +609,8 @@ SelectedChange(v){
     aux2++
   }
   this.ncons=v
+  this.npos=position
   this.consactual=this.cons[position]
-  if(true){}
-  else{this.refactoring=new Refactoring}
   console.log(this.consactual)
   this.constraindataSource.data=this.cons.filter(x=>this.cons.indexOf(x)==position)
 }
@@ -714,7 +708,22 @@ SelectChipFeature(text:string){
   ListOfConstraint.push(aux)
   console.log(ListOfConstraint)
 }
-
+SelectChipRefactor(ref:Refactoring,tipo:string){
+  refactor=ref
+  this.Refactor(tipo)
+}
+RefactorvisibleFeature(ref:Refactoring){
+  if(this.actual!=undefined){
+  if(ref.instances.includes(this.actual.name)){return false}
+  else{return true}}
+  else{return true}
+}
+RefactorvisibleCons(ref:Refactoring){
+  if(this.consactual!=undefined){
+  if(ref.instances.includes(listnamesconstraints[this.npos])){return false}
+  else{return true}}
+  else{return true}
+}
 
 TransformJSON(){
   aux=this.consactual.createListForFile(this.cons,this.typesofcons)
@@ -753,7 +762,22 @@ TransformJSON(){
   }
   aux2=aux2.slice(0,aux2.length-1)
   aux2='"constraints": ['+aux2+']'
-  json='{'+jsonfeatures+','+aux2+'}'
+  json='{'+jsonfeatures+','+aux2
+  aux=0
+  aux2=""
+  while (aux<this.ListOfRefactors.length){
+  aux2=aux2+'{"id":"'+this.ListOfRefactors[aux].id+'","name":"'+this.ListOfRefactors[aux].name+'","description":"'+this.ListOfRefactors[aux].description
+  +'","type":"'+this.ListOfRefactors[aux].type+'","instances":[';
+  this.ListOfRefactors[aux].instances.forEach(element => {
+    aux2=aux2+'"'+element+'",'
+  });
+  if(aux2[aux2.length-1]!="["){aux2=aux2.slice(0,aux2.length-1)}
+  aux2=aux2+']},'
+  aux++
+  }
+  aux2=aux2.slice(0,aux2.length-1)
+  aux2='"refactorings": ['+aux2+']'
+  json=json+','+aux2+'}'
   this.cons=this.consactual.createListForTree(this.cons)
 }
 
@@ -783,24 +807,22 @@ updatevalues(){
   this.cons=this.consactual.createListForTree(this.cons)
 }
 
-SaveDemoJson() {
+SaveJson() {
   this.TransformJSON()
   let file = new Blob([json], { type: 'json' });
   saveAs(file, this.title+'.json')
 }
-SaveDemo() {
+SaveUVL() {
   this.TransformJSON()
   console.log("llego")
   aux = new Blob([json], { type: 'json' });
   console.log(aux)
   this.sendJSON()
   //this.CreateData(resultado)
-  alert("I send the json file to the server,and then download the data as an UVL file")
+  alert("I should send the json file to the server,and then download the data as an UVL file")
   let file2 = new Blob(["resultado"], { type: 'uvl' });
   saveAs(file2, this.title+'.uvl') 
-
 }
-
 
 }
 @Component({
