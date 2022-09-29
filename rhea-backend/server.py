@@ -6,6 +6,7 @@ from xml.etree.ElementTree import tostring
 
 from flask import Flask, flash, render_template, request, redirect, send_from_directory, url_for, session
 from flask_cors import CORS
+from flask_sqlalchemy import SQLAlchemy
 from flask_session import Session
 from werkzeug.utils import secure_filename
 
@@ -35,9 +36,15 @@ app = Flask(__name__,
             template_folder=static_dir)
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 CORS(app)
-app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
-app.config['SESSION_TYPE'] = 'filesystem'
-Session(app)
+# Session
+app.config['SECRET_KEY'] = b'_5#y2L"F4Q8z\n\xec]/'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///db.sqlite3'
+app.config['SESSION_TYPE'] = 'sqlalchemy'
+db = SQLAlchemy(app)
+app.config['SESSION_SQLALCHEMY'] = db
+sess = Session(app)
+
+db.create_all()
 
 
 def allowed_file(filename):
@@ -78,7 +85,7 @@ def read_fm_file(filename: str) -> Optional[FeatureModel]:
 def refactor():
     if not session.get(FEATURE_MODEL_SESSION):
         # if not there in the session then redirect to the login page
-        flash('There is no session.')
+        print('There is no session.')
         return None
     fm = session.get(FEATURE_MODEL_SESSION)
     if request.method == 'POST':
@@ -90,13 +97,13 @@ def refactor():
         modules = [importlib.import_module(m[1].__name__) for m in modules]
         class_ = next((getattr(m, class_name) for m in modules if hasattr(m, class_name)), None)
         if class_ is None:
-            flash('Invalid identifier for refactoring.')
+            print('Invalid identifier for refactoring.')
             return None
         instance = fm.get_feature_by_name(instance_name)
         if instance is None:
             instance = next((ctc for ctc in fm.get_constraints() if ctc.name == instance_name), None)
         if instance is None:
-            flash('Invalid feature/constraint identifier.')
+            print('Invalid feature/constraint identifier.')
             return None
         fm = class_.transform(fm, instance)
         session[FEATURE_MODEL_SESSION] = fm
@@ -110,12 +117,12 @@ def upload_feature_model():
     if request.method == 'POST':
         # check if the post request has the file part
         if 'file' not in request.files:
-            flash('No file part')
+            print('No file part')
             return redirect(request.url)
         file = request.files['file']
         # If the user does not select a file, the browser submits an empty file without a filename.
         if file.filename == '':
-            flash('No selected file')
+            print('No selected file')
             return redirect(request.url)
         if file and allowed_file(file.filename):
             filename = secure_filename(file.filename)
