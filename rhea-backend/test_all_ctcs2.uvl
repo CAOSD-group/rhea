@@ -1,40 +1,41 @@
 features
 	root3{abstract}
 		alternative
-			root2{abstract}
-				mandatory
-					A1{abstract}
-						mandatory
-							B
-								mandatory
-									D
-						optional
-							C1
-						optional
-							F1
-				mandatory
-					OR1{abstract}
-						or
-							E_11{abstract}
-							D_11{abstract}
 			root1{abstract}
+				mandatory
+					root2{abstract}
+						mandatory
+							A1{abstract}
+								or
+									C1
+									F1
+						mandatory
+							OR1{abstract}
+								or
+									B_11{abstract}
+									E_11{abstract}
+			XOR{abstract}
 				alternative
-					root{abstract}
+					root31{abstract}
 						mandatory
 							A{abstract}
-								or
+								mandatory
+									B
+										mandatory
+											D
+								optional
 									C
+								optional
 									F
 						mandatory
 							OR{abstract}
-								or
-									B_1{abstract}
-									E_1{abstract}
-					root21{abstract}
+								mandatory
+									D_1{abstract}
+					root212{abstract}
 						mandatory
 							A11{abstract}
 								mandatory
-									B1
+									B11
 								optional
 									C11
 								optional

@@ -20,6 +20,14 @@ class EliminationSimpleConstraintsRequires(FMRefactoring):
     @staticmethod
     def get_name() -> str:
         return 'Elimination of Constraints from Feature Trees - Requires'
+    
+    @staticmethod
+    def get_description() -> str:
+        return ("It eliminates de simple constraint with Requires")
+
+    @staticmethod
+    def get_language_construct_name() -> str:
+        return 'Constraint'
 
     @staticmethod
     def get_instances(model: FeatureModel) -> list[Constraint]:
@@ -65,11 +73,7 @@ class EliminationSimpleConstraintsRequires(FMRefactoring):
                                             if value.name == right_feature_name_ctc]
         # print(f'LIST RIGHT FEATURE CTC LESS: {[f for f in list_right_feature_ctc_less]}')
 
-        if instance.ast.root.data in [ASTOperation.REQUIRES, ASTOperation.IMPLIES]:
-            left_feature_name_ctc = instance.ast.root.left.data
-        elif instance.ast.root.data is ASTOperation.OR:
-            not_operation = instance.ast.root.left
-            left_feature_name_ctc = not_operation.left.data
+        left_feature_name_ctc = utils.get_left_feature_name(instance)
         
         list_left_feature_ctc_less = [left_feature_name_ctc]
         if hasattr(model, 'dict_references'):
@@ -124,15 +128,8 @@ class EliminationSimpleConstraintsRequires(FMRefactoring):
                 model_less = utils.eliminate_node_from_tree(model_less, feature_right_less)
             # print(f'T(-{f_right_less}): {model_less}')
 
-        # Removing all abbstract LEAF nodes without contraint (before joining subtrees)
-        if model_plus is not None:
-            for feat in model.get_features():
-                ctc = next((c for c in model.get_constraints() if c.ast.root.left.data == feat 
-                                                                    or (c.ast.root.left.data == ASTOperation.NOT 
-                                                                    and c.ast.root.left.left == feat)), None)
-                if ctc is not None:
-                    if feat.is_leaf() and feat.is_abstract and ctc.ast.root.right.left.data not in model_plus:
-                        model_plus = utils.eliminate_node_from_tree(model_plus, feat)
+        model_plus = utils.remove_abstract_leaf_without_constraint(model_plus)
+        model_less = utils.remove_abstract_leaf_without_constraint(model_less)
 
         # Construct T(+B) and T(-A-B).
         if model_plus is not None and model_less is not None:

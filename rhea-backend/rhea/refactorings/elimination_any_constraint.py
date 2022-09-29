@@ -7,7 +7,7 @@ from flamapy.metamodels.fm_metamodel.models import FeatureModel, Feature, Relati
 from flamapy.metamodels.fm_metamodel.transformations import UVLWriter
 
 from flamapy.core.models.ast import AST, ASTOperation, Node
-from rhea.refactorings.split_constraints import SplitConstraints
+from rhea.refactorings.split_constraint import SplitConstraint
 from rhea.refactorings.elimination_complex_constraints import EliminationComplexConstraints
 from rhea.refactorings.elimination_simple_ctcs_requires import EliminationSimpleConstraintsRequires
 from rhea.refactorings.elimination_simple_ctcs_excludes import EliminationSimpleConstraintsExcludes
@@ -28,6 +28,15 @@ class EliminationAnyConstraints(FMRefactoring):
     @staticmethod
     def get_name() -> str:
         return 'Elimination of Any Constraint from Feature Trees'
+
+    @staticmethod
+    def get_description() -> str:
+        return ("It eliminates any requested constraint by calling al the other methods"
+                    "of elimination of Constraints.")
+
+    @staticmethod
+    def get_language_construct_name() -> str:
+        return 'Constraint'
 
     @staticmethod
     def get_instances(model: FeatureModel) -> list[Constraint]:

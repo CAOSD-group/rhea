@@ -2,6 +2,7 @@ import copy
 from typing import Any
 
 from flamapy.metamodels.fm_metamodel.models import FeatureModel, Feature, Relation, Constraint
+from flamapy.metamodels.fm_metamodel.transformations import UVLWriter
 
 from flamapy.core.models.ast import AST, ASTOperation, Node
 
@@ -15,6 +16,14 @@ class EliminationSimpleConstraintsExcludes(FMRefactoring):
     @staticmethod
     def get_name() -> str:
         return 'Elimination of Constraints from Feature Trees - Excludes'
+    
+    @staticmethod
+    def get_description() -> str:
+        return ("It eliminates de simple constraint with Excludes")
+
+    @staticmethod
+    def get_language_construct_name() -> str:
+        return 'Constraint'
 
     @staticmethod
     def get_instances(model: FeatureModel) -> list[Constraint]:
@@ -45,11 +54,7 @@ class EliminationSimpleConstraintsExcludes(FMRefactoring):
 
         # print(f'MODEL EXCLUDES before: {model}')
 
-        if instance.ast.root.data in [ASTOperation.REQUIRES, ASTOperation.IMPLIES, ASTOperation.OR]:
-            not_operation = instance.ast.root.right
-            right_feature_name_ctc = not_operation.left.data
-        elif instance.ast.root.data is ASTOperation.EXCLUDES:
-            right_feature_name_ctc = instance.ast.root.right.data
+        right_feature_name_ctc = utils.get_right_feature_name(instance)
 
         list_right_feature_ctc_less = [right_feature_name_ctc]
         if hasattr(model, 'dict_references'):
@@ -64,11 +69,7 @@ class EliminationSimpleConstraintsExcludes(FMRefactoring):
         # print(f'LIST RIGHT FEATURE CTC LESS PLUS: {[f for f in list_right_feature_ctc_less_plus]}')
 
 
-        if instance.ast.root.data in [ASTOperation.REQUIRES, ASTOperation.IMPLIES, ASTOperation.EXCLUDES]:
-            left_feature_name_ctc = instance.ast.root.left.data
-        elif instance.ast.root.data is ASTOperation.OR:
-            not_operation = instance.ast.root.left
-            left_feature_name_ctc = not_operation.left.data
+        left_feature_name_ctc = utils.get_left_feature_name(instance)
 
         xor_plus = Feature(utils.get_new_feature_name(model_less, 'XOR'), is_abstract=True)
         list_left_feature_ctc_less_plus = [left_feature_name_ctc]
@@ -124,22 +125,10 @@ class EliminationSimpleConstraintsExcludes(FMRefactoring):
                 r.name = f'{utils.get_new_feature_name(model, r.name)}{count}'
                 count += 1
 
-
-        # Removing all abbstract LEAF nodes without contraint (before joining subtrees)
-        if model_less is not None:
-            for feat in model.get_features():
-                print(f'FEATURE: {feat}')
-                constra = next((c for c in model.get_constraints()), None)
-                print(f'CONSTRAINT: {str(constra)}')
-                left_node = constra.ast.root.left.data
-                print(f'LEFT NODE: {left_node}')
-                ctc = next((c for c in model.get_constraints() if c.ast.root.left.data == feat.name 
-                                                                    or (c.ast.root.left == ASTOperation.NOT 
-                                                                    and c.ast.root.left.left == feat.name)), None)
-                print(f'CTC removing abstract leaf nodes: {str(ctc)}')
-                if ctc is not None:
-                    if feat.is_leaf() and feat.is_abstract and ctc.ast.root.right.data not in model_less.get_features():
-                        model_less = utils.eliminate_node_from_tree(model_less, feat)
+        model_less = utils.remove_abstract_leaf_without_constraint(model_less)
+        UVLWriter(model, f"model_less_{instance}.uvl").transform()
+        model_less_plus = utils.remove_abstract_leaf_without_constraint(model_less_plus)
+        UVLWriter(model, f"model_less_plus{instance}.uvl").transform()
 
         # Construct T(-B) and T(-A+B).
         if model_less is not None and model_less_plus is not None:
@@ -180,5 +169,7 @@ class EliminationSimpleConstraintsExcludes(FMRefactoring):
 
         print(f'MODEL DICT EXCLUDES - after: {[(name, value.name) for name, value in model.dict_references.items()]}')
         # print(f'MODEL EXCLUDES after: {model}')
+
+        UVLWriter(model, f"excludes{instance}.uvl").transform()
 
         return model

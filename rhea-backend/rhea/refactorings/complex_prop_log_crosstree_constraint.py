@@ -9,7 +9,16 @@ class ComplexProLogCrossTreeConstraintRefactoring(FMRefactoring):
 
     @staticmethod
     def get_name() -> str:
-        return 'Complex prop. log. cross-tree constraint'
+        return 'Complex prop. log. cross-tree constraint refactoring'
+    
+    @staticmethod
+    def get_description() -> str:
+        return ("It changes the complex cross-tree constraint to several simple constraints"
+                    "by adding an abstract subtree with an OR")
+
+    @staticmethod
+    def get_language_construct_name() -> str:
+        return 'Constraint'
 
     @staticmethod
     def get_instances(model: FeatureModel) -> list[Feature]:

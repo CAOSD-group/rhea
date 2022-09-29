@@ -18,3 +18,5 @@ features
 					Sicilian
 		optional
 			CheesyCrust
+constraints
+	CheesyCrust => !Big

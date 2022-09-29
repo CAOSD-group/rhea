@@ -11,6 +11,19 @@ class MultipleGroupDecompositionRefactoring(FMRefactoring):
     @staticmethod
     def get_name() -> str:
         return 'Multiple group decomposition refactoring'
+    
+    @staticmethod
+    def get_description() -> str:
+        return ("It changes the multiple group to some auxiliary features with "
+                "each group.")
+
+    @staticmethod
+    def get_language_construct_name() -> str:
+        return 'Multiple group decomposition'
+    
+    @staticmethod
+    def get_instances(model: FeatureModel) -> list[Any]:
+        return [f for f in model.get_features() if is_mult_group_decomposition(f)]
 
     @staticmethod
     def transform(model: FeatureModel, instance: Any,) -> FeatureModel:
@@ -26,10 +39,6 @@ class MultipleGroupDecompositionRefactoring(FMRefactoring):
         
         return model
 
-
-    @staticmethod
-    def get_instances(model: FeatureModel) -> list[Any]:
-        return [f for f in model.get_features() if is_mult_group_decomposition(f)]
 
 def is_mult_group_decomposition(feature: Feature) -> bool:
     is_mgd = False

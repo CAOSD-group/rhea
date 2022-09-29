@@ -17,7 +17,7 @@ from rhea.refactorings.mutex_group_refactoring import MutexGroupRefactoring
 from rhea.refactorings.cardinality_group_refactoring import CardinalityGroupRefactoring
 from rhea.refactorings.multiple_group_decomposition_refactoring import MultipleGroupDecompositionRefactoring
 from rhea.refactorings.elimination_any_constraint import EliminationAnyConstraints
-from rhea.refactorings.split_constraints import SplitConstraints
+from rhea.refactorings.split_constraint import SplitConstraint
 from rhea.refactorings.elimination_complex_constraints import EliminationComplexConstraints
 from rhea.refactorings.elimination_simple_ctcs_requires import EliminationSimpleConstraintsRequires
 from rhea.refactorings.elimination_simple_ctcs_excludes import EliminationSimpleConstraintsExcludes
@@ -76,14 +76,14 @@ def get_tests() -> list[list[str, str, str, FMRefactoring]]:
     #tests.extend(cardinality_group_tests)
     #multiple_group_decomposition_tests = get_tests_info(MULTIPLE_GROUP_DECOMPOSITION, MultipleGroupDecompositionRefactoring)
     #tests.extend(multiple_group_decomposition_tests)
-    any_ctcs_tests = get_tests_info(ANY_CTCS_FOLDER, EliminationAnyConstraints)
-    tests.extend(any_ctcs_tests)
-    split_tests = get_tests_info(SPLIT_CONSTRAINTS_FOLDER, SplitConstraints)
-    tests.extend(split_tests)
-    complex_tests = get_tests_info(COMPLEX_CONSTRAINTS_FOLDER, EliminationComplexConstraints)
-    tests.extend(complex_tests)
-    requires_tests = get_tests_info(REQUIRES_CONSTRAINTS_FOLDER, EliminationSimpleConstraintsRequires)
-    tests.extend(requires_tests)
+    # any_ctcs_tests = get_tests_info(ANY_CTCS_FOLDER, EliminationAnyConstraints)
+    # tests.extend(any_ctcs_tests)
+    # split_tests = get_tests_info(SPLIT_CONSTRAINTS_FOLDER, SplitConstraint)
+    # tests.extend(split_tests)
+    # complex_tests = get_tests_info(COMPLEX_CONSTRAINTS_FOLDER, EliminationComplexConstraints)
+    # tests.extend(complex_tests)
+    # requires_tests = get_tests_info(REQUIRES_CONSTRAINTS_FOLDER, EliminationSimpleConstraintsRequires)
+    # tests.extend(requires_tests)
     excludes_tests = get_tests_info(EXCLUDES_CONSTRAINTS_FOLDER, EliminationSimpleConstraintsExcludes)
     tests.extend(excludes_tests)
     

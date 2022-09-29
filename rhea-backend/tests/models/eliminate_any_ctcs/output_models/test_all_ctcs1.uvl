@@ -3,31 +3,31 @@ features
 		alternative
 			XOR1{abstract}
 				alternative
-					root3111{abstract}
+					root211{abstract}
 						mandatory
-							A2{abstract}
+							A1{abstract}
 								mandatory
 									B
 										mandatory
 											D
 								optional
-									C2
+									C1
 						mandatory
-							OR2{abstract}
+							OR1{abstract}
 								or
 									E_11{abstract}
-									D_12{abstract}
+									D_11{abstract}
 					root21212{abstract}
 						mandatory
 							A11{abstract}
 								mandatory
-									B11
+									B1
 										mandatory
-											D11
+											D1
 								mandatory
 									C11
 										mandatory
-											E1
+											E11
 						mandatory
 							OR11{abstract}
 								mandatory
@@ -50,23 +50,23 @@ features
 								mandatory
 									A12{abstract}
 										mandatory
+											B2
+										optional
 											C12
-												mandatory
-													E
 								mandatory
 									OR12{abstract}
 										mandatory
-											B_111{abstract}
+											E_111{abstract}
 					XOR{abstract}
 						mandatory
 							root31{abstract}
 								mandatory
 									A21{abstract}
 										mandatory
-											B1
-										optional
 											C21
+												mandatory
+													E
 								mandatory
 									OR21{abstract}
 										mandatory
-											E_111{abstract}
+											B_111{abstract}

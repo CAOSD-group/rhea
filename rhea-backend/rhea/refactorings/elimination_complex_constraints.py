@@ -17,6 +17,15 @@ class EliminationComplexConstraints(FMRefactoring):
     @staticmethod
     def get_name() -> str:
         return 'Elimination of Complex Constraints from Feature Trees'
+    
+    @staticmethod
+    def get_description() -> str:
+        return ("It changes the complex constraint to several simple constraints"
+                    "by adding an abstract subtree with an OR")
+
+    @staticmethod
+    def get_language_construct_name() -> str:
+        return 'Constraint'
 
     @staticmethod
     def get_instances(model: FeatureModel) -> list[Constraint]:

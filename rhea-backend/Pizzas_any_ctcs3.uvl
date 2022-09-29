@@ -42,13 +42,11 @@ features
 								mandatory
 									Dough1
 										mandatory
-											Neapolitan1
-								mandatory
-									CheesyCrust
+											Sicilian
 						mandatory
 							OR1{abstract}
 								or
-									Sicilian_11{abstract}
+									CheesyCrust_11{abstract}
 									Big_11{abstract}
 					root3113{abstract}
 						mandatory
@@ -66,11 +64,13 @@ features
 								mandatory
 									Dough2
 										mandatory
-											Sicilian
+											Neapolitan1
+								mandatory
+									CheesyCrust
 						mandatory
 							OR2{abstract}
 								or
-									CheesyCrust_11{abstract}
+									Sicilian_11{abstract}
 									Big_12{abstract}
 					root21214{abstract}
 						mandatory
@@ -88,9 +88,9 @@ features
 								mandatory
 									Dough11
 										mandatory
-											Sicilian11
+											Sicilian1
 								mandatory
-									CheesyCrust1
+									CheesyCrust11
 						mandatory
 							OR11{abstract}
 								mandatory
@@ -137,13 +137,11 @@ features
 										mandatory
 											Dough12
 												mandatory
-													Neapolitan11
-										mandatory
-											CheesyCrust2
+													Sicilian2
 								mandatory
 									OR12{abstract}
 										mandatory
-											Sicilian_111{abstract}
+											CheesyCrust_111{abstract}
 					XOR{abstract}
 						mandatory
 							root31{abstract}
@@ -162,8 +160,10 @@ features
 										mandatory
 											Dough21
 												mandatory
-													Sicilian1
+													Neapolitan11
+										mandatory
+											CheesyCrust1
 								mandatory
 									OR21{abstract}
 										mandatory
-											CheesyCrust_111{abstract}
+											Sicilian_111{abstract}
