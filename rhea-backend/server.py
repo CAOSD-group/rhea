@@ -35,7 +35,7 @@ app = Flask(__name__,
             static_folder=static_folder,
             template_folder=static_dir)
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
-CORS(app)
+CORS(app, supports_credentials=True)
 # Session
 app.config['SECRET_KEY'] = b'_5#y2L"F4Q8z\n\xec]/'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///db.sqlite3'
