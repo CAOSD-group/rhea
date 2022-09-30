@@ -6,9 +6,15 @@
     height: 350px;
     min-width: 30px;
   }
-
-  .buttonmenu{
+  .labelcenter{
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .buttonmenu2{
     color: #012970;
+    background-color: white;
+    border-color: white;
+    border: white;
   }
   .marginnegative{
     margin: -5px;
@@ -832,10 +838,7 @@ h6 {
 .sidebar-nav #xslUpload {
   margin-bottom: 15px;
 }
-.labelcenter{
-  margin-left: auto;
-  margin-right: auto;
-}
+
 
 .sidebar-nav #xslUpload  > label {
   margin:0;

@@ -41,10 +41,10 @@
   <div class="d-flex align-items-center justify-content-between">
     <a  class="logo d-flex align-items-center">
       <span class="d-none d-lg-block">RheaWeb</span>
-      <button mat-icon-button (click)="drawer.toggle()" class="buttonmenu">
+      <button mat-icon-button (click)="drawer.toggle()" class="buttonmenu2">
         <mat-icon>menu</mat-icon>
       </button>
-      <button mat-icon-button (click)="openDialog()" class="buttonmenu">
+      <button mat-icon-button (click)="openDialog()" class="buttonmenu2">
         <mat-icon>help</mat-icon>
       </button>
     </a>
@@ -187,8 +187,17 @@
                   <a data-bs-toggle="modal" href="#sidebar3">Delete branch</a>
                   <div *ngIf="ToolTipRefa(node)[0]" #tooltip="matTooltip"  matTooltip={{ToolTipRefa(node)[1]}}>
                     <hr>
-                    <a data-bs-toggle="modal" href="#sidebar4" >Refactoring</a>
+                    <button class="buttonmenu2" mat-icon-button [matMenuTriggerFor]="menu5"(click) = "$event.stopPropagation()" >
+                      Refactoring
+                    </button>
                   </div>
+                </mat-menu>
+                <mat-menu #menu5="matMenu">
+                  <mat-list class="mat-chip-list-stacked"  >
+                    <mat-list-item *ngFor="let refac of ListOfRefactors" [hidden]='RefactorvisibleFeature(refac)'   >
+                      <button class="buttonmenu2" (click)="SelectChipRefactor(refac,'node')" >{{refac.name}}</button>
+                    </mat-list-item >
+                  </mat-list>
                 </mat-menu>
               </mat-nested-tree-node>
             </mat-tree> 
@@ -196,6 +205,7 @@
           </div>
         </div>
       </div>
+                
       <!-- Info -->
       <div class="col-6 justify-content-center">
         <div class="card block">
@@ -228,8 +238,10 @@
                     <div>
                       <div class="text"> 
                         {{jsonconstraintTexto.indexOf(constrainTexto)+1+". "}}
-                        <button class="empty" data-bs-toggle="modal" href="#sidebar5"  *ngIf="SymbolPerTypeCons(constrainTexto)[1]" >
-                          <mat-icon>{{SymbolPerTypeCons(constrainTexto)[0]}}</mat-icon>
+                        <button mat-icon-button [matMenuTriggerFor]="menu4" >
+                          <mat-icon class="mat-icon-rtl-mirror" *ngIf="SymbolPerTypeCons(constrainTexto)[0]">
+                            more_vert
+                          </mat-icon>
                         </button>
                         {{constrainTexto}}
                       </div>
@@ -237,9 +249,19 @@
                   </mat-list-option>   
                 </mat-selection-list>
               </cdk-virtual-scroll-viewport>
+              <mat-menu #menu4="matMenu">
+                <mat-list class="mat-chip-list-stacked"  >
+                  <mat-list-item *ngFor="let ref of ListOfRefactors" [hidden]='RefactorvisibleCons(ref)'   >
+                    <button class="buttonmenu2" (click)="SelectChipRefactor(ref,'cons')">{{ref.name}}</button>
+                  </mat-list-item >
+                </mat-list>
+              </mat-menu>  
               </div>
             </div>
           </div>
+          <mat-menu #menu2="matMenu">
+            <a data-bs-toggle="modal" href="#sidebar10">Options</a>
+          </mat-menu>  
           <div class="col-6">
             <div class="card block">
               <!-- Constraints Tree -->

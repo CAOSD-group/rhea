@@ -99,18 +99,18 @@ saveFile(text?:string){
   this.TransformJSON()  
   if(text==undefined || text==""){
     console.log("sin cambio de name")
-    this.http.post(this.urlsave,[jsonfeatures,jsonconstraint],{responseType:'text'}).subscribe(resultado => {
+    this.http.post(this.urlsave,[jsonfeatures,jsonconstraint],{ withCredentials:true,responseType:'text'}).subscribe(resultado => {
     console.log(resultado)})}
   else{
     console.log("el name se cambia")
-    this.http.post(this.urlsave,[text,jsonfeatures,jsonconstraint],{responseType:'text'}).subscribe(resultado => {
+    this.http.post(this.urlsave,[text,jsonfeatures,jsonconstraint],{ withCredentials:true,responseType:'text'}).subscribe(resultado => {
     console.log(resultado)
   })}
 }
 
 sendJSON(){
   console.log(aux)
-  this.http.post(this.urldownload2,aux,{responseType:'text'}).subscribe(resultado => {
+  this.http.post(this.urldownload2,aux,{withCredentials:true,responseType:'text'}).subscribe(resultado => {
     console.log(resultado)})
    
 }
@@ -119,11 +119,17 @@ sendJSON(){
 sendUVL(uvl:any){
   const formData: FormData = new FormData();
   formData.append('file', uvl, uvl.name);
-  this.http.post(this.urlupload,formData,{responseType:'text'}).subscribe(resultado => {
+  console.log("llego")
+  this.http.post(this.urlupload,formData,{withCredentials:true,responseType:'text'}).subscribe(resultado => {
     this.CreateData(resultado)
-    json=resultado}
+    json=resultado
+      }
     )
 }
+
+
+
+
 
 Refactor(typeref:string){
   let object
@@ -138,11 +144,10 @@ Refactor(typeref:string){
       headers: new HttpHeaders({
       })
     };
-    formData.append('refactoring',refactor.id);
-    
-
+    formData.append('refactoring_id',refactor.id);
+    formData.append('instance_name',object);
     console.log(refactor.id)
-    this.http.post(this.urlrefactor,formData,{responseType:'text'}).subscribe(resultado => {
+    this.http.post(this.urlrefactor,formData,{ withCredentials:true,responseType:'text'}).subscribe(resultado => {
     console.log(resultado)
   })}
   else {
@@ -150,9 +155,9 @@ Refactor(typeref:string){
       this.TransformJSON()
       object=json
       console.log(this.ListOfRefactors)
-      formData.append('refactoring',this.ListOfRefactors.toString());
-      formData.append('object',object);
-      this.http.post(this.urlrefactor,formData,{responseType:'text'}).subscribe(resultado => {
+      formData.append('refactoring_id',this.ListOfRefactors.toString());
+      formData.append('instance_name',object);
+      this.http.post(this.urlrefactor,formData,{ withCredentials:true,responseType:'text'}).subscribe(resultado => {
       console.log(resultado)
     })
     }
@@ -165,12 +170,11 @@ Refactor(typeref:string){
 
 returnValues(text?:string){
   if(text==""|| text==undefined){text=this.item}
-  this.http.post(this.urldownload,text,{responseType:'text'}).subscribe(resultado => {
+  this.http.post(this.urldownload,text,{ withCredentials:true,responseType:'text'}).subscribe(resultado => {
     this.CreateData(resultado,text)
   })
 }
 CreateData(object:any,name?:string){
-    console.log(object)
     aux = object;
     this.item=name||"";
     aux=JSON.parse(aux)
@@ -197,7 +201,7 @@ CreateFile(text:string){
   console.log("valores que se van a crear")
   console.log(jsonfeatures)
   console.log(jsonconstraint)
-  this.http.post(this.urlcreate,[text,jsonfeatures,jsonconstraint],{responseType:'text'}).subscribe(resultado => {
+  this.http.post(this.urlcreate,[text,jsonfeatures,jsonconstraint],{ withCredentials:true,responseType:'text'}).subscribe(resultado => {
     console.log(resultado)
   })
 }
@@ -332,7 +336,10 @@ ReloadFMTree(){
   if(this.consactual==undefined){ this.consactual=new Const()}
 }
 
-changeListener($event): void {this.readThis($event.target);this.myfile=$event.target
+changeListener($event): void {
+  if($event.target!=undefined){
+  this.readThis($event.target)
+  this.myfile=$event.target}
 }
 
 readThis(inputValue: any): void { 
@@ -343,29 +350,32 @@ readThis(inputValue: any): void {
     this.jsonconstraintTexto=[]
 
     var file: File = inputValue.files[0];
-    console.log(file)
+
     var myReader: FileReader = new FileReader();
     myReader.readAsText(file);
     myReader.onloadend = function (e) {
     aux=myReader.result;}
   
     if(file.name.endsWith('.json')){
-      console.log("llega json")
+      console.log("json file detected")
       setTimeout(() => {
       this.CreateData(aux,"hola")
       },100)
     }
     if(file.name.endsWith('.uvl')){
-      console.log("llega uvl")
+      console.log("uvl file detected")
       setTimeout(() => {
         this.sendUVL(file)
         },100)
     }
     if(file.name.endsWith('.xml')){
-      console.log("llega uvl")
+      console.log("xml file detected")
       setTimeout(() => {
         this.sendUVL(file)
         },100)
+    }
+    if(!(file.name.endsWith('.xml')||file.name.endsWith('.uvl')||file.name.endsWith('.json'))){
+      alert("not valid file type")
     }
     
   
@@ -518,7 +528,7 @@ treeHideen(node:any){
 
 SymbolPerTypeCons(type:string){
   let hiddensymbol=false
-  let textcons='';
+
   aux2=0
   while (aux2<this.jsonconstraintTexto.length) {
     if(this.jsonconstraintTexto[aux2]==type ){position=aux2}
@@ -526,11 +536,11 @@ SymbolPerTypeCons(type:string){
   }
   this.ListOfRefactors.forEach(element => {
     if(element.instances.includes(listnamesconstraints[position])){
-    textcons='more_vert'
+   
     hiddensymbol=true
     }
   });  
-  return [textcons,hiddensymbol]
+  return [hiddensymbol]
 }
 GetFather(nodechild:FMTree,list:any){
   
@@ -740,11 +750,11 @@ TransformJSON(){
   jsonfeatures= '"name"'+':"'+this.title+'",'+'"features"'+':'+ jsonfeatures
   aux=0
   aux2=listnamesconstraints[listnamesconstraints.length-1]
-  if(aux2==undefined){aux2="CTC 1"}
+  if(aux2==undefined){aux2="CTC1"}
   else{listnamesconstraints.splice(0,listnamesconstraints.length)}
   while(this.jsonconstraintTexto.length>listnamesconstraints.length){
   aux2=listnamesconstraints[listnamesconstraints.length-1]
-  if(aux2==undefined){aux2="CTC 1"}
+  if(aux2==undefined){aux2="CTC1"}
   aux=0
   aux3=""
   while(!Number.parseInt(aux2[aux])){
