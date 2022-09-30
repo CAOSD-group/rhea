@@ -5,7 +5,7 @@ from typing import Optional
 from xml.etree.ElementTree import tostring
 
 from flask import Flask, flash, render_template, request, redirect, send_from_directory, url_for, session, make_response
-from flask_cors import CORS
+from flask_cors import CORS, cross_origin
 from flask_sqlalchemy import SQLAlchemy
 from flask_session import Session
 from werkzeug.utils import secure_filename
@@ -44,7 +44,7 @@ db = SQLAlchemy(app)
 app.config['SESSION_SQLALCHEMY'] = db
 sess = Session(app)
 
-db.create_all()
+#db.create_all()
 
 
 def allowed_file(filename):
@@ -81,6 +81,7 @@ def read_fm_file(filename: str) -> Optional[FeatureModel]:
 
 #order : saveFM;downloadFM;deleteFM;createFM;
 
+@cross_origin
 @app.route('/refactor', methods=['POST'])
 def refactor():
     if not session.get(FEATURE_MODEL_SESSION):
@@ -114,6 +115,7 @@ def refactor():
     return None
 
 
+@cross_origin
 @app.route('/uploadFM', methods=['POST'])
 def upload_feature_model():
     if request.method == 'POST':
