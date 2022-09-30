@@ -4,7 +4,7 @@ import importlib
 from typing import Optional
 from xml.etree.ElementTree import tostring
 
-from flask import Flask, flash, render_template, request, redirect, send_from_directory, url_for, session
+from flask import Flask, flash, render_template, request, redirect, send_from_directory, url_for, session, make_response
 from flask_cors import CORS
 from flask_sqlalchemy import SQLAlchemy
 from flask_session import Session
@@ -108,7 +108,9 @@ def refactor():
         fm = class_.transform(fm, instance)
         session[FEATURE_MODEL_SESSION] = fm
         json_fm = JSONWriter(path=None, source_model=fm).transform()
-        return json_fm
+        response = make_response(json_fm)
+        response.headers.add('Access-Control-Allow-Headers', "Origin, X-Requested-With, Content-Type, Accept, x-auth")
+        return response
     return None
 
 
@@ -134,8 +136,10 @@ def upload_feature_model():
             # record the feature model for the session
             session[FEATURE_MODEL_SESSION] = fm
             json_fm = JSONWriter(path=None, source_model=fm).transform()
+            response = make_response(json_fm)
+            response.headers.add('Access-Control-Allow-Headers', "Origin, X-Requested-With, Content-Type, Accept, x-auth")
             #session_id = request.cookies.get(COOKIE_SESSION)
-            return json_fm
+            return response
             #return redirect(url_for('uploadFM', name=filename))
     return None
 
