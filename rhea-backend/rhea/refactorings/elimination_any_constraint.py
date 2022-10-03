@@ -82,9 +82,11 @@ class EliminationAnyConstraints(FMRefactoring):
             if fm_utils.is_requires_constraint(instance):
                 #print(f'Applying the refactoring {REFACTORING_REQUIRES.get_name()}...')
                 model = REFACTORING_REQUIRES.transform(model, instance)
+                UVLWriter(model, f"salida{instance}.uvl").transform()
             elif fm_utils.is_excludes_constraint(instance):
                 #print(f'Applying the refactoring {REFACTORING_EXCLUDES.get_name()}...')
                 model = REFACTORING_EXCLUDES.transform(model, instance)
+                UVLWriter(model, f"salida{instance}.uvl").transform()
             else:
                 raise Exception(f'Invalid simple constraint: {instance}')
 

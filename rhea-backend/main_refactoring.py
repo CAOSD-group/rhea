@@ -38,7 +38,7 @@ REFACTORING_SPLIT = SplitConstraint
 REFACTORING_COMPLEX = EliminationComplexConstraints
 REFACTORING_REQUIRES = EliminationSimpleConstraintsRequires
 REFACTORING_EXCLUDES = EliminationSimpleConstraintsExcludes
-MODEL_PATH = 'tests/models/excludes/input_models/Pizzas4.uvl'
+MODEL_PATH = 'tests/models/eliminate_any_ctcs/input_models/Pizzas_any_ctcs3.uvl'
 OUTPUT_PATH = os.path.basename(MODEL_PATH)
 ##################################################################################################
 

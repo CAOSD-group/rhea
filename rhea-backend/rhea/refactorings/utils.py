@@ -5,7 +5,7 @@ from flamapy.core.models.ast import AST, ASTOperation, Node
 
 
 def get_right_feature_name(instance: Constraint) -> str:
-    if instance.ast.root.right in [ASTOperation.NOT]:
+    if instance.ast.root.right.data is ASTOperation.NOT:
         not_operation = instance.ast.root.right
         right_feature_name_ctc = not_operation.left.data
     else:
@@ -14,36 +14,27 @@ def get_right_feature_name(instance: Constraint) -> str:
 
 
 def get_left_feature_name(instance: Constraint) -> str:
-    if instance.ast.root.left in [ASTOperation.NOT]:
+    if instance.ast.root.left.data is ASTOperation.NOT:
         not_operation = instance.ast.root.left
         left_feature_name_ctc = not_operation.left.data
     else:
         left_feature_name_ctc = instance.ast.root.left.data
     return left_feature_name_ctc
 
-def remove_abstract_leaf_without_constraint(model: FeatureModel) -> FeatureModel:
+def remove_abstract_leaf_without_reference(model: FeatureModel) -> FeatureModel:
     '''Removes all abstract LEAF nodes without contraint (before joining subtrees)'''
     model_if_none = model
     if model is not None:
         for feat in model.get_features():
-            print(f'FEATURE: {feat}')
-            constra = next((c for c in model.get_constraints()), None)
-            print(f'CONSTRAINT: {str(constra)}')
-            left_node = constra.ast.root.left.data
-            print(f'LEFT NODE: {left_node}')
             ctc = next((c for c in model.get_constraints() if get_left_feature_name(c) == feat.name), None)
-            print(f'CTC removing abstract leaf nodes: {str(ctc)}')
-            if ctc is not None:
-                print(f'feat {feat}: is leaf: {feat.is_leaf()}, is abstract: {feat.is_abstract}')
-                print(f'ctc as root right data: {ctc.ast.root.right.data}, is NOT in model less: {str(ctc.ast.root.right.data not in model.get_features())}')
-                if feat.is_leaf() and feat.is_abstract:
-                    if model.get_feature_by_name(get_right_feature_name(ctc)) not in model.get_features():
-                        print(f'model BEFORE: {model}')
+            if feat.is_leaf() and feat.is_abstract:
+                if ctc is not None:
+                   if model.get_feature_by_name(get_right_feature_name(ctc)) not in model.get_features():
                         model = eliminate_node_from_tree(model, feat)
-                        print(f'mode AFTER: {model}')
     if model is None:
         model = model_if_none
     return model
+
 
 
 def get_new_feature_name(fm: FeatureModel, name: str) -> str:

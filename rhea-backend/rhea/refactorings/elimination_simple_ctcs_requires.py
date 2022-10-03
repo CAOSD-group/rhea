@@ -128,8 +128,8 @@ class EliminationSimpleConstraintsRequires(FMRefactoring):
                 model_less = utils.eliminate_node_from_tree(model_less, feature_right_less)
             # print(f'T(-{f_right_less}): {model_less}')
 
-        model_plus = utils.remove_abstract_leaf_without_constraint(model_plus)
-        model_less = utils.remove_abstract_leaf_without_constraint(model_less)
+        # model_plus = utils.remove_abstract_leaf_without_reference(model_plus)
+        # model_less = utils.remove_abstract_leaf_without_reference(model_less)
 
         # Construct T(+B) and T(-A-B).
         if model_plus is not None and model_less is not None:

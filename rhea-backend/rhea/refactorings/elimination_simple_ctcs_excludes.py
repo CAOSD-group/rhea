@@ -60,13 +60,13 @@ class EliminationSimpleConstraintsExcludes(FMRefactoring):
         if hasattr(model, 'dict_references'):
             list_right_feature_ctc_less += [key for key, value in model.dict_references.items() 
                                             if value.name == right_feature_name_ctc]
-        # print(f'LIST RIGHT FEATURE CTC LESS: {[f for f in list_right_feature_ctc_less]}')
+        print(f'LIST RIGHT FEATURE CTC LESS: {[f for f in list_right_feature_ctc_less]}')
 
         list_right_feature_ctc_less_plus = [right_feature_name_ctc]
         if hasattr(model, 'dict_references'):
             list_right_feature_ctc_less_plus += [key for key, value in model.dict_references.items() 
                                                  if value.name == right_feature_name_ctc]
-        # print(f'LIST RIGHT FEATURE CTC LESS PLUS: {[f for f in list_right_feature_ctc_less_plus]}')
+        print(f'LIST RIGHT FEATURE CTC LESS PLUS: {[f for f in list_right_feature_ctc_less_plus]}')
 
 
         left_feature_name_ctc = utils.get_left_feature_name(instance)
@@ -76,7 +76,7 @@ class EliminationSimpleConstraintsExcludes(FMRefactoring):
         if hasattr(model, 'dict_references'):
             list_left_feature_ctc_less_plus += [key for key, value in model.dict_references.items() 
                                                 if value.name == left_feature_name_ctc]
-        # print(f'LIST LEFT FEATURE CTC LESS PLUS: {[f for f in list_left_feature_ctc_less_plus]}')
+        print(f'LIST LEFT FEATURE CTC LESS PLUS: {[f for f in list_left_feature_ctc_less_plus]}')
 
 
         for f_right_less in list_right_feature_ctc_less:
@@ -125,10 +125,8 @@ class EliminationSimpleConstraintsExcludes(FMRefactoring):
                 r.name = f'{utils.get_new_feature_name(model, r.name)}{count}'
                 count += 1
 
-        model_less = utils.remove_abstract_leaf_without_constraint(model_less)
-        UVLWriter(model, f"model_less_{instance}.uvl").transform()
-        model_less_plus = utils.remove_abstract_leaf_without_constraint(model_less_plus)
-        UVLWriter(model, f"model_less_plus{instance}.uvl").transform()
+        model_less = utils.remove_abstract_leaf_without_reference(model_less)
+        model_less_plus = utils.remove_abstract_leaf_without_reference(model_less_plus)
 
         # Construct T(-B) and T(-A+B).
         if model_less is not None and model_less_plus is not None:
