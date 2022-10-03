@@ -5,7 +5,7 @@ from typing import Optional
 from xml.etree.ElementTree import tostring
 
 from flask import Flask, flash, render_template, request, redirect, send_from_directory, url_for, session, make_response
-from flask_cors import CORS, cross_origin
+from flask_cors import CORS
 from flask_sqlalchemy import SQLAlchemy
 #from flask_session import Session
 from werkzeug.utils import secure_filename
@@ -58,10 +58,6 @@ app.config['SECRET_KEY'] = b'_5#y2L"F4Q8z\n\xec]/'
 cache.set("my_value", 1_000_000)
 my_value = cache.get("my_value")
 
-<<<<<<< HEAD
-=======
-#db.create_all()
->>>>>>> 0b1417a263b45357ae3339df9c7f6e1e1ad72e36
 
 
 def allowed_file(filename):
@@ -98,7 +94,6 @@ def read_fm_file(filename: str) -> Optional[FeatureModel]:
 
 #order : saveFM;downloadFM;deleteFM;createFM;
 
-@cross_origin
 @app.route('/refactor', methods=['POST'])
 def refactor():
     # codigo = request.form['session']
@@ -147,7 +142,6 @@ def refactor():
     return None
 
 
-@cross_origin
 @app.route('/uploadFM', methods=['POST'])
 def upload_feature_model():
     if request.method == 'POST':
