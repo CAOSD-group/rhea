@@ -9,6 +9,8 @@ import * as saveAs from 'file-saver';
 import {TooltipPosition} from '@angular/material/tooltip';
 import { Refactoring } from './components/refactor/refactoring';
 import {drawFMFactLabel as fm} from './fm_fact_label.js';
+import { valHooks } from 'jquery';
+import { elementAt } from 'rxjs';
 
 
 
@@ -25,7 +27,7 @@ var listnamesconstraints:Array<string>=[]
 var listnamestext:Array<string>=[]
 var json:string
 var refactor:Refactoring =new Refactoring()
-
+let my_session=""
 
 
 @Component({
@@ -81,7 +83,8 @@ export class AppComponent {
   npos:number=-1;
   myfile:any
   documents:string[]= ['GPL.xml', 'JHipster.uvl', 'MobileMedia.xml', 'Pizzas.uvl','Pizzas.json', 'TankWar.xml', 'Truck.uvl','WeaFQAs.uvl','Automotive2_1-basic.uvl'];
-
+  listOfTypes=["XOR","OR","MUTEX","CARDINALITY","FEATURE"]
+  visibleships=false
 constructor(private http: HttpClient ,public dialog: MatDialog) { }  
 
 
@@ -133,22 +136,22 @@ sendUVL(uvl:any){
 
 Refactor(typeref:string){
   let object
+  console.log(my_session)
   const formData: FormData = new FormData();
   if( typeref!="all" &&( refactor==undefined ||refactor.name=="")){console.log("no tiene refactoring")}
   else{
     if(typeref=="node"){object=this.actual.name}
     if(typeref=="cons"){object=listnamesconstraints[this.npos]}
-    
     if(typeref=="node"||typeref=="cons"){
-      const httpOptions = {
-      headers: new HttpHeaders({
-      })
-    };
+
     formData.append('refactoring_id',refactor.id);
     formData.append('instance_name',object);
+    formData.append('fm_hash',my_session);
     console.log(refactor.id)
+    console.log(refactor)
     this.http.post(this.urlrefactor,formData,{ withCredentials:true,responseType:'text'}).subscribe(resultado => {
-    console.log(resultado)
+    this.CreateData(resultado)
+    json=resultado
   })}
   else {
     if(typeref=="all"){
@@ -158,7 +161,8 @@ Refactor(typeref:string){
       formData.append('refactoring_id',this.ListOfRefactors.toString());
       formData.append('instance_name',object);
       this.http.post(this.urlrefactor,formData,{ withCredentials:true,responseType:'text'}).subscribe(resultado => {
-      console.log(resultado)
+        this.CreateData(resultado)
+        json=resultado
     })
     }
     else{
@@ -182,7 +186,10 @@ CreateData(object:any,name?:string){
     console.log(this.title)
     jsonfeatures=aux.features,
     jsonconstraint=aux.constraints
+    console.log(aux)
+    console.log(aux.hash)
     jsonrefactors=aux.refactorings
+    my_session=aux.hash
     aux2=""
     let dictionary = Object.assign({}, object);
     for( const[key] of Object.entries(dictionary)){
@@ -219,7 +226,9 @@ CreateFile(text:string){
 //        Imagenes y simbolos
   
 
-
+ChangeType(ty:string){
+  this.type=ty;
+}
 ModifySelecction(){
   aux=this.actual.name
   if(this.actual.name!=this.name && this.actual.AvoidDuplicates(this.name)){
@@ -232,7 +241,7 @@ ModifySelecction(){
   if(this.actual.children.length<2){
   }
   else{
-  
+  this.actual.type=this.type
   if(this.actual.type=="CARDINALITY"){
   this.actual.card_max=this.card_max
   this.actual.card_min=this.card_min
@@ -393,7 +402,20 @@ readThis(inputValue: any): void {
     this.actualfather=this.GetFather(this.actual,this.tree)
     console.log(this.actual)
   }
- 
+
+  deleteAttribtues(value:any){
+    console.log(value)
+    this.actual.attributes?.forEach(element => {
+      if(element.name==value.name && element.value==value.value){
+        this.actual.attributes?.splice(this.actual.attributes?.indexOf(element),1)
+      }
+    });
+  }
+  CreateAttribtues(){
+    let newvalue={name:"new name",value:"new value"}
+    this.actual.attributes?.push(newvalue)
+    console.log(this.actual.attributes)
+  }
 
   SelectCons(object:any){
     this.GetFatherCons(object)
@@ -589,22 +611,29 @@ return [bool,text]
 
 
 SymbolPerType(nodechild:FMTree){ 
-  let symbol="../assets/img/mandatory.gif"
-  let text="mandatory"
+  let symbol=""
+  let text=""
+  let symbol2=""
+  let text2=""
 
   if(this.GetFather(nodechild,this.tree)==undefined){symbol="../assets/img/featuretree.ico";text="root"}
   else{
     if(nodechild.type.toUpperCase().startsWith("FEATURE")){
       if(nodechild.optional){ symbol="../assets/img/optional.gif";text="optional"}
       else{symbol="../assets/img/mandatory.gif";text="mandatory"}
-      
+      return [symbol,text]
     }
+    else{
     if(nodechild.type=="OR"){symbol="../assets/img/or.gif";text="or <1..*>"}
     if(nodechild.type=="XOR"){symbol="../assets/img/xor.gif";text="xor <1..1>"}
     if(nodechild.type=="MUTEX"){symbol="../assets/img/mutex.gif";text="mutex  <0..1>"}
     if(nodechild.type=="CARDINALITY"){symbol="../assets/img/cardinality.gif";text="cardinality " +nodechild.card_min+".."+nodechild.card_max}
-    if(nodechild.type!="OR"&& nodechild.type!="CARDINALITY"&&nodechild.type!="MUTEX"&& nodechild.type!="XOR" && !nodechild.type.toUpperCase().startsWith("FEATURE") )
-    {symbol="../assets/img/icon_error.gif";text="error"}
+    if(text=="" && symbol==""){symbol="../assets/img/icon_error.gif";text="error"}
+
+    if(nodechild.optional){ symbol2="../assets/img/optional.gif";text2="optional"}
+      else{symbol2="../assets/img/mandatory.gif";text2="mandatory"}
+    return [symbol,text,symbol2,text2]
+  }
   }
   return [symbol,text]
 }

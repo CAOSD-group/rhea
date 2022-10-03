@@ -126,12 +126,12 @@
               </div>
               <div class="col-1"></div>
               <div class="col col-sm-1">
-                <button class="marginnegative" mat-menu-item [matMenuTriggerFor]="menu3" >
+                <button class="marginnegative" mat-menu-item [matMenuTriggerFor]="menumodel" >
                   <mat-icon >more_vert</mat-icon> 
                 </button>
               </div>
             </div>
-            <mat-menu #menu3="matMenu">
+            <mat-menu #menumodel="matMenu">
               <a (click)="returnValues()">Get</a>
               <hr>
               <a (click)="SaveJson()">Download .json</a>
@@ -163,8 +163,12 @@
                     </button>
                   </div>
                   <div class="symbols">
+                    <img src={{SymbolPerType(node)[2]}} #tooltip="matTooltip"  matTooltip={{SymbolPerType(node)[3]}}>
+                  </div>
+                  <div class="symbols">
                     <img src={{SymbolPerType(node)[0]}} #tooltip="matTooltip"  matTooltip={{SymbolPerType(node)[1]}}>
                   </div>
+                  
                   <button mat-icon-button [matMenuTriggerFor]="menu" (click)= 'select(node)'>
                       <mat-icon class="mat-icon-rtl-mirror">
                         more_vert
@@ -178,21 +182,22 @@
                 </ul> 
                 <!-- Menu Features Tree -->
                 <mat-menu #menu="matMenu">
-                  <a data-bs-toggle="modal" href="#sidebar0">Edit values</a>
+                  <a data-bs-toggle="modal" href="#sidebareditvalues">Edit values</a>
                   <hr>
-                  <a data-bs-toggle="modal" href="#sidebar1">Create a child</a>
+                  <a data-bs-toggle="modal" href="#sidebarcreatechild">Create a child</a>
                   <hr>
-                  <a data-bs-toggle="modal" href="#sidebar2">Create brother</a>
+                  <a data-bs-toggle="modal" href="#sidebarcreatebrother">Create brother</a>
                   <hr>
-                  <a data-bs-toggle="modal" href="#sidebar3">Delete branch</a>
+                  <a data-bs-toggle="modal" href="#sidebardeletebranch">Delete branch</a>
                   <div *ngIf="ToolTipRefa(node)[0]" #tooltip="matTooltip"  matTooltip={{ToolTipRefa(node)[1]}}>
                     <hr>
-                    <button class="buttonmenu2" mat-icon-button [matMenuTriggerFor]="menu5"(click) = "$event.stopPropagation()" >
-                      Refactoring
+                    <button class="buttonmenu2" mat-icon-button [matMenuTriggerFor]="menurefactortree"(click) = "$event.stopPropagation()" >
+                      Refactoring 
+                      <mat-icon>chevron_right</mat-icon>
                     </button>
                   </div>
                 </mat-menu>
-                <mat-menu #menu5="matMenu">
+                <mat-menu #menurefactortree="matMenu">
                   <mat-list class="mat-chip-list-stacked"  >
                     <mat-list-item *ngFor="let refac of ListOfRefactors" [hidden]='RefactorvisibleFeature(refac)'   >
                       <button class="buttonmenu2" (click)="SelectChipRefactor(refac,'node')" >{{refac.name}}</button>
@@ -238,7 +243,7 @@
                     <div>
                       <div class="text"> 
                         {{jsonconstraintTexto.indexOf(constrainTexto)+1+". "}}
-                        <button mat-icon-button [matMenuTriggerFor]="menu4" >
+                        <button mat-icon-button [matMenuTriggerFor]="menuoptionsconstraintext" >
                           <mat-icon class="mat-icon-rtl-mirror" *ngIf="SymbolPerTypeCons(constrainTexto)[0]">
                             more_vert
                           </mat-icon>
@@ -249,19 +254,22 @@
                   </mat-list-option>   
                 </mat-selection-list>
               </cdk-virtual-scroll-viewport>
-              <mat-menu #menu4="matMenu">
+              <mat-menu #menuoptionsconstraintext="matMenu">
+                <button class="buttonmenu2" mat-icon-button [matMenuTriggerFor]="menurefactorcons"(click) = "$event.stopPropagation()" >
+                  Refactoring 
+                  <mat-icon>chevron_right</mat-icon>
+                </button>
+              </mat-menu> 
+              <mat-menu #menurefactorcons="matMenu">
                 <mat-list class="mat-chip-list-stacked"  >
-                  <mat-list-item *ngFor="let ref of ListOfRefactors" [hidden]='RefactorvisibleCons(ref)'   >
-                    <button class="buttonmenu2" (click)="SelectChipRefactor(ref,'cons')">{{ref.name}}</button>
+                  <mat-list-item *ngFor="let refac of ListOfRefactors" [hidden]='RefactorvisibleCons(refac)'   >
+                    <button class="buttonmenu2" (click)="SelectChipRefactor(refac,'cons')" >{{refac.name}}</button>
                   </mat-list-item >
                 </mat-list>
-              </mat-menu>  
+              </mat-menu>
               </div>
             </div>
           </div>
-          <mat-menu #menu2="matMenu">
-            <a data-bs-toggle="modal" href="#sidebar10">Options</a>
-          </mat-menu>  
           <div class="col-6">
             <div class="card block">
               <!-- Constraints Tree -->
@@ -286,15 +294,15 @@
                         </button>
                       </div>
                       {{constrainnode.type}} 
-                      <button mat-menu-item [matMenuTriggerFor]="menu2" (click)= 'SelectCons(constrainnode)'>
+                      <button mat-menu-item [matMenuTriggerFor]="menuoptionsconstraintree" (click)= 'SelectCons(constrainnode)'>
                         <mat-icon>more_vert</mat-icon>
                       </button> 
                     </div>
                     <div [class.example-tree-invisible]="!constraintreeControl.isExpanded(constrainnode)" role="group">
                       <ng-container matTreeNodeOutlet></ng-container> 
                     </div>
-                    <mat-menu #menu2="matMenu">
-                      <a data-bs-toggle="modal" href="#sidebar10">Options</a>
+                    <mat-menu #menuoptionsconstraintree="matMenu">
+                      <a data-bs-toggle="modal" href="#sidebaroptionsconstraintree">Options</a>
                     </mat-menu>  
                   </mat-nested-tree-node>
                 </mat-tree>
@@ -311,7 +319,7 @@
 
 <!--Modal Tree-->
 <!-- Modal Modify values-->
-<div class="modal fade" id="sidebar0" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="sidebareditvalues" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 	<div class="modal-dialog modal-lg">
 		<div class="modal-content">
 			<div class="modal-header">
@@ -323,8 +331,16 @@
           <h5>Name
           <input matInput  type="string" [(ngModel)]="name"></h5>
           <hr>
-          <h5>Type
-          <input matInput  type="string" [(ngModel)]="type" disabled="true"></h5>
+          <h5>Type:
+            {{type}}
+            <button class="empty" (click)="visibleships=!visibleships">
+            <mat-icon class="mat-icon-rtl-mirror">
+              {{visibleships ? 'expand_more' : 'chevron_right'}}
+            </mat-icon></button>
+            <mat-list [hidden]="!visibleships">
+              <mat-option *ngFor="let chip of listOfTypes" (click)="visibleships=!visibleships" (click)="ChangeType(chip)">{{chip}}</mat-option>
+            </mat-list>
+          </h5>
           <hr>
           <h5 [hidden]="cardhidden()[0]">Card_max
           <input matInput  type="number" [(ngModel)]="card_max" disabled={{cardhidden()[1]}}>
@@ -336,10 +352,16 @@
           <hr>
           <mat-checkbox  color="primary" [(ngModel)]="abstract" ></mat-checkbox> abstract
           <hr>
-          <h5>Attributes</h5>
+          <h5>Attributes (name: value)
+          <button class="empty" (click)="CreateAttribtues()" >
+            <mat-icon class="mat-icon-rtl-mirror">add</mat-icon>
+          </button></h5>
           <div *ngFor="let valor of attributes"  >
             <input type="string" [(ngModel)]="valor.name">
             <input type="string" [(ngModel)]="valor.value">
+            <button class="empty" (click)="deleteAttribtues(valor)">
+              <mat-icon class="mat-icon-rtl-mirror">clear</mat-icon>
+            </button>
           </div>
           <hr>
           <h2>Save Changes</h2>
@@ -353,7 +375,7 @@
 	</div>
 </div>
 <!-- Modal Create children-->
-<div class="modal fade" id="sidebar1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="sidebarcreatechild" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg">
 	  <div class="modal-content">
 	    <div class="modal-header">
@@ -375,7 +397,7 @@
 	</div>
 </div>
 <!-- Modal Create brother -->
-<div class="modal fade" id="sidebar2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="sidebarcreatebrother" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg">
 	  <div class="modal-content">
 		  <div class="modal-header">
@@ -395,7 +417,7 @@
 	</div>
 </div>
 <!-- Modal Delete-->
-<div class="modal fade" id="sidebar3" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="sidebardeletebranch" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
 		  <div class="modal-header">
@@ -414,59 +436,9 @@
 	  </div>
   </div>
 </div>
-<!-- Modal Refactoring Feature-->
-<div class="modal fade" id="sidebar4" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-lg">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h2 class="modal-title" id="exampleModalLabel">Refactoring</h2>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <div class="col-10">
-          <h4>Select one to Proceed</h4>
-          <mat-chip-list class="mat-chip-list-stacked"  >
-            <mat-chip *ngFor="let ref of ListOfRefactors" [hidden]='RefactorvisibleFeature(ref)' data-bs-dismiss="modal" (click)="SelectChipRefactor(ref,'node')" >
-              {{ref.name}}
-            </mat-chip>
-          </mat-chip-list>
-        </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Go back</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- Modal Refactoring Constraint-->
-<div class="modal fade" id="sidebar5" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-lg">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h2 class="modal-title" id="exampleModalLabel">Refactoring</h2>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <div class="col-10">
-          <h4>Select one to Proceed</h4>
-          <mat-chip-list class="mat-chip-list-stacked"  >
-            <mat-chip *ngFor="let ref of ListOfRefactors" [hidden]='RefactorvisibleCons(ref)' data-bs-dismiss="modal" (click)="SelectChipRefactor(ref,'cons')" >
-              {{ref.name}}
-            </mat-chip>
-          </mat-chip-list>
-        </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Go back</button>
-      </div>
-    </div>
-  </div>
-</div>
-
 
 <!--Modal Constraint-->
-<div class="modal fade" id="sidebar10" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="sidebaroptionsconstraintree" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">

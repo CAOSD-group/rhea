@@ -51,6 +51,7 @@ class JSONWriter(ModelToText):
 def _to_json(feature_model: FeatureModel) -> dict[str, Any]:
     result: dict[str, Any] = {}
     result['name'] = f'FM_{feature_model.root.name}'
+    result['hash'] = str(hash(feature_model))
     result['features'] = _get_tree_info(feature_model.root)
     result['constraints'] = _get_constraints_info(feature_model.get_constraints())
     result['refactorings'] = _get_refactorings_info(feature_model)
