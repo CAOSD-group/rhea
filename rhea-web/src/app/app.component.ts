@@ -778,6 +778,8 @@ TransformJSON(){
   }
   jsonfeatures= '"name"'+':"'+this.title+'",'+'"features"'+':'+ jsonfeatures
   aux=0
+  if(listnamesconstraints.length<listnamestext.length){
+  alert("not enough names, so new ones are given, Refactoring may fail if not checked")
   aux2=listnamesconstraints[listnamesconstraints.length-1]
   if(aux2==undefined){aux2="CTC1"}
   else{listnamesconstraints.splice(0,listnamesconstraints.length)}
@@ -792,7 +794,7 @@ TransformJSON(){
   }
   aux3=aux3+(listnamesconstraints.length+1)
   listnamesconstraints.push(aux3)
-}
+}}
   aux=0
   aux2=""
   while (aux<listnamestext.length){
@@ -866,7 +868,7 @@ SaveUVL() {
 }
 @Component({
   selector: 'dialog-content-example-dialog',
-  templateUrl: './dialog-content-example-dialog.html',
+  templateUrl: './pages_web/dialog-content-example-dialog.html',
 })
 export class DialogContentExampleDialog {
  

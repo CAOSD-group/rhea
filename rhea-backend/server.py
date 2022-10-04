@@ -110,9 +110,7 @@ def refactor():
         fm_hash = request.form['fm_hash']
         class_name = request.form['refactoring_id']
         instance_name = request.form['instance_name']
-        print(fm_hash)
         fm = cache.get(fm_hash)
-        print(fm)
         if fm is None:
             print('FM expired.')
             return None
@@ -132,10 +130,11 @@ def refactor():
             return None
         fm = class_.transform(fm, instance)
         #session[FEATURE_MODEL_SESSION] = fm
-        fm_hash = hash(fm)
-        cache.set(fm_hash, fm)
+        
         json_fm = JSONWriter(path=None, source_model=fm).transform()
         response = make_response(json_fm)
+        fm_hash = hash(fm)
+        cache.set(str(fm_hash), fm)
         #response.headers.add('Access-Control-Allow-Headers', "Origin, X-Requested-With, Content-Type, Accept, x-auth")
         #response.set_cookie(key='FM', value=str(fm_hash))
         return response

@@ -37,7 +37,7 @@
   <script src="js/FileSaver.js"></script>
 
 <!-- ======= Header ======= -->
-<header id="header" class="header fixed-top d-flex align-items-center">
+<header id="header" class="header  d-flex align-items-center">
   <div class="d-flex align-items-center justify-content-between">
     <a  class="logo d-flex align-items-center">
       <span class="d-none d-lg-block">RheaWeb</span>
@@ -82,9 +82,11 @@
 </header>
 <!-- End Header -->
 <!-- ======= Sidebar ======= -->
-<mat-drawer-container autosize>
-  <mat-drawer  #drawer id="sidebar" class="sidebar" mode="side" >
-    <ul class="sidebar-nav" id="sidebar-nav">
+<mat-drawer-container class="example-container" autosize>
+  
+<mat-drawer #drawer  mode="side">
+<div class="card-body">
+ <ul class="sidebar-nav" id="sidebar-nav">
       <li class="nav-item">
         <h2>Select Document </h2>
       </li>
@@ -110,11 +112,16 @@
       </li>
     <input class="margin" type="text" [(ngModel)]="title">
     </ul>
-  </mat-drawer>
-</mat-drawer-container>
+
+</div>
+
+</mat-drawer>
+
 
 <!-- Main Page -->
-<main id="main" class="main">
+
+<div></div>
+<main id="" class="">
   <section class="section dashboard">
     <div class="row">
       <div class="col-lg-6">
@@ -315,6 +322,60 @@
   </section>
 </main>
 
+<!--  -->
+<div class="col-xl-6 col-lg-7">
+  <div class="card shadow mb-4">
+
+      <div
+          class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+          <h6 class="m-0 font-weight-bold text-primary">FM Fact Label</h6>
+          <div class="dropdown no-arrow">
+              <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+                  data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+              </a>
+              <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
+                  aria-labelledby="dropdownMenuLink">
+                  <div class="dropdown-header">Save as...</div>
+                  <a class="dropdown-item" id="saveSVG" href="#">SVG</a>
+                  <a class="dropdown-item" id="savePNG" href="#">PNG</a>
+
+                  <div class="dropdown-divider"></div>
+                  <div class="dropdown-header">Export to...</div>
+                  <a class="dropdown-item" id="saveJSON" href="#">JSON</a>
+                  <a class="dropdown-item" id="saveTXT" href="#">Plain text</a>
+              </div>
+          </div>
+      </div>
+ 
+      <div class="card-body">
+          <h6 class="h6">Label configuration:</h6>
+          <div class="mt-0 small">
+             
+              <div class="form-check form-switch">
+                  <span class="me-2">
+                          <input class="form-check-input" type="checkbox" id="collapseSubProperties" checked>
+                          <label class="form-check-label" for="collapseSubProperties">Collapse/Expand sub-properties</label>
+                  </span>
+              </div>
+              <div class="form-check form-switch">
+                  <span class="me-2">
+                          <input class="form-check-input" type="checkbox" id="collapseZeroValues">
+                          <label class="form-check-label" for="collapseZeroValues">Collapse/Expand sub-properties with zero values</label>
+                  </span>
+              </div>
+          </div>
+      </div>
+      
+      <div class="card-body">
+          <svg class="chart" id="FMFactLabelChart"></svg>
+      </div>
+  </div>
+</div>
+</mat-drawer-container>
+
+
+
 
 
 <!--Modal Tree-->
@@ -502,56 +563,6 @@
 
 
 
-<!--  -->
-                            <div class="col-xl-6 col-lg-7">
-                              <div class="card shadow mb-4">
-                       
-                                  <div
-                                      class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                      <h6 class="m-0 font-weight-bold text-primary">FM Fact Label</h6>
-                                      <div class="dropdown no-arrow">
-                                          <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
-                                              data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                              <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                                          </a>
-                                          <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
-                                              aria-labelledby="dropdownMenuLink">
-                                              <div class="dropdown-header">Save as...</div>
-                                              <a class="dropdown-item" id="saveSVG" href="#">SVG</a>
-                                              <a class="dropdown-item" id="savePNG" href="#">PNG</a>
-                           
-                                              <div class="dropdown-divider"></div>
-                                              <div class="dropdown-header">Export to...</div>
-                                              <a class="dropdown-item" id="saveJSON" href="#">JSON</a>
-                                              <a class="dropdown-item" id="saveTXT" href="#">Plain text</a>
-                                          </div>
-                                      </div>
-                                  </div>
-                             
-                                  <div class="card-body">
-                                      <h6 class="h6">Label configuration:</h6>
-                                      <div class="mt-0 small">
-                                         
-                                          <div class="form-check form-switch">
-                                              <span class="me-2">
-                                                      <input class="form-check-input" type="checkbox" id="collapseSubProperties" checked>
-                                                      <label class="form-check-label" for="collapseSubProperties">Collapse/Expand sub-properties</label>
-                                              </span>
-                                          </div>
-                                          <div class="form-check form-switch">
-                                              <span class="me-2">
-                                                      <input class="form-check-input" type="checkbox" id="collapseZeroValues">
-                                                      <label class="form-check-label" for="collapseZeroValues">Collapse/Expand sub-properties with zero values</label>
-                                              </span>
-                                          </div>
-                                      </div>
-                                  </div>
-                                  
-                                  <div class="card-body">
-                                      <svg class="chart" id="FMFactLabelChart"></svg>
-                                  </div>
-                              </div>
-                          </div>
 
                      
 

@@ -3,6 +3,9 @@ import{Const} from './components/constraint/const';
 import { FMTree } from './components/FMTree/FMTree';
 import { Refactoring } from './components/refactor/refactoring';
 
+import {DialogContentExampleDialog} from './app.component'
+
+
 import {MatTreeModule} from '@angular/material/tree';
 import {MatIconModule} from '@angular/material/icon';
 import {MatCheckboxModule} from '@angular/material/checkbox';
@@ -31,6 +34,7 @@ import {MatTooltipModule} from '@angular/material/tooltip';
     AppComponent,
     FMTree,
     Const, 
+    DialogContentExampleDialog,
     Refactoring, 
   ],
 
