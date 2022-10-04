@@ -22,7 +22,7 @@ def get_left_feature_name(instance: Constraint) -> str:
     return left_feature_name_ctc
 
 def remove_abstract_leaf_without_reference(model: FeatureModel) -> FeatureModel:
-    '''Removes all abstract LEAF nodes without contraint (before joining subtrees)'''
+    '''Removes all abstract LEAF which richt feature is not in tree (before joining subtrees)'''
     model_if_none = model
     if model is not None:
         for feat in model.get_features():
@@ -35,6 +35,18 @@ def remove_abstract_leaf_without_reference(model: FeatureModel) -> FeatureModel:
         model = model_if_none
     return model
 
+# def remove_abstract_leaf_without_constraint(model: FeatureModel) -> FeatureModel:
+#     '''Removes all abstract LEAF nodes without contraint (after joining subtrees)'''
+#     model_if_none = model
+#     if model is not None:
+#         for feat in model.get_features():
+#             if feat.is_leaf() and feat.is_abstract:
+#                 for ctc in model.get_constraints():
+#                     if feat in ctc.get_features():
+#                         pass
+#     if model is None:
+#         model = model_if_none
+#     return model
 
 
 def get_new_feature_name(fm: FeatureModel, name: str) -> str:

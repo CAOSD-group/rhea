@@ -9,6 +9,7 @@ from typing import Any, List
 
 from flamapy.core.models.ast import AST, ASTOperation, Node
 from flamapy.metamodels.fm_metamodel.models import FeatureModel, Feature, Relation, Constraint
+from flamapy.metamodels.fm_metamodel.transformations import UVLWriter
 
 from rhea.metamodels.fm_metamodel.models import FM, ConstraintHelper
 from rhea.refactorings import FMRefactoring
@@ -65,13 +66,13 @@ class EliminationSimpleConstraintsRequires(FMRefactoring):
             list_right_feature_ctc_plus += [key for key, value in model.dict_references.items() 
                                             if value.name == right_feature_name_ctc]
         xor_plus = Feature(utils.get_new_feature_name(model_plus, 'XOR'), is_abstract=True)
-        # print(f'LIST RIGHT FEATURE CTC PLUS: {[f for f in list_right_feature_ctc_plus]}')
+        print(f'LIST RIGHT FEATURE CTC PLUS: {[f for f in list_right_feature_ctc_plus]}')
 
         list_right_feature_ctc_less = [right_feature_name_ctc]
         if hasattr(model, 'dict_references'):
             list_right_feature_ctc_less += [key for key, value in model.dict_references.items() 
                                             if value.name == right_feature_name_ctc]
-        # print(f'LIST RIGHT FEATURE CTC LESS: {[f for f in list_right_feature_ctc_less]}')
+        print(f'LIST RIGHT FEATURE CTC LESS: {[f for f in list_right_feature_ctc_less]}')
 
         left_feature_name_ctc = utils.get_left_feature_name(instance)
         
@@ -79,12 +80,13 @@ class EliminationSimpleConstraintsRequires(FMRefactoring):
         if hasattr(model, 'dict_references'):
             list_left_feature_ctc_less += [key for key, value in model.dict_references.items() 
                                            if value.name == left_feature_name_ctc]
-        # print(f'LIST LEFT FEATURE CTC LESS: {[f for f in list_left_feature_ctc_less]}')
+        xor_less = Feature(utils.get_new_feature_name(model_less, 'XOR'), is_abstract=True)
+        print(f'LIST LEFT FEATURE CTC LESS: {[f for f in list_left_feature_ctc_less]}')
 
         plus_roots = []
         for f_plus in list_right_feature_ctc_plus:
             new_model_plus = copy.deepcopy(model)
-            if hasattr(model, 'dict_references') and f_plus in model.dict_references.keys() and new_model_plus is not None:
+            if f_plus in model.dict_references.keys() and new_model_plus is not None:
                 new_f_plus = new_model_plus.get_feature_by_name(f_plus)
                 new_model_plus = utils.add_node_to_tree(new_model_plus, new_f_plus)
                 if new_model_plus is not None:
@@ -116,11 +118,52 @@ class EliminationSimpleConstraintsRequires(FMRefactoring):
 
         # print(f'T(+{list_right_feature_ctc_plus}): {model_plus}')
 
+        # for f_left_less in list_left_feature_ctc_less:
+        #     if model_less is not None:
+        #         feature_left_less = model_less.get_feature_by_name(f_left_less)
+        #         model_less = utils.eliminate_node_from_tree(model_less, feature_left_less)
+        #     # print(f'T(-{f_left_less}): {model_less}')
+
+
+
+        new_model_less = copy.deepcopy(model_less)
+
+        left_less_roots = []
         for f_left_less in list_left_feature_ctc_less:
+            left_new_model_less = copy.deepcopy(new_model_less)
+            if f_left_less in model.dict_references.keys() and left_new_model_less is not None:
+                new_f_less = left_new_model_less.get_feature_by_name(f_left_less)
+                model_less = utils.eliminate_node_from_tree(left_new_model_less, new_f_less)
+            elif model_less is not None:
+                feature_less = model_less.get_feature_by_name(f_left_less)
+                model_less = utils.eliminate_node_from_tree(model_less, feature_less)
             if model_less is not None:
-                feature_left_less = model_less.get_feature_by_name(f_left_less)
-                model_less = utils.eliminate_node_from_tree(model_less, feature_left_less)
-            # print(f'T(-{f_left_less}): {model_less}')
+                old_root = model_less.root
+                model_less = utils.remove_abstract_child(model_less, old_root)
+                if old_root != model_less.root:
+                    new_rel = Relation(old_root, [model_less.root], 1, 1)  # mandatory
+                    old_root.add_relation(new_rel)
+                    model_less.root.parent = old_root
+                if model_less.root not in left_less_roots:
+                    left_less_roots.append(model_less.root)
+        # Joining all trees with XOR
+        if len(left_less_roots)>1:
+            r_xor_less = Relation(xor_less, left_less_roots, 1, 1)  # XOR
+            xor_less.add_relation(r_xor_less)
+            for child in left_less_roots:
+                child.parent = xor_less
+            if model_less is not None:
+                model_less.root = xor_less
+            else:
+                model_less = FeatureModel(xor_less, new_model_less.ctcs)
+            count = 1
+            for r in xor_less.get_children():
+                r.name = f'{utils.get_new_feature_name(model, r.name)}{count}'
+                count += 1
+
+
+
+
 
         for f_right_less in list_right_feature_ctc_less:
             if model_less is not None:
@@ -128,8 +171,14 @@ class EliminationSimpleConstraintsRequires(FMRefactoring):
                 model_less = utils.eliminate_node_from_tree(model_less, feature_right_less)
             # print(f'T(-{f_right_less}): {model_less}')
 
-        # model_plus = utils.remove_abstract_leaf_without_reference(model_plus)
-        # model_less = utils.remove_abstract_leaf_without_reference(model_less)
+
+
+
+
+
+
+        model_plus = utils.remove_abstract_leaf_without_reference(model_plus)
+        model_less = utils.remove_abstract_leaf_without_reference(model_less)
 
         # Construct T(+B) and T(-A-B).
         if model_plus is not None and model_less is not None:
@@ -169,5 +218,7 @@ class EliminationSimpleConstraintsRequires(FMRefactoring):
 
         print(f'MODEL DICT REQUIRES - after: {[(name, value.name) for name, value in model.dict_references.items()]}')
         # print(f'MODEL REQUIRES after: {model}')
+
+        UVLWriter(model, f"requires{instance}.uvl").transform()
         
         return model

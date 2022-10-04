@@ -38,7 +38,7 @@ REFACTORING_SPLIT = SplitConstraint
 REFACTORING_COMPLEX = EliminationComplexConstraints
 REFACTORING_REQUIRES = EliminationSimpleConstraintsRequires
 REFACTORING_EXCLUDES = EliminationSimpleConstraintsExcludes
-MODEL_PATH = 'tests/models/eliminate_any_ctcs/input_models/Pizzas_any_ctcs3.uvl'
+MODEL_PATH = 'tests/models/requires/input_models/Pizzas3.uvl'
 OUTPUT_PATH = os.path.basename(MODEL_PATH)
 ##################################################################################################
 
@@ -90,7 +90,9 @@ def print_statistics(fm: FeatureModel) -> None:
         products = fm_utils.filter_products_from_dict(fm, configurations)
         print(f'Products:')
         for i, p in enumerate(products, 1):
-            print(f'P{i}: {[str(f) for f in p]}')
+            features_list = [str(f) for f in p]
+            features_list.sort()
+            print(f'P{i}: {features_list}')
         print('----------')
 
 
@@ -101,8 +103,8 @@ def main():
     print_statistics(fm)
     
     print('==================================================')
-    print(f'Applying the refactoring {REFACTORING_ANY_CTCS.get_name()}...')
-    fm = apply_refactoring(fm, REFACTORING_ANY_CTCS)
+    print(f'Applying the refactoring {REFACTORING_REQUIRES.get_name()}...')
+    fm = apply_refactoring(fm, REFACTORING_REQUIRES)
     print('==================================================')
 
     # print('==================================================')
