@@ -10,6 +10,7 @@ from flamapy.metamodels.pysat_metamodel.operations import (
 )
 
 from flamapy.metamodels.fm_metamodel.models import FeatureModel, Feature, Relation, Constraint
+from rhea.refactorings import FMRefactoring
 
 from rhea.refactorings import utils
 
@@ -42,23 +43,48 @@ class RawDataCSVWriter(ModelToText):
 
 def data_to_csv(feature_model: FeatureModel, fm_name: str) -> str:
     FM_STR = 'FM'
-    RUN_STR = 
-    FEATURES_STR = 
-    FEATURES_REFACTORED_STR = 
+    RUN_STR = 'Run'
+    FEATURES_STR = 'Features'
+    FEATURES_REFACTORED_STR = 'Features Refactored'
+    CONSTRAINTS_STR = 'Constraints'
+    CONSTRAINTS_REFACTORED_STR = 'Constraints refactored'
+    PERFORMANCE_STR = 'Performance'
+    SCALABILITY_STR = 'Scalability'
+    NATURALNESS_STR = 'Naturalness'
+    CORRECTNESS_STR = 'Correctness'
+    COMPLETENESS_STR = 'Completeness'
+
+    HEADER = [FM_STR, RUN_STR, FEATURES_STR, FEATURES_REFACTORED_STR, CONSTRAINTS_STR, CONSTRAINTS_REFACTORED_STR]
+
+   
     
 
-    
-    for c in configurations:
-        row = ','.join((str(f.name in c) for f in features_list))
-        if len(header_attr)>=1:
-            if fm_name == 'Pizzas_config_attr':
-                row = row + ',' + ','.join([str(random.randint(1, 1000)) for i in range(n_attr)])
-            elif fm_name == 'VNS_config_attr':
-                attributes = []
-                for i in range(n_attr):
-                    attributes.append(str(random.randint(1, 1000)))
-                row = row + ',' + ','.join(attributes)
-            else:
-                row = row + ',' + ','.join([str(random.randint(1, 1000)) for i in range(n_attr)])
-        result += f'\n{row}'
+    result += f'\n{row}'
     return result
+
+def get_content(fm : FeatureModel, fm_refact: FeatureModel, fm_name: str, run: int) -> str:
+
+    list_row = [fm_name, str(run), len(fm.get_features()), len(fm_refact.get_features()), 
+                len(fm.get_constraints()), len(fm_refact.get_constraints())]
+
+
+
+
+    row = ','.join((str(f.name in c) for f in features_list))
+    if len(header_attr)>=1:
+        if fm_name == 'Pizzas_config_attr':
+            row = row + ',' + ','.join([str(random.randint(1, 1000)) for i in range(n_attr)])
+        elif fm_name == 'VNS_config_attr':
+            attributes = []
+            for i in range(n_attr):
+                attributes.append(str(random.randint(1, 1000)))
+            row = row + ',' + ','.join(attributes)
+        else:
+            row = row + ',' + ','.join([str(random.randint(1, 1000)) for i in range(n_attr)])
+    return row
+
+def execution_refactoring(fm: FeatureModel, refactoring: FMRefactoring) -> FeatureModel:
+    instances = refactoring.get_instances(fm)
+    for i in instances:
+        fm = refactoring.transform(fm, i)
+    return fm
