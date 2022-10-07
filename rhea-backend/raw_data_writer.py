@@ -12,6 +12,17 @@ from flamapy.metamodels.pysat_metamodel.operations import (
 from flamapy.metamodels.fm_metamodel.models import FeatureModel, Feature, Relation, Constraint
 from rhea.refactorings import FMRefactoring
 
+from rhea.refactorings.mutex_group_refactoring import MutexGroupRefactoring
+from rhea.refactorings.cardinality_group_refactoring import CardinalityGroupRefactoring
+from rhea.refactorings.multiple_group_decomposition_refactoring import MultipleGroupDecompositionRefactoring
+from rhea.refactorings.xor_mandatory_refactoring import XorMandatoryRefactoring
+from rhea.refactorings.or_mandatory_refactoring import OrMandatoryRefactoring
+from rhea.refactorings.elimination_any_constraint import EliminationAnyConstraints
+from rhea.refactorings.split_constraint import SplitConstraint
+from rhea.refactorings.elimination_complex_constraints import EliminationComplexConstraints
+from rhea.refactorings.elimination_simple_ctcs_requires import EliminationSimpleConstraintsRequires
+from rhea.refactorings.elimination_simple_ctcs_excludes import EliminationSimpleConstraintsExcludes
+
 from rhea.refactorings import utils
 
 
@@ -54,33 +65,47 @@ def data_to_csv(feature_model: FeatureModel, fm_name: str) -> str:
     CORRECTNESS_STR = 'Correctness'
     COMPLETENESS_STR = 'Completeness'
 
-    HEADER = [FM_STR, RUN_STR, FEATURES_STR, FEATURES_REFACTORED_STR, CONSTRAINTS_STR, CONSTRAINTS_REFACTORED_STR]
+    HEADER = [FM_STR, RUN_STR, FEATURES_STR, FEATURES_REFACTORED_STR, 
+              CONSTRAINTS_STR, CONSTRAINTS_REFACTORED_STR]
 
-   
+    run = random.randint(20, 50)
+
+    REFACTORING_MUTEX = MutexGroupRefactoring
+    REFACTORING_CARDINALITY = CardinalityGroupRefactoring
+    REFACTORING_MULT_GROUP_DECOMP = MultipleGroupDecompositionRefactoring
+    REFACTORING_XOR_MAND = XorMandatoryRefactoring
+    REFACTORING_OR_MAND = OrMandatoryRefactoring
+    REFACTORING_ANY_CTCS = EliminationAnyConstraints
+    REFACTORING_SPLIT = SplitConstraint
+    REFACTORING_COMPLEX = EliminationComplexConstraints
+    REFACTORING_REQUIRES = EliminationSimpleConstraintsRequires
+    REFACTORING_EXCLUDES = EliminationSimpleConstraintsExcludes
+
+    list_refactorings = [REFACTORING_MUTEX, REFACTORING_CARDINALITY, REFACTORING_MULT_GROUP_DECOMP, 
+                   REFACTORING_XOR_MAND, REFACTORING_OR_MAND, REFACTORING_ANY_CTCS,
+                   REFACTORING_SPLIT, REFACTORING_COMPLEX, REFACTORING_REQUIRES, 
+                   REFACTORING_EXCLUDES]
     
+    refactoring = list_refactorings[random.randint(0,9)]
 
-    result += f'\n{row}'
+    for n_run in range(run):
+        row = get_content(feature_model, fm_name, n_run, refactoring)
+        result += f'\n{row}'
+    
     return result
 
-def get_content(fm : FeatureModel, fm_refact: FeatureModel, fm_name: str, run: int) -> str:
+def get_content(fm : FeatureModel, fm_name: str, n_run: int, refactoring: FMRefactoring) -> str:
 
-    list_row = [fm_name, str(run), len(fm.get_features()), len(fm_refact.get_features()), 
+    list_row = [fm_name, str(n_run), str(len(fm.get_features())), len(fm_refact.get_features()), 
                 len(fm.get_constraints()), len(fm_refact.get_constraints())]
 
+    fm_refact = execution_refactoring(fm, refactoring)
 
+    list_row.append(str(len(fm_refact.get_features())))
+    list_row.append(str(len(fm.get_constraints())))
+    list_row.append(str(len(fm_refact.get_constraints())))
 
-
-    row = ','.join((str(f.name in c) for f in features_list))
-    if len(header_attr)>=1:
-        if fm_name == 'Pizzas_config_attr':
-            row = row + ',' + ','.join([str(random.randint(1, 1000)) for i in range(n_attr)])
-        elif fm_name == 'VNS_config_attr':
-            attributes = []
-            for i in range(n_attr):
-                attributes.append(str(random.randint(1, 1000)))
-            row = row + ',' + ','.join(attributes)
-        else:
-            row = row + ',' + ','.join([str(random.randint(1, 1000)) for i in range(n_attr)])
+    row = ','.join(st for st in list_row)
     return row
 
 def execution_refactoring(fm: FeatureModel, refactoring: FMRefactoring) -> FeatureModel:
