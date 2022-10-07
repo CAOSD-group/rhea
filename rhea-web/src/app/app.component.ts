@@ -85,14 +85,20 @@ export class AppComponent {
   documents:string[]= ['GPL.xml', 'JHipster.uvl', 'MobileMedia.xml', 'Pizzas.uvl','Pizzas.json', 'TankWar.xml', 'Truck.uvl','WeaFQAs.uvl','Automotive2_1-basic.uvl'];
   listOfTypes=["XOR","OR","MUTEX","CARDINALITY","FEATURE"]
   visibleships=false
+  visible_Constraint_list=true;
+  text="Show Constraints"
+  bdrawer=true
 constructor(private http: HttpClient ,public dialog: MatDialog) { }  
 
 
 
 ngOnInit() {
   console.log("determinar diseño final")
-  console.log("¿¿mandar lista refactoring al JSON??")
-  console.log("cambiar comentarios a ingles o borrarlos")
+  console.log("contraint tree ocultarlo")
+  console.log("bottones options en constrin text")
+  console.log("attach file solo lo selecciona, siempre hay que usar send file")
+  console.log("boton para remarcar constrain por un lado y otro para features")
+  console.log("chips de features que tenga para escribir y buscar por nombre")
   this.returnValues("JHipster.uvl")
   
 }
@@ -138,37 +144,32 @@ Refactor(typeref:string){
   let object
   console.log(my_session)
   const formData: FormData = new FormData();
-  if( typeref!="all" &&( refactor==undefined ||refactor.name=="")){console.log("no tiene refactoring")}
+  if( typeref!="all" &&( refactor==undefined ||refactor.name=="")){console.log("error in type of refactor")}
   else{
-    if(typeref=="node"){object=this.actual.name}
-    if(typeref=="cons"){object=listnamesconstraints[this.npos]}
-    if(typeref=="node"||typeref=="cons"){
-
+    if(typeref=="node"){object=this.actual.name;formData.append('refactoring_id',refactor.id);}
+    if(typeref=="cons"){object=listnamesconstraints[this.npos];formData.append('refactoring_id',refactor.id);}
+    if(typeref=="all"){
+      this.TransformJSON();
+      object=json;
+      let my_refac=""
+      console.log(this.ListOfRefactors);
+      this.ListOfRefactors.forEach(element => {
+        my_refac=my_refac+element.id+";"
+      });
+      my_refac=my_refac.slice(0,-1)
+      formData.append('refactoring_id',my_refac);
+  }
+    if(typeref=="node"||typeref=="cons"||typeref=="all"){
+      
     formData.append('refactoring_id',refactor.id);
     formData.append('instance_name',object);
     formData.append('fm_hash',my_session);
-    console.log(refactor.id)
-    console.log(refactor)
     this.http.post(this.urlrefactor,formData,{ withCredentials:true,responseType:'text'}).subscribe(resultado => {
     this.CreateData(resultado)
     json=resultado
   })}
-  else {
-    if(typeref=="all"){
-      this.TransformJSON()
-      object=json
-      console.log(this.ListOfRefactors)
-      formData.append('refactoring_id',this.ListOfRefactors.toString());
-      formData.append('instance_name',object);
-      this.http.post(this.urlrefactor,formData,{ withCredentials:true,responseType:'text'}).subscribe(resultado => {
-        this.CreateData(resultado)
-        json=resultado
-    })
-    }
-    else{
-    console.log("error in type of refactor")
-  }}
 }
+console.log("error in type of refactor")
 }
 
 
@@ -186,8 +187,6 @@ CreateData(object:any,name?:string){
     console.log(this.title)
     jsonfeatures=aux.features,
     jsonconstraint=aux.constraints
-    console.log(aux)
-    console.log(aux.hash)
     jsonrefactors=aux.refactorings
     my_session=aux.hash
     aux2=""
@@ -403,22 +402,24 @@ readThis(inputValue: any): void {
     console.log(this.actual)
   }
 
-  deleteAttribtues(value:any){
-    console.log(value)
-    this.actual.attributes?.forEach(element => {
-      if(element.name==value.name && element.value==value.value){
-        this.actual.attributes?.splice(this.actual.attributes?.indexOf(element),1)
-      }
-    });
+
+  deleteAttributes(value:any){
+    setTimeout(() => {
+      this.actual.attributes?.forEach(element => {
+        if(element.name==value.name && element.value==value.value){
+          this.actual.attributes?.splice(this.actual.attributes?.indexOf(element),1)
+        }
+      });
+      },1)
   }
   CreateAttribtues(){
     let newvalue={name:"new name",value:"new value"}
     this.actual.attributes?.push(newvalue)
-    console.log(this.actual.attributes)
   }
 
   SelectCons(object:any){
     this.GetFatherCons(object)
+    if(this.cons.indexOf(object)!=-1){position=this.cons.indexOf(object)}
     this.consactual=object
     this.ncons=this.jsonconstraintTexto[position]
     this.npos=position
@@ -436,6 +437,7 @@ readThis(inputValue: any): void {
       });
     }else{
       this.consactualfather=cactualfather
+      position=this.cons.indexOf(this.consactualfather)
     }
   }
 
@@ -455,7 +457,6 @@ readThis(inputValue: any): void {
         }
         else{aux2++}
       }
-        console.log(aux)
         this.consactualfather.operands.splice(aux,1)
         this.jsonconstraintTexto[position]="New value at " +(position+1)+"º"
       }
@@ -474,14 +475,11 @@ readThis(inputValue: any): void {
   CreateListCons(){
     if(ListOfConstraint.length==2){
       ListOfConstraint[0].operands.push(ListOfConstraint[1]);
-      ListOfConstraint[0].operands.splice(0,1);
     }
     if(ListOfConstraint.length>2){
-      console.log(ListOfConstraint)
       
       ListOfConstraint[0]=this.consactual.ListOfNewConstraint(ListOfConstraint)
     }
-    console.log(ListOfConstraint[0])
     return ListOfConstraint[0]
   }
 
@@ -490,22 +488,18 @@ readThis(inputValue: any): void {
       this.CreateListCons()
 
     if(this.consactualfather==undefined ||  this.consactualfather.type==""){
-      console.log("1")
       this.cons[position]=ListOfConstraint[0]
     }
 
     if(this.consactualfather!=undefined  ){
-      console.log("2")
       aux2=0
       while(aux2<this.consactualfather.operands.length){
-        console.log("3")
         if(this.consactualfather.operands[aux2]==this.consactual){
           aux=aux2
           aux2++
         }
         else{aux2++}
       }
-      console.log(position)
       this.consactualfather.operands[aux]=ListOfConstraint[0]
     }
     this.jsonconstraintTexto[position]="New value at " +(position+1)+"º"
@@ -550,15 +544,14 @@ treeHideen(node:any){
 
 SymbolPerTypeCons(type:string){
   let hiddensymbol=false
-
+  let temporalposition
   aux2=0
   while (aux2<this.jsonconstraintTexto.length) {
-    if(this.jsonconstraintTexto[aux2]==type ){position=aux2}
+    if(this.jsonconstraintTexto[aux2]==type ){temporalposition=aux2}
     aux2++
   }
   this.ListOfRefactors.forEach(element => {
-    if(element.instances.includes(listnamesconstraints[position])){
-   
+    if(element.instances.includes(listnamesconstraints[temporalposition])){
     hiddensymbol=true
     }
   });  
@@ -659,6 +652,13 @@ CreateConsList(){
     position=this.jsonconstraintTexto.length
     this.jsonconstraintTexto.push("New constraint at " +(position+1)+"º")
     this.cons.push(ListOfConstraint[0])
+    aux=1
+    while(listnamesconstraints.indexOf("CTC"+aux)!=-1){
+      aux++
+    }
+    console.log(aux)
+    console.log(listnamesconstraints)
+    listnamesconstraints.push("CTC"+aux)
   }
   ListOfConstraint=[]
   this.ReloadFMTree()
@@ -671,8 +671,8 @@ Writelist(){
   return textlista
 }
 DeleteList(){
+  console.log(listnamesconstraints)
   ListOfConstraint=[]
-  console.log(ListOfConstraint)
 }
 
 CreateConsBrother(){
@@ -685,7 +685,6 @@ CreateConsBrother(){
     else{
     if(this.consactualfather.operands.length==2){}
     else{this.consactualfather.operands.push(ListOfConstraint[0])
-      console.log("hermano valido")
     }}}
   }}
   else{
@@ -723,7 +722,8 @@ CreateConsSon(){
 DeleteConsText(){
   this.jsonconstraintTexto[position]=""
   this.jsonconstraintTexto=this.jsonconstraintTexto.filter(x=>x!="")
-  console.log(position)
+  listnamesconstraints[position]=""
+  listnamesconstraints=listnamesconstraints.filter(x=>x!="")
   this.ReloadFMTree()
 }
 
@@ -733,6 +733,7 @@ SelectChipLogic(text:string){
   aux.type=text
   if(text=="NotTerm"){
     aux.operands=[new Const()]
+    aux.operands.splice(0,1)
   }else{
     aux.operands=[new Const(),new Const()]
   }

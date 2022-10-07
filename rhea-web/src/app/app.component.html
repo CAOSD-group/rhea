@@ -37,44 +37,40 @@
   <script src="js/FileSaver.js"></script>
 
 <!-- ======= Header ======= -->
-<header id="header" class="header  d-flex align-items-center">
+<header id="header" class="header  d-flex align-items-center" style="background-image: linear-gradient(to right,#012970 12%,#b3cfff , #fff ) ">
   <div class="d-flex align-items-center justify-content-between">
     <a  class="logo d-flex align-items-center">
-      <span class="d-none d-lg-block">RheaWeb</span>
-      <button mat-icon-button (click)="drawer.toggle()" class="buttonmenu2">
-        <mat-icon>menu</mat-icon>
+      <div class="down">
+      <h3 class="white-text" >RheaWeb</h3></div>
+      <button mat-icon-button (click)="drawer.toggle()"  (click)="(bdrawer=!bdrawer)" >
+        <mat-icon class="white-text" >{{bdrawer? 'chevron_right' : 'chevron_left'}}</mat-icon>
       </button>
-      <button mat-icon-button (click)="openDialog()" class="buttonmenu2">
-        <mat-icon>help</mat-icon>
+      <button mat-icon-button (click)="openDialog()" class="down-left">
+        <mat-icon  class="white-text" >help</mat-icon>
       </button>
     </a>
   </div>
   <!-- End Logo -->
-  <nav class="header-nav ms-auto">
-
-
+  <nav class="header-nav " >
     <div class="row justify-content-end">
       <div class="col-lg-11">
+        <div class="left">
         <div class="row justify-content-end">
-
-          <div class="col-lg-3 col-md-5 col-6 d-md-flex align-items-md-stretch">
-            <a target="_blank" href="https://caosd.lcc.uma.es/" class=" img2 d-flex align-items-center pe-0">
-              <img src="../assets/img/caosd.png" class="img2" alt="Profile">
+          
+          <div class="col-lg-3  d-md-flex ">
+            <img src="../assets/img/logorhea.png" class="img1" alt="Profile">
+          </div>
+          <div class="col-lg-3  d-md-flex " >
+            <a target="_blank" href="https://caosd.lcc.uma.es/" class=" img2 ">
+              <img src="../assets/img/caosd_use.png"  alt="Profile">
             </a>
           </div>
-
-          <div class="col-lg-3 col-md-5 col-6 d-md-flex align-items-md-stretch">
-            
-              <img src="../assets/img/logorhea.png" class="img1" alt="Profile">
-            
-          </div>
-
-          <div class="col-lg-3 col-md-5 col-6 d-md-flex align-items-md-stretch">
-            <a target="_blank" href="https://www.uma.es/" class=" img3 d-flex align-items-center pe-0">
-              <img src="../assets/img/uma.jpg" alt="Profile">
+          <div class="col-lg-3 d-md-flex ">
+            <a target="_blank" href="https://www.uma.es/" class="img3" style="margin-top: 10%;">
+              <img src="../assets/img/uma-logo-transparent.png" alt="Profile">
             </a>
           </div>
-
+        </div>
         </div>
       </div>
     </div>
@@ -83,12 +79,13 @@
 <!-- End Header -->
 <!-- ======= Sidebar ======= -->
 <mat-drawer-container class="example-container" autosize>
-  
-<mat-drawer #drawer  mode="side">
+
+<mat-drawer #drawer  class="color" mode="side">
+<div >
 <div class="card-body">
  <ul class="sidebar-nav" id="sidebar-nav">
       <li class="nav-item">
-        <h2>Select Document </h2>
+        <h2 class="white-text">Select Document </h2>
       </li>
       <li class="nav-item">
         <button class="btn-primary-search" (click)="returnValues(item)"><i class="fa fa-search"></i></button>
@@ -114,9 +111,10 @@
     </ul>
 
 </div>
-
+</div>
 </mat-drawer>
 
+<div class="resize">
 
 <!-- Main Page -->
 
@@ -124,10 +122,10 @@
 <main id="" class="">
   <section class="section dashboard">
     <div class="row">
-      <div class="col-lg-6">
+      <div   class="col-6">
         <div class="card block">
           <div class="border">
-            <div class="row">
+            <div  class="row">
               <div class="col-10">
                 <h5>Features</h5>
               </div>
@@ -138,28 +136,14 @@
                 </button>
               </div>
             </div>
-            <mat-menu #menumodel="matMenu">
-              <a (click)="returnValues()">Get</a>
-              <hr>
-              <a (click)="SaveJson()">Download .json</a>
-              <hr>
-              <a (click)="SaveUVL()">Download .uvl</a>
-              <hr>
-              <a (click)="Refactor('all')">Refactoring</a>
-              <hr>
-              <a (click)="saveFile()">Send data to server</a>
-            </mat-menu>
+
             <!-- Features Tree -->   
-            <div class="d-flex flex-row flex-nowrap overflow-auto">
+            <div  class="d-flex flex-row flex-nowrap overflow-auto">
             <mat-tree [dataSource]="dataSource" [treeControl]="treeControl" class="example-tree">
               <mat-nested-tree-node *matTreeNodeDef="let node; when: hasChild">
                 <div class="mat-tree-node">
                   <div [hidden]="!treeHideen(node)">
-                    <button mat-icon-button matTreeNodeToggle
-                      [attr.aria-label]="'Toggle ' + node.name">
-                      <mat-icon class="mat-icon-rtl-mirror">
-                      </mat-icon>
-                    </button>
+                    <button mat-icon-button matTreeNodeToggle></button>
                   </div>
                   <div [hidden]="treeHideen(node)">
                     <button mat-icon-button matTreeNodeToggle
@@ -219,11 +203,11 @@
       </div>
                 
       <!-- Info -->
-      <div class="col-6 justify-content-center">
+      <div   class="col-6 ">
         <div class="card block">
           <div class="border">
             <div class="menu">
-              <mat-chip-list class="mat-chip-list-stacked"  >
+              <mat-chip-list >
                 <mat-chip class="bottom-style" *ngFor="let ref of ListOfRefactors" >
                   <label class="labelcenter">{{ref.name}}</label>
                 </mat-chip>
@@ -235,15 +219,19 @@
           </div>
         </div>
       </div>
+
       <!-- Pruebas constraint -->
-      <div class="container">
+      <div   class="container">
         <div class="row">
           <div class="col-6">
             <div class="card block">
               <!-- Constraints Text --> 
               <div class="border">
-                <h5>Constraint</h5> 
-                <cdk-virtual-scroll-viewport  [itemSize]="6 * 7" class="example-viewport" >
+                <h5>Constraints</h5>
+                    <button class="buttonmenu2" (click)="visible_Constraint_list=!visible_Constraint_list">
+                      <mat-icon>{{visible_Constraint_list? 'arrow_upward' : 'arrow_downward'}}</mat-icon>
+                    </button>
+                <cdk-virtual-scroll-viewport [hidden]="!visible_Constraint_list" [itemSize]="6 * 7" class="example-viewport" >
                 <mat-selection-list #constraints [multiple]="false">
                   <mat-list-option *ngFor="let constrainTexto of jsonconstraintTexto" [value]="constrainTexto"
                     (click)='SelectedChange(constraints.selectedOptions.selected[0].value)'>
@@ -277,12 +265,12 @@
               </div>
             </div>
           </div>
+          <!-- Constraints Tree -->
           <div class="col-6">
             <div class="card block">
-              <!-- Constraints Tree -->
               <div class="border">
                 <h5>Constraint Tree</h5>
-                <mat-tree  [dataSource]="constraindataSource" [treeControl]="constraintreeControl" class="example-tree">
+                <mat-tree [hidden]="!visible_Constraint_list"  [dataSource]="constraindataSource" [treeControl]="constraintreeControl" class="example-tree">
                   <mat-nested-tree-node  *matTreeNodeDef="let constrainnode; when: hasChild">
                     <div class="mat-tree-node">
                       <div [hidden]="!treeConsHideen(constrainnode)">
@@ -315,6 +303,56 @@
                 </mat-tree>
               </div>
             </div>
+            <div [hidden]="!visible_Constraint_list" >
+              <div class="card shadow mb-4">
+                  <div
+                      class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                      <h6 class="m-0 font-weight-bold text-primary">FM Fact Label</h6>
+                      <div class="dropdown no-arrow">
+                          <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+                              data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                              <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                          </a>
+                          <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
+                              aria-labelledby="dropdownMenuLink">
+                              <div class="dropdown-header">Save as...</div>
+                              <a class="dropdown-item" id="saveSVG" href="#">SVG</a>
+                              <a class="dropdown-item" id="savePNG" href="#">PNG</a>
+            
+                              <div class="dropdown-divider"></div>
+                              <div class="dropdown-header">Export to...</div>
+                              <a class="dropdown-item" id="saveJSON" href="#">JSON</a>
+                              <a class="dropdown-item" id="saveTXT" href="#">Plain text</a>
+                          </div>
+                      </div>
+                  </div>
+             
+                  <div class="card-body">
+                      <h6 class="h6">Label configuration:</h6>
+                      <div class="mt-0 small">
+                         
+                          <div class="form-check form-switch">
+                              <span class="me-2">
+                                      <input class="form-check-input" type="checkbox" id="collapseSubProperties" checked>
+                                      <label class="form-check-label" for="collapseSubProperties">Collapse/Expand sub-properties</label>
+                              </span>
+                          </div>
+                          <div class="form-check form-switch">
+                              <span class="me-2">
+                                      <input class="form-check-input" type="checkbox" id="collapseZeroValues">
+                                      <label class="form-check-label" for="collapseZeroValues">Collapse/Expand sub-properties with zero values</label>
+                              </span>
+                          </div>
+                      </div>
+                  </div>
+                  
+                  <div class="card-body">
+                      <svg class="chart" id="FMFactLabelChart"></svg>
+                  </div>
+              </div>
+              </div>
+
+
           </div>
         </div>
       </div>
@@ -323,54 +361,7 @@
 </main>
 
 <!--  -->
-<div class="col-xl-6 col-lg-7">
-  <div class="card shadow mb-4">
 
-      <div
-          class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-          <h6 class="m-0 font-weight-bold text-primary">FM Fact Label</h6>
-          <div class="dropdown no-arrow">
-              <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
-                  data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-              </a>
-              <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
-                  aria-labelledby="dropdownMenuLink">
-                  <div class="dropdown-header">Save as...</div>
-                  <a class="dropdown-item" id="saveSVG" href="#">SVG</a>
-                  <a class="dropdown-item" id="savePNG" href="#">PNG</a>
-
-                  <div class="dropdown-divider"></div>
-                  <div class="dropdown-header">Export to...</div>
-                  <a class="dropdown-item" id="saveJSON" href="#">JSON</a>
-                  <a class="dropdown-item" id="saveTXT" href="#">Plain text</a>
-              </div>
-          </div>
-      </div>
- 
-      <div class="card-body">
-          <h6 class="h6">Label configuration:</h6>
-          <div class="mt-0 small">
-             
-              <div class="form-check form-switch">
-                  <span class="me-2">
-                          <input class="form-check-input" type="checkbox" id="collapseSubProperties" checked>
-                          <label class="form-check-label" for="collapseSubProperties">Collapse/Expand sub-properties</label>
-                  </span>
-              </div>
-              <div class="form-check form-switch">
-                  <span class="me-2">
-                          <input class="form-check-input" type="checkbox" id="collapseZeroValues">
-                          <label class="form-check-label" for="collapseZeroValues">Collapse/Expand sub-properties with zero values</label>
-                  </span>
-              </div>
-          </div>
-      </div>
-      
-      <div class="card-body">
-          <svg class="chart" id="FMFactLabelChart"></svg>
-      </div>
-  </div>
 </div>
 </mat-drawer-container>
 
@@ -420,17 +411,18 @@
           <div *ngFor="let valor of attributes"  >
             <input type="string" [(ngModel)]="valor.name">
             <input type="string" [(ngModel)]="valor.value">
-            <button class="empty" (click)="deleteAttribtues(valor)">
+            <button class="empty" (click)="deleteAttributes(valor)">
               <mat-icon class="mat-icon-rtl-mirror">clear</mat-icon>
             </button>
           </div>
+          <h6 class="gray">attribute changes are saved automatically  </h6>
           <hr>
           <h2>Save Changes</h2>
-          <button (click)="ModifySelecction()" data-bs-dismiss="modal" class="btn btn-primary">update</button>
+          <button (click)="ModifySelecction()" data-bs-dismiss="modal" class="buttonmodal">update</button>
 				</div>
 			</div>
 			<div class="modal-footer">
-				<button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
+				<button type="button" class="buttonmodal" data-bs-dismiss="modal">Close</button>
 			</div>
 		</div>
 	</div>
@@ -448,11 +440,11 @@
           <h3>Name</h3>
           <input matInput  type="string" [(ngModel)]="name">
           <div></div>
-          <button (click)="CreateChildren()" data-bs-dismiss="modal" class="btn btn-primary">Create</button>
+          <button (click)="CreateChildren()" data-bs-dismiss="modal" class="buttonmodal">Create</button>
 				  </div>
 	 	  </div>
 	    <div class="modal-footer">
-	      <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
+	      <button type="button" class="buttonmodal" data-bs-dismiss="modal">Close</button>
       </div>
 	  </div>
 	</div>
@@ -468,11 +460,11 @@
 			<div class="modal-body">
 				<div class="col-10">
           <input matInput  type="string" [(ngModel)]="name">
-          <button (click)="CreateBrother()" data-bs-dismiss="modal" class="btn btn-primary">Create</button>
+          <button (click)="CreateBrother()" data-bs-dismiss="modal" class="buttonmodal">Create</button>
 		  	</div>
 			</div>
 			<div class="modal-footer">
-				<button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
+				<button type="button" class="buttonmodal" data-bs-dismiss="modal">Close</button>
 			</div>
 	  </div>
 	</div>
@@ -488,11 +480,11 @@
 	    <div class="modal-body">
 	      <div class="col-10">
           <h4>Are you sure?</h4>
-          <button (click)="DeleteNode()" class="btn btn-primary" data-bs-dismiss="modal">Proceed</button>
+          <button (click)="DeleteNode()" class="buttonmodal" data-bs-dismiss="modal">Proceed</button>
 			  </div>
 	    </div>
       <div class="modal-footer">
-	      <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Go back</button>
+	      <button type="button" class="buttonmodal" data-bs-dismiss="modal">Go back</button>
 	    </div>
 	  </div>
   </div>
@@ -511,10 +503,10 @@
           <div class="row">
             <!-- Logic Chip -->
             <div class="col-6">
-              <div class="bordemodal">
-                <h5>Logic chips</h5>
+              <div class="bordermodal">
+                <h5>Logic Term</h5>
                 <mat-chip-list class="mat-chip-list-stacked"  >
-                  <mat-chip *ngFor="let chip of typesofcons" (click)="SelectChipFeature(chip)" >
+                  <mat-chip *ngFor="let chip of typesofcons" (click)="SelectChipLogic(chip)" >
                     {{chip}}
                   </mat-chip>
                 </mat-chip-list>
@@ -523,10 +515,10 @@
             <!-- Features Chip -->
             <div class="col-6">
               <div class="bordermodal">
-                <h5>Features chips</h5>
+                <h5>Features Term</h5>
                 <cdk-virtual-scroll-viewport [itemSize]="6 * 7" class="example-viewport-chip" >
                   <mat-chip-list class="mat-chip-list-stacked" >
-                    <mat-chip *ngFor="let chip of namesFeatures" (click)="SelectChipLogic(chip)">
+                    <mat-chip *ngFor="let chip of namesFeatures" (click)="SelectChipFeature(chip)">
                       {{chip}}
                     </mat-chip>
                   </mat-chip-list>
@@ -544,15 +536,15 @@
         <div class="col-12">
           <!--Buttons-->
           <div class="row">
-            <div class="col-3"><button class="btn btn-primary btn-lg" (click)="CreateConsBrother()"> Insert brother </button></div>
-            <div class="col-3"><button class="btn btn-primary btn-lg" (click)="CreateConsSon()"> Insert child </button></div>
-            <div class="col-3"><button class="btn btn-primary btn-lg" (click)="ModifyCons()"> Edit Constrain </button></div>
-            <div class="col-3"><button class="btn btn-primary btn-lg" data-bs-dismiss="modal" (click)="DeleteCons()"> Delete Constrain </button></div>
+            <div class="col-3"><button class="buttonmodal " (click)="CreateConsBrother()"> Insert brother </button></div>
+            <div class="col-3"><button class="buttonmodal " (click)="CreateConsSon()"> Insert child </button></div>
+            <div class="col-3"><button class="buttonmodal " (click)="ModifyCons()"> Edit Constrain </button></div>
+            <div class="col-3"><button class="buttonmodal " data-bs-dismiss="modal" (click)="DeleteCons()"> Delete Constrain </button></div>
           </div>
         </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="buttonmodal" data-bs-dismiss="modal">Close</button>
       </div>
     </div>
   </div>
@@ -560,8 +552,18 @@
 
 
 
-
-
+<!--Menu options-->
+<mat-menu #menumodel="matMenu">
+  <a (click)="returnValues()">Get</a>
+  <hr>
+  <a (click)="SaveJson()">Download .json</a>
+  <hr>
+  <a (click)="SaveUVL()">Download .uvl</a>
+  <hr>
+  <a (click)="Refactor('all')">Refactoring</a>
+  <hr>
+  <a (click)="saveFile()">Send data to server</a>
+</mat-menu>
 
 
                      
