@@ -45,9 +45,6 @@
       <button mat-icon-button (click)="drawer.toggle()"  (click)="(bdrawer=!bdrawer)" >
         <mat-icon class="white-text" >{{bdrawer? 'chevron_right' : 'chevron_left'}}</mat-icon>
       </button>
-      <button mat-icon-button (click)="openDialog()" class="down-left">
-        <mat-icon  class="white-text" >help</mat-icon>
-      </button>
     </a>
   </div>
   <!-- End Logo -->
@@ -81,63 +78,118 @@
 <mat-drawer-container class="example-container" autosize>
 
 <mat-drawer #drawer  class="color" mode="side">
-<div >
-<div class="card-body">
- <ul class="sidebar-nav" id="sidebar-nav">
-      <li class="nav-item">
-        <h2 class="white-text">Select Document </h2>
-      </li>
-      <li class="nav-item">
-        <button class="btn-primary-search" (click)="returnValues(item)"><i class="fa fa-search"></i></button>
-        <select class="btn-primary-select" [(ngModel)]="item"  >
-          <option value="tree name">Select an option</option>
-          <option *ngFor="let documento of documents">{{documento}}</option>
-        </select>
-      </li>
-      <li class="nav-item">
-        <div id="xslUpload">
-          <label for="file-input">
-            <button class="btn importar" type="button">Attach file</button>
-          </label>
-          <input class="file-input" (change)="changeListener($event)" id="file-input" type="file"/>
-        </div>
-        <div id="xslUpload">
-          <label >
-            <button class="btn importar" type="button" (click)="readThis(myfile)">Send file</button>
-          </label>
-        </div>
-      </li>
-    <input class="margin" type="text" [(ngModel)]="title">
-    </ul>
+  <div>
+      <button class=""(click)="showFM_Editor()">
+        <h3 class="">FM Editor</h3>
+      </button>
+    
+    <div style="margin-top: 5%;"></div>
 
-</div>
-</div>
+    <button  class="" (click)="showAbout()" >
+      <h3 class="">About</h3>
+    </button>
+  </div>
 </mat-drawer>
-
 <div class="resize">
+<!-- Main Page About --> 
+<div [hidden]="!windowAbout">
+  <div class="col-12 pe-3">
+    <div class="card">
+      <div class="hero">
+        <div class="row d-flex justify-content-between">
+          <div class="col-lg-6   d-flex flex-column justify-content-center">
+            <h2 data-aos="fade-up">Welcome to ReaWeb</h2>
+            <p data-aos="fade-up" data-aos-delay="100">Welcome to the RHEA.
+            Some user caveats are the following:</p>
+            <ul>
+              <li>To visualize the constraints as a tree you have to select the corresponding text.</li>
+              <li>When downloading the data it won't change the original file.</li>
+              <li>It is advisable to make the changes as small as posible to avoid any mistake we could make. </li>
+              <li>The order in wich you write constraints must be done as a tree model, so first, the root, and then if it has two childrens the first one should be the one who came before the logical preposition.
+              Example: (A ^ B) will be written as ^AB. </li>
+              <li>If unsure of the values selected try 'Write list' so you can see the current values, if any mistakes where made use 'Delete List' to start over or go ahead and then correct the mistake.</li>
+              <li>If you try to change a value from a constraint, be sure of the number of references each type of term can have. The program allows you to put less references but you should then insert those values.</li>
+              <li>The program adjust de values of the keys in the constraint dictionary when downloading as a json file.</li>
+            </ul>
+            <button >
+              <mat-icon> add</mat-icon>
+            </button>
+          </div>
+          <div class="col-lg-5 order-1 order-lg-2 hero-img" data-aos="zoom-out">
+            <img src="./assets/img/hero-img.png" class="img-fluid mb-3 mb-lg-0" alt="">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
-<!-- Main Page -->
+<div [hidden]="!windowFM_Editor">
+<!-- Main Page FM_editor -->
 
 <div></div>
-<main id="" class="">
+<main >
   <section class="section dashboard">
     <div class="row">
+      <div style="margin-top: 2%; "></div>
+      <!-- Card 1 -->
+      <div   class="col-4">
+        <div class="card block">
+          <div class="border">
+            <ul class="sidebar-nav" >
+              <li class="nav-item">
+                <h4 style="margin-left: 4%; margin-top: 4%;">Upload feature model...</h4>
+                <div id="xslUpload">
+                  <label for="file-input" style="margin-left: 4%; margin-top: 4%;">
+                    <button class="btn importar" type="button">Attach file</button>
+                  </label>
+                  <input class="file-input" (change)="changeListener($event)" id="file-input" type="file"/>
+                  <label  id="xslSubmit" style="margin-left: 4%;">
+                    <button class="btn importar" type="button" (click)="readThis(myfile)">Submit file</button>
+                  </label>
+                </div>
+              </li>
+              <input class="margin"  type="text" [(ngModel)]="myfile_name" disabled="true" style="background-color: #ffffff ;margin-left: 4%;">
+            </ul>
+          </div>
+        </div>
+      </div>
+      <!-- Card 2 -->
+      <div   class="col-4">
+        <div class="card block">
+          <div class="border">
+            <ul class="sidebar-nav" id="sidebar-nav">
+              <li class="nav-item">
+                <h4 style="margin-left: 4%; margin-top: 4%;"> Or select one of our documents </h4>
+              </li>
+              <li class="nav-item" style="margin-left: 4%;">
+                <button class="btn-primary-search" (click)="returnValues(item)"><i class="fa fa-search"></i></button>
+                <select class="btn-primary-select" [(ngModel)]="item" style="margin-left: 2%;"  >
+                  <option value="tree name">Select an option</option>
+                  <option *ngFor="let documento of documents">{{documento}}</option>
+                </select>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <!-- Card 3-->
+      <div   class="col-4">
+        <div class="card block">
+          <div class="border">
+          </div>
+        </div>
+      </div> 
+      
+      <!-- Features Tree -->  
       <div   class="col-6">
         <div class="card block">
           <div class="border">
-            <div  class="row">
-              <div class="col-10">
-                <h5>Features</h5>
-              </div>
-              <div class="col-1"></div>
-              <div class="col col-sm-1">
-                <button class="marginnegative" mat-menu-item [matMenuTriggerFor]="menumodel" >
-                  <mat-icon >more_vert</mat-icon> 
-                </button>
-              </div>
+            <div>Features
+              <button style="margin-left: 90%; " class="empty" [matMenuTriggerFor]="menumodel" >
+                <mat-icon >more_vert</mat-icon> 
+              </button>
             </div>
-
-            <!-- Features Tree -->   
             <div  class="d-flex flex-row flex-nowrap overflow-auto">
             <mat-tree [dataSource]="dataSource" [treeControl]="treeControl" class="example-tree">
               <mat-nested-tree-node *matTreeNodeDef="let node; when: hasChild">
@@ -160,11 +212,12 @@
                     <img src={{SymbolPerType(node)[0]}} #tooltip="matTooltip"  matTooltip={{SymbolPerType(node)[1]}}>
                   </div>
                   
-                  <button mat-icon-button [matMenuTriggerFor]="menu" (click)= 'select(node)'>
+                  <button mat-icon-button [matMenuTriggerFor]="menu" *ngIf="HiddenRefacfeature(node)&&show_refacts_features_only">
                       <mat-icon class="mat-icon-rtl-mirror">
                         more_vert
                       </mat-icon>
                     </button>
+
                   <div class="margin" ></div>
                   <div  #tooltip="matTooltip"  matTooltip={{ToolTip(node)}} >{{node.name}}</div>                       
                 </div>   
@@ -226,8 +279,13 @@
           <div class="col-6">
             <div class="card block">
               <!-- Constraints Text --> 
-              <div class="border">
-                <h5>Constraints</h5>
+              <div class="border">    
+                    <div>Constraints
+                    <button style="margin-left: 90%; " class="empty" [matMenuTriggerFor]="menumodelcons">
+                      <mat-icon >more_vert</mat-icon> 
+                    </button>
+                    </div>
+                 
                     <button class="buttonmenu2" (click)="visible_Constraint_list=!visible_Constraint_list">
                       <mat-icon>{{visible_Constraint_list? 'arrow_upward' : 'arrow_downward'}}</mat-icon>
                     </button>
@@ -238,22 +296,31 @@
                     <div>
                       <div class="text"> 
                         {{jsonconstraintTexto.indexOf(constrainTexto)+1+". "}}
-                        <button mat-icon-button [matMenuTriggerFor]="menuoptionsconstraintext" >
-                          <mat-icon class="mat-icon-rtl-mirror" *ngIf="SymbolPerTypeCons(constrainTexto)[0]">
+                        <button mat-icon-button [matMenuTriggerFor]="menuoptionsconstraintext" *ngIf="HiddenRefacCons(constrainTexto)[0]||show_refacts_cons_only">
+                          <mat-icon class="mat-icon-rtl-mirror" >
                             more_vert
                           </mat-icon>
                         </button>
                         {{constrainTexto}}
                       </div>
                     </div> 
+                    <mat-menu #menuoptionsconstraintext="matMenu">
+                      <button class="buttonmenu2" mat-icon-button [matMenuTriggerFor]="menuoptionsconstraintree" (click) = "$event.stopPropagation()" >
+                        Options  
+                        <mat-icon>chevron_right</mat-icon>  
+                      </button>
+                      <div></div>
+                      <button class="buttonmenu2" mat-icon-button  *ngIf="HiddenRefacCons(constrainTexto)[0]" [matMenuTriggerFor]="menurefactorcons"(click) = "$event.stopPropagation()" >
+                        Refactoring 
+                        <mat-icon>chevron_right</mat-icon>
+                      </button>
+                    </mat-menu> 
                   </mat-list-option>   
                 </mat-selection-list>
               </cdk-virtual-scroll-viewport>
-              <mat-menu #menuoptionsconstraintext="matMenu">
-                <button class="buttonmenu2" mat-icon-button [matMenuTriggerFor]="menurefactorcons"(click) = "$event.stopPropagation()" >
-                  Refactoring 
-                  <mat-icon>chevron_right</mat-icon>
-                </button>
+
+              <mat-menu #menuoptionsconstraintree="matMenu">
+                <button class="empty"  style="color: #012970 " data-bs-toggle="modal" href="#sidebaroptionsconstraintree">Options</button>
               </mat-menu> 
               <mat-menu #menurefactorcons="matMenu">
                 <mat-list class="mat-chip-list-stacked"  >
@@ -296,9 +363,7 @@
                     <div [class.example-tree-invisible]="!constraintreeControl.isExpanded(constrainnode)" role="group">
                       <ng-container matTreeNodeOutlet></ng-container> 
                     </div>
-                    <mat-menu #menuoptionsconstraintree="matMenu">
-                      <a data-bs-toggle="modal" href="#sidebaroptionsconstraintree">Options</a>
-                    </mat-menu>  
+                     
                   </mat-nested-tree-node>
                 </mat-tree>
               </div>
@@ -359,9 +424,8 @@
     </div>
   </section>
 </main>
-
 <!--  -->
-
+</div>
 </div>
 </mat-drawer-container>
 
@@ -517,8 +581,9 @@
               <div class="bordermodal">
                 <h5>Features Term</h5>
                 <cdk-virtual-scroll-viewport [itemSize]="6 * 7" class="example-viewport-chip" >
+                  <input type="text" [(ngModel)]="featureautocomplete">
                   <mat-chip-list class="mat-chip-list-stacked" >
-                    <mat-chip *ngFor="let chip of namesFeatures" (click)="SelectChipFeature(chip)">
+                    <mat-chip *ngFor="let chip of namesFeatures" (click)="SelectChipFeature(chip)"  [hidden]="AutocompletChip(chip)">
                       {{chip}}
                     </mat-chip>
                   </mat-chip-list>
@@ -554,8 +619,6 @@
 
 <!--Menu options-->
 <mat-menu #menumodel="matMenu">
-  <a (click)="returnValues()">Get</a>
-  <hr>
   <a (click)="SaveJson()">Download .json</a>
   <hr>
   <a (click)="SaveUVL()">Download .uvl</a>
@@ -563,8 +626,14 @@
   <a (click)="Refactor('all')">Refactoring</a>
   <hr>
   <a (click)="saveFile()">Send data to server</a>
+  <hr>
+  <a (click)="show_refacts_features_only=!show_refacts_features_only">Highlight Refactor</a>
 </mat-menu>
 
+<!--Menu Constraints options-->
+<mat-menu #menumodelcons="matMenu">
+  <a (click)="show_refacts_cons_only=!show_refacts_cons_only">Highlight Refactor</a>
+</mat-menu>
 
                      
 

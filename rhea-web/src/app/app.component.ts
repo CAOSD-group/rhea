@@ -1,16 +1,12 @@
 import {Component} from '@angular/core';
-import {HttpClient, HttpParams ,HttpHeaders} from '@angular/common/http';
+import {HttpClient} from '@angular/common/http';
 import {NestedTreeControl} from '@angular/cdk/tree';
 import {MatTreeNestedDataSource} from '@angular/material/tree';
 import {FMTree} from './components/FMTree/FMTree';
 import{Const} from './components/constraint/const';
-import {MatDialog} from '@angular/material/dialog';
 import * as saveAs from 'file-saver';
-import {TooltipPosition} from '@angular/material/tooltip';
 import { Refactoring } from './components/refactor/refactoring';
-import {drawFMFactLabel as fm} from './fm_fact_label.js';
-import { valHooks } from 'jquery';
-import { elementAt } from 'rxjs';
+
 
 
 
@@ -82,26 +78,53 @@ export class AppComponent {
   ncons:string="";
   npos:number=-1;
   myfile:any
-  documents:string[]= ['GPL.xml', 'JHipster.uvl', 'MobileMedia.xml', 'Pizzas.uvl','Pizzas.json', 'TankWar.xml', 'Truck.uvl','WeaFQAs.uvl','Automotive2_1-basic.uvl'];
+  myfile_name:string=""
+  documents:string[]= ['GPL.xml', 'JHipster.uvl', 'MobileMedia.xml', 'Pizzas.uvl', 'TankWar.xml', 'Truck.uvl','WeaFQAs.uvl','Automotive2_1-basic.uvl'];
   listOfTypes=["XOR","OR","MUTEX","CARDINALITY","FEATURE"]
   visibleships=false
   visible_Constraint_list=true;
   text="Show Constraints"
   bdrawer=true
-constructor(private http: HttpClient ,public dialog: MatDialog) { }  
+  show_refacts_features_only=true;
+  show_refacts_cons_only=true;
+  featureautocomplete=""
+
+  windowFM_Editor=true
+  windowAbout=false
+  window3=false
+
+constructor(private http: HttpClient ) { }  
 
 
 
 ngOnInit() {
-  console.log("determinar diseño final")
-  console.log("contraint tree ocultarlo")
-  console.log("bottones options en constrin text")
-  console.log("attach file solo lo selecciona, siempre hay que usar send file")
-  console.log("boton para remarcar constrain por un lado y otro para features")
-  console.log("chips de features que tenga para escribir y buscar por nombre")
-  this.returnValues("JHipster.uvl")
+  console.log("separar html en partes funcionales")
   
+  this.returnValues("JHipster.uvl")
 }
+
+//SymbolPerType esta constantemente llamandose, alguna opcion?
+//  documentacion explicar que hace cada metodo, las referencias que tiene
+//  explicar los elementos y que parametros tienen y los codigos que se usan
+// 
+//  Consultas de visualicacion de la pagina web
+//    Que formato final se va a aplicar
+//        Diseño grafico estatico y dinamico
+//        Paleta de colores
+//        Imagenes y simbolos
+  
+showFM_Editor(){
+  this.windowFM_Editor=true
+  this.windowAbout=false
+  this.window3=false
+}
+showAbout(){
+  this.windowFM_Editor=false
+  this.windowAbout=true
+  this.window3=false
+}
+
+
 
 
 saveFile(text?:string){ 
@@ -213,17 +236,6 @@ CreateFile(text:string){
 }
 
 
-
-//SymbolPerType esta constantemente llamandose, alguna opcion?
-//  documentacion explicar que hace cada metodo, las referencias que tiene
-//  explicar los elementos y que parametros tienen y los codigos que se usan
-// 
-//  Consultas de visualicacion de la pagina web
-//    Que formato final se va a aplicar
-//        Diseño grafico estatico y dinamico
-//        Paleta de colores
-//        Imagenes y simbolos
-  
 
 ChangeType(ty:string){
   this.type=ty;
@@ -345,12 +357,13 @@ ReloadFMTree(){
 }
 
 changeListener($event): void {
-  if($event.target!=undefined){
-  this.readThis($event.target)
+  if($event.target.files[0].name!=undefined){
+  this.myfile_name=$event.target.files[0].name
   this.myfile=$event.target}
 }
 
 readThis(inputValue: any): void { 
+  if(inputValue!=undefined||inputValue!=""){
     aux=""
     this.dataSource.data=[]
     this.constraindataSource.data=[]
@@ -385,8 +398,7 @@ readThis(inputValue: any): void {
     if(!(file.name.endsWith('.xml')||file.name.endsWith('.uvl')||file.name.endsWith('.json'))){
       alert("not valid file type")
     }
-    
-  
+  }
 }
   
   select(object:any){
@@ -508,21 +520,6 @@ readThis(inputValue: any): void {
     ListOfConstraint=[]
   }
 
-
-
-
-
-
-
-
-
-openDialog() {
-  const dialogRef = this.dialog.open(DialogContentExampleDialog);
-  dialogRef.afterClosed().subscribe(result => {
-    console.log(`Dialog result: ${result}`);
-  });
-}
-
 cardhidden(){
   let bool =true
   let dis =true
@@ -542,13 +539,13 @@ treeHideen(node:any){
   else{return false }
 }
 
-SymbolPerTypeCons(type:string){
+HiddenRefacCons(type:string){
   let hiddensymbol=false
   let temporalposition
-  aux2=0
-  while (aux2<this.jsonconstraintTexto.length) {
-    if(this.jsonconstraintTexto[aux2]==type ){temporalposition=aux2}
-    aux2++
+  let count=0
+  while (count<this.jsonconstraintTexto.length) {
+    if(this.jsonconstraintTexto[count]==type ){temporalposition=count}
+    count++
   }
   this.ListOfRefactors.forEach(element => {
     if(element.instances.includes(listnamesconstraints[temporalposition])){
@@ -557,6 +554,19 @@ SymbolPerTypeCons(type:string){
   });  
   return [hiddensymbol]
 }
+HiddenRefacfeature(node:FMTree){
+  let hiddensymbolfeature=false
+  this.ListOfRefactors.forEach(element => {
+    if(element.instances.includes(node.name)){
+      if(this.show_refacts_features_only){
+      hiddensymbolfeature=true
+      console.log(element)}
+    }
+  });
+  return [hiddensymbolfeature]
+}
+
+
 GetFather(nodechild:FMTree,list:any){
   
     list.forEach(element => {
@@ -752,6 +762,13 @@ SelectChipRefactor(ref:Refactoring,tipo:string){
   refactor=ref
   this.Refactor(tipo)
 }
+AutocompletChip(name:string){
+  let showchip=false
+  if(this.featureautocomplete!="" && !(name.toLowerCase().indexOf(this.featureautocomplete.toLowerCase())!=-1)){showchip=true}
+  return showchip
+}
+
+
 RefactorvisibleFeature(ref:Refactoring){
   if(this.actual!=undefined){
   if(ref.instances.includes(this.actual.name)){return false}
@@ -867,13 +884,4 @@ SaveUVL() {
 }
 
 }
-@Component({
-  selector: 'dialog-content-example-dialog',
-  templateUrl: './pages_web/dialog-content-example-dialog.html',
-})
-export class DialogContentExampleDialog {
- 
-  example(text:string){
-    alert(text)
-  }
-}
+
