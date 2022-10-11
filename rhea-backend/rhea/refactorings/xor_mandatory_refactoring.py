@@ -12,6 +12,19 @@ class XorMandatoryRefactoring(FMRefactoring):
     @staticmethod
     def get_name() -> str:
         return 'Xor and Mandatory refactoring'
+    
+    @staticmethod
+    def get_description() -> str:
+        return ("It changes the xor group with a mandatory subfeature to a xor group"
+                    "with n-1 features and an and-group with that mandatory subfeature")
+
+    @staticmethod
+    def get_language_construct_name() -> str:
+        return 'Xor and Mandatory'
+    
+    @staticmethod
+    def get_instances(model: FeatureModel) -> list[Any]:
+        return [f for f in model.get_features() if f.is_alternative_group() and (utils.is_there_mandatory(f.get_relations()))]
 
     @staticmethod
     def transform(model: FeatureModel, instance: Any,) -> FeatureModel:
@@ -55,8 +68,3 @@ class XorMandatoryRefactoring(FMRefactoring):
             instance.add_relation(r_opt)
             
         return model
-
-
-    @staticmethod
-    def get_instances(model: FeatureModel) -> list[Any]:
-        return [f for f in model.get_features() if f.is_alternative_group() and (utils.is_there_mandatory(f.get_relations()))]

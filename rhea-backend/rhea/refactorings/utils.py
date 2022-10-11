@@ -1,7 +1,52 @@
 from genericpath import exists
 from flamapy.metamodels.fm_metamodel.models import FeatureModel, Feature, Relation, Constraint
+from flamapy.core.models.ast import AST, ASTOperation, Node
 
 
+
+def get_right_feature_name(instance: Constraint) -> str:
+    if instance.ast.root.right.data is ASTOperation.NOT:
+        not_operation = instance.ast.root.right
+        right_feature_name_ctc = not_operation.left.data
+    else:
+        right_feature_name_ctc = instance.ast.root.right.data
+    return right_feature_name_ctc
+
+
+def get_left_feature_name(instance: Constraint) -> str:
+    if instance.ast.root.left.data is ASTOperation.NOT:
+        not_operation = instance.ast.root.left
+        left_feature_name_ctc = not_operation.left.data
+    else:
+        left_feature_name_ctc = instance.ast.root.left.data
+    return left_feature_name_ctc
+
+def remove_abstract_leaf_without_reference(model: FeatureModel) -> FeatureModel:
+    '''Removes all abstract LEAF which richt feature is not in tree (before joining subtrees)'''
+    model_if_none = model
+    if model is not None:
+        for feat in model.get_features():
+            ctc = next((c for c in model.get_constraints() if get_left_feature_name(c) == feat.name), None)
+            if feat.is_leaf() and feat.is_abstract:
+                if ctc is not None:
+                   if model.get_feature_by_name(get_right_feature_name(ctc)) not in model.get_features():
+                        model = eliminate_node_from_tree(model, feat)
+    if model is None:
+        model = model_if_none
+    return model
+
+# def remove_abstract_leaf_without_constraint(model: FeatureModel) -> FeatureModel:
+#     '''Removes all abstract LEAF nodes without contraint (after joining subtrees)'''
+#     model_if_none = model
+#     if model is not None:
+#         for feat in model.get_features():
+#             if feat.is_leaf() and feat.is_abstract:
+#                 for ctc in model.get_constraints():
+#                     if feat in ctc.get_features():
+#                         pass
+#     if model is None:
+#         model = model_if_none
+#     return model
 
 
 def get_new_feature_name(fm: FeatureModel, name: str) -> str:
@@ -42,6 +87,16 @@ def is_there_mandatory(relations: list[Relation]) -> bool:
         if rel.is_mandatory():
             mandatory = True
     return mandatory
+
+def remove_abstract_child(fm: FeatureModel, feature: Feature) -> FeatureModel:
+    feature_relations = feature.get_relations()
+    feature_next_rel = next(r for r in feature_relations)
+    feature_next_abstract = next(c for c in feature.get_children())
+    if len(feature_relations)==1 and feature_next_rel.is_mandatory() and feature_next_abstract.is_abstract:
+            feature.get_relations().remove(feature_next_rel)
+            fm.root = feature_next_abstract
+            fm = remove_abstract_child(fm, feature_next_abstract)
+    return fm
 
 def is_there_node(parent: Feature, child_node: Feature) -> Feature:
     result = ''

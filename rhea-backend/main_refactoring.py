@@ -26,23 +26,19 @@ from rhea.refactorings.multiple_group_decomposition_refactoring import MultipleG
 from rhea.refactorings.xor_mandatory_refactoring import XorMandatoryRefactoring
 from rhea.refactorings.or_mandatory_refactoring import OrMandatoryRefactoring
 from rhea.refactorings.elimination_any_constraint import EliminationAnyConstraints
-from rhea.refactorings.split_constraints import SplitConstraints
+from rhea.refactorings.split_constraint import SplitConstraint
 from rhea.refactorings.elimination_complex_constraints import EliminationComplexConstraints
 from rhea.refactorings.elimination_simple_ctcs_requires import EliminationSimpleConstraintsRequires
 from rhea.refactorings.elimination_simple_ctcs_excludes import EliminationSimpleConstraintsExcludes
-from rhea.refactorings.elimination_simple_ctcs_requires_without_dict import EliminationSimpleConstraintsRequiresWithoutDict
-from rhea.refactorings.elimination_simple_ctcs_excludes_without_dict import EliminationSimpleConstraintsExcludesWithoutDict
 
 
 ##################################################################################################
 REFACTORING_ANY_CTCS = EliminationAnyConstraints
-REFACTORING_SPLIT = SplitConstraints
+REFACTORING_SPLIT = SplitConstraint
 REFACTORING_COMPLEX = EliminationComplexConstraints
 REFACTORING_REQUIRES = EliminationSimpleConstraintsRequires
 REFACTORING_EXCLUDES = EliminationSimpleConstraintsExcludes
-REFACTORING_REQUIRES_WITHOUT_DICT = EliminationSimpleConstraintsRequiresWithoutDict
-REFACTORING_EXCLUDES_WIHOUT_DICT = EliminationSimpleConstraintsExcludesWithoutDict
-MODEL_PATH = 'tests/models/eliminate_any_ctcs/input_models/test_all_ctcs2.uvl'
+MODEL_PATH = 'tests/models/requires/input_models/Pizzas3.uvl'
 OUTPUT_PATH = os.path.basename(MODEL_PATH)
 ##################################################################################################
 
@@ -94,7 +90,9 @@ def print_statistics(fm: FeatureModel) -> None:
         products = fm_utils.filter_products_from_dict(fm, configurations)
         print(f'Products:')
         for i, p in enumerate(products, 1):
-            print(f'P{i}: {[str(f) for f in p]}')
+            features_list = [str(f) for f in p]
+            features_list.sort()
+            print(f'P{i}: {features_list}')
         print('----------')
 
 
@@ -105,8 +103,8 @@ def main():
     print_statistics(fm)
     
     print('==================================================')
-    print(f'Applying the refactoring {REFACTORING_ANY_CTCS.get_name()}...')
-    fm = apply_refactoring(fm, REFACTORING_ANY_CTCS)
+    print(f'Applying the refactoring {REFACTORING_REQUIRES.get_name()}...')
+    fm = apply_refactoring(fm, REFACTORING_REQUIRES)
     print('==================================================')
 
     # print('==================================================')

@@ -11,6 +11,19 @@ class OrMandatoryRefactoring(FMRefactoring):
     @staticmethod
     def get_name() -> str:
         return 'Or and Mandatory refactoring'
+    
+    @staticmethod
+    def get_description() -> str:
+        return ("It changes the or group with a mandatory subfeature to an or group"
+                    "with n-1 features and an and-group with that mandatory subfeature")
+
+    @staticmethod
+    def get_language_construct_name() -> str:
+        return 'Or and Mandatory'
+    
+    @staticmethod
+    def get_instances(model: FeatureModel) -> list[Any]:
+        return [f for f in model.get_features() if f.is_or_group() and utils.is_there_mandatory(f.get_relations())]
 
     @staticmethod
     def transform(model: FeatureModel, instance: Any,) -> FeatureModel:
@@ -38,8 +51,3 @@ class OrMandatoryRefactoring(FMRefactoring):
             instance.get_relations().remove(r_or)
         
         return model
-
-
-    @staticmethod
-    def get_instances(model: FeatureModel) -> list[Any]:
-        return [f for f in model.get_features() if f.is_or_group() and utils.is_there_mandatory(f.get_relations())]
