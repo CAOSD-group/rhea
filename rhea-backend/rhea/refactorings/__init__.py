@@ -3,10 +3,16 @@ from .mutex_group_refactoring import MutexGroupRefactoring
 from .cardinality_group_refactoring import CardinalityGroupRefactoring
 from .split_constraint import SplitConstraint
 from .elimination_complex_constraints import EliminationComplexConstraints
+from .multiple_group_decomposition_refactoring import MultipleGroupDecompositionRefactoring
+from .or_mandatory_refactoring import OrMandatoryRefactoring
+from .xor_mandatory_refactoring import XorMandatoryRefactoring
 
 
 __all__ = ['FMRefactoring',
            'MutexGroupRefactoring',
            'CardinalityGroupRefactoring',
            'SplitConstraint',
-           'EliminationComplexConstraints']
+           'EliminationComplexConstraints',
+           'MultipleGroupDecompositionRefactoring',
+           'OrMandatoryRefactoring',
+           'XorMandatoryRefactoring']

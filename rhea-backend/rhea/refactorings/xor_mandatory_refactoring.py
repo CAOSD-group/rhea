@@ -1,70 +1,49 @@
 from typing import Any
 
-from flamapy.core.models.ast import AST, ASTOperation, Node
-from flamapy.metamodels.fm_metamodel.models import FeatureModel, Feature, Relation
+from flamapy.metamodels.fm_metamodel.models import FeatureModel, Feature
 
 from rhea.refactorings import FMRefactoring
-from rhea.refactorings import utils
 
 
 class XorMandatoryRefactoring(FMRefactoring):
 
     @staticmethod
     def get_name() -> str:
-        return 'Xor and Mandatory refactoring'
+        return 'Xor-group with mandatory subfeature refactoring'
     
     @staticmethod
     def get_description() -> str:
-        return ("It changes the xor group with a mandatory subfeature to a xor group"
-                    "with n-1 features and an and-group with that mandatory subfeature")
+        return ("It transforms the xor-group with a mandatory subfeature into an or-group "
+                "with cardinality <0..0> (dead features) and a mandatory subfeature.")
 
     @staticmethod
     def get_language_construct_name() -> str:
-        return 'Xor and Mandatory'
+        return 'Xor-group with mandatory subfeature'
+
+    @staticmethod
+    def get_name() -> str:
+        return 'Xor-group with mandatory subfeature refactoring'
     
     @staticmethod
     def get_instances(model: FeatureModel) -> list[Any]:
-        return [f for f in model.get_features() if f.is_alternative_group() and (utils.is_there_mandatory(f.get_relations()))]
+        return [f for f in model.get_features() if is_xor_group_with_mandatory(f)]
 
     @staticmethod
-    def transform(model: FeatureModel, instance: Any,) -> FeatureModel:
+    def transform(model: FeatureModel, instance: Feature) -> FeatureModel:
         if instance is None:
             raise Exception(f'There is not feature with name "{instance.name}".')
-        if not instance.is_alternative_group:
-            raise Exception(f'Feature {instance.name} is not a cardinality group.')
+        if not is_xor_group_with_mandatory(instance):
+            raise Exception(f'Feature "{instance.name}" is not a cardinality group.')
         
-        relations = instance.get_relations()
-        r_alt = next((r for r in instance.get_relations() if r.is_alternative() and (utils.is_there_mandatory(relations))), None)
-
-        if r_alt != None:
-            r_alt.card_min = 0
-            r_alt.card_max = 0
-        
-            children_list = []
-            count = 0
-            for child in r_alt.children:
-                if child.is_mandatory():
-                    count += 1
-                    r_mand = next((r for r in relations if r.is_mandatory()), None)
-                    relations.remove(r_mand)
-                    r_new_mand = Relation(instance, [child], 1, 1)  # mandatory
-                    instance.add_relation(r_new_mand)
-                else:
-                    children_list.append(child)
-
-            if count>1:
-                raise Exception(f'More mandatory children than expected.')
-
-            instance.get_relations().remove(r_alt)
-
-            if len(children_list)<=1:
-                r_opt = Relation(instance, children_list, 0, 1)  # optional
-                constraint = AST.create_unary_operation(ASTOperation.NOT, children_list[0]).root
-                model.ctcs.append(constraint)
-            else:
-                r_opt = Relation(instance, children_list, 0, 0)  # dead
-
-            # Add relations to features
-            instance.add_relation(r_opt)
-            
+        xor_group = next((r for r in instance.get_relations() if r.is_alternative()), None)
+        mandatory_feature = next((c for c in xor_group.children if c.is_mandatory()), None)
+        xor_group.card_min = 0
+        xor_group.card_max = 0
+        xor_group.children.remove(mandatory_feature)
         return model
+
+
+def is_xor_group_with_mandatory(feature: Feature) -> bool:
+    xor_group = next((r for r in feature.get_relations() if r.is_alternative()), None)
+    return any(r.children[0] in xor_group.children for r in feature.get_relations() 
+               if r.is_mandatory())

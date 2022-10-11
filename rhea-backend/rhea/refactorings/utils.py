@@ -1,7 +1,5 @@
-from genericpath import exists
 from flamapy.metamodels.fm_metamodel.models import FeatureModel, Feature, Relation, Constraint
 from flamapy.core.models.ast import AST, ASTOperation, Node
-
 
 
 def get_right_feature_name(instance: Constraint) -> str:
@@ -20,6 +18,7 @@ def get_left_feature_name(instance: Constraint) -> str:
     else:
         left_feature_name_ctc = instance.ast.root.left.data
     return left_feature_name_ctc
+
 
 def remove_abstract_leaf_without_reference(model: FeatureModel) -> FeatureModel:
     '''Removes all abstract LEAF which richt feature is not in tree (before joining subtrees)'''
@@ -57,6 +56,7 @@ def get_new_feature_name(fm: FeatureModel, name: str) -> str:
         count += 1
     return new_name
 
+
 def get_new_feature_complex_name(fm: FeatureModel, name: str) -> str:
     count = 1
     new_name = f'{name}'
@@ -64,6 +64,7 @@ def get_new_feature_complex_name(fm: FeatureModel, name: str) -> str:
         new_name = f'{name}_{count}'
         count += 1
     return new_name
+
 
 def get_new_ctc_name(ctcs_names: list[str], name: str) -> str:
     count = 1
@@ -73,6 +74,7 @@ def get_new_ctc_name(ctcs_names: list[str], name: str) -> str:
         count += 1
     return new_name
 
+
 def get_new_attr_name(header: list, name: str) -> str:
     count = 1
     new_name = f'{name}'
@@ -81,12 +83,6 @@ def get_new_attr_name(header: list, name: str) -> str:
         count += 1
     return new_name
 
-def is_there_mandatory(relations: list[Relation]) -> bool:
-    mandatory = False
-    for rel in relations:
-        if rel.is_mandatory():
-            mandatory = True
-    return mandatory
 
 def remove_abstract_child(fm: FeatureModel, feature: Feature) -> FeatureModel:
     feature_relations = feature.get_relations()
@@ -98,12 +94,14 @@ def remove_abstract_child(fm: FeatureModel, feature: Feature) -> FeatureModel:
             fm = remove_abstract_child(fm, feature_next_abstract)
     return fm
 
+
 def is_there_node(parent: Feature, child_node: Feature) -> Feature:
     result = ''
     for child in parent.get_children():
         if child==child_node:
             result = child
     return result
+
 
 def convert_parent_to_mandatory(fm: FeatureModel, f: Feature) -> FeatureModel:
     parent = f.get_parent()
@@ -115,6 +113,7 @@ def convert_parent_to_mandatory(fm: FeatureModel, f: Feature) -> FeatureModel:
             rel_mand.card_min = 1
         fm = convert_parent_to_mandatory(fm, parent)
     return fm
+
 
 def add_node_to_tree(model: FeatureModel, node: Feature) -> FeatureModel:
     if node not in model.get_features(): 
@@ -157,6 +156,7 @@ def add_node_to_tree(model: FeatureModel, node: Feature) -> FeatureModel:
     model = add_node_to_tree(model, parent)
     # print(f'NEW MODEL PLUS after: {model}')
     return model
+
 
 def eliminate_node_from_tree(model: FeatureModel, node: Feature) -> FeatureModel:
     
