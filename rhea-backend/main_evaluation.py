@@ -42,13 +42,13 @@ OUTPUT_PATH = os.path.basename(MODEL_PATH)
 #     return fm
     
 
-MODEL_PATH = 'tests/models/mutex_groups/input_models/mg01.uvl'
+MODEL_PATH = 'tests/models/mutex_groups/input_models/mg02.uvl'
 
 def main(fm_path: str):
     # Create path to the output file
     fm_basename = os.path.basename(fm_path)
     fm_name = fm_basename[:fm_basename.find('.')]  # Remove extension
-    output_path = os.path.join('tests/raw_output', fm_name + '_raw_data' + RawDataCSVWriter.get_destination_extension())
+    output_path = os.path.join('tests/raw_output', fm_name + RawDataCSVWriter.get_destination_extension())
     
     # Load the feature model
     if MODEL_PATH.endswith('.gfm.json'):

@@ -86,9 +86,9 @@ def data_to_csv(feature_model: FeatureModel, fm_name: str) -> str:
     REFACTORING_EXCLUDES = EliminationSimpleConstraintsExcludes
 
     list_refactorings = [REFACTORING_MUTEX, REFACTORING_CARDINALITY, REFACTORING_MULT_GROUP_DECOMP, 
-                   REFACTORING_XOR_MAND, REFACTORING_OR_MAND, REFACTORING_ANY_CTCS,
-                   REFACTORING_SPLIT, REFACTORING_COMPLEX, REFACTORING_REQUIRES, 
-                   REFACTORING_EXCLUDES]
+                         REFACTORING_XOR_MAND, REFACTORING_OR_MAND, REFACTORING_ANY_CTCS,
+                         REFACTORING_SPLIT, REFACTORING_COMPLEX, REFACTORING_REQUIRES, 
+                         REFACTORING_EXCLUDES]
     
     refactoring = list_refactorings[random.randint(0,9)]
 
