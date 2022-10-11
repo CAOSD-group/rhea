@@ -1,367 +1,321 @@
 features
-	root5{abstract}
+	root2{abstract}
 		alternative
-			root4{abstract}
+			root{abstract}
 				alternative
-					root2{abstract}
+					root4{abstract}
 						alternative
-							root3{abstract}
-								alternative
-									XOR{abstract}
-										alternative
-											root31{abstract}
-												mandatory
-													Pizza{abstract}
-														mandatory
-															Topping
-																mandatory
-																	Mozzarella
-														mandatory
-															Size
-																mandatory
-																	Big
-														mandatory
-															Dough
-																mandatory
-																	Neapolitan
-												mandatory
-													OR{abstract}
-														or
-															CheesyCrust_1{abstract}
-															Sicilian_1{abstract}
-															Big_1{abstract}
-											root212{abstract}
-												mandatory
-													Pizza1{abstract}
-														mandatory
-															Topping1
-																mandatory
-																	Mozzarella1
-														mandatory
-															Size1
-																mandatory
-																	Big1
-														mandatory
-															Dough1
-																mandatory
-																	Neapolitan1
-														mandatory
-															CheesyCrust
-												mandatory
-													OR1{abstract}
-														or
-															Sicilian_11{abstract}
-															Big_11{abstract}
-									root1{abstract}
-										alternative
-											root{abstract}
-												mandatory
-													Pizza2{abstract}
-														mandatory
-															Topping2
-																mandatory
-																	Mozzarella2
-														mandatory
-															Size2
-																mandatory
-																	Normal
-														mandatory
-															Dough2
-																mandatory
-																	Neapolitan2
-												mandatory
-													OR2{abstract}
-														or
-															CheesyCrust_11{abstract}
-															Sicilian_12{abstract}
-											root21{abstract}
-												mandatory
-													Pizza11{abstract}
-														mandatory
-															Topping11
-																mandatory
-																	Mozzarella11
-														mandatory
-															Size11
-																mandatory
-																	Normal11
-														mandatory
-															Dough11
-																mandatory
-																	Neapolitan11
-														mandatory
-															CheesyCrust1
-												mandatory
-													OR11{abstract}
-														mandatory
-															Sicilian_111{abstract}
 							XOR1{abstract}
 								alternative
-									root3111{abstract}
+									root41{abstract}
 										mandatory
-											Pizza3{abstract}
+											Pizza{abstract}
 												mandatory
-													Topping3
+													Topping
 														mandatory
-															Mozzarella3
+															Mozzarella
 												mandatory
-													Size3
+													Size
 														mandatory
-															Big2
+															Big
 												mandatory
-													Dough3
+													Dough
+														mandatory
+															Neapolitan
+										mandatory
+											OR{abstract}
+												mandatory
+													Big_1{abstract}
+									root212{abstract}
+										mandatory
+											Pizza1{abstract}
+												mandatory
+													Topping1
+														mandatory
+															Mozzarella1
+												mandatory
+													Size1
+														mandatory
+															Big1
+												mandatory
+													Dough1
 														mandatory
 															Sicilian
 										mandatory
-											OR3{abstract}
+											OR1{abstract}
 												or
-													CheesyCrust_12{abstract}
-													Big_12{abstract}
-									root21212{abstract}
+													CheesyCrust_11{abstract}
+													Big_11{abstract}
+									root3113{abstract}
 										mandatory
-											Pizza12{abstract}
+											Pizza2{abstract}
 												mandatory
-													Topping12
+													Topping2
 														mandatory
-															Mozzarella12
+															Mozzarella2
 												mandatory
-													Size12
+													Size2
+														mandatory
+															Big2
+												mandatory
+													Dough2
+														mandatory
+															Neapolitan1
+												mandatory
+													CheesyCrust
+										mandatory
+											OR2{abstract}
+												mandatory
+													Big_12{abstract}
+									root21214{abstract}
+										mandatory
+											Pizza11{abstract}
+												mandatory
+													Topping11
+														mandatory
+															Mozzarella11
+												mandatory
+													Size11
 														mandatory
 															Big11
 												mandatory
-													Dough12
+													Dough11
 														mandatory
-															Sicilian11
+															Sicilian1
 												mandatory
-													CheesyCrust2
+													CheesyCrust11
 										mandatory
-											OR12{abstract}
+											OR11{abstract}
 												mandatory
 													Big_111{abstract}
-									root23{abstract}
+							root3{abstract}
+								mandatory
+									root1{abstract}
 										mandatory
-											Pizza21{abstract}
+											root21{abstract}
 												mandatory
-													Topping21
+													Pizza12{abstract}
 														mandatory
-															Mozzarella21
-												mandatory
-													Size21
+															Topping12
+																mandatory
+																	Mozzarella12
 														mandatory
-															Normal1
-												mandatory
-													Dough21
+															Size12
+																mandatory
+																	Normal11
 														mandatory
-															Sicilian21
-										mandatory
-											OR21{abstract}
+															Dough12
+																mandatory
+																	Sicilian2
 												mandatory
-													CheesyCrust_111{abstract}
-					XOR2{abstract}
+													OR12{abstract}
+														mandatory
+															CheesyCrust_111{abstract}
+					XOR{abstract}
 						alternative
-							root311111{abstract}
+							root21211{abstract}
 								mandatory
-									Pizza31{abstract}
+									Pizza13{abstract}
 										mandatory
-											Topping31
+											Topping13
 												mandatory
-													Ham31
+													Salami13
 												optional
-													Mozzarella31
+													Mozzarella13
 										mandatory
-											Size31
+											Size13
 												mandatory
-													Big21
+													Big12
 										mandatory
-											Dough31
+											Dough13
 												mandatory
-													Sicilian1
+													Sicilian3
 								mandatory
-									OR31{abstract}
+									OR13{abstract}
 										or
-											CheesyCrust_121{abstract}
-											Big_121{abstract}
-							root2121212{abstract}
+											CheesyCrust_112{abstract}
+											Big_112{abstract}
+							root2121412{abstract}
+								mandatory
+									Pizza111{abstract}
+										mandatory
+											Topping111
+												mandatory
+													Salami111
+												optional
+													Mozzarella111
+										mandatory
+											Size111
+												mandatory
+													Big111
+										mandatory
+											Dough111
+												mandatory
+													Sicilian11
+										mandatory
+											CheesyCrust111
+								mandatory
+									OR111{abstract}
+										mandatory
+											Big_1111{abstract}
+							root2113{abstract}
 								mandatory
 									Pizza121{abstract}
 										mandatory
 											Topping121
 												mandatory
-													Ham121
+													Salami121
 												optional
 													Mozzarella121
 										mandatory
 											Size121
 												mandatory
-													Big111
+													Normal111
 										mandatory
 											Dough121
 												mandatory
-													Sicilian111
-										mandatory
-											CheesyCrust21
+													Sicilian21
 								mandatory
 									OR121{abstract}
 										mandatory
-											Big_1111{abstract}
-							root2313{abstract}
-								mandatory
-									Pizza211{abstract}
-										mandatory
-											Topping211
-												mandatory
-													Ham211
-												optional
-													Mozzarella211
-										mandatory
-											Size211
-												mandatory
-													Normal12
-										mandatory
-											Dough211
-												mandatory
-													Sicilian211
-								mandatory
-									OR211{abstract}
-										mandatory
 											CheesyCrust_1111{abstract}
-			XOR3{abstract}
+			XOR2{abstract}
 				alternative
-					root3111111{abstract}
+					root212111{abstract}
 						mandatory
-							Pizza32{abstract}
+							Pizza14{abstract}
 								mandatory
-									Topping32
+									Topping14
 										mandatory
-											Salami32
+											Ham14
 										optional
-											Mozzarella32
+											Mozzarella14
 								mandatory
-									Size32
+									Size14
 										mandatory
-											Big22
+											Big13
 								mandatory
-									Dough32
+									Dough14
 										mandatory
-											Sicilian2
+											Sicilian4
 						mandatory
-							OR32{abstract}
+							OR14{abstract}
 								or
-									CheesyCrust_122{abstract}
-									Big_122{abstract}
-					root21212121{abstract}
+									CheesyCrust_113{abstract}
+									Big_113{abstract}
+					root21214121{abstract}
+						mandatory
+							Pizza112{abstract}
+								mandatory
+									Topping112
+										mandatory
+											Ham112
+										optional
+											Mozzarella112
+								mandatory
+									Size112
+										mandatory
+											Big112
+								mandatory
+									Dough112
+										mandatory
+											Sicilian12
+								mandatory
+									CheesyCrust112
+						mandatory
+							OR112{abstract}
+								mandatory
+									Big_1112{abstract}
+					root21131{abstract}
 						mandatory
 							Pizza122{abstract}
 								mandatory
 									Topping122
 										mandatory
-											Salami122
+											Ham122
 										optional
 											Mozzarella122
 								mandatory
 									Size122
 										mandatory
-											Big112
+											Normal112
 								mandatory
 									Dough122
 										mandatory
-											Sicilian112
-								mandatory
-									CheesyCrust22
+											Sicilian22
 						mandatory
 							OR122{abstract}
 								mandatory
-									Big_1112{abstract}
-					root23131{abstract}
-						mandatory
-							Pizza212{abstract}
-								mandatory
-									Topping212
-										mandatory
-											Salami212
-										optional
-											Mozzarella212
-								mandatory
-									Size212
-										mandatory
-											Normal13
-								mandatory
-									Dough212
-										mandatory
-											Sicilian212
-						mandatory
-							OR212{abstract}
-								mandatory
 									CheesyCrust_1112{abstract}
-					root31111114{abstract}
+					root2121114{abstract}
 						mandatory
-							Pizza311{abstract}
+							Pizza131{abstract}
 								mandatory
-									Topping311
+									Topping131
 										mandatory
-											Ham311
+											Salami131
 										mandatory
-											Salami311
+											Ham131
 										optional
-											Mozzarella311
+											Mozzarella131
 								mandatory
-									Size311
+									Size131
 										mandatory
-											Big211
+											Big121
 								mandatory
-									Dough311
+									Dough131
 										mandatory
-											Sicilian12
+											Sicilian31
 						mandatory
-							OR311{abstract}
+							OR131{abstract}
 								or
-									CheesyCrust_1211{abstract}
-									Big_1211{abstract}
-					root212121215{abstract}
+									CheesyCrust_1121{abstract}
+									Big_1121{abstract}
+					root212141215{abstract}
+						mandatory
+							Pizza1111{abstract}
+								mandatory
+									Topping1111
+										mandatory
+											Salami1111
+										mandatory
+											Ham1111
+										optional
+											Mozzarella1111
+								mandatory
+									Size1111
+										mandatory
+											Big1111
+								mandatory
+									Dough1111
+										mandatory
+											Sicilian111
+								mandatory
+									CheesyCrust1111
+						mandatory
+							OR1111{abstract}
+								mandatory
+									Big_11111{abstract}
+					root211316{abstract}
 						mandatory
 							Pizza1211{abstract}
 								mandatory
 									Topping1211
 										mandatory
-											Ham1211
-										mandatory
 											Salami1211
+										mandatory
+											Ham1211
 										optional
 											Mozzarella1211
 								mandatory
 									Size1211
 										mandatory
-											Big1111
+											Normal1111
 								mandatory
 									Dough1211
 										mandatory
-											Sicilian1111
-								mandatory
-									CheesyCrust211
+											Sicilian211
 						mandatory
 							OR1211{abstract}
-								mandatory
-									Big_11111{abstract}
-					root231316{abstract}
-						mandatory
-							Pizza2111{abstract}
-								mandatory
-									Topping2111
-										mandatory
-											Ham2111
-										mandatory
-											Salami2111
-										optional
-											Mozzarella2111
-								mandatory
-									Size2111
-										mandatory
-											Normal121
-								mandatory
-									Dough2111
-										mandatory
-											Sicilian2111
-						mandatory
-							OR2111{abstract}
 								mandatory
 									CheesyCrust_11111{abstract}

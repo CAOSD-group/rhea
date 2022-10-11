@@ -58,8 +58,9 @@ features
 									Big1
 						mandatory
 							Dough2
-								mandatory
+								alternative
 									Neapolitan2
+									Sicilian2
 						optional
 							CheesyCrust2
 					Pizza11{abstract}

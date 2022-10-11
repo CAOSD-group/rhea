@@ -1,7 +1,8 @@
+from email import header
 from flamapy.core.transformations import ModelToText
 from typing import Any
 import random
-import os
+import os, time
 
 from flamapy.metamodels.pysat_metamodel.transformations import FmToPysat
 from flamapy.metamodels.pysat_metamodel.operations import (
@@ -59,14 +60,17 @@ def data_to_csv(feature_model: FeatureModel, fm_name: str) -> str:
     FEATURES_REFACTORED_STR = 'Features Refactored'
     CONSTRAINTS_STR = 'Constraints'
     CONSTRAINTS_REFACTORED_STR = 'Constraints refactored'
+    EXECUTION_TIME_STR = 'Execution time'
     PERFORMANCE_STR = 'Performance'
     SCALABILITY_STR = 'Scalability'
     NATURALNESS_STR = 'Naturalness'
     CORRECTNESS_STR = 'Correctness'
     COMPLETENESS_STR = 'Completeness'
 
-    HEADER = [FM_STR, RUN_STR, FEATURES_STR, FEATURES_REFACTORED_STR, 
-              CONSTRAINTS_STR, CONSTRAINTS_REFACTORED_STR]
+    header = [FM_STR, RUN_STR, FEATURES_STR, FEATURES_REFACTORED_STR, 
+              CONSTRAINTS_STR, CONSTRAINTS_REFACTORED_STR, EXECUTION_TIME_STR]
+            
+    result = ','.join(st for st in header)
 
     run = random.randint(20, 50)
 
@@ -89,21 +93,33 @@ def data_to_csv(feature_model: FeatureModel, fm_name: str) -> str:
     refactoring = list_refactorings[random.randint(0,9)]
 
     for n_run in range(run):
-        row = get_content(feature_model, fm_name, n_run, refactoring)
+        # row = get_content(feature_model, fm_name, n_run, refactoring)
+        row = get_content(feature_model, fm_name, n_run, REFACTORING_MUTEX)
         result += f'\n{row}'
     
     return result
 
-def get_content(fm : FeatureModel, fm_name: str, n_run: int, refactoring: FMRefactoring) -> str:
+def get_content(fm: FeatureModel, fm_name: str, n_run: int, refactoring: FMRefactoring) -> str:
 
-    list_row = [fm_name, str(n_run), str(len(fm.get_features())), len(fm_refact.get_features()), 
-                len(fm.get_constraints()), len(fm_refact.get_constraints())]
+    list_row = [fm_name, str(n_run), str(len(fm.get_features()))]
 
     fm_refact = execution_refactoring(fm, refactoring)
 
     list_row.append(str(len(fm_refact.get_features())))
     list_row.append(str(len(fm.get_constraints())))
     list_row.append(str(len(fm_refact.get_constraints())))
+    list_row.append(str(execution_time(fm, refactoring)))
+
+    # execution_time(fm, REFACTORING_MUTEX)
+    # execution_time(fm, REFACTORING_CARDINALITY)
+    # execution_time(fm, REFACTORING_MULT_GROUP_DECOMP)
+    # execution_time(fm, REFACTORING_XOR_MAND)
+    # execution_time(fm, REFACTORING_OR_MAND)
+    # execution_time(fm, REFACTORING_ANY_CTCS)
+    # execution_time(fm, REFACTORING_SPLIT)
+    # execution_time(fm, REFACTORING_COMPLEX)
+    # execution_time(fm, REFACTORING_REQUIRES)
+    # execution_time(fm, REFACTORING_EXCLUDES)
 
     row = ','.join(st for st in list_row)
     return row
@@ -113,3 +129,11 @@ def execution_refactoring(fm: FeatureModel, refactoring: FMRefactoring) -> Featu
     for i in instances:
         fm = refactoring.transform(fm, i)
     return fm
+
+def execution_time(fm: FeatureModel, refactoring: FMRefactoring):
+    # calculate statistics
+    start = time.perf_counter_ns()
+    fm = execution_refactoring(fm, refactoring)
+    end = time.perf_counter_ns()
+    total_time = (end - start)*1e-9
+    return total_time

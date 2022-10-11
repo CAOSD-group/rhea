@@ -2,13 +2,13 @@ namespace Root
 
 features
 	A {abstract}	
-		optional
+		or
 			B	
 				optional
 					D
-			C	
-				optional
 					E
+			C
+			F
 
 constraints
-	B & E => D
+	F & E => D

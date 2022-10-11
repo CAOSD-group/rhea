@@ -1,26 +1,12 @@
 from email.base64mime import body_decode
-import os, time
+import os
 from typing import Any
 from weakref import ref 
 
 from flamapy.metamodels.fm_metamodel.transformations import UVLReader, UVLWriter, FeatureIDEReader, GlencoeReader
-from flamapy.metamodels.pysat_metamodel.transformations import FmToPysat
-from flamapy.metamodels.pysat_metamodel.operations import (
-    Glucose3ProductsNumber,
-    Glucose3Products,
-    Glucose3Valid
-)
 
-from flamapy.metamodels.fm_metamodel.operations import FMEstimatedProductsNumber
-from flamapy.metamodels.bdd_metamodel.transformations import FmToBDD
-from flamapy.metamodels.bdd_metamodel.operations import BDDProductsNumber
+from raw_data_writer import RawDataCSVWriter
 
-from flamapy.metamodels.fm_metamodel.models import FeatureModel
-
-from rhea.metamodels.fm_metamodel.models import fm_utils
-
-from rhea.metamodels.fm_metamodel.models import FM, ConstraintHelper
-from rhea.refactorings import FMRefactoring
 from rhea.refactorings.mutex_group_refactoring import MutexGroupRefactoring
 from rhea.refactorings.cardinality_group_refactoring import CardinalityGroupRefactoring
 from rhea.refactorings.multiple_group_decomposition_refactoring import MultipleGroupDecompositionRefactoring
@@ -49,38 +35,38 @@ OUTPUT_PATH = os.path.basename(MODEL_PATH)
 ##################################################################################################
 
 
-def execution_refactoring(fm: FeatureModel, refactoring: FMRefactoring) -> FeatureModel:
-    instances = refactoring.get_instances(fm)
-    for i in instances:
-        fm = refactoring.transform(fm, i)
-    return fm
+# def execution_refactoring(fm: FeatureModel, refactoring: FMRefactoring) -> FeatureModel:
+#     instances = refactoring.get_instances(fm)
+#     for i in instances:
+#         fm = refactoring.transform(fm, i)
+#     return fm
     
 
+MODEL_PATH = 'tests/models/mutex_groups/input_models/mg01.uvl'
 
-def execution_time(fm: FeatureModel, refactoring: FMRefactoring):
-    # calculate statistics
-    start = time.perf_counter_ns()
-    fm = execution_refactoring(fm, refactoring)
-    end = time.perf_counter_ns()
-    total_time = (end - start)*1e-9
+def main(fm_path: str):
+    # Create path to the output file
+    fm_basename = os.path.basename(fm_path)
+    fm_name = fm_basename[:fm_basename.find('.')]  # Remove extension
+    output_path = os.path.join('tests/raw_output', fm_name + '_raw_data' + RawDataCSVWriter.get_destination_extension())
+    
+    # Load the feature model
+    if MODEL_PATH.endswith('.gfm.json'):
+        fm = GlencoeReader(MODEL_PATH).transform()
+    elif MODEL_PATH.endswith('.uvl'):
+        fm = UVLReader(MODEL_PATH).transform()
+    elif MODEL_PATH.endswith('.xml'):
+        fm = FeatureIDEReader(MODEL_PATH).transform()
+    else:
+        raise Exception(f'Error, invalid model {MODEL_PATH}.')
 
+    # ct_str = generate_configurations(fm, n_attributes)
+    ct_str = RawDataCSVWriter(path=output_path, source_model=fm).transform()
 
-
-def main():
-    fm = UVLReader(MODEL_PATH).transform()
-
-    execution_time(fm, REFACTORING_MUTEX)
-    # execution_time(fm, REFACTORING_CARDINALITY)
-    # execution_time(fm, REFACTORING_MULT_GROUP_DECOMP)
-    # execution_time(fm, REFACTORING_XOR_MAND)
-    # execution_time(fm, REFACTORING_OR_MAND)
-    # execution_time(fm, REFACTORING_ANY_CTCS)
-    # execution_time(fm, REFACTORING_SPLIT)
-    # execution_time(fm, REFACTORING_COMPLEX)
-    # execution_time(fm, REFACTORING_REQUIRES)
-    # execution_time(fm, REFACTORING_EXCLUDES)
+    # Print the result (optional)
+    print(ct_str)
 
 
 
 if __name__ == '__main__':
-    main()
+    main(MODEL_PATH)
