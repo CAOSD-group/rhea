@@ -81,12 +81,11 @@ export class AppComponent {
   myfile_name:string=""
   documents:string[]= ['GPL.xml', 'JHipster.uvl', 'MobileMedia.xml', 'Pizzas.uvl', 'TankWar.xml', 'Truck.uvl','WeaFQAs.uvl','Automotive2_1-basic.uvl'];
   listOfTypes=["XOR","OR","MUTEX","CARDINALITY","FEATURE"]
-  visibleships=false
+  visiblechipsfeatures=false
   visible_Constraint_list=true;
-  text="Show Constraints"
   bdrawer=true
-  show_refacts_features_only=true;
-  show_refacts_cons_only=true;
+  show_refacts_features_only=false;
+  show_refacts_cons_only=false;
   featureautocomplete=""
 
   windowFM_Editor=true
@@ -124,21 +123,6 @@ showAbout(){
   this.window3=false
 }
 
-
-
-
-saveFile(text?:string){ 
-  this.TransformJSON()  
-  if(text==undefined || text==""){
-    console.log("sin cambio de name")
-    this.http.post(this.urlsave,[jsonfeatures,jsonconstraint],{ withCredentials:true,responseType:'text'}).subscribe(resultado => {
-    console.log(resultado)})}
-  else{
-    console.log("el name se cambia")
-    this.http.post(this.urlsave,[text,jsonfeatures,jsonconstraint],{ withCredentials:true,responseType:'text'}).subscribe(resultado => {
-    console.log(resultado)
-  })}
-}
 
 sendJSON(){
   console.log(aux)
@@ -369,6 +353,7 @@ readThis(inputValue: any): void {
     this.constraindataSource.data=[]
     listnamestext=[]
     this.jsonconstraintTexto=[]
+    ListOfConstraint=[]
 
     var file: File = inputValue.files[0];
 
@@ -541,6 +526,7 @@ treeHideen(node:any){
 
 HiddenRefacCons(type:string){
   let hiddensymbol=false
+  let color=""
   let temporalposition
   let count=0
   while (count<this.jsonconstraintTexto.length) {
@@ -550,20 +536,26 @@ HiddenRefacCons(type:string){
   this.ListOfRefactors.forEach(element => {
     if(element.instances.includes(listnamesconstraints[temporalposition])){
     hiddensymbol=true
+    if(this.show_refacts_cons_only){
+    color='refactorColor'}
     }
   });  
-  return [hiddensymbol]
+  return [hiddensymbol,color]
 }
 HiddenRefacfeature(node:FMTree){
   let hiddensymbolfeature=false
+  let color=""
   this.ListOfRefactors.forEach(element => {
     if(element.instances.includes(node.name)){
       if(this.show_refacts_features_only){
       hiddensymbolfeature=true
-      console.log(element)}
+      if(this.show_refacts_features_only){
+        color='refactorColor'
+      } 
+    }
     }
   });
-  return [hiddensymbolfeature]
+  return [hiddensymbolfeature,color]
 }
 
 
