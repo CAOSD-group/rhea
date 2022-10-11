@@ -1,22 +1,25 @@
-from asyncio import constants
-from turtle import left
-from typing import Any, Dict
-
+from flamapy.core.models.ast import AST, ASTOperation, Node
 from flamapy.metamodels.fm_metamodel.models import FeatureModel, Feature, Relation, Constraint
 
-from flamapy.core.models.ast import AST, ASTOperation, Node
-
-from rhea.metamodels.fm_metamodel.models import FM, ConstraintHelper
+from rhea.metamodels.fm_metamodel.models import fm_utils
 from rhea.refactorings import FMRefactoring
 from rhea.refactorings import utils
-from rhea.metamodels.fm_metamodel.models import fm_utils
 
 
 class EliminationComplexConstraints(FMRefactoring):
 
     @staticmethod
     def get_name() -> str:
-        return 'Elimination of Complex Constraints from Feature Trees'
+        return 'Strict-complex constraint refactoring'
+
+    @staticmethod
+    def get_description() -> str:
+        return ("It transforms a strict-complex constraint by adding additional abstract features "
+                "and simple constraints without adding or removing products.")
+
+    @staticmethod
+    def get_language_construct_name() -> str:
+        return 'Strict-complex constraint'
 
     @staticmethod
     def get_instances(model: FeatureModel) -> list[Constraint]:
@@ -29,36 +32,38 @@ class EliminationComplexConstraints(FMRefactoring):
         if not fm_utils.is_complex_constraint(instance):
             raise Exception(f'Constraint {instance} is not complex.')
 
+        model.ctcs.remove(instance)
         ctcs_names = [ctc.name for ctc in model.get_constraints()]
         new_or = Feature(utils.get_new_feature_name(model, 'OR'), is_abstract=True)
         features = []
         dict_constraint = get_features_clauses(instance)  # NOT before negatives (dict)
-        # print(dict_constraint)
-        for i, f in enumerate(dict_constraint.keys()):
-            new_feature = Feature(utils.get_new_feature_complex_name(model, f), parent=new_or, is_abstract=True)
+        for f in dict_constraint.keys():
+            new_feature = Feature(utils.get_new_feature_complex_name(model, f), 
+                                  parent=new_or, is_abstract=True)
             features.append(new_feature)
             ast_operation = ASTOperation.REQUIRES if dict_constraint[f] else ASTOperation.EXCLUDES
-            ctc = Constraint(utils.get_new_ctc_name(ctcs_names, 'CTC'), AST.create_binary_operation(ast_operation,
+            ctc = Constraint(utils.get_new_ctc_name(ctcs_names, 'CTC'), 
+                             AST.create_binary_operation(ast_operation, 
                              Node(new_feature.name), Node(f)))
-            # llamar a un new name, pero tienes que hacer un new_name para constraint en lugar de "CTC{i}"
             model.ctcs.append(ctc)
-
-        model.ctcs.remove(instance)
 
         # New branch with OR as root
         rel_or = Relation(new_or, features, 1, len(features))  # OR
         new_or.add_relation(rel_or)
         
-        # New root
-        new_root = Feature(utils.get_new_feature_name(model, 'root'), is_abstract=True)
-        rel_1 = Relation(new_root, [model.root], 1, 1)  # mandatory
-        new_root.add_relation(rel_1)
-        model.root.parent = new_root
+        # New root (only needed if the root feature is a group)
+        if model.root.is_group():
+            new_root = Feature(utils.get_new_feature_name(model, 'root'), is_abstract=True)
+            rel_1 = Relation(new_root, [model.root], 1, 1)  # mandatory
+            new_root.add_relation(rel_1)
+            model.root.parent = new_root
+        else:
+            new_root = model.root
         rel_2 = Relation(new_root, [new_or], 1, 1)  # mandatory
         new_root.add_relation(rel_2)
         new_or.parent = new_root
         model.root = new_root
-        
+
         return model
 
 
