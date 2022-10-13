@@ -41,6 +41,7 @@ export class AppComponent {
   urldelete="http://172.16.51.94:5000/deleteFM" 
   urlcreate="http://172.16.51.94:5000/createFM" 
   urlrefactor="http://172.16.51.94:5000/refactor" 
+  urlupdate="http://172.16.51.94:5000/updateFeature" 
 
   declare actual:FMTree     
   declare actualfather:FMTree 
@@ -74,7 +75,7 @@ export class AppComponent {
   attributes:Array<any>=[];
 
   card_min:number=0;
-  card_max:number=0;
+  card_max:number=1;
   ncons:string="";
   npos:number=-1;
   myfile:any
@@ -87,11 +88,13 @@ export class AppComponent {
   show_refacts_features_only=false;
   show_refacts_cons_only=false;
   featureautocomplete=""
-
+  ConstraintListautocomplete=""
+  search_name=true 
+  mattooltipconstraint=this.search_name?"Search by name":"Search by text";
   windowFM_Editor=true
   windowAbout=false
   window3=false
-
+  updatable=false
 constructor(private http: HttpClient ) { }  
 
 
@@ -145,6 +148,26 @@ sendUVL(uvl:any){
 
 
 
+sendUpdate(){
+  const formData: FormData = new FormData();
+  formData.append('fm_hash',my_session);
+  formData.append('old_name',this.actual.name);
+  formData.append('new_name',this.name);
+  formData.append('type',this.type);
+  formData.append('card_min',this.card_min.toString());
+  formData.append('card_max',this.card_max.toString());
+  formData.append('abstract',JSON.stringify(this.abstract));
+  formData.append('optional',JSON.stringify(this.optional));
+  formData.append('attributes',JSON.stringify(this.attributes))
+
+
+
+  this.http.post(this.urlupdate,formData,{withCredentials:true,responseType:'text'}).subscribe(resultado => {
+    this.CreateData(resultado)
+    json=resultado
+      }
+    )
+}
 
 
 Refactor(typeref:string){
@@ -153,9 +176,9 @@ Refactor(typeref:string){
   const formData: FormData = new FormData();
   if( typeref!="all" &&( refactor==undefined ||refactor.name=="")){console.log("error in type of refactor")}
   else{
-    if(typeref=="node"){object=this.actual.name;formData.append('refactoring_id',refactor.id);}
-    if(typeref=="cons"){object=listnamesconstraints[this.npos];formData.append('refactoring_id',refactor.id);}
-    if(typeref=="all"){
+    if(typeref=="node"){object=this.actual.name}
+    if(typeref=="cons"){object=listnamesconstraints[this.npos]}
+    /*if(typeref=="all"){
       this.TransformJSON();
       object=json;
       let my_refac=""
@@ -165,7 +188,7 @@ Refactor(typeref:string){
       });
       my_refac=my_refac.slice(0,-1)
       formData.append('refactoring_id',my_refac);
-  }
+  }*/
     if(typeref=="node"||typeref=="cons"||typeref=="all"){
       
     formData.append('refactoring_id',refactor.id);
@@ -224,12 +247,34 @@ CreateFile(text:string){
 ChangeType(ty:string){
   this.type=ty;
 }
-ModifySelecction(){
-  aux=this.actual.name
-  if(this.actual.name!=this.name && this.actual.AvoidDuplicates(this.name)){
-    alert("this name is already in use")
+checkNameFeature(){
+  if(this.actual!=undefined){
+    let bol
+    bol=this.actual.AvoidDuplicates(this.name)&& (this.name!=this.actual.name)
+    this.updatable=bol
+  return [bol,this.updatable] }
+  return [false,this.updatable]
+}
+checkcard_min_max(){
+  if(this.card_min>=this.card_max){
+    this.card_max=this.card_min+1;
+    return false
   }
-  else{
+  if(this.card_min==this.card_max-1){
+    return false
+  }
+  if(this.card_min<0){
+    this.card_min=0
+    return false
+  }
+  return true
+}
+
+
+ModifySelecction(){
+
+this.sendUpdate()
+  /*
   this.actual.name=this.name
   if(this.actual.children==undefined){}
   if(this.actual.children!=undefined){
@@ -241,15 +286,16 @@ ModifySelecction(){
   this.actual.card_max=this.card_max
   this.actual.card_min=this.card_min
   }
-
 }}
-  this.actual.optional=this.optional
-  this.actual.abstract=this.abstract
-
+this.actual.optional=this.optional
+this.actual.abstract=this.abstract
 this.namesFeatures=this.tree[0].ListOfNamesModified(this.actual.name,aux)
 this.cons[0].checkName(this.cons,this.actual.name,aux)
+*/
 }
-}
+
+
+
 DeleteNode(){
   this.actualfather=this.GetFather(this.actual,this.tree)
   this.namesFeatures=this.actual.Delete(this.actualfather)
@@ -365,6 +411,7 @@ readThis(inputValue: any): void {
     if(file.name.endsWith('.json')){
       console.log("json file detected")
       setTimeout(() => {
+      //this.sendUVL(file)
       this.CreateData(aux,"hola")
       },100)
     }
@@ -392,7 +439,7 @@ readThis(inputValue: any): void {
     this.type=this.actual.type
     this.optional=this.actual.optional
     this.abstract=this.actual.abstract
-    this.card_max=this.actual.card_max||0
+    this.card_max=this.actual.card_max||1
     this.card_min=this.actual.card_min||0
     this.attributes=this.actual.attributes||[]
     this.actualfather=this.GetFather(this.actual,this.tree)
@@ -507,14 +554,14 @@ readThis(inputValue: any): void {
 
 cardhidden(){
   let bool =true
-  let dis =true
   if(this.actual!=undefined){
   if(this.actual.card_max!=undefined || this.actual.card_min!=undefined){
     bool=false
-    if(this.actual.type=="CARDINALITY"){dis=false}
   }}
-  return [bool,dis]
+  if(this.type=="CARDINALITY"){bool=false}
+  return [bool]
 }
+
 treeConsHideen(node:any){
   if(node.operands==null){return true}
   else{return false }
@@ -754,11 +801,26 @@ SelectChipRefactor(ref:Refactoring,tipo:string){
   refactor=ref
   this.Refactor(tipo)
 }
-AutocompletChip(name:string){
-  let showchip=false
-  if(this.featureautocomplete!="" && !(name.toLowerCase().indexOf(this.featureautocomplete.toLowerCase())!=-1)){showchip=true}
-  return showchip
+AutocompleteFeatureTermChip(name:string){
+  let showfeature=false
+  if(this.featureautocomplete!="" && !(name.toLowerCase().indexOf(this.featureautocomplete.toLowerCase())!=-1)){showfeature=true}
+  return showfeature
 }
+
+AutocompleteConstraintList(consname:string){
+  let showcons=false
+  if(this.ConstraintListautocomplete!=""){
+    if(consname.toLowerCase().indexOf(this.ConstraintListautocomplete.toLowerCase())==-1){
+      showcons=true
+    }
+    if((listnamesconstraints[this.jsonconstraintTexto.indexOf(consname)].toLowerCase().indexOf(this.ConstraintListautocomplete.toLowerCase())!=-1)){
+      console.log(listnamesconstraints[this.jsonconstraintTexto.indexOf(consname)].toLowerCase())
+      showcons=false
+    }
+  }
+  return showcons
+}
+
 
 
 RefactorvisibleFeature(ref:Refactoring){
