@@ -5,7 +5,13 @@ from typing import Any
 from flamapy.core.models.ast import Node, AST, ASTOperation
 from flamapy.core.transformations import TextToModel
 
-from flamapy.metamodels.fm_metamodel.models import FeatureModel, Relation, Feature, Constraint
+from flamapy.metamodels.fm_metamodel.models import (
+    FeatureModel, 
+    Relation, 
+    Feature, 
+    Constraint, 
+    Attribute
+)
 
 from rhea.metamodels.fm_metamodel.transformations.json_writer import JSONFeatureType
 
@@ -52,6 +58,19 @@ def parse_tree(parent: Feature, feature_node: dict[str, Any]) -> Feature:
     feature_type = feature_node['type']
     is_abstract = feature_node['abstract']
     feature = Feature(name=feature_name, parent=parent, is_abstract=is_abstract)
+
+    # Attributes
+    if 'attributes' in feature_node:
+        attributes = []
+        for attribute in feature_node['attributes']:
+            attribute_name = attribute['name']
+            if 'value' in attribute:
+                attribute_value = attribute['value']
+            else:
+                attribute_value = None
+            attr = Attribute(attribute_name, None, attribute_value, None)
+            attr.set_parent(feature)
+            feature.add_attribute(attr)
 
     if 'children' in feature_node:
         children = []
