@@ -32,15 +32,17 @@ class OrMandatoryRefactoring(FMRefactoring):
             raise Exception(f'Feature "{instance.name}" is not an or group with mandatory features.')
 
         or_group = next((r for r in instance.get_relations() if r.is_or()), None)
-        for child in or_group.children:
-            if not child.is_mandatory():
-                r_opt = Relation(instance, [child], 0, 1)  # optional
-                instance.add_relation(r_opt)
-        instance.get_relations().remove(or_group)        
+        if or_group is not None:
+            for child in or_group.children:
+                if not child.is_mandatory():
+                    r_opt = Relation(instance, [child], 0, 1)  # optional
+                    instance.add_relation(r_opt)
+            instance.get_relations().remove(or_group)        
         return model
 
 
 def is_or_group_with_mandatory(feature: Feature) -> bool:
     or_group = next((r for r in feature.get_relations() if r.is_or()), None)
-    return any(r.children[0] in or_group.children for r in feature.get_relations() 
-               if r.is_mandatory())
+    return (or_group is not None and 
+            any(r.children[0] in or_group.children for r in feature.get_relations() 
+                if r.is_mandatory()))

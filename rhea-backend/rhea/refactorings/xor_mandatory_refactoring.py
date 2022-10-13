@@ -36,14 +36,17 @@ class XorMandatoryRefactoring(FMRefactoring):
             raise Exception(f'Feature "{instance.name}" is not a cardinality group.')
         
         xor_group = next((r for r in instance.get_relations() if r.is_alternative()), None)
-        mandatory_feature = next((c for c in xor_group.children if c.is_mandatory()), None)
-        xor_group.card_min = 0
-        xor_group.card_max = 0
-        xor_group.children.remove(mandatory_feature)
+        if xor_group is not None:    
+            mandatory_feature = next((c for c in xor_group.children if c.is_mandatory()), None)
+            if mandatory_feature is not None:
+                xor_group.card_min = 0
+                xor_group.card_max = 0
+                xor_group.children.remove(mandatory_feature)
         return model
 
 
 def is_xor_group_with_mandatory(feature: Feature) -> bool:
     xor_group = next((r for r in feature.get_relations() if r.is_alternative()), None)
-    return any(r.children[0] in xor_group.children for r in feature.get_relations() 
-               if r.is_mandatory())
+    return (xor_group is not None and 
+            any(r.children[0] in xor_group.children for r in feature.get_relations() 
+                if r.is_mandatory()))
