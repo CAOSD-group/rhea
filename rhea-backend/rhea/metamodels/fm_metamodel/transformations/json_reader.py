@@ -22,8 +22,8 @@ class JSONReader(TextToModel):
                  ASTOperation.EQUIVALENCE: 'EquivalentTerm'}
 
     @staticmethod
-    def get_destination_extension() -> str:
-        return '.fm'
+    def get_source_extension() -> str:
+        return '.json'
 
     def __init__(self, path: str) -> None:
         self.path = path

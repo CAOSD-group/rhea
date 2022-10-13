@@ -2,34 +2,27 @@ import os
 import inspect
 import importlib
 from typing import Optional
-from xml.etree.ElementTree import tostring
 
-from flask import Flask, flash, render_template, request, redirect, send_from_directory, url_for, session, make_response
+from flask import Flask, render_template, request, redirect, send_from_directory, make_response
 from flask_cors import CORS
-from flask_sqlalchemy import SQLAlchemy
-#from flask_session import Session
 from werkzeug.utils import secure_filename
 from flask_caching import Cache
 
 from flamapy.metamodels.fm_metamodel.models import FeatureModel
 from flamapy.metamodels.fm_metamodel.transformations import UVLReader, UVLWriter, FeatureIDEReader, GlencoeReader
-from requests import JSONDecodeError
 
 from rhea.metamodels.fm_metamodel.transformations import JSONWriter, JSONReader
 from rhea import refactorings
 
 
-#COOKIE_SESSION = 'UserID'
 FEATURE_MODEL_SESSION = 'FeatureModel'
 UPLOAD_FOLDER = '/tmp'
-ALLOWED_EXTENSIONS = {'uvl', 'xml'}
+ALLOWED_EXTENSIONS = {'uvl', 'xml', 'json', 'gfm.json'}
 
 
 static_url = ''
 static_dir = 'template'
 static_folder = 'web'
-#static_dir = 'web'
-
 
 
 config = {
@@ -44,20 +37,6 @@ cache = Cache(app)
 #app = Flask(__name__,static_url_path=static_url,static_folder=static_folder,template_folder=static_dir)
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 CORS(app, supports_credentials=True)
-# Session
-app.config['SECRET_KEY'] = b'_5#y2L"F4Q8z\n\xec]/'
-#app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///db.sqlite3'
-#app.config['SESSION_TYPE'] = 'sqlalchemy'
-#db = SQLAlchemy(app)
-#app.config['SESSION_SQLALCHEMY'] = db
-#sess = Session(app)
-#db.create_all()
-
-
-
-cache.set("my_value", 1_000_000)
-my_value = cache.get("my_value")
-
 
 
 def allowed_file(filename):
@@ -66,22 +45,19 @@ def allowed_file(filename):
 
 def read_fm_file(filename: str) -> Optional[FeatureModel]:
     """Read a feature model object from a file in the sopported formats."""
-    try:
-        if filename.endswith(".uvl"):
-            print("UVL file type (.uvl)")
-            return UVLReader(filename).transform()
-        elif filename.endswith(".xml") or filename.endswith(".fide"):
-            print("FeatureIDE file type (.xml, .fide).")
-            return FeatureIDEReader(filename).transform()
-        elif filename.endswith('.gfm.json'):
-            print("Glencoe file type (.gfm.json).")
-            return GlencoeReader(filename).transform()
-        elif filename.endswith('.json'):
-            return JSONReader(filename).transform()
-    except:
-        print("Invalid FM format.")
-        pass
-    return None
+    if filename.endswith('.uvl'):
+        print("UVL file type (.uvl)")
+        return UVLReader(filename).transform()
+    elif filename.endswith('.xml') or filename.endswith('.fide'):
+        print("FeatureIDE file type (.xml, .fide).")
+        return FeatureIDEReader(filename).transform()
+    elif filename.endswith('.gfm.json'):
+        print("Glencoe file type (.gfm.json).")
+        return GlencoeReader(filename).transform()
+    elif filename.endswith('.json'):
+        return JSONReader(filename).transform()
+    else:
+        return None
 
 
 @app.route('/refactor', methods=['POST'])
@@ -167,11 +143,14 @@ def upload_feature_model():
             print('No selected file')
             return redirect(request.url)
         if file and allowed_file(file.filename):
+            print(file.filename)
             filename = secure_filename(file.filename)
             filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename) 
             filepath = secure_filename(filepath)
             file.save(filepath)
+            print(filepath)
             fm = read_fm_file(filepath)
+            print(fm)
             os.remove(filepath)
             # record the feature model for the session
             #session[FEATURE_MODEL_SESSION] = 'hola'
