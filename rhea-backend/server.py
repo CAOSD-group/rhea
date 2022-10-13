@@ -114,6 +114,8 @@ def updateFeature():
         fm_hash = request.form['fm_hash']
         feature_oldname = request.form['old_name']
         feature_newname = request.form['new_name']
+        feature_optional = request.form['optional']
+        feature_abstract = request.form['abstract']
         feature_type = request.form['type']  # FEATURE, XOR, OR, MUTEX, CARDINAL
         card_min = request.form['card_min']
         card_max = request.form['card_max']

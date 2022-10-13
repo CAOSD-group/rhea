@@ -34,7 +34,7 @@ class JSONReader(TextToModel):
             features_info = data['features']
             constraints_info = data['constraints']
             root_feature = parse_tree(None, features_info)
-            constraints = parse_constraints(constraints_info, features_info)
+            constraints = parse_constraints(constraints_info)
             return FeatureModel(root_feature, constraints)
 
     @staticmethod
@@ -42,7 +42,7 @@ class JSONReader(TextToModel):
         features_info = json_content['features']
         constraints_info = json_content['constraints']
         root_feature = parse_tree(None, features_info)
-        constraints = parse_constraints(constraints_info, features_info)
+        constraints = parse_constraints(constraints_info)
         return FeatureModel(root_feature, constraints)
 
 
@@ -74,6 +74,8 @@ def parse_tree(parent: Feature, feature_node: dict[str, Any]) -> Feature:
                 relation = Relation(feature, children, 1, 1)
             elif feature_type == JSONFeatureType.OR.value:
                 relation = Relation(feature, children, 1, len(children))
+            elif feature_type == JSONFeatureType.MUTEX.value:
+                relation = Relation(feature, children, 0, 1)
             elif feature_type == JSONFeatureType.CARDINALITY.value:  # Group Cardinality
                 card_min = feature_node['card_min']
                 card_max = feature_node['card_max']
@@ -87,7 +89,8 @@ def parse_constraints(constraints_info: dict[str, Any]) -> list[Constraint]:
     for ctc_info in constraints_info:
         name = ctc_info['name']
         ctc_expr = ctc_info['expr']  # not used now?
-        ctc_node = parse_ast_constraint(ctc_info)
+        ast_tree = ctc_info['ast']
+        ctc_node = parse_ast_constraint(ast_tree)
         ctc = Constraint(name, AST(ctc_node))
         constraints.append(ctc)
     return constraints
