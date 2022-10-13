@@ -45,6 +45,7 @@ class RawDataCSVWriter(ModelToText):
         self.attributes = attributes
 
     def transform(self) -> str:
+        
         raw_data_basename = os.path.basename(self.path)
         raw_data_name = raw_data_basename[:raw_data_basename.find('.')] 
         data_str = data_to_csv(self.source_model, raw_data_name)

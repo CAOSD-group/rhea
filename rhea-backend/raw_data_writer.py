@@ -2,7 +2,7 @@ from email import header
 from flamapy.core.transformations import ModelToText
 from typing import Any
 import random
-import os, time
+import os, time, statistics
 
 from flamapy.metamodels.pysat_metamodel.transformations import FmToPysat
 from flamapy.metamodels.pysat_metamodel.operations import (
@@ -72,7 +72,7 @@ def data_to_csv(feature_model: FeatureModel, fm_name: str) -> str:
             
     result = ','.join(st for st in header)
 
-    run = random.randint(20, 50)
+    run = 30 # later a parameter asked
 
     REFACTORING_MUTEX = MutexGroupRefactoring
     REFACTORING_CARDINALITY = CardinalityGroupRefactoring

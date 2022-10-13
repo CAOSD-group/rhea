@@ -1,9 +1,13 @@
+from cProfile import run
 from email.base64mime import body_decode
-import os
+from email.contentmanager import raw_data_manager
+import os, time
 from typing import Any
 from weakref import ref 
 
 from flamapy.metamodels.fm_metamodel.transformations import UVLReader, UVLWriter, FeatureIDEReader, GlencoeReader
+from flamapy.metamodels.fm_metamodel.models import FeatureModel, Feature, Relation, Constraint
+from rhea.refactorings import FMRefactoring
 
 from raw_data_writer import RawDataCSVWriter
 
@@ -42,9 +46,10 @@ OUTPUT_PATH = os.path.basename(MODEL_PATH)
 #     return fm
     
 
-MODEL_PATH = 'tests/models/mutex_groups/input_models/mg02.uvl'
+MODEL_PATH = 'tests/models/mutex_groups/input_models/mg02.uvl' # ESTO LUEGO TENGO QUE PREGUNTARLO POR TECLADO
+statis_data = {}
 
-def main(fm_path: str):
+def main(fm_path: str, statis_data: dict):
     # Create path to the output file
     fm_basename = os.path.basename(fm_path)
     fm_name = fm_basename[:fm_basename.find('.')]  # Remove extension
@@ -60,13 +65,68 @@ def main(fm_path: str):
     else:
         raise Exception(f'Error, invalid model {MODEL_PATH}.')
 
-    # ct_str = generate_configurations(fm, n_attributes)
+    REFACTORING_MUTEX = MutexGroupRefactoring
+    REFACTORING_CARDINALITY = CardinalityGroupRefactoring
+    REFACTORING_MULT_GROUP_DECOMP = MultipleGroupDecompositionRefactoring
+    REFACTORING_XOR_MAND = XorMandatoryRefactoring
+    REFACTORING_OR_MAND = OrMandatoryRefactoring
+    REFACTORING_ANY_CTCS = EliminationAnyConstraints
+    REFACTORING_SPLIT = SplitConstraint
+    REFACTORING_COMPLEX = EliminationComplexConstraints
+    REFACTORING_REQUIRES = EliminationSimpleConstraintsRequires
+    REFACTORING_EXCLUDES = EliminationSimpleConstraintsExcludes
+
+    # list_refactorings = [REFACTORING_MUTEX, REFACTORING_CARDINALITY, REFACTORING_MULT_GROUP_DECOMP, 
+    #                     REFACTORING_XOR_MAND, REFACTORING_OR_MAND, REFACTORING_ANY_CTCS,
+    #                     REFACTORING_SPLIT, REFACTORING_COMPLEX, REFACTORING_REQUIRES, 
+    #                     REFACTORING_EXCLUDES]
+
+    raw_data = {}
+    raw_data_dict = {}
+    for run in range(30):
+        raw_data = set_raw_data(run, fm, fm_name, REFACTORING_MUTEX, raw_data)
+        raw_data_dict[run] = raw_data
+    statis_data = set_statis_data(raw_data_dict)
+
     ct_str = RawDataCSVWriter(path=output_path, source_model=fm).transform()
 
     # Print the result (optional)
-    print(ct_str)
+    # print(ct_str)
 
+def set_raw_data(run: int, fm: FeatureModel, fm_name: str, refactoring: FMRefactoring, raw_data: dict) -> dict:
+    raw_data['FM'] = fm_name
+    raw_data['Run'] = run
+    raw_data['Features'] = fm.get_features()
+
+    fm_refact = execution_refactoring(fm, refactoring)
+
+    raw_data['Features refactored'] = fm_refact.get_features()
+    raw_data['Constraints'] = fm.get_constraints()
+    raw_data['Constraints Refactored'] = fm_refact.get_constraints()
+    raw_data['Execution time'] = execution_time(fm, refactoring)
+
+    return raw_data
+
+def set_statis_data(raw_data: dict[int][dict], statis_list: list[dict]) -> dict:
+    
+    
+    pass
+
+
+def execution_refactoring(fm: FeatureModel, refactoring: FMRefactoring) -> FeatureModel:
+    instances = refactoring.get_instances(fm)
+    for i in instances:
+        fm = refactoring.transform(fm, i)
+    return fm
+
+def execution_time(fm: FeatureModel, refactoring: FMRefactoring):
+    # calculate statistics
+    start = time.perf_counter_ns()
+    fm = execution_refactoring(fm, refactoring)
+    end = time.perf_counter_ns()
+    total_time = (end - start)*1e-9
+    return total_time
 
 
 if __name__ == '__main__':
-    main(MODEL_PATH)
+    main(MODEL_PATH, statis_data)
