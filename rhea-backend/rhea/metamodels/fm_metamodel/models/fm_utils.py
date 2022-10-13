@@ -148,3 +148,14 @@ def remove_references(fm: FeatureModel) -> FeatureModel:
                 feature = fm.dict_references[feature.name]
                 print(f'FEATURE remove reference: {feature.name}')
     return fm
+
+
+def update_feature(fm: FeatureModel, 
+                   feature_old_name: str, 
+                   feature_new_name: str, 
+                   feature_type: str, 
+                   group_card_min: int, 
+                   group_card_max: int, 
+                   feature_attributes: list[dict[str, str]]) -> FeatureModel:
+    
+    return fm

@@ -65,6 +65,7 @@ def allowed_file(filename):
 
 
 def read_fm_file(filename: str) -> Optional[FeatureModel]:
+    """Read a feature model object from a file in the sopported formats."""
     try:
         if filename.endswith(".uvl"):
             print("UVL file type (.uvl)")
@@ -75,24 +76,13 @@ def read_fm_file(filename: str) -> Optional[FeatureModel]:
         elif filename.endswith('.gfm.json'):
             print("Glencoe file type (.gfm.json).")
             return GlencoeReader(filename).transform()
+        elif filename.endswith('.json'):
+            return JSONReader(filename).transform()
     except:
         print("Invalid FM format.")
         pass
-    try:
-        return UVLReader(filename).transform()
-    except:
-        pass
-    try:
-        return FeatureIDEReader(filename).transform()
-    except:
-        pass
-    try:
-        return GlencoeReader(filename).transform()
-    except:
-        pass
     return None
 
-#order : saveFM;downloadFM;deleteFM;createFM;
 
 @app.route('/refactor', methods=['POST'])
 def refactor():
@@ -137,6 +127,29 @@ def refactor():
         cache.set(str(fm_hash), fm)
         #response.headers.add('Access-Control-Allow-Headers', "Origin, X-Requested-With, Content-Type, Accept, x-auth")
         #response.set_cookie(key='FM', value=str(fm_hash))
+        return response
+    return None
+
+
+@app.route('/updateFeature', methods=['POST'])
+def updateFeature():
+    if request.method == 'POST':
+        # Get parameters
+        fm_hash = request.form['fm_hash']
+        feature_oldname = request.form['old_name']
+        feature_newname = request.form['new_name']
+        feature_type = request.form['type']  # FEATURE, XOR, OR, MUTEX, CARDINAL
+        card_min = request.form['card_min']
+        card_max = request.form['card_max']
+        attributes = request.form['attributes']  # list of key: value
+        fm = cache.get(fm_hash)
+        if fm is None:
+            print('FM expired.')
+            return None
+        json_fm = JSONWriter(path=None, source_model=fm).transform()
+        response = make_response(json_fm)
+        fm_hash = hash(fm)
+        cache.set(str(fm_hash), fm)
         return response
     return None
 
