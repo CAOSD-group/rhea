@@ -212,16 +212,17 @@
                     <img src={{SymbolPerType(node)[0]}} #tooltip="matTooltip"  matTooltip={{SymbolPerType(node)[1]}}>
                   </div>
                   
-                  <button mat-icon-button [matMenuTriggerFor]="menu" >
-                      <mat-icon class="mat-icon-rtl-mirror">
-                        more_vert
-                      </mat-icon>
-                    </button>
+                  
 
                   <div class="margin" ></div>
                   <div  class={{HiddenRefacfeature(node)[1]}} #tooltip="matTooltip"  matTooltip={{ToolTip(node)}} >
                     {{node.name}}
-                  </div>                       
+                  </div>     
+                   <button mat-icon-button [matMenuTriggerFor]="menu" (click)="select(node)">
+                      <mat-icon class="mat-icon-rtl-mirror">
+                        more_vert
+                      </mat-icon>
+                    </button>                 
                 </div>   
                 <ul *ngIf="treeControl.isExpanded(node)">  
                   <ng-container matTreeNodeOutlet></ng-container> 
@@ -292,10 +293,12 @@
                     <button class="buttonmenu2" (click)="visible_Constraint_list=!visible_Constraint_list">
                       <mat-icon>{{visible_Constraint_list? 'arrow_upward' : 'arrow_downward'}}</mat-icon>
                     </button>
+                    <input type="text" [(ngModel)]="ConstraintListautocomplete"  placeholder="Search">
                 <cdk-virtual-scroll-viewport [hidden]="!visible_Constraint_list" [itemSize]="6 * 7" class="example-viewport" >
                 <mat-selection-list #constraints [multiple]="false">
                   <mat-list-option *ngFor="let constrainTexto of jsonconstraintTexto" [value]="constrainTexto"
-                    (click)='SelectedChange(constraints.selectedOptions.selected[0].value)'>
+                    (click)='SelectedChange(constraints.selectedOptions.selected[0].value)' 
+                    [hidden]="AutocompleteConstraintList(constrainTexto)">
                     <div>
                       <div class="text"> 
                         <div class={{HiddenRefacCons(constrainTexto)[1]}}>
@@ -451,6 +454,7 @@
         <div class="col-10">
           <h5>Name
           <input matInput  type="string" [(ngModel)]="name"></h5>
+          <h6 [hidden]="!checkNameFeature()[0]"> name already in use</h6>
           <hr>
           <h5>Type:
             {{type}}
@@ -464,10 +468,11 @@
           </h5>
           <hr>
           <h5 [hidden]="cardhidden()[0]">Card_max
-          <input matInput  type="number" [(ngModel)]="card_max" disabled={{cardhidden()[1]}}>
+          <input matInput  type="number" [(ngModel)]="card_max" (change)="checkcard_min_max()" >
           <hr></h5>
           <h5 [hidden]="cardhidden()[0]" >Card_min
-          <input matInput  type="number" [(ngModel)]="card_min" disabled={{cardhidden()[1]}}>
+          <input matInput  type="number" [(ngModel)]="card_min" (change)="checkcard_min_max()">
+          <div [hidden]="checkcard_min_max()"> Caution with the values </div>
           <hr></h5>
           <input class="form-check-input" type="checkbox" [(ngModel)]="optional" > optional
           <hr>
@@ -486,12 +491,13 @@
           </div>
           <h6 class="gray">attribute changes are saved automatically  </h6>
           <hr>
-          <h2>Save Changes</h2>
-          <button (click)="ModifySelecction()" data-bs-dismiss="modal" class="buttonmodal">update</button>
+          <h2 [hidden]="checkNameFeature()[1]" >Save Changes</h2>
+          <h2 [hidden]="!checkNameFeature()[1]" >Not possible to Update</h2>
+          <button (click)="ModifySelecction()" [disabled]="checkNameFeature()[1]" data-bs-dismiss="modal" class="buttonmodal">update</button>
 				</div>
 			</div>
 			<div class="modal-footer">
-				<button type="button" class="buttonmodal" data-bs-dismiss="modal">Close</button>
+				<button type="button" class="buttonmodal"  data-bs-dismiss="modal">Close</button>
 			</div>
 		</div>
 	</div>
@@ -588,7 +594,7 @@
                 <cdk-virtual-scroll-viewport [itemSize]="6 * 7" class="example-viewport-chip" >
                   <input type="text" [(ngModel)]="featureautocomplete">
                   <mat-chip-list class="mat-chip-list-stacked" >
-                    <mat-chip *ngFor="let chip of namesFeatures" (click)="SelectChipFeature(chip)"  [hidden]="AutocompletChip(chip)">
+                    <mat-chip *ngFor="let chip of namesFeatures" (click)="SelectChipFeature(chip)"  [hidden]="AutocompleteFeatureTermChip(chip)">
                       {{chip}}
                     </mat-chip>
                   </mat-chip-list>
@@ -638,6 +644,9 @@
   <i class="bi bi-eye-slash-fill" [hidden]="!show_refacts_cons_only"></i>  
   </button>
   <a (click)="show_refacts_cons_only=!show_refacts_cons_only" (click) = "$event.stopPropagation()"  >Highlight Refactorings</a>
+  <hr>
+
+
 </mat-menu>
 
                      
