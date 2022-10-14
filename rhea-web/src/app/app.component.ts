@@ -95,13 +95,14 @@ export class AppComponent {
   windowAbout=false
   window3=false
   updatable=false
+  page=0;
+  range=10;
 constructor(private http: HttpClient ) { }  
 
 
 
 ngOnInit() {
   console.log("separar html en partes funcionales")
-  
   this.returnValues("JHipster.uvl")
 }
 
@@ -199,7 +200,6 @@ Refactor(typeref:string){
     json=resultado
   })}
 }
-console.log("error in type of refactor")
 }
 
 
@@ -219,12 +219,18 @@ CreateData(object:any,name?:string){
     jsonconstraint=aux.constraints
     jsonrefactors=aux.refactorings
     my_session=aux.hash
-    aux2=""
+    aux2="" 
+    try{
     let dictionary = Object.assign({}, object);
     for( const[key] of Object.entries(dictionary)){
       aux2=aux2+dictionary[key]
-  }
+    }
     aux=JSON.parse(aux2)
+    }
+    catch{}
+    if(aux2=="" ){
+      console.log(aux)
+    }
     aux3=aux.constraints
     this.CreateCons()
     this.CreateFMTree()
@@ -245,6 +251,7 @@ CreateFile(text:string){
 
 
 ChangeType(ty:string){
+  console.log(this.type)
   this.type=ty;
 }
 checkNameFeature(){
@@ -257,13 +264,10 @@ checkNameFeature(){
 }
 checkcard_min_max(){
   if(this.card_min>=this.card_max){
-    this.card_max=this.card_min+1;
+    this.card_max=this.card_min;
     return false
   }
-  if(this.card_min==this.card_max-1){
-    return false
-  }
-  if(this.card_min<0){
+  if(this.card_min<=0){
     this.card_min=0
     return false
   }
@@ -273,7 +277,7 @@ checkcard_min_max(){
 
 ModifySelecction(){
 
-this.sendUpdate()
+ this.sendUpdate()
   /*
   this.actual.name=this.name
   if(this.actual.children==undefined){}
@@ -289,6 +293,7 @@ this.sendUpdate()
 }}
 this.actual.optional=this.optional
 this.actual.abstract=this.abstract
+this.actual.attributes=this.attributes
 this.namesFeatures=this.tree[0].ListOfNamesModified(this.actual.name,aux)
 this.cons[0].checkName(this.cons,this.actual.name,aux)
 */
@@ -411,8 +416,8 @@ readThis(inputValue: any): void {
     if(file.name.endsWith('.json')){
       console.log("json file detected")
       setTimeout(() => {
-      //this.sendUVL(file)
-      this.CreateData(aux,"hola")
+      this.sendUVL(file)
+      //this.CreateData(aux,"hola")
       },100)
     }
     if(file.name.endsWith('.uvl')){
@@ -458,7 +463,8 @@ readThis(inputValue: any): void {
   }
   CreateAttribtues(){
     let newvalue={name:"new name",value:"new value"}
-    this.actual.attributes?.push(newvalue)
+    if(this.attributes==undefined){this.attributes=[]}
+    this.attributes.push(newvalue)
   }
 
   SelectCons(object:any){
@@ -554,12 +560,8 @@ readThis(inputValue: any): void {
 
 cardhidden(){
   let bool =true
-  if(this.actual!=undefined){
-  if(this.actual.card_max!=undefined || this.actual.card_min!=undefined){
-    bool=false
-  }}
   if(this.type=="CARDINALITY"){bool=false}
-  return [bool]
+  return bool
 }
 
 treeConsHideen(node:any){
@@ -814,11 +816,19 @@ AutocompleteConstraintList(consname:string){
       showcons=true
     }
     if((listnamesconstraints[this.jsonconstraintTexto.indexOf(consname)].toLowerCase().indexOf(this.ConstraintListautocomplete.toLowerCase())!=-1)){
-      console.log(listnamesconstraints[this.jsonconstraintTexto.indexOf(consname)].toLowerCase())
       showcons=false
     }
   }
   return showcons
+}
+listOfContraint(text:string){
+  if(text.length<100){
+    return text
+  }
+  else{
+    return listnamesconstraints[this.jsonconstraintTexto.indexOf(text)]
+  }
+
 }
 
 
@@ -936,6 +946,16 @@ SaveUVL() {
   let file2 = new Blob(["resultado"], { type: 'uvl' });
   saveAs(file2, this.title+'.uvl') 
 }
+ ShowPages(){
+  let values
+  values=this.jsonconstraintTexto.slice(this.page*this.range,(this.page+1)*this.range)
+  return [values,this.jsonconstraintTexto.length]
+ }
+ 
+ onSelectionChanged(event){
+  this.page=event.pageIndex
+  this.range=event.pageSize
 
+ }
 }
 

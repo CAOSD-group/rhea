@@ -296,7 +296,7 @@
                     <input type="text" [(ngModel)]="ConstraintListautocomplete"  placeholder="Search">
                 <cdk-virtual-scroll-viewport [hidden]="!visible_Constraint_list" [itemSize]="6 * 7" class="example-viewport" >
                 <mat-selection-list #constraints [multiple]="false">
-                  <mat-list-option *ngFor="let constrainTexto of jsonconstraintTexto" [value]="constrainTexto"
+                  <mat-list-option *ngFor="let constrainTexto of ShowPages()[0]" [value]="constrainTexto"
                     (click)='SelectedChange(constraints.selectedOptions.selected[0].value)' 
                     [hidden]="AutocompleteConstraintList(constrainTexto)">
                     <div>
@@ -308,7 +308,7 @@
                             more_vert
                           </mat-icon>
                         </button>
-                        {{constrainTexto}}
+                        {{listOfContraint(constrainTexto)}}
                         </div>
                       </div>
                     </div> 
@@ -326,7 +326,7 @@
                   </mat-list-option>   
                 </mat-selection-list>
               </cdk-virtual-scroll-viewport>
-
+<mat-paginator [length]="ShowPages()[1]"[pageSize]="10"[pageSizeOptions]="[5, 10, 25, 100]" [pageIndex]="page" (page)="onSelectionChanged($event)" aria-label="Select page"></mat-paginator>
               <mat-menu #menuoptionsconstraintree="matMenu">
                 <button class="empty"  style="color: #012970 " data-bs-toggle="modal" href="#sidebaroptionsconstraintree">Options</button>
               </mat-menu> 
@@ -453,8 +453,8 @@
       <div class="modal-body">
         <div class="col-10">
           <h5>Name
-          <input matInput  type="string" [(ngModel)]="name"></h5>
-          <h6 [hidden]="!checkNameFeature()[0]"> name already in use</h6>
+          <input  type="string" [(ngModel)]="name"></h5>
+          <h6 [hidden]="!checkNameFeature()[0]" class="gray"> name already in use</h6>
           <hr>
           <h5>Type:
             {{type}}
@@ -467,11 +467,11 @@
             </mat-list>
           </h5>
           <hr>
-          <h5 [hidden]="cardhidden()[0]">Card_max
-          <input matInput  type="number" [(ngModel)]="card_max" (change)="checkcard_min_max()" >
+          <h5 [hidden]="cardhidden()">Card_max
+          <input type="number" [(ngModel)]="card_max" (change)="checkcard_min_max()" >
           <hr></h5>
-          <h5 [hidden]="cardhidden()[0]" >Card_min
-          <input matInput  type="number" [(ngModel)]="card_min" (change)="checkcard_min_max()">
+          <h5 [hidden]="cardhidden()" >Card_min
+          <input  type="number" [(ngModel)]="card_min" (change)="checkcard_min_max()">
           <div [hidden]="checkcard_min_max()"> Caution with the values </div>
           <hr></h5>
           <input class="form-check-input" type="checkbox" [(ngModel)]="optional" > optional
@@ -489,7 +489,6 @@
               <mat-icon class="mat-icon-rtl-mirror">clear</mat-icon>
             </button>
           </div>
-          <h6 class="gray">attribute changes are saved automatically  </h6>
           <hr>
           <h2 [hidden]="checkNameFeature()[1]" >Save Changes</h2>
           <h2 [hidden]="!checkNameFeature()[1]" >Not possible to Update</h2>
