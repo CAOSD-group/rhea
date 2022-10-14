@@ -1,4 +1,5 @@
 from email import header
+from unittest import result
 from flamapy.core.transformations import ModelToText
 from typing import Any
 import random
@@ -27,7 +28,7 @@ from rhea.refactorings.elimination_simple_ctcs_excludes import EliminationSimple
 from rhea.refactorings import utils
 
 
-class RawDataCSVWriter(ModelToText):
+class RawDataCSVWriter(dict):
     """Transform raw data about Refactorings to a CSV format.
     
     Raw data is specified in a .csv file that is the input of the refactoring graphics.
@@ -37,29 +38,27 @@ class RawDataCSVWriter(ModelToText):
     def get_destination_extension() -> str:
         return '.csv'
 
-    def __init__(self, path: str, source_model: FeatureModel) -> None:
+    def __init__(self, path: str, raw_data_dict: dict) -> None:
         self.path = path
-        self.source_model = source_model
+        self.raw_data_dict = raw_data_dict
 
     def set_attributes(self, attributes: Any) -> None:
         self.attributes = attributes
 
     def transform(self) -> str:
-        fm_basename = os.path.basename(self.path)
-        fm_name = fm_basename[:fm_basename.find('.')] 
-        data_str = data_to_csv(self.source_model, fm_name)
+        data_str = data_to_csv(self.raw_data_dict)
         with open(self.path, 'w', encoding='utf-8') as file:
             file.write(data_str)
         return data_str
 
 
-def data_to_csv(feature_model: FeatureModel, fm_name: str) -> str:
+def data_to_csv(raw_data_dict: dict) -> str:
     FM_STR = 'FM'
     RUN_STR = 'Run'
     FEATURES_STR = 'Features'
     FEATURES_REFACTORED_STR = 'Features Refactored'
     CONSTRAINTS_STR = 'Constraints'
-    CONSTRAINTS_REFACTORED_STR = 'Constraints refactored'
+    CONSTRAINTS_REFACTORED_STR = 'Constraints Refactored'
     EXECUTION_TIME_STR = 'Execution time'
     PERFORMANCE_STR = 'Performance'
     SCALABILITY_STR = 'Scalability'
@@ -74,55 +73,22 @@ def data_to_csv(feature_model: FeatureModel, fm_name: str) -> str:
 
     run = 30 # later a parameter asked
 
-    REFACTORING_MUTEX = MutexGroupRefactoring
-    REFACTORING_CARDINALITY = CardinalityGroupRefactoring
-    REFACTORING_MULT_GROUP_DECOMP = MultipleGroupDecompositionRefactoring
-    REFACTORING_XOR_MAND = XorMandatoryRefactoring
-    REFACTORING_OR_MAND = OrMandatoryRefactoring
-    REFACTORING_ANY_CTCS = EliminationAnyConstraints
-    REFACTORING_SPLIT = SplitConstraint
-    REFACTORING_COMPLEX = EliminationComplexConstraints
-    REFACTORING_REQUIRES = EliminationSimpleConstraintsRequires
-    REFACTORING_EXCLUDES = EliminationSimpleConstraintsExcludes
 
-    list_refactorings = [REFACTORING_MUTEX, REFACTORING_CARDINALITY, REFACTORING_MULT_GROUP_DECOMP, 
-                         REFACTORING_XOR_MAND, REFACTORING_OR_MAND, REFACTORING_ANY_CTCS,
-                         REFACTORING_SPLIT, REFACTORING_COMPLEX, REFACTORING_REQUIRES, 
-                         REFACTORING_EXCLUDES]
-    
-    refactoring = list_refactorings[random.randint(0,9)]
-
-    for n_run in range(run):
-        # row = get_content(feature_model, fm_name, n_run, refactoring)
-        row = get_content(feature_model, fm_name, n_run, REFACTORING_MUTEX)
-        result += f'\n{row}'
+    # row = get_content(feature_model, fm_name, n_run, refactoring)
+    row = get_content(raw_data_dict)
+    result += f'{row}'
     
     return result
 
-def get_content(fm: FeatureModel, fm_name: str, n_run: int, refactoring: FMRefactoring) -> str:
-
-    list_row = [fm_name, str(n_run), str(len(fm.get_features()))]
-
-    fm_refact = execution_refactoring(fm, refactoring)
-
-    list_row.append(str(len(fm_refact.get_features())))
-    list_row.append(str(len(fm.get_constraints())))
-    list_row.append(str(len(fm_refact.get_constraints())))
-    list_row.append(str(execution_time(fm, refactoring)))
-
-    # execution_time(fm, REFACTORING_MUTEX)
-    # execution_time(fm, REFACTORING_CARDINALITY)
-    # execution_time(fm, REFACTORING_MULT_GROUP_DECOMP)
-    # execution_time(fm, REFACTORING_XOR_MAND)
-    # execution_time(fm, REFACTORING_OR_MAND)
-    # execution_time(fm, REFACTORING_ANY_CTCS)
-    # execution_time(fm, REFACTORING_SPLIT)
-    # execution_time(fm, REFACTORING_COMPLEX)
-    # execution_time(fm, REFACTORING_REQUIRES)
-    # execution_time(fm, REFACTORING_EXCLUDES)
-
-    row = ','.join(st for st in list_row)
-    return row
+def get_content(raw_data_dict: dict[dict]) -> str:
+    result = ''
+    for raw_data in raw_data_dict.values():
+        list_row = []
+        for value in raw_data.values():
+            list_row.append(str(value))
+            row = ','.join(st for st in list_row)
+        result += f'\n{row}'
+    return result
 
 def execution_refactoring(fm: FeatureModel, refactoring: FMRefactoring) -> FeatureModel:
     instances = refactoring.get_instances(fm)

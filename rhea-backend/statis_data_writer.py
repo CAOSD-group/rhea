@@ -103,7 +103,7 @@ def data_to_csv(data_csv: csv, raw_data_name: str) -> str:
     with open(raw_data_name, newline='') as File:  
         reader = csv.reader(File)
         for row in reader:
-            row_data = row.split(", ")
+            row_data = row.split(",")
             for data in row_data:
                 fm_name.append(data[0])
                 list_num.append(data[1])

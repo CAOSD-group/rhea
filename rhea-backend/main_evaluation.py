@@ -1,7 +1,7 @@
-from cProfile import run
 from email.base64mime import body_decode
 from email.contentmanager import raw_data_manager
 import os, time
+import statistics
 from typing import Any
 from weakref import ref 
 
@@ -48,8 +48,9 @@ OUTPUT_PATH = os.path.basename(MODEL_PATH)
 
 MODEL_PATH = 'tests/models/mutex_groups/input_models/mg02.uvl' # ESTO LUEGO TENGO QUE PREGUNTARLO POR TECLADO
 statis_data = {}
+statis_list = []
 
-def main(fm_path: str, statis_data: dict):
+def main(fm_path: str, statis_data_dict: dict, statis_list: list[dict]):
     # Create path to the output file
     fm_basename = os.path.basename(fm_path)
     fm_name = fm_basename[:fm_basename.find('.')]  # Remove extension
@@ -87,30 +88,45 @@ def main(fm_path: str, statis_data: dict):
         raw_data = set_raw_data(run, fm, fm_name, REFACTORING_MUTEX, raw_data)
         raw_data_dict[run] = raw_data
     statis_data = set_statis_data(raw_data_dict)
+    statis_list.append(statis_data)
 
-    ct_str = RawDataCSVWriter(path=output_path, source_model=fm).transform()
-
+    ct_str = RawDataCSVWriter(path=output_path, raw_data_dict=raw_data_dict).transform()
+    
     # Print the result (optional)
     # print(ct_str)
 
 def set_raw_data(run: int, fm: FeatureModel, fm_name: str, refactoring: FMRefactoring, raw_data: dict) -> dict:
     raw_data['FM'] = fm_name
     raw_data['Run'] = run
-    raw_data['Features'] = fm.get_features()
+    raw_data['Features'] = len(fm.get_features())
 
     fm_refact = execution_refactoring(fm, refactoring)
 
-    raw_data['Features refactored'] = fm_refact.get_features()
-    raw_data['Constraints'] = fm.get_constraints()
-    raw_data['Constraints Refactored'] = fm_refact.get_constraints()
+    raw_data['Features Refactored'] = len(fm_refact.get_features())
+    raw_data['Constraints'] = len(fm.get_constraints())
+    raw_data['Constraints Refactored'] = len(fm_refact.get_constraints())
     raw_data['Execution time'] = execution_time(fm, refactoring)
+
+    print(raw_data)
 
     return raw_data
 
-def set_statis_data(raw_data: dict[int][dict], statis_list: list[dict]) -> dict:
-    
-    
-    pass
+def set_statis_data(raw_data: dict[dict]) -> dict:
+    statis_data = {}
+    statis_data['FM'] = raw_data[0]['FM']
+    statis_data['Run'] = len(raw_data)
+    statis_data['Features'] = raw_data[0]['Features']
+    statis_data['Average Features Refactored'] = statistics.mean([raw_data[run]['Features Refactored']
+                                                    for run in raw_data])
+    statis_data['Constraints'] = raw_data[0]['Constraints']
+    statis_data['Average Constraints Refactored'] = statistics.mean([raw_data[run]['Constraints Refactored']
+                                                    for run in raw_data])
+    statis_data['Average Execution Time'] = statistics.mean([raw_data[run]['Execution time']
+                                                    for run in raw_data])
+
+    print(statis_data)
+
+    return statis_data
 
 
 def execution_refactoring(fm: FeatureModel, refactoring: FMRefactoring) -> FeatureModel:
@@ -129,4 +145,4 @@ def execution_time(fm: FeatureModel, refactoring: FMRefactoring):
 
 
 if __name__ == '__main__':
-    main(MODEL_PATH, statis_data)
+    main(MODEL_PATH, statis_data, statis_list)
