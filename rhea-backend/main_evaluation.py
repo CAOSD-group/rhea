@@ -47,11 +47,8 @@ OUTPUT_PATH = os.path.basename(MODEL_PATH)
 #     return fm
     
 
-MODEL_PATH = 'tests/models/mutex_groups/input_models/mg02.uvl' # ESTO LUEGO TENGO QUE PREGUNTARLO POR TECLADO
-statis_data = {}
-statis_list = []  # esto luego hay que ver si ya hay una lista para añadir la neuva row a la lista que ya esté
 
-def main(raw_path: str, statis_data_dict: dict, statis_list: list[dict]):
+def main(raw_path: str, statis_list: list[dict]):
     # Create path to the output file RAW DATA
     fm_basename = os.path.basename(raw_path)
     fm_name = fm_basename[:fm_basename.find('.')]  # Remove extension
@@ -60,7 +57,7 @@ def main(raw_path: str, statis_data_dict: dict, statis_list: list[dict]):
     # Create path to the output file STATIS DATA
     fm_basename = os.path.basename(raw_path)
     fm_name = fm_basename[:fm_basename.find('.')]  # Remove extension
-    output_statis_path = os.path.join('tests/statis_output', fm_name + StatisticsDataCSVWriter.get_destination_extension())
+    output_statis_path = os.path.join('tests/statis_output', 'statis_output' + StatisticsDataCSVWriter.get_destination_extension())
     
     # Load the feature model
     if MODEL_PATH.endswith('.gfm.json'):
@@ -98,7 +95,7 @@ def main(raw_path: str, statis_data_dict: dict, statis_list: list[dict]):
     statis_list.append(statis_data)
 
     raw_str = RawDataCSVWriter(path=output_raw_path, raw_data_dict=raw_data_dict).transform()
-    statis_str = StatisticsDataCSVWriter(path=output_statis_path, data_dict=statis_data).transform()
+    statis_str = StatisticsDataCSVWriter(path=output_statis_path, data_list=statis_list).transform()
     
     # Print the result (optional)
     # print(ct_str)
@@ -115,8 +112,6 @@ def set_raw_data(run: int, fm: FeatureModel, fm_name: str, refactoring: FMRefact
     raw_data['Constraints Refactored'] = len(fm_refact.get_constraints())
     raw_data['Execution time'] = execution_time(fm, refactoring)
 
-    print(raw_data)
-
     return raw_data
 
 def set_statis_data(raw_data: dict[dict]) -> dict:
@@ -131,8 +126,6 @@ def set_statis_data(raw_data: dict[dict]) -> dict:
                                                     for run in raw_data])
     statis_data['Average Execution Time'] = statistics.mean([raw_data[run]['Execution time']
                                                     for run in raw_data])
-
-    print(statis_data)
 
     return statis_data
 
@@ -153,4 +146,14 @@ def execution_time(fm: FeatureModel, refactoring: FMRefactoring):
 
 
 if __name__ == '__main__':
-    main(MODEL_PATH, statis_data, statis_list)
+    csv_filled = False
+    while True:
+        fm_name = input("Feature Model Name: ")
+        if fm_name == '':
+            break
+        MODEL_PATH = 'tests/models_input_statistics/' + fm_name
+        statis_data = {}
+        if csv_filled == False:
+            statis_list = []
+        main(MODEL_PATH, statis_list)
+        csv_filled = True
