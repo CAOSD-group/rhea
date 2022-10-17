@@ -1,3 +1,4 @@
+from copy import deepcopy
 from email.base64mime import body_decode
 from email.contentmanager import raw_data_manager
 import os, time
@@ -85,11 +86,11 @@ def main(raw_path: str, statis_list: list[dict]):
     #                     REFACTORING_SPLIT, REFACTORING_COMPLEX, REFACTORING_REQUIRES, 
     #                     REFACTORING_EXCLUDES]
 
-    raw_data = {}
     raw_data_dict = {}
     n_run = int(input("Number of run: "))
-    for run in range(n_run):
-        raw_data = set_raw_data(run, fm, fm_name, REFACTORING_MUTEX, raw_data)
+    for run in range(1, n_run):
+        #fm_copy = copy.deepcopy(fm)
+        raw_data = set_raw_data(run, fm, fm_name, REFACTORING_MUTEX)
         raw_data_dict[run] = raw_data
     statis_data = set_statis_data(raw_data_dict)
     statis_list.append(statis_data)
@@ -100,12 +101,16 @@ def main(raw_path: str, statis_list: list[dict]):
     # Print the result (optional)
     # print(ct_str)
 
-def set_raw_data(run: int, fm: FeatureModel, fm_name: str, refactoring: FMRefactoring, raw_data: dict) -> dict:
+def set_raw_data(run: int, fm: FeatureModel, fm_name: str, refactoring: FMRefactoring) -> dict:
+    raw_data = {}
     raw_data['FM'] = fm_name
     raw_data['Run'] = run
     raw_data['Features'] = len(fm.get_features())
+    print(f'Features: {[str(f) for f in fm.get_features()]}')
 
+    #start_time...
     fm_refact = execution_refactoring(fm, refactoring)
+    #end_time...
 
     raw_data['Features Refactored'] = len(fm_refact.get_features())
     raw_data['Constraints'] = len(fm.get_constraints())
@@ -115,13 +120,14 @@ def set_raw_data(run: int, fm: FeatureModel, fm_name: str, refactoring: FMRefact
     return raw_data
 
 def set_statis_data(raw_data: dict[dict]) -> dict:
+    MAIN_INDEX = 1
     statis_data = {}
-    statis_data['FM'] = raw_data[0]['FM']
+    statis_data['FM'] = raw_data[MAIN_INDEX]['FM']
     statis_data['Run'] = len(raw_data)
-    statis_data['Features'] = raw_data[0]['Features']
+    statis_data['Features'] = raw_data[MAIN_INDEX]['Features']
     statis_data['Average Features Refactored'] = statistics.mean([raw_data[run]['Features Refactored']
                                                     for run in raw_data])
-    statis_data['Constraints'] = raw_data[0]['Constraints']
+    statis_data['Constraints'] = raw_data[MAIN_INDEX]['Constraints']
     statis_data['Average Constraints Refactored'] = statistics.mean([raw_data[run]['Constraints Refactored']
                                                     for run in raw_data])
     statis_data['Average Execution Time'] = statistics.mean([raw_data[run]['Execution time']
