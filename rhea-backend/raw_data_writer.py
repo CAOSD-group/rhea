@@ -71,7 +71,7 @@ def data_to_csv(raw_data_dict: dict) -> str:
             
     result = ','.join(st for st in header)
 
-    run = 30 # later a parameter asked
+    # run = 30 # later a parameter asked
 
 
     # row = get_content(feature_model, fm_name, n_run, refactoring)

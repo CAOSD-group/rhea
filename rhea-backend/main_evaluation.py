@@ -10,6 +10,7 @@ from flamapy.metamodels.fm_metamodel.models import FeatureModel, Feature, Relati
 from rhea.refactorings import FMRefactoring
 
 from raw_data_writer import RawDataCSVWriter
+from statis_data_writer import StatisticsDataCSVWriter
 
 from rhea.refactorings.mutex_group_refactoring import MutexGroupRefactoring
 from rhea.refactorings.cardinality_group_refactoring import CardinalityGroupRefactoring
@@ -48,13 +49,18 @@ OUTPUT_PATH = os.path.basename(MODEL_PATH)
 
 MODEL_PATH = 'tests/models/mutex_groups/input_models/mg02.uvl' # ESTO LUEGO TENGO QUE PREGUNTARLO POR TECLADO
 statis_data = {}
-statis_list = []
+statis_list = []  # esto luego hay que ver si ya hay una lista para añadir la neuva row a la lista que ya esté
 
-def main(fm_path: str, statis_data_dict: dict, statis_list: list[dict]):
-    # Create path to the output file
-    fm_basename = os.path.basename(fm_path)
+def main(raw_path: str, statis_data_dict: dict, statis_list: list[dict]):
+    # Create path to the output file RAW DATA
+    fm_basename = os.path.basename(raw_path)
     fm_name = fm_basename[:fm_basename.find('.')]  # Remove extension
-    output_path = os.path.join('tests/raw_output', fm_name + RawDataCSVWriter.get_destination_extension())
+    output_raw_path = os.path.join('tests/raw_output', fm_name + RawDataCSVWriter.get_destination_extension())
+
+    # Create path to the output file STATIS DATA
+    fm_basename = os.path.basename(raw_path)
+    fm_name = fm_basename[:fm_basename.find('.')]  # Remove extension
+    output_statis_path = os.path.join('tests/statis_output', fm_name + StatisticsDataCSVWriter.get_destination_extension())
     
     # Load the feature model
     if MODEL_PATH.endswith('.gfm.json'):
@@ -84,13 +90,15 @@ def main(fm_path: str, statis_data_dict: dict, statis_list: list[dict]):
 
     raw_data = {}
     raw_data_dict = {}
-    for run in range(30):
+    n_run = int(input("Number of run: "))
+    for run in range(n_run):
         raw_data = set_raw_data(run, fm, fm_name, REFACTORING_MUTEX, raw_data)
         raw_data_dict[run] = raw_data
     statis_data = set_statis_data(raw_data_dict)
     statis_list.append(statis_data)
 
-    ct_str = RawDataCSVWriter(path=output_path, raw_data_dict=raw_data_dict).transform()
+    raw_str = RawDataCSVWriter(path=output_raw_path, raw_data_dict=raw_data_dict).transform()
+    statis_str = StatisticsDataCSVWriter(path=output_statis_path, data_dict=statis_data).transform()
     
     # Print the result (optional)
     # print(ct_str)

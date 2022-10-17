@@ -1,6 +1,5 @@
 from audioop import avg
 from email import header
-from readline import append_history_file
 from flamapy.core.transformations import ModelToText
 from typing import Any
 import random
@@ -27,7 +26,7 @@ from rhea.refactorings.elimination_simple_ctcs_excludes import EliminationSimple
 from rhea.refactorings import utils
 
 
-class RawDataCSVWriter(ModelToText):
+class StatisticsDataCSVWriter(ModelToText):
     """Transform raw data about Refactorings from a CSV format to statistics data.
     
     Statistics data is specified in a .csv file that is the input of the refactoring graphics.
@@ -37,31 +36,30 @@ class RawDataCSVWriter(ModelToText):
     def get_destination_extension() -> str:
         return '.csv'
 
-    def __init__(self, path: str, data_csv: csv) -> None:
+    def __init__(self, path: str, data_dict: dict) -> None:
         self.path = path
-        self.data_csv = data_csv
+        self.data_dict = data_dict
 
     def set_attributes(self, attributes: Any) -> None:
         self.attributes = attributes
 
     def transform(self) -> str:
-        
         raw_data_basename = os.path.basename(self.path)
         raw_data_name = raw_data_basename[:raw_data_basename.find('.')] 
-        data_str = data_to_csv(self.source_model, raw_data_name)
+        data_str = data_to_csv(self.data_dict)
         with open(self.path, 'w', encoding='utf-8') as file:
             file.write(data_str)
         return data_str
 
 
-def data_to_csv(data_csv: csv, raw_data_name: str) -> str:
+def data_to_csv(data_dict: dict) -> str:
     FM_STR = 'FM'
     TOTAL_RUN_STR = 'Run'
     FEATURES_AVG_STR = 'Features'
     FEATURES_REFACTORED_AVG_STR = 'Features Refactored Average'
-    CONSTRAINTS_AVG_STR = 'Constraints Average'
+    CONSTRAINTS_AVG_STR = 'Constraints'
     CONSTRAINTS_REFACTORED_AVG_STR = 'Constraints refactored Average'
-    EXECUTION_TIME_AVG_STR = 'Execution time Average'
+    EXECUTION_TIME_AVG_STR = 'Average Execution Time'
     PERFORMANCE_AVG_STR = 'Performance Average'
     SCALABILITY_AVG_STR = 'Scalability Average'
     NATURALNESS_AVG_STR = 'Naturalness Average'
@@ -84,47 +82,22 @@ def data_to_csv(data_csv: csv, raw_data_name: str) -> str:
     REFACTORING_REQUIRES = EliminationSimpleConstraintsRequires
     REFACTORING_EXCLUDES = EliminationSimpleConstraintsExcludes
 
-    list_refactorings = [REFACTORING_MUTEX, REFACTORING_CARDINALITY, REFACTORING_MULT_GROUP_DECOMP, 
-                   REFACTORING_XOR_MAND, REFACTORING_OR_MAND, REFACTORING_ANY_CTCS,
-                   REFACTORING_SPLIT, REFACTORING_COMPLEX, REFACTORING_REQUIRES, 
-                   REFACTORING_EXCLUDES]
+    # list_refactorings = [REFACTORING_MUTEX, REFACTORING_CARDINALITY, REFACTORING_MULT_GROUP_DECOMP, 
+    #                REFACTORING_XOR_MAND, REFACTORING_OR_MAND, REFACTORING_ANY_CTCS,
+    #                REFACTORING_SPLIT, REFACTORING_COMPLEX, REFACTORING_REQUIRES, 
+    #                REFACTORING_EXCLUDES]
     
-    refactoring = list_refactorings[random.randint(0,9)]
-
-    fm_name = []
-    list_num = []
-    features = []
-    features_refactored = []
-    constraints = []
-    constraints_refactored = []
-    execution_time = []
-
- 
-    with open(raw_data_name, newline='') as File:  
-        reader = csv.reader(File)
-        for row in reader:
-            row_data = row.split(",")
-            for data in row_data:
-                fm_name.append(data[0])
-                list_num.append(data[1])
-                features.append(data[2])
-                features_refactored.append(data[3])
-                constraints.append(data[4])
-                constraints_refactored.append(data[5])
-                execution_time.append(data[6])
-        run = max(list_row)
-
+    # refactoring = list_refactorings[random.randint(0,9)]
+    
     list_row = []
-    for r_list in range(run):
-        list_row.append(statistics.mean(fm_name))
-        list_row.append(statistics.mean(run))
-        list_row.append(statistics.mean(features))
-        list_row.append(statistics.mean(features_refactored))
-        list_row.append(statistics.mean(constraints))
-        list_row.append(statistics.mean(constraints_refactored))
-        list_row.append(statistics.mean(execution_time))
+    list_row.append(str(data_dict['FM']))
+    list_row.append(str(data_dict['Run']))
+    list_row.append(str(data_dict['Features']))
+    list_row.append(str(data_dict['Average Features Refactored']))
+    list_row.append(str(data_dict['Constraints']))
+    list_row.append(str(data_dict['Average Constraints Refactored']))
+    list_row.append(str(data_dict['Average Execution Time']))
 
-    result = ','.join(dat for dat in list_row)
-    result += f'\n{row}'
+    result += '\n' + ','.join(dat for dat in list_row)
     
     return result
