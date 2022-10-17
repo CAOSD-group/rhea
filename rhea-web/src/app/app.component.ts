@@ -6,6 +6,7 @@ import {FMTree} from './components/FMTree/FMTree';
 import{Const} from './components/constraint/const';
 import * as saveAs from 'file-saver';
 import { Refactoring } from './components/refactor/refactoring';
+import { globalhtml } from './components/globalhtml/globalhtml';
 
 
 
@@ -97,12 +98,15 @@ export class AppComponent {
   updatable=false
   page=0;
   range=10;
+  jsonconstraintextshort: Array<string>=[]
 constructor(private http: HttpClient ) { }  
 
 
 
 ngOnInit() {
   console.log("separar html en partes funcionales")
+  console.log("modal de cierre que se cierre automaticamente cuando acabe de cargar")
+  console.log("scroll horizontal con todo el texto")
   this.returnValues("JHipster.uvl")
 }
 
@@ -355,7 +359,7 @@ CreateCons(){
   console.log(this.cons)
   this.constraindataSource.data=this.cons.filter(x=>this.cons.indexOf(x)==position)
 }
-  
+this.jsonconstraintextshort=this.jsonconstraintTexto
 }
 
 CreateFMTree(){
@@ -809,27 +813,7 @@ AutocompleteFeatureTermChip(name:string){
   return showfeature
 }
 
-AutocompleteConstraintList(consname:string){
-  let showcons=false
-  if(this.ConstraintListautocomplete!=""){
-    if(consname.toLowerCase().indexOf(this.ConstraintListautocomplete.toLowerCase())==-1){
-      showcons=true
-    }
-    if((listnamesconstraints[this.jsonconstraintTexto.indexOf(consname)].toLowerCase().indexOf(this.ConstraintListautocomplete.toLowerCase())!=-1)){
-      showcons=false
-    }
-  }
-  return showcons
-}
-listOfContraint(text:string){
-  if(text.length<100){
-    return text
-  }
-  else{
-    return listnamesconstraints[this.jsonconstraintTexto.indexOf(text)]
-  }
 
-}
 
 
 
@@ -948,8 +932,8 @@ SaveUVL() {
 }
  ShowPages(){
   let values
-  values=this.jsonconstraintTexto.slice(this.page*this.range,(this.page+1)*this.range)
-  return [values,this.jsonconstraintTexto.length]
+  values=this.jsonconstraintextshort.slice(this.page*this.range,(this.page+1)*this.range)
+  return [values,this.jsonconstraintextshort.length]
  }
  
  onSelectionChanged(event){
@@ -957,5 +941,22 @@ SaveUVL() {
   this.range=event.pageSize
 
  }
+ AutocompleteConstraintList(){
+  this.jsonconstraintextshort=[]
+  if(this.ConstraintListautocomplete!=""){
+    this.jsonconstraintTexto.forEach(element => {
+    if(element.toLowerCase().indexOf(this.ConstraintListautocomplete.toLowerCase())!=-1){
+      this.jsonconstraintextshort.push(element)
+    }
+    if((listnamesconstraints[this.jsonconstraintTexto.indexOf(element)].toLowerCase().indexOf(this.ConstraintListautocomplete.toLowerCase())!=-1)){
+      if(this.jsonconstraintextshort.indexOf(element)==-1){
+      this.jsonconstraintextshort.push(element)}
+    }
+  });
+  }
+  else{
+    this.jsonconstraintextshort=this.jsonconstraintTexto}
+}
+
 }
 
