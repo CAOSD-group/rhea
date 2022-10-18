@@ -67,17 +67,6 @@ def main(raw_path: str, statis_list: list[dict]):
     else:
         raise Exception(f'Error, invalid model {MODEL_PATH}.')
 
-    REFACTORING_MUTEX = MutexGroupRefactoring
-    REFACTORING_CARDINALITY = CardinalityGroupRefactoring
-    REFACTORING_MULT_GROUP_DECOMP = MultipleGroupDecompositionRefactoring
-    REFACTORING_XOR_MAND = XorMandatoryRefactoring
-    REFACTORING_OR_MAND = OrMandatoryRefactoring
-    REFACTORING_ANY_CTCS = EliminationAnyConstraints
-    REFACTORING_SPLIT = SplitConstraint
-    REFACTORING_COMPLEX = EliminationComplexConstraints
-    REFACTORING_REQUIRES = EliminationSimpleConstraintsRequires
-    REFACTORING_EXCLUDES = EliminationSimpleConstraintsExcludes
-
     dict_refactorings = {'mutex': REFACTORING_MUTEX, 'cardinality':REFACTORING_CARDINALITY,
                          'decomposition': REFACTORING_MULT_GROUP_DECOMP, 
                          'xor_mand': REFACTORING_XOR_MAND, 'or_mand': REFACTORING_OR_MAND, 
