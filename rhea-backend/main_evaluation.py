@@ -1,10 +1,10 @@
-from copy import deepcopy
+import copy
 from email.base64mime import body_decode
 from email.contentmanager import raw_data_manager
 import os, time
 import statistics
 from typing import Any
-from weakref import ref 
+from weakref import ref
 
 from flamapy.metamodels.fm_metamodel.transformations import UVLReader, UVLWriter, FeatureIDEReader, GlencoeReader
 from flamapy.metamodels.fm_metamodel.models import FeatureModel, Feature, Relation, Constraint
@@ -88,9 +88,9 @@ def main(raw_path: str, statis_list: list[dict]):
 
     raw_data_dict = {}
     n_run = int(input("Number of run: "))
-    for run in range(1, n_run):
-        #fm_copy = copy.deepcopy(fm)
-        raw_data = set_raw_data(run, fm, fm_name, REFACTORING_MUTEX)
+    for run in range(1, n_run+1):
+        fm_copy = copy.deepcopy(fm)
+        raw_data = set_raw_data(run, fm_copy, fm, fm_name, REFACTORING_MUTEX)
         raw_data_dict[run] = raw_data
     statis_data = set_statis_data(raw_data_dict)
     statis_list.append(statis_data)
@@ -101,21 +101,21 @@ def main(raw_path: str, statis_list: list[dict]):
     # Print the result (optional)
     # print(ct_str)
 
-def set_raw_data(run: int, fm: FeatureModel, fm_name: str, refactoring: FMRefactoring) -> dict:
+def set_raw_data(run: int, fm_copy: FeatureModel, fm: FeatureModel, fm_name: str, refactoring: FMRefactoring) -> dict:
     raw_data = {}
     raw_data['FM'] = fm_name
     raw_data['Run'] = run
     raw_data['Features'] = len(fm.get_features())
-    print(f'Features: {[str(f) for f in fm.get_features()]}')
 
-    #start_time...
-    fm_refact = execution_refactoring(fm, refactoring)
-    #end_time...
+    start = time.perf_counter_ns()
+    fm_copy = execution_refactoring(fm_copy, refactoring)
+    end = time.perf_counter_ns()
+    total_time = (end - start)*1e-9
 
-    raw_data['Features Refactored'] = len(fm_refact.get_features())
+    raw_data['Features Refactored'] = len(fm_copy.get_features())
     raw_data['Constraints'] = len(fm.get_constraints())
-    raw_data['Constraints Refactored'] = len(fm_refact.get_constraints())
-    raw_data['Execution time'] = execution_time(fm, refactoring)
+    raw_data['Constraints Refactored'] = len(fm_copy.get_constraints())
+    raw_data['Execution time'] = total_time
 
     return raw_data
 
@@ -142,24 +142,10 @@ def execution_refactoring(fm: FeatureModel, refactoring: FMRefactoring) -> Featu
         fm = refactoring.transform(fm, i)
     return fm
 
-def execution_time(fm: FeatureModel, refactoring: FMRefactoring):
-    # calculate statistics
-    start = time.perf_counter_ns()
-    fm = execution_refactoring(fm, refactoring)
-    end = time.perf_counter_ns()
-    total_time = (end - start)*1e-9
-    return total_time
-
 
 if __name__ == '__main__':
-    csv_filled = False
-    while True:
-        fm_name = input("Feature Model Name: ")
-        if fm_name == '':
-            break
-        MODEL_PATH = 'tests/models_input_statistics/' + fm_name
-        statis_data = {}
-        if csv_filled == False:
-            statis_list = []
-        main(MODEL_PATH, statis_list)
-        csv_filled = True
+    fm_name = input("Feature Model Name: ")
+    MODEL_PATH = 'tests/models_input_statistics/' + fm_name
+    statis_data = {}
+    statis_list = []
+    main(MODEL_PATH, statis_list)

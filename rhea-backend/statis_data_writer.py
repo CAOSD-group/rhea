@@ -1,5 +1,6 @@
 from audioop import avg
 from email import header
+from genericpath import isfile
 from importlib.resources import path
 from flamapy.core.transformations import ModelToText
 from typing import Any
@@ -43,10 +44,8 @@ class StatisticsDataCSVWriter(ModelToText):
         self.attributes = attributes
 
     def transform(self) -> str:
-        raw_data_basename = os.path.basename(self.path)
-        raw_data_name = raw_data_basename[:raw_data_basename.find('.')] 
         data_str = data_to_csv(self.data_dict, self.path)
-        with open(self.path, 'w', encoding='utf-8') as file:
+        with open(self.path, 'a', encoding='utf-8') as file:
             file.write(data_str)
         return data_str
 
@@ -65,9 +64,12 @@ def data_to_csv(data_list: list[dict], path: str) -> str:
     CORRECTNESS_AVG_STR = 'Correctness Average'
     COMPLETENESS_AVG_STR = 'Completeness Average'
 
-    header = [FM_STR, TOTAL_RUN_STR, FEATURES_AVG_STR, FEATURES_REFACTORED_AVG_STR,
-                CONSTRAINTS_AVG_STR, CONSTRAINTS_REFACTORED_AVG_STR, EXECUTION_TIME_AVG_STR]  
-    result = ','.join(st for st in header)
+    if not os.path.exists(path):
+        header = [FM_STR, TOTAL_RUN_STR, FEATURES_AVG_STR, FEATURES_REFACTORED_AVG_STR,
+                    CONSTRAINTS_AVG_STR, CONSTRAINTS_REFACTORED_AVG_STR, EXECUTION_TIME_AVG_STR]  
+        result = ','.join(st for st in header)
+    else:
+        result = ''
 
     REFACTORING_MUTEX = MutexGroupRefactoring
     REFACTORING_CARDINALITY = CardinalityGroupRefactoring
