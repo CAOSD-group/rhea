@@ -2,6 +2,7 @@ from flamapy.metamodels.fm_metamodel.transformations import UVLReader
 from flamapy.metamodels.fm_metamodel.models import Feature, Relation
 
 from rhea.metamodels.fm_metamodel.transformations import JSONWriter
+from rhea.refactorings import CardinalityGroupRefactoring
 
 
 FM_NAME = 'Pizzas_completo'
@@ -25,4 +26,7 @@ if __name__ == '__main__':
 
     JSONWriter(path=FM_NAME+'.json', source_model=fm).transform()
 
+    fm = CardinalityGroupRefactoring().transform(fm, feature_topping)
+
+    JSONWriter(path=FM_NAME+'_refactored.json', source_model=fm).transform()
 

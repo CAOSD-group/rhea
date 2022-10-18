@@ -1,5 +1,6 @@
 {
     "name": "FM_Pizza",
+    "hash": "6604790837476383335",
     "features": {
         "name": "Pizza",
         "type": "FEATURE",
@@ -277,6 +278,23 @@
             ]
         },
         {
+            "id": "EliminationComplexConstraints",
+            "name": "Strict-complex constraint refactoring",
+            "description": "It transforms a strict-complex constraint by adding additional abstract features and simple constraints without adding or removing products.",
+            "type": "Strict-complex constraint",
+            "instances": [
+                "CTC1",
+                "CTC2"
+            ]
+        },
+        {
+            "id": "MultipleGroupDecompositionRefactoring",
+            "name": "Multiple decomposition types refactoring",
+            "description": "It substitutes each group in the feature by a mandatory abstract feature which becomes a new group below the original feature.",
+            "type": "Multiple decomposition types",
+            "instances": []
+        },
+        {
             "id": "MutexGroupRefactoring",
             "name": "Mutex group refactoring",
             "description": "It changes the mutex group to an and-group with one optional abstract sub-feature f which becomes an alternative-group with the original sub-features.",
@@ -286,6 +304,13 @@
             ]
         },
         {
+            "id": "OrMandatoryRefactoring",
+            "name": "Or-group with mandatory subfeature refactoring",
+            "description": "It transforms the or-group with mandatory subfeatures into an and-group with mandatory and optional subfeatures.",
+            "type": "Or-group with mandatory subfeature",
+            "instances": []
+        },
+        {
             "id": "SplitConstraint",
             "name": "Split constraint",
             "description": "It splits a constraint in multiple constraints dividing it by the AND operator when possible.",
@@ -293,6 +318,13 @@
             "instances": [
                 "CTC2"
             ]
+        },
+        {
+            "id": "XorMandatoryRefactoring",
+            "name": "Xor-group with mandatory subfeature refactoring",
+            "description": "It transforms the xor-group with a mandatory subfeature into an or-group with cardinality <0..0> (dead features) and a mandatory subfeature.",
+            "type": "Xor-group with mandatory subfeature",
+            "instances": []
         }
     ]
 }

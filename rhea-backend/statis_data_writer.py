@@ -1,7 +1,3 @@
-from audioop import avg
-from email import header
-from genericpath import isfile
-from importlib.resources import path
 from flamapy.core.transformations import ModelToText
 from typing import Any
 import os, time
@@ -25,6 +21,9 @@ from rhea.refactorings.elimination_simple_ctcs_excludes import EliminationSimple
 
 from rhea.refactorings import utils
 
+TIME = 'Time (s)'
+
+
 
 class StatisticsDataCSVWriter(ModelToText):
     """Transform raw data about Refactorings from a CSV format to statistics data.
@@ -45,8 +44,12 @@ class StatisticsDataCSVWriter(ModelToText):
 
     def transform(self) -> str:
         data_str = data_to_csv(self.data_dict, self.path)
-        with open(self.path, 'a', encoding='utf-8') as file:
-            file.write(data_str)
+        if os.path.exists(self.path):    
+            with open(self.path, 'a', encoding='utf-8') as file:
+                file.write(data_str)
+        else:
+            with open(self.path, 'w', encoding='utf-8') as file:
+                file.write(data_str)
         return data_str
 
 
@@ -54,10 +57,12 @@ def data_to_csv(data_list: list[dict], path: str) -> str:
     FM_STR = 'FM'
     TOTAL_RUN_STR = 'Run'
     FEATURES_AVG_STR = 'Features'
-    FEATURES_REFACTORED_AVG_STR = 'Average Features Refactored'
+    FEATURES_REFACTORED_AVG_STR = 'Features Refactored'
     CONSTRAINTS_AVG_STR = 'Constraints'
-    CONSTRAINTS_REFACTORED_AVG_STR = 'Average Constraints Refactored'
-    EXECUTION_TIME_AVG_STR = 'Average Execution Time'
+    CONSTRAINTS_REFACTORED_AVG_STR = 'Constraints Refactored'
+    EXECUTION_TIME_AVG_STR = f'Average {TIME}'
+    STD_TIME = f'Std {TIME}'
+    MEDIAN_TIME = f'Median {TIME}'
     PERFORMANCE_AVG_STR = 'Performance Average'
     SCALABILITY_AVG_STR = 'Scalability Average'
     NATURALNESS_AVG_STR = 'Naturalness Average'
@@ -66,7 +71,8 @@ def data_to_csv(data_list: list[dict], path: str) -> str:
 
     if not os.path.exists(path):
         header = [FM_STR, TOTAL_RUN_STR, FEATURES_AVG_STR, FEATURES_REFACTORED_AVG_STR,
-                    CONSTRAINTS_AVG_STR, CONSTRAINTS_REFACTORED_AVG_STR, EXECUTION_TIME_AVG_STR]  
+                    CONSTRAINTS_AVG_STR, CONSTRAINTS_REFACTORED_AVG_STR, EXECUTION_TIME_AVG_STR,
+                    STD_TIME, MEDIAN_TIME]  
         result = ','.join(st for st in header)
     else:
         result = ''
@@ -100,8 +106,10 @@ def get_content(data_dict: dict):
     list_row.append(str(data_dict['FM']))
     list_row.append(str(data_dict['Run']))
     list_row.append(str(data_dict['Features']))
-    list_row.append(str(data_dict['Average Features Refactored']))
+    list_row.append(str(data_dict['Features Refactored']))
     list_row.append(str(data_dict['Constraints']))
-    list_row.append(str(data_dict['Average Constraints Refactored']))
-    list_row.append(str(data_dict['Average Execution Time']))
+    list_row.append(str(data_dict['Constraints Refactored']))
+    list_row.append(str(data_dict[f'Average {TIME}']))
+    list_row.append(str(data_dict[f'Std {TIME}']))
+    list_row.append(str(data_dict[f'Median {TIME}']))
     return list_row
