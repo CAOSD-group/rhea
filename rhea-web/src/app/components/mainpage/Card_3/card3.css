@@ -1,0 +1,12 @@
+.bottom-style {
+    margin-bottom: 10px;
+    width: 100%;
+    padding: 10px 0 10px 0;
+    background: #012970;
+    border-radius: 5px;
+    color: #fff;
+  }
+  .bottom-style:hover {
+    background-color: #fff;
+    color: #012970;
+  }

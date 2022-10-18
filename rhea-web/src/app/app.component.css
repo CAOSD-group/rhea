@@ -1,10 +1,8 @@
-
-  .example-viewport-chip {
-    height: 272px;
-  }
   .example-viewport {
     height: 350px;
-    min-width: 30px;
+    overflow-y: scroll;
+    overflow-x: scroll;
+    
   }
   .labelcenter{
     margin-left: auto;
@@ -55,6 +53,9 @@
   .border{
     margin: -20px;
     border: 3px solid rgba(0, 0, 0, 0.2);
+  }
+  .refactorColor{
+    color:#f80404;
   }
   
   .bordercons{
@@ -140,7 +141,7 @@
     height: 100%;
     border: 5px solid rgba(0, 0, 0, 0.5);
     max-width: 100%;
-    min-height: 700px;
+    min-height: 800px;
     padding-right: 0px;
     display: inline-block;
     vertical-align: top;
@@ -711,7 +712,7 @@ h6 {
 }
 
 .sidebar-nav {
-  padding-bottom: 50px;
+  padding-bottom: 15px;
   margin: 0;
   list-style: none;
 }

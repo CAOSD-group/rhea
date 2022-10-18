@@ -5,7 +5,13 @@ from typing import Any
 from flamapy.core.models.ast import Node, AST, ASTOperation
 from flamapy.core.transformations import TextToModel
 
-from flamapy.metamodels.fm_metamodel.models import FeatureModel, Relation, Feature, Constraint
+from flamapy.metamodels.fm_metamodel.models import (
+    FeatureModel, 
+    Relation, 
+    Feature, 
+    Constraint, 
+    Attribute
+)
 
 from rhea.metamodels.fm_metamodel.transformations.json_writer import JSONFeatureType
 
@@ -22,8 +28,8 @@ class JSONReader(TextToModel):
                  ASTOperation.EQUIVALENCE: 'EquivalentTerm'}
 
     @staticmethod
-    def get_destination_extension() -> str:
-        return '.fm'
+    def get_source_extension() -> str:
+        return '.json'
 
     def __init__(self, path: str) -> None:
         self.path = path
@@ -34,7 +40,7 @@ class JSONReader(TextToModel):
             features_info = data['features']
             constraints_info = data['constraints']
             root_feature = parse_tree(None, features_info)
-            constraints = parse_constraints(constraints_info, features_info)
+            constraints = parse_constraints(constraints_info)
             return FeatureModel(root_feature, constraints)
 
     @staticmethod
@@ -42,7 +48,7 @@ class JSONReader(TextToModel):
         features_info = json_content['features']
         constraints_info = json_content['constraints']
         root_feature = parse_tree(None, features_info)
-        constraints = parse_constraints(constraints_info, features_info)
+        constraints = parse_constraints(constraints_info)
         return FeatureModel(root_feature, constraints)
 
 
@@ -52,6 +58,19 @@ def parse_tree(parent: Feature, feature_node: dict[str, Any]) -> Feature:
     feature_type = feature_node['type']
     is_abstract = feature_node['abstract']
     feature = Feature(name=feature_name, parent=parent, is_abstract=is_abstract)
+
+    # Attributes
+    if 'attributes' in feature_node:
+        attributes = []
+        for attribute in feature_node['attributes']:
+            attribute_name = attribute['name']
+            if 'value' in attribute:
+                attribute_value = attribute['value']
+            else:
+                attribute_value = None
+            attr = Attribute(attribute_name, None, attribute_value, None)
+            attr.set_parent(feature)
+            feature.add_attribute(attr)
 
     if 'children' in feature_node:
         children = []
@@ -74,6 +93,8 @@ def parse_tree(parent: Feature, feature_node: dict[str, Any]) -> Feature:
                 relation = Relation(feature, children, 1, 1)
             elif feature_type == JSONFeatureType.OR.value:
                 relation = Relation(feature, children, 1, len(children))
+            elif feature_type == JSONFeatureType.MUTEX.value:
+                relation = Relation(feature, children, 0, 1)
             elif feature_type == JSONFeatureType.CARDINALITY.value:  # Group Cardinality
                 card_min = feature_node['card_min']
                 card_max = feature_node['card_max']
@@ -87,7 +108,8 @@ def parse_constraints(constraints_info: dict[str, Any]) -> list[Constraint]:
     for ctc_info in constraints_info:
         name = ctc_info['name']
         ctc_expr = ctc_info['expr']  # not used now?
-        ctc_node = parse_ast_constraint(ctc_info)
+        ast_tree = ctc_info['ast']
+        ctc_node = parse_ast_constraint(ast_tree)
         ctc = Constraint(name, AST(ctc_node))
         constraints.append(ctc)
     return constraints

@@ -2,6 +2,13 @@ import {AppComponent } from './app.component';
 import {Const} from './components/constraint/const';
 import {FMTree } from './components/FMTree/FMTree';
 import {Refactoring } from './components/refactor/refactoring';
+import { globalhtml } from './components/globalhtml/globalhtml';
+import { about } from './components/about/about';
+import { mainpage } from './components/mainpage/mainpage';
+import { card1 } from './components/mainpage/Card_1/card1';
+import { card2 } from './components/mainpage/Card_2/card2';
+import { card3 } from './components/mainpage/Card_3/card3';
+
 
 
 import {MatTreeModule} from '@angular/material/tree';
@@ -23,6 +30,7 @@ import {MatDialogModule} from '@angular/material/dialog';
 import {MatChipsModule} from '@angular/material/chips';
 import {ScrollingModule} from '@angular/cdk/scrolling';
 import {MatTooltipModule} from '@angular/material/tooltip';
+import {MatPaginatorModule} from '@angular/material/paginator';
 
 @NgModule({
   declarations: [
@@ -30,6 +38,12 @@ import {MatTooltipModule} from '@angular/material/tooltip';
     FMTree,
     Const, 
     Refactoring, 
+    globalhtml,
+    about,
+    mainpage,
+    card1,
+    card2,
+    card3,
   ],
 
 
@@ -37,6 +51,7 @@ import {MatTooltipModule} from '@angular/material/tooltip';
   imports: [
     BrowserModule,
     MatDialogModule,
+    MatPaginatorModule,
     MatTooltipModule,
     ScrollingModule,
     MatToolbarModule,
