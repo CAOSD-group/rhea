@@ -1,6 +1,6 @@
 {
     "name": "FM_Pizza",
-    "hash": "-3040397545708369223",
+    "hash": "7528130131694056239",
     "features": {
         "name": "Pizza",
         "type": "FEATURE",
@@ -159,13 +159,6 @@
                         "name": "Corn",
                         "type": "FEATURE",
                         "optional": true,
-                        "abstract": false,
-                        "attributes": []
-                    },
-                    {
-                        "name": "Tomato",
-                        "type": "FEATURE",
-                        "optional": false,
                         "abstract": false,
                         "attributes": []
                     }
