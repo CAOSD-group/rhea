@@ -1,0 +1,30 @@
+namespace Pizza
+
+features
+	Pizza {abstract}	
+		mandatory
+			Topping	
+				or
+					Salami {cost "1.5", price "3"}
+					Ham {cost "1.25", price "2.5"}
+					Mozzarella {price "1.75", cost "0.5"}
+			Size	
+				alternative
+					Normal {default}
+					Big
+			Dough	
+				alternative
+					Neapolitan {default}
+					Sicilian
+
+		optional
+			CheesyCrust
+			Vegan
+				or
+					Tomato
+					Pepper
+					Corn
+
+constraints
+	CheesyCrust & Sicilian => Big
+	Neapolitan => !Salami & !Ham
