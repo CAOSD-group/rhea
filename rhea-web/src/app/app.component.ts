@@ -6,7 +6,7 @@ import {FMTree} from './components/FMTree/FMTree';
 import{Const} from './components/constraint/const';
 import * as saveAs from 'file-saver';
 import { Refactoring } from './components/refactor/refactoring';
-import { globalhtml } from './components/globalhtml/globalhtml';
+import {MatMenuModule} from '@angular/material/menu';
 
 
 
@@ -62,7 +62,8 @@ export class AppComponent {
   constraindataSource = new MatTreeNestedDataSource<Const>();
     
   //list de constraints y nombres de las features
-  typesofcons:Array<string>=['NotTerm','OrTerm','AndTerm','ImpliesTerm','Xor','Xand','DoubleImpliesTerm']
+  typesofcons:Array<string>=['NOT','OR','AND','IMPLIES','XOR','REQUIRES','EXCLUDES','EQUIVALENCE']
+  typesofconsTerm:Array<string>=['NotTerm','OrTerm','AndTerm','ImpliesTerm','XorTerm','RequiresTerm','ExcludesTerm','EquivalenceTerm']
   namesFeatures:Array<string>=[]
   //otros
   title:string='';
@@ -94,10 +95,11 @@ export class AppComponent {
   mattooltipconstraint=this.search_name?"Search by name":"Search by text";
   windowFM_Editor=true
   windowAbout=false
-  window3=false
+  window3=true
   updatable=false
   page=0;
   range=10;
+  loadingmodal=true
   jsonconstraintextshort: Array<string>=[]
 constructor(private http: HttpClient ) { }  
 
@@ -177,7 +179,6 @@ sendUpdate(){
 
 Refactor(typeref:string){
   let object
-  console.log(my_session)
   const formData: FormData = new FormData();
   if( typeref!="all" &&( refactor==undefined ||refactor.name=="")){console.log("error in type of refactor")}
   else{
@@ -208,38 +209,49 @@ Refactor(typeref:string){
 
 
 returnValues(text?:string){
+  this.loadingmodal=false
   if(text==""|| text==undefined){text=this.item}
   this.http.post(this.urldownload,text,{ withCredentials:true,responseType:'text'}).subscribe(resultado => {
     this.CreateData(resultado,text)
   })
 }
 CreateData(object:any,name?:string){
-    aux = object;
-    this.item=name||"";
-    aux=JSON.parse(aux)
-    this.title=aux.name
-    console.log(this.title)
-    jsonfeatures=aux.features,
-    jsonconstraint=aux.constraints
-    jsonrefactors=aux.refactorings
-    my_session=aux.hash
-    aux2="" 
-    try{
-    let dictionary = Object.assign({}, object);
-    for( const[key] of Object.entries(dictionary)){
-      aux2=aux2+dictionary[key]
-    }
-    aux=JSON.parse(aux2)
-    }
-    catch{}
-    if(aux2=="" ){
-      console.log(aux)
-    }
-    aux3=aux.constraints
-    this.CreateCons()
-    this.CreateFMTree()
-    if(jsonrefactors!=undefined){
-    this.CreateRefactor()}
+  aux = object;
+  this.item=name||"";
+  aux=JSON.parse(aux)
+  this.title=aux.name
+  console.log(this.title)
+  jsonfeatures=aux.features,
+  jsonconstraint=aux.constraints
+  jsonrefactors=aux.refactorings
+  my_session=aux.hash
+  aux2="" 
+  try{
+  let dictionary = Object.assign({}, object);
+  for( const[key] of Object.entries(dictionary)){
+    aux2=aux2+dictionary[key]
+  }
+  aux=JSON.parse(aux2)
+  }
+  catch{}
+  if(aux2=="" ){
+    console.log(aux)
+  }
+  aux3=aux.constraints
+  this.CreateCons()
+  this.CreateFMTree()
+  if(jsonrefactors!=undefined){
+  this.CreateRefactor()}
+  this.loadingmodal=true
+  this.page=0
+  this.range=10
+}
+showModal(){
+  if(!this.loadingmodal){
+    return ["../assets/img/loading.gif",true]
+  }
+  else{
+  return ["a",false]}
 }
 
 CreateFile(text:string){  
@@ -280,9 +292,13 @@ checkcard_min_max(){
 
 
 ModifySelecction(){
-
- this.sendUpdate()
-  /*
+this.loadingmodal=false
+/*try{
+ this.sendUpdate()}
+ catch{
+  this.loadingmodal=true
+ }*/
+  
   this.actual.name=this.name
   if(this.actual.children==undefined){}
   if(this.actual.children!=undefined){
@@ -300,7 +316,7 @@ this.actual.abstract=this.abstract
 this.actual.attributes=this.attributes
 this.namesFeatures=this.tree[0].ListOfNamesModified(this.actual.name,aux)
 this.cons[0].checkName(this.cons,this.actual.name,aux)
-*/
+this.loadingmodal=true
 }
 
 
@@ -369,13 +385,22 @@ CreateFMTree(){
   this.tree[0].DeleteList();
   this.tree=this.tree[0].CreateNewFMTree(jsonfeatures)
   this.namesFeatures=this.tree[0].ListOfNames();
+  console.log(this.namesFeatures)
   this.tree[0]=this.tree[0].IncorporateChildren(jsonfeatures);
   this.tree.splice(1,this.tree.length)
   this.tree[0].CleanFMTree()
   console.log(this.tree)
   this.dataSource.data=this.tree
 }
+listOfContraint(text:string){
+  if(text.length<100){
+    return text
+  }
+  else{
+    return text.slice(0,100)+"..."
+  }
 
+}
 CreateRefactor(){
   console.log("create Refactor")
   refactor.DeleteList()
@@ -402,16 +427,16 @@ changeListener($event): void {
 }
 
 readThis(inputValue: any): void { 
-  if(inputValue!=undefined||inputValue!=""){
+  if(inputValue!=undefined){
+    if(inputValue.files[0]!=undefined){
+    this.loadingmodal=false
     aux=""
     this.dataSource.data=[]
     this.constraindataSource.data=[]
     listnamestext=[]
     this.jsonconstraintTexto=[]
     ListOfConstraint=[]
-
     var file: File = inputValue.files[0];
-
     var myReader: FileReader = new FileReader();
     myReader.readAsText(file);
     myReader.onloadend = function (e) {
@@ -440,8 +465,15 @@ readThis(inputValue: any): void {
       alert("not valid file type")
     }
   }
+  }
 }
   
+  abrir(){
+    console.log(this.actual)
+    this.GetFather(this.actual,this.tree)
+    this.treeControl.expand(this.actualfather)
+    this.treeControl.expand(this.actual)
+  }
   select(object:any){
     this.actual=object
     this.name=this.actual.name
@@ -608,6 +640,14 @@ HiddenRefacfeature(node:FMTree){
     }
     }
   });
+  if(node.abstract){
+    if(color==""){
+      color='cursive'
+    }
+    else{
+      color='refactorColorcursive'
+    }
+  }
   return [hiddensymbolfeature,color]
 }
 
@@ -786,7 +826,7 @@ DeleteConsText(){
 SelectChipLogic(text:string){
   aux=new Const()
   aux.type=text
-  if(text=="NotTerm"){
+  if(text.toLowerCase().startsWith("not")){
     aux.operands=[new Const()]
     aux.operands.splice(0,1)
   }else{
@@ -805,7 +845,14 @@ SelectChipFeature(text:string){
 }
 SelectChipRefactor(ref:Refactoring,tipo:string){
   refactor=ref
+  this.loadingmodal=false
+  console.log(ref)
+  try{
   this.Refactor(tipo)
+}
+  catch{
+    this.loadingmodal=true
+  }
 }
 AutocompleteFeatureTermChip(name:string){
   let showfeature=false
@@ -831,15 +878,20 @@ RefactorvisibleCons(ref:Refactoring){
 }
 
 TransformJSON(){
-  aux=this.consactual.createListForFile(this.cons,this.typesofcons)
+
+  aux=this.consactual.createListForFile(this.cons,this.typesofconsTerm)
   jsonfeatures=JSON.stringify(this.tree[0], (key, value) => {
       if(value!==null) return value  
   })
   aux=0
   while( aux<this.cons.length){
-     listnamestext[aux]=JSON.stringify(this.cons[aux], (key, value) => {
+    
+    listnamestext[aux]=JSON.stringify(this.cons[aux], (key, value) => {
     if(value!==null) return value  
+
+    
   })
+  console.log(listnamestext[aux])
   aux++
   }
   jsonfeatures= '"name"'+':"'+this.title+'",'+'"features"'+':'+ jsonfeatures
@@ -865,7 +917,9 @@ TransformJSON(){
   aux2=""
   while (aux<listnamestext.length){
   aux2=aux2+'{"name":"'+listnamesconstraints[aux]+'","expr":"'+this.jsonconstraintTexto[aux]+'","ast":'+listnamestext[aux]+'},'
+  console.log(listnamestext[aux])
   aux++
+  
   }
   aux2=aux2.slice(0,aux2.length-1)
   aux2='"constraints": ['+aux2+']'
@@ -891,7 +945,7 @@ TransformJSON(){
 
 
 updatevalues(){
-  aux=this.consactual.createListForFile(this.cons,this.typesofcons)
+  aux=this.consactual.createListForFile(this.cons,this.typesofconsTerm)
   jsonfeatures=JSON.stringify(this.tree[0], (key, value) => {
       if(value!==null) return value  })
   aux=0

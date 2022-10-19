@@ -1,6 +1,6 @@
 
 
-<globalhtml></globalhtml>
+<!--<globalhtml></globalhtml>-->
 
 
 
@@ -136,7 +136,7 @@
                 <h4 style="margin-left: 4%; margin-top: 4%;"> Or select one of our documents </h4>
               </li>
               <li class="nav-item" style="margin-left: 4%;">
-                <button class="btn-primary-search" (click)="returnValues(item)"><i class="fa fa-search"></i></button>
+                <button class="btn-primary-search" (click)="returnValues(item)" data-bs-toggle="modal" href="#loading"><i class="fa fa-search"></i></button>
                 <select class="btn-primary-select" [(ngModel)]="item" style="margin-left: 2%;"  >
                   <option value="tree name">Select an option</option>
                   <option *ngFor="let documento of documents">{{documento}}</option>
@@ -181,16 +181,16 @@
                     </button>
                   </div>
                   <div class="symbols">
-                    <img src={{SymbolPerType(node)[2]}} #tooltip="matTooltip"  matTooltip={{SymbolPerType(node)[3]}}>
+                    <img src={{SymbolPerType(node)[2]}} matTooltip={{SymbolPerType(node)[3]}}>
                   </div>
                   <div class="symbols">
-                    <img src={{SymbolPerType(node)[0]}} #tooltip="matTooltip"  matTooltip={{SymbolPerType(node)[1]}}>
+                    <img src={{SymbolPerType(node)[0]}} matTooltip={{SymbolPerType(node)[1]}}>
                   </div>
                   
                   
 
                   <div class="margin" ></div>
-                  <div  class={{HiddenRefacfeature(node)[1]}} #tooltip="matTooltip"  matTooltip={{ToolTip(node)}} >
+                  <div  class={{HiddenRefacfeature(node)[1]}} matTooltip={{ToolTip(node)}}  >
                     {{node.name}}
                   </div>     
                    <button mat-icon-button [matMenuTriggerFor]="menu" (click)="select(node)">
@@ -204,25 +204,25 @@
                 </ul> 
                 <!-- Menu Features Tree -->
                 <mat-menu #menu="matMenu">
-                  <a data-bs-toggle="modal" href="#sidebareditvalues">Edit values</a>
+                  <a data-bs-toggle="modal" href="#sidebareditvalues">Edit</a>
                   <hr>
                   <a data-bs-toggle="modal" href="#sidebarcreatechild">Create a child</a>
                   <hr>
                   <a data-bs-toggle="modal" href="#sidebarcreatebrother">Create brother</a>
                   <hr>
                   <a data-bs-toggle="modal" href="#sidebardeletebranch">Delete branch</a>
-                  <div *ngIf="ToolTipRefa(node)[0]" #tooltip="matTooltip"  matTooltip={{ToolTipRefa(node)[1]}}>
+                  <div *ngIf="ToolTipRefa(node)[0]" matTooltip={{ToolTipRefa(node)[1]}}>
                     <hr>
                     <button class="buttonmenu2" mat-icon-button [matMenuTriggerFor]="menurefactortree" (click) = "$event.stopPropagation()" >
-                      Refactoring 
+                      Apply Refactor
                       <mat-icon>chevron_right</mat-icon>
                     </button>
                   </div>
                 </mat-menu>
                 <mat-menu #menurefactortree="matMenu">
-                  <mat-list class="mat-chip-list-stacked"  >
-                    <mat-list-item *ngFor="let refac of ListOfRefactors" [hidden]='RefactorvisibleFeature(refac)'   >
-                      <button class="buttonmenu2"  data-bs-toggle="modal" href="#loading" (click)="SelectChipRefactor(refac,'node')" >{{refac.name}}</button>
+                  <mat-list class="mat-chip-list-stacked">
+                    <mat-list-item *ngFor="let refac of ListOfRefactors" [hidden]='RefactorvisibleFeature(refac)' >
+                      <button class="buttonmenu2"  data-bs-toggle="modal" href="#loading" (click)="SelectChipRefactor(refac,'node')" style="text-align: left;">{{refac.name}}</button>
                     </mat-list-item >
                   </mat-list>
                 </mat-menu>
@@ -238,11 +238,11 @@
         <div class="card block">
           <div class="border">
             <div class="menu">
-              <mat-chip-list >
+              <!--<mat-chip-list >
                 <mat-chip class="bottom-style" *ngFor="let ref of ListOfRefactors" >
                   <label class="labelcenter">{{ref.name}}</label>
                 </mat-chip>
-              </mat-chip-list>
+              </mat-chip-list>-->
               <!--<input class="file-input" (change)="casFMTree($event.target)" id="file-input" type="file"/>-->
               <!--  <button class="bottom-style"  (click)="casFMTree()"> Refactort all</button> -->
               <button class="bottom-style"  (click)="Refactor('all')"> Refactort all</button>
@@ -263,18 +263,16 @@
             <div class="card block">
               <!-- Constraints Text --> 
               <div class="border">    
-                    <div><h4>Constraints
-                    <button style="margin-left: 65%; " class="empty" [matMenuTriggerFor]="menumodelcons" >  
-                      <mat-icon >more_vert</mat-icon>            
-                    </button></h4>
-
-                    </div>
-                 
-                    <button class="buttonmenu2" (click)="visible_Constraint_list=!visible_Constraint_list">
-                      <mat-icon>{{visible_Constraint_list? 'arrow_upward' : 'arrow_downward'}}</mat-icon>
-                    </button>
-                    <input type="text" [(ngModel)]="ConstraintListautocomplete" (keypress)="AutocompleteConstraintList()" placeholder="Search">
-                <cdk-virtual-scroll-viewport [hidden]="!visible_Constraint_list" [itemSize]="6 * 7" class="example-viewport" style="overflow-x: expand">
+                <div><h4>Constraints
+                  <button style="margin-left: 65%; " class="empty" [matMenuTriggerFor]="menumodelcons" >  
+                    <mat-icon >more_vert</mat-icon>            
+                  </button></h4>
+                </div>
+                <button class="buttonmenu2" (click)="visible_Constraint_list=!visible_Constraint_list">
+                  <mat-icon>{{visible_Constraint_list? 'arrow_upward' : 'arrow_downward'}}</mat-icon>
+                </button>
+                <input type="text" [(ngModel)]="ConstraintListautocomplete" (keypress)="AutocompleteConstraintList()" placeholder="Search">
+                <cdk-virtual-scroll-viewport  [hidden]="!visible_Constraint_list" [itemSize]="6 * 7" class="example-viewport" style="overflow-x: expand">
                 <mat-selection-list #constraints [multiple]="false">
                   <mat-list-option *ngFor="let constrainTexto of ShowPages()[0]" [value]="constrainTexto"
                     (click)='SelectedChange(constraints.selectedOptions.selected[0].value)'>
@@ -282,37 +280,34 @@
                       <div class="text"> 
                         <div class={{HiddenRefacCons(constrainTexto)[1]}}>
                         {{jsonconstraintTexto.indexOf(constrainTexto)+1+". "}}
-                        <button mat-icon-button [matMenuTriggerFor]="menuoptionsconstraintext">
+                        <button mat-icon-button [matMenuTriggerFor]="menuoptionsconstraintext" >
                           <mat-icon class="mat-icon-rtl-mirror" >
                             more_vert
                           </mat-icon>
                         </button>
-                        {{constrainTexto}}
+                        {{listOfContraint(constrainTexto)}}
                         </div>
                       </div>
                     </div> 
                     <mat-menu #menuoptionsconstraintext="matMenu">
-                      <button class="buttonmenu2" mat-icon-button [matMenuTriggerFor]="menuoptionsconstraintree" (click) = "$event.stopPropagation()" >
-                        Options  
-                        <mat-icon>chevron_right</mat-icon>  
-                      </button>
+                      <a data-bs-toggle="modal" href="#sidebaroptionsconstraintree">Options</a>
                       <div></div>
-                      <button class="buttonmenu2" mat-icon-button  *ngIf="HiddenRefacCons(constrainTexto)[0]" [matMenuTriggerFor]="menurefactorcons"(click) = "$event.stopPropagation()" >
-                        Refactoring 
-                        <mat-icon>chevron_right</mat-icon>
+                      <button class="buttonmenu2" *ngIf="HiddenRefacCons(constrainTexto)[0]" [matMenuTriggerFor]="menurefactorcons"(click) = "$event.stopPropagation()" >
+                        Apply Refactor 
+                        <mat-icon style="position: relative;top: 7px; left: -8px;">chevron_right</mat-icon>
                       </button>
                     </mat-menu> 
                   </mat-list-option>   
                 </mat-selection-list>
               </cdk-virtual-scroll-viewport>
-              <mat-paginator [length]="ShowPages()[1]"[pageSize]="10"[pageSizeOptions]="[5, 10, 25, 100]" [pageIndex]="page" (page)="onSelectionChanged($event)" aria-label="Select page"></mat-paginator>
+              <mat-paginator [length]="ShowPages()[1]"[pageSize]="range"[pageSizeOptions]="[5, 10, 25, 100,ShowPages()[1]]" [pageIndex]="page" (page)="onSelectionChanged($event)" aria-label="Select page"></mat-paginator>
               <mat-menu #menuoptionsconstraintree="matMenu">
                 <button class="empty"  style="color: #012970 " data-bs-toggle="modal" href="#sidebaroptionsconstraintree">Options</button>
               </mat-menu> 
               <mat-menu #menurefactorcons="matMenu">
                 <mat-list class="mat-chip-list-stacked"  >
-                  <mat-list-item *ngFor="let refac of ListOfRefactors" [hidden]='RefactorvisibleCons(refac)'   >
-                    <button class="buttonmenu2" (click)="SelectChipRefactor(refac,'cons')" >{{refac.name}}</button>
+                  <mat-list-item *ngFor="let refac of ListOfRefactors" [hidden]='RefactorvisibleCons(refac)'  >
+                    <button class="buttonmenu2" data-bs-toggle="modal" href="#loading" (click)="SelectChipRefactor(refac,'cons')"style="text-align: left;" >{{refac.name}}</button>
                   </mat-list-item >
                 </mat-list>
               </mat-menu>
@@ -355,6 +350,8 @@
                 </mat-tree>
               </div>
             </div>
+        
+            <!--
             <div [hidden]="!visible_Constraint_list" >
               <div class="card shadow mb-4">
                   <div
@@ -403,7 +400,7 @@
                   </div>
               </div>
               </div>
-
+            -->
 
           </div>
         </div>
@@ -446,16 +443,17 @@
             </mat-list>
           </h5>
           <hr>
-          <h5 [hidden]="cardhidden()">Card_max
+
+          <h5 [hidden]="cardhidden()" >Card min 
+          <input  type="number" [(ngModel)]="card_min" (change)="checkcard_min_max()"><hr></h5>
+          <h5 [hidden]="cardhidden()">Card max
           <input type="number" [(ngModel)]="card_max" (change)="checkcard_min_max()" >
           <hr></h5>
-          <h5 [hidden]="cardhidden()" >Card_min
-          <input  type="number" [(ngModel)]="card_min" (change)="checkcard_min_max()">
-          <div [hidden]="checkcard_min_max()"> Caution with the values </div>
-          <hr></h5>
+          <div [hidden]="checkcard_min_max() || cardhidden()"> Caution with the values <hr></div>
+          
           <input class="form-check-input" type="checkbox" [(ngModel)]="optional" > optional
           <hr>
-          <mat-checkbox  color="primary" [(ngModel)]="abstract" ></mat-checkbox> abstract
+          <input class="form-check-input" type="checkbox" [(ngModel)]="abstract" > abstract
           <hr>
           <h5>Attributes (name: value)
           <button class="empty" (click)="CreateAttribtues()" >
@@ -471,7 +469,7 @@
           <hr>
           <h2 [hidden]="checkNameFeature()[1]" >Save Changes</h2>
           <h2 [hidden]="!checkNameFeature()[1]" >Not possible to Update</h2>
-          <button (click)="ModifySelecction()" [disabled]="checkNameFeature()[1]" data-bs-dismiss="modal" class="buttonmodal">update</button>
+          <button (click)="ModifySelecction()" [disabled]="checkNameFeature()[1]" data-bs-toggle="modal" href="#loading" class="buttonmodal">update</button>
 				</div>
 			</div>
 			<div class="modal-footer">
@@ -551,6 +549,7 @@
         <h4 class="modal-title" id="exampleModalLabel">Options</h4>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
+      <label >{{jsonconstraintTexto[npos]}}</label>
       <div class="modal-body">
         <div class="col-12">
           <div class="row">
@@ -569,8 +568,8 @@
             <div class="col-6">
               <div class="bordermodal">
                 <h5>Features Term</h5>
-                <cdk-virtual-scroll-viewport [itemSize]="6 * 7" class="example-viewport-chip" >
-                  <input type="text" [(ngModel)]="featureautocomplete">
+                <input type="text" [(ngModel)]="featureautocomplete">
+                <cdk-virtual-scroll-viewport [itemSize]="6 * 7" class="example-viewport" >
                   <mat-chip-list class="mat-chip-list-stacked" >
                     <mat-chip *ngFor="let chip of namesFeatures" (click)="SelectChipFeature(chip)"  [hidden]="AutocompleteFeatureTermChip(chip)">
                       {{chip}}
@@ -608,7 +607,7 @@
 
 <!--Menu options-->
 <mat-menu #menumodel="matMenu">
-  <button  class ="empty" (click) = "$event.stopPropagation()" (click)="show_refacts_features_only=!show_refacts_features_only" #tooltip="matTooltip"  matTooltip="Highlight Refactorings"  >
+  <button  class ="empty" (click) = "$event.stopPropagation()" (click)="show_refacts_features_only=!show_refacts_features_only" matTooltip="Highlight Refactorings"  >
     <i class="bi bi-eye-fill" [hidden]="show_refacts_features_only"></i>
     <i class="bi bi-eye-slash-fill" [hidden]="!show_refacts_features_only"></i>  
     </button>
@@ -617,39 +616,13 @@
 
 <!--Menu Constraints options-->
 <mat-menu #menumodelcons="matMenu" >
-  <button  class ="empty" (click) = "$event.stopPropagation()" (click)="show_refacts_cons_only=!show_refacts_cons_only" #tooltip="matTooltip"  matTooltip="Highlight Refactorings"  >
+  <button  class ="empty" (click) = "$event.stopPropagation()" (click)="show_refacts_cons_only=!show_refacts_cons_only" matTooltip="Highlight Refactorings"  >
   <i class="bi bi-eye-fill" [hidden]="show_refacts_cons_only"></i>
   <i class="bi bi-eye-slash-fill" [hidden]="!show_refacts_cons_only"></i>  
   </button>
   <a (click)="show_refacts_cons_only=!show_refacts_cons_only" (click) = "$event.stopPropagation()"  >Highlight Refactorings</a>
   <hr>
-
-
 </mat-menu>
-
-<!-- Modal loading-->
-<div class="modal" id="loading" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-lg">
-    <div class="modal-content">
-		  <div class="modal-header">
-        <h2 class="modal-title" id="exampleModalLabel">Delete node</h2>
-		    <button type="button" class="btn-close"  aria-label="Close"></button>
-	    </div>
-	    <div class="modal-body">
-	      <div class="col-10">
-          <h4>Are you sure?</h4>
-          <button class="buttonmodal" data-bs-dismiss="modal">Proceed</button>
-			  </div>
-	    </div>
-      <div class="modal-footer">
-	      <button type="button" class="buttonmodal" data-bs-dismiss="modal">Go back</button>
-	    </div>
-	  </div>
-  </div>
-</div>             
-
-
-
 
 
 
@@ -663,4 +636,31 @@
             drawFMFactLabel(fmData);
         </script>
 
+
+
+
+
+
+
+
      
+<!-- Modal loading-->
+<div class="modal" #loading id="loading" data-bs-backdrop="static">
+  <div class="modal-dialog modal-lg" >
+    <div class="modal-content">
+		  <div class="modal-header"> 
+        <h2 class="modal-title" id="exampleModalLabel">Loading...</h2>
+      </div>
+      <h5>This could take some time </h5>
+	    <div class="modal-body">
+        <div class="row">
+          <div class="col-2"></div>
+          <img class="col-8"src={{showModal()[0]}} >
+          <div class="col-1">{{showModal()[1]? '': buttonloadingclose.click()}}</div>
+        </div>
+	    </div>
+      <button [hidden]="true" #buttonloadingclose data-bs-dismiss="modal" data-bs-backdrop="static"></button>
+	  </div>
+  </div>
+</div>             
+

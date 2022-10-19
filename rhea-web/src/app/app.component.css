@@ -57,6 +57,13 @@
   .refactorColor{
     color:#f80404;
   }
+  .refactorColorcursive{
+    color:#f80404;
+    font-style:oblique;
+  }
+  .cursive{
+    font-style:oblique;
+  }
   
   .bordercons{
     margin: 15px;
@@ -216,7 +223,7 @@ a:hover {
 h1,
 h2,
 h3,
-h4,
+
 h5,
 h6 {
   font-family: "Nunito", sans-serif;
@@ -1065,19 +1072,20 @@ h6 {
   border-radius: 5px;
 }
 
-.dashboard .news h4 {
-  font-size: 15px;
-  margin-left: 95px;
+.dashboard h4 {
+  font-size: 20px;
+  color: #012970;
+  margin-left: 5px;
   font-weight: bold;
   margin-bottom: 5px;
 }
 
-.dashboard .news h4 a {
+.dashboard  h4 a {
   color: #012970;
   transition: 0.3s;
 }
 
-.dashboard .news h4 a:hover {
+.dashboard  h4 a:hover {
   color: #4154f1;
 }
 
@@ -1087,48 +1095,6 @@ h6 {
   margin-left: 95px;
 }
 
-/* Recent Sales */
-.dashboard .recent-sales {
-  font-size: 14px;
-}
-
-.dashboard .recent-sales .table thead {
-  background: #f6f6fe;
-}
-
-.dashboard .recent-sales .table thead th {
-  border: 0;
-}
-
-.dashboard .recent-sales .dataTable-top {
-  padding: 0 0 10px 0;
-}
-
-.dashboard .recent-sales .dataTable-bottom {
-  padding: 10px 0 0 0;
-}
-
-/* Top Selling */
-.dashboard .top-selling {
-  font-size: 14px;
-}
-
-.dashboard .top-selling .table thead {
-  background: #f6f6fe;
-}
-
-.dashboard .top-selling .table thead th {
-  border: 0;
-}
-
-.dashboard .top-selling .table tbody td {
-  vertical-align: middle;
-}
-
-.dashboard .top-selling img {
-  border-radius: 5px;
-  max-width: 60px;
-}
 
 
 

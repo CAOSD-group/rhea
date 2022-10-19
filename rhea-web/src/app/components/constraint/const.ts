@@ -1,5 +1,4 @@
 import { Component } from '@angular/core'
-import { Refactoring } from '../refactor/refactoring'
 
 
 
@@ -74,7 +73,7 @@ let constraintName :Array<any> =[]
 
     createListForTree(list:Array<any>){
         list.forEach(element => {
-            if(element.type=='FeatureTerm'){
+            if(element.type.toLowerCase().startsWith('feature')){
             element.type=element.operands[0]
             element.operands=null
             }

@@ -8,7 +8,9 @@ import { mainpage } from './components/mainpage/mainpage';
 import { card1 } from './components/mainpage/Card_1/card1';
 import { card2 } from './components/mainpage/Card_2/card2';
 import { card3 } from './components/mainpage/Card_3/card3';
-
+import { FeatureTree } from './components/mainpage/FeatureTree/FeatureTree';
+import { ConstraintsText } from './components/mainpage/ConstraintsText/ConstraintsText';
+import { ConstraintsTree } from './components/mainpage/ConstraintsTree/ConstraintsTree';
 
 
 import {MatTreeModule} from '@angular/material/tree';
@@ -32,6 +34,8 @@ import {ScrollingModule} from '@angular/cdk/scrolling';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatPaginatorModule} from '@angular/material/paginator';
 
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -44,6 +48,9 @@ import {MatPaginatorModule} from '@angular/material/paginator';
     card1,
     card2,
     card3,
+    FeatureTree,
+    ConstraintsText,
+    ConstraintsTree,
   ],
 
 

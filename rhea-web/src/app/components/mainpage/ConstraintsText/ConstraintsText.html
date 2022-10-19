@@ -1,0 +1,65 @@
+<div>
+    <h4>Constraints
+        <button style="margin-left: 65%; " class="empty" [matMenuTriggerFor]="menumodelcons" >  
+            <mat-icon>more_vert</mat-icon>            
+        </button>
+    </h4>
+</div>
+    
+<button class="buttonmenu2" (click)="visible_Constraint_list=!visible_Constraint_list">
+    <mat-icon>{{visible_Constraint_list? 'arrow_upward' : 'arrow_downward'}}</mat-icon>
+</button>
+<input type="text" [(ngModel)]="ConstraintListautocomplete" (keypress)="AutocompleteConstraintList()" placeholder="Search">
+<cdk-virtual-scroll-viewport [hidden]="!visible_Constraint_list" [itemSize]="6 * 7" class="example-viewport" style="overflow-x: expand">
+    <mat-selection-list #constraints [multiple]="false">
+        <mat-list-option *ngFor="let constrainTexto of ShowPages()[0]" [value]="constrainTexto"
+            (click)='SelectedChange(constraints.selectedOptions.selected[0].value)'>
+            <div>
+                <div class="text"> 
+                    <div class={{HiddenRefacCons(constrainTexto)[1]}}>
+                        {{jsonconstraintTexto.indexOf(constrainTexto)+1+". "}}
+                        <button mat-icon-button [matMenuTriggerFor]="menuoptionsconstraintext">
+                            <mat-icon class="mat-icon-rtl-mirror" >
+                                more_vert
+                            </mat-icon>
+                        </button>
+                        {{constrainTexto}}
+                    </div>
+                </div>
+            </div> 
+            <mat-menu #menuoptionsconstraintext="matMenu">
+                <button class="buttonmenu2" mat-icon-button [matMenuTriggerFor]="menuoptionsconstraintree" (click) = "$event.stopPropagation()" >
+                    Options  
+                    <mat-icon>chevron_right</mat-icon>  
+                </button>
+                <div></div>
+                <button class="buttonmenu2" mat-icon-button  *ngIf="HiddenRefacCons(constrainTexto)[0]" [matMenuTriggerFor]="menurefactorcons"(click) = "$event.stopPropagation()" >
+                    Refactoring 
+                    <mat-icon>chevron_right</mat-icon>
+                </button>
+            </mat-menu> 
+        </mat-list-option>   
+    </mat-selection-list>
+</cdk-virtual-scroll-viewport>
+<mat-paginator [length]="ShowPages()[1]"[pageSize]="10"[pageSizeOptions]="[5, 10, 25, 100]" [pageIndex]="page" (page)="onSelectionChanged($event)" aria-label="Select page"></mat-paginator>
+<mat-menu #menuoptionsconstraintree="matMenu">
+    <button class="empty"  style="color: #012970 " data-bs-toggle="modal" href="#sidebaroptionsconstraintree">Options</button>
+</mat-menu> 
+<mat-menu #menurefactorcons="matMenu">
+    <mat-list class="mat-chip-list-stacked"  >
+        <mat-list-item *ngFor="let refac of ListOfRefactors" [hidden]='RefactorvisibleCons(refac)'   >
+            <button class="buttonmenu2" (click)="SelectChipRefactor(refac,'cons')" >{{refac.name}}</button>
+        </mat-list-item >
+    </mat-list>
+</mat-menu>
+
+
+<!--Menu Constraints Refactoring-->
+<mat-menu #menumodelcons="matMenu" >
+    <button  class ="empty" (click) = "$event.stopPropagation()" (click)="show_refacts_cons_only=!show_refacts_cons_only" #tooltip="matTooltip"  matTooltip="Highlight Refactorings"  >
+    <i class="bi bi-eye-fill" [hidden]="show_refacts_cons_only"></i>
+    <i class="bi bi-eye-slash-fill" [hidden]="!show_refacts_cons_only"></i>  
+    </button>
+    <a (click)="show_refacts_cons_only=!show_refacts_cons_only" (click) = "$event.stopPropagation()"  >Highlight Refactorings</a>
+    <hr>
+  </mat-menu>
