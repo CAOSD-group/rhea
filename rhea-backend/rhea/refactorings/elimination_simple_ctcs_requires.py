@@ -75,8 +75,8 @@ class EliminationSimpleConstraintsRequires(FMRefactoring):
             model_plus = utils.remove_abstract_child(model_plus, model_plus.root)
         new_root = Feature(utils.get_new_feature_name(model_plus, 'root'), plus_roots, is_abstract=True)
 
-        model_less = get_less(model, feature)
-        new_xor = new_xor(plus, less)
+        # model_less = get_less(model, feature)
+        # new_xor = new_xor(plus, less)
 
 
 

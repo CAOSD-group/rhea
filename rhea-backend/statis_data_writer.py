@@ -56,11 +56,15 @@ class StatisticsDataCSVWriter(ModelToText):
 def data_to_csv(data_list: list[dict], path: str) -> str:
     FM_STR = 'FM'
     TOTAL_RUN_STR = 'Run'
-    FEATURES_AVG_STR = 'Features'
-    FEATURES_REFACTORED_AVG_STR = 'Features Refactored'
-    CONSTRAINTS_AVG_STR = 'Constraints'
-    CONSTRAINTS_REFACTORED_AVG_STR = 'Constraints Refactored'
-    EXECUTION_TIME_AVG_STR = f'Average {TIME}'
+    FEATURES_STR = 'Features'
+    FEATURES_REFACTORED_STR = 'Features Refactored'
+    ABS_FEATURES_STR = 'Abstract Features'
+    ABS_FEATURES_REFACTORED_STR = 'Abstract Features Refactored'
+    CONSTRAINTS_STR = 'Constraints'
+    CONSTRAINTS_REFACTORED_STR = 'Constraints Refactored'
+    CONFIGURATIONS_STR = 'Configurations'
+    CONFIGURATIONS_REFACTORED_STR = 'Configurations Refactored'
+    EXECUTION_TIME_STR = f'Mean {TIME}'
     STD_TIME = f'Std {TIME}'
     MEDIAN_TIME = f'Median {TIME}'
     PERFORMANCE_AVG_STR = 'Performance Average'
@@ -70,23 +74,24 @@ def data_to_csv(data_list: list[dict], path: str) -> str:
     COMPLETENESS_AVG_STR = 'Completeness Average'
 
     if not os.path.exists(path):
-        header = [FM_STR, TOTAL_RUN_STR, FEATURES_AVG_STR, FEATURES_REFACTORED_AVG_STR,
-                    CONSTRAINTS_AVG_STR, CONSTRAINTS_REFACTORED_AVG_STR, EXECUTION_TIME_AVG_STR,
-                    STD_TIME, MEDIAN_TIME]  
+        header = [FM_STR, TOTAL_RUN_STR, FEATURES_STR, FEATURES_REFACTORED_STR, ABS_FEATURES_STR, 
+                  ABS_FEATURES_REFACTORED_STR, CONSTRAINTS_STR, CONSTRAINTS_REFACTORED_STR, 
+                  CONFIGURATIONS_STR, CONFIGURATIONS_REFACTORED_STR, EXECUTION_TIME_STR, STD_TIME,
+                  MEDIAN_TIME]  
         result = ','.join(st for st in header)
     else:
         result = ''
 
-    REFACTORING_MUTEX = MutexGroupRefactoring
-    REFACTORING_CARDINALITY = CardinalityGroupRefactoring
-    REFACTORING_MULT_GROUP_DECOMP = MultipleGroupDecompositionRefactoring
-    REFACTORING_XOR_MAND = XorMandatoryRefactoring
-    REFACTORING_OR_MAND = OrMandatoryRefactoring
-    REFACTORING_ANY_CTCS = EliminationAnyConstraints
-    REFACTORING_SPLIT = SplitConstraint
-    REFACTORING_COMPLEX = EliminationComplexConstraints
-    REFACTORING_REQUIRES = EliminationSimpleConstraintsRequires
-    REFACTORING_EXCLUDES = EliminationSimpleConstraintsExcludes
+    # REFACTORING_MUTEX = MutexGroupRefactoring
+    # REFACTORING_CARDINALITY = CardinalityGroupRefactoring
+    # REFACTORING_MULT_GROUP_DECOMP = MultipleGroupDecompositionRefactoring
+    # REFACTORING_XOR_MAND = XorMandatoryRefactoring
+    # REFACTORING_OR_MAND = OrMandatoryRefactoring
+    # REFACTORING_ANY_CTCS = EliminationAnyConstraints
+    # REFACTORING_SPLIT = SplitConstraint
+    # REFACTORING_COMPLEX = EliminationComplexConstraints
+    # REFACTORING_REQUIRES = EliminationSimpleConstraintsRequires
+    # REFACTORING_EXCLUDES = EliminationSimpleConstraintsExcludes
 
     # list_refactorings = [REFACTORING_MUTEX, REFACTORING_CARDINALITY, REFACTORING_MULT_GROUP_DECOMP, 
     #                REFACTORING_XOR_MAND, REFACTORING_OR_MAND, REFACTORING_ANY_CTCS,
@@ -107,9 +112,13 @@ def get_content(data_dict: dict):
     list_row.append(str(data_dict['Run']))
     list_row.append(str(data_dict['Features']))
     list_row.append(str(data_dict['Features Refactored']))
+    list_row.append(str(data_dict['Abstract Features']))
+    list_row.append(str(data_dict['Abstract Features Refactored']))
     list_row.append(str(data_dict['Constraints']))
     list_row.append(str(data_dict['Constraints Refactored']))
-    list_row.append(str(data_dict[f'Average {TIME}']))
+    list_row.append(str(data_dict['Configurations']))
+    list_row.append(str(data_dict['Configurations Refactored']))
+    list_row.append(str(data_dict[f'Mean {TIME}']))
     list_row.append(str(data_dict[f'Std {TIME}']))
     list_row.append(str(data_dict[f'Median {TIME}']))
     return list_row

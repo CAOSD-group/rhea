@@ -10,6 +10,9 @@ from flamapy.metamodels.fm_metamodel.transformations import UVLReader, UVLWriter
 from flamapy.metamodels.fm_metamodel.models import FeatureModel, Feature, Relation, Constraint
 from rhea.refactorings import FMRefactoring
 
+from flamapy.metamodels.bdd_metamodel.transformations import FmToBDD
+from flamapy.metamodels.bdd_metamodel.operations import BDDProductsNumber
+
 from raw_data_writer import RawDataCSVWriter
 from statis_data_writer import StatisticsDataCSVWriter
 
@@ -100,18 +103,26 @@ def main(raw_path: str, statis_list: list[dict]):
 
 def set_raw_data(run: int, fm_copy: FeatureModel, fm: FeatureModel, fm_name: str, refactoring: FMRefactoring) -> dict:
     raw_data = {}
+    bdd_model = FmToBDD(fm).transform()
     raw_data['FM'] = fm_name
     raw_data['Run'] = run
     raw_data['Features'] = len(fm.get_features())
+    raw_data['Abstract Features'] = len([f for f in fm.get_features() if f.is_abstract])
 
     start = time.perf_counter_ns()
     fm_copy = execution_refactoring(fm_copy, refactoring)
     end = time.perf_counter_ns()
     total_time = (end - start)*1e-9
 
+    bdd_model_copy = FmToBDD(fm_copy).transform()
+
     raw_data['Features Refactored'] = len(fm_copy.get_features())
+    raw_data['Abstract Features Refactored'] = len([f for f in fm_copy.get_features()
+                                                    if f.is_abstract])
     raw_data['Constraints'] = len(fm.get_constraints())
     raw_data['Constraints Refactored'] = len(fm_copy.get_constraints())
+    raw_data['Configurations'] = BDDProductsNumber().execute(bdd_model).get_result()
+    raw_data['Configurations Refactored'] = BDDProductsNumber().execute(bdd_model_copy).get_result()
     raw_data['Execution time'] = total_time
 
     return raw_data
@@ -121,16 +132,20 @@ def set_statis_data(raw_data: dict[dict]) -> dict:
     statis_data['FM'] = raw_data[MAIN_INDEX]['FM']
     statis_data['Run'] = len(raw_data)
     statis_data['Features'] = raw_data[MAIN_INDEX]['Features']
+    statis_data['Abstract Features'] = raw_data[MAIN_INDEX]['Abstract Features']
     statis_data['Features Refactored'] = raw_data[MAIN_INDEX]['Features Refactored']
+    statis_data['Abstract Features Refactored'] = raw_data[MAIN_INDEX]['Abstract Features Refactored']
                                             
     statis_data['Constraints'] = raw_data[MAIN_INDEX]['Constraints']
     statis_data['Constraints Refactored'] = raw_data[MAIN_INDEX]['Constraints Refactored']
-    statis_data[f'Average {TIME}'] = round(statistics.mean([raw_data[run]['Execution time']
-                                                    for run in raw_data]), ROUND_DIGITS)
+    statis_data['Configurations'] = raw_data[MAIN_INDEX]['Configurations']
+    statis_data['Configurations Refactored'] = raw_data[MAIN_INDEX]['Configurations Refactored']
+    statis_data[f'Mean {TIME}'] = round(statistics.mean([raw_data[run]['Execution time']
+                                                         for run in raw_data]), ROUND_DIGITS)
     statis_data[f'Std {TIME}'] = round(statistics.stdev([raw_data[run]['Execution time']
-                                                    for run in raw_data]), ROUND_DIGITS)
+                                                         for run in raw_data]), ROUND_DIGITS)
     statis_data[f'Median {TIME}'] = round(statistics.median([raw_data[run]['Execution time']
-                                                    for run in raw_data]), ROUND_DIGITS)
+                                                         for run in raw_data]), ROUND_DIGITS)
     return statis_data
 
 

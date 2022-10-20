@@ -57,8 +57,12 @@ def data_to_csv(raw_data_dict: dict) -> str:
     RUN_STR = 'Run'
     FEATURES_STR = 'Features'
     FEATURES_REFACTORED_STR = 'Features Refactored'
+    ABS_FEATURES_STR = 'Abstract Features'
+    ABS_FEATURES_REFACTORED_STR = 'Abstract Features Refactored'
     CONSTRAINTS_STR = 'Constraints'
     CONSTRAINTS_REFACTORED_STR = 'Constraints Refactored'
+    CONFIGURATIONS_STR = 'Configurations'
+    CONFIGURATIONS_REFACTORED_STR = 'Configurations Refactored'
     EXECUTION_TIME_STR = 'Execution time'
     PERFORMANCE_STR = 'Performance'
     SCALABILITY_STR = 'Scalability'
@@ -66,8 +70,9 @@ def data_to_csv(raw_data_dict: dict) -> str:
     CORRECTNESS_STR = 'Correctness'
     COMPLETENESS_STR = 'Completeness'
 
-    header = [FM_STR, RUN_STR, FEATURES_STR, FEATURES_REFACTORED_STR, 
-              CONSTRAINTS_STR, CONSTRAINTS_REFACTORED_STR, EXECUTION_TIME_STR]
+    header = [FM_STR, RUN_STR, FEATURES_STR, FEATURES_REFACTORED_STR, ABS_FEATURES_STR,
+              ABS_FEATURES_REFACTORED_STR, CONSTRAINTS_STR, CONSTRAINTS_REFACTORED_STR,
+              CONFIGURATIONS_STR, CONFIGURATIONS_REFACTORED_STR, EXECUTION_TIME_STR]
             
     result = ','.join(st for st in header)
 
@@ -89,17 +94,3 @@ def get_content(raw_data_dict: dict[dict]) -> str:
             row = ','.join(st for st in list_row)
         result += f'\n{row}'
     return result
-
-def execution_refactoring(fm: FeatureModel, refactoring: FMRefactoring) -> FeatureModel:
-    instances = refactoring.get_instances(fm)
-    for i in instances:
-        fm = refactoring.transform(fm, i)
-    return fm
-
-def execution_time(fm: FeatureModel, refactoring: FMRefactoring):
-    # calculate statistics
-    start = time.perf_counter_ns()
-    fm = execution_refactoring(fm, refactoring)
-    end = time.perf_counter_ns()
-    total_time = (end - start)*1e-9
-    return total_time
