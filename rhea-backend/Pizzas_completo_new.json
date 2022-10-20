@@ -1,6 +1,6 @@
 {
     "name": "FM_Pizza",
-    "hash": "7528130131694056239",
+    "hash": "-6002414831928984949",
     "features": {
         "name": "Pizza",
         "type": "FEATURE",
@@ -327,6 +327,98 @@
             "description": "It transforms the xor-group with a mandatory subfeature into an or-group with cardinality <0..0> (dead features) and a mandatory subfeature.",
             "type": "Xor-group with mandatory subfeature",
             "instances": []
+        }
+    ],
+    "language_constructs": [
+        {
+            "id": "LCFeature",
+            "name": "Feature",
+            "value": 20,
+            "refactorings": [],
+            "tools": [
+                "UVL",
+                "Glencoe"
+            ]
+        },
+        {
+            "id": "LCAbstractFeature",
+            "name": "Abstract feature",
+            "value": 1,
+            "refactorings": [],
+            "tools": [
+                "UVL"
+            ]
+        },
+        {
+            "id": "LCOptionalFeature",
+            "name": "Optional feature",
+            "value": 3,
+            "refactorings": [],
+            "tools": [
+                "UVL",
+                "Glencoe"
+            ]
+        },
+        {
+            "id": "LCMandatoryFeature",
+            "name": "Mandatory feature",
+            "value": 5,
+            "refactorings": [],
+            "tools": [
+                "UVL",
+                "Glencoe"
+            ]
+        },
+        {
+            "id": "LCOrGroupFeature",
+            "name": "Or-group",
+            "value": 1,
+            "refactorings": [],
+            "tools": [
+                "UVL",
+                "Glencoe"
+            ]
+        },
+        {
+            "id": "LCXorGroupFeature",
+            "name": "Xor-group",
+            "value": 2,
+            "refactorings": [],
+            "tools": [
+                "UVL",
+                "Glencoe"
+            ]
+        },
+        {
+            "id": "LCMutexGroupFeature",
+            "name": "Mutex group",
+            "value": 1,
+            "refactorings": [
+                "MutexGroupRefactoring"
+            ],
+            "tools": []
+        },
+        {
+            "id": "LCCardinalityGroupFeature",
+            "name": "Cardinality group",
+            "value": 1,
+            "refactorings": [
+                "CardinalityGroupRefactoring"
+            ],
+            "tools": [
+                "Glencoe"
+            ]
+        },
+        {
+            "id": "LCOrGroupMandatoryFeature",
+            "name": "Or-group with mandatory feature",
+            "value": 1,
+            "refactorings": [
+                "OrMandatoryRefactoring"
+            ],
+            "tools": [
+                "Glencoe"
+            ]
         }
     ]
 }

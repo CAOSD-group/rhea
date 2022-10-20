@@ -35,7 +35,7 @@ class CardinalityGroupRefactoring(FMRefactoring):
 
         if instance is None:
             raise Exception(f'There is not feature with name "{instance.name}".')
-        if not instance.is_cardinality_group:
+        if not instance.is_cardinality_group():
             raise Exception(f'Feature {instance.name} is not a cardinality group.')
     
         r_card = next((r for r in instance.get_relations() if r.is_cardinal()), None)
@@ -55,10 +55,10 @@ def create_and_constraints_for_cardinality_group(positives: list[Feature], negat
     elements = [Node(f.name) for f in positives]
     elements += [AST.create_unary_operation(ASTOperation.NOT, Node(f.name)).root for f in negatives]
 
-    print(f'elements: {elements}')
+    #print(f'elements: {elements}')
     result = functools.reduce(lambda left, right: AST.create_binary_operation(ASTOperation.AND, left, right).root, elements)
-    print(f'AND result: {result}')
-    print(f'AST Clauses: {AST(result).get_clauses()}')
+    #print(f'AND result: {result}')
+    #print(f'AST Clauses: {AST(result).get_clauses()}')
     return result
 
 
@@ -68,25 +68,25 @@ def get_or_constraints_for_cardinality_group(feature: Feature, relation: Relatio
     children = set(relation.children)
     and_nodes = []
     for k in range(card_min, card_max + 1):
-        print(f'K: {k}')
-        combi_k = list(itertools.combinations(relation.children, k))
-        print(f'combi_k: {[str(f) for f in combi_k]}')
+        #print(f'K: {k}')
+        combi_k = itertools.combinations(relation.children, k)
+        #print(f'combi_k: {[str(f) for f in combi_k]}')
         for positives in combi_k:
             negatives = children - set(positives)
 
             and_ctc = create_and_constraints_for_cardinality_group(positives, negatives)
-            print(f'Node: {and_ctc}')
+            #print(f'Node: {and_ctc}')
             and_nodes.append(and_ctc)
-            print('---')
-        print(f'Fin K {k}')
+            #print('---')
+        #print(f'Fin K {k}')
     result = functools.reduce(lambda left, right: Node(ASTOperation.OR, left, right), and_nodes)
-    print(f'Result: {result}')
+    #print(f'Result: {result}')
     return result
 
 def get_constraint_for_cardinality_group(feature: Feature, relation: Relation) -> Constraint:
     ast = AST.create_binary_operation(ASTOperation.IMPLIES,
                                       Node(feature.name),
                                       get_or_constraints_for_cardinality_group(feature, relation))
-    print(f'AST: {ast.pretty_str()}')
+    #print(f'AST: {ast.pretty_str()}')
     
     return Constraint('CG', ast)

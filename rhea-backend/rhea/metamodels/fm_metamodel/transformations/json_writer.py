@@ -11,6 +11,8 @@ from flamapy.core.transformations import ModelToText
 from flamapy.metamodels.fm_metamodel.models import FeatureModel, Feature, Constraint, Attribute
 
 from rhea import refactorings
+from rhea import language_constructs
+from rhea.fm_tools import fm_tool_info
 
 
 class JSONFeatureType(Enum):
@@ -28,9 +30,10 @@ class JSONWriter(ModelToText):
                  ASTOperation.OR: 'OrTerm',
                  ASTOperation.XOR: 'XorTerm',
                  ASTOperation.IMPLIES: 'ImpliesTerm',
-                 ASTOperation.REQUIRES: 'ImpliesTerm',
+                 ASTOperation.REQUIRES: 'RequiresTerm',
                  ASTOperation.EXCLUDES: 'ExcludesTerm',
-                 ASTOperation.EQUIVALENCE: 'EquivalentTerm'}
+                 ASTOperation.EQUIVALENCE: 'EquivalentTerm',
+                 'FEATURE': 'FeatureTerm'}
 
     @staticmethod
     def get_destination_extension() -> str:
@@ -59,6 +62,7 @@ def _to_json(feature_model: FeatureModel) -> dict[str, Any]:
     result['constraints'] = _get_constraints_info(feature_model.get_constraints())
     print('refactorings to json')
     result['refactorings'] = _get_refactorings_info(feature_model)
+    result['language_constructs'] = _get_language_constructs_info(feature_model)
     return result
 
 
@@ -122,7 +126,7 @@ def _get_constraints_info(constraints: list[Constraint]) -> list[dict[str, Any]]
 def _get_ctc_info(ast_node: Node) -> dict[str, Any]:
     ctc_info: dict[str, Any] = {}
     if ast_node.is_term():
-        ctc_info['type'] = 'FeatureTerm'
+        ctc_info['type'] = JSONWriter.CTC_TYPES['FEATURE']
         ctc_info['operands'] = [ast_node.data]
     else:
         ctc_info['type'] = JSONWriter.CTC_TYPES[ast_node.data]
@@ -152,9 +156,37 @@ def _get_refactorings_info(feature_model: FeatureModel) -> list[dict[str, Any]]:
         ref_info = {}
         ref_info['id'] = class_.__name__
         ref_info['name'] = class_.get_name()
-        print(f'Refactoring name to json: {ref_info["name"]}')
         ref_info['description'] = class_.get_description()
         ref_info['type'] = class_.get_language_construct_name()
         ref_info['instances'] = [i.name for i in class_.get_instances(feature_model)]
         refactorings_info.append(ref_info)
     return refactorings_info
+
+
+def _get_language_constructs_info(feature_model: FeatureModel) -> list[dict[str, Any]]:
+    # Get class names
+    class_list = list(language_constructs.__all__)
+    class_list.remove('LanguageConstruct')
+
+    # Get modules and class objects
+    modules = inspect.getmembers(language_constructs)
+    modules = filter(lambda x: inspect.ismodule(x[1]), modules)
+    modules = [importlib.import_module(m[1].__name__) for m in modules]
+    classes = [getattr(m, c) for c in class_list for m in modules if hasattr(m, c)]
+
+    language_constructs_info = []
+    tools = fm_tool_info.get_tools_info()
+    for class_ in classes:
+        lc_info = {}
+        lc_info['id'] = class_.__name__
+        lc_info['name'] = class_.name()
+        lc_info['value'] = len(class_.get_instances(feature_model))
+        lc_info['refactorings'] = [r.__name__ for r in class_.get_refactorings()]
+        tool_support = []
+        for t in tools:
+            for lc in t.support:
+                if lc.__name__ == lc_info['id']:
+                    tool_support.append(t.name)
+        lc_info['tools'] = tool_support
+        language_constructs_info.append(lc_info)
+    return language_constructs_info

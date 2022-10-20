@@ -1,0 +1,30 @@
+features
+	Pizza {abstract}
+		mandatory
+			Topping 
+				[2..5]
+					Salami {cost "1.5", price "3"}
+					Ham {cost "1.25", price "2.5"}
+					Mozzarella {price "1.75", cost "0"}
+					Tuna {cost "2.10", price "3.20"}
+					Bacon {cost "1.4", price "2.80"}
+		mandatory
+			Size 
+				alternative
+					Normal {default}
+					Big 
+		mandatory
+			Dough 
+				alternative
+					Neapolitan {default}
+					Sicilian 
+		optional
+			CheesyCrust 
+		optional
+			Spicy 
+				[0..1]
+					Cayenne 
+					Jalapino 
+constraints
+	(CheesyCrust & Sicilian) => Big
+	Neapolitan => (!Salami & !Ham)
