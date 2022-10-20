@@ -5,6 +5,7 @@ from logging import root
 from msilib.schema import FeatureComponents
 from numbers import Real
 from pyexpat import model
+from statistics import mode
 from typing import Any, List
 
 from flamapy.core.models.ast import AST, ASTOperation, Node
@@ -41,43 +42,23 @@ class EliminationSimpleConstraintsRequires(FMRefactoring):
         if not ConstraintHelper(instance).is_requires_constraint():
             raise Exception(f'Operator {str(instance)} is not requires.')
 
-        if not hasattr(model, 'dict_references'):
-            model.dict_references = {}
         model_plus = copy.deepcopy(model)
         model_less = copy.deepcopy(model)
 
         right_feature_name_ctc = utils.get_right_feature_name(instance)
-
-        list_right_feature_ctc_plus = [right_feature_name_ctc]
-        if hasattr(model, 'dict_references'):
-            list_right_feature_ctc_plus += [key for key, value in model.dict_references.items() 
-                                            if value.name == right_feature_name_ctc]
-        xor_plus = Feature(utils.get_new_feature_name(model_plus, 'XOR'), is_abstract=True)
-
-        list_right_feature_ctc_less = [right_feature_name_ctc]
-        if hasattr(model, 'dict_references'):
-            list_right_feature_ctc_less += [key for key, value in model.dict_references.items() 
-                                                 if value.name == right_feature_name_ctc]
-
+        list_right_features_plus_ctc = [f for f in model_plus.get_features()
+                                        if f.name == right_feature_name_ctc]
+        list_right_features_less_ctc = [f for f in model_less.get_features()
+                                        if f.name == right_feature_name_ctc]
 
         left_feature_name_ctc = utils.get_left_feature_name(instance)
+        list_left_features_less_ctc = [f for f in model_less.get_features() 
+                                       if f.name == left_feature_name_ctc]
 
-        list_left_feature_ctc_less_plus = [left_feature_name_ctc]
-        if hasattr(model, 'dict_references'):
-            list_left_feature_ctc_less_plus += [key for key, value in model.dict_references.items() 
-                                                if value.name == left_feature_name_ctc]
-
-
-        plus_roots = []
-        for f in list_right_feature_ctc_plus:
-            model_plus = utils.add_node_to_tree(model, f)
-            plus_roots.append(model_plus.root)
-            model_plus = utils.remove_abstract_child(model_plus, model_plus.root)
-        new_root = Feature(utils.get_new_feature_name(model_plus, 'root'), plus_roots, is_abstract=True)
-
-        # model_less = get_less(model, feature)
-        # new_xor = new_xor(plus, less)
-
+        
+        model_plus = get_model_plus(model_plus, list_right_features_plus_ctc)
+        model_less = get_model_less(model_less, list_left_features_less_ctc)
+        model_less = get_model_less(model_less, list_right_features_less_ctc)
 
 
         # Construct T(+B) and T(-A-B).
@@ -99,26 +80,30 @@ class EliminationSimpleConstraintsRequires(FMRefactoring):
 
         model.ctcs.remove(instance)
 
-        # Changing names to avoid duplicates
-        # CUIDADO!!! (puede que haya que modificarlo)
-        if model_less is not None and model_plus is not None:
-            for feature in model_less.get_features():
-                if feature in model_plus.get_features() and not feature.name in model.dict_references.keys():
-                    feature_reference = model.get_feature_by_name(feature.name)
-                    feature.name = utils.get_new_feature_name(model, feature.name)
-                    if feature != feature_reference:
-                        model.dict_references[feature.name] = feature_reference
-                elif feature.name in model.dict_references.keys():
-                    feature_dict_value = model.dict_references[feature.name]
-                    feature.name = utils.get_new_feature_name(model, feature.name)
-                    if feature != feature_dict_value:
-                        model.dict_references[feature.name] = feature_dict_value
-        
-        # print(f'Dict references requires: {[value.name for value in model.dict_references.values()]}')
-
-        print(f'MODEL DICT REQUIRES - after: {[(name, value.name) for name, value in model.dict_references.items()]}')
-        # print(f'MODEL REQUIRES after: {model}')
-
-        UVLWriter(model, f"requires{instance}.uvl").transform()
+        UVLWriter(model, f"tests/requires_output/requires{instance}.uvl").transform()
         
         return model
+
+def get_model_plus(model: FeatureModel, f_list: list[Feature]) -> FeatureModel:
+    plus_roots = []
+    for f in f_list:
+        model = utils.add_node_to_tree(model, f)
+        plus_roots.append(model.root)
+        model = utils.remove_abstract_child(model, model.root)
+        plus_roots.append(model.root)
+    # if len(f_list)>1:
+    #     xor_plus = Feature(utils.get_new_feature_name(model, 'XOR'), is_abstract=True)
+    #     r_xor_plus = Relation(xor_plus, plus_roots, 1, 1)  # XOR
+    #     xor_plus.add_relation(r_xor_plus)
+    #     model.root = xor_plus
+    #     count = 1
+    #     for r in xor_plus.get_children():
+    #         r.name = f'{r.name}{count}'
+    #         count += 1
+    return model
+
+def get_model_less(model: FeatureModel, f_list: list[Feature]) -> FeatureModel:
+    for f_left_less in f_list:
+        if model is not None:
+            model = utils.eliminate_node_from_tree(model, f_left_less)
+    return model

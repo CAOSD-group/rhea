@@ -3,7 +3,8 @@ features
 		alternative
 			XOR{abstract}
 				alternative
-					Pizza21{abstract}
+					root1{abstract}
+					Pizza234{abstract}
 						mandatory
 							Topping
 								mandatory
@@ -24,57 +25,80 @@ features
 									Sicilian
 						optional
 							CheesyCrust
-					Pizza112{abstract}
+					Pizza234{abstract}
 						mandatory
-							Topping1
+							Topping
 								mandatory
-									Mozzarella1
+									Ham
 								optional
-									Salami1
-						mandatory
-							Size1
+									Salami
 								mandatory
-									Normal1
+									Mozzarella
 						mandatory
-							Dough1
+							Size
 								alternative
-									Neapolitan1
-									Sicilian1
+									Normal
+									Big
+						mandatory
+							Dough
+								alternative
+									Neapolitan
+									Sicilian
 						optional
-							CheesyCrust1
+							CheesyCrust
+					Pizza234{abstract}
+						mandatory
+							Topping
+								mandatory
+									Ham
+								optional
+									Salami
+								mandatory
+									Mozzarella
+						mandatory
+							Size
+								alternative
+									Normal
+									Big
+						mandatory
+							Dough
+								alternative
+									Neapolitan
+									Sicilian
+						optional
+							CheesyCrust
 			root{abstract}
 				alternative
 					Pizza{abstract}
 						mandatory
-							Topping2
+							Topping
 								mandatory
-									Ham1
+									Ham
 								optional
-									Salami2
+									Salami
 						mandatory
-							Size2
+							Size
 								alternative
-									Normal2
-									Big1
+									Normal
+									Big
 						mandatory
-							Dough2
-								alternative
-									Neapolitan2
-									Sicilian2
+							Dough
+								mandatory
+									Neapolitan
 						optional
-							CheesyCrust2
-					Pizza11{abstract}
+							CheesyCrust
+					Pizza{abstract}
 						mandatory
-							Topping11
+							Topping
 								mandatory
-									Salami11
+									Salami
 						mandatory
-							Size11
+							Size
 								mandatory
-									Normal11
+									Normal
 						mandatory
-							Dough11
+							Dough
 								mandatory
-									Neapolitan11
+									Neapolitan
 						optional
-							CheesyCrust11
+							CheesyCrust

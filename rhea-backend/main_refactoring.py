@@ -38,7 +38,7 @@ REFACTORING_SPLIT = SplitConstraint
 REFACTORING_COMPLEX = EliminationComplexConstraints
 REFACTORING_REQUIRES = EliminationSimpleConstraintsRequires
 REFACTORING_EXCLUDES = EliminationSimpleConstraintsExcludes
-MODEL_PATH = 'tests/models/requires/input_models/Pizzas3.uvl'
+MODEL_PATH = 'tests/models/requires/input_models/test1.uvl'
 OUTPUT_PATH = os.path.basename(MODEL_PATH)
 ##################################################################################################
 
@@ -72,28 +72,25 @@ def print_statistics(fm: FeatureModel) -> None:
     
     bdd_model = FmToBDD(fm).transform()
     n_exact_configurations = BDDProductsNumber().execute(bdd_model).get_result()
-    print(f'#Exact configurations: {n_exact_configurations}')
+    print(f'#BDD Exact configurations: {n_exact_configurations}')
     
     n_configurations = FMEstimatedProductsNumber().execute(fm).get_result()
-    print(f'#Estimated configurations (with references, unique features): {n_configurations}')
+    print(f'#FM Estimated configurations: {n_configurations}')
 
-    fm = fm_utils.remove_references(fm)
-    n_configurations = FMEstimatedProductsNumber().execute(fm).get_result()
-    print(f'#Estimated configurations (without references, non-unique features): {n_configurations}')
-
-    if n_exact_configurations <= 50:
-        configurations = Glucose3Products().execute(sat_model).get_result()
-        print(f'Configurations:')
-        for i, p in enumerate(configurations, 1):
-            print(f'C{i}: {[str(f) for f in p]}')
-        print('----------')
-        products = fm_utils.filter_products_from_dict(fm, configurations)
-        print(f'Products:')
-        for i, p in enumerate(products, 1):
-            features_list = [str(f) for f in p]
-            features_list.sort()
-            print(f'P{i}: {features_list}')
-        print('----------')
+    # if n_exact_configurations <= 50:
+    #     configurations = Glucose3Products().execute(sat_model).get_result()
+    #     print(f'SAT Configurations:')
+    #     for i, p in enumerate(configurations, 1):
+    #         print(f'C{i}: {[str(f) for f in p]}')
+    #     print('----------')
+    #     products = fm_utils.filter_products_from_dict(fm, configurations)
+    #     products = fm_utils.filter_products_from_dict(fm, configurations)
+    #     print(f'SAT Products:')
+    #     for i, p in enumerate(products, 1):
+    #         features_list = [str(f) for f in p]
+    #         features_list.sort()
+    #         print(f'P{i}: {features_list}')
+    #     print('----------')
 
 
 def main():
