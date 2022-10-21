@@ -344,7 +344,7 @@
             "id": "LCAbstractFeature",
             "name": "Abstract feature",
             "value": 1,
-            "refactorings": [],
+            "refactorings": ["yes"],
             "tools": [
                 "UVL"
             ]
