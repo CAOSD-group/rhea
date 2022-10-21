@@ -17,6 +17,7 @@ from flamapy.metamodels.bdd_metamodel.operations import BDDProductsNumber
 from flamapy.metamodels.fm_metamodel.models import FeatureModel
 
 from rhea.metamodels.fm_metamodel.models import fm_utils
+from rhea.refactorings import utils
 
 from rhea.metamodels.fm_metamodel.models import FM, ConstraintHelper
 from rhea.refactorings import FMRefactoring
@@ -38,8 +39,10 @@ REFACTORING_SPLIT = SplitConstraint
 REFACTORING_COMPLEX = EliminationComplexConstraints
 REFACTORING_REQUIRES = EliminationSimpleConstraintsRequires
 REFACTORING_EXCLUDES = EliminationSimpleConstraintsExcludes
-MODEL_PATH = 'tests/models/requires/input_models/test1.uvl'
+MODEL_PATH = 'tests/models/requires/input_models/test2_req.uvl'
+MODEL_PATH_UNIQUE = 'tests/models/requires/input_models/test2_req.uvl'
 OUTPUT_PATH = os.path.basename(MODEL_PATH)
+OUTPUT_PATH_UNIQUE = os.path.basename(MODEL_PATH_UNIQUE)
 ##################################################################################################
 
 
@@ -83,7 +86,6 @@ def print_statistics(fm: FeatureModel) -> None:
     #     for i, p in enumerate(configurations, 1):
     #         print(f'C{i}: {[str(f) for f in p]}')
     #     print('----------')
-    #     products = fm_utils.filter_products_from_dict(fm, configurations)
     #     products = fm_utils.filter_products_from_dict(fm, configurations)
     #     print(f'SAT Products:')
     #     for i, p in enumerate(products, 1):
@@ -144,6 +146,11 @@ def main():
     # print(fm)
     UVLWriter(fm, OUTPUT_PATH).transform()
 
+    print('===== Unique features =====')
+    fm = utils.to_unique_features(fm)
+    print_statistics(fm)
+
+    UVLWriter(fm, OUTPUT_PATH_UNIQUE).transform()
 
 if __name__ == '__main__':
     main()

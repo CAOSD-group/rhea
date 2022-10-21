@@ -128,7 +128,7 @@ def add_node_to_tree(model: FeatureModel, node: Feature) -> FeatureModel:
             # If P is a MandOpt feature and F is an optional subfeature, make F a mandatory subfeature of P
             rel_mand = next((r for r in parent.get_relations() if node in r.children), None)
             rel_mand.card_min = 1
-        elif parent.is_alternative_group():
+        elif parent.is_alternative_group() and parent.get_children()[0].name != parent.get_children()[1].name:
             # If P is an Xor feature, make P a MandOpt feature which has F as single
             # mandatory subfeature and has no optional subfeatures. All other
             # subfeatures of P are removed from the tree.
@@ -192,3 +192,20 @@ def eliminate_node_from_tree(model: FeatureModel, node: Feature) -> FeatureModel
                 rel.card_min = 1
             
     return model
+
+
+def to_unique_features(fm: FeatureModel) -> FeatureModel:
+    """Replace duplicated features names."""
+    if not hasattr(fm, 'dict_references'):
+            fm.dict_references = {}
+    unique_features_names = []
+    for f in fm.get_features():
+        if f.name not in unique_features_names:
+            unique_features_names.append(f.name)
+        else:
+            new_name = get_new_feature_name(fm, f.name)
+            fm.dict_references[new_name] = f.name
+            f.name = new_name
+            unique_features_names.append(f.name)
+            
+    return fm
