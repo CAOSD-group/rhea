@@ -38,6 +38,7 @@ var refactor:Refactoring =new Refactoring()
   @Input() dataSource = new MatTreeNestedDataSource<FMTree>();
 
   @Output() newItemEventactual = new EventEmitter<FMTree>();
+  @Output() newItemEventrefactor = new EventEmitter<Refactoring>();
 
   constrainthasChild = (_: number, constrainnode: any) => !!constrainnode.children && constrainnode.children.length >= 0;
   hasChild = (_: number, node: any) => !!node.children && node.children.length >= 0;
@@ -119,9 +120,8 @@ var refactor:Refactoring =new Refactoring()
     this.newItemEventactual.emit(this.actual);
   }
 
-  SelectChipRefactor(ref:Refactoring,tipo:string){
-    refactor=ref
-    this.Refactor(tipo)
+  SelectChipRefactor(ref:Refactoring){
+    this.newItemEventrefactor.emit(ref);
   }
 
   ToolTipRefa(nodetooltiprefa:FMTree){
@@ -159,8 +159,5 @@ var refactor:Refactoring =new Refactoring()
 return aux;
 }
 
-Refactor(typeref:string){
-  alert("no hago nada")
-}
 
 }

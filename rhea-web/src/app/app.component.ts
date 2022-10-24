@@ -187,6 +187,7 @@ sendUpdate(){
 
 Refactor(typeref:string){
   let object
+  this.loadingmodal=true
   const formData: FormData = new FormData();
   if( typeref!="all" &&( refactor==undefined ||refactor.name=="")){console.log("error in type of refactor")}
   else{
@@ -545,7 +546,7 @@ readThis(inputValue: any): void {
 
   updatePosition(a:any){
     this.position=a
-    console.log(a)
+    this.npos=a
   }
   DeleteCons(){
     console.log(this.position)

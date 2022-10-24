@@ -110,6 +110,7 @@
              [treeControl]="treeControl"
              [dataSource]="dataSource"
              (newItemEventactual)="select($event)"
+             (newItemEventrefactor)="SelectChipRefactor($event,'node')"
             ></FeatureTree>
           </div>
         </div>
@@ -151,6 +152,7 @@
                 [consactual]="consactual"
                 [jsonconstraintextshort]="jsonconstraintextshort"
                 (newItemEventposition)="updatePosition($event)"
+                (newItemEventrefactor)="SelectChipRefactor($event,'cons')"
                 ></ConstraintsText>  
               </div>
             </div>

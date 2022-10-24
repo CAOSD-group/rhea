@@ -27,6 +27,7 @@ import { Const } from '../../constraint/const';
 
     @Output() newItemEventreturnValues = new EventEmitter<string>();
     @Output() newItemEventposition = new EventEmitter<number>();
+    @Output() newItemEventrefactor = new EventEmitter<Refactoring>();
     
 
     position=0
@@ -119,7 +120,7 @@ import { Const } from '../../constraint/const';
       else{return true}
     }
 
-    SelectChipRefactor(ref:Refactoring,tipo:string){
-      //hacer output
+    SelectChipRefactor(ref:Refactoring){
+      this.newItemEventrefactor.emit(ref);
     }
 }

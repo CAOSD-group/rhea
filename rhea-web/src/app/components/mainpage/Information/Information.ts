@@ -14,9 +14,10 @@ import { elementAt } from 'rxjs';
     @Input() ListOfRefactorsInfo :Array<Refactoring>=[];
     @Input() ListLanguage:Array<string>=[]
     @Input() jsonlanguage:Array<Language>=[]
+    mychip:any=""
 
-    Refactor2(len:any){
-      console.log(len.refactorings)
+    Refactor(){
+      console.log(this.mychip)
     }
     columns(){
       let columns=["languages constructor","Value"]
