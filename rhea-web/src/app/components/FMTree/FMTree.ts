@@ -144,7 +144,7 @@ let nlist:Array<string> =[]
         children.optional=value.optional;
         if(value.card_max!=undefined){children.card_max=value.card_max}
         if(value.card_min!=undefined){children.card_min=value.card_min}
-        if(value.attributes!=undefined && value.attributes.length>0){children.attributes=value.attributes; console.log("hola")}
+        if(value.attributes!=undefined && value.attributes.length>0){children.attributes=value.attributes}
         children.type=value.type;
         children.children=[]
         aux=children

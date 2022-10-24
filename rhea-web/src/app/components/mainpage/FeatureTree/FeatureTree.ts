@@ -1,4 +1,5 @@
-import {Component} from '@angular/core';
+import {Component,Input,Output,EventEmitter} from '@angular/core';
+
 import {NestedTreeControl} from '@angular/cdk/tree';
 import {MatTreeNestedDataSource} from '@angular/material/tree';
 
@@ -17,26 +18,26 @@ var refactor:Refactoring =new Refactoring()
   })
   
   export class FeatureTree {
-  my_session=0
-  show_refacts_features_only=true
-  treeControl = new NestedTreeControl<FMTree>(node => node.children);
-  dataSource = new MatTreeNestedDataSource<FMTree>();
-
-  name=""
-  type=""
-  optional=true
-  abstract=true
-  card_max=1
-  card_min=0
-  attributes:Array<any>=[];
-  declare actualfather:FMTree 
 
 
-  ListOfRefactors:Array<Refactoring>=[]
-  declare actual:FMTree    
-  tree:Array<FMTree> =[new FMTree()]  
+  show_refacts_features_only=true 
 
+  @Input() my_session=""
+  @Input() name=""
+  @Input() type=""
+  @Input() optional=true
+  @Input() abstract=true
+  @Input() card_max=1
+  @Input() card_min=0
+  @Input() attributes:Array<any>=[];
+  @Input() declare actualfather:FMTree 
+  @Input() ListOfRefactors:Array<Refactoring>=[]
+  @Input() declare actual:FMTree    
+  @Input() tree:Array<FMTree> =[new FMTree()]  
+  @Input() treeControl = new NestedTreeControl<FMTree>(node => node.children);
+  @Input() dataSource = new MatTreeNestedDataSource<FMTree>();
 
+  @Output() newItemEventactual = new EventEmitter<FMTree>();
 
   constrainthasChild = (_: number, constrainnode: any) => !!constrainnode.children && constrainnode.children.length >= 0;
   hasChild = (_: number, node: any) => !!node.children && node.children.length >= 0;
@@ -115,6 +116,7 @@ var refactor:Refactoring =new Refactoring()
     this.attributes=this.actual.attributes||[]
     this.actualfather=this.GetFather(this.actual,this.tree)
     console.log(this.actual)
+    this.newItemEventactual.emit(this.actual);
   }
 
   SelectChipRefactor(ref:Refactoring,tipo:string){

@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component,Input,Output,EventEmitter} from '@angular/core';
 import {MatTreeNestedDataSource} from '@angular/material/tree';
 import { Refactoring } from '../../refactor/refactoring';
 import { Const } from '../../constraint/const';
@@ -15,31 +15,38 @@ import { Const } from '../../constraint/const';
 
   export class ConstraintsText {
 
-    visible_Constraint_list=true
-    show_refacts_cons_only=true
+    @Input() visible_Constraint_list:boolean =true;
+    @Input() show_refacts_cons_only:boolean =false;
+    @Input() listnamesconstraints:Array<string>=[] 
+    @Input() jsonconstraintTexto:Array<string>=[]
+    @Input() cons:Array<Const>=[]
+    @Input() constraindataSource = new MatTreeNestedDataSource<Const>();
+    @Input() ListOfRefactors:Array<Refactoring>=[]
+    @Input() consactual=new Const
+    @Input() jsonconstraintextshort:Array<string>=[]
+
+    @Output() newItemEventreturnValues = new EventEmitter<string>();
+    @Output() newItemEventposition = new EventEmitter<number>();
+    
 
     position=0
     npos=0
     page=0
-    range=0
+    range=10
 
     ConstraintListautocomplete=""
     ncons=""
-    jsonconstraintTexto:Array<string>=[]
-    jsonconstraintextshort:Array<string>=[]
-    listnamesconstraints:Array<string>=[]
-
-    consactual=new Const
-    cons:Array<Const>=[]
-    constraindataSource = new MatTreeNestedDataSource<Const>();
     
-    ListOfRefactors:Array<Refactoring>=[]
+
+    
+    
+
 
     ShowPages(){
       let values
-    values=this.jsonconstraintextshort.slice(this.page*this.range,(this.page+1)*this.range)
-    return [values,this.jsonconstraintextshort.length]
-    }
+      values=this.jsonconstraintextshort.slice(this.page*this.range,(this.page+1)*this.range)
+      return [values,this.jsonconstraintextshort.length]
+     }
 
     AutocompleteConstraintList(){
       this.jsonconstraintextshort=[]
@@ -56,15 +63,16 @@ import { Const } from '../../constraint/const';
       }
       else{
         this.jsonconstraintextshort=this.jsonconstraintTexto}
+        this.page=0
     }
 
-    HiddenRefacCons(text:string){
+    HiddenRefacCons(type:string){
       let hiddensymbol=false
       let color=""
       let temporalposition
       let count=0
       while (count<this.jsonconstraintTexto.length) {
-        if(this.jsonconstraintTexto[count]==text ){temporalposition=count}
+        if(this.jsonconstraintTexto[count]==type ){temporalposition=count}
         count++
       }
       this.ListOfRefactors.forEach(element => {
@@ -78,24 +86,40 @@ import { Const } from '../../constraint/const';
     }
 
     onSelectionChanged(event){
-      this.page=event.pageIndex0
+      this.page=event.pageIndex
       this.range=event.pageSize
-    }
+     }
 
-    SelectedChange(select){
+     SelectedChange(v){
       aux=0
       while (aux<this.jsonconstraintTexto.length) {
-        if(this.jsonconstraintTexto[aux]==select ){this.position=aux}
+        if(this.jsonconstraintTexto[aux]==v ){this.position=aux}
         aux++
       }
-      this.ncons=select
+      this.ncons=v
       this.npos=this.position
       this.consactual=this.cons[this.position]
       console.log(this.consactual)
+      this.newItemEventposition.emit(this.position);
       this.constraindataSource.data=this.cons.filter(x=>this.cons.indexOf(x)==this.position)
     }
+    listOfContraint(text:string){
+      if(text.length<100){
+        return text
+      }
+      else{
+        return text.slice(0,100)+"..."
+      }
+    }
 
-    RefactorvisibleCons(refac:Refactoring){}
+    RefactorvisibleCons(ref:Refactoring){
+      if(this.consactual!=undefined){
+      if(ref.instances.includes(this.listnamesconstraints[this.npos])){return false}
+      else{return true}}
+      else{return true}
+    }
 
-    SelectChipRefactor(text:Refactoring,type:string){}
+    SelectChipRefactor(ref:Refactoring,tipo:string){
+      //hacer output
+    }
 }

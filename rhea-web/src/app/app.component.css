@@ -14,6 +14,35 @@
     border-color: white;
     border: white;
   }
+  .colum-header{
+    color: #012970;
+    font-size: 20px;
+    font-weight: 600;
+    margin: auto;
+    text-align: center;
+    border-bottom:0px solid #00000060 ;
+    padding-left: 10px;
+    padding-right: 5px;
+  }
+  .colum-body{
+    color: #012970;
+    font-size: 13x;
+    border-bottom:0px solid #00000060 ;
+    margin: auto;
+    text-align: left;
+    padding-left: 10px;
+    padding-right: 5px;
+  }
+
+  .check_circle{
+    color: #20a046;
+  }
+  .cancel{
+    color: #8f2222;
+  }
+  .remove_circle{
+    color: #ca862e;
+  }
   .buttonmodal{
     color: #ffffff;
     background-color: #012970;
@@ -1072,7 +1101,7 @@ h6 {
   border-radius: 5px;
 }
 
-.dashboard h4 {
+h4 {
   font-size: 20px;
   color: #012970;
   margin-left: 5px;
@@ -1080,12 +1109,12 @@ h6 {
   margin-bottom: 5px;
 }
 
-.dashboard  h4 a {
+h4 a {
   color: #012970;
   transition: 0.3s;
 }
 
-.dashboard  h4 a:hover {
+h4 a:hover {
   color: #4154f1;
 }
 
@@ -1433,52 +1462,7 @@ h6 {
   margin-bottom: 40px;
 }
 
-
-.hero form .btn-primary {
-  background-color: var(--color-primary);
-  padding: 15px 30px;
-}
-
-.hero form .btn-primary:hover {
-  background-color: #2756ff;
-}
-
-.hero .stats-item {
-  padding: 30px;
-  width: 100%;
-}
-
-.hero .stats-item span {
-  font-size: 32px;
-  display: block;
-  font-weight: 700;
-  margin-bottom: 15px;
-  padding-bottom: 15px;
-  position: relative;
-}
-
-.hero .stats-item span:after {
-  content: "";
-  position: absolute;
-  display: block;
-  width: 20px;
-  height: 3px;
-  background: var(--color-primary);
-  left: 0;
-  right: 0;
-  bottom: 0;
-  margin: auto;
-}
-
-.hero .stats-item p {
-  padding: 0;
-  margin: 0;
-  font-family: var(--font-primary);
-  font-size: 15px;
-  font-weight: 600;
-}
-
-.dashboard .bottom-style {
+.bottom-style {
   margin-bottom: 10px;
   width: 100%;
   padding: 10px 0 10px 0;
@@ -1487,12 +1471,7 @@ h6 {
   color: #fff;
 }
 
-.dashboard .bottom-style:hover {
+.bottom-style:hover {
   background-color: #fff;
   color: #012970;
-}
-
-.dashboard .menu2 {
-  padding: 20px;
-  border-radius: 10px 0 0 10px;
 }

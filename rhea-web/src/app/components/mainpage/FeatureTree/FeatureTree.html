@@ -1,72 +1,72 @@
-<div>
-    <h4>Features
-        <button style="margin-left: 71%; " class="empty" [matMenuTriggerFor]="menumodel" >
-            <mat-icon >more_vert</mat-icon> 
-        </button>
-    </h4> 
-</div>
-<div  class="d-flex flex-row flex-nowrap overflow-auto">
-    <mat-tree [dataSource]="dataSource" [treeControl]="treeControl" class="example-tree">
-        <mat-nested-tree-node *matTreeNodeDef="let node; when: hasChild">
-            <div class="mat-tree-node">
-                <div [hidden]="!treeHideen(node)">
-                    <button mat-icon-button matTreeNodeToggle></button>
-                </div>
-                <div [hidden]="treeHideen(node)">
-                    <button mat-icon-button matTreeNodeToggle
-                        [attr.aria-label]="'Toggle ' + node.name">
-                        <mat-icon class="mat-icon-rtl-mirror">
-                            {{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
-                        </mat-icon>
-                    </button>
-                </div>
-                <div class="symbols">
-                    <img src={{SymbolPerType(node)[2]}} #tooltip="matTooltip"  matTooltip={{SymbolPerType(node)[3]}}>
-                </div>
-                <div class="symbols">
-                    <img src={{SymbolPerType(node)[0]}} #tooltip="matTooltip"  matTooltip={{SymbolPerType(node)[1]}}>
-                </div>
-                <div class="margin" ></div>
-                <div  class={{HiddenRefacfeature(node)[1]}} #tooltip="matTooltip"  matTooltip={{ToolTip(node)}} >
-                    {{node.name}}
-                </div>     
-                <button mat-icon-button [matMenuTriggerFor]="menu" (click)="select(node)">
-                    <mat-icon class="mat-icon-rtl-mirror">
-                        more_vert
-                    </mat-icon>
-                </button>                 
-            </div>   
-            <ul *ngIf="treeControl.isExpanded(node)">  
-                <ng-container matTreeNodeOutlet></ng-container> 
-            </ul> 
-            <!-- Menu Features Tree -->
-            <mat-menu #menu="matMenu">
-                <a data-bs-toggle="modal" href="#sidebareditvalues">Edit values</a>
-                <hr>
-                <a data-bs-toggle="modal" href="#sidebarcreatechild">Create a child</a>
-                <hr>
-                <a data-bs-toggle="modal" href="#sidebarcreatebrother">Create brother</a>
-                <hr>
-                <a data-bs-toggle="modal" href="#sidebardeletebranch">Delete branch</a>
-                <div *ngIf="ToolTipRefa(node)[0]" #tooltip="matTooltip"  matTooltip={{ToolTipRefa(node)[1]}}>
-                    <hr>
-                    <button class="buttonmenu2" mat-icon-button [matMenuTriggerFor]="menurefactortree" (click) = "$event.stopPropagation()" >
-                        Refactoring 
-                        <mat-icon>chevron_right</mat-icon>
-                    </button>
-                </div>
-            </mat-menu>
-            <mat-menu #menurefactortree="matMenu">
-                <mat-list class="mat-chip-list-stacked"  >
-                    <mat-list-item *ngFor="let refac of ListOfRefactors" [hidden]='RefactorvisibleFeature(refac)'   >
-                        <button class="buttonmenu2"  data-bs-toggle="modal" href="#loading" (click)="SelectChipRefactor(refac,'node')" >{{refac.name}}</button>
-                    </mat-list-item >
-                </mat-list>
-            </mat-menu>
-        </mat-nested-tree-node>
-    </mat-tree> 
-</div>
+<div><h4>Features
+    <button style="margin-left: 71%; " class="empty" [matMenuTriggerFor]="menumodel" >
+      <mat-icon >more_vert</mat-icon> 
+    </button></h4> 
+  </div>
+  <div  class="d-flex flex-row flex-nowrap overflow-auto">
+  <mat-tree [dataSource]="dataSource" [treeControl]="treeControl" class="example-tree">
+    <mat-nested-tree-node *matTreeNodeDef="let node; when: hasChild">
+      <div class="mat-tree-node">
+        <div [hidden]="!treeHideen(node)">
+          <button mat-icon-button matTreeNodeToggle></button>
+        </div>
+        <div [hidden]="treeHideen(node)">
+          <button mat-icon-button matTreeNodeToggle
+            [attr.aria-label]="'Toggle ' + node.name">
+            <mat-icon class="mat-icon-rtl-mirror">
+              {{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
+            </mat-icon>
+          </button>
+        </div>
+        <div class="symbols">
+          <img src={{SymbolPerType(node)[2]}} matTooltip={{SymbolPerType(node)[3]}}>
+        </div>
+        <div class="symbols">
+          <img src={{SymbolPerType(node)[0]}} matTooltip={{SymbolPerType(node)[1]}}>
+        </div>
+        
+        
 
+        <div class="margin" ></div>
+        <div  class={{HiddenRefacfeature(node)[1]}} matTooltip={{ToolTip(node)}}  >
+          {{node.name}}
+        </div>     
+         <button mat-icon-button [matMenuTriggerFor]="menu" (click)="select(node)">
+            <mat-icon class="mat-icon-rtl-mirror">
+              more_vert
+            </mat-icon>
+          </button>                 
+      </div>   
+      <ul *ngIf="treeControl.isExpanded(node)">  
+        <ng-container matTreeNodeOutlet></ng-container> 
+      </ul> 
+      <!-- Menu Features Tree -->
+      <mat-menu #menu="matMenu">
+        <a data-bs-toggle="modal" href="#sidebareditvalues">Edit</a>
+        <hr>
+        <a data-bs-toggle="modal" href="#sidebarcreatechild">Create a child</a>
+        <hr>
+        <a data-bs-toggle="modal" href="#sidebarcreatebrother">Create brother</a>
+        <hr>
+        <a data-bs-toggle="modal" href="#sidebardeletebranch">Delete branch</a>
+        <div *ngIf="ToolTipRefa(node)[0]" matTooltip={{ToolTipRefa(node)[1]}}>
+          <hr>
+          <button class="buttonmenu2" mat-icon-button [matMenuTriggerFor]="menurefactortree" (click) = "$event.stopPropagation()" >
+            Apply Refactor
+            <mat-icon>chevron_right</mat-icon>
+          </button>
+        </div>
+      </mat-menu>
+      <mat-menu #menurefactortree="matMenu">
+        <mat-list class="mat-chip-list-stacked">
+          <mat-list-item *ngFor="let refac of ListOfRefactors" [hidden]='RefactorvisibleFeature(refac)' >
+            <button class="buttonmenu2"  data-bs-toggle="modal" href="#loading" (click)="SelectChipRefactor(refac,'node')" style="text-align: left;">{{refac.name}}</button>
+          </mat-list-item >
+        </mat-list>
+      </mat-menu>
+    </mat-nested-tree-node>
+  </mat-tree> 
+  </div>
 
   <!--Menu options-->
 <mat-menu #menumodel="matMenu">

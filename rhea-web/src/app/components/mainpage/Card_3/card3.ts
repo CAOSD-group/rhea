@@ -1,15 +1,22 @@
-import {Component} from '@angular/core';
+import {Component,Input,Output,EventEmitter} from '@angular/core';
 
 
 @Component({
 
   selector: 'card3',
     templateUrl: './card3.html',
-    styleUrls: ['./card3.css' ]
+    styleUrls: ['../../../app.component.css']
   })
   
   export class card3 {
+    @Output() newItemEventSaveJson = new EventEmitter<string>();
+    @Output() newItemEventSaveUVL = new EventEmitter<string>();
 
-    SaveJson(){}
-    SaveUVL(){}
+
+    SaveJson(){
+      this.newItemEventSaveJson.emit();
+    }
+    SaveUVL(){
+      this.newItemEventSaveUVL.emit();
+    }
 }
