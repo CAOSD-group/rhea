@@ -48,19 +48,17 @@ class EliminationSimpleConstraintsRequires(FMRefactoring):
         right_feature_name_ctc = utils.get_right_feature_name(instance)
         list_right_features_plus_ctc = [f for f in model_plus.get_features()
                                         if f.name == right_feature_name_ctc]
-        # print(f'Features pluss: {[(f.name, [str(r) for r in f.parent.parent.relations]) for f in list_right_features_plus_ctc]}')
         list_right_features_less_ctc = [f for f in model_less.get_features()
                                         if f.name == right_feature_name_ctc]
-        # print(f'Features less: {[(f.name, [str(r) for r in f.parent.parent.relations]) for f in list_right_features_less_ctc]}')
+
         left_feature_name_ctc = utils.get_left_feature_name(instance)
         list_left_features_less_ctc = [f for f in model_less.get_features() 
                                        if f.name == left_feature_name_ctc]
 
         
-        
-        model_plus = get_model_plus(model_plus, list_right_features_plus_ctc)
-        model_less = get_model_less(model_less, list_left_features_less_ctc)
-        model_less = get_model_less(model_less, list_right_features_less_ctc)
+        model_plus = utils.get_model_plus(model_plus, list_right_features_plus_ctc)
+        model_less = utils.get_model_less(model_less, list_left_features_less_ctc)
+        model_less = utils.get_model_less(model_less, list_right_features_less_ctc)
 
 
         # Construct T(+B) and T(-A-B).
@@ -85,27 +83,3 @@ class EliminationSimpleConstraintsRequires(FMRefactoring):
         UVLWriter(model, f"tests/requires_output/requires{instance}.uvl").transform()
         
         return model
-
-def get_model_plus(model: FeatureModel, f_list: list[Feature]) -> FeatureModel:
-    for f in f_list:
-        if model is not None:
-            model = utils.add_node_to_tree(model, f)
-    # plus_roots = []
-    # for f in f_list:
-    #     model = utils.add_node_to_tree(model, f)
-    #     #model = utils.remove_abstract_child(model, model.root)
-    #     plus_roots.append(model.root)
-    # if len(f_list)>1:
-    #     xor_plus = Feature(utils.get_new_feature_name(model, 'XOR'), is_abstract=True)
-    #     r_xor_plus = Relation(xor_plus, plus_roots, 1, 1)  # XOR
-    #     xor_plus.add_relation(r_xor_plus)
-    #     model.root = xor_plus
-    #     for root in plus_roots:
-    #         root.parent = xor_plus
-    return model
-
-def get_model_less(model: FeatureModel, f_list: list[Feature]) -> FeatureModel:
-    for f_left_less in f_list:
-        if model is not None:
-            model = utils.eliminate_node_from_tree(model, f_left_less)
-    return model

@@ -114,6 +114,18 @@ def convert_parent_to_mandatory(fm: FeatureModel, f: Feature) -> FeatureModel:
         fm = convert_parent_to_mandatory(fm, parent)
     return fm
 
+def get_model_plus(model: FeatureModel, f_list: list[Feature]) -> FeatureModel:
+    for f in f_list:
+        if model is not None:
+            model = add_node_to_tree(model, f)
+    return model
+
+def get_model_less(model: FeatureModel, f_list: list[Feature]) -> FeatureModel:
+    for f_left_less in f_list:
+        if model is not None:
+            model = eliminate_node_from_tree(model, f_left_less)
+    return model
+
 
 def add_node_to_tree(model: FeatureModel, node: Feature) -> FeatureModel:
     if node not in model.get_features(): 
@@ -128,7 +140,8 @@ def add_node_to_tree(model: FeatureModel, node: Feature) -> FeatureModel:
             # If P is a MandOpt feature and F is an optional subfeature, make F a mandatory subfeature of P
             rel_mand = next((r for r in parent.get_relations() if node in r.children), None)
             rel_mand.card_min = 1
-        elif parent.is_alternative_group() and parent.get_children()[0].name != parent.get_children()[1].name:
+        elif parent.is_alternative_group() and (parent.get_children()[0].name != 
+                                                parent.get_children()[1].name):
             # If P is an Xor feature, make P a MandOpt feature which has F as single
             # mandatory subfeature and has no optional subfeatures. All other
             # subfeatures of P are removed from the tree.
@@ -177,20 +190,35 @@ def eliminate_node_from_tree(model: FeatureModel, node: Feature) -> FeatureModel
             model = eliminate_node_from_tree(model, parent)
         elif (not parent.is_group()) and node.is_optional():  # parent.is_root() or parent.is_mandatory() or parent.is_optional()
             # If P is a MandOpt feature and F is an optional subfeature of P, delete F.
-            r_opt = next((r for r in parent.get_relations() if r.is_optional() and node in r.children), None)
+            r_opt = next((r for r in parent.get_relations() if r.is_optional() 
+                                                               and node in r.children), None)
             parent.get_relations().remove(r_opt)
+        elif parent.is_alternative_group() and len(parent.get_children()) == 2 and parent.get_children()[0].name == parent.get_children()[1].name:
+            node1 = parent.get_children()[0]
+            node2 = parent.get_children()[1]
+            rel = next((r for r in parent.get_relations()), None)
+
+            fm1 = FeatureModel(node1, None)
+            fm = FeatureModel(node, None)
+
+            node_to_maintain = None  # the other will be eliminated
+            if fm1 == fm:
+                node_to_maintain = node2
+            else:
+                node_to_maintain = node1
+            rel.children = [node_to_maintain]
+            rel.card_min = 1
+            rel.card_max = 1
         elif parent.is_or_group() or parent.is_alternative_group():
             # If P is an Xor feature or an Or feature, delete F; if P has only one
             # remaining subfeature, make P a MandOpt feature and
             # its subfeature a mandatory subfeature. 
-
             rel = next((r for r in parent.get_relations()), None)
-            rel.children.remove(node)
+            rel.children.remove(node)  # Be careful!! Dangerous because features can be duplicated and they are only compared by names. Solution is to compare the whole FM as in the previous case.
             if rel.card_max > 1:
                 rel.card_max -= 1
             if len(rel.children) == 1:
                 rel.card_min = 1
-            
     return model
 
 

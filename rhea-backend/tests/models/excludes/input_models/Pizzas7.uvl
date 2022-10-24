@@ -1,22 +1,26 @@
+namespace Pizza
+
 features
-	Pizza{abstract}
+	Pizza {abstract}	
 		mandatory
-			Topping
+			Topping	
 				or
 					Salami
 					Ham
 					Mozzarella
-		mandatory
-			Size
+			Size	
 				alternative
 					Normal
 					Big
-		mandatory
-			Dough
+			Dough	
 				alternative
 					Neapolitan
 					Sicilian
+
 		optional
 			CheesyCrust
+
 constraints
-	Big => Ham
+	CheesyCrust => !Big
+	Big => !Ham
+	Sicilian => !Mozzarella

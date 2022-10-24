@@ -39,10 +39,12 @@ REFACTORING_SPLIT = SplitConstraint
 REFACTORING_COMPLEX = EliminationComplexConstraints
 REFACTORING_REQUIRES = EliminationSimpleConstraintsRequires
 REFACTORING_EXCLUDES = EliminationSimpleConstraintsExcludes
-MODEL_PATH = 'tests/models/requires/input_models/test2_req.uvl'
-MODEL_PATH_UNIQUE = 'tests/models/requires/input_models/test2_req.uvl'
-OUTPUT_PATH = os.path.basename(MODEL_PATH)
-OUTPUT_PATH_UNIQUE = os.path.basename(MODEL_PATH_UNIQUE)
+MODEL_PATH = 'tests/models/excludes/input_models/Pizzas7.uvl'
+MODEL_PATH_UNIQUE = 'tests/models/excludes/input_models/Pizzas7.uvl'
+# OUTPUT_PATH = os.path.basename(MODEL_PATH)
+# OUTPUT_PATH_UNIQUE = os.path.basename(MODEL_PATH_UNIQUE)
+OUTPUT_PATH = 'tests/models/excludes/expected_models/Pizzas7.uvl'
+OUTPUT_PATH_UNIQUE = 'tests/models/excludes/expected_models/Pizzas7.uvl'
 ##################################################################################################
 
 
@@ -101,9 +103,14 @@ def main():
     # print(fm)
     print_statistics(fm)
     
+    # print('==================================================')
+    # print(f'Applying the refactoring {REFACTORING_REQUIRES.get_name()}...')
+    # fm = apply_refactoring(fm, REFACTORING_REQUIRES)
+    # print('==================================================')
+
     print('==================================================')
-    print(f'Applying the refactoring {REFACTORING_REQUIRES.get_name()}...')
-    fm = apply_refactoring(fm, REFACTORING_REQUIRES)
+    print(f'Applying the refactoring {REFACTORING_EXCLUDES.get_name()}...')
+    fm = apply_refactoring(fm, REFACTORING_EXCLUDES)
     print('==================================================')
 
     # print('==================================================')
@@ -135,11 +142,11 @@ def main():
 
     # UVLWriter(fm, "salida3.uvl").transform()
 
-    # # print('==================================================')
+    # print('==================================================')
     # ctc = next((c for c in fm.get_constraints() if fm_utils.is_excludes_constraint(c)), None)
     # print(f'Applying the refactoring {REFACTORING_EXCLUDES.get_name()} for {ctc.ast.pretty_str()}...')
     # fm = REFACTORING_EXCLUDES.transform(fm, ctc)
-    # # print('==================================================')
+    # print('==================================================')
 
     print_statistics(fm)
 

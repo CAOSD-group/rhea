@@ -36,97 +36,24 @@ class EliminationSimpleConstraintsExcludes(FMRefactoring):
         if not ConstraintHelper(instance).is_excludes_constraint():
             raise Exception(f'Operator {str(instance)} is not excludes.')
 
-        print(f'Instance: {str(instance)}')
-
-        if not hasattr(model, 'dict_references'):
-            model.dict_references = {}
         model_less = copy.deepcopy(model)
         model_less_plus = copy.deepcopy(model)
 
-        print(f'MODEL DICT EXCLUDES - before: {[(name, value.name) for name, value in model.dict_references.items()]}')
-
-        # dict_keys = []
-        # for key, value in model.dict_references.items():
-        #     if value not in model.get_features():
-        #         dict_keys.append(key)
-        # for k in dict_keys:
-        #     del model.dict_references[k]
-
-        # print(f'MODEL EXCLUDES before: {model}')
-
         right_feature_name_ctc = utils.get_right_feature_name(instance)
-
-        list_right_feature_ctc_less = [right_feature_name_ctc]
-        if hasattr(model, 'dict_references'):
-            list_right_feature_ctc_less += [key for key, value in model.dict_references.items() 
-                                            if value.name == right_feature_name_ctc]
-        print(f'LIST RIGHT FEATURE CTC LESS: {[f for f in list_right_feature_ctc_less]}')
-
-        list_right_feature_ctc_less_plus = [right_feature_name_ctc]
-        if hasattr(model, 'dict_references'):
-            list_right_feature_ctc_less_plus += [key for key, value in model.dict_references.items() 
-                                                 if value.name == right_feature_name_ctc]
-        print(f'LIST RIGHT FEATURE CTC LESS PLUS: {[f for f in list_right_feature_ctc_less_plus]}')
-
+        list_right_features_less_ctc = [f for f in model_less.get_features()
+                                        if f.name == right_feature_name_ctc]
+        list_right_features_less_plus_ctc = [f for f in model_less_plus.get_features()
+                                        if f.name == right_feature_name_ctc]
 
         left_feature_name_ctc = utils.get_left_feature_name(instance)
+        list_left_features_less_plus_ctc = [f for f in model_less_plus.get_features() 
+                                       if f.name == left_feature_name_ctc]
 
-        xor_plus = Feature(utils.get_new_feature_name(model_less, 'XOR'), is_abstract=True)
-        list_left_feature_ctc_less_plus = [left_feature_name_ctc]
-        if hasattr(model, 'dict_references'):
-            list_left_feature_ctc_less_plus += [key for key, value in model.dict_references.items() 
-                                                if value.name == left_feature_name_ctc]
-        print(f'LIST LEFT FEATURE CTC LESS PLUS: {[f for f in list_left_feature_ctc_less_plus]}')
+        
+        model_less = utils.get_model_less(model_less, list_right_features_less_ctc)
+        model_less_plus = utils.get_model_less(model_less_plus, list_left_features_less_plus_ctc)
+        model_less_plus = utils.get_model_plus(model_less_plus, list_right_features_less_plus_ctc)
 
-
-        for f_right_less in list_right_feature_ctc_less:
-            if model_less is not None:
-                feature_right_less = model_less.get_feature_by_name(f_right_less)
-                model_less = utils.eliminate_node_from_tree(model_less, feature_right_less)
-
-
-        for f_left_less_plus in list_left_feature_ctc_less_plus:
-            if model_less_plus is not None:
-                feature_left_less_plus = model_less_plus.get_feature_by_name(f_left_less_plus)
-                model_less_plus = utils.eliminate_node_from_tree(model_less_plus, feature_left_less_plus)
-
-        new_model_less = copy.deepcopy(model_less_plus)
-
-        plus_roots = []
-        for f_less_plus in list_right_feature_ctc_less_plus:
-            new_model_less_plus = copy.deepcopy(new_model_less)
-            if f_less_plus in model.dict_references.keys() and new_model_less_plus is not None:
-                new_f_less_plus = new_model_less_plus.get_feature_by_name(f_less_plus)
-                model_less_plus = utils.add_node_to_tree(new_model_less_plus, new_f_less_plus)
-            elif model_less_plus is not None:
-                feature_less_plus = model_less_plus.get_feature_by_name(f_less_plus)
-                model_less_plus = utils.add_node_to_tree(model_less_plus, feature_less_plus)
-            if model_less_plus is not None:
-                old_root = model_less_plus.root
-                model_less_plus = utils.remove_abstract_child(model_less_plus, old_root)
-                if old_root != model_less_plus.root:
-                    new_rel = Relation(old_root, [model_less_plus.root], 1, 1)  # mandatory
-                    old_root.add_relation(new_rel)
-                    model_less_plus.root.parent = old_root
-                if model_less_plus.root not in plus_roots:
-                    plus_roots.append(model_less_plus.root)
-        # Joining all trees with XOR
-        if len(plus_roots)>1:
-            r_xor_plus = Relation(xor_plus, plus_roots, 1, 1)  # XOR
-            xor_plus.add_relation(r_xor_plus)
-            for child in plus_roots:
-                child.parent = xor_plus
-            if model_less_plus is not None:
-                model_less_plus.root = xor_plus
-            else:
-                model_less_plus = FeatureModel(xor_plus, new_model_less_plus.ctcs)
-            count = 1
-            for r in xor_plus.get_children():
-                r.name = f'{utils.get_new_feature_name(model, r.name)}{count}'
-                count += 1
-
-        model_less = utils.remove_abstract_leaf_without_reference(model_less)
-        model_less_plus = utils.remove_abstract_leaf_without_reference(model_less_plus)
 
         # Construct T(-B) and T(-A+B).
         if model_less is not None and model_less_plus is not None:
@@ -147,27 +74,8 @@ class EliminationSimpleConstraintsExcludes(FMRefactoring):
         
         model.ctcs.remove(instance)
 
-        # Changing names to avoid duplicates
-        # CUIDADO!!! (puede que haya que modificarlo)
-        if model_less is not None and model_less_plus is not None:
-            for feature in model_less_plus.get_features():
-                if feature in model_less.get_features() and not feature.name in model.dict_references.keys():
-                    feature_reference = model.get_feature_by_name(feature.name)
-                    feature.name = utils.get_new_feature_name(model, feature.name)
-                    if feature != feature_reference:
-                        model.dict_references[feature.name] = feature_reference
-                elif feature.name in model.dict_references.keys():
-                    feature_dict_value = model.dict_references[feature.name]
-                    feature.name = utils.get_new_feature_name(model, feature.name)
-                    if feature != feature_dict_value:
-                        model.dict_references[feature.name] = feature_dict_value
-                
-        # print(f'Dict references excludes: {[value.name for value in model.dict_references.values()]}')
-        # print(f'Dict keys excludes: {[key for key in model.dict_references.keys()]}')
-
-        print(f'MODEL DICT EXCLUDES - after: {[(name, value.name) for name, value in model.dict_references.items()]}')
-        # print(f'MODEL EXCLUDES after: {model}')
-
-        UVLWriter(model, f"excludes{instance}.uvl").transform()
+        model_copy = copy.deepcopy(model)
+        model_copy = utils.to_unique_features(model_copy)
+        UVLWriter(model_copy, f"tests/excludes_output/excludes{instance}.uvl").transform()
 
         return model

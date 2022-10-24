@@ -10,12 +10,11 @@ features
 									Ham
 								optional
 									Salami
-								mandatory
+								optional
 									Mozzarella
 						mandatory
 							Size
-								alternative
-									Normal
+								mandatory
 									Big
 						mandatory
 							Dough
@@ -24,26 +23,6 @@ features
 									Sicilian
 						optional
 							CheesyCrust
-					Pizza{abstract}
-						mandatory
-							Topping
-								mandatory
-									Mozzarella
-								optional
-									Salami
-						mandatory
-							Size
-								mandatory
-									Normal
-						mandatory
-							Dough
-								alternative
-									Neapolitan
-									Sicilian
-						optional
-							CheesyCrust
-			root{abstract}
-				alternative
 					Pizza{abstract}
 						mandatory
 							Topping
@@ -51,29 +30,33 @@ features
 									Ham
 								optional
 									Salami
+								optional
+									Mozzarella
 						mandatory
 							Size
-								alternative
+								mandatory
 									Normal
-									Big
 						mandatory
 							Dough
-								mandatory
+								alternative
 									Neapolitan
-						optional
-							CheesyCrust
+									Sicilian
+			root{abstract}
+				mandatory
 					Pizza{abstract}
 						mandatory
 							Topping
-								mandatory
+								or
 									Salami
+									Mozzarella
 						mandatory
 							Size
 								mandatory
 									Normal
 						mandatory
 							Dough
-								mandatory
+								alternative
 									Neapolitan
-						optional
-							CheesyCrust
+									Sicilian
+constraints
+	Sicilian => Mozzarella

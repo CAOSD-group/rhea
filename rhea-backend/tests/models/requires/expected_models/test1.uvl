@@ -3,16 +3,13 @@ features
 		optional
 			B
 				optional
-					E
+					D
 				optional
-					F
+					E
 		optional
 			C
-				mandatory
-					G
-		optional
-			D
 				optional
-					H
+					F
 constraints
-	B => G
+	D => E
+	D => F
