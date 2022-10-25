@@ -1,6 +1,8 @@
 from flamapy.metamodels.fm_metamodel.models import FeatureModel, Feature, Relation, Constraint
 from flamapy.core.models.ast import AST, ASTOperation, Node
 
+from rhea.refactorings import FMRefactoring
+
 
 def get_right_feature_name(instance: Constraint) -> str:
     if instance.ast.root.right.data is ASTOperation.NOT:
@@ -192,3 +194,9 @@ def eliminate_node_from_tree(model: FeatureModel, node: Feature) -> FeatureModel
                 rel.card_min = 1
             
     return model
+
+def apply_refactoring(fm: FeatureModel, refactoring: FMRefactoring) -> FeatureModel:
+    instances = refactoring.get_instances(fm)
+    for i in instances:
+        fm = refactoring.transform(fm, i)
+    return fm
