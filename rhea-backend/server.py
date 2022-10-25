@@ -63,15 +63,6 @@ def read_fm_file(filename: str) -> Optional[FeatureModel]:
 
 @app.route('/refactor', methods=['POST'])
 def refactor():
-    # codigo = request.form['session']
-    # if codigo is None:
-    #     return None
-    # my_value = cache.get(codigo)
-    # if my_value==None:
-    #     # if not there in the session then redirect to the login page
-    #     print('There is no session.')
-    #     return None
-    # fm = my_value
     if request.method == 'POST':
         # Get parameters
         fm_hash = request.form['fm_hash']
