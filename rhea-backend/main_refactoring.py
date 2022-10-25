@@ -39,12 +39,12 @@ REFACTORING_SPLIT = SplitConstraint
 REFACTORING_COMPLEX = EliminationComplexConstraints
 REFACTORING_REQUIRES = EliminationSimpleConstraintsRequires
 REFACTORING_EXCLUDES = EliminationSimpleConstraintsExcludes
-MODEL_PATH = 'tests/models/excludes/input_models/Pizzas7.uvl'
-MODEL_PATH_UNIQUE = 'tests/models/excludes/input_models/Pizzas7.uvl'
+MODEL_PATH = 'tests/models/requires/input_models/Pizzas9.uvl'
+MODEL_PATH_UNIQUE = 'tests/models/requires/input_models/Pizzas9.uvl'
 # OUTPUT_PATH = os.path.basename(MODEL_PATH)
 # OUTPUT_PATH_UNIQUE = os.path.basename(MODEL_PATH_UNIQUE)
-OUTPUT_PATH = 'tests/models/excludes/expected_models/Pizzas7.uvl'
-OUTPUT_PATH_UNIQUE = 'tests/models/excludes/expected_models/Pizzas7.uvl'
+OUTPUT_PATH = 'tests/models/requires/expected_models/Pizzas9.uvl'
+OUTPUT_PATH_UNIQUE = 'tests/models/requires/expected_models/Pizzas9.uvl'
 ##################################################################################################
 
 
@@ -82,19 +82,19 @@ def print_statistics(fm: FeatureModel) -> None:
     n_configurations = FMEstimatedProductsNumber().execute(fm).get_result()
     print(f'#FM Estimated configurations: {n_configurations}')
 
-    # if n_exact_configurations <= 50:
-    #     configurations = Glucose3Products().execute(sat_model).get_result()
-    #     print(f'SAT Configurations:')
-    #     for i, p in enumerate(configurations, 1):
-    #         print(f'C{i}: {[str(f) for f in p]}')
-    #     print('----------')
-    #     products = fm_utils.filter_products_from_dict(fm, configurations)
-    #     print(f'SAT Products:')
-    #     for i, p in enumerate(products, 1):
-    #         features_list = [str(f) for f in p]
-    #         features_list.sort()
-    #         print(f'P{i}: {features_list}')
-    #     print('----------')
+    if n_exact_configurations <= 50:
+        configurations = Glucose3Products().execute(sat_model).get_result()
+        print(f'SAT Configurations:')
+        for i, p in enumerate(configurations, 1):
+            print(f'C{i}: {[str(f) for f in p]}')
+        print('----------')
+        products = fm_utils.filter_products_from_dict(fm, configurations)
+        print(f'SAT Products:')
+        for i, p in enumerate(products, 1):
+            features_list = [str(f) for f in p]
+            features_list.sort()
+            print(f'P{i}: {features_list}')
+        print('----------')
 
 
 def main():
@@ -103,15 +103,15 @@ def main():
     # print(fm)
     print_statistics(fm)
     
-    # print('==================================================')
-    # print(f'Applying the refactoring {REFACTORING_REQUIRES.get_name()}...')
-    # fm = apply_refactoring(fm, REFACTORING_REQUIRES)
-    # print('==================================================')
+    print('==================================================')
+    print(f'Applying the refactoring {REFACTORING_REQUIRES.get_name()}...')
+    fm = apply_refactoring(fm, REFACTORING_REQUIRES)
+    print('==================================================')
 
-    print('==================================================')
-    print(f'Applying the refactoring {REFACTORING_EXCLUDES.get_name()}...')
-    fm = apply_refactoring(fm, REFACTORING_EXCLUDES)
-    print('==================================================')
+    # print('==================================================')
+    # print(f'Applying the refactoring {REFACTORING_EXCLUDES.get_name()}...')
+    # fm = apply_refactoring(fm, REFACTORING_EXCLUDES)
+    # print('==================================================')
 
     # print('==================================================')
     # print(f'Applying the refactoring {REFACTORING_ANY_CTCS.get_name()}...')

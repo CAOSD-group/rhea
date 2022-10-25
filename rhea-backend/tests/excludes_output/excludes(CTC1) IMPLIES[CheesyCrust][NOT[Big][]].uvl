@@ -38,3 +38,5 @@ features
 constraints
 	Big => !Ham
 	Sicilian => !Mozzarella
+	Mozzarella => !Salami
+	Salami => !Big

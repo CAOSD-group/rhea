@@ -19,22 +19,23 @@ features
 							Sicilian
 				optional
 					CheesyCrust
-			Pizza{abstract}
+			Pizza1{abstract}
 				mandatory
-					Topping
+					Topping1
 						or
-							Salami
-							Ham
-							Mozzarella
+							Salami1
+							Ham1
+							Mozzarella1
 				mandatory
-					Size
+					Size1
 						mandatory
 							Normal
 				mandatory
-					Dough
+					Dough1
 						alternative
-							Neapolitan
-							Sicilian
+							Neapolitan1
+							Sicilian1
 constraints
 	Big => Ham
-	Sicilian => Mozzarella
+	Mozzarella => Salami
+	Salami => Big

@@ -25,90 +25,90 @@ features
 											Sicilian
 								optional
 									CheesyCrust
-							Pizza{abstract}
+							Pizza1{abstract}
 								mandatory
-									Topping
+									Topping1
 										mandatory
-											Ham
+											Ham1
 										optional
-											Salami
+											Salami1
 										mandatory
-											Mozzarella
+											Mozzarella1
 								mandatory
-									Size
+									Size1
 										mandatory
 											Normal
 								mandatory
-									Dough
+									Dough1
 										alternative
-											Neapolitan
-											Sicilian
-					root{abstract}
+											Neapolitan1
+											Sicilian1
+					root3{abstract}
 						mandatory
-							Pizza{abstract}
+							Pizza2{abstract}
 								mandatory
-									Topping
+									Topping2
 										mandatory
-											Mozzarella
+											Mozzarella2
 										optional
-											Salami
+											Salami2
 								mandatory
-									Size
+									Size2
 										mandatory
-											Normal
+											Normal1
 								mandatory
-									Dough
+									Dough2
 										alternative
-											Neapolitan
-											Sicilian
-			root1{abstract}
+											Neapolitan2
+											Sicilian2
+			root11{abstract}
 				alternative
-					root{abstract}
+					root4{abstract}
 						alternative
-							Pizza{abstract}
+							Pizza3{abstract}
 								mandatory
-									Topping
+									Topping3
 										mandatory
-											Ham
+											Ham2
 										optional
-											Salami
+											Salami3
 								mandatory
-									Size
+									Size3
 										mandatory
-											Big
+											Big1
 								mandatory
-									Dough
+									Dough3
 										mandatory
-											Neapolitan
+											Neapolitan3
 								optional
-									CheesyCrust
-							Pizza{abstract}
+									CheesyCrust1
+							Pizza4{abstract}
 								mandatory
-									Topping
+									Topping4
 										mandatory
-											Ham
+											Ham3
 										optional
-											Salami
+											Salami4
 								mandatory
-									Size
+									Size4
 										mandatory
-											Normal
+											Normal2
 								mandatory
-									Dough
+									Dough4
 										mandatory
-											Neapolitan
-					root{abstract}
+											Neapolitan4
+					root5{abstract}
 						mandatory
-							Pizza{abstract}
+							Pizza5{abstract}
 								mandatory
-									Topping
+									Topping5
 										mandatory
-											Salami
+											Salami5
 								mandatory
-									Size
+									Size5
 										mandatory
-											Normal
+											Normal3
 								mandatory
-									Dough
+									Dough5
 										mandatory
-											Neapolitan
+											Neapolitan5

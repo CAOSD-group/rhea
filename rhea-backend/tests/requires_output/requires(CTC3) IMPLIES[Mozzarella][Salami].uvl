@@ -9,11 +9,15 @@ features
 								mandatory
 									Topping
 										mandatory
+											Ham
+										mandatory
 											Salami
+										optional
+											Mozzarella
 								mandatory
 									Size
 										mandatory
-											Normal
+											Big
 								mandatory
 									Dough
 										alternative
@@ -25,11 +29,15 @@ features
 								mandatory
 									Topping1
 										mandatory
+											Ham1
+										mandatory
 											Salami1
+										optional
+											Mozzarella1
 								mandatory
 									Size1
 										mandatory
-											Big
+											Normal
 								mandatory
 									Dough1
 										alternative
@@ -41,9 +49,9 @@ features
 								mandatory
 									Topping2
 										mandatory
-											Ham
-										optional
 											Salami2
+										optional
+											Mozzarella2
 								mandatory
 									Size2
 										mandatory
@@ -53,65 +61,39 @@ features
 										alternative
 											Neapolitan2
 											Sicilian2
-								optional
-									CheesyCrust1
 			root11{abstract}
-				alternative
+				mandatory
 					root4{abstract}
 						alternative
 							Pizza3{abstract}
 								mandatory
 									Topping3
 										mandatory
-											Mozzarella
-										optional
-											Salami3
+											Ham2
 								mandatory
 									Size3
 										mandatory
-											Normal2
+											Big1
 								mandatory
 									Dough3
-										mandatory
+										alternative
 											Neapolitan3
+											Sicilian3
 								optional
-									CheesyCrust2
+									CheesyCrust1
 							Pizza4{abstract}
 								mandatory
 									Topping4
 										mandatory
-											Mozzarella1
-										optional
-											Salami4
+											Ham3
 								mandatory
 									Size4
 										mandatory
-											Big1
+											Normal2
 								mandatory
 									Dough4
-										mandatory
+										alternative
 											Neapolitan4
-					root5{abstract}
-						mandatory
-							Pizza5{abstract}
-								mandatory
-									Topping5
-										mandatory
-											Ham1
-										optional
-											Salami5
-										mandatory
-											Mozzarella2
-								mandatory
-									Size5
-										mandatory
-											Normal3
-								mandatory
-									Dough5
-										mandatory
-											Neapolitan5
-								optional
-									CheesyCrust3
+											Sicilian4
 constraints
-	Mozzarella => !Salami
-	Salami => !Big
+	Salami => Big

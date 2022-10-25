@@ -55,11 +55,13 @@ class EliminationSimpleConstraintsRequires(FMRefactoring):
         list_left_features_less_ctc = [f for f in model_less.get_features() 
                                        if f.name == left_feature_name_ctc]
 
-        
+        print(f'Lista de feature to eliminate left: {[f.name for f in list_left_features_less_ctc]}')
+        print(f'Lista de feature to eliminate right: {[f.name for f in list_right_features_less_ctc]}')
         model_plus = utils.get_model_plus(model_plus, list_right_features_plus_ctc)
         model_less = utils.get_model_less(model_less, list_left_features_less_ctc)
+        # print(f'Medio less: {model_less}')
         model_less = utils.get_model_less(model_less, list_right_features_less_ctc)
-
+        # print(f'less full: {model_less}')
 
         # Construct T(+B) and T(-A-B).
         if model_plus is not None and model_less is not None:
@@ -80,6 +82,8 @@ class EliminationSimpleConstraintsRequires(FMRefactoring):
 
         model.ctcs.remove(instance)
 
-        UVLWriter(model, f"tests/requires_output/requires{instance}.uvl").transform()
+        model_copy = copy.deepcopy(model)
+        model_copy = utils.to_unique_features(model_copy)
+        UVLWriter(model_copy, f"tests/requires_output/requires{instance}.uvl").transform()
         
         return model

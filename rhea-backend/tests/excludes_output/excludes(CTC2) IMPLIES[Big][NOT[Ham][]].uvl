@@ -59,3 +59,5 @@ features
 							CheesyCrust1
 constraints
 	Sicilian => !Mozzarella
+	Mozzarella => !Salami
+	Salami => !Big

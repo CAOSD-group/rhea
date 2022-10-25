@@ -121,9 +121,11 @@ def get_model_plus(model: FeatureModel, f_list: list[Feature]) -> FeatureModel:
     return model
 
 def get_model_less(model: FeatureModel, f_list: list[Feature]) -> FeatureModel:
+    #print(f'Feature to eliminate: {[f.name for f in f_list]}')
     for f_left_less in f_list:
         if model is not None:
             model = eliminate_node_from_tree(model, f_left_less)
+            #print(f'Less ({f_left_less}): {model}')
     return model
 
 
@@ -140,8 +142,8 @@ def add_node_to_tree(model: FeatureModel, node: Feature) -> FeatureModel:
             # If P is a MandOpt feature and F is an optional subfeature, make F a mandatory subfeature of P
             rel_mand = next((r for r in parent.get_relations() if node in r.children), None)
             rel_mand.card_min = 1
-        elif parent.is_alternative_group() and (parent.get_children()[0].name != 
-                                                parent.get_children()[1].name):
+        elif parent.is_alternative_group() and (len(parent.get_children()) > 2 or (parent.get_children()[0].name != 
+                                                parent.get_children()[1].name)):
             # If P is an Xor feature, make P a MandOpt feature which has F as single
             # mandatory subfeature and has no optional subfeatures. All other
             # subfeatures of P are removed from the tree.
@@ -172,7 +174,7 @@ def add_node_to_tree(model: FeatureModel, node: Feature) -> FeatureModel:
 
 
 def eliminate_node_from_tree(model: FeatureModel, node: Feature) -> FeatureModel:
-    
+    # print(f'my model {node.name}: {model}')
     # print(f'MODEL LESS PARA {node}: {model}')
     # print(f'{node} ES MANDATORY: {node.is_mandatory()}')
 
@@ -181,19 +183,23 @@ def eliminate_node_from_tree(model: FeatureModel, node: Feature) -> FeatureModel
         return model
     elif model.root==node:
         # If F is the root of T, the result is NIL.
+        print(f'model.root: {model.root}')
         return None
     else:
         parent = node.parent  # Let the parent feature of F be P.
-        if (not parent.is_group()) and node.is_mandatory():  # parent.is_root() or parent.is_mandatory() or parent.is_optional()
+        if node.is_mandatory() and not parent.is_group():  # parent.is_root() or parent.is_mandatory() or parent.is_optional()
             # If P is a MandOpt feature and F is a mandatory subfeature of P, GOTO
             # step 2 with P instead of F.
+            print(f'node mandatory: {node.name}')
             model = eliminate_node_from_tree(model, parent)
-        elif (not parent.is_group()) and node.is_optional():  # parent.is_root() or parent.is_mandatory() or parent.is_optional()
+        elif not parent.is_group() and node.is_optional():  # parent.is_root() or parent.is_mandatory() or parent.is_optional()
             # If P is a MandOpt feature and F is an optional subfeature of P, delete F.
             r_opt = next((r for r in parent.get_relations() if r.is_optional() 
                                                                and node in r.children), None)
             parent.get_relations().remove(r_opt)
+            print(f'node optional: {node.name}')
         elif parent.is_alternative_group() and len(parent.get_children()) == 2 and parent.get_children()[0].name == parent.get_children()[1].name:
+            print(f'node xor iguales: {node.name}')
             node1 = parent.get_children()[0]
             node2 = parent.get_children()[1]
             rel = next((r for r in parent.get_relations()), None)
@@ -209,7 +215,9 @@ def eliminate_node_from_tree(model: FeatureModel, node: Feature) -> FeatureModel
             rel.children = [node_to_maintain]
             rel.card_min = 1
             rel.card_max = 1
+            print(f'Relation: {str(rel)}')
         elif parent.is_or_group() or parent.is_alternative_group():
+            print(f'node group: {node.name}')
             # If P is an Xor feature or an Or feature, delete F; if P has only one
             # remaining subfeature, make P a MandOpt feature and
             # its subfeature a mandatory subfeature. 
