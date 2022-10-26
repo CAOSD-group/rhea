@@ -31,8 +31,8 @@ let nlist:Array<string> =[]
         }}
         if(this.children!=undefined){
             this.children.forEach(element => {
-                nlist=nlist.filter(x=>x!=element.name)
-                element.Delete
+                aux=nlist.indexOf(element.name)
+                nlist.splice(aux,1)
             });
         }
         this.name=""

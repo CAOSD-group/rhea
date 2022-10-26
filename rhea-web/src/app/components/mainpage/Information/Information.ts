@@ -3,6 +3,7 @@ import { Refactoring } from '../../refactor/refactoring';
 import { Language } from '../../Language/Language';
 import { elementAt } from 'rxjs';
 
+let aux=0
 @Component({
 
   selector: 'Information',
@@ -14,10 +15,36 @@ import { elementAt } from 'rxjs';
     @Input() ListOfRefactorsInfo :Array<Refactoring>=[];
     @Input() ListLanguage:Array<string>=[]
     @Input() jsonlanguage:Array<Language>=[]
-    mychip:any=""
+    @Output() newItemEventrefactoingall= new EventEmitter<Refactoring>();
+    @Output() newItemEventdownload= new EventEmitter<string>();
+    declare mychip:Language
 
     Refactor(){
-      console.log(this.mychip)
+      aux=-1
+      if(this.mychip.refactorings.length==0){
+        console.log("not a refactoring")
+      }
+      else{
+        this.ListOfRefactorsInfo.forEach(element => {
+          if(element.id==this.mychip.refactorings[0]){
+          aux=this.ListOfRefactorsInfo.indexOf(element)}
+        });
+        if(aux!=-1){
+      this.newItemEventrefactoingall.emit(this.ListOfRefactorsInfo[aux])}
+    }
+    }
+    download(chip:string){
+      let aux =true
+      if(chip!="languages constructor" && chip!="Value"){
+        this.jsonlanguage.forEach(element => {
+          if(element.value!=0&&element.tools.indexOf(chip)==-1){
+            aux =false
+          }
+        })
+        if(aux){this.newItemEventdownload.emit(chip)}
+        else{console.log("not a valid language")
+        }
+        }
     }
     columns(){
       let columns=["languages constructor","Value"]
@@ -26,7 +53,23 @@ import { elementAt } from 'rxjs';
       });
       return columns
     }
-    IsValidLenguage(len:any,chip:string){
+    columnsclass(chip:string){
+      if(chip=="languages constructor"){
+        return "colum-header-lang"
+      }
+      else{
+      return "colum-header"}
+    }
+    hiddencolum(len:Language){
+      if(len.value==0){
+        return true
+      }
+      else{
+        return false
+      }
+      
+    }
+    IsValidLenguage(len:Language,chip:string){
       let icon="cancel"
       let text=true
       let symbol=false

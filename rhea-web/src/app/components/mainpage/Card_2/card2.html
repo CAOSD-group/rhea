@@ -3,7 +3,7 @@
       <h4 style="margin-left: 4%; margin-top: 4%;"> Or select one of our documents </h4>
     </li>
     <li class="nav-item" style="margin-left: 4%;">
-      <button class="btn-primary-search" (click)="returnValues(item)"><i class="fa fa-search"></i></button>
+      <button class="btn-primary-search" (click)="returnValues(item)" data-bs-toggle="modal" href="#loading"><i class="fa fa-search"></i></button>
       <select class="btn-primary-select" [(ngModel)]="item" style="margin-left: 2%;"  >
         <option value="tree name">Select an option</option>
         <option *ngFor="let documento of documents">{{documento}}</option>

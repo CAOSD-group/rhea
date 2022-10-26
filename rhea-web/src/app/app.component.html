@@ -3,7 +3,7 @@
   <div class="d-flex align-items-center justify-content-between">
     <a  class="logo d-flex align-items-center">
       <div class="down">
-      <h3 class="white-text" >RheaWeb</h3></div>
+      <h2 class="white-text" >RheaWeb</h2></div>
       <button mat-icon-button (click)="drawer.toggle()"  (click)="(bdrawer=!bdrawer)" >
         <mat-icon class="white-text" >{{bdrawer? 'chevron_right' : 'chevron_left'}}</mat-icon>
       </button>
@@ -40,12 +40,13 @@
 <mat-drawer-container class="example-container" autosize>
 
 <mat-drawer #drawer  class="color" mode="side">
-  <button class="buttonmodal" style="background-color:#7c7c7c2f;margin-top: 3%; "(click)="showFM_Editor()">
-    <h3 class="">FM Editor</h3>
+  <button class="empty" style="margin-top: 3%;" (click)="showFM_Editor()">
+    <h4 class="white-text">FM Editor</h4>
   </button>  
   <div style="margin-top: 5%;"></div>
-  <button  class="buttonmodal" style="background-color:#7c7c7c2f; margin-left: 15%;" (click)="showAbout()" >
-    <h3 class="">About</h3>
+  <button  class="empty" style="margin-top: 3%;"(click)="showAbout()" >
+    <h4 class="white-text">About
+    <mat-icon> help_outline</mat-icon></h4>
   </button>
 
 </mat-drawer>
@@ -124,6 +125,8 @@
             [ListOfRefactorsInfo]="ListOfRefactors"
             [jsonlanguage]="jsonlanguage"
             [ListLanguage]="ListLanguage" 
+            (newItemEventrefactoingall)="SelectChipRefactor($event,'all')"
+            (newItemEventdownload)="SaveFile($event)"
              ></Information>
           </div>
         </div>
@@ -215,11 +218,10 @@
       </div>
       <div class="modal-body">
         <div class="col-10">
-          <h5>Name
-          <input  type="string" [(ngModel)]="name"></h5>
-          <h6 [hidden]="!checkNameFeature()[0]" class="gray"> name already in use</h6>
+          <h4>Name
+          <input  type="string" [(ngModel)]="name"></h4>
           <hr>
-          <h5>Type:
+          <h4>Type:
             {{type}}
             <button class="empty" (click)="visiblechipsfeatures=!visiblechipsfeatures">
             <mat-icon class="mat-icon-rtl-mirror">
@@ -228,24 +230,24 @@
             <mat-list [hidden]="!visiblechipsfeatures">
               <mat-option *ngFor="let chip of listOfTypes" (click)="visiblechipsfeatures=!visiblechipsfeatures" (click)="ChangeType(chip)">{{chip}}</mat-option>
             </mat-list>
-          </h5>
+          </h4>
           <hr>
 
-          <h5 [hidden]="cardhidden()" >Card min 
-          <input  type="number" [(ngModel)]="card_min" (change)="checkcard_min_max()"><hr></h5>
-          <h5 [hidden]="cardhidden()">Card max
+          <h4 [hidden]="cardhidden()" >Card min 
+          <input  type="number" [(ngModel)]="card_min" (change)="checkcard_min_max()"><hr></h4>
+          <h4 [hidden]="cardhidden()">Card max
           <input type="number" [(ngModel)]="card_max" (change)="checkcard_min_max()" >
-          <hr></h5>
+          <hr></h4>
           <div [hidden]="checkcard_min_max() || cardhidden()"> Caution with the values <hr></div>
           
           <input class="form-check-input" type="checkbox" [(ngModel)]="optional" > optional
           <hr>
           <input class="form-check-input" type="checkbox" [(ngModel)]="abstract" > abstract
           <hr>
-          <h5>Attributes (name: value)
+          <h4>Attributes (name: value)
           <button class="empty" (click)="CreateAttribtues()" >
             <mat-icon class="mat-icon-rtl-mirror">add</mat-icon>
-          </button></h5>
+          </button></h4>
           <div *ngFor="let valor of attributes"  >
             <input type="string" [(ngModel)]="valor.name">
             <input type="string" [(ngModel)]="valor.value">
@@ -254,9 +256,8 @@
             </button>
           </div>
           <hr>
-          <h2 [hidden]="checkNameFeature()[1]" >Save Changes</h2>
-          <h2 [hidden]="!checkNameFeature()[1]" >Not possible to Update</h2>
-          <button (click)="ModifySelecction()" [disabled]="checkNameFeature()[1]" data-bs-toggle="modal" href="#loading" class="buttonmodal">update</button>
+          <h4 >Save Changes</h4>
+          <button (click)="ModifySelecction()" data-bs-toggle="modal" href="#loading" class="buttonmodal">update</button>
 				</div>
 			</div>
 			<div class="modal-footer">
@@ -270,19 +271,20 @@
   <div class="modal-dialog modal-lg">
 	  <div class="modal-content">
 	    <div class="modal-header">
-		    <h4 class="modal-title" id="exampleModalLabel">Create children</h4>
+		    <h4 class="modal-title" id="exampleModalLabel">Create a child</h4>
  		    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
 	    <div class="modal-body">
 		    <div class="col-10">
-          <h3>Name</h3>
-          <input matInput  type="string" [(ngModel)]="name">
-          <div></div>
-          <button (click)="CreateChildren()" data-bs-dismiss="modal" class="buttonmodal">Create</button>
-				  </div>
+          <h4>Name</h4>
+          <div style="margin-top: 10px;"></div> 
+          <input matInput class="input_modal" type="string" [(ngModel)]="name">
+          <div style="margin-top: 10px;"></div> 
+          <button (click)="CreateChildren()" data-bs-dismiss="modal" class="bottom-style" style="width: 10%; margin-left: auto; ">Create</button>
+				</div>
 	 	  </div>
 	    <div class="modal-footer">
-	      <button type="button" class="buttonmodal" data-bs-dismiss="modal">Close</button>
+	      <button type="button" class="bottom-style" style="width: 9%; margin-left: auto; margin-right: auto;" data-bs-dismiss="modal">Close</button>
       </div>
 	  </div>
 	</div>
@@ -297,12 +299,15 @@
 			</div>
 			<div class="modal-body">
 				<div class="col-10">
-          <input matInput  type="string" [(ngModel)]="name">
-          <button (click)="CreateBrother()" data-bs-dismiss="modal" class="buttonmodal">Create</button>
+          <h4>Name</h4>
+          <div style="margin-top: 10px;"></div> 
+          <input matInput  type="string" class="input_modal" [(ngModel)]="name">
+          <div style="margin-top: 10px;"></div> 
+          <button (click)="CreateBrother()" data-bs-dismiss="modal" class="bottom-style" style="width: 10%; margin-left: auto; " >Create</button>
 		  	</div>
 			</div>
 			<div class="modal-footer">
-				<button type="button" class="buttonmodal" data-bs-dismiss="modal">Close</button>
+				<button type="button" class="bottom-style" style="width: 9%;  margin-left: auto; margin-right: auto;"  data-bs-dismiss="modal">Close</button>
 			</div>
 	  </div>
 	</div>
@@ -312,13 +317,13 @@
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
 		  <div class="modal-header">
-        <h2 class="modal-title" id="exampleModalLabel">Delete node</h2>
+        <h4 class="modal-title" id="exampleModalLabel">Delete node</h4>
 		    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 	    </div>
 	    <div class="modal-body">
 	      <div class="col-10">
-          <h4>Are you sure?</h4>
-          <button (click)="DeleteNode()" class="buttonmodal" data-bs-dismiss="modal">Proceed</button>
+          <h4>Are you sure?
+          <button style="margin-left: 20px;" (click)="DeleteNode()" class="buttonmodal" data-bs-dismiss="modal">Proceed</button></h4>
 			  </div>
 	    </div>
       <div class="modal-footer">
@@ -336,27 +341,29 @@
         <h4 class="modal-title" id="exampleModalLabel">Options</h4>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
-      <label >{{jsonconstraintTexto[npos]}}</label>
+      <label style="margin-left: 10px;margin-right: 5px;color:#012970"> Full text: </label>
+      <label style="margin-left: 10px;margin-right: 5px;"> {{jsonconstraintTexto[npos]}}</label>
       <div class="modal-body">
         <div class="col-12">
           <div class="row">
             <!-- Logic Chip -->
             <div class="col-6">
               <div class="bordermodal">
-                <h5>Logic Term</h5>
+                <h4 style="margin-bottom: 43px;margin-top: -17px;">Logic Term</h4>
                 <mat-chip-list class="mat-chip-list-stacked"  >
                   <mat-chip *ngFor="let chip of typesofcons" (click)="SelectChipLogic(chip)" >
                     {{chip}}
                   </mat-chip>
                 </mat-chip-list>
+                <div style="margin-bottom: 15px;"> </div>
               </div>
             </div>
             <!-- Features Chip -->
             <div class="col-6">
               <div class="bordermodal">
-                <h5>Features Term</h5>
-                <input type="text" [(ngModel)]="featureautocomplete">
-                <cdk-virtual-scroll-viewport [itemSize]="6 * 7" class="example-viewport" >
+                <h4 style="margin-top: -17px;">Features Term</h4>
+                <input style="margin-bottom: 5px;" type="text" [(ngModel)]="featureautocomplete">
+                <cdk-virtual-scroll-viewport [itemSize]="6 * 7" class="example-viewport" style="margin-bottom: -20px;">
                   <mat-chip-list class="mat-chip-list-stacked" >
                     <mat-chip *ngFor="let chip of namesFeatures" (click)="SelectChipFeature(chip)"  [hidden]="AutocompleteFeatureTermChip(chip)">
                       {{chip}}
@@ -368,14 +375,14 @@
           </div>
         </div>
         <!--Write list-->
-        <div class="margin"></div>
+        <div style="margin-top: 10px;"></div>
         <div class="bordermodal">
           <p  >{{Writelist()}}</p>
           <button class="btn btn-secondary "  (click)="DeleteList()">Delete List</button>
         </div>
         <div class="col-12">
           <!--Buttons-->
-          <div class="row">
+          <div class="row" style="margin-top: 10px;">
             <div class="col-3"><button class="buttonmodal " data-bs-dismiss="modal" (click)="CreateConsBrother()"> Insert brother </button></div>
             <div class="col-3"><button class="buttonmodal " data-bs-dismiss="modal" (click)="CreateConsSon()"> Insert child </button></div>
             <div class="col-3"><button class="buttonmodal " data-bs-dismiss="modal" (click)="ModifyCons()"> Edit Constrain </button></div>
@@ -436,9 +443,9 @@
   <div class="modal-dialog modal-lg" >
     <div class="modal-content">
 		  <div class="modal-header"> 
-        <h2 class="modal-title" id="exampleModalLabel">Loading...</h2>
+        <h4 class="modal-title" id="exampleModalLabel">Loading...</h4>
       </div>
-      <h5>This could take some time </h5>
+      <h4>This could take some time </h4>
 	    <div class="modal-body">
         <div class="row">
           <div class="col-2"></div>

@@ -8,7 +8,7 @@
           <mat-chip-list class="colum"  >
             <mat-chip *ngFor="let chip of columns()" >
                 <ng-container matColumnDef={{chip}} >
-                    <th mat-header-cell *matHeaderCellDef class="colum-header" > {{chip}} </th>
+                    <th mat-header-cell *matHeaderCellDef class="{{columnsclass(chip)}}" (click)="download(chip)"> {{chip}} </th>
                     <td mat-cell *matCellDef="let element" class="colum-body"> 
                         <mat-icon [hidden]="IsValidLenguage(element,chip)[1]" class="{{IsValidLenguage(element,chip)[0]}}">{{IsValidLenguage(element,chip)[0]}}</mat-icon> 
                         <label  [hidden]="IsValidLenguage(element,chip)[2]" class="{{IsValidLenguage(element,chip)[0]}}">{{IsValidLenguage(element,chip)[0]}}
@@ -20,12 +20,13 @@
           </mat-chip-list>
 
     <tr mat-header-row *matHeaderRowDef="columns()"></tr>
-    <tr mat-row *matRowDef="let row; columns: columns();"></tr>
+    <tr mat-row *matRowDef="let row; columns: columns();" [hidden]="hiddencolum(row)"></tr>
   </table>
 
     <!--Menu options-->
 <mat-menu #menuinfo="matMenu">
-    <button  style="cursor: pointer;" (click) = "$event.stopPropagation()" (click)="Refactor()" >Highlight Refactorings</button>
+    <button  class ="empty" (click) = "$event.stopPropagation()" (click)="Refactor()" >
+        <label style="color: #012970;cursor: pointer;" >Refactor all if posible</label></button>
   </mat-menu>
 
 

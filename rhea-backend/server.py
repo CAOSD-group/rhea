@@ -68,7 +68,7 @@ def refactor():
         fm_hash = request.form['fm_hash']
         class_name = request.form['refactoring_id']
         instance_name = None
-        if request.form['instance_name']:
+        if 'instance_name' in request.form:
             instance_name = request.form['instance_name']
         fm = cache.get(fm_hash)
         if fm is None:

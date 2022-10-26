@@ -8,6 +8,7 @@ import * as saveAs from 'file-saver';
 import { Refactoring } from './components/refactor/refactoring';
 import { Language } from './components/Language/Language';
 import { Cons } from 'rxjs';
+import { ThisReceiver } from '@angular/compiler';
 
 
 
@@ -35,14 +36,14 @@ var refactor:Refactoring =new Refactoring()
 
 export class AppComponent {
 
-  urlsave="http://172.16.51.94:5000/saveFM" 
-  urldownload="http://172.16.51.94:5000/downloadFM"  
-  urlupload="http://172.16.51.94:5000/uploadFM"  
-  urldownload2="http://172.16.51.94:5000/downloadFM2" 
-  urldelete="http://172.16.51.94:5000/deleteFM" 
-  urlcreate="http://172.16.51.94:5000/createFM" 
-  urlrefactor="http://172.16.51.94:5000/refactor" 
-  urlupdate="http://172.16.51.94:5000/updateFeature" 
+  urlsave="http://127.0.0.1:5000/saveFM" 
+  urldownload="http://127.0.0.1:5000/downloadFM"  
+  urlupload="http://127.0.0.1:5000/uploadFM"  
+  urldownload2="http://127.0.0.1:5000/downloadFM2" 
+  urldelete="http://127.0.0.1:5000deleteFM" 
+  urlcreate="http://127.0.0.1:5000createFM" 
+  urlrefactor="http://127.0.0.1:5000/refactor" 
+  urlupdate="http://127.0.0.1:5000updateFeature" 
 
   declare actual:FMTree     
   declare actualfather:FMTree 
@@ -145,7 +146,6 @@ sendJSON(){
   console.log(aux)
   this.http.post(this.urldownload2,aux,{withCredentials:true,responseType:'text'}).subscribe(resultado => {
     console.log(resultado)})
-   
 }
 
 
@@ -191,8 +191,8 @@ Refactor(typeref:string){
   const formData: FormData = new FormData();
   if( typeref!="all" &&( refactor==undefined ||refactor.name=="")){console.log("error in type of refactor")}
   else{
-    if(typeref=="node"){object=this.actual.name}
-    if(typeref=="cons"){object=this.listnamesconstraints[this.npos]}
+    if(typeref=="node"){object=this.actual.name;formData.append('instance_name',object);}
+    if(typeref=="cons"){object=this.listnamesconstraints[this.npos];formData.append('instance_name',object);}
     /*if(typeref=="all"){
       this.TransformJSON();
       object=json;
@@ -207,22 +207,26 @@ Refactor(typeref:string){
     if(typeref=="node"||typeref=="cons"||typeref=="all"){
       
     formData.append('refactoring_id',refactor.id);
-    formData.append('instance_name',object);
     formData.append('fm_hash',this.my_session);
     this.http.post(this.urlrefactor,formData,{ withCredentials:true,responseType:'text'}).subscribe(resultado => {
     this.CreateData(resultado)
     json=resultado
-  })}
-}
+    })
+  }
+  }
 }
 
 
 returnValues(text?:string){
   this.loadingmodal=false
-  if(text==""|| text==undefined){text=this.item}
+  if(text==""|| text==undefined){text=this.item;this.loadingmodal=true}
   this.http.post(this.urldownload,text,{ withCredentials:true,responseType:'text'}).subscribe(resultado => {
-    this.CreateData(resultado,text)
+     try{this.CreateData(resultado,text)}
+     catch{
+    this.loadingmodal=true
+  }
   })
+  
 }
 CreateData(object:any,name?:string){
   aux = object;
@@ -281,14 +285,6 @@ ChangeType(ty:string){
   console.log(this.type)
   this.type=ty;
 }
-checkNameFeature(){
-  if(this.actual!=undefined){
-    let bol
-    bol=this.actual.AvoidDuplicates(this.name)&& (this.name!=this.actual.name)
-    this.updatable=bol
-  return [bol,this.updatable] }
-  return [false,this.updatable]
-}
 checkcard_min_max(){
   if(this.card_min>=this.card_max){
     this.card_max=this.card_min;
@@ -309,7 +305,7 @@ this.loadingmodal=false
  catch{
   this.loadingmodal=true
  }*/
-  
+  aux=this.actual.name
   this.actual.name=this.name
   if(this.actual.children==undefined){}
   if(this.actual.children!=undefined){
@@ -413,6 +409,7 @@ listOfContraint(text:string){
 }
 CreateRefactor(){
   console.log("create Refactor")
+  console.log(refactor)
   refactor.DeleteList()
   this.ListOfRefactors=refactor.Create(jsonrefactors);
   console.log(this.ListOfRefactors)
@@ -905,7 +902,6 @@ RefactorvisibleCons(ref:Refactoring){
 }
 
 TransformJSON(){
-
   aux=this.consactual.createListForFile(this.cons,this.typesofconsTerm)
   jsonfeatures=JSON.stringify(this.tree[0], (key, value) => {
       if(value!==null) return value  
@@ -918,7 +914,6 @@ TransformJSON(){
 
     
   })
-  console.log(listnamestext[aux])
   aux++
   }
   jsonfeatures= '"name"'+':"'+this.title+'",'+'"features"'+':'+ jsonfeatures
@@ -944,7 +939,6 @@ TransformJSON(){
   aux2=""
   while (aux<listnamestext.length){
   aux2=aux2+'{"name":"'+this.listnamesconstraints[aux]+'","expr":"'+this.jsonconstraintTexto[aux]+'","ast":'+listnamestext[aux]+'},'
-  console.log(listnamestext[aux])
   aux++
   
   }
@@ -993,6 +987,16 @@ updatevalues(){
   json='{'+jsonfeatures+','+aux2+'}'
   console.log(json)
   this.cons=this.consactual.createListForTree(this.cons)
+}
+
+SaveFile(language:string){
+  console.log(language)
+  if(language.toLowerCase()=="uvl"){
+    this.SaveUVL()
+  }
+  if(language.toLowerCase()=="json"){
+    this.SaveJson()
+  }
 }
 
 SaveJson() {
