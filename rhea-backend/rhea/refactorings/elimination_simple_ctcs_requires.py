@@ -1,18 +1,10 @@
 import copy
-from ctypes import util
-from hashlib import new
-from logging import root
-from msilib.schema import FeatureComponents
-from numbers import Real
-from pyexpat import model
-from statistics import mode
-from typing import Any, List
 
 from flamapy.core.models.ast import AST, ASTOperation, Node
 from flamapy.metamodels.fm_metamodel.models import FeatureModel, Feature, Relation, Constraint
 from flamapy.metamodels.fm_metamodel.transformations import UVLWriter
 
-from rhea.metamodels.fm_metamodel.models import FM, ConstraintHelper
+from rhea.metamodels.fm_metamodel.models import FM, ConstraintHelper, fm_utils
 from rhea.refactorings import FMRefactoring
 from rhea.refactorings import utils
 
@@ -39,8 +31,8 @@ class EliminationSimpleConstraintsRequires(FMRefactoring):
     def transform(model: FeatureModel, instance: Constraint) -> FeatureModel:
         if instance is None:
             raise Exception(f'There is not constraint with name "{str(instance)}".')
-        if not ConstraintHelper(instance).is_requires_constraint():
-            raise Exception(f'Operator {str(instance)} is not requires.')
+        if not fm_utils.is_requires_constraint(instance):
+            raise Exception(f'Operator {str(instance)} is not a "requires" constraint.')
 
         model_plus = copy.deepcopy(model)
         model_less = copy.deepcopy(model)

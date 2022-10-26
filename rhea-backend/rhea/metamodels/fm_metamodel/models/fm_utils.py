@@ -159,3 +159,34 @@ def update_feature(fm: FeatureModel,
     
     return fm
 
+
+def commitment_feature(fm: FeatureModel, feature: Feature) -> FeatureModel:
+    """Given a feature model T and a feature F, this algorithm computes the feature model
+    T(+F) whose products are precisely those products of T with contain F.
+    
+    The algorithm transforms T into T(+F).
+
+    The algorithm is an adaptation from:
+        [Broek2008 @ SPLC: Elimination of constraints from feature trees].
+    """
+    if feature not in fm.get_features():  # If T does not contain F, the result is NIL.
+        return None
+    if feature == fm.root:  # If F is the root of T, the result is T.
+        return fm
+    parent = feature.get_parent()  # Let the parent feature of F be P.
+    if not parent.is_group() and feature.is_optional():  # If P is a MandOpt feature and F is an optional subfeature, make F a mandatory subfeature of P.
+        rel = ((r for r in parent.get_relations() if feature in r.children), None)
+        rel.card_min = 1
+    elif parent.is_alternative_group():  #If P is an Xor feature, make P a MandOpt feature which has F as single mandatory subfeature and has no optional subfeatures. All other subfeatures of P are removed from the tree.
+        rel = ((r for r in parent.get_relations() if r.is_alternative()), None)
+        rel.children = [feature]
+    elif parent.is_or_group():
+        rel = ((r for r in parent.get_relations() if r.is_or()), None)
+        
+        
+
+If P is an Or feature, make P a
+MandOpt feature which has F as single
+mandatory subfeature. and has all
+other subfeatures of P as optional
+subfeatures.
