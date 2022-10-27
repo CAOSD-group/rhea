@@ -171,6 +171,7 @@ def commitment_feature(fm: FeatureModel, feature_name: str) -> FeatureModel:
         [Broek2008 @ SPLC: Elimination of constraints from feature trees].
     """
     features_to_commit = [f for f in fm.get_features() if f.name == feature_name]
+    #print([f.name for f in features_to_commit])
     if not features_to_commit:  # If T does not contain F, the result is NIL.
         return None
     for feature in features_to_commit:
@@ -180,6 +181,8 @@ def commitment_feature(fm: FeatureModel, feature_name: str) -> FeatureModel:
             if not parent.is_group() and feature_to_commit.is_optional():  # If P is a MandOpt feature and F is an optional subfeature, make F a mandatory subfeature of P.
                 rel = next((r for r in parent.get_relations() if feature_to_commit in r.children), None)
                 rel.card_min = 1
+            elif parent.is_alternative_group() and len(parent.get_children()) == 2 and parent.get_children()[0].name == parent.get_children()[1].name:
+                pass
             elif parent.is_alternative_group():  #If P is an Xor feature, make P a MandOpt feature which has F as single mandatory subfeature and has no optional subfeatures. All other subfeatures of P are removed from the tree.
                 parent.get_relations()[0].children = [feature_to_commit]
             elif parent.is_or_group():  # If P is an Or feature, make P a MandOpt feature which has F as single mandatory subfeature, and has all other subfeatures of P as optional subfeatures.
@@ -218,14 +221,32 @@ def deletion_feature(fm: FeatureModel, feature_name: str) -> FeatureModel:
             parent = feature_to_delete.get_parent()
         if feature_to_delete == fm.root:  # If F is the root of T, the result is NIL.
             return None
+        elif parent.is_alternative_group() and len(parent.get_children()) == 2 and (parent.get_children()[0].name == parent.get_children()[1].name):
+            xor_rel = parent.get_relations()[0]
+            node1 = xor_rel.children[0]
+            node2 = xor_rel.children[1]
+
+            fm1 = FeatureModel(node1, None)
+            fm2 = FeatureModel(feature_to_delete, None)
+
+            node_to_maintain = None  # the other will be eliminated
+            if fm1 == fm2:
+                node_to_maintain = node2
+            else:
+                node_to_maintain = node1
+            xor_rel.children = [node_to_maintain]
         # If P is a MandOpt feature and F is an optional subfeature of P, delete F.
-        if not parent.is_group() and feature_to_delete.is_optional():
+        elif not parent.is_group() and feature_to_delete.is_optional():
             rel = next((r for r in parent.get_relations() if feature_to_delete in r.children), None)
             parent.get_relations().remove(rel)
+        #if parent.is_alternative_group() and len(parent.get_children()) == 2 and parent.get_children()[0].name == parent.get_children()[1].name:
+        #    pass
         # If P is an Xor feature or an Or feature, delete F; if P has only one remaining subfeature, make P a MandOpt feature and its subfeature a mandatory subfeature.
-        if parent.is_alternative_group() or parent.is_or_group():
+        elif parent.is_alternative_group() or parent.is_or_group():
             rel = parent.get_relations()[0]
             rel.children.remove(feature_to_delete)
+            if len(rel.children) > 1:
+                rel.card_max -= 1
             if len(rel.children) == 1:
                 rel.card_max = 1
     return fm
@@ -247,7 +268,10 @@ def eliminate_requires(fm: FeatureModel, requires_ctc: Constraint) -> FeatureMod
     # Construct T(+B) and T(-A-B)
     fm_plus_b = commitment_feature(fm_plus_b, feature_name_b)
     fm_less_ab = deletion_feature(fm_less_ab, feature_name_a)
-    fm_less_ab = deletion_feature(fm_less_ab, feature_name_b)
+    if fm_less_ab is not None:
+        fm_less_ab = deletion_feature(fm_less_ab, feature_name_b) 
+    #print(f'T(+{feature_name_b}): {fm_plus_b}')
+    #print(f'T(-{feature_name_a}-{feature_name_b}): {fm_less_ab}')
     # If both trees are not equal to NIL, 
     # then the result consists of a new root, which is an Xor feature,
     # with subfeatures T(+B) and T(-A-B).

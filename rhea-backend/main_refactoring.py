@@ -39,12 +39,13 @@ REFACTORING_SPLIT = SplitConstraint
 REFACTORING_COMPLEX = EliminationComplexConstraints
 REFACTORING_REQUIRES = EliminationSimpleConstraintsRequires
 REFACTORING_EXCLUDES = EliminationSimpleConstraintsExcludes
-MODEL_PATH = 'tests/models/requires/input_models/Pizzas9.uvl'
-MODEL_PATH_UNIQUE = 'tests/models/requires/input_models/Pizzas9.uvl'
+MODEL_TO_TEST = "Pizzas8"
+MODEL_PATH = 'tests/models/requires/input_models/' + MODEL_TO_TEST + '.uvl'
+MODEL_PATH_UNIQUE = 'tests/models/requires/input_models/' + MODEL_TO_TEST + '.uvl'
 # OUTPUT_PATH = os.path.basename(MODEL_PATH)
 # OUTPUT_PATH_UNIQUE = os.path.basename(MODEL_PATH_UNIQUE)
-OUTPUT_PATH = 'tests/models/requires/expected_models/Pizzas9.uvl'
-OUTPUT_PATH_UNIQUE = 'tests/models/requires/expected_models/Pizzas9.uvl'
+OUTPUT_PATH = 'tests/models/requires/expected_models/'  + MODEL_TO_TEST + '.uvl'
+OUTPUT_PATH_UNIQUE = 'tests/models/requires/expected_models/'  + MODEL_TO_TEST + '.uvl'
 ##################################################################################################
 
 
@@ -82,19 +83,19 @@ def print_statistics(fm: FeatureModel) -> None:
     n_configurations = FMEstimatedProductsNumber().execute(fm).get_result()
     print(f'#FM Estimated configurations: {n_configurations}')
 
-    if n_exact_configurations <= 50:
-        configurations = Glucose3Products().execute(sat_model).get_result()
-        print(f'SAT Configurations:')
-        for i, p in enumerate(configurations, 1):
-            print(f'C{i}: {[str(f) for f in p]}')
-        print('----------')
-        products = fm_utils.filter_products_from_dict(fm, configurations)
-        print(f'SAT Products:')
-        for i, p in enumerate(products, 1):
-            features_list = [str(f) for f in p]
-            features_list.sort()
-            print(f'P{i}: {features_list}')
-        print('----------')
+    # if n_exact_configurations <= 50:
+    #     configurations = Glucose3Products().execute(sat_model).get_result()
+    #     print(f'SAT Configurations:')
+    #     for i, p in enumerate(configurations, 1):
+    #         print(f'C{i}: {[str(f) for f in p]}')
+    #     print('----------')
+    #     products = fm_utils.filter_products_from_dict(fm, configurations)
+    #     print(f'SAT Products:')
+    #     for i, p in enumerate(products, 1):
+    #         features_list = [str(f) for f in p]
+    #         features_list.sort()
+    #         print(f'P{i}: {features_list}')
+    #     print('----------')
 
 
 def main():
@@ -148,7 +149,7 @@ def main():
     # fm = REFACTORING_EXCLUDES.transform(fm, ctc)
     # print('==================================================')
 
-    print_statistics(fm)
+    #print_statistics(fm)
 
     # print(fm)
     UVLWriter(fm, OUTPUT_PATH).transform()
@@ -158,6 +159,13 @@ def main():
     print_statistics(fm)
 
     UVLWriter(fm, OUTPUT_PATH_UNIQUE).transform()
+
+    # for f in fm.get_features():
+    #     parent = f.get_parent()
+    #     if parent is None:
+    #         print(f'{f.name}')
+    #     else:
+    #         print(f'{f.name} -> {parent.name}')
 
 if __name__ == '__main__':
     main()
