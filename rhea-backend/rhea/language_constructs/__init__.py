@@ -8,6 +8,7 @@ from .lc_xor_group import LCXorGroupFeature
 from .lc_mutex_group import LCMutexGroupFeature
 from .lc_cardinality_group import LCCardinalityGroupFeature
 from .lc_or_group_mandatory import LCOrGroupMandatoryFeature
+from .lc_multiple_group_decomposition import LCMultipleGroupDecomposition
 
 
 __all__ = ['LanguageConstruct',
@@ -19,4 +20,5 @@ __all__ = ['LanguageConstruct',
            'LCXorGroupFeature',
            'LCMutexGroupFeature',
            'LCCardinalityGroupFeature',
-           'LCOrGroupMandatoryFeature']
+           'LCOrGroupMandatoryFeature',
+           'LCMultipleGroupDecomposition']

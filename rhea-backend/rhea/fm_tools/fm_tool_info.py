@@ -31,4 +31,10 @@ def get_tools_info() -> list[FMToolInfo]:
                                         lc.LCXorGroupFeature,
                                         lc.LCCardinalityGroupFeature,
                                         lc.LCOrGroupMandatoryFeature]))
+    tools.append(FMToolInfo('SPLOT', [lc.LCFeature,
+                                        lc.LCOptionalFeature,
+                                        lc.LCMandatoryFeature,
+                                        lc.LCOrGroupFeature,
+                                        lc.LCXorGroupFeature,
+                                        lc.LCMultipleGroupDecomposition]))
     return tools
