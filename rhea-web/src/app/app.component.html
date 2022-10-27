@@ -84,8 +84,8 @@
         <div class="card block">
           <div class="border">
             <card3   
-            (newItemEventSaveJson)="SaveJson()"  
-            (newItemEventSaveUVL)="SaveUVL()"
+            [ListLanguage]="ListLanguage" 
+            (newItemEventSave)="Save($event)"  
             ></card3>
           </div>
         </div>
@@ -128,6 +128,12 @@
             (newItemEventrefactoingall)="SelectChipRefactor($event,'all')"
             (newItemEventdownload)="SaveFile($event)"
              ></Information>
+          </div>
+          <div style="margin-top: 55px;"></div>
+          <div class="border">
+            <Semantics_metrics
+            [jsonsemantic]="jsonsemantic"
+            ></Semantics_metrics>
           </div>
         </div>
       </div>

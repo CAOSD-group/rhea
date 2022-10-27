@@ -9,7 +9,7 @@ import { Refactoring } from './components/refactor/refactoring';
 import { Language } from './components/Language/Language';
 import { Cons } from 'rxjs';
 import { ThisReceiver } from '@angular/compiler';
-
+import { Semantics } from './components/Semantics/Semantics';
 
 
 
@@ -36,14 +36,13 @@ var refactor:Refactoring =new Refactoring()
 
 export class AppComponent {
 
-  urlsave="http://127.0.0.1:5000/saveFM" 
   urldownload="http://127.0.0.1:5000/downloadFM"  
   urlupload="http://127.0.0.1:5000/uploadFM"  
   urldownload2="http://127.0.0.1:5000/downloadFM2" 
   urldelete="http://127.0.0.1:5000deleteFM" 
   urlcreate="http://127.0.0.1:5000createFM" 
   urlrefactor="http://127.0.0.1:5000/refactor" 
-  urlupdate="http://127.0.0.1:5000updateFeature" 
+  urlupdate="http://127.0.0.1:5000/updateFM" 
 
   declare actual:FMTree     
   declare actualfather:FMTree 
@@ -109,6 +108,8 @@ export class AppComponent {
   ListOfConstraint:Array<Const>=[]
   position:number=0
   my_session=""
+  jsonsemantic:Array<Semantics>=[]
+  semantic:Semantics=new Semantics()
 constructor(private http: HttpClient ) { }  
 
 
@@ -117,6 +118,9 @@ ngOnInit() {
   console.log("separar html en partes funcionales || falta enviar informacion a cada componente || Errores en algunas funciones que estan en ambos sitios(?)")
   console.log("posible implementacion de mejora en visualicacion arbol constraint y eliminar el paso de quitar el operands y type de  createListForTree  y de createListForFile")
   //alert("falla el modal de las constraints el crear un hijo")
+  console.log("En information poner que el value 0 oculte la linea, dejar para lidia")
+  alert("si las modificaciones del constrain hacen que un logic term no este completo da error en el servidor, aunque en el front end si se hace el cambio, y puede arreglarse y entonces si se pone bien en el server")
+  alert("app.component.ts lineas 122/123 borrar cuando se arregle el error")
   this.returnValues("JHipster.uvl")
 }
 
@@ -142,13 +146,6 @@ showAbout(){
 }
 
 
-sendJSON(){
-  console.log(aux)
-  this.http.post(this.urldownload2,aux,{withCredentials:true,responseType:'text'}).subscribe(resultado => {
-    console.log(resultado)})
-}
-
-
 sendUVL(uvl:any){
   console.log(uvl)
   const formData: FormData = new FormData();
@@ -164,22 +161,15 @@ sendUVL(uvl:any){
 
 
 sendUpdate(){
+  this.TransformJSON()
+  let file = new Blob([json], { type: 'json' });
   const formData: FormData = new FormData();
+  formData.append('file', file,this.title+'.json')
   formData.append('fm_hash',this.my_session);
-  formData.append('old_name',this.actual.name);
-  formData.append('new_name',this.name);
-  formData.append('type',this.type);
-  formData.append('card_min',this.card_min.toString());
-  formData.append('card_max',this.card_max.toString());
-  formData.append('abstract',JSON.stringify(this.abstract));
-  formData.append('optional',JSON.stringify(this.optional));
-  formData.append('attributes',JSON.stringify(this.attributes))
-
-
-
   this.http.post(this.urlupdate,formData,{withCredentials:true,responseType:'text'}).subscribe(resultado => {
     this.CreateData(resultado)
     json=resultado
+    console.log("llego")
       }
     )
 }
@@ -237,6 +227,7 @@ CreateData(object:any,name?:string){
   jsonfeatures=aux.features,
   jsonconstraint=aux.constraints
   jsonrefactors=aux.refactorings
+  this.jsonsemantic=aux.semantics_metrics
   this.jsonlanguage=aux.language_constructs
   this.my_session=aux.hash
   aux2="" 
@@ -257,6 +248,7 @@ CreateData(object:any,name?:string){
   if(jsonrefactors!=undefined){
   this.CreateRefactor()}
   this.CreateLanguage()
+  this.CreateSemantics()
   this.loadingmodal=true
   this.page=0
   this.range=10
@@ -323,7 +315,11 @@ this.actual.abstract=this.abstract
 this.actual.attributes=this.attributes
 this.namesFeatures=this.tree[0].ListOfNamesModified(this.actual.name,aux)
 this.cons[0].checkName(this.cons,this.actual.name,aux)
-this.loadingmodal=true
+try{
+ this.sendUpdate()}
+ catch{
+  this.loadingmodal=true
+ }
 }
 
 
@@ -331,7 +327,6 @@ this.loadingmodal=true
 DeleteNode(){
   this.actualfather=this.GetFather(this.actual,this.tree)
   this.namesFeatures=this.actual.Delete(this.actualfather)
-  this.ReloadFMTree()
 }
 CreateChildren(){
   if(this.actual.AvoidDuplicates(this.name)){
@@ -340,7 +335,6 @@ CreateChildren(){
   else{
   if(this.actual.children==undefined){this.actual.children=[]}
   this.actual.children.push(this.actual.CreateDefault(this.name))
-  this.ReloadFMTree()
   console.log(this.name)
   this.tree[0].ExpandList(this.name)}
 }
@@ -354,7 +348,6 @@ CreateBrother(){
   }
   else{
   this.actualfather.children.push(this.actual.CreateDefault(this.name))
-  this.ReloadFMTree()
   this.tree[0].ExpandList(this.name)
 }}
 }
@@ -372,6 +365,7 @@ CreateCons(){
   this.position=-1
   this.cons.splice(0,this.cons.length)
   aux2=0
+  this.consactual=new Const()
   if(true){    
   [jsonconstraint,this.jsonconstraintTexto,this.listnamesconstraints]=this.consactual.CreateConstraint(aux3)
   while(aux2<jsonconstraint.length){
@@ -421,18 +415,17 @@ CreateLanguage(){
   console.log(this.jsonlanguage)
   console.log(this.ListLanguage)
 }
+CreateSemantics(){
+  console.log("create Semantics metrics")
+  this.jsonsemantic=this.semantic.CreateSemantics(this.jsonsemantic)
+}
 
 DeleteFMTree(){
   this.dataSource.data=[]
   this.constraindataSource.data=[]
 }
 
-ReloadFMTree(){
-  this.DeleteFMTree()
-  this.dataSource.data=this.tree
-  this.constraindataSource.data=this.cons.filter(x=>this.cons.indexOf(x)==this.position)
-  if(this.consactual==undefined){ this.consactual=new Const()}
-}
+
 
 changeListener($event): void {
   if($event.target.files[0].name!=undefined){
@@ -549,7 +542,8 @@ readThis(inputValue: any): void {
     console.log(this.position)
     if( this.consactual.type=='' && this.position!= undefined && this.position!=-1){
       this.cons.splice(this.position,1)
-      this.DeleteConsText()
+      this.jsonconstraintTexto.splice(this.position,1)
+      this.listnamesconstraints.splice(this.position,1)
       this.position=-1
     }
     if(this.consactual!=undefined){
@@ -567,14 +561,15 @@ readThis(inputValue: any): void {
       }
       else{
         if(this.position!=-1){
-        this.DeleteConsText()
+        this.jsonconstraintTexto.splice(this.position,1)
+        this.listnamesconstraints.splice(this.position,1)
         this.cons.splice(this.position,1)
         this.position=-1}
       }
     }
     if(this.cons.length==0){this.cons.push(new Const);console.log("7")}
     this.SelectedChange(this.ncons)
-    this.ReloadFMTree()
+    this.sendUpdate()
   }
 
   CreateListCons(){
@@ -609,8 +604,8 @@ readThis(inputValue: any): void {
     }
     this.jsonconstraintTexto[this.position]="New value at " +(this.position+1)+"º"
     }
-    this.ReloadFMTree()
     this.ListOfConstraint=[]
+    this.sendUpdate()
   }
 
 cardhidden(){
@@ -775,7 +770,6 @@ CreateConsList(){
     this.listnamesconstraints.push("CTC"+aux)
   }
   this.ListOfConstraint=[]
-  this.ReloadFMTree()
 }
 Writelist(){
   let textlista=""
@@ -806,7 +800,7 @@ CreateConsBrother(){
   alert("there was no father so a new one was created")
 }
   this.ListOfConstraint=[]
-  this.ReloadFMTree()
+  this.sendUpdate()
 }
 
 CreateConsSon(){
@@ -829,14 +823,14 @@ CreateConsSon(){
   }
 }
   this.ListOfConstraint=[]
-  this.ReloadFMTree()
+  this.sendUpdate()
 }
 
 
 DeleteConsText(){
   this.jsonconstraintTexto.splice(this.position,1)
   this.listnamesconstraints.splice(this.position,1)
-  this.ReloadFMTree()
+  this.sendUpdate()
 }
 
 
@@ -944,7 +938,8 @@ TransformJSON(){
   }
   aux2=aux2.slice(0,aux2.length-1)
   aux2='"constraints": ['+aux2+']'
-  json='{'+jsonfeatures+','+aux2
+  json='{'+jsonfeatures+','+aux2+'}'
+  /*
   aux=0
   aux2=""
   while (aux<this.ListOfRefactors.length){
@@ -959,7 +954,7 @@ TransformJSON(){
   }
   aux2=aux2.slice(0,aux2.length-1)
   aux2='"refactorings": ['+aux2+']'
-  json=json+','+aux2+'}'
+  json=json+','+aux2+'}'*/
   this.cons=this.consactual.createListForTree(this.cons)
 }
 
@@ -999,6 +994,11 @@ SaveFile(language:string){
   }
 }
 
+Save(text:string){
+  this.SaveJson()
+  //should go to the server directly with the lenguage for it, and then here selec it for de type of blob
+}
+
 SaveJson() {
   this.TransformJSON()
   let file = new Blob([json], { type: 'json' });
@@ -1008,8 +1008,6 @@ SaveUVL() {
   this.TransformJSON()
   console.log("llego")
   aux = new Blob([json], { type: 'json' });
-  console.log(aux)
-  this.sendJSON()
   //this.CreateData(resultado)
   alert("I should send the json file to the server,and then download the data as an UVL file")
   let file2 = new Blob(["resultado"], { type: 'uvl' });

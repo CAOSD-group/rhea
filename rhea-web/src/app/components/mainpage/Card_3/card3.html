@@ -1,2 +1,16 @@
-<button class="bottom-style" (click)="SaveJson()">Download .json</button>
-<button class="bottom-style" (click)="SaveUVL()">Download .uvl</button>
+
+
+<ul class="sidebar-nav" id="sidebar-nav">
+    <li class="nav-item">
+      <h4 style="margin-left: 4%; margin-top: 4%;"> Select language to download</h4>
+    </li>
+    <li class="nav-item" style="margin-left: 4%;">
+      <button class="btn-primary-search" (click)="SaveJson(language)" >
+        <i class="fa fa-download"></i>
+    </button>
+      <select class="btn-primary-select" [(ngModel)]="language" style="margin-left: 2%;"  >
+        <option value="tree name">Select an option</option>
+        <option *ngFor="let documento of ListLanguage">{{documento}}</option>
+      </select>
+    </li>
+</ul>

@@ -1,0 +1,18 @@
+<h4>Semantics metrics</h4>
+
+<table mat-table [dataSource]="jsonsemantic"  >
+  <!-- Name Column -->
+  <ng-container matColumnDef="name" >
+    <th class="colum-header-lang" mat-header-cell *matHeaderCellDef> Name </th>
+    <td class="colum-body" mat-cell *matCellDef="let element"> {{element.name}} </td>
+  </ng-container>
+
+  <!-- Value Column -->
+  <ng-container matColumnDef="value" > 
+    <th class="colum-header-lang" mat-header-cell *matHeaderCellDef> Value </th>
+    <td class="colum-body" mat-cell *matCellDef="let element"> {{element.value}} </td>
+  </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="columns"></tr>
+    <tr mat-row *matRowDef="let row; columns: columns;"></tr>
+  </table>

@@ -3,6 +3,7 @@ import {Const} from './components/constraint/const';
 import {FMTree } from './components/FMTree/FMTree';
 import {Refactoring } from './components/refactor/refactoring';
 import { Language } from './components/Language/Language';
+import { Semantics } from './components/Semantics/Semantics';
 
 import { globalhtml } from './components/globalhtml/globalhtml';
 import { about } from './components/about/about';
@@ -12,6 +13,7 @@ import { card2 } from './components/mainpage/Card_2/card2';
 import { card3 } from './components/mainpage/Card_3/card3';
 import { FeatureTree } from './components/mainpage/FeatureTree/FeatureTree';
 import { Information } from './components/mainpage/Information/Information';
+import { semantics_metrics } from './components/mainpage/Semantics metrics/Semantics metrics';
 import { ConstraintsText } from './components/mainpage/ConstraintsText/ConstraintsText';
 import { ConstraintsTree } from './components/mainpage/ConstraintsTree/ConstraintsTree';
 
@@ -46,6 +48,7 @@ import {MatTableModule} from '@angular/material/table';
     Const, 
     Refactoring, 
     Language,
+    Semantics,
 
     
     globalhtml,
@@ -56,6 +59,7 @@ import {MatTableModule} from '@angular/material/table';
     card3,
     FeatureTree,   
     Information,
+    semantics_metrics,
     ConstraintsText,
     ConstraintsTree,
   ],

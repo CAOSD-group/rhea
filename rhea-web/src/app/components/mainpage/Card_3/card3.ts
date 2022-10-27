@@ -9,14 +9,15 @@ import {Component,Input,Output,EventEmitter} from '@angular/core';
   })
   
   export class card3 {
-    @Output() newItemEventSaveJson = new EventEmitter<string>();
+    language  =""
+    @Input() ListLanguage:Array<string>=[]
+    @Output() newItemEventSave= new EventEmitter<string>();
     @Output() newItemEventSaveUVL = new EventEmitter<string>();
 
 
-    SaveJson(){
-      this.newItemEventSaveJson.emit();
-    }
-    SaveUVL(){
-      this.newItemEventSaveUVL.emit();
+    SaveJson(lang:string){
+      if(this.ListLanguage.indexOf(lang)!=-1){
+        console.log(lang)
+      this.newItemEventSave.emit(lang);}
     }
 }

@@ -35,7 +35,7 @@ let aux=0
     }
     download(chip:string){
       let aux =true
-      if(chip!="languages constructor" && chip!="Value"){
+      if(chip!="Language constructs" && chip!="#"){
         this.jsonlanguage.forEach(element => {
           if(element.value!=0&&element.tools.indexOf(chip)==-1){
             aux =false
@@ -47,21 +47,21 @@ let aux=0
         }
     }
     columns(){
-      let columns=["languages constructor","Value"]
+      let columns=["Language constructs","#"]
       this.ListLanguage.forEach(element => {
         columns.push(element)
       });
       return columns
     }
     columnsclass(chip:string){
-      if(chip=="languages constructor"){
+      if(chip=="Language constructs" || chip=="#"){
         return "colum-header-lang"
       }
       else{
       return "colum-header"}
     }
     hiddencolum(len:Language){
-      if(len.value==0){
+      if(len.value==-1){
         return true
       }
       else{
@@ -73,20 +73,20 @@ let aux=0
       let icon="cancel"
       let text=true
       let symbol=false
-      let button=true
       let menu=true
-      if(chip=="languages constructor"){
+      if(chip=="Language constructs"){
         text=false
         symbol=true
         icon=len.name
-        menu=false
+        if(len.refactorings.length!=0){
+        menu=false}
       }
-      if(chip=="Value"){
+      if(chip=="#"){
         text=false
         symbol=true
         icon=len.value.toString()
       }
-      if(chip!="languages constructor"&&chip!="Value" ){
+      if(chip!="Language constructs"&&chip!="#" ){
       if(len.tools.indexOf(chip)!=-1){
         icon="check_circle"
       }
@@ -96,7 +96,7 @@ let aux=0
         }
       }}
     
-      return [icon,symbol,text,button,menu]
+      return [icon,symbol,text,menu]
     }
     
   }
