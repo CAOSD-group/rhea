@@ -159,6 +159,7 @@ def _get_refactorings_info(feature_model: FeatureModel) -> list[dict[str, Any]]:
         ref_info['description'] = class_.get_description()
         ref_info['type'] = class_.get_language_construct_name()
         ref_info['instances'] = [i.name for i in class_.get_instances(feature_model)]
+        ref_info['applicable'] = class_.is_applicable()
         refactorings_info.append(ref_info)
     return refactorings_info
 
