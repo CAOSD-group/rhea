@@ -1,11 +1,12 @@
 import {Component} from '@angular/core';
-
+import {HttpClient} from '@angular/common/http';
+import { AppComponent } from 'src/app/app.component';
 
 @Component({
 
   selector: 'globalhtml',
     templateUrl: './globalhtml.html',
-    styleUrls: ['./globalhtml.css' ]
+    styleUrls: ['../../app.component.css' ]
   })
   
   export class globalhtml {

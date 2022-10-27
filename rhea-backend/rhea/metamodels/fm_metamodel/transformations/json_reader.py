@@ -13,19 +13,10 @@ from flamapy.metamodels.fm_metamodel.models import (
     Attribute
 )
 
-from rhea.metamodels.fm_metamodel.transformations.json_writer import JSONFeatureType
+from rhea.metamodels.fm_metamodel.transformations.json_writer import JSONWriter, JSONFeatureType
 
 
 class JSONReader(TextToModel):
-
-    CTC_TYPES = {ASTOperation.NOT: 'NotTerm',
-                 ASTOperation.AND: 'AndTerm',
-                 ASTOperation.OR: 'OrTerm',
-                 ASTOperation.XOR: 'XorTerm',
-                 ASTOperation.IMPLIES: 'ImpliesTerm',
-                 ASTOperation.REQUIRES: 'ImpliesTerm',
-                 ASTOperation.EXCLUDES: 'ExcludesTerm',
-                 ASTOperation.EQUIVALENCE: 'EquivalentTerm'}
 
     @staticmethod
     def get_source_extension() -> str:
@@ -119,31 +110,35 @@ def parse_ast_constraint(ctc_info: dict[str, Any]) -> Node:
     ctc_type = ctc_info['type']
     ctc_operands = ctc_info['operands']
     node = None
-    if ctc_type == 'FeatureTerm':
+    if ctc_type == JSONWriter.CTC_TYPES['FEATURE']:
         feature_name = ctc_info['operands'][0]
         node = Node(feature_name)
-    elif ctc_type == 'NotTerm':
+    elif ctc_type == JSONWriter.CTC_TYPES[ASTOperation.NOT]:
         left = parse_ast_constraint(ctc_operands[0])
         node = Node(ASTOperation.NOT, left)
-    elif ctc_type == 'ImpliesTerm':
+    elif ctc_type == JSONWriter.CTC_TYPES[ASTOperation.IMPLIES]:
         left = parse_ast_constraint(ctc_operands[0])
         right = parse_ast_constraint(ctc_operands[1])
         node = Node(ASTOperation.IMPLIES, left, right)
-    elif ctc_type == 'ExcludesTerm':
+    elif ctc_type == JSONWriter.CTC_TYPES[ASTOperation.REQUIRES]:
+        left = parse_ast_constraint(ctc_operands[0])
+        right = parse_ast_constraint(ctc_operands[1])
+        node = Node(ASTOperation.REQUIRES, left, right)
+    elif ctc_type == JSONWriter.CTC_TYPES[ASTOperation.EXCLUDES]:
         left = parse_ast_constraint(ctc_operands[0])
         right = parse_ast_constraint(ctc_operands[1])
         node = Node(ASTOperation.EXCLUDES, left, right)
-    elif ctc_type == 'EquivalentTerm':
+    elif ctc_type == JSONWriter.CTC_TYPES[ASTOperation.EQUIVALENCE]:
         left = parse_ast_constraint(ctc_operands[0])
         right = parse_ast_constraint(ctc_operands[1])
         node = Node(ASTOperation.EQUIVALENCE, left, right)
-    elif ctc_type == 'AndTerm':
+    elif ctc_type == JSONWriter.CTC_TYPES[ASTOperation.AND]:
         op_list = [parse_ast_constraint(op) for op in ctc_operands]
         node = functools.reduce(lambda l, r: Node(ASTOperation.AND, l, r), op_list)
-    elif ctc_type == 'OrTerm':
+    elif ctc_type == JSONWriter.CTC_TYPES[ASTOperation.OR]:
         op_list = [parse_ast_constraint(op) for op in ctc_operands]
         node = functools.reduce(lambda l, r: Node(ASTOperation.OR, l, r), op_list)
-    elif ctc_type == 'XorTerm':
+    elif ctc_type == JSONWriter.CTC_TYPES[ASTOperation.XOR]:
         op_list = [parse_ast_constraint(op) for op in ctc_operands]
         node = functools.reduce(lambda l, r: Node(ASTOperation.XOR, l, r), op_list)
     else:

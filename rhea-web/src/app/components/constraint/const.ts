@@ -1,5 +1,4 @@
 import { Component } from '@angular/core'
-import { Refactoring } from '../refactor/refactoring'
 
 
 
@@ -74,7 +73,7 @@ let constraintName :Array<any> =[]
 
     createListForTree(list:Array<any>){
         list.forEach(element => {
-            if(element.type=='FeatureTerm'){
+            if(element.type.toLowerCase().startsWith('feature')){
             element.type=element.operands[0]
             element.operands=null
             }
@@ -102,18 +101,25 @@ let constraintName :Array<any> =[]
         aux2=0
         aux3=true
         aux4=0
-        
         while(aux<list.length){
-            if(list[aux].operands.length==1){ 
+            console.log(list[aux])
+        if(list[aux].operands!=null){
+            if(list[aux].operands.length==0){ 
+                console.log("1")
                 list[aux].operands.push(list[aux+1]);
-                list[aux].operands.splice(0,1);
                 aux++}
+        }
+        if(list[aux].operands!=null){
             if(list[aux].operands.length>=2){
+                console.log("2")
                 list[aux].operands.push(list[aux+1]);
                 aux4=aux+1
                 aux2=aux+1
                 while(aux3){
-                    aux4=aux4+list[aux2].operands.length
+                    if(list[aux2].operands!=null){
+                        if(list[aux2].operands.length==0){aux4=aux4+1}
+                        else{aux4=aux4+list[aux2].operands.length}
+                    }
                     aux2++
                     if(aux2>aux4){
                         aux3=false
@@ -123,10 +129,8 @@ let constraintName :Array<any> =[]
                 list[aux].operands.push(list[aux2])
                 list[aux].operands.splice(0,2);
                 aux++}
-
-                if(list[aux].operands.length!=undefined && list[aux].operands.length==0){
-                    aux++
                 }
+                else{aux++}
         }
         return list[0]
     }

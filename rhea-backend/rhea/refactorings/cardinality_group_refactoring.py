@@ -31,11 +31,15 @@ class CardinalityGroupRefactoring(FMRefactoring):
         return [f for f in model.get_features() if f.is_cardinality_group()]
 
     @staticmethod
+    def is_applicable(model: FeatureModel) -> bool:
+        return True
+
+    @staticmethod
     def transform(model: FeatureModel, instance: Feature) -> FeatureModel:
 
         if instance is None:
             raise Exception(f'There is not feature with name "{instance.name}".')
-        if not instance.is_cardinality_group:
+        if not instance.is_cardinality_group():
             raise Exception(f'Feature {instance.name} is not a cardinality group.')
     
         r_card = next((r for r in instance.get_relations() if r.is_cardinal()), None)

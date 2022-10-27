@@ -12,6 +12,7 @@ from flamapy.metamodels.fm_metamodel.models import FeatureModel
 from flamapy.metamodels.fm_metamodel.transformations import UVLReader, UVLWriter, FeatureIDEReader, GlencoeReader
 
 from rhea.metamodels.fm_metamodel.transformations import JSONWriter, JSONReader
+from rhea.refactorings import utils
 from rhea import refactorings
 
 
@@ -62,20 +63,13 @@ def read_fm_file(filename: str) -> Optional[FeatureModel]:
 
 @app.route('/refactor', methods=['POST'])
 def refactor():
-    # codigo = request.form['session']
-    # if codigo is None:
-    #     return None
-    # my_value = cache.get(codigo)
-    # if my_value==None:
-    #     # if not there in the session then redirect to the login page
-    #     print('There is no session.')
-    #     return None
-    # fm = my_value
     if request.method == 'POST':
         # Get parameters
         fm_hash = request.form['fm_hash']
         class_name = request.form['refactoring_id']
-        instance_name = request.form['instance_name']
+        instance_name = None
+        if 'instance_name' in request.form:
+            instance_name = request.form['instance_name']
         fm = cache.get(fm_hash)
         if fm is None:
             print('FM expired.')
@@ -88,21 +82,20 @@ def refactor():
         if class_ is None:
             print('Invalid identifier for refactoring.')
             return None
-        instance = fm.get_feature_by_name(instance_name)
-        if instance is None:
-            instance = next((ctc for ctc in fm.get_constraints() if ctc.name == instance_name), None)
-        if instance is None:
-            print('Invalid feature/constraint identifier.')
-            return None
-        fm = class_.transform(fm, instance)
-        #session[FEATURE_MODEL_SESSION] = fm
-        
+        if instance_name is not None:  # Refactor a specific instance (feature or constraint)
+            instance = fm.get_feature_by_name(instance_name)
+            if instance is None:
+                instance = next((ctc for ctc in fm.get_constraints() if ctc.name == instance_name), None)
+            if instance is None:
+                print('Invalid feature/constraint identifier.')
+                return None
+            fm = class_.transform(fm, instance)
+        else:  # Refactor all
+            fm = utils.apply_refactoring(fm, class_)
         json_fm = JSONWriter(path=None, source_model=fm).transform()
         response = make_response(json_fm)
         fm_hash = hash(fm)
         cache.set(str(fm_hash), fm)
-        #response.headers.add('Access-Control-Allow-Headers', "Origin, X-Requested-With, Content-Type, Accept, x-auth")
-        #response.set_cookie(key='FM', value=str(fm_hash))
         return response
     return None
 

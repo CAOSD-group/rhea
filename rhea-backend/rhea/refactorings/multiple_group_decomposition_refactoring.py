@@ -26,6 +26,10 @@ class MultipleGroupDecompositionRefactoring(FMRefactoring):
         return [f for f in model.get_features() if is_multiple_group_decomposition(f)]
 
     @staticmethod
+    def is_applicable(model: FeatureModel) -> bool:
+        return True
+
+    @staticmethod
     def transform(model: FeatureModel, instance: Feature) -> FeatureModel:
         if instance is None:
             raise Exception(f'There is not feature with name "{instance.name}".')

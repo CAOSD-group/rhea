@@ -1,5 +1,6 @@
 {
     "name": "FM_Pizza",
+    "hash": "-6002414831928984949",
     "features": {
         "name": "Pizza",
         "type": "FEATURE",
@@ -10,7 +11,7 @@
             {
                 "name": "Topping",
                 "card_min": 2,
-                "card_max": 5,
+                "card_max": 3,
                 "type": "CARDINALITY",
                 "optional": false,
                 "abstract": false,
@@ -61,38 +62,6 @@
                             {
                                 "name": "cost",
                                 "value": "0"
-                            }
-                        ]
-                    },
-                    {
-                        "name": "Tuna",
-                        "type": "FEATURE",
-                        "optional": true,
-                        "abstract": false,
-                        "attributes": [
-                            {
-                                "name": "cost",
-                                "value": "2.10"
-                            },
-                            {
-                                "name": "price",
-                                "value": "3.20"
-                            }
-                        ]
-                    },
-                    {
-                        "name": "Bacon",
-                        "type": "FEATURE",
-                        "optional": true,
-                        "abstract": false,
-                        "attributes": [
-                            {
-                                "name": "cost",
-                                "value": "1.4"
-                            },
-                            {
-                                "name": "price",
-                                "value": "2.80"
                             }
                         ]
                     }
@@ -162,6 +131,38 @@
                 "optional": true,
                 "abstract": false,
                 "attributes": []
+            },
+            {
+                "name": "Vegan",
+                "card_min": 1,
+                "card_max": 3,
+                "type": "OR",
+                "optional": true,
+                "abstract": false,
+                "attributes": [],
+                "children": [
+                    {
+                        "name": "Tomato",
+                        "type": "FEATURE",
+                        "optional": false,
+                        "abstract": false,
+                        "attributes": []
+                    },
+                    {
+                        "name": "Pepper",
+                        "type": "FEATURE",
+                        "optional": true,
+                        "abstract": false,
+                        "attributes": []
+                    },
+                    {
+                        "name": "Corn",
+                        "type": "FEATURE",
+                        "optional": true,
+                        "abstract": false,
+                        "attributes": []
+                    }
+                ]
             },
             {
                 "name": "Spicy",
@@ -277,6 +278,23 @@
             ]
         },
         {
+            "id": "EliminationComplexConstraints",
+            "name": "Strict-complex constraint refactoring",
+            "description": "It transforms a strict-complex constraint by adding additional abstract features and simple constraints without adding or removing products.",
+            "type": "Strict-complex constraint",
+            "instances": [
+                "CTC1",
+                "CTC2"
+            ]
+        },
+        {
+            "id": "MultipleGroupDecompositionRefactoring",
+            "name": "Multiple decomposition types refactoring",
+            "description": "It substitutes each group in the feature by a mandatory abstract feature which becomes a new group below the original feature.",
+            "type": "Multiple decomposition types",
+            "instances": []
+        },
+        {
             "id": "MutexGroupRefactoring",
             "name": "Mutex group refactoring",
             "description": "It changes the mutex group to an and-group with one optional abstract sub-feature f which becomes an alternative-group with the original sub-features.",
@@ -286,12 +304,120 @@
             ]
         },
         {
+            "id": "OrMandatoryRefactoring",
+            "name": "Or-group with mandatory subfeature refactoring",
+            "description": "It transforms the or-group with mandatory subfeatures into an and-group with mandatory and optional subfeatures.",
+            "type": "Or-group with mandatory subfeature",
+            "instances": [
+                "Vegan"
+            ]
+        },
+        {
             "id": "SplitConstraint",
             "name": "Split constraint",
             "description": "It splits a constraint in multiple constraints dividing it by the AND operator when possible.",
             "type": "Constraint",
             "instances": [
                 "CTC2"
+            ]
+        },
+        {
+            "id": "XorMandatoryRefactoring",
+            "name": "Xor-group with mandatory subfeature refactoring",
+            "description": "It transforms the xor-group with a mandatory subfeature into an or-group with cardinality <0..0> (dead features) and a mandatory subfeature.",
+            "type": "Xor-group with mandatory subfeature",
+            "instances": []
+        }
+    ],
+    "language_constructs": [
+        {
+            "id": "LCFeature",
+            "name": "Feature",
+            "value": 20,
+            "refactorings": [],
+            "tools": [
+                "UVL",
+                "Glencoe"
+            ]
+        },
+        {
+            "id": "LCAbstractFeature",
+            "name": "Abstract feature",
+            "value": 1,
+            "refactorings": ["yes"],
+            "tools": [
+                "UVL"
+            ]
+        },
+        {
+            "id": "LCOptionalFeature",
+            "name": "Optional feature",
+            "value": 3,
+            "refactorings": [],
+            "tools": [
+                "UVL",
+                "Glencoe"
+            ]
+        },
+        {
+            "id": "LCMandatoryFeature",
+            "name": "Mandatory feature",
+            "value": 5,
+            "refactorings": [],
+            "tools": [
+                "UVL",
+                "Glencoe"
+            ]
+        },
+        {
+            "id": "LCOrGroupFeature",
+            "name": "Or-group",
+            "value": 1,
+            "refactorings": [],
+            "tools": [
+                "UVL",
+                "Glencoe"
+            ]
+        },
+        {
+            "id": "LCXorGroupFeature",
+            "name": "Xor-group",
+            "value": 2,
+            "refactorings": [],
+            "tools": [
+                "UVL",
+                "Glencoe"
+            ]
+        },
+        {
+            "id": "LCMutexGroupFeature",
+            "name": "Mutex group",
+            "value": 1,
+            "refactorings": [
+                "MutexGroupRefactoring"
+            ],
+            "tools": []
+        },
+        {
+            "id": "LCCardinalityGroupFeature",
+            "name": "Cardinality group",
+            "value": 1,
+            "refactorings": [
+                "CardinalityGroupRefactoring"
+            ],
+            "tools": [
+                "Glencoe"
+            ]
+        },
+        {
+            "id": "LCOrGroupMandatoryFeature",
+            "name": "Or-group with mandatory feature",
+            "value": 1,
+            "refactorings": [
+                "OrMandatoryRefactoring"
+            ],
+            "tools": [
+                "Glencoe"
             ]
         }
     ]

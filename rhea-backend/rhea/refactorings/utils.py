@@ -1,6 +1,8 @@
 from flamapy.metamodels.fm_metamodel.models import FeatureModel, Feature, Relation, Constraint
 from flamapy.core.models.ast import AST, ASTOperation, Node
 
+from rhea.refactorings import FMRefactoring
+
 
 def get_right_feature_name(instance: Constraint) -> str:
     if instance.ast.root.right.data is ASTOperation.NOT:

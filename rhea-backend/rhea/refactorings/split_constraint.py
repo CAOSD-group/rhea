@@ -24,6 +24,10 @@ class SplitConstraint(FMRefactoring):
         return [ctc for ctc in model.get_constraints() if len(fm_utils.split_constraint(ctc)) > 1]
 
     @staticmethod
+    def is_applicable(model: FeatureModel) -> bool:
+        return True
+
+    @staticmethod
     def transform(model: FeatureModel, instance: Constraint) -> FeatureModel:
         if instance is None:
             raise Exception(f'Constraint {instance} is None.')

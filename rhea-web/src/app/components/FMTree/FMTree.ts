@@ -31,8 +31,8 @@ let nlist:Array<string> =[]
         }}
         if(this.children!=undefined){
             this.children.forEach(element => {
-                nlist=nlist.filter(x=>x!=element.name)
-                element.Delete
+                aux=nlist.indexOf(element.name)
+                nlist.splice(aux,1)
             });
         }
         this.name=""
@@ -144,7 +144,7 @@ let nlist:Array<string> =[]
         children.optional=value.optional;
         if(value.card_max!=undefined){children.card_max=value.card_max}
         if(value.card_min!=undefined){children.card_min=value.card_min}
-        if(value.attributes!=undefined && value.attributes.length>0){children.attributes=value.attributes; console.log("hola")}
+        if(value.attributes!=undefined && value.attributes.length>0){children.attributes=value.attributes}
         children.type=value.type;
         children.children=[]
         aux=children

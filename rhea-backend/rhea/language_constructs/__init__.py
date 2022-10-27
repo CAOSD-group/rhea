@@ -1,18 +1,24 @@
-from .feature_model_construct import FeatureModelConstruct
-from .root_feature import RootFeature
-from .optional_feature import OptionalFeature
-from .mandatory_feature import MandatoryFeature
-from .xor_group import XorGroup
-from .or_group import OrGroup
-from .xor_child_feature import XorChildFeature
-from .or_child_feature import OrChildFeature
+from .language_construct import LanguageConstruct
+from .lc_feature import LCFeature
+from .lc_abstract_feature import LCAbstractFeature
+from .lc_optional_feature import LCOptionalFeature
+from .lc_mandatory_feature import LCMandatoryFeature
+from .lc_or_group import LCOrGroupFeature
+from .lc_xor_group import LCXorGroupFeature
+from .lc_mutex_group import LCMutexGroupFeature
+from .lc_cardinality_group import LCCardinalityGroupFeature
+from .lc_or_group_mandatory import LCOrGroupMandatoryFeature
+from .lc_multiple_group_decomposition import LCMultipleGroupDecomposition
 
 
-__all__ = ['FeatureModelConstruct',
-           'RootFeature',
-           'OptionalFeature',
-           'MandatoryFeature',
-           'XorGroup',
-           'OrGroup',
-           'XorChildFeature',
-           'OrChildFeature']
+__all__ = ['LanguageConstruct',
+           'LCFeature',
+           'LCAbstractFeature',
+           'LCOptionalFeature',
+           'LCMandatoryFeature',
+           'LCOrGroupFeature',
+           'LCXorGroupFeature',
+           'LCMutexGroupFeature',
+           'LCCardinalityGroupFeature',
+           'LCOrGroupMandatoryFeature',
+           'LCMultipleGroupDecomposition']

@@ -30,6 +30,10 @@ class EliminationSimpleConstraintsExcludes(FMRefactoring):
         return [ctc for ctc in model.get_constraints() if ConstraintHelper(ctc).is_excludes_constraint()]
 
     @staticmethod
+    def is_applicable(model: FeatureModel) -> bool:
+        return True
+
+    @staticmethod
     def transform(model: FeatureModel, instance: Constraint) -> FeatureModel:
         if instance is None:
             raise Exception(f'There is not constraint with name "{str(instance)}".')
