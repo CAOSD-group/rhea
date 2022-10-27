@@ -1,6 +1,6 @@
 from typing import Optional
 
-from fm_characterization import FMProperties, FMPropertyMeasure
+from rhea.fm_characterization import FMProperties, FMPropertyMeasure
 
 from flamapy.metamodels.fm_metamodel.models import FeatureModel
 

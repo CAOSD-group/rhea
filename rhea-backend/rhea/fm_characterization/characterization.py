@@ -3,7 +3,7 @@ from typing import Any, Optional
 
 from flamapy.metamodels.fm_metamodel.models import FeatureModel
 
-from fm_characterization import FMProperty, FMAnalysis, FMMetadata, FMMetrics
+from rhea.fm_characterization import FMProperty, FMAnalysis, FMMetadata, FMMetrics
 
 
 SPACE = ' '

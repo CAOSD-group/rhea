@@ -1,4 +1,4 @@
-from fm_characterization import FMProperties, FMPropertyMeasure
+from rhea.fm_characterization import FMProperties, FMPropertyMeasure
 from .fm_utils import get_ratio, get_nof_configuration_as_str
 
 from flamapy.metamodels.fm_metamodel.models import FeatureModel
