@@ -43,6 +43,10 @@ class EliminationAnyConstraints(FMRefactoring):
         return [ctc for ctc in model.get_constraints()]
 
     @staticmethod
+    def is_applicable(model: FeatureModel) -> bool:
+        return True
+
+    @staticmethod
     def transform(model: FeatureModel, instance: Constraint) -> FeatureModel:
         if instance is None:
             raise Exception(f'Constraint {instance} is None.')

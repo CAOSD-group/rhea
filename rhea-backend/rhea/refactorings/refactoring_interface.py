@@ -33,3 +33,9 @@ class FMRefactoring(ABC):
     def get_instances(model: FeatureModel) -> list[Any]:
         """Return the instances of the refactoring that can be applied to the source model."""
         pass
+
+    @staticmethod
+    @abstractmethod
+    def is_applicable(model: FeatureModel) -> bool:
+        """Return whether the refactoring is applicable to the given model."""
+        pass

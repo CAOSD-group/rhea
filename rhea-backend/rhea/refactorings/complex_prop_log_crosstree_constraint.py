@@ -25,6 +25,10 @@ class ComplexProLogCrossTreeConstraintRefactoring(FMRefactoring):
         return [f for f in model.get_features() if f.is_cardinality_group()]
 
     @staticmethod
+    def is_applicable(model: FeatureModel) -> bool:
+        return True
+
+    @staticmethod
     def transform(model: FeatureModel, instance: Feature) -> FeatureModel:
 
         if instance is None:
