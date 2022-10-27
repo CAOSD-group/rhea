@@ -13,6 +13,7 @@ from flamapy.metamodels.fm_metamodel.models import FeatureModel, Feature, Constr
 from rhea import refactorings
 from rhea import language_constructs
 from rhea.fm_tools import fm_tool_info
+from rhea.fm_characterization import FMAnalysis
 
 
 class JSONFeatureType(Enum):
@@ -63,6 +64,7 @@ def _to_json(feature_model: FeatureModel) -> dict[str, Any]:
     print('refactorings to json')
     result['refactorings'] = _get_refactorings_info(feature_model)
     result['language_constructs'] = _get_language_constructs_info(feature_model)
+    result['semantics_metrics'] = _get_semantics_metrics(feature_model)
     return result
 
 
@@ -191,3 +193,23 @@ def _get_language_constructs_info(feature_model: FeatureModel) -> list[dict[str,
         lc_info['tools'] = tool_support
         language_constructs_info.append(lc_info)
     return language_constructs_info
+
+
+def _get_semantics_metrics(feature_model: FeatureModel) -> list[dict[str, Any]]:
+    metrics_info = []
+    fm_analysis = FMAnalysis(feature_model)
+    for property in fm_analysis.get_analysis():
+        metric = {}
+        metric['name'] = property.property.name
+        metric['description'] = property.property.description
+        metric['value'] = str(property.value) if property.size is None else str(property.size)
+        metrics_info.append(metric)
+    return metrics_info
+    
+
+def _get_metric(name: str, description: str, value: Any) -> dict[str, Any]:
+    metric = {}
+    metric['name'] = name
+    metric['description'] = description
+    metric[value] = value
+    return metric
