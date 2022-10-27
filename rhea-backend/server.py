@@ -61,6 +61,62 @@ def read_fm_file(filename: str) -> Optional[FeatureModel]:
         return None
 
 
+@app.route('/uploadFM', methods=['POST'])
+def upload_feature_model():
+    if request.method == 'POST':
+        # check if the post request has the file part
+        if 'file' not in request.files:
+            print('No file part')
+            return redirect(request.url)
+        file = request.files['file']
+        # If the user does not select a file, the browser submits an empty file without a filename.
+        if file.filename == '':
+            print('No selected file')
+            return redirect(request.url)
+        if file and allowed_file(file.filename):
+            filename = secure_filename(file.filename)
+            filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename) 
+            filepath = secure_filename(filepath)
+            file.save(filepath)
+            fm = read_fm_file(filepath)
+            os.remove(filepath)
+            # record the feature model for the session
+            #session[FEATURE_MODEL_SESSION] = 'hola'
+            json_fm = JSONWriter(path=None, source_model=fm).transform()
+            response = make_response(json_fm)
+            #response.headers.add('Access-Control-Allow-Headers', "Origin, X-Requested-With, Content-Type, Accept, x-auth")
+            #session_id = request.cookies.get(COOKIE_SESSION)
+            hash_fm = hash(fm)
+            cache.set(str(hash_fm), fm)
+            #response.set_cookie(key='FM', value=str(hash_fm))
+            return response
+            #return redirect(url_for('uploadFM', name=filename))
+    return None
+
+
+@app.route('/updateFM', methods=['POST'])
+def updateFeature():
+    if request.method == 'POST':
+        # Get parameters
+        # check if the post request has the file part
+        if 'file' not in request.files:
+            return redirect(request.url)
+        file = request.files['file']
+        if file.filename.endswith('.json'):
+            filename = secure_filename(file.filename)
+            filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename) 
+            filepath = secure_filename(filepath)
+            file.save(filepath)
+            fm = read_fm_file(filepath)
+            os.remove(filepath)
+            json_fm = JSONWriter(path=None, source_model=fm).transform()
+            response = make_response(json_fm)
+            hash_fm = hash(fm)
+            cache.set(str(hash_fm), fm)
+            return response
+    return None
+
+
 @app.route('/refactor', methods=['POST'])
 def refactor():
     if request.method == 'POST':
@@ -99,68 +155,7 @@ def refactor():
         return response
     return None
 
-
-@app.route('/updateFeature', methods=['POST'])
-def updateFeature():
-    if request.method == 'POST':
-        # Get parameters
-        fm_hash = request.form['fm_hash']
-        feature_oldname = request.form['old_name']
-        feature_newname = request.form['new_name']
-        feature_optional = request.form['optional']
-        feature_abstract = request.form['abstract']
-        feature_type = request.form['type']  # FEATURE, XOR, OR, MUTEX, CARDINAL
-        card_min = request.form['card_min']
-        card_max = request.form['card_max']
-        attributes = request.form['attributes']  # list of key: value
-        fm = cache.get(fm_hash)
-        if fm is None:
-            print('FM expired.')
-            return None
-        json_fm = JSONWriter(path=None, source_model=fm).transform()
-        response = make_response(json_fm)
-        fm_hash = hash(fm)
-        cache.set(str(fm_hash), fm)
-        return response
-    return None
-
-
-@app.route('/uploadFM', methods=['POST'])
-def upload_feature_model():
-    if request.method == 'POST':
-        # check if the post request has the file part
-        if 'file' not in request.files:
-            print('No file part')
-            return redirect(request.url)
-        file = request.files['file']
-        # If the user does not select a file, the browser submits an empty file without a filename.
-        if file.filename == '':
-            print('No selected file')
-            return redirect(request.url)
-        if file and allowed_file(file.filename):
-            print(file.filename)
-            filename = secure_filename(file.filename)
-            filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename) 
-            filepath = secure_filename(filepath)
-            file.save(filepath)
-            print(filepath)
-            fm = read_fm_file(filepath)
-            print(fm)
-            os.remove(filepath)
-            # record the feature model for the session
-            #session[FEATURE_MODEL_SESSION] = 'hola'
-            json_fm = JSONWriter(path=None, source_model=fm).transform()
-            response = make_response(json_fm)
-            #response.headers.add('Access-Control-Allow-Headers', "Origin, X-Requested-With, Content-Type, Accept, x-auth")
-            #session_id = request.cookies.get(COOKIE_SESSION)
-            hash_fm = hash(fm)
-            cache.set(str(hash_fm), fm)
-            #response.set_cookie(key='FM', value=str(hash_fm))
-            return response
-            #return redirect(url_for('uploadFM', name=filename))
-    return None
-
-
+    
 @app.route('/downloadFM2', methods=['POST'])
 def download2_feature_model():
     if request.method == 'POST':
