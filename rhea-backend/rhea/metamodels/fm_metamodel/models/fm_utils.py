@@ -146,7 +146,6 @@ def remove_references(fm: FeatureModel) -> FeatureModel:
         for feature in fm.get_features():
             if feature.name in fm.dict_references.keys():
                 feature = fm.dict_references[feature.name]
-                print(f'FEATURE remove reference: {feature.name}')
     return fm
 
 
@@ -170,7 +169,7 @@ def commitment_feature(feature_model: FeatureModel, feature_name: str) -> Featur
     The algorithm is an adaptation from:
         [Broek2008 @ SPLC: Elimination of constraints from feature trees].
     """
-    tree = copy.deepcopy(feature_model)
+    tree = feature_model
     feature = tree.get_feature_by_name(feature_name)
     # Step 1. If T does not contain F, the result is NIL.
     if feature not in feature_model.get_features():
@@ -217,7 +216,7 @@ def deletion_feature(feature_model: FeatureModel, feature_name: str) -> FeatureM
     The algorithm is an adaptation from:
         [Broek2008 @ SPLC: Elimination of constraints from feature trees].
     """
-    tree = copy.deepcopy(feature_model)
+    tree = feature_model
     feature = tree.get_feature_by_name(feature_name)
     # Step 1. If T does not contain F, the result is T.
     if feature not in feature_model.get_features():
@@ -259,18 +258,20 @@ def eliminate_requires(fm: FeatureModel, requires_ctc: Constraint) -> FeatureMod
     obtained by taking a new Xor feature as root which has T(+B) and T(-A-B) as subfeatures.
     """
     fm.get_constraints().remove(requires_ctc)
-    feature_name_a, feature_name_b = features_names_from_simple_constraint(requires_ctc)
+    feature_name_a, feature_name_b = left_right_features_names_from_simple_constraint(requires_ctc)
     subtrees = get_trees_from_original_root(fm)
     trees_plus = []
     trees_less = []
     # Construct T(+B)
     for tree in subtrees:
-        t_plus = commitment_feature(tree, feature_name_b)
+        tree_copy = FeatureModel(copy.deepcopy(tree.root), fm.get_constraints())
+        t_plus = commitment_feature(tree_copy, feature_name_b)
         if t_plus is not None:
             trees_plus.append(t_plus)
     # Construct T(-A-B)
     for tree in subtrees:
-        t_less = deletion_feature(tree, feature_name_a)
+        tree_copy = FeatureModel(copy.deepcopy(tree.root), fm.get_constraints())
+        t_less = deletion_feature(tree_copy, feature_name_a)
         if t_less is not None:
             t_less = deletion_feature(t_less, feature_name_b)
             if t_less is not None:
@@ -299,24 +300,26 @@ def eliminate_excludes(fm: FeatureModel, excludes_ctc: Constraint) -> FeatureMod
     obtained by taking a new Xor feature as root which has T(-B) and T(-A+B) as subfeatures.
     """
     fm.get_constraints().remove(excludes_ctc)
-    feature_name_a, feature_name_b = features_names_from_simple_constraint(excludes_ctc)
+    feature_name_a, feature_name_b = left_right_features_names_from_simple_constraint(excludes_ctc)
     subtrees = get_trees_from_original_root(fm)
     trees_less = []
     trees_lessplus = []
     # Construct T(-B)
     for tree in subtrees:
-        t_less = commitment_feature(tree, feature_name_b)
+        tree_copy = FeatureModel(copy.deepcopy(tree.root), fm.get_constraints())
+        t_less = deletion_feature(tree_copy, feature_name_b)
         if t_less is not None:
             trees_less.append(t_less)
     # Construct T(-A+B)
     for tree in subtrees:
-        t_less = deletion_feature(tree, feature_name_a)
+        tree_copy = FeatureModel(copy.deepcopy(tree.root), fm.get_constraints())
+        t_less = deletion_feature(tree_copy, feature_name_a)
         if t_less is not None:
-            t_lessplus = deletion_feature(t_less, feature_name_b)
+            t_lessplus = commitment_feature(t_less, feature_name_b)
             if t_lessplus is not None:
                 trees_lessplus.append(t_lessplus)
     # The result consists of a new root, which is an Xor feature,
-    # with subfeatures T(+B) and T(-A-B).
+    # with subfeatures T(-B) and T(-A+B).
     new_root = Feature(get_new_feature_name(fm, 'root'), is_abstract=True)
     children = []
     for tree in trees_less + trees_lessplus:
@@ -329,7 +332,7 @@ def eliminate_excludes(fm: FeatureModel, excludes_ctc: Constraint) -> FeatureMod
     return FeatureModel(new_root, fm.get_constraints())
 
 
-def features_names_from_simple_constraint(simple_ctc: Constraint) -> tuple[str, str]:
+def left_right_features_names_from_simple_constraint(simple_ctc: Constraint) -> tuple[str, str]:
     """Return the names of the features involved in a simple constraint.
     
     A simple constraint can be a requires constraint or an excludes constraint.
@@ -342,13 +345,24 @@ def features_names_from_simple_constraint(simple_ctc: Constraint) -> tuple[str, 
         A => !B
         !A v !B
     """
+    assert is_simple_constraint(simple_ctc)
+
     root_op = simple_ctc.ast.root
-    left = root_op.left.data
-    right = root_op.right.data
-    if left == ASTOperation.NOT:
-        left = root_op.left.left.data
-    if right == ASTOperation.NOT:
-        right == root_op.right.left.data
+    if root_op.data in [ASTOperation.REQUIRES, ASTOperation.IMPLIES, ASTOperation.EXCLUDES]:
+        left = root_op.left.data
+        right = root_op.right.data
+        if right == ASTOperation.NOT:
+            right = root_op.right.left.data
+    elif root_op.data == ASTOperation.OR:
+        left = root_op.left.data
+        right = root_op.right.data
+        if left == ASTOperation.NOT:
+            left = root_op.left.left.data
+        if right == ASTOperation.NOT:
+            left = root_op.right.left.data
+            right = root_op.left.data
+    print(f'Features for constraint {simple_ctc.ast.pretty_str()} -> {root_op.data}')
+    print(f'Features for constraint {simple_ctc.ast.pretty_str()}: ({left}, {right})')
     return (left, right)
 
 
@@ -379,3 +393,19 @@ def get_trees_from_original_root(fm: FeatureModel) -> list[FeatureModel]:
                 trees.extend(subtrees)
             return trees
     return [fm]
+
+
+def to_unique_features(fm: FeatureModel) -> FeatureModel:
+    """Replace duplicated features names."""
+    if not hasattr(fm, 'dict_references'):
+            fm.dict_references = {}
+    unique_features_names = []
+    for f in fm.get_features():
+        if f.name not in unique_features_names:
+            unique_features_names.append(f.name)
+        else:
+            new_name = get_new_feature_name(fm, f.name)
+            fm.dict_references[new_name] = f.name
+            f.name = new_name
+            unique_features_names.append(f.name)
+    return fm

@@ -39,10 +39,10 @@ REFACTORING_SPLIT = SplitConstraint
 REFACTORING_COMPLEX = EliminationComplexConstraints
 REFACTORING_REQUIRES = EliminationSimpleConstraintsRequires
 REFACTORING_EXCLUDES = EliminationSimpleConstraintsExcludes
-MODEL_TO_TEST = "JHipster"
-MODEL_PATH = 'tests/models/real_models/' + MODEL_TO_TEST + '.uvl'
-OUTPUT_PATH = 'tests/models/real_models/outputs/'  + MODEL_TO_TEST + '.uvl'
-OUTPUT_PATH_UNIQUE = 'tests/models/real_models/outputs/' + MODEL_TO_TEST + '_unique.uvl'
+MODEL_TO_TEST = "Truck"
+MODEL_PATH = 'tests/models/real_models_tests/' + MODEL_TO_TEST + '.uvl'
+OUTPUT_PATH = 'tests/models/real_models_tests/outputs/'  + MODEL_TO_TEST + '.uvl'
+OUTPUT_PATH_UNIQUE = 'tests/models/real_models_tests/outputs/' + MODEL_TO_TEST + '_unique.uvl'
 #MODEL_PATH_UNIQUE = 'tests/models/requires/input_models/' + MODEL_TO_TEST + '.uvl'
 # OUTPUT_PATH = os.path.basename(MODEL_PATH)
 # OUTPUT_PATH_UNIQUE = os.path.basename(MODEL_PATH_UNIQUE)
@@ -53,7 +53,7 @@ OUTPUT_PATH_UNIQUE = 'tests/models/real_models/outputs/' + MODEL_TO_TEST + '_uni
 
 def apply_refactoring(fm: FeatureModel, refactoring: FMRefactoring) -> FeatureModel:
     instances = refactoring.get_instances(fm)
-    for i, instance in enumerate(instances):
+    for i, instance in enumerate(instances, 1):
         print(f'   |->Instance {i}: {str(instance)}')
         fm = refactoring.transform(fm, instance)
     return fm
@@ -79,9 +79,12 @@ def print_statistics(fm: FeatureModel) -> None:
     print(f'  |-#Pseudo-Complex: {len(fm_helper.get_pseudocomplex_constraints())}')
     print(f'  |-#Strict-Complex: {len(fm_helper.get_strictcomplex_constraints())}')
     
-    bdd_model = FmToBDD(fm).transform()
-    n_exact_configurations = BDDProductsNumber().execute(bdd_model).get_result()
-    print(f'#BDD Exact configurations: {n_exact_configurations}')
+    try:
+        bdd_model = FmToBDD(fm).transform()
+        n_exact_configurations = BDDProductsNumber().execute(bdd_model).get_result()
+        print(f'#BDD Exact configurations: {n_exact_configurations}')
+    except:
+        print(f'BDD fails.')
     
     n_configurations = FMEstimatedProductsNumber().execute(fm).get_result()
     print(f'#FM Estimated configurations: {n_configurations}')
@@ -164,7 +167,7 @@ def main():
     # fm = REFACTORING_EXCLUDES.transform(fm, ctc)
     # print('==================================================')
 
-    #print_statistics(fm)
+    print_statistics(fm)
 
     # print(fm)
     UVLWriter(fm, OUTPUT_PATH).transform()

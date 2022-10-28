@@ -245,5 +245,4 @@ def to_unique_features(fm: FeatureModel) -> FeatureModel:
             fm.dict_references[new_name] = f.name
             f.name = new_name
             unique_features_names.append(f.name)
-            
     return fm
