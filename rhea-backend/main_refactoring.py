@@ -106,7 +106,12 @@ def main():
     
     print('==================================================')
     print(f'Applying the refactoring {REFACTORING_REQUIRES.get_name()}...')
-    fm = apply_refactoring(fm, REFACTORING_REQUIRES)
+    #fm = apply_refactoring(fm, REFACTORING_REQUIRES)
+    fm = REFACTORING_REQUIRES.transform(fm, fm.get_constraints()[0])
+    fm = REFACTORING_REQUIRES.transform(fm, fm.get_constraints()[0])
+    fm = REFACTORING_REQUIRES.transform(fm, fm.get_constraints()[0])
+    fm = REFACTORING_REQUIRES.transform(fm, fm.get_constraints()[0])
+    fm = REFACTORING_REQUIRES.transform(fm, fm.get_constraints()[0])
     print('==================================================')
 
     # print('==================================================')

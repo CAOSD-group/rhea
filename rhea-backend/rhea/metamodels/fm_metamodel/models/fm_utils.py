@@ -170,19 +170,21 @@ def commitment_feature(fm: FeatureModel, feature_name: str) -> FeatureModel:
     The algorithm is an adaptation from:
         [Broek2008 @ SPLC: Elimination of constraints from feature trees].
     """
-    features_to_commit = [f for f in fm.get_features() if f.name == feature_name]
+    tree = copy.deepcopy(fm)
+    features_to_commit = [f for f in tree.get_features() if f.name == feature_name]
+    #print(f'T(+{feature_name}): {[f.name for f in features_to_commit]}')
     #print([f.name for f in features_to_commit])
     if not features_to_commit:  # If T does not contain F, the result is NIL.
         return None
     for feature in features_to_commit:
         feature_to_commit = feature
-        while feature_to_commit != fm.root:  # If F is the root of T, the result is T.
+        while feature_to_commit != tree.root:  # If F is the root of T, the result is T.
             parent = feature_to_commit.get_parent()  # Let the parent feature of F be P.
             if not parent.is_group() and feature_to_commit.is_optional():  # If P is a MandOpt feature and F is an optional subfeature, make F a mandatory subfeature of P.
                 rel = next((r for r in parent.get_relations() if feature_to_commit in r.children), None)
                 rel.card_min = 1
-            elif parent.is_alternative_group() and len(parent.get_children()) == 2 and parent.get_children()[0].name == parent.get_children()[1].name:
-                pass
+            # elif parent.is_alternative_group() and len(parent.get_children()) == 2 and parent.get_children()[0].name == parent.get_children()[1].name:
+            #     pass
             elif parent.is_alternative_group():  #If P is an Xor feature, make P a MandOpt feature which has F as single mandatory subfeature and has no optional subfeatures. All other subfeatures of P are removed from the tree.
                 parent.get_relations()[0].children = [feature_to_commit]
             elif parent.is_or_group():  # If P is an Or feature, make P a MandOpt feature which has F as single mandatory subfeature, and has all other subfeatures of P as optional subfeatures.
@@ -197,7 +199,7 @@ def commitment_feature(fm: FeatureModel, feature_name: str) -> FeatureModel:
                     parent_relations.append(new_optional_rel)
             # GOTO step 2 with P instead of F.
             feature_to_commit = parent
-    return fm
+    return tree
 
 
 def deletion_feature(fm: FeatureModel, feature_name: str) -> FeatureModel:
@@ -209,32 +211,33 @@ def deletion_feature(fm: FeatureModel, feature_name: str) -> FeatureModel:
     The algorithm is an adaptation from:
         [Broek2008 @ SPLC: Elimination of constraints from feature trees].
     """
-    features_to_delete = [f for f in fm.get_features() if f.name == feature_name]
+    tree = copy.deepcopy(fm)
+    features_to_delete = [f for f in tree.get_features() if f.name == feature_name]
     if not features_to_delete:  # If T does not contain F, the result is T.
-        return fm
+        return tree
     for feature in features_to_delete:
         feature_to_delete = feature
         parent = feature_to_delete.get_parent()  # Let the parent feature of F be P.
         # If P is a MandOpt feature and F is a mandatory subfeature of P, GOTO step 2 with P instead of F.
-        while feature_to_delete != fm.root and not parent.is_group() and feature_to_delete.is_mandatory():
+        while feature_to_delete != tree.root and not parent.is_group() and feature_to_delete.is_mandatory():
             feature_to_delete = parent
             parent = feature_to_delete.get_parent()
-        if feature_to_delete == fm.root:  # If F is the root of T, the result is NIL.
+        if feature_to_delete == tree.root:  # If F is the root of T, the result is NIL.
             return None
-        elif parent.is_alternative_group() and len(parent.get_children()) == 2 and (parent.get_children()[0].name == parent.get_children()[1].name):
-            xor_rel = parent.get_relations()[0]
-            node1 = xor_rel.children[0]
-            node2 = xor_rel.children[1]
+        # elif parent.is_alternative_group() and len(parent.get_children()) == 2 and (parent.get_children()[0].name == parent.get_children()[1].name):
+        #     xor_rel = parent.get_relations()[0]
+        #     node1 = xor_rel.children[0]
+        #     node2 = xor_rel.children[1]
 
-            fm1 = FeatureModel(node1, None)
-            fm2 = FeatureModel(feature_to_delete, None)
+        #     fm1 = FeatureModel(node1, None)
+        #     fm2 = FeatureModel(feature_to_delete, None)
 
-            node_to_maintain = None  # the other will be eliminated
-            if fm1 == fm2:
-                node_to_maintain = node2
-            else:
-                node_to_maintain = node1
-            xor_rel.children = [node_to_maintain]
+        #     node_to_maintain = None  # the other will be eliminated
+        #     if fm1 == fm2:
+        #         node_to_maintain = node2
+        #     else:
+        #         node_to_maintain = node1
+        #     xor_rel.children = [node_to_maintain]
         # If P is a MandOpt feature and F is an optional subfeature of P, delete F.
         elif not parent.is_group() and feature_to_delete.is_optional():
             rel = next((r for r in parent.get_relations() if feature_to_delete in r.children), None)
@@ -249,7 +252,7 @@ def deletion_feature(fm: FeatureModel, feature_name: str) -> FeatureModel:
                 rel.card_max -= 1
             if len(rel.children) == 1:
                 rel.card_max = 1
-    return fm
+    return tree
 
 
 def eliminate_requires(fm: FeatureModel, requires_ctc: Constraint) -> FeatureModel:
@@ -263,31 +266,99 @@ def eliminate_requires(fm: FeatureModel, requires_ctc: Constraint) -> FeatureMod
     """
     fm.get_constraints().remove(requires_ctc)
     feature_name_a, feature_name_b = features_names_from_simple_constraint(requires_ctc)
-    fm_plus_b = copy.deepcopy(fm)
-    fm_less_ab = copy.deepcopy(fm)
+    subtrees = get_trees_from_original_root(fm)
+    trees_plus = []
+    trees_less = []
     # Construct T(+B) and T(-A-B)
-    fm_plus_b = commitment_feature(fm_plus_b, feature_name_b)
-    fm_less_ab = deletion_feature(fm_less_ab, feature_name_a)
-    if fm_less_ab is not None:
-        fm_less_ab = deletion_feature(fm_less_ab, feature_name_b) 
+    for tree in subtrees:
+        t_plus = commitment_feature(tree, feature_name_b)
+        if t_plus is not None:
+            trees_plus.append(t_plus)
+    for tree in subtrees:
+        t_less = deletion_feature(tree, feature_name_a)
+        if t_less is not None:
+            t_less = deletion_feature(t_less, feature_name_b)
+            if t_less is not None:
+                trees_less.append(t_less)
+
+    new_root = Feature(get_new_feature_name(fm, 'root'), is_abstract=True)
+    children = []
+    for tree in trees_plus + trees_less:
+        tree.root.parent = new_root
+        children.append(tree.root)
+    if not children:
+        return None
+    xor_rel = Relation(new_root, children, 1, 1)
+    new_root.add_relation(xor_rel)
+    return FeatureModel(new_root, fm.get_constraints())
+
+
+
+    #fm_plus_b = copy.deepcopy(fm)
+    #fm_less_ab = copy.deepcopy(fm)
+    # Construct T(+B) and T(-A-B)
+    #trees_plus_b = get_trees_from_original_root(fm_plus_b)
+    #print(f'#Trees+: {len(trees_plus_b)}')
+    #trees_less_ab = get_trees_from_original_root(fm_less_ab)
+    #print(f'#Trees-: {len(trees_less_ab)}')
+    # for tree in trees_plus_b:
+    #     tree = commitment_feature(tree, feature_name_b)
+    #     #feature_a = tree.get_feature_by_name(feature_name_a)
+    #     if tree is not None:
+    #         feature_b = tree.get_feature_by_name(feature_name_b)
+    #         if feature_b is None:
+    #             tree = deletion_feature(tree, feature_name_a)
+    # for tree in trees_less_ab:
+    #     tree = deletion_feature(tree, feature_name_a)
+    #     if tree is not None:
+    #         tree = deletion_feature(tree, feature_name_b)
+    # new_root = Feature(get_new_feature_name(fm, 'root'), is_abstract=True)
+    # children = []
+    # for tree in trees_plus_b:
+    #     if tree is not None:
+    #         tree.root.parent = new_root
+    #         children.append(tree.root)
+    # for tree in trees_less_ab:
+    #     if tree is not None:
+    #         tree.root.parent = new_root
+    #         children.append(tree.root)
+    # if not children:
+    #     return None
+    # else:
+    #     xor_rel = Relation(new_root, children, 1, 1)
+    #     new_root.add_relation(xor_rel)
+    # return FeatureModel(new_root, fm.get_constraints())
+    #     new_root.add_relation(xor_rel)
+    #     fm.root = new_root
+    #     fm_plus_b.root.parent = new_root
+    #     fm_less_ab.root.parent = new_root
+    #     xor_rel = Relation(new_root, [fm_plus_b.root, fm_less_ab.root], 1, 1)
+    #     new_root.add_relation(xor_rel)
+    #     fm.root = new_root
+    #     return fm
+
+    # fm_plus_b = commitment_feature(fm_plus_b, feature_name_b)
+    # fm_less_ab = deletion_feature(fm_less_ab, feature_name_a)
+    # if fm_less_ab is not None:
+    #     fm_less_ab = deletion_feature(fm_less_ab, feature_name_b) 
     #print(f'T(+{feature_name_b}): {fm_plus_b}')
     #print(f'T(-{feature_name_a}-{feature_name_b}): {fm_less_ab}')
     # If both trees are not equal to NIL, 
     # then the result consists of a new root, which is an Xor feature,
     # with subfeatures T(+B) and T(-A-B).
-    if fm_plus_b is not None and fm_less_ab is not None:
-        new_root = Feature(get_new_feature_name(fm, 'root'), is_abstract=True)
-        fm_plus_b.root.parent = new_root
-        fm_less_ab.root.parent = new_root
-        xor_rel = Relation(new_root, [fm_plus_b.root, fm_less_ab.root], 1, 1)
-        new_root.add_relation(xor_rel)
-        fm.root = new_root
-        return fm
-    if fm_less_ab is None:  # If T(-A-B) is equal to NIL, then the result is T(+B).
-        fm = fm_plus_b
-    if fm_plus_b is None:  # If T(+B) is equal to NIL, then the result is T(-A-B).
-        fm = fm_less_ab
-    return fm
+    # if fm_plus_b is not None and fm_less_ab is not None:
+    #     new_root = Feature(get_new_feature_name(fm, 'root'), is_abstract=True)
+    #     fm_plus_b.root.parent = new_root
+    #     fm_less_ab.root.parent = new_root
+    #     xor_rel = Relation(new_root, [fm_plus_b.root, fm_less_ab.root], 1, 1)
+    #     new_root.add_relation(xor_rel)
+    #     fm.root = new_root
+    #     return fm
+    # if fm_less_ab is None:  # If T(-A-B) is equal to NIL, then the result is T(+B).
+    #     fm = fm_plus_b
+    # if fm_plus_b is None:  # If T(+B) is equal to NIL, then the result is T(-A-B).
+    #     fm = fm_less_ab
+    #return fm
 
 
 def features_names_from_simple_constraint(simple_ctc: Constraint) -> tuple[str, str]:
@@ -321,3 +392,22 @@ def get_new_feature_name(fm: FeatureModel, prefix_name: str) -> str:
         new_name = f'{prefix_name}{count}'
         count += 1
     return new_name
+
+
+def get_trees_from_original_root(fm: FeatureModel) -> list[FeatureModel]:
+    """Given a feature model with non-unique features, 
+    returns the subtrees the root of which are the original root of the feature model.
+    
+    The original root of the feature model is the most top feature 
+    that is not a XOR group with two identical children.
+    """
+    root = fm.root
+    if root.is_alternative_group():
+        child_name = root.get_children()[0].name
+        if all(child.name == child_name for child in root.get_children()):
+            trees = []
+            for child in root.get_children():
+                subtrees = get_trees_from_original_root(FeatureModel(child, fm.get_constraints()))
+                trees.extend(subtrees)
+            return trees
+    return [fm]
