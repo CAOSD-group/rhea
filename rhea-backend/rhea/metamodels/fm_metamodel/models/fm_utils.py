@@ -241,7 +241,7 @@ def deletion_feature(feature_model: FeatureModel, feature_name: str) -> FeatureM
     elif parent.is_alternative_group() or parent.is_or_group():
         rel = parent.get_relations()[0]
         rel.children.remove(feature_to_delete)
-        if parent.is_or_group():
+        if rel.card_max > 1:
             rel.card_max -= 1
     return tree
 
@@ -262,16 +262,20 @@ def eliminate_requires(fm: FeatureModel, requires_ctc: Constraint) -> FeatureMod
     trees_less = []
     # Construct T(+B)
     for tree in subtrees:
+        #print(f'1. {tree}')
         tree_copy = FeatureModel(copy.deepcopy(tree.root), fm.get_constraints())
         t_plus = commitment_feature(tree_copy, feature_name_b)
         if t_plus is not None:
             trees_plus.append(t_plus)
     # Construct T(-A-B)
     for tree in subtrees:
+        #print(f'before T(-A-B). {tree}')
         tree_copy = FeatureModel(copy.deepcopy(tree.root), fm.get_constraints())
         t_less = deletion_feature(tree_copy, feature_name_a)
+        #print(f'T(-{feature_name_a})= {t_less}')
         if t_less is not None:
             t_less = deletion_feature(t_less, feature_name_b)
+            #print(f'T(-{feature_name_a}-{feature_name_b})= {t_less}')
             if t_less is not None:
                 trees_less.append(t_less)
     # The result consists of a new root, which is an Xor feature,
@@ -359,8 +363,8 @@ def left_right_features_names_from_simple_constraint(simple_ctc: Constraint) -> 
         if right == ASTOperation.NOT:
             left = root_op.right.left.data
             right = root_op.left.data
-    print(f'Features for constraint {simple_ctc.ast.pretty_str()} -> {root_op.data}')
-    print(f'Features for constraint {simple_ctc.ast.pretty_str()}: ({left}, {right})')
+    #print(f'Features for constraint {simple_ctc.ast.pretty_str()} -> {root_op.data}')
+    #print(f'Features for constraint {simple_ctc.ast.pretty_str()}: ({left}, {right})')
     return (left, right)
 
 

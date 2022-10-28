@@ -39,7 +39,7 @@ REFACTORING_SPLIT = SplitConstraint
 REFACTORING_COMPLEX = EliminationComplexConstraints
 REFACTORING_REQUIRES = EliminationSimpleConstraintsRequires
 REFACTORING_EXCLUDES = EliminationSimpleConstraintsExcludes
-MODEL_TO_TEST = "Truck"
+MODEL_TO_TEST = "MobileMedia"
 MODEL_PATH = 'tests/models/real_models_tests/' + MODEL_TO_TEST + '.uvl'
 OUTPUT_PATH = 'tests/models/real_models_tests/outputs/'  + MODEL_TO_TEST + '.uvl'
 OUTPUT_PATH_UNIQUE = 'tests/models/real_models_tests/outputs/' + MODEL_TO_TEST + '_unique.uvl'
@@ -78,7 +78,7 @@ def print_statistics(fm: FeatureModel) -> None:
     print(f'|-#Complex: {len(fm_helper.get_complex_constraints())}')
     print(f'  |-#Pseudo-Complex: {len(fm_helper.get_pseudocomplex_constraints())}')
     print(f'  |-#Strict-Complex: {len(fm_helper.get_strictcomplex_constraints())}')
-    
+    #print(fm)
     try:
         bdd_model = FmToBDD(fm).transform()
         n_exact_configurations = BDDProductsNumber().execute(bdd_model).get_result()
