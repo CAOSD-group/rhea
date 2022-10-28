@@ -1,18 +1,27 @@
 
 <ul class="sidebar-nav" >
     <li class="nav-item">
-      <h4 style="margin-left: 4%; margin-top: 4%;">Upload feature model...</h4>
+      <h4 >Upload feature model...</h4>
       <div id="xslUpload">
-        <label for="file-input card1" style="margin-left: 4%; margin-top: 4%;">
+        <label for="file-input card1" style="margin-left: 1%;">
           <button class="btn importar" type="button">Attach file</button>
         </label>
-        <div style="margin-top: 2%;"></div>
+
         <input class="file-input" (change)="changeListener($event)" id="file-input card1" type="file"/>
-        <label  id="xslSubmit" style="margin-left: 4%;">
+        <label  id="xslSubmit" style="margin-left: 1%;">
           <button class="btn importar" type="button" (click)="readThis()" data-bs-toggle="modal" href="#loading">Submit file </button>
         </label>
       </div>
     </li>
-    <input class="margin"  type="text" [(ngModel)]="myfile_name" disabled="true" style="border-radius:5px ;background-color: #f0ececaf ;margin-left: 4%;">
+    <input class="margin"  type="text" [(ngModel)]="myfile_name" disabled="true" style="border-radius:5px ;background-color: #f0ececaf ;margin-left: 1%;">
 </ul>
 
+<ul class="sidebar-nav" id="sidebar-nav">
+  <li class="nav-item">
+    <h4 style="margin-left: 1%;"> Or select one of our documents 
+      <select class="btn-primary-select" [(ngModel)]="item"  data-bs-toggle="modal" href="#loading" (click)="select($event.target)">
+      <option value="tree name">Select an option</option>
+      <option *ngFor="let documento of documents">{{documento}}</option>
+    </select></h4>
+  </li>
+</ul>

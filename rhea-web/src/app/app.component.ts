@@ -67,7 +67,7 @@ export class AppComponent {
   namesFeatures:Array<string>=[]
   //otros
   title:string='';
-  item:string ='JHipster.uvl';
+  item:string ='';
   jsonconstraintTexto: Array<string>=[]
   // modificar o crear FMTree
   name:string="";
@@ -94,6 +94,7 @@ export class AppComponent {
   search_name=true 
   mattooltipconstraint=this.search_name?"Search by name":"Search by text";
   windowFM_Editor=true
+  mainhidden=true
   windowAbout=false
   window3=true
   updatable=false
@@ -119,8 +120,8 @@ ngOnInit() {
   console.log("posible implementacion de mejora en visualicacion arbol constraint y eliminar el paso de quitar el operands y type de  createListForTree  y de createListForFile")
   //alert("falla el modal de las constraints el crear un hijo")
   console.log("En information poner que el value 0 oculte la linea, dejar para lidia")
-  alert("si las modificaciones del constrain hacen que un logic term no este completo da error en el servidor, aunque en el front end si se hace el cambio, y puede arreglarse y entonces si se pone bien en el server")
-  alert("app.component.ts lineas 122/123 borrar cuando se arregle el error")
+  //alert("si las modificaciones del constrain hacen que un logic term no este completo da error en el servidor, aunque en el front end si se hace el cambio, y puede arreglarse y entonces si se pone bien en el server")
+  //alert("app.component.ts lineas 122/123 borrar cuando se arregle el error")
   this.returnValues("JHipster.uvl")
 }
 
@@ -250,6 +251,7 @@ CreateData(object:any,name?:string){
   this.CreateLanguage()
   this.CreateSemantics()
   this.loadingmodal=true
+  this.mainhidden=false
   this.page=0
   this.range=10
 }
@@ -316,19 +318,26 @@ this.actual.attributes=this.attributes
 this.namesFeatures=this.tree[0].ListOfNamesModified(this.actual.name,aux)
 this.cons[0].checkName(this.cons,this.actual.name,aux)
 try{
- this.sendUpdate()}
- catch{
+  this.sendUpdate()}
+catch{
   this.loadingmodal=true
- }
+  }
 }
 
 
 
 DeleteNode(){
+  this.loadingmodal=false
   this.actualfather=this.GetFather(this.actual,this.tree)
   this.namesFeatures=this.actual.Delete(this.actualfather)
+  try{
+    this.sendUpdate()}
+  catch{
+    this.loadingmodal=true
+    }
 }
 CreateChildren(){
+  this.loadingmodal=false
   if(this.actual.AvoidDuplicates(this.name)){
     alert("this name is already in use")
   }
@@ -337,8 +346,14 @@ CreateChildren(){
   this.actual.children.push(this.actual.CreateDefault(this.name))
   console.log(this.name)
   this.tree[0].ExpandList(this.name)}
+  try{
+    this.sendUpdate()}
+  catch{
+    this.loadingmodal=true
+    }
 }
 CreateBrother(){
+  this.loadingmodal=false
   if(this.actual.AvoidDuplicates(this.name)){
     alert("this name is already in use")
   }
@@ -350,6 +365,11 @@ CreateBrother(){
   this.actualfather.children.push(this.actual.CreateDefault(this.name))
   this.tree[0].ExpandList(this.name)
 }}
+try{
+  this.sendUpdate()}
+catch{
+  this.loadingmodal=true
+  }
 }
 
 
@@ -537,9 +557,12 @@ readThis(inputValue: any): void {
   updatePosition(a:any){
     this.position=a
     this.npos=a
+    this.consactual=this.cons[this.position]
+    console.log(this.consactual)
   }
   DeleteCons(){
-    console.log(this.position)
+    this.loadingmodal=false
+    if(this.consactualfather==undefined){
     if( this.consactual.type=='' && this.position!= undefined && this.position!=-1){
       this.cons.splice(this.position,1)
       this.jsonconstraintTexto.splice(this.position,1)
@@ -547,6 +570,7 @@ readThis(inputValue: any): void {
       this.position=-1
     }
     if(this.consactual!=undefined){
+      /*
       if(this.consactualfather!=undefined &&this.consactualfather.type!=""){
         aux2=0
       while(aux2<this.consactualfather.operands.length){
@@ -559,7 +583,8 @@ readThis(inputValue: any): void {
         this.consactualfather.operands.splice(aux,1)
         this.jsonconstraintTexto[this.position]="New value at " +(this.position+1)+"º"
       }
-      else{
+      
+      else */{
         if(this.position!=-1){
         this.jsonconstraintTexto.splice(this.position,1)
         this.listnamesconstraints.splice(this.position,1)
@@ -568,25 +593,81 @@ readThis(inputValue: any): void {
       }
     }
     if(this.cons.length==0){this.cons.push(new Const);console.log("7")}
-    this.SelectedChange(this.ncons)
-    this.sendUpdate()
+    try{
+      this.sendUpdate()}
+    catch{
+      this.loadingmodal=true
+      }}
+      else{this.loadingmodal=true}
   }
 
   CreateListCons(){
-    if(this.ListOfConstraint.length==2){
+    console.log(this.ListOfConstraint[0])
+    if(this.ListOfConstraint.length==2 && this.ListOfConstraint[0].type=="NotTerm"){
       this.ListOfConstraint[0].operands=[]
       this.ListOfConstraint[0].operands.push(this.ListOfConstraint[1]);
     }
-    if(this.ListOfConstraint.length>2){
+    if(this.ListOfConstraint.length>2 && this.ListOfConstraint[0].type!="NotTerm"){
       this.ListOfConstraint[0]=this.consactual.ListOfNewConstraint(this.ListOfConstraint)
     }
+    aux4=true
+    this.checkListofconstraint(this.ListOfConstraint[0])
+    console.log(aux4)
+    aux3=[]
+    this.checkListofconstraint2(this.ListOfConstraint[0])
+    console.log(aux3.length)
+    console.log(aux4)
+    console.log(this.ListOfConstraint.length)
+    if(aux3.length<this.ListOfConstraint.length){
+      aux4=false
+    }
+    console.log(aux4)
     return this.ListOfConstraint[0]
+  }
+  checkListofconstraint2(list:Const){
+    if(list!=undefined){
+    if(list.type!=""){
+      aux3.push(list)
+      if(list.operands!=null &&list.operands!= undefined ){
+        list.operands.forEach(element => {
+          this.checkListofconstraint2(element)
+        });
+      }
+    }}
+  }
+
+  checkListofconstraint(list:Const){
+    if(list==undefined){}
+    else{
+    if(list.operands==null){}
+    else{
+    if(this.typesofconsTerm.indexOf(list.type)==-1){
+    }
+    else{
+    if(list.type=="NotTerm"){
+      if(list.operands.length==1){
+        this.checkListofconstraint(list.operands[0])
+      }
+      else {aux4=false}
+    }
+  else{
+    if(list.operands.length==2){
+      if(list.operands[0].type==""){aux4=false}
+      else{this.checkListofconstraint(list.operands[0])}
+      if(list.operands[1].type==""){aux4=false}
+      else{this.checkListofconstraint(list.operands[1])}
+    }
+    else {aux4=false}
+      }
+    } }}
+    return aux4
   }
 
   ModifyCons(){
+    this.loadingmodal=false
     if(this.ListOfConstraint.length!=0&&this.ListOfConstraint!=undefined){
       this.CreateListCons()
-
+    if(aux4){
     if(this.consactualfather==undefined ||  this.consactualfather.type==""){
       this.cons[this.position]=this.ListOfConstraint[0]
     }
@@ -603,9 +684,13 @@ readThis(inputValue: any): void {
       this.consactualfather.operands[aux]=this.ListOfConstraint[0]
     }
     this.jsonconstraintTexto[this.position]="New value at " +(this.position+1)+"º"
-    }
+    }}
     this.ListOfConstraint=[]
-    this.sendUpdate()
+    try{
+      this.sendUpdate()}
+    catch{
+      this.loadingmodal=true
+      }
   }
 
 cardhidden(){
@@ -784,6 +869,7 @@ DeleteList(){
 }
 
 CreateConsBrother(){
+  this.loadingmodal=false
   if(this.consactualfather!=undefined && this.consactualfather.type!=""){
   if(this.ListOfConstraint!=undefined && this.ListOfConstraint.length!=0){
     this.CreateListCons()
@@ -800,10 +886,15 @@ CreateConsBrother(){
   alert("there was no father so a new one was created")
 }
   this.ListOfConstraint=[]
-  this.sendUpdate()
+  try{
+    this.sendUpdate()}
+  catch{
+    this.loadingmodal=true
+    }
 }
 
 CreateConsSon(){
+  this.loadingmodal=false
   if(this.ListOfConstraint!=undefined && this.ListOfConstraint.length!=0){this.CreateListCons()}
   if(this.consactual!=undefined){
   if(this.consactual.operands!=null||this.consactual.operands!=undefined){
@@ -823,7 +914,11 @@ CreateConsSon(){
   }
 }
   this.ListOfConstraint=[]
-  this.sendUpdate()
+  try{
+    this.sendUpdate()}
+  catch{
+    this.loadingmodal=true
+    }
 }
 
 

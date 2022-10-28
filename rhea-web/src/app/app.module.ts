@@ -11,6 +11,7 @@ import { mainpage } from './components/mainpage/mainpage';
 import { card1 } from './components/mainpage/Card_1/card1';
 import { card2 } from './components/mainpage/Card_2/card2';
 import { card3 } from './components/mainpage/Card_3/card3';
+import { card4 } from './components/mainpage/Card_4/card4';
 import { FeatureTree } from './components/mainpage/FeatureTree/FeatureTree';
 import { Information } from './components/mainpage/Information/Information';
 import { semantics_metrics } from './components/mainpage/Semantics metrics/Semantics metrics';
@@ -57,6 +58,7 @@ import {MatTableModule} from '@angular/material/table';
     card1,
     card2,
     card3,
+    card4,
     FeatureTree,   
     Information,
     semantics_metrics,
