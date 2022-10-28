@@ -241,10 +241,8 @@ def deletion_feature(feature_model: FeatureModel, feature_name: str) -> FeatureM
     elif parent.is_alternative_group() or parent.is_or_group():
         rel = parent.get_relations()[0]
         rel.children.remove(feature_to_delete)
-        if len(rel.children) > 1:
+        if parent.is_or_group():
             rel.card_max -= 1
-        if len(rel.children) == 1:
-            rel.card_max = 1
     return tree
 
 
