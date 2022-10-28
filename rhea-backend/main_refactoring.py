@@ -39,7 +39,7 @@ REFACTORING_SPLIT = SplitConstraint
 REFACTORING_COMPLEX = EliminationComplexConstraints
 REFACTORING_REQUIRES = EliminationSimpleConstraintsRequires
 REFACTORING_EXCLUDES = EliminationSimpleConstraintsExcludes
-MODEL_TO_TEST = "MobileMedia"
+MODEL_TO_TEST = "Pizzas_complex"
 MODEL_PATH = 'tests/models/real_models_tests/' + MODEL_TO_TEST + '.uvl'
 OUTPUT_PATH = 'tests/models/real_models_tests/outputs/'  + MODEL_TO_TEST + '.uvl'
 OUTPUT_PATH_UNIQUE = 'tests/models/real_models_tests/outputs/' + MODEL_TO_TEST + '_unique.uvl'
@@ -89,19 +89,19 @@ def print_statistics(fm: FeatureModel) -> None:
     n_configurations = FMEstimatedProductsNumber().execute(fm).get_result()
     print(f'#FM Estimated configurations: {n_configurations}')
 
-    # if n_exact_configurations <= 50:
-    #     configurations = Glucose3Products().execute(sat_model).get_result()
-    #     print(f'SAT Configurations:')
-    #     for i, p in enumerate(configurations, 1):
-    #         print(f'C{i}: {[str(f) for f in p]}')
-    #     print('----------')
-    #     products = fm_utils.filter_products_from_dict(fm, configurations)
-    #     print(f'SAT Products:')
-    #     for i, p in enumerate(products, 1):
-    #         features_list = [str(f) for f in p]
-    #         features_list.sort()
-    #         print(f'P{i}: {features_list}')
-    #     print('----------')
+    if n_exact_configurations <= 50:
+        configurations = Glucose3Products().execute(sat_model).get_result()
+        print(f'SAT Configurations:')
+        for i, p in enumerate(configurations, 1):
+            print(f'C{i}: {[str(f) for f in p]}')
+        print('----------')
+        products = fm_utils.filter_products_from_dict(fm, configurations)
+        print(f'SAT Products:')
+        for i, p in enumerate(products, 1):
+            features_list = [str(f) for f in p]
+            features_list.sort()
+            print(f'P{i}: {features_list}')
+        print('----------')
 
 
 def main():
@@ -111,9 +111,13 @@ def main():
     print_statistics(fm)
     
     print('==================================================')
+    print(f'Applying the refactoring {REFACTORING_SPLIT.get_name()}...')
+    print(f'  |-> refactorings: {len(REFACTORING_SPLIT.get_instances(fm))}')
+    fm = apply_refactoring(fm, REFACTORING_SPLIT)
     print(f'Applying the refactoring {REFACTORING_COMPLEX.get_name()}...')
     print(f'  |-> refactorings: {len(REFACTORING_COMPLEX.get_instances(fm))}')
     fm = apply_refactoring(fm, REFACTORING_COMPLEX)
+    UVLWriter(fm, "Pizzas_complex1.uvl").transform()
     print(f'Applying the refactoring {REFACTORING_REQUIRES.get_name()}...')
     print(f'  |-> refactorings: {len(REFACTORING_REQUIRES.get_instances(fm))}')
     fm = apply_refactoring(fm, REFACTORING_REQUIRES)
