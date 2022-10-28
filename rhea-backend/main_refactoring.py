@@ -39,20 +39,23 @@ REFACTORING_SPLIT = SplitConstraint
 REFACTORING_COMPLEX = EliminationComplexConstraints
 REFACTORING_REQUIRES = EliminationSimpleConstraintsRequires
 REFACTORING_EXCLUDES = EliminationSimpleConstraintsExcludes
-MODEL_TO_TEST = "Pizzas8"
-MODEL_PATH = 'tests/models/requires/input_models/' + MODEL_TO_TEST + '.uvl'
-MODEL_PATH_UNIQUE = 'tests/models/requires/input_models/' + MODEL_TO_TEST + '.uvl'
+MODEL_TO_TEST = "JHipster"
+MODEL_PATH = 'tests/models/real_models/' + MODEL_TO_TEST + '.uvl'
+OUTPUT_PATH = 'tests/models/real_models/outputs/'  + MODEL_TO_TEST + '.uvl'
+OUTPUT_PATH_UNIQUE = 'tests/models/real_models/outputs/' + MODEL_TO_TEST + '_unique.uvl'
+#MODEL_PATH_UNIQUE = 'tests/models/requires/input_models/' + MODEL_TO_TEST + '.uvl'
 # OUTPUT_PATH = os.path.basename(MODEL_PATH)
 # OUTPUT_PATH_UNIQUE = os.path.basename(MODEL_PATH_UNIQUE)
-OUTPUT_PATH = 'tests/models/requires/expected_models/'  + MODEL_TO_TEST + '.uvl'
-OUTPUT_PATH_UNIQUE = 'tests/models/requires/expected_models/'  + MODEL_TO_TEST + '.uvl'
+#OUTPUT_PATH = 'tests/models/requires/expected_models/'  + MODEL_TO_TEST + '.uvl'
+#OUTPUT_PATH_UNIQUE = 'tests/models/requires/expected_models/'  + MODEL_TO_TEST + '.uvl'
 ##################################################################################################
 
 
 def apply_refactoring(fm: FeatureModel, refactoring: FMRefactoring) -> FeatureModel:
     instances = refactoring.get_instances(fm)
-    for i in instances:
-        fm = refactoring.transform(fm, i)
+    for i, instance in enumerate(instances):
+        print(f'   |->Instance {i}: {str(instance)}')
+        fm = refactoring.transform(fm, instance)
     return fm
 
 def apply_specific_refactoring(fm: FeatureModel, refactoring: FMRefactoring, ctc: int) -> FeatureModel:
@@ -105,13 +108,20 @@ def main():
     print_statistics(fm)
     
     print('==================================================')
+    print(f'Applying the refactoring {REFACTORING_COMPLEX.get_name()}...')
+    print(f'  |-> refactorings: {len(REFACTORING_COMPLEX.get_instances(fm))}')
+    fm = apply_refactoring(fm, REFACTORING_COMPLEX)
     print(f'Applying the refactoring {REFACTORING_REQUIRES.get_name()}...')
-    #fm = apply_refactoring(fm, REFACTORING_REQUIRES)
-    fm = REFACTORING_REQUIRES.transform(fm, fm.get_constraints()[0])
-    fm = REFACTORING_REQUIRES.transform(fm, fm.get_constraints()[0])
-    fm = REFACTORING_REQUIRES.transform(fm, fm.get_constraints()[0])
-    fm = REFACTORING_REQUIRES.transform(fm, fm.get_constraints()[0])
-    fm = REFACTORING_REQUIRES.transform(fm, fm.get_constraints()[0])
+    print(f'  |-> refactorings: {len(REFACTORING_REQUIRES.get_instances(fm))}')
+    fm = apply_refactoring(fm, REFACTORING_REQUIRES)
+    print(f'Applying the refactoring {REFACTORING_EXCLUDES.get_name()}...')
+    print(f'  |-> refactorings: {len(REFACTORING_EXCLUDES.get_instances(fm))}')
+    fm = apply_refactoring(fm, REFACTORING_EXCLUDES)
+    # fm = REFACTORING_REQUIRES.transform(fm, fm.get_constraints()[0])
+    # fm = REFACTORING_REQUIRES.transform(fm, fm.get_constraints()[0])
+    # fm = REFACTORING_REQUIRES.transform(fm, fm.get_constraints()[0])
+    # fm = REFACTORING_REQUIRES.transform(fm, fm.get_constraints()[0])
+    # fm = REFACTORING_REQUIRES.transform(fm, fm.get_constraints()[0])
     print('==================================================')
 
     # print('==================================================')
