@@ -10,9 +10,9 @@ features
 									Topping
 										mandatory
 											Ham
-										mandatory
-											Salami
 										optional
+											Salami
+										mandatory
 											Mozzarella
 								mandatory
 									Size
@@ -30,9 +30,9 @@ features
 									Topping1
 										mandatory
 											Ham1
-										mandatory
-											Salami1
 										optional
+											Salami1
+										mandatory
 											Mozzarella1
 								mandatory
 									Size1
@@ -49,9 +49,9 @@ features
 								mandatory
 									Topping2
 										mandatory
-											Salami2
-										optional
 											Mozzarella2
+										optional
+											Salami2
 								mandatory
 									Size2
 										mandatory
@@ -62,7 +62,7 @@ features
 											Neapolitan2
 											Sicilian2
 			root11{abstract}
-				mandatory
+				alternative
 					root4{abstract}
 						alternative
 							Pizza3{abstract}
@@ -70,15 +70,16 @@ features
 									Topping3
 										mandatory
 											Ham2
+										optional
+											Salami3
 								mandatory
 									Size3
 										mandatory
 											Big1
 								mandatory
 									Dough3
-										alternative
+										mandatory
 											Neapolitan3
-											Sicilian3
 								optional
 									CheesyCrust1
 							Pizza4{abstract}
@@ -86,12 +87,31 @@ features
 									Topping4
 										mandatory
 											Ham3
+										optional
+											Salami4
 								mandatory
 									Size4
 										mandatory
 											Normal2
 								mandatory
 									Dough4
-										alternative
+										mandatory
 											Neapolitan4
-											Sicilian4
+					root5{abstract}
+						mandatory
+							Pizza5{abstract}
+								mandatory
+									Topping5
+										mandatory
+											Salami5
+								mandatory
+									Size5
+										mandatory
+											Normal3
+								mandatory
+									Dough5
+										mandatory
+											Neapolitan5
+constraints
+	Mozzarella => Salami
+	Salami => Big

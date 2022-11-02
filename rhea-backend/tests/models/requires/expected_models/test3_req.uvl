@@ -6,13 +6,11 @@ features
 					E
 				optional
 					F
-		optional
+		mandatory
 			C
-				optional
+				mandatory
 					G
 		optional
 			D
 				optional
 					H
-constraints
-	B => G

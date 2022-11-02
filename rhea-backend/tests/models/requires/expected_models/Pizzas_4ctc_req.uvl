@@ -1,12 +1,14 @@
 features
-	root{abstract}
+	root1{abstract}
 		alternative
 			Pizza{abstract}
 				mandatory
 					Topping
-						or
-							Salami
+						mandatory
 							Ham
+						mandatory
+							Salami
+						optional
 							Mozzarella
 				mandatory
 					Size
@@ -22,21 +24,30 @@ features
 			Pizza1{abstract}
 				mandatory
 					Topping1
-						or
-							Salami1
+						mandatory
 							Ham1
-							Mozzarella1
 				mandatory
 					Size1
 						mandatory
-							Normal
+							Big1
 				mandatory
 					Dough1
 						alternative
 							Neapolitan1
 							Sicilian1
-constraints
-	Big => Ham
-	Sicilian => Mozzarella
-	Mozzarella => Salami
-	Salami => Big
+				optional
+					CheesyCrust1
+			Pizza2{abstract}
+				mandatory
+					Topping2
+						mandatory
+							Ham2
+				mandatory
+					Size2
+						mandatory
+							Normal
+				mandatory
+					Dough2
+						alternative
+							Neapolitan2
+							Sicilian2

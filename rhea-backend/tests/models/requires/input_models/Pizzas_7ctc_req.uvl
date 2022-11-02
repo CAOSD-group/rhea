@@ -24,3 +24,7 @@ constraints
 	CheesyCrust => Big
 	Big => Ham
 	Sicilian => Mozzarella
+	Mozzarella => Salami
+	Salami => Big
+	Sicilian => Salami
+	Ham => Neapolitan

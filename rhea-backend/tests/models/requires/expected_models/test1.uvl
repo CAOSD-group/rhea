@@ -1,15 +1,37 @@
 features
-	A{abstract}
-		optional
-			B
-				optional
-					D
-				optional
-					E
-		optional
-			C
-				optional
-					F
-constraints
-	D => E
-	D => F
+	root1{abstract}
+		alternative
+			root{abstract}
+				alternative
+					A{abstract}
+						mandatory
+							B
+								optional
+									D
+								mandatory
+									E
+						mandatory
+							C
+								mandatory
+									F
+					A1{abstract}
+						optional
+							B1
+						mandatory
+							C1
+								mandatory
+									F1
+			root2{abstract}
+				alternative
+					A2{abstract}
+						mandatory
+							B2
+								mandatory
+									E1
+						optional
+							C2
+					A3{abstract}
+						optional
+							B3
+						optional
+							C3

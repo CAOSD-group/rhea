@@ -11,7 +11,7 @@ features
 				mandatory
 					Size
 						mandatory
-							Big
+							Normal
 				mandatory
 					Dough
 						alternative
@@ -29,14 +29,9 @@ features
 				mandatory
 					Size1
 						mandatory
-							Normal
+							Big
 				mandatory
 					Dough1
 						alternative
 							Neapolitan1
 							Sicilian1
-constraints
-	Big => Ham
-	Sicilian => Mozzarella
-	Mozzarella => Salami
-	Salami => Big

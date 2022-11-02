@@ -39,15 +39,15 @@ REFACTORING_SPLIT = SplitConstraint
 REFACTORING_COMPLEX = EliminationComplexConstraints
 REFACTORING_REQUIRES = EliminationSimpleConstraintsRequires
 REFACTORING_EXCLUDES = EliminationSimpleConstraintsExcludes
-MODEL_TO_TEST = "Pizzas_complex"
-MODEL_PATH = 'tests/models/real_models_tests/' + MODEL_TO_TEST + '.uvl'
-OUTPUT_PATH = 'tests/models/real_models_tests/outputs/'  + MODEL_TO_TEST + '.uvl'
-OUTPUT_PATH_UNIQUE = 'tests/models/real_models_tests/outputs/' + MODEL_TO_TEST + '_unique.uvl'
-#MODEL_PATH_UNIQUE = 'tests/models/requires/input_models/' + MODEL_TO_TEST + '.uvl'
+MODEL_TO_TEST = "Pizzas"
+MODEL_PATH = 'tests/models/requires/input_models/' + MODEL_TO_TEST + '.uvl'
+OUTPUT_PATH = 'tests/models/requires/expected_models/'  + MODEL_TO_TEST + '.uvl'
+# OUTPUT_PATH_UNIQUE = 'tests/models/real_models_tests/outputs/' + MODEL_TO_TEST + '_unique.uvl'
+MODEL_PATH_UNIQUE = 'tests/models/requires/input_models/' + MODEL_TO_TEST + '.uvl'
 # OUTPUT_PATH = os.path.basename(MODEL_PATH)
-# OUTPUT_PATH_UNIQUE = os.path.basename(MODEL_PATH_UNIQUE)
-#OUTPUT_PATH = 'tests/models/requires/expected_models/'  + MODEL_TO_TEST + '.uvl'
-#OUTPUT_PATH_UNIQUE = 'tests/models/requires/expected_models/'  + MODEL_TO_TEST + '.uvl'
+OUTPUT_PATH_UNIQUE = os.path.basename(MODEL_PATH_UNIQUE)
+# OUTPUT_PATH = 'tests/models/requires/expected_models/'  + MODEL_TO_TEST + '.uvl'
+OUTPUT_PATH_UNIQUE = 'tests/models/requires/expected_models/'  + MODEL_TO_TEST + '.uvl'
 ##################################################################################################
 
 
@@ -95,7 +95,7 @@ def print_statistics(fm: FeatureModel) -> None:
         for i, p in enumerate(configurations, 1):
             print(f'C{i}: {[str(f) for f in p]}')
         print('----------')
-        products = fm_utils.filter_products_from_dict(fm, configurations)
+        products = fm_utils.filter_products(fm, configurations)
         print(f'SAT Products:')
         for i, p in enumerate(products, 1):
             features_list = [str(f) for f in p]

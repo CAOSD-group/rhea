@@ -21,8 +21,4 @@ features
 			CheesyCrust
 
 constraints
-	CheesyCrust => Big
-	Big => Ham
-	Sicilian => Mozzarella
-	Mozzarella => Salami
-	Salami => Big
+	CheesyCrust => !Big
