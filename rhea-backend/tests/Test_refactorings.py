@@ -80,8 +80,8 @@ def get_tests() -> list[list[str, str, str, FMRefactoring]]:
     #tests.extend(any_ctcs_tests)
     # split_tests = get_tests_info(SPLIT_CONSTRAINTS_FOLDER, SplitConstraint)
     # tests.extend(split_tests)
-    #complex_tests = get_tests_info(COMPLEX_CONSTRAINTS_FOLDER, EliminationComplexConstraints)
-    #tests.extend(complex_tests)
+    # complex_tests = get_tests_info(COMPLEX_CONSTRAINTS_FOLDER, EliminationComplexConstraints)
+    # tests.extend(complex_tests)
     requires_tests = get_tests_info(REQUIRES_CONSTRAINTS_FOLDER, EliminationSimpleConstraintsRequires)
     tests.extend(requires_tests)
     excludes_tests = get_tests_info(EXCLUDES_CONSTRAINTS_FOLDER, EliminationSimpleConstraintsExcludes)
@@ -145,20 +145,20 @@ def test_estimated_nof_configurations(fm_path: str, refactoring: FMRefactoring):
 #     assert n_configs == expected_n_configs
 
 
-# @pytest.mark.parametrize('fm_path, refactoring', [[m, r] for m, _, _, r in get_tests()])
-# def test_products(fm_path: str, refactoring: FMRefactoring):
-#     """Test that the products of the source feature model and the 
-#     products of the refactored feature model are the same."""
-#     fm = load_model(fm_path, UVLReader)
-#     sat_model = FmToPysat(fm).transform()
-#     expected_configs = Glucose3Products().execute(sat_model).get_result()
-#     expected_products = fm_utils.filter_products_from_dict(fm, expected_configs)
-#     resulting_model = apply_refactoring(fm, refactoring)
-#     resulting_model = fm_utils.to_unique_features(resulting_model)
-#     sat_model = FmToPysat(resulting_model).transform()
-#     configs = Glucose3Products().execute(sat_model).get_result()
-#     products = fm_utils.filter_products_from_dict(resulting_model, configs)
-#     assert expected_products == products
+@pytest.mark.parametrize('fm_path, refactoring', [[m, r] for m, _, _, r in get_tests()])
+def test_products(fm_path: str, refactoring: FMRefactoring):
+    """Test that the products of the source feature model and the 
+    products of the refactored feature model are the same."""
+    fm = load_model(fm_path, UVLReader)
+    sat_model = FmToPysat(fm).transform()
+    expected_configs = Glucose3Products().execute(sat_model).get_result()
+    expected_products = fm_utils.filter_products(fm, expected_configs)
+    resulting_model = apply_refactoring(fm, refactoring)
+    resulting_model = fm_utils.to_unique_features(resulting_model)
+    sat_model = FmToPysat(resulting_model).transform()
+    configs = Glucose3Products().execute(sat_model).get_result()
+    products = fm_utils.filter_products(resulting_model, configs)
+    assert expected_products == products
 
 
 @pytest.mark.parametrize('fm_path, refactoring', [[m, r] for m, _, _, r in get_tests()])

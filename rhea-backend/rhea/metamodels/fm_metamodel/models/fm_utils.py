@@ -90,31 +90,6 @@ def filter_products(fm: FeatureModel, configurations: list[list[str]]) -> list[l
     """Given a list of configurations return it with the configurations filtered.
     
     This method takes into account that the features in the FM can be not unique. 
-    That is, features can have a 'reference' attribute indicating that the feature is non-unique
-    and appears in other part of the FM. The 'reference' points to the original feature.
-
-    The filters performed are the following:
-      a) Remove abstract features.
-      b) Substitute non-unique features with the original one.
-      c) Remove duplicate features.
-    """
-    filtered_configs = set()
-    for config in configurations:
-        c = set()
-        for f in config:
-            feature = fm.get_feature_by_name(f)
-            if not feature.is_abstract:
-                while hasattr(feature, 'reference'):
-                    feature = feature.reference
-                c.add(feature.name)
-        filtered_configs.add(frozenset(c))
-    return filtered_configs
-
-
-def filter_products_from_dict(fm: FeatureModel, configurations: list[list[str]]) -> list[list[str]]:
-    """Given a list of configurations return it with the configurations filtered.
-    
-    This method takes into account that the features in the FM can be not unique. 
     That is, features can have its corresponding features in a dictionary
     indicating that the feature is non-unique and appears in other part of the FM.
     The corresponding value in the dictionary points to the original feature.
@@ -128,15 +103,18 @@ def filter_products_from_dict(fm: FeatureModel, configurations: list[list[str]])
     for config in configurations:
         c = set()
         for f in config:
-            feature_name = f
-            if hasattr(fm, 'dict_references') and f in fm.dict_references:
-                feature_name = fm.dict_references[f]
-            feature = fm.get_feature_by_name(feature_name)
+            feature = fm.get_feature_by_name(f)
             if not feature.is_abstract:
-                c.add(feature.name)
+                original_feature_name = get_original_feature_from_duplicates(f, fm.get_features())
+                c.add(original_feature_name)
         filtered_configs.add(frozenset(c))
     return filtered_configs
 
+
+def get_original_feature_from_duplicates(feature_name: str, features: list[Feature]) -> str:
+    names = [f.name for f in features if f.name.startswith(feature_name) or feature_name.startswith(f.name)]
+    names.sort(key=len)
+    return names[0]
 
 def remove_references(fm: FeatureModel) -> FeatureModel:
     """Given a feature model with a references dictionary, 
