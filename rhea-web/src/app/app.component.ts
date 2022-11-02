@@ -4,12 +4,14 @@ import {NestedTreeControl} from '@angular/cdk/tree';
 import {MatTreeNestedDataSource} from '@angular/material/tree';
 import {FMTree} from './components/FMTree/FMTree';
 import{Const} from './components/constraint/const';
+import{Data} from './components/Repository/Repository';
 import * as saveAs from 'file-saver';
 import { Refactoring } from './components/refactor/refactoring';
 import { Language } from './components/Language/Language';
 import { Cons } from 'rxjs';
 import { ThisReceiver } from '@angular/compiler';
 import { Semantics } from './components/Semantics/Semantics';
+import { event } from 'jquery';
 
 
 
@@ -82,7 +84,7 @@ export class AppComponent {
   npos:number=-1;
   myfile:any
   myfile_name:string=""
-  documents:string[]= ['GPL.xml', 'JHipster.uvl', 'MobileMedia.xml', 'TankWar.xml', 'Truck.uvl','WeaFQAs.uvl','Automotive2_1-basic.uvl'];
+  documents:string[]= ['Pizzas_completo_new.json','GPL.xml', 'JHipster.uvl', 'MobileMedia.xml', 'TankWar.xml', 'Truck.uvl','WeaFQAs.uvl','Automotive2_1-basic.uvl'];
   listOfTypes=["XOR","OR","MUTEX","CARDINALITY","FEATURE"]
   visiblechipsfeatures=false
   visible_Constraint_list=true;
@@ -93,10 +95,13 @@ export class AppComponent {
   ConstraintListautocomplete=""
   search_name=true 
   mattooltipconstraint=this.search_name?"Search by name":"Search by text";
-  windowFM_Editor=true
+
+
   mainhidden=true
+  windowFM_Editor=true
   windowAbout=false
-  window3=true
+  windowRepository=false
+
   updatable=false
   page=0;
   range=10;
@@ -111,6 +116,9 @@ export class AppComponent {
   my_session=""
   jsonsemantic:Array<Semantics>=[]
   semantic:Semantics=new Semantics()
+  loglist: Array<string>=[];
+  myArticle=new Data('','','',0,'',"",'',0,0,'','');
+
 constructor(private http: HttpClient ) { }  
 
 
@@ -118,32 +126,27 @@ constructor(private http: HttpClient ) { }
 ngOnInit() {
   console.log("separar html en partes funcionales || falta enviar informacion a cada componente || Errores en algunas funciones que estan en ambos sitios(?)")
   console.log("posible implementacion de mejora en visualicacion arbol constraint y eliminar el paso de quitar el operands y type de  createListForTree  y de createListForFile")
-  //alert("falla el modal de las constraints el crear un hijo")
   console.log("En information poner que el value 0 oculte la linea, dejar para lidia")
-  //alert("si las modificaciones del constrain hacen que un logic term no este completo da error en el servidor, aunque en el front end si se hace el cambio, y puede arreglarse y entonces si se pone bien en el server")
-  //alert("app.component.ts lineas 122/123 borrar cuando se arregle el error")
-  this.returnValues("JHipster.uvl")
+  console.log("create chiled y create brother no tienen sentido para el constraint")
+  this.returnValues('Pizzas_completo_new.json')
 }
 
-//SymbolPerType esta constantemente llamandose, alguna opcion?
-//  documentacion explicar que hace cada metodo, las referencias que tiene
-//  explicar los elementos y que parametros tienen y los codigos que se usan
-// 
-//  Consultas de visualicacion de la pagina web
-//    Que formato final se va a aplicar
-//        Diseño grafico estatico y dinamico
-//        Paleta de colores
-//        Imagenes y simbolos
+
   
 showFM_Editor(){
   this.windowFM_Editor=true
   this.windowAbout=false
-  this.window3=false
+  this.windowRepository=false
 }
 showAbout(){
   this.windowFM_Editor=false
   this.windowAbout=true
-  this.window3=false
+  this.windowRepository=false
+}
+showRepository(){
+  this.windowFM_Editor=false
+  this.windowAbout=false
+  this.windowRepository=true
 }
 
 
@@ -154,6 +157,7 @@ sendUVL(uvl:any){
   console.log("llego")
   this.http.post(this.urlupload,formData,{withCredentials:true,responseType:'text'}).subscribe(resultado => {
     this.CreateData(resultado)
+    this.loglist.unshift(uvl.name+" was loaded")
     json=resultado
       }
     )
@@ -167,10 +171,10 @@ sendUpdate(){
   const formData: FormData = new FormData();
   formData.append('file', file,this.title+'.json')
   formData.append('fm_hash',this.my_session);
+  console.log(this.title+'.json')
   this.http.post(this.urlupdate,formData,{withCredentials:true,responseType:'text'}).subscribe(resultado => {
     this.CreateData(resultado)
     json=resultado
-    console.log("llego")
       }
     )
 }
@@ -209,14 +213,19 @@ Refactor(typeref:string){
 
 
 returnValues(text?:string){
+  this.loglist=[]
   this.loadingmodal=false
   if(text==""|| text==undefined){text=this.item;this.loadingmodal=true}
   this.http.post(this.urldownload,text,{ withCredentials:true,responseType:'text'}).subscribe(resultado => {
-     try{this.CreateData(resultado,text)}
+     try{this.CreateData(resultado,text)
+      this.loglist.unshift(this.item+" was loaded")
+    }
      catch{
     this.loadingmodal=true
+    this.loglist.unshift("fail to load the model")
   }
   })
+  
   
 }
 CreateData(object:any,name?:string){
@@ -254,6 +263,7 @@ CreateData(object:any,name?:string){
   this.mainhidden=false
   this.page=0
   this.range=10
+
 }
 showModal(){
   if(!this.loadingmodal){
@@ -300,6 +310,12 @@ this.loadingmodal=false
   this.loadingmodal=true
  }*/
   aux=this.actual.name
+  if(this.actual.name!=this.name){
+    this.loglist.unshift(this.actual.name+" was modify and its new name is: "+this.name)
+  }
+  else{
+    this.loglist.unshift(this.actual.name+" was modify ")
+  }
   this.actual.name=this.name
   if(this.actual.children==undefined){}
   if(this.actual.children!=undefined){
@@ -316,7 +332,8 @@ this.actual.optional=this.optional
 this.actual.abstract=this.abstract
 this.actual.attributes=this.attributes
 this.namesFeatures=this.tree[0].ListOfNamesModified(this.actual.name,aux)
-this.cons[0].checkName(this.cons,this.actual.name,aux)
+if(this.cons[0]!=undefined){
+this.cons[0].checkName(this.cons,this.actual.name,aux)}
 try{
   this.sendUpdate()}
 catch{
@@ -329,22 +346,58 @@ catch{
 DeleteNode(){
   this.loadingmodal=false
   this.actualfather=this.GetFather(this.actual,this.tree)
+  if(this.actual.children.length>0){this.loglist.unshift(this.actual.name+" and its childrens were deleted")}
+  else{this.loglist.unshift(this.actual.name+" was deleted")}
+  
   this.namesFeatures=this.actual.Delete(this.actualfather)
+  let count =0
+  console.log(this.namesFeatures)
+  while(count<jsonconstraint.length){
+    this.checkedconst(jsonconstraint[count],jsonconstraint[count])
+    if(!aux2){
+    count++
+    }
+    else{aux2=false}
+  }
+  console.log(jsonconstraint)
   try{
     this.sendUpdate()}
   catch{
     this.loadingmodal=true
     }
 }
+checkedconst(cons:Const,consInitial:Const){
+  if(this.typesofconsTerm.indexOf(cons.type)!=-1){
+    cons.operands.forEach(element => {
+      this.checkedconst(element,consInitial)
+    });
+  }
+  else{
+  if(this.namesFeatures.indexOf(cons.type)==-1){
+    aux=jsonconstraint.indexOf(consInitial)
+    console.log(aux)
+    if(aux!=-1){
+      jsonconstraint.splice(aux,1)
+      this.listnamesconstraints.splice(aux,1)
+      this.jsonconstraintTexto.splice(aux,1)
+      listnamestext.splice(aux,1)
+      this.listnamesconstraints.splice(aux,1)
+    }
+    aux2=true
+    //jsonconstraint=jsonconstraint.filter(x=>x!=consInitial)
+  }
+}
+    
+}
 CreateChildren(){
   this.loadingmodal=false
   if(this.actual.AvoidDuplicates(this.name)){
-    alert("this name is already in use")
   }
   else{
   if(this.actual.children==undefined){this.actual.children=[]}
   this.actual.children.push(this.actual.CreateDefault(this.name))
   console.log(this.name)
+  this.loglist.unshift(this.actual.name+" insert "+this.name+" as a child ")
   this.tree[0].ExpandList(this.name)}
   try{
     this.sendUpdate()}
@@ -355,14 +408,14 @@ CreateChildren(){
 CreateBrother(){
   this.loadingmodal=false
   if(this.actual.AvoidDuplicates(this.name)){
-    alert("this name is already in use")
   }
   else{
   if(this.actualfather==undefined){
-    alert("You are trying to create a new root")
+
   }
   else{
   this.actualfather.children.push(this.actual.CreateDefault(this.name))
+  this.loglist.unshift(this.actual.name+" create "+this.name+" as a brother ")
   this.tree[0].ExpandList(this.name)
 }}
 try{
@@ -454,6 +507,7 @@ changeListener($event): void {
 }
 
 readThis(inputValue: any): void { 
+  this.loglist=[]
   if(inputValue!=undefined){
     if(inputValue.files[0]!=undefined){
     this.loadingmodal=false
@@ -492,6 +546,7 @@ readThis(inputValue: any): void {
       alert("not valid file type")
     }
   }
+  
   }
 }
 
@@ -562,7 +617,8 @@ readThis(inputValue: any): void {
   }
   DeleteCons(){
     this.loadingmodal=false
-    if(this.consactualfather==undefined){
+    this.loglist.unshift("constraint at "+(this.position+1)+"ª was deleted")
+    if(this.consactualfather==undefined ||this.consactualfather.type=="" ){
     if( this.consactual.type=='' && this.position!= undefined && this.position!=-1){
       this.cons.splice(this.position,1)
       this.jsonconstraintTexto.splice(this.position,1)
@@ -669,6 +725,7 @@ readThis(inputValue: any): void {
       this.CreateListCons()
     if(aux4){
     if(this.consactualfather==undefined ||  this.consactualfather.type==""){
+      this.loglist.unshift("constraint at "+(this.position+1)+"ª was modify")
       this.cons[this.position]=this.ListOfConstraint[0]
     }
 
@@ -883,7 +940,6 @@ CreateConsBrother(){
   }}
   else{
   this.CreateConsList(); 
-  alert("there was no father so a new one was created")
 }
   this.ListOfConstraint=[]
   try{
@@ -960,6 +1016,7 @@ SelectChipRefactor(ref:Refactoring,tipo:string){
   refactor=ref
   this.loadingmodal=false
   console.log(ref)
+  this.loglist.unshift(ref.id+" was made for a "+tipo)
   try{
   this.Refactor(tipo)
 }
@@ -1008,7 +1065,6 @@ TransformJSON(){
   jsonfeatures= '"name"'+':"'+this.title+'",'+'"features"'+':'+ jsonfeatures
   aux=0
   if(this.listnamesconstraints.length<listnamestext.length){
-  alert("not enough names, so new ones are given, Refactoring may fail if not checked")
   aux2=this.listnamesconstraints[this.listnamesconstraints.length-1]
   if(aux2==undefined){aux2="CTC1"}
   else{this.listnamesconstraints.splice(0,this.listnamesconstraints.length)}
@@ -1026,14 +1082,18 @@ TransformJSON(){
 }}
   aux=0
   aux2=""
-  while (aux<listnamestext.length){
+  if(this.jsonconstraintTexto.length!=0){
+  while (aux<this.jsonconstraintTexto.length){
   aux2=aux2+'{"name":"'+this.listnamesconstraints[aux]+'","expr":"'+this.jsonconstraintTexto[aux]+'","ast":'+listnamestext[aux]+'},'
   aux++
   
   }
   aux2=aux2.slice(0,aux2.length-1)
   aux2='"constraints": ['+aux2+']'
-  json='{'+jsonfeatures+','+aux2+'}'
+  json='{'+jsonfeatures+','+aux2+'}'}
+  else{
+    json='{'+jsonfeatures+',"constraints": []}'
+  }
   /*
   aux=0
   aux2=""
@@ -1051,6 +1111,7 @@ TransformJSON(){
   aux2='"refactorings": ['+aux2+']'
   json=json+','+aux2+'}'*/
   this.cons=this.consactual.createListForTree(this.cons)
+  console.log(json)
 }
 
 

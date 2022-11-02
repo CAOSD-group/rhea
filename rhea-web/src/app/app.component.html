@@ -48,14 +48,30 @@
     <h4 class="white-text">About
     <mat-icon> help_outline</mat-icon></h4>
   </button>
+  <div style="margin-top: 5%;"></div>
+  <button  class="empty" style="margin-top: 3%;"(click)="showRepository()" >
+    <h4 class="white-text">Repository
+    <mat-icon> book</mat-icon></h4>
+  </button>
 
 </mat-drawer>
+
+
+<!-- Main Page Repository --> 
+<div [hidden]="!windowRepository">
+  <Repository
+  [myArticle]="myArticle"
+  (newItemEventopendModal)="myArticle=$event"
+  ></Repository>
+</div>
 <div class="resize">
   
 <!-- Main Page About --> 
 <div [hidden]="!windowAbout">
   <about></about>
 </div>
+
+
 
 <!-- Main Page FM_editor -->
 <div [hidden]="!windowFM_Editor">
@@ -97,7 +113,8 @@
       <div   class="col-4">
         <div class="card block">
           <div class="border">
-            <card4   
+            <card4  
+            [loglist]="loglist" 
             ></card4>
           </div>
         </div>
@@ -196,55 +213,9 @@
       <!-- Pruebas constraint -->
       <div   class="container" [hidden]="mainhidden">
         <div class="row">
-          <!-- Constraints Text 
-          <div class="col-6">
-            <div class="card block">
-              <div class="border">  
-                <ConstraintsText 
-                [visible_Constraint_list]="visible_Constraint_list" 
-                [show_refacts_cons_only]="show_refacts_cons_only"
-                [listnamesconstraints]="listnamesconstraints"
-                [jsonconstraintTexto]="jsonconstraintTexto"
-                [cons]="cons"
-                [constraindataSource]="constraindataSource"
-                [ListOfRefactors]="ListOfRefactors"
-                [consactual]="consactual"
-                [jsonconstraintextshort]="jsonconstraintextshort"
-                (newItemEventposition)="updatePosition($event)"
-                (newItemEventrefactor)="SelectChipRefactor($event,'cons')"
-                ></ConstraintsText>  
-              </div>
-            </div>
-          </div>--> 
-
-          <!-- Constraints Tree 
-          <div class="col-6">
-            <div class="card block">
-              <div class="border">
-                
-                <ConstraintsTree
-                  [visible_Constraint_list]="visible_Constraint_list"
-                  [ListOfConstraint]="ListOfConstraint"
-                  [position]="position"
-                  [featureautocomplete]="featureautocomplete"
-                  [namesFeatures]="namesFeatures"
-                  [listnamesconstraints]="listnamesconstraints"
-                  [npos]="npos"
-                  [ncons]="ncons"
-                  [jsonconstraintTexto]="jsonconstraintTexto"
-                  [constraintreeControl]="constraintreeControl"
-                  [constraindataSource]="constraindataSource"
-                  [consactual]="consactual"
-                  [consactualfather]="consactualfather"
-                  [cons]="cons"
-                  (newItemEventupdatecons)="SelectCons($event)"
-                ></ConstraintsTree>
-              </div>
-            </div>
-          </div>-->
-
         </div>
       </div>
+
     </div>
   </section>
 </main>
@@ -444,6 +415,41 @@
         <button type="button" class="buttonmodal" data-bs-dismiss="modal">Close</button>
       </div>
     </div>
+  </div>
+</div>
+
+
+<!-- Modal Data-->
+<div class="modal fade" id="modalData" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+		  <div class="modal-header">
+        <h4 class="modal-title" id="exampleModalLabel">Feature Model</h4>
+	    </div>
+	    <div class="modal-body">
+	      <div class="col-10">
+          <h4>Information</h4>
+          <h4> NAME: {{myArticle.Name}}</h4>
+          <h4> Author: {{myArticle.Author}}</h4>
+          <h4> Owner: {{myArticle.Owner}}</h4>
+          <h4> Ref: {{myArticle.Ref}}</h4>
+          <h4> Year: {{myArticle.Year}}</h4>
+          <h4> Domain: {{myArticle.Domain}}</h4>
+          <h4> Version: {{myArticle.Version}}</h4>
+          <h4> Language_level: {{myArticle.Language_level}}</h4>
+          <h4> nFeatures: {{myArticle.nFeatures}}</h4>
+          <h4> nConfigs: {{myArticle.nConfigs}}</h4>
+          <h4> Rating: {{myArticle.Rating}}</h4>
+          <h4> Format: {{myArticle.Format}}</h4>
+          
+
+			  </div>
+
+	    </div>
+      <div class="modal-footer">
+	      <button type="button" class="buttonmodal" data-bs-dismiss="modal">Go back</button>
+	    </div>
+	  </div>
   </div>
 </div>
 

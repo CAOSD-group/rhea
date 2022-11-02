@@ -7,6 +7,7 @@ import { Semantics } from './components/Semantics/Semantics';
 
 import { globalhtml } from './components/globalhtml/globalhtml';
 import { about } from './components/about/about';
+import { Repository } from './components/Repository/Repository';
 import { mainpage } from './components/mainpage/mainpage';
 import { card1 } from './components/mainpage/Card_1/card1';
 import { card2 } from './components/mainpage/Card_2/card2';
@@ -40,6 +41,7 @@ import {ScrollingModule} from '@angular/cdk/scrolling';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatTableModule} from '@angular/material/table';
+import { MatSortModule } from '@angular/material/sort';
 
 
 @NgModule({
@@ -54,6 +56,7 @@ import {MatTableModule} from '@angular/material/table';
     
     globalhtml,
     about,
+    Repository,
     mainpage,
     card1,
     card2,
@@ -89,6 +92,7 @@ import {MatTableModule} from '@angular/material/table';
     MatButtonModule,
     BrowserAnimationsModule,
     MatTableModule,
+    MatSortModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

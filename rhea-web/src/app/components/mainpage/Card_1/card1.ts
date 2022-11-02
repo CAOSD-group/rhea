@@ -12,7 +12,7 @@ let aux:any
   
   export class card1 {
   
-    documents:string[]= ['GPL.xml', 'JHipster.uvl','MobileMedia.xml', 'TankWar.xml', 'Truck.uvl','WeaFQAs.uvl','Automotive2_1-basic.uvl'];
+    documents:string[]= ['Pizzas_completo_new.json', 'JHipster.uvl','MobileMedia.xml', 'TankWar.xml', 'Truck.uvl','WeaFQAs.uvl','Automotive2_1-basic.uvl'];
     myfile_name=""
     myfile:any
     @Output() newItemEventreadThis = new EventEmitter<any>(); 

@@ -9,6 +9,8 @@ import {Component,Input,Output,EventEmitter} from '@angular/core';
   })
   
   export class card4 {
-    list=["a","b","c","d","e","f","g","h"]
+
+    @Input() loglist:string[] =[]
+
 
 }

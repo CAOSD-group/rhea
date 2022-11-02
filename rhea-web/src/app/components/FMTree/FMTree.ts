@@ -27,14 +27,15 @@ let nlist:Array<string> =[]
     Delete(list:FMTree){
         if(list!=undefined){
         if(list.children!=undefined){
-        list.children=list.children.filter(x=>x.name!=this.name)
+        list.children=list.children.filter(x=>x!=this )
         }}
         if(this.children!=undefined){
             this.children.forEach(element => {
-                aux=nlist.indexOf(element.name)
-                nlist.splice(aux,1)
+                element.Delete(this)
             });
         }
+        aux=nlist.indexOf(this.name)
+        nlist.splice(aux,1)
         this.name=""
         this.abstract=false;
         this.optional=false;
@@ -72,8 +73,8 @@ let nlist:Array<string> =[]
         if(value.children!=undefined ){
         Newchildren=value.children}
         if(value.children==undefined || value.children.length==0){
-        Newchildren=[] 
-        nlist.push(value.name)}
+        Newchildren=[] }
+        nlist.push(value.name)
         MyTree[MyTree.length]=aux
         if(value.children!=undefined){
         if(value.children.length>0){

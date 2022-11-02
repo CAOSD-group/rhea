@@ -11,7 +11,7 @@ let aux=0
   })
 
   export class semantics_metrics {
-    columns=["name","value"]
+    columns=["Operation","Result"]
     
     @Input() jsonsemantic:Array<Semantics>=[]
 

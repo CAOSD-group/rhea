@@ -1,6 +1,7 @@
+<h4>Log</h4>
 <cdk-virtual-scroll-viewport   [itemSize]="6 * 7" class="example-viewport" style="height: 175px;">
     <mat-selection-list #constraints [multiple]="false">
-      <mat-list-option *ngFor="let constrainTexto of list" >
+      <mat-list-option *ngFor="let constrainTexto of loglist" >
           <div class="text"> 
             {{constrainTexto}}
           </div>
