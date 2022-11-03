@@ -1,37 +1,33 @@
 features
 	root1{abstract}
 		alternative
-			root{abstract}
-				alternative
-					A{abstract}
-						mandatory
-							B
-								optional
-									D
-								mandatory
-									E
-						mandatory
-							C
-								mandatory
-									F
-					A1{abstract}
+			A{abstract}
+				mandatory
+					B
 						optional
-							B1
+							D
 						mandatory
-							C1
-								mandatory
-									F1
-			root2{abstract}
-				alternative
-					A2{abstract}
+							E
+				mandatory
+					C
 						mandatory
-							B2
-								mandatory
-									E1
-						optional
-							C2
-					A3{abstract}
-						optional
-							B3
-						optional
-							C3
+							F
+			A{abstract}
+				optional
+					B
+				mandatory
+					C
+						mandatory
+							F
+			A{abstract}
+				mandatory
+					B
+						mandatory
+							E
+				optional
+					C
+			A{abstract}
+				optional
+					B
+				optional
+					C

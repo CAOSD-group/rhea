@@ -13,12 +13,12 @@ features
 							F
 						optional
 							G
-			A1{abstract}
+			A{abstract}
 				optional
-					B1
+					B
 						mandatory
-							E1
+							E
 				optional
-					C1
+					C
 						mandatory
-							G1
+							G

@@ -171,13 +171,13 @@ def test_nof_instances(fm_path: str, refactoring: FMRefactoring):
     assert len(instances) == 0
 
 
-# @pytest.mark.parametrize('input_fm_path, output_fm_path, expected_fm_path, refactoring', get_tests())
-# def test_feature_model_output(input_fm_path: str, output_fm_path: str, expected_fm_path: str, refactoring: FMRefactoring):
-#     """Test that the refactored feature model is the same as the expected feature model."""
-#     fm = load_model(input_fm_path, UVLReader)
-#     expected_fm = load_model(expected_fm_path, UVLReader)
-#     resulting_model = apply_refactoring(fm, refactoring)
-#     if os.path.exists(output_fm_path):
-#         os.remove(output_fm_path)
-#     save_model(output_fm_path, resulting_model, UVLWriter)
-#     assert expected_fm == resulting_model
+@pytest.mark.parametrize('input_fm_path, output_fm_path, expected_fm_path, refactoring', get_tests())
+def test_feature_model_output(input_fm_path: str, output_fm_path: str, expected_fm_path: str, refactoring: FMRefactoring):
+    """Test that the refactored feature model is the same as the expected feature model."""
+    fm = load_model(input_fm_path, UVLReader)
+    expected_fm = load_model(expected_fm_path, UVLReader)
+    resulting_model = apply_refactoring(fm, refactoring)
+    if os.path.exists(output_fm_path):
+        os.remove(output_fm_path)
+    save_model(output_fm_path, resulting_model, UVLWriter)
+    assert expected_fm == resulting_model
