@@ -358,13 +358,15 @@ def left_right_features_names_from_simple_constraint(simple_ctc: Constraint) -> 
     elif root_op.data == ASTOperation.OR:
         left = root_op.left.data
         right = root_op.right.data
-        if left == ASTOperation.NOT:
+        if left == ASTOperation.NOT and right == ASTOperation.NOT:  # excludes
             left = root_op.left.left.data
-        if right == ASTOperation.NOT:
+            right = root_op.right.left.data
+        elif left == ASTOperation.NOT:  # implies: A -> B
+            left = root_op.left.left.data
+            right = root_op.right.data
+        elif right == ASTOperation.NOT:  # implies: B -> A
             left = root_op.right.left.data
             right = root_op.left.data
-    #print(f'Features for constraint {simple_ctc.ast.pretty_str()} -> {root_op.data}')
-    #print(f'Features for constraint {simple_ctc.ast.pretty_str()}: ({left}, {right})')
     return (left, right)
 
 
