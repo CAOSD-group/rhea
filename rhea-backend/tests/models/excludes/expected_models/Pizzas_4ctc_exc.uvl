@@ -17,69 +17,69 @@ features
 							Sicilian
 				optional
 					CheesyCrust
-			Pizza1{abstract}
+			Pizza{abstract}
 				mandatory
-					Topping1
+					Topping
 						mandatory
 							Ham
 						optional
-							Mozzarella1
+							Mozzarella
 				mandatory
-					Size1
+					Size
 						mandatory
-							Normal1
+							Normal
 				mandatory
-					Dough1
+					Dough
 						alternative
-							Neapolitan1
-							Sicilian1
+							Neapolitan
+							Sicilian
 				optional
-					CheesyCrust1
-			Pizza2{abstract}
+					CheesyCrust
+			Pizza{abstract}
 				mandatory
-					Topping2
+					Topping
 						mandatory
 							Salami
 				mandatory
-					Size2
+					Size
 						mandatory
-							Normal2
+							Normal
 				mandatory
-					Dough2
+					Dough
 						alternative
-							Neapolitan2
-							Sicilian2
+							Neapolitan
+							Sicilian
 				optional
-					CheesyCrust2
-			Pizza3{abstract}
+					CheesyCrust
+			Pizza{abstract}
 				mandatory
-					Topping3
+					Topping
 						mandatory
-							Ham1
+							Ham
 						mandatory
-							Salami1
+							Salami
 				mandatory
-					Size3
+					Size
 						mandatory
-							Normal3
+							Normal
 				mandatory
-					Dough3
+					Dough
 						alternative
-							Neapolitan3
-							Sicilian3
+							Neapolitan
+							Sicilian
 				optional
-					CheesyCrust3
-			Pizza4{abstract}
+					CheesyCrust
+			Pizza{abstract}
 				mandatory
-					Topping4
+					Topping
 						mandatory
-							Mozzarella2
+							Mozzarella
 				mandatory
-					Size4
+					Size
 						mandatory
 							Big
 				mandatory
-					Dough4
+					Dough
 						alternative
-							Neapolitan4
-							Sicilian4
+							Neapolitan
+							Sicilian

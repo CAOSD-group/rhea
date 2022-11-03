@@ -1,34 +1,39 @@
-namespace Root
-
 features
-	Root {abstract}	
+	Root{abstract}
 		optional
-			F1	
-				[1..1]
-					F1B
-					F2
-					F3	
-						optional
-							F6	
-								optional
-									F5	
-										[1..1]
-											F7
-											F8
-											F8B
-										[1..1]
-											F7C
-											F8C
-											F8C
-									F4	
-										[2..3]
-											F9
-											F10
-											F10B
-										[1..3]
-											F9C
-											F10C
-											F10C
-				[1..1]
+			F1
+				alternative
 					F1C
 					F2C
+				mandatory
+					F11{abstract}
+						alternative
+							F1B
+							F2
+							F3
+								optional
+									F6
+										optional
+											F5
+												alternative
+													F7C
+													F8C
+													F8C
+												mandatory
+													F51{abstract}
+														alternative
+															F7
+															F8
+															F8B
+										optional
+											F4
+												or
+													F9C
+													F10C
+													F10C
+												mandatory
+													F41{abstract}
+														[2..3]
+															F9
+															F10
+															F10B

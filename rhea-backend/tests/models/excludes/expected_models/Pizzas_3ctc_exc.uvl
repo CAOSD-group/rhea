@@ -17,86 +17,86 @@ features
 							Sicilian
 				optional
 					CheesyCrust
-			Pizza1{abstract}
+			Pizza{abstract}
 				mandatory
-					Topping1
+					Topping
 						mandatory
-							Salami1
+							Salami
 				mandatory
-					Size1
+					Size
 						mandatory
 							Big
 				mandatory
-					Dough1
+					Dough
 						alternative
-							Neapolitan1
-							Sicilian1
-			Pizza2{abstract}
+							Neapolitan
+							Sicilian
+			Pizza{abstract}
 				mandatory
-					Topping2
+					Topping
 						mandatory
 							Ham
 						optional
-							Salami2
+							Salami
 				mandatory
-					Size2
+					Size
 						mandatory
-							Normal1
+							Normal
 				mandatory
-					Dough2
+					Dough
 						alternative
-							Neapolitan2
-							Sicilian2
+							Neapolitan
+							Sicilian
 				optional
-					CheesyCrust1
-			Pizza3{abstract}
+					CheesyCrust
+			Pizza{abstract}
 				mandatory
-					Topping3
+					Topping
 						mandatory
 							Mozzarella
 						optional
-							Salami3
+							Salami
 				mandatory
-					Size3
+					Size
 						mandatory
-							Normal2
+							Normal
 				mandatory
-					Dough3
+					Dough
 						mandatory
-							Neapolitan3
+							Neapolitan
 				optional
-					CheesyCrust2
-			Pizza4{abstract}
+					CheesyCrust
+			Pizza{abstract}
 				mandatory
-					Topping4
+					Topping
 						mandatory
-							Mozzarella1
+							Mozzarella
 						optional
-							Salami4
+							Salami
 				mandatory
-					Size4
+					Size
 						mandatory
-							Big1
+							Big
 				mandatory
-					Dough4
+					Dough
 						mandatory
-							Neapolitan4
-			Pizza5{abstract}
+							Neapolitan
+			Pizza{abstract}
 				mandatory
-					Topping5
+					Topping
 						mandatory
-							Ham1
+							Ham
 						optional
-							Salami5
+							Salami
 						mandatory
-							Mozzarella2
+							Mozzarella
 				mandatory
-					Size5
+					Size
 						mandatory
-							Normal3
+							Normal
 				mandatory
-					Dough5
+					Dough
 						mandatory
-							Neapolitan5
+							Neapolitan
 				optional
-					CheesyCrust3
+					CheesyCrust

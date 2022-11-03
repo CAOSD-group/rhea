@@ -1,11 +1,10 @@
 features
-	Root
+	Root{abstract}
 		optional
 			F1
 				optional
-					F1_p
+					F11{abstract}
 						alternative
 							F2
 							F3
 							F4
-constraints

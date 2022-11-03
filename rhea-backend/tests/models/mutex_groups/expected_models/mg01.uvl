@@ -1,9 +1,8 @@
 features
-	Root
+	Root{abstract}
 		optional
-			Root_p
+			Root1{abstract}
 				alternative
 					F1
 					F2
 					F3
-constraints

@@ -1,9 +1,9 @@
 features
-	Root
+	Root{abstract}
 		optional
 			F1
 				optional
-					F1_p
+					F11{abstract}
 						alternative
 							F2
 							F3
@@ -12,15 +12,14 @@ features
 										optional
 											F5
 												optional
-													F5_p
+													F51{abstract}
 														alternative
 															F7
 															F8
 										optional
 											F4
 												optional
-													F4_p
+													F41{abstract}
 														alternative
 															F9
 															F10
-constraints

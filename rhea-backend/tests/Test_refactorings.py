@@ -21,6 +21,8 @@ from rhea.refactorings.split_constraint import SplitConstraint
 from rhea.refactorings.elimination_complex_constraints import EliminationComplexConstraints
 from rhea.refactorings.elimination_simple_ctcs_requires import EliminationSimpleConstraintsRequires
 from rhea.refactorings.elimination_simple_ctcs_excludes import EliminationSimpleConstraintsExcludes
+from rhea.refactorings.xor_mandatory_refactoring import XorMandatoryRefactoring
+from rhea.refactorings.or_mandatory_refactoring import OrMandatoryRefactoring
 from rhea.metamodels.fm_metamodel.models import fm_utils
 
 MODELS_BASE_PATH = os.path.join('tests', 'models')
@@ -30,11 +32,12 @@ EXPECTED_MODELS = 'expected_models'
 MUTEX_GROUP_MODELS_PATH = 'mutex_groups'
 CARDINALITY_GROUP_MODELS_PATH = 'cardinality_groups'
 MULTIPLE_GROUP_DECOMPOSITION = 'multiple_group_decomposition'
-ANY_CTCS_FOLDER = 'eliminate_any_ctcs'
 SPLIT_CONSTRAINTS_FOLDER = 'split'
 COMPLEX_CONSTRAINTS_FOLDER = 'complex'
 REQUIRES_CONSTRAINTS_FOLDER = 'requires'
 EXCLUDES_CONSTRAINTS_FOLDER = 'excludes'
+XOR_MANDATORY_FOLDER = 'xor_mandatory'
+OR_MANDATORY_FOLDER = 'or_mandatory'
 
 
 def get_models(dirpath: str) -> list[str]:
@@ -74,18 +77,20 @@ def get_tests() -> list[list[str, str, str, FMRefactoring]]:
     #tests.extend(mutex_group_tests)
     #cardinality_group_tests = get_tests_info(CARDINALITY_GROUP_MODELS_PATH, CardinalityGroupRefactoring)
     #tests.extend(cardinality_group_tests)
-    #multiple_group_decomposition_tests = get_tests_info(MULTIPLE_GROUP_DECOMPOSITION, MultipleGroupDecompositionRefactoring)
-    #tests.extend(multiple_group_decomposition_tests)
-    #any_ctcs_tests = get_tests_info(ANY_CTCS_FOLDER, EliminationAnyConstraints)
-    #tests.extend(any_ctcs_tests)
+    # multiple_group_decomposition_tests = get_tests_info(MULTIPLE_GROUP_DECOMPOSITION, MultipleGroupDecompositionRefactoring)
+    # tests.extend(multiple_group_decomposition_tests)
     # split_tests = get_tests_info(SPLIT_CONSTRAINTS_FOLDER, SplitConstraint)
     # tests.extend(split_tests)
     # complex_tests = get_tests_info(COMPLEX_CONSTRAINTS_FOLDER, EliminationComplexConstraints)
     # tests.extend(complex_tests)
-    requires_tests = get_tests_info(REQUIRES_CONSTRAINTS_FOLDER, EliminationSimpleConstraintsRequires)
-    tests.extend(requires_tests)
-    excludes_tests = get_tests_info(EXCLUDES_CONSTRAINTS_FOLDER, EliminationSimpleConstraintsExcludes)
-    tests.extend(excludes_tests)
+    # requires_tests = get_tests_info(REQUIRES_CONSTRAINTS_FOLDER, EliminationSimpleConstraintsRequires)
+    # tests.extend(requires_tests)
+    # excludes_tests = get_tests_info(EXCLUDES_CONSTRAINTS_FOLDER, EliminationSimpleConstraintsExcludes)
+    # tests.extend(excludes_tests)
+    # xor_mand_tests = get_tests_info(XOR_MANDATORY_FOLDER, XorMandatoryRefactoring)
+    # tests.extend(xor_mand_tests)
+    # or_mand_tests = get_tests_info(OR_MANDATORY_FOLDER, OrMandatoryRefactoring)
+    # tests.extend(or_mand_tests)
     
     return tests
 

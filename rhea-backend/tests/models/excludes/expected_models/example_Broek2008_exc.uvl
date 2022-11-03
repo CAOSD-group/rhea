@@ -11,14 +11,14 @@ features
 					C
 						mandatory
 							G
-			A1{abstract}
+			A{abstract}
 				optional
-					B1
+					B
 						mandatory
-							E1
+							E
 				mandatory
-					C1
+					C
 						mandatory
 							F
 						optional
-							G1
+							G

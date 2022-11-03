@@ -1,17 +1,23 @@
-namespace Root
-
 features
-	Root {abstract}	
+	Root{abstract}
 		optional
-			F1	
-				[2..3]
+			F1
+				optional
 					F2
+				optional
 					F3
+				optional
 					F4
-			F5	
+		optional
+			F5
 				mandatory
-					F6	
-						[2..3]
+					F6
+						optional
 							F7
+						optional
 							F8
+						optional
 							F9
+constraints
+	F1 => (((((F2 & F3) & !F4) | ((F2 & F4) & !F3)) | ((F3 & F4) & !F2)) | ((F2 & F3) & F4))
+	F6 => (((((F7 & F8) & !F9) | ((F7 & F9) & !F8)) | ((F8 & F9) & !F7)) | ((F7 & F8) & F9))
