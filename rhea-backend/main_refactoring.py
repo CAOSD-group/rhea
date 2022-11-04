@@ -38,7 +38,7 @@ REFACTORING_COMPLEX = EliminationComplexConstraints
 REFACTORING_REQUIRES = EliminationSimpleConstraintsRequires
 REFACTORING_EXCLUDES = EliminationSimpleConstraintsExcludes
 
-MODEL_TO_TEST = "Pizzas_complex"
+MODEL_TO_TEST = "JHipster"
 
 INPUT_PATH = 'fm_models/' + MODEL_TO_TEST + '.uvl'
 OUTPUT_PATH = 'fm_models/tmp/'  + MODEL_TO_TEST + '_output.uvl'

@@ -1,6 +1,7 @@
 import multiprocessing
 import copy
 from typing import Any
+from collections.abc import Callable
 import datetime
 
 from flamapy.core.models import AST, ASTOperation, ast
@@ -139,8 +140,8 @@ def update_feature(fm: FeatureModel,
     return fm
 
 
-def commitment_feature(feature_diagram: FeatureModel, feature_name: str) -> FeatureModel:
-    """Given a feature diagram T (with no constraints) and a feature F, 
+def commitment_feature(feature_model: FeatureModel, feature_name: str) -> FeatureModel:
+    """Given a feature diagram T and a feature F, 
     this algorithm computes the feature model T(+F) 
     whose products are precisely those products of T with contain F.
     
@@ -149,14 +150,13 @@ def commitment_feature(feature_diagram: FeatureModel, feature_name: str) -> Feat
     The algorithm is an adaptation from:
         [Broek2008 @ SPLC: Elimination of constraints from feature trees].
     """
-    tree = FeatureModel(copy.deepcopy(feature_diagram.root))
-    feature = tree.get_feature_by_name(feature_name)
+    feature = feature_model.get_feature_by_name(feature_name)
     # Step 1. If T does not contain F, the result is NIL.
-    if feature not in tree.get_features():
+    if feature not in feature_model.get_features():
         return None
     feature_to_commit = feature
     # Step 2. If F is the root of T, the result is T.
-    while feature_to_commit != tree.root:
+    while feature_to_commit != feature_model.root:
         # Step 3. Let the parent feature of F be P.
         parent = feature_to_commit.get_parent()  
         # If P is a MandOpt feature and F is an optional subfeature, 
@@ -184,11 +184,11 @@ def commitment_feature(feature_diagram: FeatureModel, feature_name: str) -> Feat
                 parent_relations.append(new_optional_rel)
         # Step 4. GOTO step 2 with P instead of F.
         feature_to_commit = parent
-    return tree
+    return feature_model
 
 
-def deletion_feature(feature_diagram: FeatureModel, feature_name: str) -> FeatureModel:
-    """Given a feature diagram T (with no constraints) and a feature F,
+def deletion_feature(feature_model: FeatureModel, feature_name: str) -> FeatureModel:
+    """Given a feature diagram T and a feature F,
     this algorithm computes the feature model T(-F) 
     whose products are precisely those products of T with do not contain F.
     
@@ -197,21 +197,20 @@ def deletion_feature(feature_diagram: FeatureModel, feature_name: str) -> Featur
     The algorithm is an adaptation from:
         [Broek2008 @ SPLC: Elimination of constraints from feature trees].
     """
-    tree = FeatureModel(copy.deepcopy(feature_diagram.root))
-    feature = tree.get_feature_by_name(feature_name)
+    feature = feature_model.get_feature_by_name(feature_name)
     # Step 1. If T does not contain F, the result is T.
-    if feature not in tree.get_features():
-        return tree
+    if feature not in feature_model.get_features():
+        return feature_model
     feature_to_delete = feature
     # Step 2. Let the parent feature of F be P.
     parent = feature_to_delete.get_parent()  
     # Step 3. If P is a MandOpt feature and F is a mandatory subfeature of P, 
     # GOTO step 4 with P instead of F.
-    while feature_to_delete != tree.root and not parent.is_group() and feature_to_delete.is_mandatory():
+    while feature_to_delete != feature_model.root and not parent.is_group() and feature_to_delete.is_mandatory():
         feature_to_delete = parent
         parent = feature_to_delete.get_parent()
     # If F is the root of T, the result is NIL.
-    if feature_to_delete == tree.root:  
+    if feature_to_delete == feature_model.root:  
         return None
     # If P is a MandOpt feature and F is an optional subfeature of P, delete F.
     elif not parent.is_group() and feature_to_delete.is_optional():
@@ -224,18 +223,43 @@ def deletion_feature(feature_diagram: FeatureModel, feature_name: str) -> Featur
         rel.children.remove(feature_to_delete)
         if rel.card_max > 1:
             rel.card_max -= 1
+    return feature_model
+
+
+def transform_tree(functions: list[Callable], fm: FeatureModel, features: list[str]) -> FeatureModel:
+    """Apply a list of functions (commitment_feature or deletion_feature) 
+    to the tree of the feature model. 
+    
+    For each function, it uses each feature (in order) in the provided list as argument.
+    """
+    tree = FeatureModel(copy.deepcopy(fm.root), fm.get_constraints())
+    for func, feature in zip(functions, features):
+        if tree is not None:
+            tree = func(tree, feature)
     return tree
 
 
+def construct_plusB(fm: FeatureModel, feature_name_b: str) -> FeatureModel:
+    tree = FeatureModel(copy.deepcopy(fm.root))
+    return commitment_feature(tree, feature_name_b)
+
+
+def construct_lessB(fm: FeatureModel, feature_name_b: str) -> FeatureModel:
+    tree = FeatureModel(copy.deepcopy(fm.root))
+    return deletion_feature(tree, feature_name_b)
+
+
 def construct_lessA_lessB(fm: FeatureModel, feature_name_a: str, feature_name_b: str) -> FeatureModel:
-    tree = deletion_feature(fm, feature_name_a)
+    tree = FeatureModel(copy.deepcopy(fm.root))
+    tree = deletion_feature(tree, feature_name_a)
     if tree is not None:
         tree = deletion_feature(tree, feature_name_b)
     return tree
 
 
 def construct_lessA_plusB(fm: FeatureModel, feature_name_a: str, feature_name_b: str) -> FeatureModel:
-    tree = deletion_feature(fm, feature_name_a)
+    tree = FeatureModel(copy.deepcopy(fm.root))
+    tree = deletion_feature(tree, feature_name_a)
     if tree is not None:
         tree = commitment_feature(tree, feature_name_b)
     return tree
@@ -264,14 +288,14 @@ def eliminate_requires(fm: FeatureModel, requires_ctc: Constraint) -> FeatureMod
         for tree in subtrees:
             #tree_copy = FeatureModel(copy.deepcopy(tree.root))
             #tree_copy = FeatureModel(pickle.loads(original_tree))
-            trees_plusB.append(pool.apply_async(commitment_feature, (fm, feature_name_b)))
-            #t_plus = commitment_feature(fm, feature_name_b)
+            #trees_plusB.append(pool.apply_async(transform_tree, ([commitment_feature], tree, [feature_name_b])))
+            trees_plusB.append(pool.apply_async(construct_plusB, (tree, feature_name_b)))
         # Construct T(-A-B)
         for tree in subtrees:
             #tree_copy = FeatureModel(copy.deepcopy(tree.root))
             #tree_copy = FeatureModel(pickle.loads(original_tree))
-            trees_lessA_lessB.append(pool.apply_async(construct_lessA_lessB, (fm, feature_name_a, feature_name_b)))
-            #t_less = deletion_feature(fm, feature_name_a)
+            #trees_lessA_lessB.append(pool.apply_async(transform_tree, ([deletion_feature, deletion_feature], tree, [feature_name_a, feature_name_b])))
+            trees_lessA_lessB.append(pool.apply_async(construct_lessA_lessB, (tree, feature_name_a, feature_name_b)))
 
         for p in trees_plusB:
             p.wait()
@@ -322,10 +346,12 @@ def eliminate_excludes(fm: FeatureModel, excludes_ctc: Constraint) -> FeatureMod
     with multiprocessing.Pool(processes=None) as pool: 
         # Construct T(-B)
         for tree in subtrees:
-            trees_lessB.append(pool.apply_async(deletion_feature, (fm, feature_name_b)))
+           #trees_lessB.append(pool.apply_async(transform_tree, ([deletion_feature], tree, [feature_name_b])))
+           trees_lessB.append(pool.apply_async(construct_lessB, (tree, feature_name_b)))
         # Construct T(-A+B)
         for tree in subtrees:
-            trees_lessA_plusB.append(pool.apply_async(construct_lessA_plusB, (fm, feature_name_a, feature_name_b)))
+            #trees_lessA_plusB.append(pool.apply_async(transform_tree, ([deletion_feature, commitment_feature], tree, [feature_name_a, feature_name_b])))
+            trees_lessA_plusB.append(pool.apply_async(construct_lessA_plusB, (tree, feature_name_a, feature_name_b)))
 
         for p in trees_lessB:
             p.wait()
