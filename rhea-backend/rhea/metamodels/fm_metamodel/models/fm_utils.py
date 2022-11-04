@@ -1,3 +1,4 @@
+import multiprocessing
 import copy
 from typing import Any
 import datetime
@@ -138,19 +139,20 @@ def update_feature(fm: FeatureModel,
     return fm
 
 
-def commitment_feature(feature_model: FeatureModel, feature_name: str) -> FeatureModel:
-    """Given a feature model T and a feature F, this algorithm computes the feature model
-    T(+F) whose products are precisely those products of T with contain F.
+def commitment_feature(feature_diagram: FeatureModel, feature_name: str) -> FeatureModel:
+    """Given a feature diagram T (with no constraints) and a feature F, 
+    this algorithm computes the feature model T(+F) 
+    whose products are precisely those products of T with contain F.
     
     The algorithm transforms T into T(+F).
 
     The algorithm is an adaptation from:
         [Broek2008 @ SPLC: Elimination of constraints from feature trees].
     """
-    tree = feature_model
+    tree = FeatureModel(copy.deepcopy(feature_diagram.root))
     feature = tree.get_feature_by_name(feature_name)
     # Step 1. If T does not contain F, the result is NIL.
-    if feature not in feature_model.get_features():
+    if feature not in tree.get_features():
         return None
     feature_to_commit = feature
     # Step 2. If F is the root of T, the result is T.
@@ -185,19 +187,20 @@ def commitment_feature(feature_model: FeatureModel, feature_name: str) -> Featur
     return tree
 
 
-def deletion_feature(feature_model: FeatureModel, feature_name: str) -> FeatureModel:
-    """Given a feature model T and a feature F, this algorithm computes the feature model
-    T(-F) whose products are precisely those products of T with do not contain F.
+def deletion_feature(feature_diagram: FeatureModel, feature_name: str) -> FeatureModel:
+    """Given a feature diagram T (with no constraints) and a feature F,
+    this algorithm computes the feature model T(-F) 
+    whose products are precisely those products of T with do not contain F.
     
     The algorithm transforms T into T(-F).
 
     The algorithm is an adaptation from:
         [Broek2008 @ SPLC: Elimination of constraints from feature trees].
     """
-    tree = feature_model
+    tree = FeatureModel(copy.deepcopy(feature_diagram.root))
     feature = tree.get_feature_by_name(feature_name)
     # Step 1. If T does not contain F, the result is T.
-    if feature not in feature_model.get_features():
+    if feature not in tree.get_features():
         return tree
     feature_to_delete = feature
     # Step 2. Let the parent feature of F be P.
@@ -224,6 +227,20 @@ def deletion_feature(feature_model: FeatureModel, feature_name: str) -> FeatureM
     return tree
 
 
+def construct_lessA_lessB(fm: FeatureModel, feature_name_a: str, feature_name_b: str) -> FeatureModel:
+    tree = deletion_feature(fm, feature_name_a)
+    if tree is not None:
+        tree = deletion_feature(tree, feature_name_b)
+    return tree
+
+
+def construct_lessA_plusB(fm: FeatureModel, feature_name_a: str, feature_name_b: str) -> FeatureModel:
+    tree = deletion_feature(fm, feature_name_a)
+    if tree is not None:
+        tree = commitment_feature(tree, feature_name_b)
+    return tree
+
+
 def eliminate_requires(fm: FeatureModel, requires_ctc: Constraint) -> FeatureModel:
     """Algorithm to eliminate a constraint 'A requires B' from the feature model.
     
@@ -236,31 +253,46 @@ def eliminate_requires(fm: FeatureModel, requires_ctc: Constraint) -> FeatureMod
     fm.get_constraints().remove(requires_ctc)
     feature_name_a, feature_name_b = left_right_features_names_from_simple_constraint(requires_ctc)
     subtrees = get_trees_from_original_root(fm)
-    trees_plus = []
-    trees_less = []
-    # Construct T(+B)
-    for tree in subtrees:
-        #print(f'1. {tree}')
-        tree_copy = FeatureModel(copy.deepcopy(tree.root), fm.get_constraints())
-        t_plus = commitment_feature(tree_copy, feature_name_b)
-        if t_plus is not None:
-            trees_plus.append(t_plus)
-    # Construct T(-A-B)
-    for tree in subtrees:
-        #print(f'before T(-A-B). {tree}')
-        tree_copy = FeatureModel(copy.deepcopy(tree.root), fm.get_constraints())
-        t_less = deletion_feature(tree_copy, feature_name_a)
-        #print(f'T(-{feature_name_a})= {t_less}')
-        if t_less is not None:
-            t_less = deletion_feature(t_less, feature_name_b)
-            #print(f'T(-{feature_name_a}-{feature_name_b})= {t_less}')
+    trees_plus = set()
+    trees_less = set()
+    #original_tree = pickle.dumps(fm.root, protocol=pickle.HIGHEST_PROTOCOL)
+    # Parallel code
+    trees_plusB = []
+    trees_lessA_lessB = []
+    with multiprocessing.Pool(processes=None) as pool: 
+        # Construct T(+B)   
+        for tree in subtrees:
+            #tree_copy = FeatureModel(copy.deepcopy(tree.root))
+            #tree_copy = FeatureModel(pickle.loads(original_tree))
+            trees_plusB.append(pool.apply_async(commitment_feature, (fm, feature_name_b)))
+            #t_plus = commitment_feature(fm, feature_name_b)
+        # Construct T(-A-B)
+        for tree in subtrees:
+            #tree_copy = FeatureModel(copy.deepcopy(tree.root))
+            #tree_copy = FeatureModel(pickle.loads(original_tree))
+            trees_lessA_lessB.append(pool.apply_async(construct_lessA_lessB, (fm, feature_name_a, feature_name_b)))
+            #t_less = deletion_feature(fm, feature_name_a)
+
+        for p in trees_plusB:
+            p.wait()
+        for p in trees_lessA_lessB:
+            p.wait()
+
+        for p in trees_plusB:
+            t_plus = p.get()
+            if t_plus is not None:
+                trees_plus.add(t_plus)
+
+        for p in trees_lessA_lessB:
+            t_less = p.get()
             if t_less is not None:
-                trees_less.append(t_less)
+                trees_less.add(t_less)
+
     # The result consists of a new root, which is an Xor feature,
     # with subfeatures T(+B) and T(-A-B).
     new_root = Feature(get_new_feature_name(fm, 'root'), is_abstract=True)
     children = []
-    for tree in trees_plus + trees_less:
+    for tree in trees_plus.union(trees_less):
         tree.root.parent = new_root
         children.append(tree.root)
     if not children:
@@ -282,27 +314,39 @@ def eliminate_excludes(fm: FeatureModel, excludes_ctc: Constraint) -> FeatureMod
     fm.get_constraints().remove(excludes_ctc)
     feature_name_a, feature_name_b = left_right_features_names_from_simple_constraint(excludes_ctc)
     subtrees = get_trees_from_original_root(fm)
-    trees_less = []
-    trees_lessplus = []
-    # Construct T(-B)
-    for tree in subtrees:
-        tree_copy = FeatureModel(copy.deepcopy(tree.root), fm.get_constraints())
-        t_less = deletion_feature(tree_copy, feature_name_b)
-        if t_less is not None:
-            trees_less.append(t_less)
-    # Construct T(-A+B)
-    for tree in subtrees:
-        tree_copy = FeatureModel(copy.deepcopy(tree.root), fm.get_constraints())
-        t_less = deletion_feature(tree_copy, feature_name_a)
-        if t_less is not None:
-            t_lessplus = commitment_feature(t_less, feature_name_b)
+    trees_less = set()
+    trees_lessplus = set()
+    # Parallel code
+    trees_lessB = []
+    trees_lessA_plusB = []
+    with multiprocessing.Pool(processes=None) as pool: 
+        # Construct T(-B)
+        for tree in subtrees:
+            trees_lessB.append(pool.apply_async(deletion_feature, (fm, feature_name_b)))
+        # Construct T(-A+B)
+        for tree in subtrees:
+            trees_lessA_plusB.append(pool.apply_async(construct_lessA_plusB, (fm, feature_name_a, feature_name_b)))
+
+        for p in trees_lessB:
+            p.wait()
+        for p in trees_lessA_plusB:
+            p.wait()
+
+        for p in trees_lessB:
+            t_less = p.get()
+            if t_less is not None:
+                trees_less.add(t_less)
+
+        for p in trees_lessA_plusB:
+            t_lessplus = p.get()
             if t_lessplus is not None:
-                trees_lessplus.append(t_lessplus)
+                trees_lessplus.add(t_lessplus)
+
     # The result consists of a new root, which is an Xor feature,
     # with subfeatures T(-B) and T(-A+B).
     new_root = Feature(get_new_feature_name(fm, 'root'), is_abstract=True)
     children = []
-    for tree in trees_less + trees_lessplus:
+    for tree in trees_less.union(trees_lessplus):
         tree.root.parent = new_root
         children.append(tree.root)
     if not children:
