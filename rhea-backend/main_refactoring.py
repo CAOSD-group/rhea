@@ -1,6 +1,4 @@
-from email.base64mime import body_decode
-import os
-from typing import Any 
+import time
 
 from flamapy.metamodels.fm_metamodel.transformations import UVLReader, UVLWriter, FeatureIDEReader, GlencoeReader
 from flamapy.metamodels.pysat_metamodel.transformations import FmToPysat
@@ -106,6 +104,7 @@ def main():
     fm = UVLReader(INPUT_PATH).transform()
     print_statistics(fm, 'INPUT MODEL')
     
+    start_time = time.perf_counter_ns()
     print('==================================================')
     print(f'Applying the refactoring {REFACTORING_SPLIT.get_name()}...')
     print(f'  |-> refactorings: {len(REFACTORING_SPLIT.get_instances(fm))}')
@@ -121,6 +120,7 @@ def main():
     print(f'  |-> refactorings: {len(REFACTORING_EXCLUDES.get_instances(fm))}')
     fm = apply_refactoring(fm, REFACTORING_EXCLUDES)
     print('==================================================')
+    end_time = time.perf_counter_ns()
 
     # Remove leaf abstract features
     fm = fm_utils.remove_leaf_abstract_features(fm)
@@ -134,6 +134,6 @@ def main():
     print_statistics(fm, 'UNIQUE NAMES MODEL')
     UVLWriter(fm, UNIQUE_PATH).transform()
 
-
+    print(f'Execution time of all refactorings: {(end_time-start_time)/1e9} s.')
 if __name__ == '__main__':
     main()
