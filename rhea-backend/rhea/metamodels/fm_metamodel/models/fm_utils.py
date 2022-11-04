@@ -226,13 +226,16 @@ def deletion_feature(feature_model: FeatureModel, feature_name: str) -> FeatureM
     return feature_model
 
 
-def transform_tree(functions: list[Callable], fm: FeatureModel, features: list[str]) -> FeatureModel:
+def transform_tree(functions: list[Callable], fm: FeatureModel, features: list[str], copy_tree: bool) -> FeatureModel:
     """Apply a list of functions (commitment_feature or deletion_feature) 
     to the tree of the feature model. 
     
     For each function, it uses each feature (in order) in the provided list as argument.
     """
-    tree = FeatureModel(copy.deepcopy(fm.root), fm.get_constraints())
+    if copy_tree:
+        tree = FeatureModel(copy.deepcopy(fm.root), fm.get_constraints())
+    else:
+        tree = fm
     for func, feature in zip(functions, features):
         if tree is not None:
             tree = func(tree, feature)
@@ -283,19 +286,19 @@ def eliminate_requires(fm: FeatureModel, requires_ctc: Constraint) -> FeatureMod
     # Parallel code
     trees_plusB = []
     trees_lessA_lessB = []
-    with multiprocessing.Pool(processes=None) as pool: 
+    with multiprocessing.Pool() as pool: 
         # Construct T(+B)   
         for tree in subtrees:
             #tree_copy = FeatureModel(copy.deepcopy(tree.root))
             #tree_copy = FeatureModel(pickle.loads(original_tree))
-            #trees_plusB.append(pool.apply_async(transform_tree, ([commitment_feature], tree, [feature_name_b])))
-            trees_plusB.append(pool.apply_async(construct_plusB, (tree, feature_name_b)))
+            trees_plusB.append(pool.apply_async(transform_tree, ([commitment_feature], tree, [feature_name_b], True)))
+            #trees_plusB.append(pool.apply_async(construct_plusB, (tree, feature_name_b)))
         # Construct T(-A-B)
         for tree in subtrees:
             #tree_copy = FeatureModel(copy.deepcopy(tree.root))
             #tree_copy = FeatureModel(pickle.loads(original_tree))
-            #trees_lessA_lessB.append(pool.apply_async(transform_tree, ([deletion_feature, deletion_feature], tree, [feature_name_a, feature_name_b])))
-            trees_lessA_lessB.append(pool.apply_async(construct_lessA_lessB, (tree, feature_name_a, feature_name_b)))
+            trees_lessA_lessB.append(pool.apply_async(transform_tree, ([deletion_feature, deletion_feature], tree, [feature_name_a, feature_name_b], False)))
+            #trees_lessA_lessB.append(pool.apply_async(construct_lessA_lessB, (tree, feature_name_a, feature_name_b)))
 
         for p in trees_plusB:
             p.wait()
@@ -343,15 +346,15 @@ def eliminate_excludes(fm: FeatureModel, excludes_ctc: Constraint) -> FeatureMod
     # Parallel code
     trees_lessB = []
     trees_lessA_plusB = []
-    with multiprocessing.Pool(processes=None) as pool: 
+    with multiprocessing.Pool() as pool: 
         # Construct T(-B)
         for tree in subtrees:
-           #trees_lessB.append(pool.apply_async(transform_tree, ([deletion_feature], tree, [feature_name_b])))
-           trees_lessB.append(pool.apply_async(construct_lessB, (tree, feature_name_b)))
+           trees_lessB.append(pool.apply_async(transform_tree, ([deletion_feature], tree, [feature_name_b], True)))
+           #trees_lessB.append(pool.apply_async(construct_lessB, (tree, feature_name_b)))
         # Construct T(-A+B)
         for tree in subtrees:
-            #trees_lessA_plusB.append(pool.apply_async(transform_tree, ([deletion_feature, commitment_feature], tree, [feature_name_a, feature_name_b])))
-            trees_lessA_plusB.append(pool.apply_async(construct_lessA_plusB, (tree, feature_name_a, feature_name_b)))
+            trees_lessA_plusB.append(pool.apply_async(transform_tree, ([deletion_feature, commitment_feature], tree, [feature_name_a, feature_name_b], False)))
+            #trees_lessA_plusB.append(pool.apply_async(construct_lessA_plusB, (tree, feature_name_a, feature_name_b)))
 
         for p in trees_lessB:
             p.wait()

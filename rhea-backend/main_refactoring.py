@@ -38,7 +38,7 @@ REFACTORING_COMPLEX = EliminationComplexConstraints
 REFACTORING_REQUIRES = EliminationSimpleConstraintsRequires
 REFACTORING_EXCLUDES = EliminationSimpleConstraintsExcludes
 
-MODEL_TO_TEST = "JHipster"
+MODEL_TO_TEST = "Pizzas_complex"
 
 INPUT_PATH = 'fm_models/' + MODEL_TO_TEST + '.uvl'
 OUTPUT_PATH = 'fm_models/tmp/'  + MODEL_TO_TEST + '_output.uvl'
@@ -62,6 +62,7 @@ def apply_specific_refactoring(fm: FeatureModel, refactoring: FMRefactoring, ctc
 def print_statistics(fm: FeatureModel, model_name: str) -> None:
     fm_helper = FM(fm)
     sat_model = FmToPysat(fm).transform()
+    bdd_model = None
 
     print(f'******************** {model_name} ********************')
     print(f'Valid: {Glucose3Valid().execute(sat_model).get_result()}')
@@ -84,7 +85,7 @@ def print_statistics(fm: FeatureModel, model_name: str) -> None:
     n_configurations = FMEstimatedProductsNumber().execute(fm).get_result()
     print(f'#FM Estimated configurations: {n_configurations}')
 
-    if n_exact_configurations <= 50:
+    if bdd_model and n_exact_configurations <= 50:
         configurations = Glucose3Products().execute(sat_model).get_result()
         print(f'SAT Configurations:')
         for i, p in enumerate(configurations, 1):
