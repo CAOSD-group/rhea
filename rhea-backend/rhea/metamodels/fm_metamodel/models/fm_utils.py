@@ -391,3 +391,25 @@ def to_unique_features(fm: FeatureModel) -> FeatureModel:
             f.name = new_name
             unique_features_names.append(f.name)
     return fm
+
+def remove_leaf_abstract_features(model: FeatureModel) -> FeatureModel:
+
+    assert len(model.get_constraints()) == 0
+    
+    for feature in model.get_features():
+        if feature.is_leaf() and feature.is_abstract:
+            parent = feature.get_parent()
+            # If parent is not group we eliminate the relation
+            if not parent.is_group():
+                rel = next((r for r in parent.get_relations() if feature in r.children), None)
+                parent.get_relations().remove(rel)
+            # If parent is group we eliminate the feature from the group relation
+            else:
+                rel = parent.get_relations()[0]
+                rel.children.remove(feature)
+                if rel.card_max > 1:
+                    rel.card_max -= 1
+    abstract_features = len([f for f in model.get_features() if f.is_leaf() and f.is_abstract])
+    if abstract_features > 0:
+        model = remove_leaf_abstract_features(model)
+    return model

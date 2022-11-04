@@ -122,6 +122,9 @@ def main():
     fm = apply_refactoring(fm, REFACTORING_EXCLUDES)
     print('==================================================')
 
+    # Remove leaf abstract features
+    fm = fm_utils.remove_leaf_abstract_features(fm)
+
     # Print output model
     print_statistics(fm, 'OUTPUT MODEL')
     UVLWriter(fm, OUTPUT_PATH).transform()
