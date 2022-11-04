@@ -32,7 +32,7 @@ import {MatSort} from '@angular/material/sort';
   data: Data[] = [
   new Data('Pizzas','Horcas','Horcas',3322,'Food',"1.2",'professional',5,2,'easy','text',"https://www.uma.es/"),
   new Data('JHipster','Horcas','Acebal',1960,'party',"5.9.3",'numericalfm',10,8,'hard','party',"https://www.uma.es/"),
-  new Data('AAAA','Acebal','Acebal',2002,'something',"Original",'radiofm',1,9,'easy','music'),
+  new Data('AAAA','Acebal','Acebal',2002,'something',"Original",'radiofm'),
   
   ];
 
@@ -66,11 +66,11 @@ import {MatSort} from '@angular/material/sort';
       public Year: number,
       public Domain: string,
       public Version: string,
-      public Language_level: string,
-      public nFeatures: number,
-      public nConfigs: number,
-      public Rating: string,
-      public Format: string,
+      public Language_level?: string,
+      public nFeatures?: number,
+      public nConfigs?: number,
+      public Rating?: string,
+      public Format?: string,
       public Ref?: string,
       ) {}
   }

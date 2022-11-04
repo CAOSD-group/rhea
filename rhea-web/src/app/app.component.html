@@ -38,10 +38,12 @@
 <!-- End Header -->
 <!-- ======= Sidebar ======= -->
 <mat-drawer-container class="example-container" autosize>
-
+  
 <mat-drawer #drawer  class="color" mode="side">
   <button class="empty" style="margin-top: 3%;" (click)="showFM_Editor()">
-    <h4 class="white-text">FM Editor</h4>
+    <h4 class="white-text">FM Editor
+      <mat-icon>account_tree</mat-icon>
+    </h4>
   </button>  
   <div style="margin-top: 5%;"></div>
   <button  class="empty" style="margin-top: 3%;"(click)="showAbout()" >
@@ -51,7 +53,10 @@
   <div style="margin-top: 5%;"></div>
   <button  class="empty" style="margin-top: 3%;"(click)="showRepository()" >
     <h4 class="white-text">Repository
-    <mat-icon> book</mat-icon></h4>
+      <mat-icon>plagiarism</mat-icon>
+      <img src="../assets/img/icons8-base-de-datos-20.png" style="size: 1px;" ><!--<a target="_blank" href="https://icons8.com/icon/1476/base-de-datos">Base de datos</a> icon by <a target="_blank" href="https://icons8.com">Icons8</a>-->
+    </h4>
+  <mat-icon>device_hub</mat-icon>
   </button>
 
 </mat-drawer>
@@ -240,6 +245,7 @@
         <div class="col-10">
           <h4>Name
           <input  type="string" [(ngModel)]="name"></h4>
+          <h4 [hidden]="!checkNameFeature()[0]" class="gray"> name already in use</h4>
           <hr>
           <h4>Type:
             {{type}}
@@ -276,8 +282,9 @@
             </button>
           </div>
           <hr>
-          <h4 >Save Changes</h4>
-          <button (click)="ModifySelecction()" data-bs-toggle="modal" href="#loading" class="buttonmodal">update</button>
+          <h4 [hidden]="checkNameFeature()[1]" >Save Changes</h4>
+          <h4 [hidden]="!checkNameFeature()[1]" >Not possible to Update</h4>
+          <button (click)="ModifySelecction()"[disabled]="checkNameFeature()[1]"  data-bs-toggle="modal" href="#loading" class="buttonmodal">update</button>
 				</div>
 			</div>
 			<div class="modal-footer">
@@ -427,24 +434,35 @@
         <h4 class="modal-title" id="exampleModalLabel">Feature Model</h4>
 	    </div>
 	    <div class="modal-body">
-	      <div class="col-10">
-          <h4>Information</h4>
-          <h4> NAME: {{myArticle.Name}}</h4>
-          <h4> Author: {{myArticle.Author}}</h4>
-          <h4> Owner: {{myArticle.Owner}}</h4>
-          <h4> Ref: {{myArticle.Ref}}</h4>
-          <h4> Year: {{myArticle.Year}}</h4>
-          <h4> Domain: {{myArticle.Domain}}</h4>
-          <h4> Version: {{myArticle.Version}}</h4>
-          <h4> Language_level: {{myArticle.Language_level}}</h4>
-          <h4> nFeatures: {{myArticle.nFeatures}}</h4>
-          <h4> nConfigs: {{myArticle.nConfigs}}</h4>
-          <h4> Rating: {{myArticle.Rating}}</h4>
-          <h4> Format: {{myArticle.Format}}</h4>
-          
-
-			  </div>
-
+        <div class="row">
+          <div class="col-6">
+            <h4>Information</h4>
+            <label><label class="modal_repository">NAME:</label>            {{myArticle.Name}}</label>
+            <div></div>
+            <label><label class="modal_repository">Author:</label>          {{myArticle.Author}}</label>
+            <div></div>
+            <label><label class="modal_repository">Owner:</label>           {{myArticle.Owner}}</label>
+            <div></div>
+            <label class="modal_repository"(click)="web(myArticle)">Ref: <a class="modal_repository">{{myArticle.Ref}}</a></label>
+            <div></div>
+            <label><label class="modal_repository">Year: </label>           {{myArticle.Year}}</label>
+            <div></div>
+            <label><label class="modal_repository">Domain: </label>         {{myArticle.Domain}}</label>
+            <div></div>
+            <label><label class="modal_repository">Version: </label>        {{myArticle.Version}}</label>
+          </div>
+          <div class="col-6">
+            <label><label class="modal_repository">Language_level:</label>   {{myArticle.Language_level}}</label>
+            <div></div>
+            <label><label class="modal_repository"> nFeatures:</label>       {{myArticle.nFeatures}}</label>
+            <div></div>
+            <label><label class="modal_repository">nConfigs:</label>         {{myArticle.nConfigs}}</label>
+            <div></div>
+            <label><label class="modal_repository">Rating: </label>          {{myArticle.Rating}}</label>
+            <div></div>
+            <label><label class="modal_repository">Format:</label>           {{myArticle.Format}}</label>
+          </div>
+        </div>
 	    </div>
       <div class="modal-footer">
 	      <button type="button" class="buttonmodal" data-bs-dismiss="modal">Go back</button>

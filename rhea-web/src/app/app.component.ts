@@ -14,7 +14,6 @@ import { Semantics } from './components/Semantics/Semantics';
 import { event } from 'jquery';
 
 
-
 var aux:any;
 var aux2:any=""
 var aux3: any;
@@ -98,9 +97,9 @@ export class AppComponent {
 
 
   mainhidden=true
-  windowFM_Editor=true
+  windowFM_Editor=false
   windowAbout=false
-  windowRepository=false
+  windowRepository=true
 
   updatable=false
   page=0;
@@ -261,9 +260,6 @@ CreateData(object:any,name?:string){
   this.CreateSemantics()
   this.loadingmodal=true
   this.mainhidden=false
-  this.page=0
-  this.range=10
-
 }
 showModal(){
   if(!this.loadingmodal){
@@ -272,7 +268,10 @@ showModal(){
   else{
   return ["a",false]}
 }
-
+web(Article:Data){
+  if(Article.Ref!=undefined){
+  window.open(Article.Ref);}
+}
 CreateFile(text:string){  
   this.TransformJSON()
   console.log("valores que se van a crear")
@@ -389,40 +388,50 @@ checkedconst(cons:Const,consInitial:Const){
 }
     
 }
+checkNameFeature(){
+  if(this.actual!=undefined){
+    let bol
+    bol=this.actual.AvoidDuplicates(this.name)&& (this.name!=this.actual.name)
+    this.updatable=bol
+  return [bol,this.updatable] }
+  return [false,this.updatable]
+}
 CreateChildren(){
   this.loadingmodal=false
   if(this.actual.AvoidDuplicates(this.name)){
+    console.log("this name is already in use")
   }
   else{
   if(this.actual.children==undefined){this.actual.children=[]}
   this.actual.children.push(this.actual.CreateDefault(this.name))
   console.log(this.name)
   this.loglist.unshift(this.actual.name+" insert "+this.name+" as a child ")
-  this.tree[0].ExpandList(this.name)}
+  this.tree[0].ExpandList(this.name)
   try{
     this.sendUpdate()}
-  catch{
+  catch{}
+  }
     this.loadingmodal=true
-    }
 }
 CreateBrother(){
   this.loadingmodal=false
   if(this.actual.AvoidDuplicates(this.name)){
+    console.log("this name is already in use")
   }
   else{
   if(this.actualfather==undefined){
-
+    console.log("You are trying to create a new root")
   }
   else{
   this.actualfather.children.push(this.actual.CreateDefault(this.name))
   this.loglist.unshift(this.actual.name+" create "+this.name+" as a brother ")
   this.tree[0].ExpandList(this.name)
-}}
-try{
-  this.sendUpdate()}
-catch{
+
+  try{
+    this.sendUpdate()}
+  catch{}
+  }}
   this.loadingmodal=true
-  }
 }
 
 
