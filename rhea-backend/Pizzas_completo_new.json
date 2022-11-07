@@ -1,6 +1,6 @@
 {
     "name": "FM_Pizza",
-    "hash": "5441889226350442954",
+    "hash": "-1463451867787558746",
     "features": {
         "name": "Pizza",
         "abstract": true,
@@ -67,54 +67,7 @@
                                 ]
                             }
                         ],
-                        "attributes": [],
-                        "children": [
-                            {
-                                "name": "Salami",
-                                "abstract": false,
-                                "relations": [],
-                                "attributes": [
-                                    {
-                                        "name": "cost",
-                                        "value": "1.5"
-                                    },
-                                    {
-                                        "name": "price",
-                                        "value": "3"
-                                    }
-                                ]
-                            },
-                            {
-                                "name": "Ham",
-                                "abstract": false,
-                                "relations": [],
-                                "attributes": [
-                                    {
-                                        "name": "cost",
-                                        "value": "1.25"
-                                    },
-                                    {
-                                        "name": "price",
-                                        "value": "2.5"
-                                    }
-                                ]
-                            },
-                            {
-                                "name": "Mozzarella",
-                                "abstract": false,
-                                "relations": [],
-                                "attributes": [
-                                    {
-                                        "name": "price",
-                                        "value": "1.75"
-                                    },
-                                    {
-                                        "name": "cost",
-                                        "value": "0"
-                                    }
-                                ]
-                            }
-                        ]
+                        "attributes": []
                     }
                 ]
             },
@@ -151,25 +104,7 @@
                                 ]
                             }
                         ],
-                        "attributes": [],
-                        "children": [
-                            {
-                                "name": "Normal",
-                                "abstract": false,
-                                "relations": [],
-                                "attributes": [
-                                    {
-                                        "name": "default"
-                                    }
-                                ]
-                            },
-                            {
-                                "name": "Big",
-                                "abstract": false,
-                                "relations": [],
-                                "attributes": []
-                            }
-                        ]
+                        "attributes": []
                     }
                 ]
             },
@@ -206,25 +141,7 @@
                                 ]
                             }
                         ],
-                        "attributes": [],
-                        "children": [
-                            {
-                                "name": "Neapolitan",
-                                "abstract": false,
-                                "relations": [],
-                                "attributes": [
-                                    {
-                                        "name": "default"
-                                    }
-                                ]
-                            },
-                            {
-                                "name": "Sicilian",
-                                "abstract": false,
-                                "relations": [],
-                                "attributes": []
-                            }
-                        ]
+                        "attributes": []
                     }
                 ]
             },
@@ -289,27 +206,7 @@
                                 ]
                             }
                         ],
-                        "attributes": [],
-                        "children": [
-                            {
-                                "name": "Tomato",
-                                "abstract": false,
-                                "relations": [],
-                                "attributes": []
-                            },
-                            {
-                                "name": "Pepper",
-                                "abstract": false,
-                                "relations": [],
-                                "attributes": []
-                            },
-                            {
-                                "name": "Corn",
-                                "abstract": false,
-                                "relations": [],
-                                "attributes": []
-                            }
-                        ]
+                        "attributes": []
                     }
                 ]
             },
@@ -342,341 +239,12 @@
                                 ]
                             }
                         ],
-                        "attributes": [],
-                        "children": [
-                            {
-                                "name": "Cayenne",
-                                "abstract": false,
-                                "relations": [],
-                                "attributes": []
-                            },
-                            {
-                                "name": "Jalapino",
-                                "abstract": false,
-                                "relations": [],
-                                "attributes": []
-                            }
-                        ]
+                        "attributes": []
                     }
                 ]
             }
         ],
-        "attributes": [],
-        "children": [
-            {
-                "name": "Topping",
-                "abstract": false,
-                "relations": [
-                    {
-                        "type": "CARDINALITY",
-                        "card_min": 2,
-                        "card_max": 3,
-                        "children": [
-                            {
-                                "name": "Salami",
-                                "abstract": false,
-                                "relations": [],
-                                "attributes": [
-                                    {
-                                        "name": "cost",
-                                        "value": "1.5"
-                                    },
-                                    {
-                                        "name": "price",
-                                        "value": "3"
-                                    }
-                                ]
-                            },
-                            {
-                                "name": "Ham",
-                                "abstract": false,
-                                "relations": [],
-                                "attributes": [
-                                    {
-                                        "name": "cost",
-                                        "value": "1.25"
-                                    },
-                                    {
-                                        "name": "price",
-                                        "value": "2.5"
-                                    }
-                                ]
-                            },
-                            {
-                                "name": "Mozzarella",
-                                "abstract": false,
-                                "relations": [],
-                                "attributes": [
-                                    {
-                                        "name": "price",
-                                        "value": "1.75"
-                                    },
-                                    {
-                                        "name": "cost",
-                                        "value": "0"
-                                    }
-                                ]
-                            }
-                        ]
-                    }
-                ],
-                "attributes": [],
-                "children": [
-                    {
-                        "name": "Salami",
-                        "abstract": false,
-                        "relations": [],
-                        "attributes": [
-                            {
-                                "name": "cost",
-                                "value": "1.5"
-                            },
-                            {
-                                "name": "price",
-                                "value": "3"
-                            }
-                        ]
-                    },
-                    {
-                        "name": "Ham",
-                        "abstract": false,
-                        "relations": [],
-                        "attributes": [
-                            {
-                                "name": "cost",
-                                "value": "1.25"
-                            },
-                            {
-                                "name": "price",
-                                "value": "2.5"
-                            }
-                        ]
-                    },
-                    {
-                        "name": "Mozzarella",
-                        "abstract": false,
-                        "relations": [],
-                        "attributes": [
-                            {
-                                "name": "price",
-                                "value": "1.75"
-                            },
-                            {
-                                "name": "cost",
-                                "value": "0"
-                            }
-                        ]
-                    }
-                ]
-            },
-            {
-                "name": "Size",
-                "abstract": false,
-                "relations": [
-                    {
-                        "type": "XOR",
-                        "card_min": 1,
-                        "card_max": 1,
-                        "children": [
-                            {
-                                "name": "Normal",
-                                "abstract": false,
-                                "relations": [],
-                                "attributes": [
-                                    {
-                                        "name": "default"
-                                    }
-                                ]
-                            },
-                            {
-                                "name": "Big",
-                                "abstract": false,
-                                "relations": [],
-                                "attributes": []
-                            }
-                        ]
-                    }
-                ],
-                "attributes": [],
-                "children": [
-                    {
-                        "name": "Normal",
-                        "abstract": false,
-                        "relations": [],
-                        "attributes": [
-                            {
-                                "name": "default"
-                            }
-                        ]
-                    },
-                    {
-                        "name": "Big",
-                        "abstract": false,
-                        "relations": [],
-                        "attributes": []
-                    }
-                ]
-            },
-            {
-                "name": "Dough",
-                "abstract": false,
-                "relations": [
-                    {
-                        "type": "XOR",
-                        "card_min": 1,
-                        "card_max": 1,
-                        "children": [
-                            {
-                                "name": "Neapolitan",
-                                "abstract": false,
-                                "relations": [],
-                                "attributes": [
-                                    {
-                                        "name": "default"
-                                    }
-                                ]
-                            },
-                            {
-                                "name": "Sicilian",
-                                "abstract": false,
-                                "relations": [],
-                                "attributes": []
-                            }
-                        ]
-                    }
-                ],
-                "attributes": [],
-                "children": [
-                    {
-                        "name": "Neapolitan",
-                        "abstract": false,
-                        "relations": [],
-                        "attributes": [
-                            {
-                                "name": "default"
-                            }
-                        ]
-                    },
-                    {
-                        "name": "Sicilian",
-                        "abstract": false,
-                        "relations": [],
-                        "attributes": []
-                    }
-                ]
-            },
-            {
-                "name": "CheesyCrust",
-                "abstract": false,
-                "relations": [],
-                "attributes": []
-            },
-            {
-                "name": "Vegan",
-                "abstract": false,
-                "relations": [
-                    {
-                        "type": "OR",
-                        "card_min": 1,
-                        "card_max": 3,
-                        "children": [
-                            {
-                                "name": "Tomato",
-                                "abstract": false,
-                                "relations": [],
-                                "attributes": []
-                            },
-                            {
-                                "name": "Pepper",
-                                "abstract": false,
-                                "relations": [],
-                                "attributes": []
-                            },
-                            {
-                                "name": "Corn",
-                                "abstract": false,
-                                "relations": [],
-                                "attributes": []
-                            }
-                        ]
-                    },
-                    {
-                        "type": "MANDATORY",
-                        "card_min": 1,
-                        "card_max": 1,
-                        "children": [
-                            {
-                                "name": "Tomato",
-                                "abstract": false,
-                                "relations": [],
-                                "attributes": []
-                            }
-                        ]
-                    }
-                ],
-                "attributes": [],
-                "children": [
-                    {
-                        "name": "Tomato",
-                        "abstract": false,
-                        "relations": [],
-                        "attributes": []
-                    },
-                    {
-                        "name": "Pepper",
-                        "abstract": false,
-                        "relations": [],
-                        "attributes": []
-                    },
-                    {
-                        "name": "Corn",
-                        "abstract": false,
-                        "relations": [],
-                        "attributes": []
-                    }
-                ]
-            },
-            {
-                "name": "Spicy",
-                "abstract": false,
-                "relations": [
-                    {
-                        "type": "MUTEX",
-                        "card_min": 0,
-                        "card_max": 1,
-                        "children": [
-                            {
-                                "name": "Cayenne",
-                                "abstract": false,
-                                "relations": [],
-                                "attributes": []
-                            },
-                            {
-                                "name": "Jalapino",
-                                "abstract": false,
-                                "relations": [],
-                                "attributes": []
-                            }
-                        ]
-                    }
-                ],
-                "attributes": [],
-                "children": [
-                    {
-                        "name": "Cayenne",
-                        "abstract": false,
-                        "relations": [],
-                        "attributes": []
-                    },
-                    {
-                        "name": "Jalapino",
-                        "abstract": false,
-                        "relations": [],
-                        "attributes": []
-                    }
-                ]
-            }
-        ]
+        "attributes": []
     },
     "constraints": [
         {

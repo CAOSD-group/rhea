@@ -104,15 +104,6 @@ def _get_tree_info(feature: Feature) -> dict[str, Any]:
 
     # Attributes
     feature_info['attributes'] = _get_attributes_info(feature.get_attributes())
-
-    #children_info = [_get_tree_info(child) for child in feature.get_children()]
-    children_info = []
-    for child in feature.get_children():
-        child_info = _get_tree_info(child)
-        if child_info not in children_info:
-            children_info.append(child_info)
-    if children_info:
-        feature_info['children'] = children_info
     return feature_info
 
 

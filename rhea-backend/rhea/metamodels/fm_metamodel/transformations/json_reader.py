@@ -46,13 +46,11 @@ class JSONReader(TextToModel):
 def parse_tree(parent: Feature, feature_node: dict[str, Any]) -> Feature:
     """Parse the tree structure and returns the root feature."""
     feature_name = feature_node['name']
-    feature_type = feature_node['type']
     is_abstract = feature_node['abstract']
     feature = Feature(name=feature_name, parent=parent, is_abstract=is_abstract)
 
     # Attributes
     if 'attributes' in feature_node:
-        attributes = []
         for attribute in feature_node['attributes']:
             attribute_name = attribute['name']
             if 'value' in attribute:
@@ -63,34 +61,28 @@ def parse_tree(parent: Feature, feature_node: dict[str, Any]) -> Feature:
             attr.set_parent(feature)
             feature.add_attribute(attr)
 
-    if 'children' in feature_node:
-        children = []
-        for child in feature_node['children']:
-            child_feature = parse_tree(feature, child)
-            optional = child['optional']
-            if feature_type == JSONFeatureType.FEATURE.value:  # simple feature (not group)
-                card_min = 0 if optional else 1
-                relation = Relation(feature, [child_feature], card_min, 1)
-                feature.add_relation(relation)
-            elif not optional:
-                # Additional relation because Glencoe supports mandatory features in groups
-                relation = Relation(feature, [child_feature], 1, 1)
-                feature.add_relation(relation)
+    if 'relations' in feature_node:
+        for relation in feature_node['relations']:
+            children = []
+            for child in relation['children']:
+                child_feature = parse_tree(feature, child)
                 children.append(child_feature)
-            else:
-                children.append(child_feature)
-        if feature_type != JSONFeatureType.FEATURE.value:  # group
-            if feature_type == JSONFeatureType.XOR.value:
-                relation = Relation(feature, children, 1, 1)
-            elif feature_type == JSONFeatureType.OR.value:
-                relation = Relation(feature, children, 1, len(children))
-            elif feature_type == JSONFeatureType.MUTEX.value:
-                relation = Relation(feature, children, 0, 1)
-            elif feature_type == JSONFeatureType.CARDINALITY.value:  # Group Cardinality
-                card_min = feature_node['card_min']
-                card_max = feature_node['card_max']
-                relation = Relation(feature, children, card_min, card_max)
-            feature.add_relation(relation)
+            relation_type = relation['type']
+            if relation_type == JSONFeatureType.OPTIONAL.value:
+                new_relation = Relation(feature, children, 0, 1)
+            elif relation_type == JSONFeatureType.MANDATORY.value:
+                new_relation = Relation(feature, children, 1, 1)
+            elif relation_type == JSONFeatureType.XOR.value:
+                new_relation = Relation(feature, children, 1, 1)
+            elif relation_type == JSONFeatureType.OR.value:
+                new_relation = Relation(feature, children, 1, len(children))
+            elif relation_type == JSONFeatureType.MUTEX.value:
+                new_relation = Relation(feature, children, 0, 1)
+            elif relation_type == JSONFeatureType.CARDINALITY.value:  # Group Cardinality
+                card_min = relation['card_min']
+                card_max = relation['card_max']
+                new_relation = Relation(feature, children, card_min, card_max)
+            feature.add_relation(new_relation)
     return feature
 
 
