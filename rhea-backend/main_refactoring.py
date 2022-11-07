@@ -113,7 +113,6 @@ def main():
     print(f'Applying the refactoring {REFACTORING_COMPLEX.get_name()}...')
     print(f'  |-> refactorings: {len(REFACTORING_COMPLEX.get_instances(fm))}')
     fm = apply_refactoring(fm, REFACTORING_COMPLEX)
-    UVLWriter(fm, "Pizzas_complex1.uvl").transform()
     print(f'Applying the refactoring {REFACTORING_REQUIRES.get_name()}...')
     print(f'  |-> refactorings: {len(REFACTORING_REQUIRES.get_instances(fm))}')
     fm = apply_refactoring(fm, REFACTORING_REQUIRES)
