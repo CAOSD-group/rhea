@@ -291,7 +291,7 @@ def eliminate_requires(fm: FeatureModel, requires_ctc: Constraint) -> FeatureMod
         for tree in subtrees:
             #tree_copy = FeatureModel(copy.deepcopy(tree.root))
             #tree_copy = FeatureModel(pickle.loads(original_tree))
-            trees_plusB.append(pool.apply_async(transform_tree, ([commitment_feature], tree, [feature_name_b], True)))
+            trees_plusB.append(pool.apply_async(transform_tree, ([commitment_feature], tree, [feature_name_b], False)))
             #trees_plusB.append(pool.apply_async(construct_plusB, (tree, feature_name_b)))
         # Construct T(-A-B)
         for tree in subtrees:
@@ -349,7 +349,7 @@ def eliminate_excludes(fm: FeatureModel, excludes_ctc: Constraint) -> FeatureMod
     with multiprocessing.Pool() as pool: 
         # Construct T(-B)
         for tree in subtrees:
-           trees_lessB.append(pool.apply_async(transform_tree, ([deletion_feature], tree, [feature_name_b], True)))
+           trees_lessB.append(pool.apply_async(transform_tree, ([deletion_feature], tree, [feature_name_b], False)))
            #trees_lessB.append(pool.apply_async(construct_lessB, (tree, feature_name_b)))
         # Construct T(-A+B)
         for tree in subtrees:
