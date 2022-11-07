@@ -22,6 +22,8 @@ class JSONFeatureType(Enum):
     OR = 'OR'
     MUTEX = 'MUTEX'
     CARDINALITY = 'CARDINALITY'
+    OPTIONAL = 'OPTIONAL'
+    MANDATORY = 'MANDATORY'
 
 
 class JSONWriter(ModelToText):
@@ -71,23 +73,34 @@ def _to_json(feature_model: FeatureModel) -> dict[str, Any]:
 def _get_tree_info(feature: Feature) -> dict[str, Any]:
     feature_info = {}
     feature_info['name'] = feature.name
-    feature_type = JSONFeatureType.FEATURE.value
-    if feature.is_alternative_group():
-        feature_type = JSONFeatureType.XOR.value
-    elif feature.is_or_group():
-        feature_type = JSONFeatureType.OR.value
-    elif feature.is_mutex_group():
-        feature_type = JSONFeatureType.MUTEX.value
-    elif feature.is_cardinality_group():
-        feature_type = JSONFeatureType.CARDINALITY.value
-    if feature_type != JSONFeatureType.FEATURE.value:
-        relation = next((r for r in feature.get_relations()), None)
-        feature_info['card_min'] = relation.card_min
-        feature_info['card_max'] = relation.card_max
-
-    feature_info['type'] = feature_type
-    feature_info['optional'] = not feature.is_mandatory()
     feature_info['abstract'] = feature.is_abstract
+
+    relations = []
+    for relation in feature.get_relations():
+        relation_info = {}
+        relation_type = JSONFeatureType.FEATURE.value
+        if relation.is_alternative():
+            relation_type = JSONFeatureType.XOR.value
+        elif relation.is_or():
+            relation_type = JSONFeatureType.OR.value
+        elif relation.is_mutex():
+            relation_type = JSONFeatureType.MUTEX.value
+        elif relation.is_cardinal():
+            relation_type = JSONFeatureType.CARDINALITY.value
+        elif relation.is_mandatory():
+            relation_type = JSONFeatureType.MANDATORY.value
+        elif relation.is_optional():
+            relation_type = JSONFeatureType.OPTIONAL.value
+        relation_info['type'] = relation_type
+        relation_info['card_min'] = relation.card_min
+        relation_info['card_max'] = relation.card_max
+        children = []
+        for child in relation.children:
+            children.append(_get_tree_info(child))
+        relation_info['children'] = children
+        relations.append(relation_info)
+
+    feature_info['relations'] = relations
 
     # Attributes
     feature_info['attributes'] = _get_attributes_info(feature.get_attributes())

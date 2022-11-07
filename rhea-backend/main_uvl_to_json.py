@@ -5,10 +5,10 @@ from flamapy.metamodels.pysat_metamodel.transformations import FmToPysat
 
 from rhea.metamodels.fm_metamodel.transformations import JSONWriter
 from rhea.refactorings import CardinalityGroupRefactoring
+from rhea.fm_tools import fm_tool_info
 
 
 FM_NAME = 'Pizzas_completo_new'
-#FM_NAME = 'rhea/rhea-backend/Pizzas_completo'
 
 if __name__ == '__main__':
     fm = UVLReader(FM_NAME+'.uvl').transform()
