@@ -31,7 +31,7 @@
 
         <div class="margin" ></div>
         <div  class={{HiddenRefacfeature(node)[1]}} matTooltip={{ToolTip(node)}} >
-          {{node.name}}
+          {{node.name}}{{node.type}}
         </div>     
          <button mat-icon-button [matMenuTriggerFor]="menu" (click)="select(node)" >
             <mat-icon class="mat-icon-rtl-mirror">

@@ -1,162 +1,108 @@
 import { Component } from '@angular/core'
-import { Refactoring } from '../refactor/refactoring';
 
 
 
 
-let Newchildren:Array<FMTree>;
 let aux :any=0 
-let MyTree  :Array<FMTree> =[]
+let MyTree :Array<FMTree> =[]
 let nlist:Array<string> =[]
+
 @Component({
     selector: 'FMTree',
     templateUrl: './FMTree.html',
 })
 
  export class FMTree  {
-    name:string ="";
-    card_min?:number;
-    card_max?:number;
-    type:string ="";
-    optional:boolean =false;
-    abstract:boolean =false;
+    name?:string
+    abstract?:boolean ;
     attributes?:Array<any>
-    children:Array<FMTree> =[];
+    relations?:Array<FMTree> 
+    type?:string
+    card_max?:number
+    card_min?:number
+    children?:Array<FMTree>
     constructor() {}
 
     Delete(list:FMTree){
-        if(list!=undefined){
-        if(list.children!=undefined){
-        list.children=list.children.filter(x=>x!=this )
-        }}
-        if(this.children!=undefined){
-            this.children.forEach(element => {
-                element.Delete(this)
-            });
-        }
+        if(this.name!=undefined){
         aux=nlist.indexOf(this.name)
-        nlist.splice(aux,1)
+        nlist.splice(aux,1)}
         this.name=""
         this.abstract=false;
-        this.optional=false;
-        this.type="";
         this.attributes=[]
+        this.relations=[];
+        this.type=""
+        this.card_max=-1
+        this.card_min=-1
         this.children=[];
-        this.card_max=-1;
-        this.card_min=-1;
         return nlist
     }
 
     DeleteList(){nlist.splice(0,nlist.length)}
+
     ListOfNames(){return nlist}
+
     ListOfNamesModified(newname:string,oldname:string){
         aux=nlist.indexOf(oldname)
         if(newname==""){nlist.splice(aux,1)}
         else{
         nlist[aux]=newname}
         return nlist}
+
     ExpandList(name:string){
         nlist.push(name)
         return nlist
     }
 
-    CreateNewFMTree(value: any){            
-        aux=new FMTree()
-        aux.name=value.name;
-        aux.abstract=value.abstract;
-        aux.optional=value.optional;
-        aux.type=value.type;
-        if(value.card_max!=undefined){aux.card_max=value.card_max}
-        if(value.card_min!=undefined){aux.card_min=value.card_min}
-        if(value.attributes!=undefined &&value.attributes.length>0){aux.attributes=value.attributes}
-        aux.children=[]
-        if(value.children!=undefined ){
-        Newchildren=value.children}
-        if(value.children==undefined || value.children.length==0){
-        Newchildren=[] }
+    CreateNewFMTree(value: any){         
+        let actualtree=new FMTree()
+        actualtree.name=value.name;
+        actualtree.abstract=value.abstract;
+        if(value.attributes!=undefined &&value.attributes.length>0){actualtree.attributes=value.attributes}
+        actualtree.children=[]
         nlist.push(value.name)
-        MyTree[MyTree.length]=aux
-        if(value.children!=undefined){
-        if(value.children.length>0){
+        if(value.relations!=undefined){
+        if(value.relations.length>0){
             aux=0
-            value.children.forEach(element => {
-                this.CreateNewFMTree(element);
+            value.relations.forEach(element => {
+                if(actualtree.children!=undefined){
+                actualtree.children.push(this.CreateRelation(element))}
             });
+            actualtree.relations=actualtree.children
         }}
-        return MyTree
+        return actualtree
     }
 
-
-    IncorporateChildren(value: any ,father?:any, control?:boolean){ 
-        if(value.children!=undefined){  
-        value.children.forEach(element => {
-            if(control==undefined){
-                MyTree.forEach(rama=> {
-                if(rama.name==value.name){
-                    this.CreateNewChildren(element)
-                    rama.children.push(aux)
-                    this.IncorporateChildren(element,rama,true)
-                } })}
-            if(control){
-                father.children.forEach(rama=> {
-                    if(rama.name==value.name){
-                        this.CreateNewChildren(element)
-                        rama.children.push(aux)
-                        this.IncorporateChildren(element,rama,true)
-                    } 
-                    }) 
-            }
-        });}
-        return MyTree[0]
-    }
-
-
-
-    CleanFMTree(list?:Array<FMTree>){
-        
-        if(list==undefined){list=MyTree}
-        list=list.filter(x=> x instanceof FMTree)
-        list.forEach(element => {
-            if(element.children!=undefined){
-                element.children=this.CleanFMTree(element.children)}
-        });
-        return list
-    }
-    AvoidDuplicates(duplicated:string,list?:Array<FMTree>){
-        if(list==undefined){
-            aux=false
-            list=MyTree
+    CreateRelation(a:any){
+        let actualRelation=new FMTree()
+        actualRelation.type=a.type;
+        actualRelation.card_max=a.card_max;
+        actualRelation.card_min=a.card_min;
+        actualRelation.children=[]
+        if(a.children.length>0){
+            a.children.forEach(feature=> {
+                if(actualRelation.children!=undefined){
+                actualRelation.children.push(this.CreateNewFMTree(feature))}
+            });
         }
-        list.forEach(element => {
-            if(element.name==duplicated){aux=true}
-            else{
-            if(element.children!=undefined){
-            this.AvoidDuplicates(duplicated,element.children)}}
-        });
-        return aux
+        return actualRelation
     }
-   
-  
-    CreateNewChildren(value:any){  
-        let children
-        children=new FMTree()
-        children.name=value.name;
-        children.abstract=value.abstract;
-        children.optional=value.optional;
-        if(value.card_max!=undefined){children.card_max=value.card_max}
-        if(value.card_min!=undefined){children.card_min=value.card_min}
-        if(value.attributes!=undefined && value.attributes.length>0){children.attributes=value.attributes}
-        children.type=value.type;
-        children.children=[]
-        aux=children
-    }
-    CreateDefault(name:string){  
-        aux=new FMTree()
-        aux.name=name
-        aux.abstract=false;
-        aux.optional=true
-        aux.type="FEATURE"
-        aux.children=[]
-        return aux
+    Relations(object:FMTree){
+        if(object.type==undefined){
+            object.relations=object.children
+            object.children=undefined
+            if(object.relations!=undefined){
+            object.relations.forEach(element => {
+                element=this.Relations(element)
+            });}
+        }
+        else{
+            if(object.children!=undefined){
+                object.children.forEach(element => {
+                    element=this.Relations(element)
+                });}
+
+        }
+        return object
     }
 }

@@ -54,24 +54,6 @@ var refactor:Refactoring =new Refactoring()
     let text2=""
   
     if(this.GetFather(nodechild,this.tree)==undefined){symbol="../assets/img/featuretree.ico";text="root"}
-    else{
-      if(nodechild.type.toUpperCase().startsWith("FEATURE")){
-        if(nodechild.optional){ symbol="../assets/img/optional.gif";text="optional"}
-        else{symbol="../assets/img/mandatory.gif";text="mandatory"}
-        return [symbol,text]
-      }
-      else{
-      if(nodechild.type=="OR"){symbol="../assets/img/or.gif";text="or <1..*>"}
-      if(nodechild.type=="XOR"){symbol="../assets/img/xor.gif";text="xor <1..1>"}
-      if(nodechild.type=="MUTEX"){symbol="../assets/img/mutex.gif";text="mutex  <0..1>"}
-      if(nodechild.type=="CARDINALITY"){symbol="../assets/img/cardinality.gif";text="cardinality " +nodechild.card_min+".."+nodechild.card_max}
-      if(text=="" && symbol==""){symbol="../assets/img/icon_error.gif";text="error"}
-  
-      if(nodechild.optional){ symbol2="../assets/img/optional.gif";text2="optional"}
-        else{symbol2="../assets/img/mandatory.gif";text2="mandatory"}
-      return [symbol,text,symbol2,text2]
-    }
-    }
     return [symbol,text]
   }
 
@@ -79,6 +61,7 @@ var refactor:Refactoring =new Refactoring()
   let hiddensymbolfeature=false
   let color=""
   this.ListOfRefactors.forEach(element => {
+    if(node.name!=undefined){
     if(element.instances.includes(node.name)){
       if(this.show_refacts_features_only){
       hiddensymbolfeature=true
@@ -86,7 +69,7 @@ var refactor:Refactoring =new Refactoring()
         color='refactorColor'
       } 
     }
-    }
+    }}
   });
   return [hiddensymbolfeature,color]
   }
@@ -108,12 +91,8 @@ var refactor:Refactoring =new Refactoring()
 
   select(node:any){
     this.actual=node
-    this.name=this.actual.name
-    this.type=this.actual.type
-    this.optional=this.actual.optional
-    this.abstract=this.actual.abstract
-    this.card_max=this.actual.card_max||1
-    this.card_min=this.actual.card_min||0
+    if(this.actual.name!=undefined){this.name=this.actual.name}
+    if(this.actual.abstract!=undefined){this.abstract=this.actual.abstract}
     this.attributes=this.actual.attributes||[]
     this.actualfather=this.GetFather(this.actual,this.tree)
     console.log(this.actual)
@@ -128,17 +107,20 @@ var refactor:Refactoring =new Refactoring()
     let text
     let bool=false
     this.ListOfRefactors.forEach(element => {
+      if(nodetooltiprefa.name!=undefined){
       if(element.instances.includes(nodetooltiprefa.name)){
       text="Refactoring: "+element.name
       bool=true
-      }
+      }}
     });
   return [bool,text]
   }
 
   RefactorvisibleFeature(ref:Refactoring){
     if(this.actual!=undefined){
+      if(this.actual.name!=undefined){
       if(ref.instances.includes(this.actual.name)){return false}
+    else return(true)}
       else{return true}}
       else{return true}
   }

@@ -1,3 +1,12 @@
+<!--?php
+// Incluimos el fichero para la conexion
+include 'DBController.php';
+$db_handle = new DBController();
+$CategoryResult = $db_handle->runQuery("SELECT Name FROM rhea");
+?>-->
+
+
+
 <div class="card">
     <h4 class="title">Feature Models Repository</h4>
     <div style="margin: 40px; margin-top: -80px;">

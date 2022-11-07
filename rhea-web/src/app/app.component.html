@@ -245,7 +245,7 @@
         <div class="col-10">
           <h4>Name
           <input  type="string" [(ngModel)]="name"></h4>
-          <h4 [hidden]="!checkNameFeature()[0]" class="gray"> name already in use</h4>
+          <h4  class="gray"> </h4>
           <hr>
           <h4>Type:
             {{type}}
@@ -282,9 +282,7 @@
             </button>
           </div>
           <hr>
-          <h4 [hidden]="checkNameFeature()[1]" >Save Changes</h4>
-          <h4 [hidden]="!checkNameFeature()[1]" >Not possible to Update</h4>
-          <button (click)="ModifySelecction()"[disabled]="checkNameFeature()[1]"  data-bs-toggle="modal" href="#loading" class="buttonmodal">update</button>
+          <button (click)="ModifySelecction()"  data-bs-toggle="modal" href="#loading" class="buttonmodal">update</button>
 				</div>
 			</div>
 			<div class="modal-footer">

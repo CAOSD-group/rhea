@@ -8,10 +8,8 @@ import{Data} from './components/Repository/Repository';
 import * as saveAs from 'file-saver';
 import { Refactoring } from './components/refactor/refactoring';
 import { Language } from './components/Language/Language';
-import { Cons } from 'rxjs';
-import { ThisReceiver } from '@angular/compiler';
 import { Semantics } from './components/Semantics/Semantics';
-import { event } from 'jquery';
+
 
 
 var aux:any;
@@ -97,9 +95,9 @@ export class AppComponent {
 
 
   mainhidden=true
-  windowFM_Editor=false
+  windowFM_Editor=true
   windowAbout=false
-  windowRepository=true
+  windowRepository=false
 
   updatable=false
   page=0;
@@ -232,7 +230,7 @@ CreateData(object:any,name?:string){
   this.item=name||"";
   aux=JSON.parse(aux)
   this.title=aux.name
-  console.log(this.title)
+  console.log(this.title) 
   jsonfeatures=aux.features,
   jsonconstraint=aux.constraints
   jsonrefactors=aux.refactorings
@@ -315,19 +313,7 @@ this.loadingmodal=false
   else{
     this.loglist.unshift(this.actual.name+" was modify ")
   }
-  this.actual.name=this.name
-  if(this.actual.children==undefined){}
-  if(this.actual.children!=undefined){
-  if(this.actual.children.length<2){
-  }
-  else{
-  this.actual.type=this.type
-  if(this.actual.type=="CARDINALITY"){
-  this.actual.card_max=this.card_max
-  this.actual.card_min=this.card_min
-  }
-}}
-this.actual.optional=this.optional
+this.actual.name=this.name
 this.actual.abstract=this.abstract
 this.actual.attributes=this.attributes
 this.namesFeatures=this.tree[0].ListOfNamesModified(this.actual.name,aux)
@@ -345,8 +331,7 @@ catch{
 DeleteNode(){
   this.loadingmodal=false
   this.actualfather=this.GetFather(this.actual,this.tree)
-  if(this.actual.children.length>0){this.loglist.unshift(this.actual.name+" and its childrens were deleted")}
-  else{this.loglist.unshift(this.actual.name+" was deleted")}
+  this.loglist.unshift(this.actual.name+" was deleted")
   
   this.namesFeatures=this.actual.Delete(this.actualfather)
   let count =0
@@ -388,49 +373,30 @@ checkedconst(cons:Const,consInitial:Const){
 }
     
 }
-checkNameFeature(){
-  if(this.actual!=undefined){
-    let bol
-    bol=this.actual.AvoidDuplicates(this.name)&& (this.name!=this.actual.name)
-    this.updatable=bol
-  return [bol,this.updatable] }
-  return [false,this.updatable]
-}
+
 CreateChildren(){
   this.loadingmodal=false
-  if(this.actual.AvoidDuplicates(this.name)){
-    console.log("this name is already in use")
-  }
-  else{
-  if(this.actual.children==undefined){this.actual.children=[]}
-  this.actual.children.push(this.actual.CreateDefault(this.name))
   console.log(this.name)
   this.loglist.unshift(this.actual.name+" insert "+this.name+" as a child ")
   this.tree[0].ExpandList(this.name)
   try{
     this.sendUpdate()}
   catch{}
-  }
     this.loadingmodal=true
 }
 CreateBrother(){
   this.loadingmodal=false
-  if(this.actual.AvoidDuplicates(this.name)){
-    console.log("this name is already in use")
-  }
-  else{
   if(this.actualfather==undefined){
     console.log("You are trying to create a new root")
   }
   else{
-  this.actualfather.children.push(this.actual.CreateDefault(this.name))
   this.loglist.unshift(this.actual.name+" create "+this.name+" as a brother ")
   this.tree[0].ExpandList(this.name)
 
   try{
     this.sendUpdate()}
   catch{}
-  }}
+  }
   this.loadingmodal=true
 }
 
@@ -466,11 +432,8 @@ CreateFMTree(){
   this.tree.splice(0,this.tree.length)
   this.tree=[new FMTree()]
   this.tree[0].DeleteList();
-  this.tree=this.tree[0].CreateNewFMTree(jsonfeatures)
+  this.tree[0]=this.tree[0].CreateNewFMTree(jsonfeatures)
   this.namesFeatures=this.tree[0].ListOfNames();
-  this.tree[0]=this.tree[0].IncorporateChildren(jsonfeatures);
-  this.tree.splice(1,this.tree.length)
-  this.tree[0].CleanFMTree()
   console.log(this.tree)
   this.dataSource.data=this.tree
 }
@@ -485,7 +448,6 @@ listOfContraint(text:string){
 }
 CreateRefactor(){
   console.log("create Refactor")
-  console.log(refactor)
   refactor.DeleteList()
   this.ListOfRefactors=refactor.Create(jsonrefactors);
   console.log(this.ListOfRefactors)
@@ -567,15 +529,11 @@ readThis(inputValue: any): void {
   }
   select(object:any){
     this.actual=object
-    this.name=this.actual.name
-    this.type=this.actual.type
-    this.optional=this.actual.optional
-    this.abstract=this.actual.abstract
-    this.card_max=this.actual.card_max||1
-    this.card_min=this.actual.card_min||0
+    if(this.actual.name!=undefined){this.name=this.actual.name}
+    if(this.actual.abstract!=undefined){this.abstract=this.actual.abstract}
     this.attributes=this.actual.attributes||[]
     this.actualfather=this.GetFather(this.actual,this.tree)
-    console.log(this.actual)
+
   }
 
 
@@ -792,29 +750,6 @@ HiddenRefacCons(type:string){
   });  
   return [hiddensymbol,color]
 }
-HiddenRefacfeature(node:FMTree){
-  let hiddensymbolfeature=false
-  let color=""
-  this.ListOfRefactors.forEach(element => {
-    if(element.instances.includes(node.name)){
-      if(this.show_refacts_features_only){
-      hiddensymbolfeature=true
-      if(this.show_refacts_features_only){
-        color='refactorColor'
-      } 
-    }
-    }
-  });
-  if(node.abstract){
-    if(color==""){
-      color='cursive'
-    }
-    else{
-      color='refactorColorcursive'
-    }
-  }
-  return [hiddensymbolfeature,color]
-}
 
 
 GetFather(nodechild:FMTree,list:any){
@@ -849,17 +784,7 @@ if(nodetooltip.attributes!=undefined&&nodetooltip.attributes.length>0){
 }
 return text
 }
-ToolTipRefa(nodetooltiprefa:FMTree){
-  let text
-  let bool=false
-  this.ListOfRefactors.forEach(element => {
-    if(element.instances.includes(nodetooltiprefa.name)){
-    text="Refactoring: "+element.name
-    bool=true
-    }
-  });
-return [bool,text]
-}
+
 
 
 
@@ -871,22 +796,7 @@ SymbolPerType(nodechild:FMTree){
 
   if(this.GetFather(nodechild,this.tree)==undefined){symbol="../assets/img/featuretree.ico";text="root"}
   else{
-    if(nodechild.type.toUpperCase().startsWith("FEATURE")){
-      if(nodechild.optional){ symbol="../assets/img/optional.gif";text="optional"}
-      else{symbol="../assets/img/mandatory.gif";text="mandatory"}
-      return [symbol,text]
-    }
-    else{
-    if(nodechild.type=="OR"){symbol="../assets/img/or.gif";text="or <1..*>"}
-    if(nodechild.type=="XOR"){symbol="../assets/img/xor.gif";text="xor <1..1>"}
-    if(nodechild.type=="MUTEX"){symbol="../assets/img/mutex.gif";text="mutex  <0..1>"}
-    if(nodechild.type=="CARDINALITY"){symbol="../assets/img/cardinality.gif";text="cardinality " +nodechild.card_min+".."+nodechild.card_max}
-    if(text=="" && symbol==""){symbol="../assets/img/icon_error.gif";text="error"}
 
-    if(nodechild.optional){ symbol2="../assets/img/optional.gif";text2="optional"}
-      else{symbol2="../assets/img/mandatory.gif";text2="mandatory"}
-    return [symbol,text,symbol2,text2]
-  }
   }
   return [symbol,text]
 }
@@ -1040,27 +950,14 @@ AutocompleteFeatureTermChip(name:string){
 }
 
 
-
-
-
-RefactorvisibleFeature(ref:Refactoring){
-  if(this.actual!=undefined){
-  if(ref.instances.includes(this.actual.name)){return false}
-  else{return true}}
-  else{return true}
-}
-RefactorvisibleCons(ref:Refactoring){
-  if(this.consactual!=undefined){
-  if(ref.instances.includes(this.listnamesconstraints[this.npos])){return false}
-  else{return true}}
-  else{return true}
-}
-
 TransformJSON(){
   aux=this.consactual.createListForFile(this.cons,this.typesofconsTerm)
-  jsonfeatures=JSON.stringify(this.tree[0], (key, value) => {
-      if(value!==null) return value  
-  })
+  /*jsonfeatures=JSON.stringify(this.tree[0], (key, value) => {
+      if(value!==undefined && value!==null) return value  
+  })*/
+  this.tree[0]=this.tree[0].Relations(this.tree[0])
+  aux=JSON.stringify(this.tree)
+  jsonfeatures=aux.slice(1,-1)
   aux=0
   while( aux<this.cons.length){
     
@@ -1123,31 +1020,6 @@ TransformJSON(){
   console.log(json)
 }
 
-
-
-updatevalues(){
-  aux=this.consactual.createListForFile(this.cons,this.typesofconsTerm)
-  jsonfeatures=JSON.stringify(this.tree[0], (key, value) => {
-      if(value!==null) return value  })
-  aux=0
-  while( aux<this.cons.length){
-     listnamestext[aux]=JSON.stringify(this.cons[aux], (key, value) => {
-    if(value!==null) return value})
-  aux++
-  }
-  jsonfeatures= '"name"'+':"'+this.title+'",'+'"features"'+':'+ jsonfeatures
-  aux=0
-  aux2=""
-  while (aux<listnamestext.length){
-    aux2=aux2+'{"name":"","expr":"","ast":'+listnamestext[aux]+'},'
-    aux++
-  }
-  aux2=aux2.slice(0,aux2.length-1)
-  aux2='"constraints": ['+aux2+']'
-  json='{'+jsonfeatures+','+aux2+'}'
-  console.log(json)
-  this.cons=this.consactual.createListForTree(this.cons)
-}
 
 SaveFile(language:string){
   console.log(language)
