@@ -1,6 +1,8 @@
 import { Component, ViewChild ,Input,Output,EventEmitter} from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import {MatSort} from '@angular/material/sort';
+import {SelectionModel} from '@angular/cdk/collections';
+
 
 
 
@@ -12,6 +14,7 @@ import {MatSort} from '@angular/material/sort';
   })
   export class Repository {
 
+  selection = new SelectionModel<Data>(true, []);
   @Output() newItemEventopendModal = new EventEmitter<Data>(); 
   @Input() myArticle=new Data('','','',0,'',"",'',0,0,'','');
   columns: string[] = [       
@@ -27,6 +30,7 @@ import {MatSort} from '@angular/material/sort';
     "nConfigs",
     "Rating",
     "Format",
+    "Select"
   ]
 
   data: Data[] = [
@@ -36,7 +40,7 @@ import {MatSort} from '@angular/material/sort';
   
   ];
 
-  dataSource:any; 
+  dataSource:MatTableDataSource<Data>=new MatTableDataSource<Data>
   
     @ViewChild(MatSort, {static: true}) sort!: MatSort;
   
@@ -47,6 +51,8 @@ import {MatSort} from '@angular/material/sort';
     filter(event: Event) {
       const filtro = (event.target as HTMLInputElement).value;
       this.dataSource.filter = filtro.trim().toLowerCase();
+      console.log(this.dataSource.data)
+      console.log(this.dataSource)
     } 
     modal(Article:Data){
       this.newItemEventopendModal.emit(Article);
@@ -56,6 +62,28 @@ import {MatSort} from '@angular/material/sort';
       if(Article.Ref!=undefined){
       window.open(Article.Ref);}
     }
+
+    toggleAllRows() {
+      if (this.isAllSelected()) {
+        this.selection.clear();
+        return;
+      }
+      this.dataSource.data.forEach(element => {
+        if(this.dataSource.filteredData.indexOf(element)!=-1){
+          this.selection.select(element)
+        }
+      });
+    }
+
+    isAllSelected() {
+      if(this.dataSource.filteredData.length<=this.selection.selected.length){
+        return true
+      }
+      else{
+        return false
+      }
+    }
+
   }
   
   export class Data {

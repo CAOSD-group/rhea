@@ -1,5 +1,6 @@
-  
-  
+  #mycheckbox{
+    accent-color: #012970;
+  }
   .table{
     background-color: #012970;
   }
@@ -33,6 +34,7 @@
     width: 150px;
     padding: 2px 2px 2px 5px;
   }
+ 
   
   .example-viewport {
     height: 350px;

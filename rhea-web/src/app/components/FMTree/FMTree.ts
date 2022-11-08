@@ -24,9 +24,20 @@ let nlist:Array<string> =[]
     constructor() {}
 
     Delete(list:FMTree){
+        if(this.children!=undefined){
+            if(this.children.length>0){
+                this.children.forEach(element => {
+                    element.Delete(this)
+                    console.log("1")
+                });
+            }
+        }
         if(this.name!=undefined){
         aux=nlist.indexOf(this.name)
-        nlist.splice(aux,1)}
+        nlist.splice(aux,1)
+        list.children=list.children?.filter(x=> x!=this)}
+        if(this.type!=undefined){
+        list.children=list.children?.filter(x=> x!=this)}
         this.name=""
         this.abstract=false;
         this.attributes=[]
@@ -68,7 +79,6 @@ let nlist:Array<string> =[]
                 if(actualtree.children!=undefined){
                 actualtree.children.push(this.CreateRelation(element))}
             });
-            actualtree.relations=actualtree.children
         }}
         return actualtree
     }

@@ -37,7 +37,6 @@ export class AppComponent {
 
   urldownload="http://127.0.0.1:5000/downloadFM"  
   urlupload="http://127.0.0.1:5000/uploadFM"  
-  urldownload2="http://127.0.0.1:5000/downloadFM2" 
   urldelete="http://127.0.0.1:5000deleteFM" 
   urlcreate="http://127.0.0.1:5000createFM" 
   urlrefactor="http://127.0.0.1:5000/refactor" 
@@ -95,9 +94,9 @@ export class AppComponent {
 
 
   mainhidden=true
-  windowFM_Editor=true
+  windowFM_Editor=false
   windowAbout=false
-  windowRepository=false
+  windowRepository=true
 
   updatable=false
   page=0;
@@ -334,6 +333,7 @@ DeleteNode(){
   this.loglist.unshift(this.actual.name+" was deleted")
   
   this.namesFeatures=this.actual.Delete(this.actualfather)
+  console.log(this.namesFeatures)
   let count =0
   console.log(this.namesFeatures)
   while(count<jsonconstraint.length){
@@ -373,12 +373,38 @@ checkedconst(cons:Const,consInitial:Const){
 }
     
 }
+isFeature(){
+  if(this.actual!=undefined){
+  if(this.actual.name!=undefined){
+    return true
+  }
+  else{
+    return false
+  }
+  
+}else{return true}
+}
 
 CreateChildren(){
   this.loadingmodal=false
-  console.log(this.name)
   this.loglist.unshift(this.actual.name+" insert "+this.name+" as a child ")
-  this.tree[0].ExpandList(this.name)
+  if(this.actual.children==undefined){this.actual.children=[]}
+  if(this.isFeature()){
+  let relations = new FMTree()
+  relations.type=this.type
+  relations.card_max=1;
+  relations.card_min=0;
+  relations.children=[]
+  this.actual.children.push(relations)
+  }
+  else{
+    let feature = new FMTree()
+    feature.name=this.name
+    feature.abstract=false;
+    feature.children=[]
+    this.actual.children.push(feature)
+    this.tree[0].ExpandList(this.name)
+  }
   try{
     this.sendUpdate()}
   catch{}
@@ -389,10 +415,24 @@ CreateBrother(){
   if(this.actualfather==undefined){
     console.log("You are trying to create a new root")
   }
-  else{
+  if(this.actualfather.children!=undefined){
   this.loglist.unshift(this.actual.name+" create "+this.name+" as a brother ")
-  this.tree[0].ExpandList(this.name)
-
+  if(!this.isFeature()){
+    let relations = new FMTree()
+    relations.type=this.type
+    relations.card_max=1;
+    relations.card_min=0;
+    relations.children=[]
+    this.actualfather.children.push(relations)
+    }
+    else{
+      let feature = new FMTree()
+      feature.name=this.name
+      feature.abstract=false;
+      feature.children=[]
+      this.actualfather.children.push(feature)
+      this.tree[0].ExpandList(this.name)
+    }
   try{
     this.sendUpdate()}
   catch{}
@@ -529,10 +569,22 @@ readThis(inputValue: any): void {
   }
   select(object:any){
     this.actual=object
+    this.name=""
+    this.abstract=false
+
+    this.type=""
+    this.card_max=-1
+    this.card_min=-1
+
     if(this.actual.name!=undefined){this.name=this.actual.name}
     if(this.actual.abstract!=undefined){this.abstract=this.actual.abstract}
+
+    if(this.actual.type!=undefined){this.type=this.actual.type}
+    if(this.actual.card_max!=undefined){this.card_max=this.actual.card_max}
+    if(this.actual.card_min!=undefined){this.card_min=this.actual.card_min}
     this.attributes=this.actual.attributes||[]
     this.actualfather=this.GetFather(this.actual,this.tree)
+    console.log(this.actualfather)
 
   }
 

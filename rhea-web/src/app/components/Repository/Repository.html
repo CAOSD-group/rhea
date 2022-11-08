@@ -82,6 +82,19 @@ $CategoryResult = $db_handle->runQuery("SELECT Name FROM rhea");
                     <th mat-header-cell *matHeaderCellDef mat-sort-header> Format </th>
                     <td mat-cell *matCellDef="let articulo"> {{articulo.Format}} </td>
                   </ng-container>
+
+                  <ng-container matColumnDef="Select">
+                    <th mat-header-cell *matHeaderCellDef>
+                      <input id="mycheckbox" type="checkbox" (change)="$event ? toggleAllRows() : null"
+                                    [checked]="selection.hasValue() && isAllSelected()"
+                                    [indeterminate]="selection.hasValue() && !isAllSelected()">
+                    </th>
+                    <td mat-cell *matCellDef="let row">
+                      <input id="mycheckbox" type="checkbox" (click)="$event.stopPropagation()"
+                                    (change)="$event ? selection.toggle(row) : null"
+                                    [checked]="selection.isSelected(row)">
+                    </td>
+                  </ng-container>
           
               <tr mat-header-row *matHeaderRowDef="columns"></tr>
               <tr mat-row *matRowDef="let row; columns: columns;"></tr>
