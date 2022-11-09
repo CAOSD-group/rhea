@@ -44,17 +44,47 @@ var refactor:Refactoring =new Refactoring()
   hasChild = (_: number, node: any) => !!node.children && node.children.length >= 0;
 
   treeHideen(node:any){
+    if(node.children!=undefined){
     if(node.children.length==0){return true}
+    else{return false}
+    }
     else{return false }
   }
+
+  
   SymbolPerType(nodechild:FMTree){
     let symbol=""
-    let text=""
     let symbol2=""
-    let text2=""
-  
-    if(this.GetFather(nodechild,this.tree)==undefined){symbol="../assets/img/featuretree.ico";text="root"}
-    return [symbol,text]
+    let symbol3=""
+    if(nodechild.type!=undefined){
+      if(nodechild.type=="MUTEX"){
+      symbol="../assets/img/mutex.gif"
+      symbol2="../assets/img/optional.gif"
+      symbol3=nodechild.card_min+".."+nodechild.card_max}
+      if(nodechild.type=="OR"){
+        symbol="../assets/img/or.gif"
+        symbol2="../assets/img/mandatory.gif"
+        symbol3=nodechild.card_min+".."+nodechild.card_max}
+      if(nodechild.type=="XOR"){
+        symbol="../assets/img/xor.gif"
+        symbol2="../assets/img/mandatory.gif"
+        symbol3=nodechild.card_min+".."+nodechild.card_max}
+      if(nodechild.type=="CARDINALITY"){
+        symbol="../assets/img/cardinality.gif"
+        if(nodechild.card_min!=undefined){
+        if(nodechild.card_min==1){symbol2="../assets/img/mandatory.gif"}
+        else{symbol2="../assets/img/optional.gif"}}
+        symbol3=nodechild.card_min+".."+nodechild.card_max
+      }
+    }
+    else{
+      if(this.GetFather(nodechild,this.tree)!=undefined){
+        if(this.GetFather(nodechild,this.tree).card_min!=undefined){
+      if(this.GetFather(nodechild,this.tree).card_min==1){symbol2="../assets/img/mandatory.gif"}
+        else{symbol2="../assets/img/optional.gif"}}}
+    }
+    if(this.GetFather(nodechild,this.tree)==undefined){symbol="../assets/img/featuretree.ico";}
+    return [symbol,symbol2,symbol3]
   }
 
   HiddenRefacfeature(node:FMTree){
@@ -89,10 +119,21 @@ var refactor:Refactoring =new Refactoring()
     return text
   }
 
-  select(node:any){
-    this.actual=node
+  select(object:any){
+    this.actual=object
+    this.name=""
+    this.abstract=false
+
+    this.type=""
+    this.card_max=-1
+    this.card_min=-1
+
     if(this.actual.name!=undefined){this.name=this.actual.name}
     if(this.actual.abstract!=undefined){this.abstract=this.actual.abstract}
+
+    if(this.actual.type!=undefined){this.type=this.actual.type}
+    if(this.actual.card_max!=undefined){this.card_max=this.actual.card_max}
+    if(this.actual.card_min!=undefined){this.card_min=this.actual.card_min}
     this.attributes=this.actual.attributes||[]
     this.actualfather=this.GetFather(this.actual,this.tree)
     console.log(this.actual)
@@ -137,8 +178,16 @@ var refactor:Refactoring =new Refactoring()
       }
     }
     });
-  
 return aux;
+}
+
+RelationFeature(node:any){
+    if(node.type=="MANDATORY" || node.type=="OPTIONAL" ){
+      if(node.children!=undefined){
+      this.treeControl.expand(node)}
+      return [true,"mytree"]}
+    
+    else{return [false,""] }
 }
 
 

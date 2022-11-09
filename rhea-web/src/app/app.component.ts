@@ -94,9 +94,9 @@ export class AppComponent {
 
 
   mainhidden=true
-  windowFM_Editor=false
+  windowFM_Editor=true
   windowAbout=false
-  windowRepository=true
+  windowRepository=false
 
   updatable=false
   page=0;
@@ -257,6 +257,7 @@ CreateData(object:any,name?:string){
   this.CreateSemantics()
   this.loadingmodal=true
   this.mainhidden=false
+  this.treeControl.toggle(this.tree[0])
 }
 showModal(){
   if(!this.loadingmodal){
@@ -300,11 +301,7 @@ checkcard_min_max(){
 
 ModifySelecction(){
 this.loadingmodal=false
-/*try{
- this.sendUpdate()}
- catch{
-  this.loadingmodal=true
- }*/
+if(this.isFeature()){
   aux=this.actual.name
   if(this.actual.name!=this.name){
     this.loglist.unshift(this.actual.name+" was modify and its new name is: "+this.name)
@@ -318,6 +315,54 @@ this.actual.attributes=this.attributes
 this.namesFeatures=this.tree[0].ListOfNamesModified(this.actual.name,aux)
 if(this.cons[0]!=undefined){
 this.cons[0].checkName(this.cons,this.actual.name,aux)}
+}
+else{
+  this.actual.type=this.type
+  if(this.type=="FEATURE" || this.type=="MANDATORY" ||this.type=="OPTIONAL"){
+    if(!this.optional){
+      this.actual.type="MANDATORY"
+      this.actual.card_max=1
+      this.actual.card_min=1
+    }
+    else{
+      this.actual.type="OPTIONAL"
+      this.actual.card_max=1
+      this.actual.card_min=0
+    }
+    if(this.actual.children!=undefined){
+    if(this.actual.children?.length>1){
+      let list:Array<FMTree>=[]
+      this.actual.children.forEach(element => {
+        aux=new FMTree()
+        aux.type=this.actual.type
+        aux.card_max=this.actual.card_max
+        aux.card_min=this.actual.card_min
+        aux.children=[]
+        aux.children.push(element)
+        list.push(aux)
+      });
+      aux=list.length-1
+      while(aux!=-1){
+        this.actualfather.children?.unshift(list[aux])
+        aux--
+      }
+      this.actualfather.children=this.actualfather.children?.filter(x=>x!=this.actual)
+    }}
+  }
+  else{
+    if(this.actual.children!=undefined){
+    if(this.actual.children.length<2){
+      aux=new FMTree()
+      aux.name="auto_child"
+      aux.abstract=false;
+      aux.children=[]
+      this.actual.children.push(aux)
+    }}
+    if(this.type=="CARDINALITY"){
+      this.actual.card_max=this.actual.children?.length
+    }
+  }
+}
 try{
   this.sendUpdate()}
 catch{
@@ -330,12 +375,24 @@ catch{
 DeleteNode(){
   this.loadingmodal=false
   this.actualfather=this.GetFather(this.actual,this.tree)
-  this.loglist.unshift(this.actual.name+" was deleted")
-  
+  if(this.isFeature() && this.actualfather.children?.length==1){
+      this.actual=this.actualfather
+      this.DeleteNode
+  }
+  else{
+  if(this.isFeature() && this.actualfather.children?.length==2){
+    if(this.actualfather.type=="MUTEX" ||( this.actualfather.type=="CARDINALITY" && this.actualfather.card_min==0)){
+      this.actualfather.type="OPTIONAL"
+      this.actualfather.card_max=1
+      this.actualfather.card_min=0
+    }
+      else{this.actualfather.type="MANDATORY"
+      this.actualfather.card_max=1
+      this.actualfather.card_min=1
+    }
+  }
   this.namesFeatures=this.actual.Delete(this.actualfather)
-  console.log(this.namesFeatures)
   let count =0
-  console.log(this.namesFeatures)
   while(count<jsonconstraint.length){
     this.checkedconst(jsonconstraint[count],jsonconstraint[count])
     if(!aux2){
@@ -343,7 +400,8 @@ DeleteNode(){
     }
     else{aux2=false}
   }
-  console.log(jsonconstraint)
+  }
+  this.loglist.unshift(this.actual.name+" was deleted")
   try{
     this.sendUpdate()}
   catch{
@@ -387,7 +445,6 @@ isFeature(){
 
 CreateChildren(){
   this.loadingmodal=false
-  this.loglist.unshift(this.actual.name+" insert "+this.name+" as a child ")
   if(this.actual.children==undefined){this.actual.children=[]}
   if(this.isFeature()){
   let relations = new FMTree()
@@ -395,6 +452,38 @@ CreateChildren(){
   relations.card_max=1;
   relations.card_min=0;
   relations.children=[]
+  if(this.type=="FEATURE"){
+    if(this.optional){
+      relations.type="OPTIONAL"
+      relations.card_max=1
+      relations.card_min=0
+    }
+    else{
+      relations.type="MANDATORY"
+      relations.card_max=1
+      relations.card_min=1
+    }
+    aux=new FMTree()
+    aux.name="auto_child"
+    aux.abstract=false;
+    aux.children=[]
+    relations.card_max=0
+    relations.children.push(aux)
+  }
+  else{
+    if(this.type=="CARDINALITY"){relations.card_max=2;}
+    aux=new FMTree()
+    aux.abstract=false;
+    aux.children=[]
+    aux2=new FMTree()
+    aux2.abstract=false;
+    aux2.children=[]
+    aux.name="auto_child1"
+    aux2.name="auto_child2"
+    relations.children.push(aux)
+    relations.children.push(aux2)
+  }
+  this.loglist.unshift(this.actual.name+" insert "+relations.type+" as a child ")
   this.actual.children.push(relations)
   }
   else{
@@ -403,6 +492,7 @@ CreateChildren(){
     feature.abstract=false;
     feature.children=[]
     this.actual.children.push(feature)
+    this.loglist.unshift(this.actual.type+" insert "+feature.name+" as a child ")
     this.tree[0].ExpandList(this.name)
   }
   try{
@@ -416,13 +506,44 @@ CreateBrother(){
     console.log("You are trying to create a new root")
   }
   if(this.actualfather.children!=undefined){
-  this.loglist.unshift(this.actual.name+" create "+this.name+" as a brother ")
   if(!this.isFeature()){
     let relations = new FMTree()
     relations.type=this.type
     relations.card_max=1;
     relations.card_min=0;
     relations.children=[]
+    if(this.type=="FEATURE"){
+      if(this.optional){
+        relations.type="OPTIONAL"
+        relations.card_max=1
+        relations.card_min=0
+      }
+      else{
+        relations.type="MANDATORY"
+        relations.card_max=1
+        relations.card_min=1
+      }
+      aux=new FMTree()
+      aux.name="FEATURE_child"
+      aux.abstract=false;
+      aux.children=[]
+      relations.card_max=0
+      relations.children.push(aux)
+    }
+    else{
+      if(this.type=="CARDINALITY"){relations.card_max=2;}
+      aux=new FMTree()
+      aux.abstract=false;
+      aux.children=[]
+      aux2=new FMTree()
+      aux2.abstract=false;
+      aux2.children=[]
+      aux.name=this.type+"_child1"
+      aux2.name=this.type+"_child2"
+      relations.children.push(aux)
+      relations.children.push(aux2)
+    }
+    this.loglist.unshift(this.actual.type+" create "+relations.type+" as a brother ")
     this.actualfather.children.push(relations)
     }
     else{
@@ -431,6 +552,7 @@ CreateBrother(){
       feature.abstract=false;
       feature.children=[]
       this.actualfather.children.push(feature)
+      this.loglist.unshift(this.actual.name+" insert "+feature.name+" as a brother ")
       this.tree[0].ExpandList(this.name)
     }
   try{
@@ -561,12 +683,7 @@ readThis(inputValue: any): void {
   }
 }
 
-  abrir(){
-    console.log(this.actual)
-    this.GetFather(this.actual,this.tree)
-    this.treeControl.expand(this.actualfather)
-    this.treeControl.expand(this.actual)
-  }
+
   select(object:any){
     this.actual=object
     this.name=""
@@ -578,18 +695,20 @@ readThis(inputValue: any): void {
 
     if(this.actual.name!=undefined){this.name=this.actual.name}
     if(this.actual.abstract!=undefined){this.abstract=this.actual.abstract}
-
-    if(this.actual.type!=undefined){this.type=this.actual.type}
+    if(this.actual.type!=undefined){
+      if(this.actual.type=="MANDATORY"){this.optional=false}
+      else{this.optional=true }
+      this.type=this.actual.type}
     if(this.actual.card_max!=undefined){this.card_max=this.actual.card_max}
     if(this.actual.card_min!=undefined){this.card_min=this.actual.card_min}
     this.attributes=this.actual.attributes||[]
     this.actualfather=this.GetFather(this.actual,this.tree)
-    console.log(this.actualfather)
 
   }
 
 
   deleteAttributes(value:any){
+    alert("no funciono")
     setTimeout(() => {
       this.actual.attributes?.forEach(element => {
         if(element.name==value.name && element.value==value.value){

@@ -53,10 +53,8 @@
   <div style="margin-top: 5%;"></div>
   <button  class="empty" style="margin-top: 3%;"(click)="showRepository()" >
     <h4 class="white-text">Repository
-      <mat-icon>plagiarism</mat-icon>
       <img src="../assets/img/icons8-base-de-datos-20.png" style="size: 1px;" ><!--<a target="_blank" href="https://icons8.com/icon/1476/base-de-datos">Base de datos</a> icon by <a target="_blank" href="https://icons8.com">Icons8</a>-->
     </h4>
-  <mat-icon>device_hub</mat-icon>
   </button>
 
 </mat-drawer>
@@ -243,32 +241,10 @@
       </div>
       <div class="modal-body">
         <div class="col-10">
+          <div [hidden]="!isFeature()">
           <h4>Name
           <input  type="string" [(ngModel)]="name"></h4>
           <h4  class="gray"> </h4>
-          <hr>
-          <h4>Type:
-            {{type}}
-            <button class="empty" (click)="visiblechipsfeatures=!visiblechipsfeatures">
-            <mat-icon class="mat-icon-rtl-mirror">
-              {{visiblechipsfeatures ? 'expand_more' : 'chevron_right'}}
-            </mat-icon></button>
-            <mat-list [hidden]="!visiblechipsfeatures">
-              <mat-option *ngFor="let chip of listOfTypes" (click)="visiblechipsfeatures=!visiblechipsfeatures" (click)="ChangeType(chip)">{{chip}}</mat-option>
-            </mat-list>
-          </h4>
-          <hr>
-
-          <h4 [hidden]="cardhidden()" >Card min 
-          <input  type="number" [(ngModel)]="card_min" (change)="checkcard_min_max()"><hr></h4>
-          <h4 [hidden]="cardhidden()">Card max
-          <input type="number" [(ngModel)]="card_max" (change)="checkcard_min_max()" >
-          <hr></h4>
-          <div [hidden]="checkcard_min_max() || cardhidden()"> Caution with the values <hr></div>
-          
-          <input id="mycheckbox" type="checkbox" [(ngModel)]="optional" > optional
-          <hr>
-          <input id="mycheckbox" type="checkbox" [(ngModel)]="abstract" > abstract
           <hr>
           <h4>Attributes (name: value)
           <button class="empty" (click)="CreateAttribtues()" >
@@ -280,6 +256,30 @@
             <button class="empty" (click)="deleteAttributes(valor)">
               <mat-icon class="mat-icon-rtl-mirror">clear</mat-icon>
             </button>
+          </div>
+          <hr>
+          <input id="mycheckbox" type="checkbox" [(ngModel)]="abstract" > abstract
+          </div>
+          <div [hidden]="isFeature()">
+          <h4>Type:
+            {{type}}
+            <button class="empty" (click)="visiblechipsfeatures=!visiblechipsfeatures">
+            <mat-icon class="mat-icon-rtl-mirror">
+              {{visiblechipsfeatures ? 'expand_more' : 'chevron_right'}}
+            </mat-icon></button>
+            <mat-list [hidden]="!visiblechipsfeatures">
+              <mat-option *ngFor="let chip of listOfTypes" (click)="visiblechipsfeatures=!visiblechipsfeatures" (click)="ChangeType(chip)">{{chip}}</mat-option>
+            </mat-list>
+          </h4>
+          <hr>
+          <h4 [hidden]="cardhidden()" >Card min 
+          <input  type="number" [(ngModel)]="card_min" (change)="checkcard_min_max()"><hr></h4>
+          <h4 [hidden]="cardhidden()">Card max
+          <input type="number" [(ngModel)]="card_max" (change)="checkcard_min_max()" >
+          <hr></h4>
+          <div [hidden]="checkcard_min_max() || cardhidden()"> Caution with the values <hr></div>
+          
+          <input id="mycheckbox" type="checkbox" [(ngModel)]="optional" > optional
           </div>
           <hr>
           <button (click)="ModifySelecction()"  data-bs-toggle="modal" href="#loading" class="buttonmodal">update</button>
@@ -300,7 +300,8 @@
  		    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
 	    <div class="modal-body">
-		    <div class="col-10">
+        <div class="row">
+		    <div class="col-6">
           <h4 [hidden]="isFeature()">Name
             <div style="margin-top: 10px;"></div> 
             <input matInput  type="string" class="input_modal" [(ngModel)]="name">
@@ -313,10 +314,14 @@
               </mat-icon></button>
               <mat-list [hidden]="!visiblechipsfeatures">
                 <mat-option *ngFor="let chip of listOfTypes" (click)="visiblechipsfeatures=!visiblechipsfeatures" (click)="ChangeType(chip)">{{chip}}</mat-option>
-              </mat-list>
+              </mat-list>  
             </h4>
-          <button (click)="CreateChildren()" data-bs-dismiss="modal" class="bottom-style" style="width: 10%; margin-left: auto; ">Create</button>
+            <h4 [hidden]="!isFeature()"><input id="mycheckbox" type="checkbox" style="margin-top: 15px;margin-bottom: 15px;" [(ngModel)]="optional" > optional</h4>
+          <button (click)="CreateChildren()" data-bs-dismiss="modal" class="bottom-style" style="width: 70px; margin-left: auto; ">Create</button>
 				</div>
+        <div class="col-6">
+        </div>
+      </div>
 	 	  </div>
 	    <div class="modal-footer">
 	      <button type="button" class="bottom-style" style="width: 9%; margin-left: auto; margin-right: auto;" data-bs-dismiss="modal">Close</button>
@@ -333,7 +338,8 @@
 				  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 			</div>
 			<div class="modal-body">
-				<div class="col-10">
+        <div class="row">
+				<div class="col-6">
           <h4 [hidden]="!isFeature()">Name
           <div style="margin-top: 10px;"></div> 
           <input matInput  type="string" class="input_modal" [(ngModel)]="name">
@@ -346,11 +352,14 @@
             </mat-icon></button>
             <mat-list [hidden]="!visiblechipsfeatures">
               <mat-option *ngFor="let chip of listOfTypes" (click)="visiblechipsfeatures=!visiblechipsfeatures" (click)="ChangeType(chip)">{{chip}}</mat-option>
-            </mat-list>
+            </mat-list>  
           </h4>
-          <button (click)="CreateBrother()" data-bs-dismiss="modal" class="bottom-style" style="width: 10%; margin-left: auto; " >Create</button>
+          <h4 [hidden]="isFeature()"><input id="mycheckbox" type="checkbox" style="margin-top: 15px;margin-bottom: 15px;" [(ngModel)]="optional" > optional</h4>
+          <button (click)="CreateBrother()" data-bs-dismiss="modal" class="bottom-style" style="width: 70px; margin-left: auto; " >Create</button>
 		  	</div>
-			</div>
+        <div class="col-6">
+        </div>
+			</div></div>
 			<div class="modal-footer">
 				<button type="button" class="bottom-style" style="width: 9%;  margin-left: auto; margin-right: auto;"  data-bs-dismiss="modal">Close</button>
 			</div>

@@ -15,6 +15,7 @@ let nlist:Array<string> =[]
  export class FMTree  {
     name?:string
     abstract?:boolean ;
+    optional?:boolean ;
     attributes?:Array<any>
     relations?:Array<FMTree> 
     type?:string
@@ -34,10 +35,8 @@ let nlist:Array<string> =[]
         }
         if(this.name!=undefined){
         aux=nlist.indexOf(this.name)
-        nlist.splice(aux,1)
-        list.children=list.children?.filter(x=> x!=this)}
-        if(this.type!=undefined){
-        list.children=list.children?.filter(x=> x!=this)}
+        nlist.splice(aux,1)}
+        list.children=list.children?.filter(x=> x!=this)
         this.name=""
         this.abstract=false;
         this.attributes=[]
@@ -65,7 +64,7 @@ let nlist:Array<string> =[]
         return nlist
     }
 
-    CreateNewFMTree(value: any){         
+    CreateNewFMTree(value: any){        
         let actualtree=new FMTree()
         actualtree.name=value.name;
         actualtree.abstract=value.abstract;
