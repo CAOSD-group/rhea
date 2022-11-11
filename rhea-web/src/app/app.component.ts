@@ -19,7 +19,7 @@ let aux4:any;
 var jsonconstraint: Array<Const>=[new Const()] 
 var jsonrefactors: Array<Refactoring>=[new Refactoring()] 
 var jsonfeatures:string
-
+let open:Array<number>=[]
 
 var listnamestext:Array<string>=[]
 var json:string
@@ -56,7 +56,7 @@ export class AppComponent {
 
   treeControl = new NestedTreeControl<FMTree>(node => node.children);
   dataSource = new MatTreeNestedDataSource<FMTree>();
-  constraintreeControl = new NestedTreeControl<Const>(constrainnode => constrainnode.operands);
+  constraintreeControl = new NestedTreeControl<Const>(node => node.operands);
   constraindataSource = new MatTreeNestedDataSource<Const>();
     
   //list de constraints y nombres de las features
@@ -120,10 +120,6 @@ constructor(private http: HttpClient ) { }
 
 
 ngOnInit() {
-  console.log("separar html en partes funcionales || falta enviar informacion a cada componente || Errores en algunas funciones que estan en ambos sitios(?)")
-  console.log("posible implementacion de mejora en visualicacion arbol constraint y eliminar el paso de quitar el operands y type de  createListForTree  y de createListForFile")
-  console.log("En information poner que el value 0 oculte la linea, dejar para lidia")
-  console.log("create chiled y create brother no tienen sentido para el constraint")
   this.returnValues('Pizzas_completo_new.json')
 }
 
@@ -147,10 +143,8 @@ showRepository(){
 
 
 sendUVL(uvl:any){
-  console.log(uvl)
   const formData: FormData = new FormData();
   formData.append('file', uvl, uvl.name);
-  console.log("llego")
   this.http.post(this.urlupload,formData,{withCredentials:true,responseType:'text'}).subscribe(resultado => {
     this.CreateData(resultado)
     this.loglist.unshift(uvl.name+" was loaded")
@@ -167,7 +161,6 @@ sendUpdate(){
   const formData: FormData = new FormData();
   formData.append('file', file,this.title+'.json')
   formData.append('fm_hash',this.my_session);
-  console.log(this.title+'.json')
   this.http.post(this.urlupdate,formData,{withCredentials:true,responseType:'text'}).subscribe(resultado => {
     this.CreateData(resultado)
     json=resultado
@@ -180,7 +173,7 @@ Refactor(typeref:string){
   let object
   this.loadingmodal=true
   const formData: FormData = new FormData();
-  if( typeref!="all" &&( refactor==undefined ||refactor.name=="")){console.log("error in type of refactor")}
+  if( typeref!="all" &&( refactor==undefined ||refactor.name=="")){}
   else{
     if(typeref=="node"){object=this.actual.name;formData.append('instance_name',object);}
     if(typeref=="cons"){object=this.listnamesconstraints[this.npos];formData.append('instance_name',object);}
@@ -229,7 +222,6 @@ CreateData(object:any,name?:string){
   this.item=name||"";
   aux=JSON.parse(aux)
   this.title=aux.name
-  console.log(this.title) 
   jsonfeatures=aux.features,
   jsonconstraint=aux.constraints
   jsonrefactors=aux.refactorings
@@ -246,7 +238,6 @@ CreateData(object:any,name?:string){
   }
   catch{}
   if(aux2=="" ){
-    console.log(aux)
   }
   aux3=aux.constraints
   this.CreateCons()
@@ -257,8 +248,16 @@ CreateData(object:any,name?:string){
   this.CreateSemantics()
   this.loadingmodal=true
   this.mainhidden=false
-  this.treeControl.toggle(this.tree[0])
 }
+
+OpenTree(node:FMTree){
+  let father=this.GetFather(node,this.tree)
+  if(father!=undefined){
+    this.OpenTree(father)
+    this.treeControl.expand(father)
+  }
+}
+
 showModal(){
   if(!this.loadingmodal){
     return ["../assets/img/loading.gif",true]
@@ -272,18 +271,12 @@ web(Article:Data){
 }
 CreateFile(text:string){  
   this.TransformJSON()
-  console.log("valores que se van a crear")
-  console.log(jsonfeatures)
-  console.log(jsonconstraint)
   this.http.post(this.urlcreate,[text,jsonfeatures,jsonconstraint],{ withCredentials:true,responseType:'text'}).subscribe(resultado => {
-    console.log(resultado)
+    
   })
 }
 
-
-
 ChangeType(ty:string){
-  console.log(this.type)
   this.type=ty;
 }
 checkcard_min_max(){
@@ -298,7 +291,6 @@ checkcard_min_max(){
   return true
 }
 
-
 ModifySelecction(){
 this.loadingmodal=false
 if(this.isFeature()){
@@ -312,6 +304,15 @@ if(this.isFeature()){
 this.actual.name=this.name
 this.actual.abstract=this.abstract
 this.actual.attributes=this.attributes
+if(this.actualfather!=undefined){
+  if(this.actualfather.type=="MANDATORY"||this.actualfather.type=="OPTIONAL"){
+  if(this.optional){
+    this.actualfather.type="OPTIONAL"
+  }
+  else{
+    this.actualfather.type="MANDATORY"
+  }}
+}
 this.namesFeatures=this.tree[0].ListOfNamesModified(this.actual.name,aux)
 if(this.cons[0]!=undefined){
 this.cons[0].checkName(this.cons,this.actual.name,aux)}
@@ -363,11 +364,28 @@ else{
     }
   }
 }
+open=[]
+console.log(this.actual)
+console.log(this.actualfather)
+open=this.listOpen(this.actual)
+
+console.log(open)
 try{
   this.sendUpdate()}
 catch{
   this.loadingmodal=true
   }
+}
+listOpen(node:FMTree){
+  
+  let father:FMTree=this.GetFather(node,this.tree)
+  if(father!=undefined){
+    if(father.children!=undefined){
+    open.unshift(father.children.indexOf(node))
+  }
+  open=this.listOpen(father)
+}
+  return open
 }
 
 
@@ -417,7 +435,6 @@ checkedconst(cons:Const,consInitial:Const){
   else{
   if(this.namesFeatures.indexOf(cons.type)==-1){
     aux=jsonconstraint.indexOf(consInitial)
-    console.log(aux)
     if(aux!=-1){
       jsonconstraint.splice(aux,1)
       this.listnamesconstraints.splice(aux,1)
@@ -444,6 +461,9 @@ isFeature(){
 }
 
 CreateChildren(){
+  if(this.type==undefined||this.type==""){
+    this.type="FEATURE"
+  }
   this.loadingmodal=false
   if(this.actual.children==undefined){this.actual.children=[]}
   if(this.isFeature()){
@@ -503,7 +523,6 @@ CreateChildren(){
 CreateBrother(){
   this.loadingmodal=false
   if(this.actualfather==undefined){
-    console.log("You are trying to create a new root")
   }
   if(this.actualfather.children!=undefined){
   if(!this.isFeature()){
@@ -566,12 +585,11 @@ CreateBrother(){
 
 
 
-constrainthasChild = (_: number, constrainnode: any) => !!constrainnode.children && constrainnode.children.length >= 0;
+constrainthasChild = (_: number, constrainnode: Const) => !!constrainnode.operands && constrainnode.operands.length >= 0;
 hasChild = (_: number, node: any) => !!node.children && node.children.length >= 0;
 
 
 CreateCons(){
-  console.log("create constraints")
   this.position=-1
   this.cons.splice(0,this.cons.length)
   aux2=0
@@ -583,20 +601,26 @@ CreateCons(){
   aux2++}
   this.cons=this.consactual.createListForTree(jsonconstraint)
   jsonconstraint=this.consactual.TransformToCons(jsonconstraint)
-  console.log(this.cons)
   this.constraindataSource.data=this.cons.filter(x=>this.cons.indexOf(x)==this.position)
 }
 this.jsonconstraintextshort=this.jsonconstraintTexto
 }
+nameFeatures(){
+  let listname:Array<string>=[]
+  this.namesFeatures.forEach(element => {
+    if(listname.indexOf(element)==-1){
+      listname.push(element)
+    }
+  });
+  return listname
+}
 
 CreateFMTree(){
-  console.log("create FMTree")
   this.tree.splice(0,this.tree.length)
   this.tree=[new FMTree()]
   this.tree[0].DeleteList();
   this.tree[0]=this.tree[0].CreateNewFMTree(jsonfeatures)
   this.namesFeatures=this.tree[0].ListOfNames();
-  console.log(this.tree)
   this.dataSource.data=this.tree
 }
 listOfContraint(text:string){
@@ -609,20 +633,14 @@ listOfContraint(text:string){
 
 }
 CreateRefactor(){
-  console.log("create Refactor")
   refactor.DeleteList()
   this.ListOfRefactors=refactor.Create(jsonrefactors);
-  console.log(this.ListOfRefactors)
 }
 CreateLanguage(){
-  console.log("create Language")
   this.jsonlanguage=this.language.CreatLanguage(this.jsonlanguage)
   this.ListLanguage=this.language.CreatLanguage2()
-  console.log(this.jsonlanguage)
-  console.log(this.ListLanguage)
 }
 CreateSemantics(){
-  console.log("create Semantics metrics")
   this.jsonsemantic=this.semantic.CreateSemantics(this.jsonsemantic)
 }
 
@@ -657,20 +675,17 @@ readThis(inputValue: any): void {
     aux=myReader.result;}
   
     if(file.name.endsWith('.json')){
-      console.log("json file detected")
       setTimeout(() => {
       this.sendUVL(file)
       //this.CreateData(aux,"hola")
       },100)
     }
     if(file.name.endsWith('.uvl')){
-      console.log("uvl file detected")
       setTimeout(() => {
         this.sendUVL(file)
         },100)
     }
     if(file.name.endsWith('.xml')){
-      console.log("xml file detected")
       setTimeout(() => {
         this.sendUVL(file)
         },100)
@@ -703,12 +718,31 @@ readThis(inputValue: any): void {
     if(this.actual.card_min!=undefined){this.card_min=this.actual.card_min}
     this.attributes=this.actual.attributes||[]
     this.actualfather=this.GetFather(this.actual,this.tree)
-
+    if(this.actualfather!=undefined){
+      this.type=this.actualfather.type||"FEATURE"
+      if(this.actualfather.type=="MANDATORY"){
+        this.optional= false
+        this.type="FEATURE"
+      }
+      if(this.actualfather.type=="OPTIONAL"){
+        this.optional= true
+        this.type="FEATURE"
+      }
+      
+    }
+    else{
+      if(this.actual.type=="MANDATORY"){
+        this.optional= false
+      }
+      if(this.actual.type=="OPTIONAL"){
+        this.optional= true
+      }
+    }
   }
 
 
   deleteAttributes(value:any){
-    alert("no funciono")
+    this.actual.attributes=this.attributes
     setTimeout(() => {
       this.actual.attributes?.forEach(element => {
         if(element.name==value.name && element.value==value.value){
@@ -729,7 +763,6 @@ readThis(inputValue: any): void {
     this.consactual=object
     this.ncons=this.jsonconstraintTexto[this.position]
     this.npos=this.position
-    console.log(this.consactual)
   }
 
   GetFatherCons(object:any,list?:Array<any>,cactualfather?:any){
@@ -751,7 +784,6 @@ readThis(inputValue: any): void {
     this.position=a
     this.npos=a
     this.consactual=this.cons[this.position]
-    console.log(this.consactual)
   }
   DeleteCons(){
     this.loadingmodal=false
@@ -786,7 +818,7 @@ readThis(inputValue: any): void {
         this.position=-1}
       }
     }
-    if(this.cons.length==0){this.cons.push(new Const);console.log("7")}
+    if(this.cons.length==0){this.cons.push(new Const)}
     try{
       this.sendUpdate()}
     catch{
@@ -796,7 +828,6 @@ readThis(inputValue: any): void {
   }
 
   CreateListCons(){
-    console.log(this.ListOfConstraint[0])
     if(this.ListOfConstraint.length==2 && this.ListOfConstraint[0].type=="NotTerm"){
       this.ListOfConstraint[0].operands=[]
       this.ListOfConstraint[0].operands.push(this.ListOfConstraint[1]);
@@ -806,16 +837,11 @@ readThis(inputValue: any): void {
     }
     aux4=true
     this.checkListofconstraint(this.ListOfConstraint[0])
-    console.log(aux4)
     aux3=[]
     this.checkListofconstraint2(this.ListOfConstraint[0])
-    console.log(aux3.length)
-    console.log(aux4)
-    console.log(this.ListOfConstraint.length)
     if(aux3.length<this.ListOfConstraint.length){
       aux4=false
     }
-    console.log(aux4)
     return this.ListOfConstraint[0]
   }
   checkListofconstraint2(list:Const){
@@ -984,7 +1010,6 @@ SelectedChange(v){
   this.ncons=v
   this.npos=this.position
   this.consactual=this.cons[this.position]
-  console.log(this.consactual)
   this.constraindataSource.data=this.cons.filter(x=>this.cons.indexOf(x)==this.position)
 }
 CreateConsList(){
@@ -997,8 +1022,6 @@ CreateConsList(){
     while(this.listnamesconstraints.indexOf("CTC"+aux)!=-1){
       aux++
     }
-    console.log(aux)
-    console.log(this.listnamesconstraints)
     this.listnamesconstraints.push("CTC"+aux)
   }
   this.ListOfConstraint=[]
@@ -1011,7 +1034,6 @@ Writelist(){
   return textlista
 }
 DeleteList(){
-  console.log(this.listnamesconstraints)
   this.ListOfConstraint=[]
 }
 
@@ -1053,7 +1075,6 @@ CreateConsSon(){
         else{
           if(this.consactual.operands.length==2){}
           else{this.consactual.operands.push(this.ListOfConstraint[0])
-            console.log("hijo valido")
           }
       }
     }
@@ -1088,7 +1109,6 @@ SelectChipLogic(text:string){
     aux.operands=[new Const(),new Const()]
   }
   this.ListOfConstraint.push(aux)
-  console.log(this.ListOfConstraint)
 }
 }
 
@@ -1100,12 +1120,10 @@ SelectChipFeature(text:string){
     aux.operands=null
   }
   this.ListOfConstraint.push(aux)
-  console.log(this.ListOfConstraint)
 }
 SelectChipRefactor(ref:Refactoring,tipo:string){
   refactor=ref
   this.loadingmodal=false
-  console.log(ref)
   this.loglist.unshift(ref.id+" was made for a "+tipo)
   try{
   this.Refactor(tipo)
@@ -1188,12 +1206,10 @@ TransformJSON(){
   aux2='"refactorings": ['+aux2+']'
   json=json+','+aux2+'}'*/
   this.cons=this.consactual.createListForTree(this.cons)
-  console.log(json)
 }
 
 
 SaveFile(language:string){
-  console.log(language)
   if(language.toLowerCase()=="uvl"){
     this.SaveUVL()
   }
@@ -1214,7 +1230,6 @@ SaveJson() {
 }
 SaveUVL() {
   this.TransformJSON()
-  console.log("llego")
   aux = new Blob([json], { type: 'json' });
   //this.CreateData(resultado)
   alert("I should send the json file to the server,and then download the data as an UVL file")

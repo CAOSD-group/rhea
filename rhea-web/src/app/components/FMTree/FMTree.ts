@@ -114,4 +114,22 @@ let nlist:Array<string> =[]
         }
         return object
     }
+
+
+GetFather(nodechild:FMTree,list:any){
+  
+    list.forEach(element => {
+      if(element==nodechild){aux=undefined}
+      else{
+        if(element.children.length>0){
+          if(element.children.indexOf(nodechild)!=-1){
+            aux=element
+          }
+          else{this.GetFather(nodechild,element.children)}
+      }
+    }
+    });
+  
+  return aux;
+  }
 }

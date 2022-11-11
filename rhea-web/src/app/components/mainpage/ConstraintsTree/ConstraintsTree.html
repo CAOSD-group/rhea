@@ -17,14 +17,13 @@
         </button>
       </div>
       {{constrainnode.type}} 
-      <!--{{constrainnode.type!="FeatureTerm"?constrainnode.type:constrainnode.type}} -->
       <button mat-menu-item [matMenuTriggerFor]="menuoptionsconstraintree" (click)= 'SelectCons2(constrainnode)'>
         <mat-icon>more_vert</mat-icon>
       </button> 
     </div>
-    <div [class.example-tree-invisible]="!constraintreeControl.isExpanded(constrainnode)" role="group">
+    <ul *ngIf="constraintreeControl.isExpanded(constrainnode)">  
       <ng-container matTreeNodeOutlet></ng-container> 
-    </div>                  
+    </ul>                
   </mat-nested-tree-node>
 </mat-tree>
 

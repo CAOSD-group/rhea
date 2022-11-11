@@ -40,7 +40,6 @@ var refactor:Refactoring =new Refactoring()
   @Output() newItemEventactual = new EventEmitter<FMTree>();
   @Output() newItemEventrefactor = new EventEmitter<Refactoring>();
 
-  constrainthasChild = (_: number, constrainnode: any) => !!constrainnode.children && constrainnode.children.length >= 0;
   hasChild = (_: number, node: any) => !!node.children && node.children.length >= 0;
 
   treeHideen(node:any){
@@ -59,22 +58,16 @@ var refactor:Refactoring =new Refactoring()
     if(nodechild.type!=undefined){
       if(nodechild.type=="MUTEX"){
       symbol="../assets/img/mutex.gif"
-      symbol2="../assets/img/optional.gif"
       symbol3=nodechild.card_min+".."+nodechild.card_max}
       if(nodechild.type=="OR"){
         symbol="../assets/img/or.gif"
-        symbol2="../assets/img/mandatory.gif"
         symbol3=nodechild.card_min+".."+nodechild.card_max}
       if(nodechild.type=="XOR"){
         symbol="../assets/img/xor.gif"
-        symbol2="../assets/img/mandatory.gif"
         symbol3=nodechild.card_min+".."+nodechild.card_max}
       if(nodechild.type=="CARDINALITY"){
         symbol="../assets/img/cardinality.gif"
-        if(nodechild.card_min!=undefined){
-        if(nodechild.card_min==1){symbol2="../assets/img/mandatory.gif"}
-        else{symbol2="../assets/img/optional.gif"}}
-        symbol3=nodechild.card_min+".."+nodechild.card_max
+        symbol3="<"+nodechild.card_min+"..."+nodechild.card_max+">"
       }
     }
     else{
@@ -137,6 +130,7 @@ var refactor:Refactoring =new Refactoring()
     this.attributes=this.actual.attributes||[]
     this.actualfather=this.GetFather(this.actual,this.tree)
     console.log(this.actual)
+    
     this.newItemEventactual.emit(this.actual);
   }
 
@@ -184,10 +178,23 @@ return aux;
 RelationFeature(node:any){
     if(node.type=="MANDATORY" || node.type=="OPTIONAL" ){
       if(node.children!=undefined){
+        this.treeControl.expand(node)}
+    return true}
+    else{return false }
+}
+
+marginFeature(node:any){
+  let margin=0
+    if(node.type=="MANDATORY" || node.type=="OPTIONAL" ){
+      if(node.children!=undefined){
       this.treeControl.expand(node)}
-      return [true,"mytree"]}
-    
-    else{return [false,""] }
+      margin=-32.5
+    }
+      aux=this.GetFather(node,this.tree)
+    if(aux!=undefined){
+      margin=margin+this.marginFeature(aux)
+    }
+    return margin
 }
 
 

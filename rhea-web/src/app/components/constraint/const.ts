@@ -18,7 +18,7 @@ let constraintName :Array<any> =[]
 
  export class Const  {
     type:string=""
-    operands:Array<any>=[];
+    operands:Array<Const>=[];
     constructor() {}
   
 

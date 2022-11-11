@@ -168,7 +168,6 @@
 
         <div class="card block">
           <div class="border">
-            
             <ConstraintsTree
               [visible_Constraint_list]="visible_Constraint_list"
               [ListOfConstraint]="ListOfConstraint"
@@ -259,7 +258,10 @@
           </div>
           <hr>
           <input id="mycheckbox" type="checkbox" [(ngModel)]="abstract" > abstract
+          <hr>
+          <input id="mycheckbox" type="checkbox" [(ngModel)]="optional" > Relation:optional
           </div>
+          
           <div [hidden]="isFeature()">
           <h4>Type:
             {{type}}
@@ -316,7 +318,7 @@
                 <mat-option *ngFor="let chip of listOfTypes" (click)="visiblechipsfeatures=!visiblechipsfeatures" (click)="ChangeType(chip)">{{chip}}</mat-option>
               </mat-list>  
             </h4>
-            <h4 [hidden]="!isFeature()"><input id="mycheckbox" type="checkbox" style="margin-top: 15px;margin-bottom: 15px;" [(ngModel)]="optional" > optional</h4>
+            <h4 [hidden]="!isFeature() || type!='FEATURE'"><input id="mycheckbox" type="checkbox" style="margin-top: 15px;margin-bottom: 15px;" [(ngModel)]="optional" > optional</h4>
           <button (click)="CreateChildren()" data-bs-dismiss="modal" class="bottom-style" style="width: 70px; margin-left: auto; ">Create</button>
 				</div>
         <div class="col-6">
@@ -354,7 +356,7 @@
               <mat-option *ngFor="let chip of listOfTypes" (click)="visiblechipsfeatures=!visiblechipsfeatures" (click)="ChangeType(chip)">{{chip}}</mat-option>
             </mat-list>  
           </h4>
-          <h4 [hidden]="isFeature()"><input id="mycheckbox" type="checkbox" style="margin-top: 15px;margin-bottom: 15px;" [(ngModel)]="optional" > optional</h4>
+          <h4 [hidden]="isFeature()|| type!='FEATURE'"><input id="mycheckbox" type="checkbox" style="margin-top: 15px;margin-bottom: 15px;" [(ngModel)]="optional" > optional</h4>
           <button (click)="CreateBrother()" data-bs-dismiss="modal" class="bottom-style" style="width: 70px; margin-left: auto; " >Create</button>
 		  	</div>
         <div class="col-6">
@@ -401,7 +403,7 @@
         <div class="col-12">
           <div class="row">
             <!-- Logic Chip -->
-            <div class="col-6">
+            <div class="col-4">
               <div class="bordermodal">
                 <h4 style="margin-bottom: 43px;margin-top: -17px;">Logic Term</h4>
                 <mat-chip-list class="mat-chip-list-stacked"  >
@@ -413,19 +415,53 @@
               </div>
             </div>
             <!-- Features Chip -->
-            <div class="col-6">
+            <div class="col-4">
               <div class="bordermodal">
                 <h4 style="margin-top: -17px;">Features Term</h4>
                 <input style="margin-bottom: 5px;" type="text" [(ngModel)]="featureautocomplete">
                 <cdk-virtual-scroll-viewport [itemSize]="6 * 7" class="example-viewport" style="margin-bottom: -20px;">
                   <mat-chip-list class="mat-chip-list-stacked" >
-                    <mat-chip *ngFor="let chip of namesFeatures" (click)="SelectChipFeature(chip)"  [hidden]="AutocompleteFeatureTermChip(chip)">
+                    <mat-chip *ngFor="let chip of nameFeatures()" (click)="SelectChipFeature(chip)"  [hidden]="AutocompleteFeatureTermChip(chip)">
                       {{chip}}
                     </mat-chip>
                   </mat-chip-list>
                 </cdk-virtual-scroll-viewport>
               </div>
             </div>
+         <!-- Constraint Tree -->
+            <div class="col-4">
+              <div class="bordermodal">
+                <h4 style="margin-bottom: 43px;margin-top: -17px;">Constraint Tree</h4>
+                <cdk-virtual-scroll-viewport [itemSize]="6 * 7" class="example-viewport" style="margin-bottom: -20px;">
+                  <mat-tree [hidden]="!visible_Constraint_list"  [dataSource]="constraindataSource" [treeControl]="constraintreeControl" class="example-tree">
+                    <mat-nested-tree-node  *matTreeNodeDef="let constrainnode; when: constrainthasChild">
+                      <div class="mat-tree-node">
+                        <div [hidden]="!treeConsHideen(constrainnode)">
+                          <button mat-icon-button matTreeNodeToggle [attr.aria-label]="'Toggle ' + constrainnode.name">
+                            <mat-icon class="mat-icon-rtl-mirror">
+                              remove
+                            </mat-icon>
+                          </button>
+                        </div>
+                        <div [hidden]="treeConsHideen(constrainnode)">
+                          <button mat-icon-button matTreeNodeToggle [attr.aria-label]="'Toggle ' + constrainnode.name">
+                            <mat-icon class="mat-icon-rtl-mirror">
+                              {{constraintreeControl.isExpanded(constrainnode) ? 'expand_more' : 'chevron_right'}}
+                            </mat-icon>
+                          </button>
+                        </div>
+                        {{constrainnode.type}} 
+                      </div>
+                      <ul *ngIf="constraintreeControl.isExpanded(constrainnode)">  
+                        <ng-container matTreeNodeOutlet></ng-container> 
+                      </ul>                
+                    </mat-nested-tree-node>
+                  </mat-tree>
+              </cdk-virtual-scroll-viewport>
+              </div>
+            </div>
+
+
           </div>
         </div>
         <!--Write list-->
