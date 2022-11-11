@@ -40,6 +40,10 @@ class EliminationSimpleConstraints(FMRefactoring):
 
 def eliminate_simple_constraints(fm: FeatureModel) -> FeatureModel:
     constraints_order = fm_constraints.analysis_constraints_order(fm)
+    print(f'new_constraints_ordered: {[ctc.ast.pretty_str() for ctc in constraints_order[0]]}')
+    print(f'constraints_ordered_transformations: {constraints_order[1]}')
+    assert len(constraints_order[0]) == len(fm.get_constraints())
+    #print(f'constraints_order: {constraints_order}')
     transformations_vector = fm_constraints.get_transformations_vector(constraints_order)
 
     n_bits = len(transformations_vector)

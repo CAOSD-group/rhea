@@ -1,3 +1,4 @@
+import copy
 from typing import Callable
 
 from flamapy.metamodels.fm_metamodel.models import FeatureModel, Constraint
@@ -109,34 +110,64 @@ def numbers_of_features_to_be_removed_deletion(fm: FeatureModel, feature_name: s
 
 
 def analysis_constraints_order(fm: FeatureModel) -> tuple[list[Constraint], dict[int, tuple[int, int]]]:
-    """Return a new order for the constraints based on a previous analysis that takes into account
+    constraints = [ctc for ctc in fm.get_constraints()]
+
+    best_constraints_order = []
+    best_constraints_transformation_order = {}
+    tree = FeatureModel(copy.deepcopy(fm.root))
+    size = len(fm.get_constraints())
+    i = 0
+    while i < size and tree is not None:
+        ctcs_ordered = analysis_constraints_order_estimation(tree, constraints)
+        # Get the first transformation (only for the first one, i.e., the best one)
+        first_ctc_transformation_order = ([ctcs_ordered[0][0]], {0: ctcs_ordered[1][0]})
+        #print(f'first_ctc_transformation_order: {first_ctc_transformation_order}')
+        transformation_vector = get_transformations_vector(first_ctc_transformation_order)
+        # Execute the transformation
+        tree = transformation_vector[0][0].transforms(tree)
+        constraints.remove(ctcs_ordered[0][0])
+        # Update the best order for the constraints
+        best_constraints_order.append(ctcs_ordered[0][0])
+        best_constraints_transformation_order[i] = ctcs_ordered[1][0]
+        i += 1
+    if tree is None:
+        ctcs_ordered = analysis_constraints_order_estimation(fm, constraints)
+        for k in range(i, size):
+            index = k - i
+            best_constraints_order.append(ctcs_ordered[0][index])
+            best_constraints_transformation_order[k] = ctcs_ordered[1][index]
+    return (best_constraints_order, best_constraints_transformation_order)
+
+
+def analysis_constraints_order_estimation(fm: FeatureModel, constraints: list[Constraint]) -> tuple[list[Constraint], dict[int, tuple[int, int]]]:
+    """Return a new order for the constraints based on a pre-analysis that takes into account
     the number of features to be removed by the transformations required to refactor the
-    constraint.
+    constraint without executing the transformation over the model.
     
     The result is a tuple with the list of constraints in order, and a dictionary with the indexs
     of the constraints and a tuple of (0,1) or (1,0) indicating the transformation that corresponds
     with the first transformation or the second transformation.
     0 is the first transformation; 1 is the second one.
     """
-    print(f'#Constraints: {len(fm.get_constraints())}')
-    print(f'  |-#Requires: {len([ctc for ctc in fm.get_constraints() if fm_utils.is_requires_constraint(ctc)])}')
-    print(f'  |-#Excludes: {len([ctc for ctc in fm.get_constraints() if fm_utils.is_excludes_constraint(ctc)])}')
+    print(f'#Constraints: {len(constraints)}')
+    print(f'  |-#Requires: {len([ctc for ctc in constraints if fm_utils.is_requires_constraint(ctc)])}')
+    print(f'  |-#Excludes: {len([ctc for ctc in constraints if fm_utils.is_excludes_constraint(ctc)])}')
 
     # Order of the constraints:
-    constraints = fm.get_constraints()
+    constraints = constraints
     constraints_analysis = {}
     for i, ctc in enumerate(constraints):
         constraints_analysis[i] = numbers_of_features_to_be_removed(fm, ctc)
     #print(f'constraints_analysis: {constraints_analysis}')
     constraints_ordered = dict(sorted(constraints_analysis.items(), key=lambda item: max(item[1][0], item[1][1]), reverse=True))  # order by best transformation
-    print(f'constraints_ordered: {constraints_ordered}')
+    #print(f'constraints_ordered: {constraints_ordered}')
     constraints_ordered_transformations = {}
     for i, (key, value) in enumerate(constraints_ordered.items()):
         #print(f'i: {i}, key: {key}, value: {value}')
         constraints_ordered_transformations[i] = (0, 1) if value[0] >= value[1] else (1, 0)
     new_constraints_ordered = [constraints[i] for i in constraints_ordered.keys()]
-    print(f'new_constraints_ordered: {[ctc.ast.pretty_str() for ctc in new_constraints_ordered]}')
-    print(f'constraints_ordered_transformations: {constraints_ordered_transformations}')
+    #print(f'new_constraints_ordered: {[ctc.ast.pretty_str() for ctc in new_constraints_ordered]}')
+    #print(f'constraints_ordered_transformations: {constraints_ordered_transformations}')
     # for i in range(new_constraints_ordered):
     #     print(f'CTC {i}: {new_constraints_ordered[i].ast.to_pretty_str()}, {(constraints_ordered[i][0], constraints_ordered[i][1]), ({(constraints_ordered_transformations[i][0], constraints_ordered_transformations[i][1])})}')
     return (new_constraints_ordered, constraints_ordered_transformations)
