@@ -39,10 +39,10 @@ class EliminationSimpleConstraints(FMRefactoring):
 
 
 def eliminate_simple_constraints(fm: FeatureModel) -> FeatureModel:
-    constraints_order = analysis_constraints_order(fm)
+    constraints_order = fm_constraints.analysis_constraints_order(fm)
     transformations_vector = fm_constraints.get_transformations_vector(constraints_order)
 
-    n_bits = len(constraints_order)
+    n_bits = len(transformations_vector)
     #binary_vector = format(0, f'0{n_bits}b')
     num = 0
     i_bit = n_bits
@@ -111,38 +111,67 @@ def execute_transformations_vector(fm: FeatureModel,
     return (tree, i-1)
 
 
-def analysis_constraints_order(fm: FeatureModel) -> list[Constraint]:
-    print(f'#Constraints: {len(fm.get_constraints())}')
-    print(f'  |-#Requires: {len([ctc for ctc in fm.get_constraints() if fm_utils.is_requires_constraint(ctc)])}')
-    print(f'  |-#Excludes: {len([ctc for ctc in fm.get_constraints() if fm_utils.is_excludes_constraint(ctc)])}')
-
-    # Order of the constraints:
-    constraints = []
-    constraints = [ctc for ctc in fm.get_constraints() if fm_utils.is_requires_constraint(ctc)] + [ctc for ctc in fm.get_constraints() if fm_utils.is_excludes_constraint(ctc)]
-
-    transformations_vector = fm_constraints.get_transformations_vector(constraints)
-
-    new_constraints_order = {}
-    for i, transformation in enumerate(transformations_vector):
-        total_features = 0
-        tree = transformation[0].transforms(fm, copy_model=True)
-        if tree is not None:
-            total_features += len(tree.get_features())
-            print(f'CTC {i}: {transformation[0]} -> #Features: {len(tree.get_features())}, #xors: {len(tree.get_alternative_group_features())}')
-        else:
-            print(f'CTC {i}: {transformation[0]} -> NULL')
-        tree = transformation[1].transforms(fm, copy_model=True)
-        if tree is not None:
-            total_features += len(tree.get_features())
-            print(f'CTC {i}: {transformation[1]} -> #Features: {len(tree.get_features())}, #xors: {len(tree.get_alternative_group_features())}')
-        else:
-            print(f'CTC {i}: {transformation[1]} -> NULL')
-        new_constraints_order[i] = int(total_features / 2)
+# def analysis_constraints_order(fm: FeatureModel) -> tuple[list[Constraint], dict[int, tuple[int, int]]]:
+#     """Return a new order for the constraints based on a previous analysis that takes into account
+#     the number of features to be removed by the transformations required to refactor the
+#     constraint.
     
-    new_constraints_order = dict(sorted(new_constraints_order.items(), key=lambda item: item[1]))
-    new_constraints = []
-    for i in new_constraints_order.keys():
-        print(f'CTC {i}: {new_constraints_order[i]} features -> {constraints[i]}')
-        new_constraints.append(constraints[i])
+#     The result is a tuple with the list of constraints in order, and a dictionary with the indexs
+#     of the constraints and a tuple of (0,1) or (1,0) indicating the transformation that corresponds
+#     with the first transformation or the second transformation.
+#     0 is the first transformation; 1 is the second one.
+#     """
+#     print(f'#Constraints: {len(fm.get_constraints())}')
+#     print(f'  |-#Requires: {len([ctc for ctc in fm.get_constraints() if fm_utils.is_requires_constraint(ctc)])}')
+#     print(f'  |-#Excludes: {len([ctc for ctc in fm.get_constraints() if fm_utils.is_excludes_constraint(ctc)])}')
+
+#     # Order of the constraints:
+#     constraints = fm.get_constraints()
+#     constraints_analysis = {}
+#     for i, ctc in enumerate(constraints):
+#         constraints_analysis[i] = fm_constraints.numbers_of_features_to_be_removed(fm, ctc)
+#     print(f'constraints_analysis: {constraints_analysis}')
+#     constraints_ordered = dict(sorted(constraints_analysis.items(), key=lambda item: max(item[1][0], item[1][1]), reverse=True))  # order by best transformation
+#     print(f'constraints_ordered: {constraints_ordered}')
+#     constraints_ordered_transformations = {}
+#     for i, (key, value) in enumerate(constraints_ordered.items()):
+#         print(f'i: {i}, key: {key}, value: {value}')
+#         constraints_ordered_transformations[i] = (0, 1) if value[0] >= value[1] else (1, 0)
+#     new_constraints_ordered = list(constraints_ordered.keys())
+#     print(f'new_constraints_ordered: {new_constraints_ordered}')
+#     print(f'constraints_ordered_transformations: {constraints_ordered_transformations}')
+#     # for i in range(new_constraints_ordered):
+#     #     print(f'CTC {i}: {new_constraints_ordered[i].ast.to_pretty_str()}, {(constraints_ordered[i][0], constraints_ordered[i][1]), ({(constraints_ordered_transformations[i][0], constraints_ordered_transformations[i][1])})}')
+#     return (new_constraints_ordered, constraints_ordered_transformations)
+
+
+    # constraints = []
+    # constraints = [ctc for ctc in fm.get_constraints() if fm_utils.is_requires_constraint(ctc)] + [ctc for ctc in fm.get_constraints() if fm_utils.is_excludes_constraint(ctc)]
+
+    # transformations_vector = fm_constraints.get_transformations_vector(constraints)
+
+    # new_constraints_order = {}
+    # for i, transformation in enumerate(transformations_vector):
+    #     print(f'#Features to be removed: {fm_constraints.numbers_of_features_to_be_removed(fm, constraints[i])}')
+    #     total_features = 0
+    #     tree = transformation[0].transforms(fm, copy_model=True)
+    #     if tree is not None:
+    #         total_features += len(tree.get_features())
+    #         print(f'CTC {i}: {transformation[0]} -> #Features: {len(tree.get_features())}, #xors: {len(tree.get_alternative_group_features())}')
+    #     else:
+    #         print(f'CTC {i}: {transformation[0]} -> NULL')
+    #     tree = transformation[1].transforms(fm, copy_model=True)
+    #     if tree is not None:
+    #         total_features += len(tree.get_features())
+    #         print(f'CTC {i}: {transformation[1]} -> #Features: {len(tree.get_features())}, #xors: {len(tree.get_alternative_group_features())}')
+    #     else:
+    #         print(f'CTC {i}: {transformation[1]} -> NULL')
+    #     new_constraints_order[i] = int(total_features / 2)
     
-    return new_constraints
+    # new_constraints_order = dict(sorted(new_constraints_order.items(), key=lambda item: item[1]))
+    # new_constraints = []
+    # for i in new_constraints_order.keys():
+    #     print(f'CTC {i}: {new_constraints_order[i]} features -> {constraints[i]}')
+    #     new_constraints.append(constraints[i])
+    
+    # return new_constraints

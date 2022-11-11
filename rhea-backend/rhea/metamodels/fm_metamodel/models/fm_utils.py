@@ -1,3 +1,4 @@
+import statistics
 import multiprocessing
 import copy
 from typing import Any
@@ -29,6 +30,7 @@ def parse_type_value(value: str) -> tuple[Type, Any]:
 
 def split_constraint(constraint: Constraint) -> list[Constraint]:
     """Given a constraint, split it in multiple constraints separated by the AND operator."""
+    print(f'CTC: {constraint.ast.pretty_str()}')
     asts = split_formula(constraint.ast)
     asts_nnf = [ast.convert_into_nnf(ctc) for ctc in asts]
     asts = []
@@ -280,40 +282,20 @@ def eliminate_requires(fm: FeatureModel, requires_ctc: Constraint) -> FeatureMod
     fm.get_constraints().remove(requires_ctc)
     feature_name_a, feature_name_b = left_right_features_names_from_simple_constraint(requires_ctc)
     subtrees = get_trees_from_original_root(fm)
+    print(f'  |-#Subtrees: {len(subtrees)}:  #Features(mean): {statistics.mean([len(st.get_features()) for st in subtrees])}')
     trees_plus = set()
     trees_less = set()
     #original_tree = pickle.dumps(fm.root, protocol=pickle.HIGHEST_PROTOCOL)
-    # Parallel code
-    trees_plusB = []
-    trees_lessA_lessB = []
-    with multiprocessing.Pool() as pool: 
-        # Construct T(+B)   
-        for tree in subtrees:
-            #tree_copy = FeatureModel(copy.deepcopy(tree.root))
-            #tree_copy = FeatureModel(pickle.loads(original_tree))
-            trees_plusB.append(pool.apply_async(transform_tree, ([commitment_feature], tree, [feature_name_b], False)))
-            #trees_plusB.append(pool.apply_async(construct_plusB, (tree, feature_name_b)))
-        # Construct T(-A-B)
-        for tree in subtrees:
-            #tree_copy = FeatureModel(copy.deepcopy(tree.root))
-            #tree_copy = FeatureModel(pickle.loads(original_tree))
-            trees_lessA_lessB.append(pool.apply_async(transform_tree, ([deletion_feature, deletion_feature], tree, [feature_name_a, feature_name_b], False)))
-            #trees_lessA_lessB.append(pool.apply_async(construct_lessA_lessB, (tree, feature_name_a, feature_name_b)))
-
-        for p in trees_plusB:
-            p.wait()
-        for p in trees_lessA_lessB:
-            p.wait()
-
-        for p in trees_plusB:
-            t_plus = p.get()
-            if t_plus is not None:
-                trees_plus.add(t_plus)
-
-        for p in trees_lessA_lessB:
-            t_less = p.get()
-            if t_less is not None:
-                trees_less.add(t_less)
+    # Construct T(+B)   
+    for tree in subtrees:
+        t_plus = transform_tree([commitment_feature], tree, [feature_name_b], True)
+        if t_plus is not None:
+            trees_plus.add(t_plus)
+    # Construct T(-A-B)
+    for tree in subtrees:
+        t_less = transform_tree([deletion_feature, deletion_feature], tree, [feature_name_a, feature_name_b], False)
+        if t_less is not None:
+            trees_less.add(t_less)
 
     # The result consists of a new root, which is an Xor feature,
     # with subfeatures T(+B) and T(-A-B).
@@ -341,35 +323,19 @@ def eliminate_excludes(fm: FeatureModel, excludes_ctc: Constraint) -> FeatureMod
     fm.get_constraints().remove(excludes_ctc)
     feature_name_a, feature_name_b = left_right_features_names_from_simple_constraint(excludes_ctc)
     subtrees = get_trees_from_original_root(fm)
+    print(f'  |-#Subtrees: {len(subtrees)}:  #Features(mean): {statistics.mean([len(st.get_features()) for st in subtrees])}')
     trees_less = set()
     trees_lessplus = set()
-    # Parallel code
-    trees_lessB = []
-    trees_lessA_plusB = []
-    with multiprocessing.Pool() as pool: 
-        # Construct T(-B)
-        for tree in subtrees:
-           trees_lessB.append(pool.apply_async(transform_tree, ([deletion_feature], tree, [feature_name_b], False)))
-           #trees_lessB.append(pool.apply_async(construct_lessB, (tree, feature_name_b)))
-        # Construct T(-A+B)
-        for tree in subtrees:
-            trees_lessA_plusB.append(pool.apply_async(transform_tree, ([deletion_feature, commitment_feature], tree, [feature_name_a, feature_name_b], False)))
-            #trees_lessA_plusB.append(pool.apply_async(construct_lessA_plusB, (tree, feature_name_a, feature_name_b)))
-
-        for p in trees_lessB:
-            p.wait()
-        for p in trees_lessA_plusB:
-            p.wait()
-
-        for p in trees_lessB:
-            t_less = p.get()
-            if t_less is not None:
-                trees_less.add(t_less)
-
-        for p in trees_lessA_plusB:
-            t_lessplus = p.get()
-            if t_lessplus is not None:
-                trees_lessplus.add(t_lessplus)
+    # Construct T(-B)
+    for tree in subtrees:
+        t_less = transform_tree([deletion_feature], tree, [feature_name_b], True)
+        if t_less is not None:
+            trees_less.add(t_less)
+    # Construct T(-A+B)
+    for tree in subtrees:
+        t_lessplus = transform_tree([deletion_feature, commitment_feature], tree, [feature_name_a, feature_name_b], False)
+        if t_lessplus is not None:
+            trees_lessplus.add(t_lessplus)
 
     # The result consists of a new root, which is an Xor feature,
     # with subfeatures T(-B) and T(-A+B).
@@ -466,7 +432,6 @@ def to_unique_features(fm: FeatureModel) -> FeatureModel:
     return fm
 
 def remove_leaf_abstract_features(model: FeatureModel) -> FeatureModel:
-
     assert len(model.get_constraints()) == 0
     
     for feature in model.get_features():
@@ -486,3 +451,132 @@ def remove_leaf_abstract_features(model: FeatureModel) -> FeatureModel:
     if abstract_features > 0:
         model = remove_leaf_abstract_features(model)
     return model
+
+
+def eliminate_requires_parallel(fm: FeatureModel, requires_ctc: Constraint) -> FeatureModel:
+    """Algorithm to eliminate a constraint 'A requires B' from the feature model.
+    
+    The algorithm construct a feature model T whose products are those products of T 
+    which contain B when they contain A.
+    This set of products is the union of the products sets of T(+B) and T(-A-B).
+    The product sets of T(+B) and T(-A-B) are disjoint. So the required feature model can be
+    obtained by taking a new Xor feature as root which has T(+B) and T(-A-B) as subfeatures.
+    """
+    fm.get_constraints().remove(requires_ctc)
+    feature_name_a, feature_name_b = left_right_features_names_from_simple_constraint(requires_ctc)
+    subtrees = get_trees_from_original_root(fm)
+    print(f'  |-#Subtrees: {len(subtrees)}:  #Features(mean): {statistics.mean([len(st.get_features()) for st in subtrees])}')
+    trees_plus = set()
+    trees_less = set()
+    #original_tree = pickle.dumps(fm.root, protocol=pickle.HIGHEST_PROTOCOL)
+    # Parallel code
+    trees_plusB = []
+    trees_lessA_lessB = []
+    with multiprocessing.Pool() as pool: 
+        # Construct T(+B)   
+        for tree in subtrees:
+            #tree_copy = FeatureModel(copy.deepcopy(tree.root))
+            #tree_copy = FeatureModel(pickle.loads(original_tree))
+            trees_plusB.append(pool.apply_async(transform_tree, ([commitment_feature], tree, [feature_name_b], False)))
+            #trees_plusB.append(pool.apply_async(construct_plusB, (tree, feature_name_b)))
+        # Construct T(-A-B)
+        for tree in subtrees:
+            #tree_copy = FeatureModel(copy.deepcopy(tree.root))
+            #tree_copy = FeatureModel(pickle.loads(original_tree))
+            trees_lessA_lessB.append(pool.apply_async(transform_tree, ([deletion_feature, deletion_feature], tree, [feature_name_a, feature_name_b], False)))
+            #trees_lessA_lessB.append(pool.apply_async(construct_lessA_lessB, (tree, feature_name_a, feature_name_b)))
+
+        for p in trees_plusB:
+            p.wait()
+        for p in trees_lessA_lessB:
+            p.wait()
+
+        for p in trees_plusB:
+            t_plus = p.get()
+            if t_plus is not None:
+                trees_plus.add(t_plus)
+
+        for p in trees_lessA_lessB:
+            t_less = p.get()
+            if t_less is not None:
+                trees_less.add(t_less)
+
+    # The result consists of a new root, which is an Xor feature,
+    # with subfeatures T(+B) and T(-A-B).
+    new_root = Feature(get_new_feature_name(fm, 'root'), is_abstract=True)
+    children = []
+    for tree in trees_plus.union(trees_less):
+        tree.root.parent = new_root
+        children.append(tree.root)
+    if not children:
+        return None
+    xor_rel = Relation(new_root, children, 1, 1)
+    new_root.add_relation(xor_rel)
+    return FeatureModel(new_root, fm.get_constraints())
+
+
+def eliminate_excludes_parallel(fm: FeatureModel, excludes_ctc: Constraint) -> FeatureModel:
+    """Algorithm to eliminate a constraint 'A excludes B' from the feature model.
+    
+    The algorithm construct a feature model T whose products are those products of T 
+    which do not contain both A and B.
+    This set of products is the union of the products sets of T(-B) and T(-A+B).
+    The product sets of T(-B) and T(-A+B) are disjoint. So the required feature model can be
+    obtained by taking a new Xor feature as root which has T(-B) and T(-A+B) as subfeatures.
+    """
+    fm.get_constraints().remove(excludes_ctc)
+    feature_name_a, feature_name_b = left_right_features_names_from_simple_constraint(excludes_ctc)
+    subtrees = get_trees_from_original_root(fm)
+    print(f'  |-#Subtrees: {len(subtrees)}:  #Features(mean): {statistics.mean([len(st.get_features()) for st in subtrees])}')
+    trees_less = set()
+    trees_lessplus = set()
+    # Parallel code
+    trees_lessB = []
+    trees_lessA_plusB = []
+    with multiprocessing.Pool() as pool: 
+        # Construct T(-B)
+        for tree in subtrees:
+           trees_lessB.append(pool.apply_async(transform_tree, ([deletion_feature], tree, [feature_name_b], False)))
+           #trees_lessB.append(pool.apply_async(construct_lessB, (tree, feature_name_b)))
+        # Construct T(-A+B)
+        for tree in subtrees:
+            trees_lessA_plusB.append(pool.apply_async(transform_tree, ([deletion_feature, commitment_feature], tree, [feature_name_a, feature_name_b], False)))
+            #trees_lessA_plusB.append(pool.apply_async(construct_lessA_plusB, (tree, feature_name_a, feature_name_b)))
+
+        for p in trees_lessB:
+            p.wait()
+        for p in trees_lessA_plusB:
+            p.wait()
+
+        for p in trees_lessB:
+            t_less = p.get()
+            if t_less is not None:
+                trees_less.add(t_less)
+
+        for p in trees_lessA_plusB:
+            t_lessplus = p.get()
+            if t_lessplus is not None:
+                trees_lessplus.add(t_lessplus)
+
+    # The result consists of a new root, which is an Xor feature,
+    # with subfeatures T(-B) and T(-A+B).
+    new_root = Feature(get_new_feature_name(fm, 'root'), is_abstract=True)
+    children = []
+    for tree in trees_less.union(trees_lessplus):
+        tree.root.parent = new_root
+        children.append(tree.root)
+    if not children:
+        return None
+    xor_rel = Relation(new_root, children, 1, 1)
+    new_root.add_relation(xor_rel)
+    return FeatureModel(new_root, fm.get_constraints())
+
+
+def children_number(feature: Feature) -> int:
+    """Return the number of children in all the subtrees of the given feature."""
+    if feature is None:
+        return 0
+    n_features = len(feature.get_children())
+    for child in feature.get_children():
+        n_features += children_number(child)
+    return n_features
