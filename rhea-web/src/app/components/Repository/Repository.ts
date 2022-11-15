@@ -15,8 +15,14 @@ import {SelectionModel} from '@angular/cdk/collections';
   export class Repository {
 
   selection = new SelectionModel<Data>(true, []);
+  myfile:any
+  dataSource:MatTableDataSource<Data>=new MatTableDataSource<Data>
+  
+  @ViewChild(MatSort, {static: true}) sort!: MatSort;
   @Output() newItemEventopendModal = new EventEmitter<Data>(); 
+  @Output() newItemEventreadThis = new EventEmitter<any>(); 
   @Input() myArticle=new Data('','','',0,'',"",'',0,0,'','');
+
   columns: string[] = [       
     "Name",
     "Author",
@@ -32,17 +38,13 @@ import {SelectionModel} from '@angular/cdk/collections';
     "Format",
     "Select"
   ]
-
   data: Data[] = [
   new Data('Pizzas','Horcas','Horcas',3322,'Food',"1.2",'professional',5,2,'easy','text',"https://www.uma.es/"),
   new Data('JHipster','Horcas','Acebal',1960,'party',"5.9.3",'numericalfm',10,8,'hard','party',"https://www.uma.es/"),
-  new Data('AAAA','Acebal','Acebal',2002,'something',"Original",'radiofm'),
-  
+  new Data('AAAA','Acebal','Acebal',2002,'something',"Original",'radiofm'),  
   ];
 
-  dataSource:MatTableDataSource<Data>=new MatTableDataSource<Data>
-  
-    @ViewChild(MatSort, {static: true}) sort!: MatSort;
+
   
     ngOnInit() {
       this.dataSource = new MatTableDataSource<Data>(this.data);
@@ -82,7 +84,18 @@ import {SelectionModel} from '@angular/cdk/collections';
       else{
         return false
       }
+    }  
+    
+  changeListener($event){
+      if($event.target.files[0].name!=undefined){
+          this.myfile=$event.target
+        }
+  }
+  readThis(){
+    if(this.myfile!=undefined && this.myfile!=null){
+    this.newItemEventreadThis.emit(this.myfile);
     }
+  }
 
   }
   

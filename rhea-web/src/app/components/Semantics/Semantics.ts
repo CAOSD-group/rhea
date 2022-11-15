@@ -22,7 +22,6 @@ export class Semantics  {
             aux.value=element.value
             listsemantics.push(aux)
         });
-        console.log(listsemantics)
         return listsemantics
     }
 }

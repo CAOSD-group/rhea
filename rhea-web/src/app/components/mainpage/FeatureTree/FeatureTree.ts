@@ -132,6 +132,7 @@ var refactor:Refactoring =new Refactoring()
     console.log(this.actual)
     
     this.newItemEventactual.emit(this.actual);
+    this.newItemEventactual.emit(this.actual);
   }
 
   SelectChipRefactor(ref:Refactoring){

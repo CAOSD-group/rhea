@@ -113,6 +113,7 @@ export class AppComponent {
   jsonsemantic:Array<Semantics>=[]
   semantic:Semantics=new Semantics()
   loglist: Array<string>=[];
+  logselect: Array<number>=[];
   myArticle=new Data('','','',0,'',"",'',0,0,'','');
 
 constructor(private http: HttpClient ) { }  
@@ -248,13 +249,20 @@ CreateData(object:any,name?:string){
   this.CreateSemantics()
   this.loadingmodal=true
   this.mainhidden=false
+  this.treeControl.expand(this.tree[0])
+  this.OpenTree(this.tree[0])
 }
 
 OpenTree(node:FMTree){
-  let father=this.GetFather(node,this.tree)
-  if(father!=undefined){
-    this.OpenTree(father)
-    this.treeControl.expand(father)
+  console.log(node)
+  let newnode
+  if(this.logselect[0]!=undefined){
+    if(node.children!=undefined){
+    newnode=node.children[this.logselect[0]]
+    this.treeControl.expand(newnode)
+    this.logselect.splice(0,1)
+    this.OpenTree(newnode)
+    }
   }
 }
 
@@ -367,7 +375,6 @@ else{
 open=[]
 console.log(this.actual)
 console.log(this.actualfather)
-open=this.listOpen(this.actual)
 
 console.log(open)
 try{
@@ -376,17 +383,6 @@ catch{
   this.loadingmodal=true
   }
 }
-listOpen(node:FMTree){
-  
-  let father:FMTree=this.GetFather(node,this.tree)
-  if(father!=undefined){
-    if(father.children!=undefined){
-    open.unshift(father.children.indexOf(node))
-  }
-  open=this.listOpen(father)
-}
-  return open
-}
 
 
 
@@ -394,8 +390,11 @@ DeleteNode(){
   this.loadingmodal=false
   this.actualfather=this.GetFather(this.actual,this.tree)
   if(this.isFeature() && this.actualfather.children?.length==1){
+      aux3=this.actual.name
+      console.log(aux3)
       this.actual=this.actualfather
-      this.DeleteNode
+      this.logselect.splice(-1,1)
+      this.DeleteNode()
   }
   else{
   if(this.isFeature() && this.actualfather.children?.length==2){
@@ -418,13 +417,15 @@ DeleteNode(){
     }
     else{aux2=false}
   }
-  }
-  this.loglist.unshift(this.actual.name+" was deleted")
+  if(this.actual.name!=""){aux3=this.actual.name}
+  console.log(aux3)
+  this.loglist.unshift(aux3+" was deleted")
+  this.logselect.splice(-1,1)
   try{
     this.sendUpdate()}
   catch{
     this.loadingmodal=true
-    }
+    }}
 }
 checkedconst(cons:Const,consInitial:Const){
   if(this.typesofconsTerm.indexOf(cons.type)!=-1){
@@ -515,6 +516,10 @@ CreateChildren(){
     this.loglist.unshift(this.actual.type+" insert "+feature.name+" as a child ")
     this.tree[0].ExpandList(this.name)
   }
+  if(this.actualfather!=undefined){
+    if(this.actualfather.children!=undefined){
+    this.logselect.push(this.actualfather.children?.indexOf(this.actual))
+  }}
   try{
     this.sendUpdate()}
   catch{}
@@ -700,6 +705,7 @@ readThis(inputValue: any): void {
 
 
   select(object:any){
+    this.actualfather=this.GetFather(this.actual,this.tree)
     this.actual=object
     this.name=""
     this.abstract=false
@@ -710,36 +716,29 @@ readThis(inputValue: any): void {
 
     if(this.actual.name!=undefined){this.name=this.actual.name}
     if(this.actual.abstract!=undefined){this.abstract=this.actual.abstract}
-    if(this.actual.type!=undefined){
-      if(this.actual.type=="MANDATORY"){this.optional=false}
-      else{this.optional=true }
-      this.type=this.actual.type}
+    if(this.actual.type!=undefined && this.actual.type!=""){this.type=this.actual.type}
+    if(this.actualfather.type!=undefined && this.actualfather.type!=""){this.type=this.actualfather.type}
     if(this.actual.card_max!=undefined){this.card_max=this.actual.card_max}
     if(this.actual.card_min!=undefined){this.card_min=this.actual.card_min}
-    this.attributes=this.actual.attributes||[]
-    this.actualfather=this.GetFather(this.actual,this.tree)
-    if(this.actualfather!=undefined){
-      this.type=this.actualfather.type||"FEATURE"
-      if(this.actualfather.type=="MANDATORY"){
-        this.optional= false
-        this.type="FEATURE"
-      }
-      if(this.actualfather.type=="OPTIONAL"){
-        this.optional= true
-        this.type="FEATURE"
-      }
-      
+    this.optional=true
+    if(this.type=="MANDATORY"){
+      this.optional=false
     }
-    else{
-      if(this.actual.type=="MANDATORY"){
-        this.optional= false
-      }
-      if(this.actual.type=="OPTIONAL"){
-        this.optional= true
-      }
+    if(this.type=="CARDINALITY" && this.card_min!=0){
+      this.optional=false
+    }
+    this.attributes=this.actual.attributes||[]
+    this.logselect=[]
+    this.listOpen(this.actual,this.actualfather)
+    console.log(this.actual)
+  }
+  listOpen(child:FMTree,father:FMTree){
+    if(father.children!=undefined){
+    this.logselect.unshift(father.children?.indexOf(child))}
+    if(this.GetFather(father,this.tree)!=undefined){
+      this.listOpen(father,this.GetFather(father,this.tree))
     }
   }
-
 
   deleteAttributes(value:any){
     this.actual.attributes=this.attributes
@@ -1124,6 +1123,7 @@ SelectChipFeature(text:string){
 SelectChipRefactor(ref:Refactoring,tipo:string){
   refactor=ref
   this.loadingmodal=false
+  this.logselect=[]
   this.loglist.unshift(ref.id+" was made for a "+tipo)
   try{
   this.Refactor(tipo)

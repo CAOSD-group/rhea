@@ -46,15 +46,15 @@
     </h4>
   </button>  
   <div style="margin-top: 5%;"></div>
-  <button  class="empty" style="margin-top: 3%;"(click)="showAbout()" >
-    <h4 class="white-text">About
-    <mat-icon> help_outline</mat-icon></h4>
-  </button>
-  <div style="margin-top: 5%;"></div>
   <button  class="empty" style="margin-top: 3%;"(click)="showRepository()" >
     <h4 class="white-text">Repository
       <img src="../assets/img/icons8-base-de-datos-20.png" style="size: 1px;" ><!--<a target="_blank" href="https://icons8.com/icon/1476/base-de-datos">Base de datos</a> icon by <a target="_blank" href="https://icons8.com">Icons8</a>-->
     </h4>
+  </button>
+  <div style="margin-top: 5%;"></div>
+  <button  class="empty" style="margin-top: 3%;"(click)="showAbout()" >
+    <h4 class="white-text">About
+    <mat-icon> help_outline</mat-icon></h4>
   </button>
 
 </mat-drawer>
@@ -71,7 +71,9 @@
   
 <!-- Main Page About --> 
 <div [hidden]="!windowAbout">
-  <about></about>
+  <about
+  (newItemEventreadThis)="readThis($event)" 
+  ></about>
 </div>
 
 
