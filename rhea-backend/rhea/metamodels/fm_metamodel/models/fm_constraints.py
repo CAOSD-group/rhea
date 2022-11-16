@@ -1,7 +1,7 @@
 import copy
 from typing import Callable
 
-from flamapy.metamodels.fm_metamodel.models import FeatureModel, Constraint
+from flamapy.metamodels.fm_metamodel.models import FeatureModel, Feature, Constraint
 
 from rhea.metamodels.fm_metamodel.models import fm_utils
 
@@ -171,3 +171,44 @@ def analysis_constraints_order_estimation(fm: FeatureModel, constraints: list[Co
     # for i in range(new_constraints_ordered):
     #     print(f'CTC {i}: {new_constraints_ordered[i].ast.to_pretty_str()}, {(constraints_ordered[i][0], constraints_ordered[i][1]), ({(constraints_ordered_transformations[i][0], constraints_ordered_transformations[i][1])})}')
     return (new_constraints_ordered, constraints_ordered_transformations)
+
+
+def get_subtree_without_constraints_implications(fm: FeatureModel) -> FeatureModel:
+    """Return the subtree of the feature model that is not affected by any constraint."""
+    if len(fm.root.get_relations()) < 2:
+        return None
+    subtree = FeatureModel(copy.deepcopy(fm.root))
+    for ctc in fm.get_constraints():
+        for f in ctc.get_features():
+            if subtree is not None:
+                feature = subtree.get_feature_by_name(f)
+                subtree = remove_feature_branch(subtree, feature)
+    return subtree
+
+
+def get_subtrees_constraints_implications(fm: FeatureModel) -> tuple[FeatureModel, FeatureModel]:
+    """Return the subtree of the feature model that is affected by cross-tree constraints,
+    and the subtree of the feature model that is not affected by any cross-tree constraint."""
+    subtree_without_implications = get_subtree_without_constraints_implications(fm)
+    features = subtree_without_implications.get_features()
+    features.remove(subtree_without_implications.root)
+    subtree = FeatureModel(copy.deepcopy(fm.root))
+    for f in features:
+        feature = subtree.get_feature_by_name(f.name)
+        subtree = remove_feature_branch(subtree, feature)
+    return (subtree, subtree_without_implications)
+
+
+def remove_feature_branch(fm: FeatureModel, feature: Feature) -> FeatureModel:
+    """Remove the entire branch from the root that containts the given feature."""
+    parent = feature.get_parent() if feature is not None else None
+    while feature is not None and parent != fm.root:
+        feature = parent
+        parent = feature.get_parent()
+    if feature is not None:
+        relations_to_be_deleted = [rel for rel in parent.get_relations() if feature in rel.children]
+        for rel in relations_to_be_deleted:
+            parent.get_relations().remove(rel)
+    return fm
+
+

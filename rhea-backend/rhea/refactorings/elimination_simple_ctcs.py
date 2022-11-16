@@ -39,10 +39,17 @@ class EliminationSimpleConstraints(FMRefactoring):
 
 
 def eliminate_simple_constraints(fm: FeatureModel) -> FeatureModel:
+    #fm_subtree_without_constraints_implications = fm_constraints.get_subtree_without_constraints_implications(fm)
+    #print(f'Subtree without constraints implications: {fm_subtree_without_constraints_implications}')
+    #print(f'Subtree with constraints implications: {subtree_with_constraints_implications}')
+
     constraints_order = fm_constraints.analysis_constraints_order(fm)
     print(f'new_constraints_ordered: {[ctc.ast.pretty_str() for ctc in constraints_order[0]]}')
     print(f'constraints_ordered_transformations: {constraints_order[1]}')
     assert len(constraints_order[0]) == len(fm.get_constraints())
+    
+    fm, subtree_without_constraints_implications = fm_constraints.get_subtrees_constraints_implications(fm)
+    print(f'Subtree without constraints implications: {subtree_without_constraints_implications}')
     #print(f'constraints_order: {constraints_order}')
     transformations_vector = fm_constraints.get_transformations_vector(constraints_order)
 
@@ -68,13 +75,21 @@ def eliminate_simple_constraints(fm: FeatureModel) -> FeatureModel:
         percentage = (num / max) * 100
         print(f'#Valid subtrees: {len(valid_transformed_numbers_trees)}. Num: {num} / {max} Ratio: ({percentage}%)')
     result_fm = get_model_from_subtrees(fm, valid_transformed_numbers_trees.values())
-    return result_fm
+    # Mix result FM and subtree without implications:
+    # 1. Change name to the original root
+    subtree_without_constraints_implications.root.name = fm_utils.get_new_feature_name(result_fm, 'Root')
+    new_root = Feature(fm_utils.get_new_feature_name(result_fm, 'Root'), is_abstract=True)
+    new_root.add_relation(Relation(new_root, [subtree_without_constraints_implications.root], 1, 1))
+    subtree_without_constraints_implications.root.parent = new_root
+    new_root.add_relation(Relation(new_root, [result_fm.root], 1, 1))
+    result_fm.root.parent = new_root
+    return FeatureModel(new_root)
 
 
 def get_model_from_subtrees(fm: FeatureModel, subtrees: set[FeatureModel]) -> FeatureModel:
     # The result consists of a new root, which is an Xor feature,
     # with subfeatures each subtree
-    new_root = Feature(fm_utils.get_new_feature_name(fm, 'root'), is_abstract=True)
+    new_root = Feature(fm_utils.get_new_feature_name(fm, 'XOR_Root'), is_abstract=True)
     children = []
     for tree in subtrees:
         tree.root.parent = new_root

@@ -29,6 +29,7 @@ from rhea.refactorings.split_constraint import SplitConstraint
 from rhea.refactorings.elimination_complex_constraints import EliminationComplexConstraints
 from rhea.refactorings.elimination_simple_ctcs_requires import EliminationSimpleConstraintsRequires
 from rhea.refactorings.elimination_simple_ctcs_excludes import EliminationSimpleConstraintsExcludes
+from rhea.refactorings.elimination_simple_ctcs import EliminationSimpleConstraints
 
 
 ##################################################################################################
@@ -37,7 +38,9 @@ REFACTORING_SPLIT = SplitConstraint
 REFACTORING_COMPLEX = EliminationComplexConstraints
 REFACTORING_REQUIRES = EliminationSimpleConstraintsRequires
 REFACTORING_EXCLUDES = EliminationSimpleConstraintsExcludes
+REFACTORING_SIMPLE = EliminationSimpleConstraints
 
+#MODEL_TO_TEST = "Linux-2.6.33.3-basic"
 MODEL_TO_TEST = "JHipster"
 
 INPUT_PATH = 'fm_models/' + MODEL_TO_TEST + '.uvl'
@@ -116,10 +119,11 @@ def main():
     UVLWriter(fm, "Pizzas_complex1.uvl").transform()
     print(f'Applying the refactoring {REFACTORING_REQUIRES.get_name()}...')
     print(f'  |-> refactorings: {len(REFACTORING_REQUIRES.get_instances(fm))}')
-    fm = apply_refactoring(fm, REFACTORING_REQUIRES)
-    print(f'Applying the refactoring {REFACTORING_EXCLUDES.get_name()}...')
-    print(f'  |-> refactorings: {len(REFACTORING_EXCLUDES.get_instances(fm))}')
-    fm = apply_refactoring(fm, REFACTORING_EXCLUDES)
+    fm = REFACTORING_SIMPLE.transform(fm)
+    # fm = apply_refactoring(fm, REFACTORING_REQUIRES)
+    # print(f'Applying the refactoring {REFACTORING_EXCLUDES.get_name()}...')
+    # print(f'  |-> refactorings: {len(REFACTORING_EXCLUDES.get_instances(fm))}')
+    # fm = apply_refactoring(fm, REFACTORING_EXCLUDES)
     print('==================================================')
     end_time = time.perf_counter_ns()
 
@@ -131,9 +135,9 @@ def main():
     UVLWriter(fm, OUTPUT_PATH).transform()
 
     # Print output model with unique features
-    fm = utils.to_unique_features(fm)
-    print_statistics(fm, 'UNIQUE NAMES MODEL')
-    UVLWriter(fm, UNIQUE_PATH).transform()
+    # fm = utils.to_unique_features(fm)
+    # print_statistics(fm, 'UNIQUE NAMES MODEL')
+    # UVLWriter(fm, UNIQUE_PATH).transform()
 
     print(f'Execution time of all refactorings: {(end_time-start_time)/1e9} s.')
 if __name__ == '__main__':
