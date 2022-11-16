@@ -247,3 +247,10 @@ def to_unique_features(fm: FeatureModel) -> FeatureModel:
             unique_features_names.append(f.name)
             
     return fm
+
+
+def apply_refactoring(fm: FeatureModel, refactoring: FMRefactoring) -> FeatureModel:
+    instances = refactoring.get_instances(fm)
+    for i in instances:
+        fm = refactoring.transform(fm, i)
+    return fm
