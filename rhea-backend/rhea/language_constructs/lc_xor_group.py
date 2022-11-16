@@ -1,4 +1,4 @@
-from flamapy.metamodels.fm_metamodel.models import FeatureModel, Feature, Relation
+from flamapy.metamodels.fm_metamodel.models import FeatureModel, Feature
 
 from rhea.language_constructs import LanguageConstruct 
 from rhea.refactorings import FMRefactoring
