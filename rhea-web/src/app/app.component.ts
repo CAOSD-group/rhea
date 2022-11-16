@@ -856,6 +856,7 @@ readThis(inputValue: any): void {
   }
 
   checkListofconstraint(list:Const){
+    let color='#6d0202'
     if(list==undefined){}
     else{
     if(list.operands==null){}
@@ -879,7 +880,10 @@ readThis(inputValue: any): void {
     else {aux4=false}
       }
     } }}
-    return aux4
+    if(aux4){
+      color="#17700b"
+    }
+    return [aux4,color]
   }
 
   ModifyCons(){
