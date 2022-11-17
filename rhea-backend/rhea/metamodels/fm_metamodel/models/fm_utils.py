@@ -394,7 +394,7 @@ def to_unique_features(fm: FeatureModel) -> FeatureModel:
 
 def remove_leaf_abstract_features(model: FeatureModel) -> FeatureModel:
 
-    assert len(model.get_constraints()) == 0
+    #assert len(model.get_constraints()) == 0
     
     for feature in model.get_features():
         if feature.is_leaf() and feature.is_abstract:

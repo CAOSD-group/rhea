@@ -40,7 +40,7 @@ REFACTORING_COMPLEX = EliminationComplexConstraints
 REFACTORING_REQUIRES = EliminationSimpleConstraintsRequires
 REFACTORING_EXCLUDES = EliminationSimpleConstraintsExcludes
 
-MODEL_TO_TEST = "Pizzas_complex"
+MODEL_TO_TEST = "Pizzas"
 
 INPUT_PATH = 'fm_models/' + MODEL_TO_TEST + '.uvl'
 OUTPUT_PATH = 'fm_models/tmp/'  + MODEL_TO_TEST + '_output.uvl'
@@ -107,18 +107,18 @@ def main():
     print_statistics(fm, 'INPUT MODEL')
     
     print('==================================================')
-    print(f'Applying the refactoring {REFACTORING_SPLIT.get_name()}...')
-    print(f'  |-> refactorings: {len(REFACTORING_SPLIT.get_instances(fm))}')
-    fm = apply_refactoring(fm, REFACTORING_SPLIT)
+    # print(f'Applying the refactoring {REFACTORING_SPLIT.get_name()}...')
+    # print(f'  |-> refactorings: {len(REFACTORING_SPLIT.get_instances(fm))}')
+    # fm = apply_refactoring(fm, REFACTORING_SPLIT)
     print(f'Applying the refactoring {REFACTORING_COMPLEX.get_name()}...')
     print(f'  |-> refactorings: {len(REFACTORING_COMPLEX.get_instances(fm))}')
     fm = apply_refactoring(fm, REFACTORING_COMPLEX)
-    print(f'Applying the refactoring {REFACTORING_REQUIRES.get_name()}...')
-    print(f'  |-> refactorings: {len(REFACTORING_REQUIRES.get_instances(fm))}')
-    fm = apply_refactoring(fm, REFACTORING_REQUIRES)
-    print(f'Applying the refactoring {REFACTORING_EXCLUDES.get_name()}...')
-    print(f'  |-> refactorings: {len(REFACTORING_EXCLUDES.get_instances(fm))}')
-    fm = apply_refactoring(fm, REFACTORING_EXCLUDES)
+    # print(f'Applying the refactoring {REFACTORING_REQUIRES.get_name()}...')
+    # print(f'  |-> refactorings: {len(REFACTORING_REQUIRES.get_instances(fm))}')
+    # fm = apply_refactoring(fm, REFACTORING_REQUIRES)
+    # print(f'Applying the refactoring {REFACTORING_EXCLUDES.get_name()}...')
+    # print(f'  |-> refactorings: {len(REFACTORING_EXCLUDES.get_instances(fm))}')
+    # fm = apply_refactoring(fm, REFACTORING_EXCLUDES)
     print('==================================================')
 
     # Remove leaf abstract features
@@ -132,6 +132,9 @@ def main():
     fm = utils.to_unique_features(fm)
     print_statistics(fm, 'UNIQUE NAMES MODEL')
     UVLWriter(fm, UNIQUE_PATH).transform()
+
+    fm = fm_utils.commitment_feature(fm, 'Ham');
+    print_statistics(fm, 'FM_ham')
 
 
 if __name__ == '__main__':
