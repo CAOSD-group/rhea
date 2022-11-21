@@ -78,7 +78,7 @@ let aux=0
         text=false
         symbol=true
         icon=len.name
-        if(len.refactorings.length!=0){
+        if(len.refactorings.length!=0&&len.value!=0){
         menu=false}
       }
       if(chip=="#"){

@@ -80,13 +80,14 @@ export class AppComponent {
   npos:number=-1;
   myfile:any
   myfile_name:string=""
-  documents:string[]= ['Pizzas_completo_new.json','GPL.xml', 'JHipster.uvl', 'MobileMedia.xml', 'TankWar.xml', 'Truck.uvl','WeaFQAs.uvl','Automotive2_1-basic.uvl'];
+  documents:string[]= ['Pizzas_completo_new.uvl','GPL.xml', 'JHipster.uvl', 'MobileMedia.xml', 'TankWar.xml', 'Truck.uvl','WeaFQAs.uvl','Automotive2_1-basic.uvl'];
   listOfTypes=["XOR","OR","MUTEX","CARDINALITY","FEATURE"]
   visiblechipsfeatures=false
   visible_Constraint_list=true;
   bdrawer=true
   show_refacts_features_only=false;
   show_refacts_cons_only=false;
+
   featureautocomplete=""
   ConstraintListautocomplete=""
   search_name=true 
@@ -156,8 +157,10 @@ sendUVL(uvl:any){
 
 
 
-sendUpdate(){
-  this.TransformJSON()
+sendUpdate(myjson?:any){
+  if(myjson==undefined){
+  this.TransformJSON()}
+  console.log(json)
   let file = new Blob([json], { type: 'json' });
   const formData: FormData = new FormData();
   formData.append('file', file,this.title+'.json')
@@ -254,7 +257,6 @@ CreateData(object:any,name?:string){
 }
 
 OpenTree(node:FMTree){
-  console.log(node)
   let newnode
   if(this.logselect[0]!=undefined){
     if(node.children!=undefined){
@@ -389,6 +391,16 @@ catch{
 DeleteNode(){
   this.loadingmodal=false
   this.actualfather=this.GetFather(this.actual,this.tree)
+  if(this.actualfather==undefined){
+    json='{"name":"Empty","features":{"name":"Empty","abstract":false,"attributes":[],"relations":[]},"constraints": []}'
+    console.log(json)
+    try{
+      this.sendUpdate(json)}
+    catch{
+      this.loadingmodal=true
+      }
+  }
+  else{
   if(this.isFeature() && this.actualfather.children?.length==1){
       aux3=this.actual.name
       console.log(aux3)
@@ -425,7 +437,7 @@ DeleteNode(){
     this.sendUpdate()}
   catch{
     this.loadingmodal=true
-    }}
+    }}}
 }
 checkedconst(cons:Const,consInitial:Const){
   if(this.typesofconsTerm.indexOf(cons.type)!=-1){
@@ -462,10 +474,10 @@ isFeature(){
 }
 
 CreateChildren(){
+  this.loadingmodal=false
   if(this.type==undefined||this.type==""){
     this.type="FEATURE"
   }
-  this.loadingmodal=false
   if(this.actual.children==undefined){this.actual.children=[]}
   if(this.isFeature()){
   let relations = new FMTree()
@@ -522,8 +534,8 @@ CreateChildren(){
   }}
   try{
     this.sendUpdate()}
-  catch{}
-    this.loadingmodal=true
+  catch{
+    this.loadingmodal=true}
 }
 CreateBrother(){
   this.loadingmodal=false
@@ -581,9 +593,9 @@ CreateBrother(){
     }
   try{
     this.sendUpdate()}
-  catch{}
+  catch{this.loadingmodal=true}
   }
-  this.loadingmodal=true
+  
 }
 
 
@@ -783,6 +795,7 @@ readThis(inputValue: any): void {
     this.position=a
     this.npos=a
     this.consactual=this.cons[this.position]
+    console.log(this.consactual)
   }
   DeleteCons(){
     this.loadingmodal=false

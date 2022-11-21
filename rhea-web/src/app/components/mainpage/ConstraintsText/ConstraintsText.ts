@@ -98,12 +98,17 @@ import { Const } from '../../constraint/const';
         aux++
       }
       this.ncons=v
+      
+      if(v==""){
+        this.position=-1
+      }
       this.npos=this.position
       this.consactual=this.cons[this.position]
       console.log(this.consactual)
       this.newItemEventposition.emit(this.position);
       this.constraindataSource.data=this.cons.filter(x=>this.cons.indexOf(x)==this.position)
     }
+
     listOfContraint(text:string){
       if(text.length<100){
         return text

@@ -45,10 +45,10 @@
       <mat-icon>account_tree</mat-icon>
     </h4>
   </button>  
-  <div style="margin-top: 5%;"></div>
+ <!----> <div style="margin-top: 5%;"></div>
   <button  class="empty" style="margin-top: 3%;"(click)="showRepository()" >
     <h4 class="white-text">Repository
-      <img src="../assets/img/icons8-base-de-datos-20.png" style="size: 1px;" ><!--<a target="_blank" href="https://icons8.com/icon/1476/base-de-datos">Base de datos</a> icon by <a target="_blank" href="https://icons8.com">Icons8</a>-->
+      <img src="../assets/img/icons8-base-de-datos-20.png" style="size: 1px;" >
     </h4>
   </button>
   <div style="margin-top: 5%;"></div>
@@ -185,7 +185,6 @@
               [consactual]="consactual"
               [consactualfather]="consactualfather"
               [cons]="cons"
-              (newItemEventupdatecons)="SelectCons($event)"
             ></ConstraintsTree>
           </div>
         </div>
@@ -321,7 +320,7 @@
               </mat-list>  
             </h4>
             <h4 [hidden]="!isFeature() || type!='FEATURE'"><input id="mycheckbox" type="checkbox" style="margin-top: 15px;margin-bottom: 15px;" [(ngModel)]="optional" > optional</h4>
-          <button (click)="CreateChildren()" data-bs-toggle="modal" href="#loading" class="bottom-style" style="width: 70px; margin-left: auto; ">Create</button>
+          <button (click)="CreateChildren()" data-bs-toggle="modal" href="#loading" c class="bottom-style" style="width: 70px; margin-left: auto; ">Create</button>
 				</div>
         <div class="col-6">
         </div>
@@ -380,9 +379,11 @@
 	    </div>
 	    <div class="modal-body">
 	      <div class="col-10">
+          <h4 *ngIf="actualfather==undefined" style="color: rgb(180, 36, 36);margin-bottom: 500px;">This is the root and this action will delete everything from this model</h4>
           <h4>Are you sure?
-          <button style="margin-left: 20px;" (click)="DeleteNode()" data-bs-toggle="modal" href="#loading"class="buttonmodal" >Proceed</button></h4>
+          <button style="margin-left: 20px;" (click)="DeleteNode()" data-bs-toggle="modal" href="#loading" class="buttonmodal" >Proceed</button></h4>
 			  </div>
+        
 	    </div>
       <div class="modal-footer">
 	      <button type="button" class="buttonmodal" data-bs-dismiss="modal">Go back</button>
@@ -476,10 +477,10 @@
         <div class="col-12">
           <!--Buttons-->
           <div class="row" style="margin-top: 10px;">
-            <div class="col-3"><button class="buttonmodal " data-bs-toggle="modal" href="#loading" (click)="CreateConsBrother()"> Insert brother </button></div>
-            <div class="col-3"><button class="buttonmodal " data-bs-toggle="modal" href="#loading" (click)="CreateConsSon()"> Insert child </button></div>
-            <div class="col-3"><button class="buttonmodal " data-bs-toggle="modal" href="#loading" (click)="ModifyCons()"> Edit Constrain </button></div>
-            <div class="col-3"><button class="buttonmodal " data-bs-toggle="modal" href="#loading" (click)="DeleteCons()"> Delete Constrain </button></div>
+            <div class="col-3"><button class="buttonmodal " data-bs-toggle="modal" href="#loading" (click)="CreateConsBrother()"> Create New</button></div>
+            <div class="col-3"><button class="buttonmodal " data-bs-toggle="modal" href="#loading" *ngIf="consactual!=undefined" (click)="CreateConsSon()"> Insert child </button></div>
+            <div class="col-3"><button class="buttonmodal " data-bs-toggle="modal" href="#loading" *ngIf="consactual!=undefined" (click)="ModifyCons()"> Edit Constrain </button></div>
+            <div class="col-3"><button class="buttonmodal " data-bs-toggle="modal" href="#loading" *ngIf="consactual!=undefined" (click)="DeleteCons()"> Delete Constrain </button></div>
           </div>
         </div>
       </div>

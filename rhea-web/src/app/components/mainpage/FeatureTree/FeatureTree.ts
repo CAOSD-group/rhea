@@ -20,7 +20,7 @@ var refactor:Refactoring =new Refactoring()
   export class FeatureTree {
 
 
-  show_refacts_features_only=true 
+  show_refacts_features_only=false 
 
   @Input() my_session=""
   @Input() name=""

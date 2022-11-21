@@ -41,7 +41,7 @@
 </mat-paginator>
 </div>
 <mat-menu #menuoptionsconstraintree="matMenu">
-  <button class="empty"  style="color: #012970 " data-bs-toggle="modal" href="#sidebaroptionsconstraintree">Options</button>
+  <button class="empty"  style="color: #012970 "  data-bs-toggle="modal" href="#sidebaroptionsconstraintree">Options</button>
 </mat-menu> 
 <mat-menu #menurefactorcons="matMenu">
   <mat-list class="mat-chip-list-stacked"  >
@@ -54,10 +54,11 @@
 
 <!--Menu Constraints options-->
 <mat-menu #menumodelcons="matMenu" >
-    <button  class ="empty" (click) = "$event.stopPropagation()" (click)="show_refacts_cons_only=!show_refacts_cons_only" matTooltip="Highlight Refactorings"  >
+    <button  class ="empty" (click) = "$event.stopPropagation()" (click)="show_refacts_cons_only=!show_refacts_cons_only">
     <i class="bi bi-eye-fill" [hidden]="show_refacts_cons_only"></i>
     <i class="bi bi-eye-slash-fill" [hidden]="!show_refacts_cons_only"></i>  
     </button>
     <a (click)="show_refacts_cons_only=!show_refacts_cons_only" (click) = "$event.stopPropagation()"  >Highlight Refactorings</a>
     <hr>
+    <button class="empty"  style="color: #012970 " (click)='SelectedChange("")' data-bs-toggle="modal" href="#sidebaroptionsconstraintree">Create New Constraint</button>
   </mat-menu>
