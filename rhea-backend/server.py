@@ -1,6 +1,7 @@
 import os
 import inspect
 import importlib
+import json
 from typing import Optional
 
 from flask import Flask, render_template, request, redirect, send_from_directory, make_response
@@ -19,7 +20,7 @@ from rhea import refactorings
 FEATURE_MODEL_SESSION = 'FeatureModel'
 UPLOAD_FOLDER = '/tmp'
 ALLOWED_EXTENSIONS = {'uvl', 'xml', 'json', 'gfm.json'}
-
+EXAMPLE_MODELS_DIR = 'fm_models'
 
 static_url = ''
 static_dir = 'template'
@@ -38,6 +39,20 @@ cache = Cache(app)
 #app = Flask(__name__,static_url_path=static_url,static_folder=static_folder,template_folder=static_dir)
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 CORS(app, supports_credentials=True)
+
+
+def get_example_models() -> list[str]:
+    models = []
+    for root, dirs, files in os.walk(os.path.join(static_dir, EXAMPLE_MODELS_DIR)):
+        for file in files:
+            #filepath = os.path.join(root, file)
+            models.append(file)
+    # Put a specific model first:
+    pizza_model = next((m for m in models if m == 'Pizzas with refactorings.json'), None)
+    if pizza_model is not None:
+        models.remove(pizza_model)
+        models.insert(0, pizza_model)
+    return models
 
 
 def allowed_file(filename):
@@ -59,6 +74,32 @@ def read_fm_file(filename: str) -> Optional[FeatureModel]:
         return JSONReader(filename).transform()
     else:
         return None
+
+
+@app.route('/getExampleFMs', methods=['GET'])
+def get_example_feature_models():
+    if request.method != 'GET':
+        return None
+    else:
+        models = get_example_models()
+        response = make_response(json.dumps(models))
+        return response
+
+
+@app.route('/uploadExampleFM', methods=['POST'])
+def upload_example_feature_model():
+    if request.method != 'POST':
+        return None
+    else:
+        # Get parameters
+        filename = request.form['filename']
+        filepath = os.path.join(EXAMPLE_MODELS_DIR, filename)
+        fm = read_fm_file(filepath)
+        json_fm = JSONWriter(path=None, source_model=fm).transform()
+        response = make_response(json_fm)
+        hash_fm = hash(fm)
+        cache.set(str(hash_fm), fm)
+        return response
 
 
 @app.route('/uploadFM', methods=['POST'])
