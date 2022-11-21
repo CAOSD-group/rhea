@@ -15,12 +15,14 @@ let aux=0
     @Input() ListOfRefactorsInfo :Array<Refactoring>=[];
     @Input() ListLanguage:Array<string>=[]
     @Input() jsonlanguage:Array<Language>=[]
+    @Input() loadingmodal=false
     @Output() newItemEventrefactoingall= new EventEmitter<Refactoring>();
     @Output() newItemEventdownload= new EventEmitter<string>();
     declare mychip:Language
 
     Refactor(){
       aux=-1
+      this.loadingmodal=false
       if(this.mychip.refactorings.length==0){
         console.log("not a refactoring")
       }

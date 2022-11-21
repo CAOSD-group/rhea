@@ -112,6 +112,7 @@ var refactor:Refactoring =new Refactoring()
     return text
   }
 
+
   select(object:any){
     this.actual=object
     this.name=""

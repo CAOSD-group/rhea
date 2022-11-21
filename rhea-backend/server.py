@@ -43,7 +43,7 @@ CORS(app, supports_credentials=True)
 
 def get_example_models() -> list[str]:
     models = []
-    for root, dirs, files in os.walk(os.path.join(static_dir, EXAMPLE_MODELS_DIR)):
+    for root, dirs, files in os.walk(os.path.join(EXAMPLE_MODELS_DIR)):
         for file in files:
             #filepath = os.path.join(root, file)
             models.append(file)
@@ -93,6 +93,7 @@ def upload_example_feature_model():
     else:
         # Get parameters
         filename = request.form['filename']
+        print (filename)
         filepath = os.path.join(EXAMPLE_MODELS_DIR, filename)
         fm = read_fm_file(filepath)
         json_fm = JSONWriter(path=None, source_model=fm).transform()

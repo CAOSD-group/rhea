@@ -35,7 +35,8 @@ var refactor:Refactoring =new Refactoring()
 
 export class AppComponent {
 
-  urldownload="http://127.0.0.1:5000/downloadFM"  
+  urldocuments="http://127.0.0.1:5000/getExampleFMs"  
+  urldownload="http://127.0.0.1:5000/uploadExampleFM"  
   urlupload="http://127.0.0.1:5000/uploadFM"  
   urldelete="http://127.0.0.1:5000deleteFM" 
   urlcreate="http://127.0.0.1:5000createFM" 
@@ -80,7 +81,7 @@ export class AppComponent {
   npos:number=-1;
   myfile:any
   myfile_name:string=""
-  documents:string[]= ['Pizzas_completo_new.uvl','GPL.xml', 'JHipster.uvl', 'MobileMedia.xml', 'TankWar.xml', 'Truck.uvl','WeaFQAs.uvl','Automotive2_1-basic.uvl'];
+  documents:string[]= [""];
   listOfTypes=["XOR","OR","MUTEX","CARDINALITY","FEATURE"]
   visiblechipsfeatures=false
   visible_Constraint_list=true;
@@ -122,7 +123,7 @@ constructor(private http: HttpClient ) { }
 
 
 ngOnInit() {
-  this.returnValues('Pizzas_completo_new.json')
+  this.getDocumentName()
 }
 
 
@@ -155,6 +156,16 @@ sendUVL(uvl:any){
     )
 }
 
+getDocumentName(){
+this.http.get(this.urldocuments).subscribe(resultado => {
+    aux=resultado
+    this.documents=aux
+    console.log(this.documents)    
+    this.returnValues(this.documents[0])
+      }
+    )
+
+}
 
 
 sendUpdate(myjson?:any){
@@ -209,11 +220,13 @@ returnValues(text?:string){
   this.loglist=[]
   this.loadingmodal=false
   if(text==""|| text==undefined){text=this.item;this.loadingmodal=true}
-  this.http.post(this.urldownload,text,{ withCredentials:true,responseType:'text'}).subscribe(resultado => {
+  const formData: FormData = new FormData();
+  formData.append('filename',text);
+  this.http.post(this.urldownload,formData,{ withCredentials:true,responseType:'text'}).subscribe(resultado => {
      try{this.CreateData(resultado,text)
       this.loglist.unshift(this.item+" was loaded")
     }
-     catch{
+    catch{
     this.loadingmodal=true
     this.loglist.unshift("fail to load the model")
   }

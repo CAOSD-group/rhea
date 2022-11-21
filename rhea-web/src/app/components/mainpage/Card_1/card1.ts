@@ -12,7 +12,7 @@ let aux:any
   
   export class card1 {
   
-    documents:string[]= ['Pizzas_completo_new.json', 'JHipster.uvl','MobileMedia.xml', 'TankWar.xml', 'Truck.uvl','WeaFQAs.uvl','Automotive2_1-basic.uvl'];
+    @Input() documents:string[]= [];
     myfile_name=""
     myfile:any
     @Output() newItemEventreadThis = new EventEmitter<any>(); 
@@ -23,16 +23,21 @@ let aux:any
         if($event.target.files[0].name!=undefined){
             this.myfile_name=$event.target.files[0].name
             this.myfile=$event.target
+            aux=1
           }
     }
     readThis(){
-      if(this.myfile!=undefined && this.myfile!=null){
+      if(this.myfile!=undefined && this.myfile!=null && aux==1){
       this.newItemEventreadThis.emit(this.myfile);
+      }
+      if(aux==0){
+      this.newItemEventreturnValues.emit(this.myfile_name);
       }
     } 
 
     select(event){
       if(this.documents.indexOf(event.value)!=-1){
-      this.newItemEventreturnValues.emit(event.value)};
+        aux=0
+        this.myfile_name=event.value};
     }
 }

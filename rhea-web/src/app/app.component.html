@@ -89,6 +89,7 @@
         <div class="card block">
           <div class="border">
             <card1 
+            [documents]="documents"  
             (newItemEventreadThis)="readThis($event)" 
             [item]="item"  
             (newItemEventreturnValues)="returnValues($event)"></card1>
@@ -199,6 +200,7 @@
             <Information 
             [ListOfRefactorsInfo]="ListOfRefactors"
             [jsonlanguage]="jsonlanguage"
+            [loadingmodal]="loadingmodal"
             [ListLanguage]="ListLanguage" 
             (newItemEventrefactoingall)="SelectChipRefactor($event,'all')"
             (newItemEventdownload)="SaveFile($event)"
