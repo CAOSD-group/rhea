@@ -18,7 +18,8 @@ var refactor:Refactoring =new Refactoring()
   })
   
   export class FeatureTree {
-
+  
+  node:FMTree=new FMTree()
 
   show_refacts_features_only=false 
 
@@ -96,22 +97,38 @@ var refactor:Refactoring =new Refactoring()
   });
   return [hiddensymbolfeature,color]
   }
-
-  ToolTip(nodetooltip:FMTree){
-    let text=""
-  
-    if(nodetooltip.attributes!=undefined&&nodetooltip.attributes.length>0){
-      text=text+ "Attributes"
-      nodetooltip.attributes.forEach(element => {
-        if(element.name!= undefined){text=text+":"+element.name}
-        if(element.value!= undefined){text=text+":"+element.value}
-        
-      })
-      text=text+" ;"
+  ToolTip(node?:FMTree){
+    if(node==undefined){
+      this.node=new FMTree()
     }
-    return text
+    else{
+      this.node=node
+    }
   }
-
+  ToolTipText(node:FMTree){
+    let bool=false
+    let text=""
+    if(this.node!=undefined){
+      if(this.node==node){
+        bool=true
+        aux=this.GetFather(node,this.tree)
+        if(aux==undefined){
+          text="root"
+        }
+        else{
+        if(aux.type!=undefined){
+          text=aux.type
+        }
+        else{
+          if(node.type!=undefined){
+            text=node.type
+          }
+        }
+      }
+      }
+    }
+    return [bool,text]
+  }
 
   select(object:any){
     this.actual=object
@@ -141,16 +158,14 @@ var refactor:Refactoring =new Refactoring()
   }
 
   ToolTipRefa(nodetooltiprefa:FMTree){
-    let text
     let bool=false
     this.ListOfRefactors.forEach(element => {
       if(nodetooltiprefa.name!=undefined){
       if(element.instances.includes(nodetooltiprefa.name)){
-      text="Refactoring: "+element.name
       bool=true
       }}
     });
-  return [bool,text]
+  return bool
   }
 
   RefactorvisibleFeature(ref:Refactoring){
@@ -187,6 +202,7 @@ RelationFeature(node:any){
 
 marginFeature(node:any){
   let margin=0
+
     if(node.type=="MANDATORY" || node.type=="OPTIONAL" ){
       if(node.children!=undefined){
       this.treeControl.expand(node)}

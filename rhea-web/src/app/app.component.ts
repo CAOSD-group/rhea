@@ -148,7 +148,7 @@ showRepository(){
 sendUVL(uvl:any){
   const formData: FormData = new FormData();
   formData.append('file', uvl, uvl.name);
-  this.http.post(this.urlupload,formData,{withCredentials:true,responseType:'text'}).subscribe(resultado => {
+  this.http.post(this.urlupload,formData,{withCredentials:true,responseType:'text'}).subscribe(resultado => {  
     this.CreateData(resultado)
     this.loglist.unshift(uvl.name+" was loaded")
     json=resultado
@@ -159,8 +159,7 @@ sendUVL(uvl:any){
 getDocumentName(){
 this.http.get(this.urldocuments).subscribe(resultado => {
     aux=resultado
-    this.documents=aux
-    console.log(this.documents)    
+    this.documents=aux 
     this.returnValues(this.documents[0])
       }
     )
@@ -171,7 +170,6 @@ this.http.get(this.urldocuments).subscribe(resultado => {
 sendUpdate(myjson?:any){
   if(myjson==undefined){
   this.TransformJSON()}
-  console.log(json)
   let file = new Blob([json], { type: 'json' });
   const formData: FormData = new FormData();
   formData.append('file', file,this.title+'.json')
@@ -192,17 +190,6 @@ Refactor(typeref:string){
   else{
     if(typeref=="node"){object=this.actual.name;formData.append('instance_name',object);}
     if(typeref=="cons"){object=this.listnamesconstraints[this.npos];formData.append('instance_name',object);}
-    /*if(typeref=="all"){
-      this.TransformJSON();
-      object=json;
-      let my_refac=""
-      console.log(this.ListOfRefactors);
-      this.ListOfRefactors.forEach(element => {
-        my_refac=my_refac+element.id+";"
-      });
-      my_refac=my_refac.slice(0,-1)
-      formData.append('refactoring_id',my_refac);
-  }*/
     if(typeref=="node"||typeref=="cons"||typeref=="all"){
       
     formData.append('refactoring_id',refactor.id);
@@ -267,6 +254,7 @@ CreateData(object:any,name?:string){
   this.mainhidden=false
   this.treeControl.expand(this.tree[0])
   this.OpenTree(this.tree[0])
+  
 }
 
 OpenTree(node:FMTree){
@@ -389,9 +377,6 @@ else{
 }
 open=[]
 console.log(this.actual)
-console.log(this.actualfather)
-
-console.log(open)
 try{
   this.sendUpdate()}
 catch{
@@ -406,7 +391,6 @@ DeleteNode(){
   this.actualfather=this.GetFather(this.actual,this.tree)
   if(this.actualfather==undefined){
     json='{"name":"Empty","features":{"name":"Empty","abstract":false,"attributes":[],"relations":[]},"constraints": []}'
-    console.log(json)
     try{
       this.sendUpdate(json)}
     catch{
@@ -416,7 +400,6 @@ DeleteNode(){
   else{
   if(this.isFeature() && this.actualfather.children?.length==1){
       aux3=this.actual.name
-      console.log(aux3)
       this.actual=this.actualfather
       this.logselect.splice(-1,1)
       this.DeleteNode()
@@ -443,7 +426,6 @@ DeleteNode(){
     else{aux2=false}
   }
   if(this.actual.name!=""){aux3=this.actual.name}
-  console.log(aux3)
   this.loglist.unshift(aux3+" was deleted")
   this.logselect.splice(-1,1)
   try{
@@ -703,7 +685,6 @@ readThis(inputValue: any): void {
     myReader.readAsText(file);
     myReader.onloadend = function (e) {
     aux=myReader.result;}
-  
     if(file.name.endsWith('.json')){
       setTimeout(() => {
       this.sendUVL(file)
@@ -1150,9 +1131,18 @@ SelectChipFeature(text:string){
   }
   this.ListOfConstraint.push(aux)
 }
+
 SelectChipRefactor(ref:Refactoring,tipo:string){
-  refactor=ref
   this.loadingmodal=false
+  var element =document.getElementById('closeload');
+  if(element!=null){element.click()}
+  while(!this.showModal()[1]){
+    this.loadingmodal=false
+    this.showModal()
+  }
+  var element =document.getElementById('openload');
+  if(element!=null){element.click()}
+  refactor=ref
   this.logselect=[]
   this.loglist.unshift(ref.id+" was made for a "+tipo)
   try{

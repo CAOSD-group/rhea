@@ -26,12 +26,13 @@
             </mat-icon>
           </button>
         </div>
-        <div class="symbols" >
+        <div class="symbols" (mouseenter)="ToolTip(node)" (mouseleave)="ToolTip()" >
           <img src={{SymbolPerType(node)[1]}}>  
           <img src={{SymbolPerType(node)[0]}}> 
+          <h6 *ngIf="ToolTipText(node)[0]" style="color: rgba(65, 65, 65, 0.75);font-size: 10px;position: absolute;z-index: 9;">{{ToolTipText(node)[1]}}</h6>
         </div>
         <div class="margin" ></div>
-        <div  class={{HiddenRefacfeature(node)[1]}} matTooltip={{ToolTip(node)}} >
+        <div  class={{HiddenRefacfeature(node)[1]}}  >
           {{node.name}}{{SymbolPerType(node)[2]}}
         </div>     
          <button mat-icon-button [matMenuTriggerFor]="menu" (click)="select(node)" >
@@ -52,7 +53,7 @@
         <a data-bs-toggle="modal" href="#sidebarcreatebrother">Create brother</a>
         <hr>
         <a data-bs-toggle="modal" href="#sidebardeletebranch">Delete branch</a>
-        <div *ngIf="ToolTipRefa(node)[0]" matTooltip={{ToolTipRefa(node)[1]}}>
+        <div *ngIf="ToolTipRefa(node)">
           <hr>
           <button class="buttonmenu2" mat-icon-button [matMenuTriggerFor]="menurefactortree" (click) = "$event.stopPropagation()" >
             Apply Refactor
@@ -73,7 +74,7 @@
 
   <!--Menu options-->
 <mat-menu #menumodel="matMenu" >
-    <button  style="padding-left: 5px;" class ="empty" (click) = "$event.stopPropagation()" (click)="show_refacts_features_only=!show_refacts_features_only" matTooltip="Highlight Refactorings"  >
+    <button  style="padding-left: 5px;" class ="empty" (click) = "$event.stopPropagation()" (click)="show_refacts_features_only=!show_refacts_features_only" >
       <i class="bi bi-eye-fill" [hidden]="show_refacts_features_only"></i>
       <i class="bi bi-eye-slash-fill" [hidden]="!show_refacts_features_only"></i>  
     </button>

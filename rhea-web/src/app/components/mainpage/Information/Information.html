@@ -19,7 +19,7 @@
                         </button> </label> 
                     
                         <mat-menu #menuinfo="matMenu">
-                            <button  class ="empty" (click) = "$event.stopPropagation()" data-bs-toggle="modal" href="#loading" (click)="Refactor()" >
+                            <button  type="button" class ="empty" data-bs-toggle="modal" href="#loading" (click)="Refactor()" >
                             <label style="color: #012970;cursor: pointer;" >{{element.refactorings}}</label></button>
                         </mat-menu>
                     </td>
@@ -30,32 +30,3 @@
     <tr mat-header-row *matHeaderRowDef="columns()"></tr>
     <tr mat-row *matRowDef="let row; columns: columns();" [hidden]="hiddencolum(row)"></tr>
   </table>
-
-    <!--Menu options-->
-
-
-
-
-
-
-
-
-
-
-
-
-<!--<mat-chip-list >
-    <mat-chip class="bottom-style" *ngFor="let ref of ListLanguage" >
-        <label class="labelcenter" >{{ref}}</label>
-    </mat-chip>
-</mat-chip-list>
-<mat-chip-list >
-    <mat-chip class="bottom-style" *ngFor="let lang of jsonlanguage" >
-        <label>{{lang.name}}</label>
-        <label>{{lang.tools}}</label>
-    </mat-chip>
-</mat-chip-list>
-
-if(Si aparece la tool debe verse verde)
-    elseif(Si tiene refactoring debe verse naranja)
-     sino en rojo-->
