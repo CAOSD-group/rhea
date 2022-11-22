@@ -1,0 +1,120 @@
+features
+	root
+		alternative
+			Pizza
+				mandatory
+					Topping
+						optional
+							Salami{cost "1.5", price "3"}
+						optional
+							Ham{cost "1.25", price "2.5"}
+						optional
+							Mozzarella{price "1.75", cost "0"}
+				mandatory
+					Size
+						alternative
+							Normal{default}
+							Big
+				mandatory
+					Dough
+						alternative
+							Neapolitan{default}
+							Sicilian
+				optional
+					Vegan
+						or
+							Tomato
+							Pepper
+							Corn
+						mandatory
+							Tomato1
+				optional
+					Spicy
+						optional
+							Spicy1
+								alternative
+									Cayenne
+									Jalapino
+				mandatory
+					OR
+						or
+							CheesyCrust_1
+							Sicilian_1
+							Big_1
+				mandatory
+					OR1
+						or
+							Neapolitan_1
+							Salami_1
+							Ham_1
+				mandatory
+					OR2
+						or
+							Topping_1
+							Salami_2
+							Ham_2
+							Mozzarella_1
+			Pizza1
+				mandatory
+					Topping1
+						optional
+							Salami1{cost "1.5", price "3"}
+						optional
+							Ham1{cost "1.25", price "2.5"}
+						optional
+							Mozzarella1{price "1.75", cost "0"}
+				mandatory
+					Size1
+						alternative
+							Normal1{default}
+							Big1
+				mandatory
+					Dough1
+						alternative
+							Neapolitan1{default}
+							Sicilian1
+				mandatory
+					CheesyCrust
+				optional
+					Vegan1
+						or
+							Tomato2
+							Pepper1
+							Corn1
+						mandatory
+							Tomato3
+				optional
+					Spicy2
+						optional
+							Spicy11
+								alternative
+									Cayenne1
+									Jalapino1
+				mandatory
+					OR3
+						or
+							Sicilian_11
+							Big_11
+				mandatory
+					OR11
+						or
+							Neapolitan_11
+							Salami_11
+							Ham_11
+				mandatory
+					OR21
+						or
+							Topping_11
+							Salami_21
+							Ham_21
+							Mozzarella_11
+constraints
+	Sicilian_1 excludes Sicilian
+	Big_1 requires Big
+	Neapolitan_1 excludes Neapolitan
+	Salami_1 excludes Salami
+	Ham_1 excludes Ham
+	Topping_1 excludes Topping
+	Salami_2 excludes Salami
+	Ham_2 excludes Ham
+	Mozzarella_1 requires Mozzarella

@@ -10,12 +10,12 @@ ejecutar el servidor
 Control+ C Salimos del servidor ,abrir nueva terminal y camos a la carpeta que contenga la carpeta rhea y los ficheros .bash
 cd .. para retroceder, dir para ver las carpetas y cd "nombre" para entrar en una carpeta
 comprobar que paython 3.10 o superior este instalado
-# sudo python -V
+# sudo python3 -V
 si no esta instalado instalarlo con
 # sudo apt update && sudo apt upgrade
 # sudo apt install python3.10 
 Creamos un enviroment propio
-# python -m venv env
+# python3 -m venv env
 Activamos el enviroment si no se ha activado automaticamente
 # source env/bin/activate
 Una vez activo entramos en la carpeta del la aplicacion e instalamos las dependencias

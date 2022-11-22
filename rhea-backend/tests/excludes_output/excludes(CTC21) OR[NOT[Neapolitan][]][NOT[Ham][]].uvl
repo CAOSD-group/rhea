@@ -1,0 +1,134 @@
+features
+	root1
+		alternative
+			root
+				alternative
+					Pizza
+						mandatory
+							Topping
+								[2..3]
+									Salami{cost "1.5", price "3"}
+									Ham{cost "1.25", price "2.5"}
+									Mozzarella{price "1.75", cost "0"}
+						mandatory
+							Size
+								alternative
+									Normal{default}
+									Big
+						mandatory
+							Dough
+								alternative
+									Neapolitan{default}
+									Sicilian
+						optional
+							CheesyCrust
+						optional
+							Vegan
+								or
+									Tomato
+									Pepper
+									Corn
+								mandatory
+									Tomato1
+						optional
+							Spicy
+								[0..1]
+									Cayenne
+									Jalapino
+					Pizza1
+						mandatory
+							Topping1
+								[2..3]
+									Salami1{cost "1.5", price "3"}
+									Ham1{cost "1.25", price "2.5"}
+									Mozzarella1{price "1.75", cost "0"}
+						mandatory
+							Size1
+								alternative
+									Normal1{default}
+									Big1
+						mandatory
+							Dough1
+								mandatory
+									Sicilian1
+						optional
+							CheesyCrust1
+						optional
+							Vegan1
+								or
+									Tomato2
+									Pepper1
+									Corn1
+								mandatory
+									Tomato3
+						optional
+							Spicy1
+								[0..1]
+									Cayenne1
+									Jalapino1
+			root2
+				alternative
+					Pizza2
+						mandatory
+							Topping2
+								[2..3]
+									Salami2{cost "1.5", price "3"}
+									Ham2{cost "1.25", price "2.5"}
+									Mozzarella2{price "1.75", cost "0"}
+						mandatory
+							Size2
+								alternative
+									Normal2{default}
+									Big2
+						mandatory
+							Dough2
+								mandatory
+									Sicilian2
+						optional
+							CheesyCrust2
+						optional
+							Vegan2
+								or
+									Tomato4
+									Pepper2
+									Corn2
+								mandatory
+									Tomato5
+						optional
+							Spicy2
+								[0..1]
+									Cayenne2
+									Jalapino2
+					Pizza3
+						mandatory
+							Topping3
+								[2..3]
+									Salami3{cost "1.5", price "3"}
+									Ham3{cost "1.25", price "2.5"}
+									Mozzarella3{price "1.75", cost "0"}
+						mandatory
+							Size3
+								alternative
+									Normal3{default}
+									Big3
+						mandatory
+							Dough3
+								mandatory
+									Sicilian3
+						optional
+							CheesyCrust3
+						optional
+							Vegan3
+								or
+									Tomato6
+									Pepper3
+									Corn3
+								mandatory
+									Tomato7
+						optional
+							Spicy3
+								[0..1]
+									Cayenne3
+									Jalapino3
+constraints
+	(CheesyCrust & Sicilian) => Big

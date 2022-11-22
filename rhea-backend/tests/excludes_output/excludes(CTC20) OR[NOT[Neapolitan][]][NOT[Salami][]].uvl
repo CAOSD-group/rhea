@@ -1,0 +1,69 @@
+features
+	root
+		alternative
+			Pizza
+				mandatory
+					Topping
+						[2..3]
+							Salami{cost "1.5", price "3"}
+							Ham{cost "1.25", price "2.5"}
+							Mozzarella{price "1.75", cost "0"}
+				mandatory
+					Size
+						alternative
+							Normal{default}
+							Big
+				mandatory
+					Dough
+						alternative
+							Neapolitan{default}
+							Sicilian
+				optional
+					CheesyCrust
+				optional
+					Vegan
+						or
+							Tomato
+							Pepper
+							Corn
+						mandatory
+							Tomato1
+				optional
+					Spicy
+						[0..1]
+							Cayenne
+							Jalapino
+			Pizza1
+				mandatory
+					Topping1
+						[2..3]
+							Salami1{cost "1.5", price "3"}
+							Ham1{cost "1.25", price "2.5"}
+							Mozzarella1{price "1.75", cost "0"}
+				mandatory
+					Size1
+						alternative
+							Normal1{default}
+							Big1
+				mandatory
+					Dough1
+						mandatory
+							Sicilian1
+				optional
+					CheesyCrust1
+				optional
+					Vegan1
+						or
+							Tomato2
+							Pepper1
+							Corn1
+						mandatory
+							Tomato3
+				optional
+					Spicy1
+						[0..1]
+							Cayenne1
+							Jalapino1
+constraints
+	(CheesyCrust & Sicilian) => Big
+	!Neapolitan | !Ham

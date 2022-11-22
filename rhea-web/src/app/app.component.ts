@@ -243,13 +243,21 @@ CreateData(object:any,name?:string){
   catch{}
   if(aux2=="" ){
   }
-  aux3=aux.constraints
-  this.CreateCons()
-  this.CreateFMTree()
-  if(jsonrefactors!=undefined){
-  this.CreateRefactor()}
   this.CreateLanguage()
   this.CreateSemantics()
+  aux3=aux.constraints
+  setTimeout(() => {
+  this.CreateCons() 
+  }, 10);
+  setTimeout(() => {
+  this.CreateFMTree()  
+  }, 10);
+  if(jsonrefactors!=undefined){
+  this.CreateRefactor()}
+  setTimeout(() => {
+  this.CreateLanguage()  
+  }, 10);
+
   this.loadingmodal=true
   this.mainhidden=false
   this.treeControl.expand(this.tree[0])
@@ -688,7 +696,6 @@ readThis(inputValue: any): void {
     if(file.name.endsWith('.json')){
       setTimeout(() => {
       this.sendUVL(file)
-      //this.CreateData(aux,"hola")
       },100)
     }
     if(file.name.endsWith('.uvl')){
@@ -1251,7 +1258,6 @@ SaveJson() {
 SaveUVL() {
   this.TransformJSON()
   aux = new Blob([json], { type: 'json' });
-  //this.CreateData(resultado)
   alert("I should send the json file to the server,and then download the data as an UVL file")
   let file2 = new Blob(["resultado"], { type: 'uvl' });
   saveAs(file2, this.title+'.uvl') 
