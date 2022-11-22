@@ -31,49 +31,55 @@ class EliminationComplexConstraints(FMRefactoring):
 
     @staticmethod
     def transform(model: FeatureModel, instance: Constraint) -> FeatureModel:
-        if instance is None:
-            raise Exception(f'Constraint {instance} is None.')
-        if not fm_utils.is_complex_constraint(instance):
-            raise Exception(f'Constraint {instance} is not complex.')
-
+        # if instance is None:
+        #     raise Exception(f'Constraint {instance} is None.')
+        # if not fm_utils.is_complex_constraint(instance):
+        #     raise Exception(f'Constraint {instance} is not complex.')
         model.ctcs.remove(instance)
         ctcs_names = [ctc.name for ctc in model.get_constraints()]
-        new_or = Feature(utils.get_new_feature_name(model, 'OR'), is_abstract=True)
-        features = []
-        dict_constraint = get_features_clauses(instance)  # NOT before negatives (dict)
-        for f in dict_constraint.keys():
-            new_feature = Feature(utils.get_new_feature_complex_name(model, f), 
-                                  parent=new_or, is_abstract=True)
-            features.append(new_feature)
-            ast_operation = ASTOperation.REQUIRES if dict_constraint[f] else ASTOperation.EXCLUDES
-            ctc = Constraint(utils.get_new_ctc_name(ctcs_names, 'CTC'), 
-                             AST.create_binary_operation(ast_operation, 
-                             Node(new_feature.name), Node(f)))
-            model.ctcs.append(ctc)
-
-        # New branch with OR as root
-        rel_or = Relation(new_or, features, 1, len(features))  # OR
-        new_or.add_relation(rel_or)
-        
-        # New root (only needed if the root feature is a group)
-        if model.root.is_group():
-            new_root = Feature(utils.get_new_feature_name(model, 'root'), is_abstract=True)
-            rel_1 = Relation(new_root, [model.root], 1, 1)  # mandatory
-            new_root.add_relation(rel_1)
-            model.root.parent = new_root
+        features_dict = get_features_clauses(instance)  # NOT before negatives (dict)
+        if len(features_dict) == 1:
+            feature_name = list(features_dict.keys())[0]
+            if features_dict[feature_name]:
+                model = fm_utils.commitment_feature(model, feature_name)
+            else:
+                model = fm_utils.deletion_feature(model, feature_name)
         else:
-            new_root = model.root
-        rel_2 = Relation(new_root, [new_or], 1, 1)  # mandatory
-        new_root.add_relation(rel_2)
-        new_or.parent = new_root
-        model.root = new_root
+            new_or = Feature(utils.get_new_feature_name(model, 'OR'), is_abstract=True)
+            features = []
+            for f in features_dict.keys():
+                new_feature = Feature(utils.get_new_feature_complex_name(model, f), 
+                                      parent=new_or, is_abstract=True)
+                features.append(new_feature)
+                ast_op = ASTOperation.REQUIRES if features_dict[f] else ASTOperation.EXCLUDES
+                ctc = Constraint(utils.get_new_ctc_name(ctcs_names, 'CTC'), 
+                                 AST.create_binary_operation(ast_op, 
+                                 Node(new_feature.name), Node(f)))
+                model.ctcs.append(ctc)
+
+            # New branch with OR as root
+            rel_or = Relation(new_or, features, 1, len(features))  # OR
+            new_or.add_relation(rel_or)
+        
+            # New root (only needed if the root feature is a group)
+            if model.root.is_group():
+                new_root = Feature(utils.get_new_feature_name(model, 'root'), is_abstract=True)
+                rel_1 = Relation(new_root, [model.root], 1, 1)  # mandatory
+                new_root.add_relation(rel_1)
+                model.root.parent = new_root
+            else:
+                new_root = model.root
+            rel_2 = Relation(new_root, [new_or], 1, 1)  # mandatory
+            new_root.add_relation(rel_2)
+            new_or.parent = new_root
+            model.root = new_root
 
         return model
 
 
-def get_features_clauses(instance: Constraint) -> dict:
-    """Returns a dictionary of 'Features -> bool',
-    that sets 'bool' to FALSE if the feature has a negation"""
+def get_features_clauses(instance: Constraint) -> dict[str, bool]:
+    """Returns a dictionary of 'feature name -> bool',
+    that sets 'bool' to 'false' if the feature has a negation."""
     features = {}
     clauses = instance.ast.to_cnf()
     stack = [clauses.root]
