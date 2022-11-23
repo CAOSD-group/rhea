@@ -57,16 +57,13 @@ class JSONWriter(ModelToText):
 def _to_json(feature_model: FeatureModel) -> dict[str, Any]:
     result: dict[str, Any] = {}
     result['name'] = f'FM_{feature_model.root.name}'
-    print('hashing')
     result['hash'] = str(hash(feature_model))
-    print('features to json')
     result['features'] = _get_tree_info(feature_model.root)
-    print('constraints to json')
     result['constraints'] = _get_constraints_info(feature_model.get_constraints())
-    print('refactorings to json')
     result['refactorings'] = _get_refactorings_info(feature_model)
     result['language_constructs'] = _get_language_constructs_info(feature_model)
     result['semantics_metrics'] = _get_semantics_metrics(feature_model)
+    result['tools_info'] = _get_tools_info()
     return result
 
 
@@ -217,3 +214,13 @@ def _get_metric(name: str, description: str, value: Any) -> dict[str, Any]:
     metric['description'] = description
     metric[value] = value
     return metric
+
+
+def _get_tools_info() -> list[dict[str, Any]]:
+    tools_info = []
+    for tool in fm_tool_info.get_tools_info():
+        info = {}
+        info['name'] = tool.name
+        info['extension'] = tool.extension
+        tools_info.append(info)
+    return tools_info
