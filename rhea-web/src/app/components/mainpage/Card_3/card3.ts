@@ -17,7 +17,10 @@ import {Component,Input,Output,EventEmitter} from '@angular/core';
 
     SaveJson(lang:string){
       if(this.ListLanguage.indexOf(lang)!=-1){
-        console.log(lang)
       this.newItemEventSave.emit(lang);}
+    }
+
+    ListLanguageFormat(){
+      return this.ListLanguage
     }
 }

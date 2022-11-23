@@ -91,6 +91,9 @@
   .remove_circle{
     color: #ca862e;
   }
+  .remove_circle_valid{
+    color: #20a046;
+  }
   .buttonmodal{
     color: #ffffff;
     background-color: #012970;
@@ -135,7 +138,7 @@
     border: 3px solid rgba(0, 0, 0, 0.2);
   }
   .refactorColor{
-    color:#f80404;
+    color:#ca862e;
   }
 
   .bordercons{

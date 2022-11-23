@@ -23,17 +23,14 @@ let aux=0
     Refactor(){
       aux=-1
       this.loadingmodal=false
-      if(this.mychip.refactorings.length==0){
-        console.log("not a refactoring")
-      }
-      else{
         this.ListOfRefactorsInfo.forEach(element => {
-          if(element.id==this.mychip.refactorings[0]){
-          aux=this.ListOfRefactorsInfo.indexOf(element)}
+        if(element.name==this.mychip.refactorings){
+        aux=this.ListOfRefactorsInfo.indexOf(element)
+        console.log(aux)}
         });
         if(aux!=-1){
+      console.log(this.ListOfRefactorsInfo[aux])
       this.newItemEventrefactoingall.emit(this.ListOfRefactorsInfo[aux])}
-    }
     }
     download(chip:string){
       let aux =true
@@ -95,6 +92,9 @@ let aux=0
       else{
         if(len.refactorings.length>0){
           icon="remove_circle"
+          if(len.value==0){
+            icon="remove_circle_valid"
+          }
         }
       }}
     

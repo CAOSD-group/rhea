@@ -184,7 +184,7 @@ sendUpdate(myjson?:any){
 
 Refactor(typeref:string){
   let object
-  this.loadingmodal=true
+  this.loadingmodal=false
   const formData: FormData = new FormData();
   if( typeref!="all" &&( refactor==undefined ||refactor.name=="")){}
   else{
@@ -243,7 +243,6 @@ CreateData(object:any,name?:string){
   catch{}
   if(aux2=="" ){
   }
-  this.CreateLanguage()
   this.CreateSemantics()
   aux3=aux.constraints
   setTimeout(() => {
@@ -257,11 +256,12 @@ CreateData(object:any,name?:string){
   setTimeout(() => {
   this.CreateLanguage()  
   }, 10);
-
-  this.loadingmodal=true
   this.mainhidden=false
   this.treeControl.expand(this.tree[0])
   this.OpenTree(this.tree[0])
+  setTimeout(() => {
+    this.loadingmodal=true
+    }, 10);
   
 }
 
@@ -640,6 +640,10 @@ CreateFMTree(){
   this.tree=[new FMTree()]
   this.tree[0].DeleteList();
   this.tree[0]=this.tree[0].CreateNewFMTree(jsonfeatures)
+  aux= this.tree[0].GiveValues(this.tree[0])
+  aux.forEach(element => {
+    this.treeControl.expand(element)
+  });
   this.namesFeatures=this.tree[0].ListOfNames();
   this.dataSource.data=this.tree
 }
@@ -657,7 +661,7 @@ CreateRefactor(){
   this.ListOfRefactors=refactor.Create(jsonrefactors);
 }
 CreateLanguage(){
-  this.jsonlanguage=this.language.CreatLanguage(this.jsonlanguage)
+  this.jsonlanguage=this.language.CreatLanguage(this.jsonlanguage ,jsonrefactors)
   this.ListLanguage=this.language.CreatLanguage2()
 }
 CreateSemantics(){
@@ -1141,17 +1145,9 @@ SelectChipFeature(text:string){
 
 SelectChipRefactor(ref:Refactoring,tipo:string){
   this.loadingmodal=false
-  var element =document.getElementById('closeload');
-  if(element!=null){element.click()}
-  while(!this.showModal()[1]){
-    this.loadingmodal=false
-    this.showModal()
-  }
-  var element =document.getElementById('openload');
-  if(element!=null){element.click()}
   refactor=ref
   this.logselect=[]
-  this.loglist.unshift(ref.id+" was made for a "+tipo)
+  this.loglist.unshift(ref.name+" was made for a "+tipo)
   try{
   this.Refactor(tipo)
 }

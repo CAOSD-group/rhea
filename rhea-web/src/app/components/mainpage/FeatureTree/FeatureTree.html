@@ -11,7 +11,7 @@
   <mat-tree [dataSource]="dataSource" [treeControl]="treeControl" >
     <mat-nested-tree-node *matTreeNodeDef="let node; when: hasChild"  > 
 
-      <div class="mat-tree-node"  *ngIf="!RelationFeature(node)" [ngStyle]="{'margin-left':marginFeature(node)+'px'}">
+      <div class="mat-tree-node"  *ngIf="!RelationFeature(node)" [ngStyle]="{'margin-left':node.margin+'px'}">
         <div *ngIf="!treeHideen(node)">
           <button mat-icon-button matTreeNodeToggle
             [attr.aria-label]="'Toggle ' + node.name">
@@ -27,13 +27,12 @@
           </button>
         </div>
         <div class="symbols" (mouseenter)="ToolTip(node)" (mouseleave)="ToolTip()" >
-          <img src={{SymbolPerType(node)[1]}}>  
-          <img src={{SymbolPerType(node)[0]}}> 
+          <img src={{node.symbol}}>  
           <h6 *ngIf="ToolTipText(node)[0]" style="color: rgba(65, 65, 65, 0.75);font-size: 10px;position: absolute;z-index: 9;">{{ToolTipText(node)[1]}}</h6>
         </div>
         <div class="margin" ></div>
         <div  class={{HiddenRefacfeature(node)[1]}}  >
-          {{node.name}}{{SymbolPerType(node)[2]}}
+          {{node.name}}{{node.symbol2}}
         </div>     
          <button mat-icon-button [matMenuTriggerFor]="menu" (click)="select(node)" >
             <mat-icon class="mat-icon-rtl-mirror">
@@ -61,6 +60,8 @@
           </button>
         </div>
       </mat-menu>
+
+      
       <mat-menu #menurefactortree="matMenu">
         <mat-list class="mat-chip-list-stacked">
           <mat-list-item *ngFor="let refac of ListOfRefactors" [hidden]='RefactorvisibleFeature(refac)' >

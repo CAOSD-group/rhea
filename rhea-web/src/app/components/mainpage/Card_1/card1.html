@@ -19,7 +19,7 @@
 <ul class="sidebar-nav" id="sidebar-nav">
   <li class="nav-item">
     <h4 style="margin-left: 1%;"> Or select one of our documents 
-      <select class="btn-primary-select" [(ngModel)]="item"  data-bs-toggle="modal" href="#loading" (click)="select($event.target)">
+      <select class="btn-primary-select" [(ngModel)]="item" (click)="select($event.target)">
       <option value="tree name">Select an option</option>
       <option *ngFor="let documento of documents">{{documento}}</option>
     </select></h4>

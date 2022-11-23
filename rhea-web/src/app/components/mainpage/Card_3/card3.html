@@ -10,7 +10,7 @@
     </button>
       <select class="btn-primary-select" [(ngModel)]="language" style="margin-left: 2%;"  >
         <option value="tree name">Select an option</option>
-        <option *ngFor="let documento of ListLanguage">{{documento}}</option>
+        <option *ngFor="let documento of ListLanguageFormat()">{{documento}}</option>
       </select>
     </li>
 </ul>

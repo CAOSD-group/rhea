@@ -51,35 +51,6 @@ var refactor:Refactoring =new Refactoring()
     else{return false }
   }
 
-  
-  SymbolPerType(nodechild:FMTree){
-    let symbol=""
-    let symbol2=""
-    let symbol3=""
-    if(nodechild.type!=undefined){
-      if(nodechild.type=="MUTEX"){
-      symbol="../assets/img/mutex.gif"
-      symbol3=nodechild.card_min+".."+nodechild.card_max}
-      if(nodechild.type=="OR"){
-        symbol="../assets/img/or.gif"
-        symbol3=nodechild.card_min+".."+nodechild.card_max}
-      if(nodechild.type=="XOR"){
-        symbol="../assets/img/xor.gif"
-        symbol3=nodechild.card_min+".."+nodechild.card_max}
-      if(nodechild.type=="CARDINALITY"){
-        symbol="../assets/img/cardinality.gif"
-        symbol3="<"+nodechild.card_min+"..."+nodechild.card_max+">"
-      }
-    }
-    else{
-      if(this.GetFather(nodechild,this.tree)!=undefined){
-        if(this.GetFather(nodechild,this.tree).card_min!=undefined){
-      if(this.GetFather(nodechild,this.tree).card_min==1){symbol2="../assets/img/mandatory.gif"}
-        else{symbol2="../assets/img/optional.gif"}}}
-    }
-    if(this.GetFather(nodechild,this.tree)==undefined){symbol="../assets/img/featuretree.ico";}
-    return [symbol,symbol2,symbol3]
-  }
 
   HiddenRefacfeature(node:FMTree){
   let hiddensymbolfeature=false
@@ -199,21 +170,4 @@ RelationFeature(node:any){
     return true}
     else{return false }
 }
-
-marginFeature(node:any){
-  let margin=0
-
-    if(node.type=="MANDATORY" || node.type=="OPTIONAL" ){
-      if(node.children!=undefined){
-      this.treeControl.expand(node)}
-      margin=-32.5
-    }
-      aux=this.GetFather(node,this.tree)
-    if(aux!=undefined){
-      margin=margin+this.marginFeature(aux)
-    }
-    return margin
-}
-
-
 }

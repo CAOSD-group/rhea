@@ -46,7 +46,7 @@
 <mat-menu #menurefactorcons="matMenu">
   <mat-list class="mat-chip-list-stacked"  >
     <mat-list-item *ngFor="let refac of ListOfRefactors" [hidden]='RefactorvisibleCons(refac)'  >
-      <button class="buttonmenu2" data-bs-toggle="modal" href="#loading" (click)="SelectChipRefactor(refac)"style="text-align: left;" >{{refac.name}}</button>
+      <button class="buttonmenu2" (click)="SelectChipRefactor(refac)"style="text-align: left;" >{{refac.name}}</button>
     </mat-list-item >
   </mat-list>
 </mat-menu>
@@ -58,7 +58,7 @@
     <i class="bi bi-eye-fill" [hidden]="show_refacts_cons_only"></i>
     <i class="bi bi-eye-slash-fill" [hidden]="!show_refacts_cons_only"></i>  
     </button>
-    <a (click)="show_refacts_cons_only=!show_refacts_cons_only" (click) = "$event.stopPropagation()"  >Highlight Refactorings</a>
+    <a (click)="show_refacts_cons_only=!show_refacts_cons_only" style="cursor: pointer;" (click) = "$event.stopPropagation()"  >Highlight Refactorings</a>
     <hr>
-    <button class="empty"  style="color: #012970 " (click)='SelectedChange("")' data-bs-toggle="modal" href="#sidebaroptionsconstraintree">Create New Constraint</button>
+    <button class="empty"  style="color: #012970;cursor: pointer; " (click)='SelectedChange("")' data-bs-toggle="modal" href="#sidebaroptionsconstraintree">Create New Constraint</button>
   </mat-menu>
