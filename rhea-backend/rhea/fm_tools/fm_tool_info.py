@@ -30,7 +30,7 @@ def get_tools_info() -> list[FMToolInfo]:
                                     lc.LCExcludesConstraint,
                                     lc.LCPseudoComplexConstraint,
                                     lc.LCStrictComplexConstraint]))
-    tools.append(FMToolInfo('FeatureIDE', [lc.LCFeature
+    tools.append(FMToolInfo('FeatureIDE', [lc.LCFeature,
                                            lc.LCAbstractFeature,
                                            lc.LCOptionalFeature,
                                            lc.LCMandatoryFeature,
@@ -64,4 +64,20 @@ def get_tools_info() -> list[FMToolInfo]:
                                         lc.LCExcludesConstraint,
                                         lc.LCPseudoComplexConstraint,
                                         lc.LCStrictComplexConstraint]))
+    tools.append(FMToolInfo('Rhea', [lc.LCFeature,
+                                    lc.LCNonUniqueFeature,
+                                    lc.LCAbstractFeature,
+                                    lc.LCOptionalFeature,
+                                    lc.LCMandatoryFeature,
+                                    lc.LCOrGroupFeature,
+                                    lc.LCXorGroupFeature,
+                                    lc.LCMutexGroupFeature,
+                                    lc.LCCardinalityGroupFeature,
+                                    lc.LCOrGroupMandatoryFeature,
+                                    lc.LCMultipleGroupDecomposition,
+                                    lc.LCConstraint,
+                                    lc.LCRequiresConstraint,
+                                    lc.LCExcludesConstraint,
+                                    lc.LCPseudoComplexConstraint,
+                                    lc.LCStrictComplexConstraint]))
     return tools
