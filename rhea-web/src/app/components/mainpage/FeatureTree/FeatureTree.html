@@ -52,12 +52,12 @@
         <a data-bs-toggle="modal" href="#sidebarcreatebrother">Create brother</a>
         <hr>
         <a data-bs-toggle="modal" href="#sidebardeletebranch">Delete branch</a>
-        <div *ngIf="ToolTipRefa(node)">
-          <hr>
-          <button class="buttonmenu2" mat-icon-button [matMenuTriggerFor]="menurefactortree" (click) = "$event.stopPropagation()" >
-            Apply Refactor
-            <mat-icon>chevron_right</mat-icon>
-          </button>
+        <div *ngIf="ToolTipRefa(node)" style="overflow-x: hidden;">
+        <hr>
+        <button class="buttonmenu2" mat-icon-button [matMenuTriggerFor]="menurefactortree" (click) = "$event.stopPropagation()" >
+          Apply Refactor
+          <mat-icon>chevron_right</mat-icon>
+        </button>
         </div>
       </mat-menu>
 

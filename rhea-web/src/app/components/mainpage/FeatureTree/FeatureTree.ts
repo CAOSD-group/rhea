@@ -39,7 +39,7 @@ var refactor:Refactoring =new Refactoring()
   @Input() dataSource = new MatTreeNestedDataSource<FMTree>();
 
   @Output() newItemEventactual = new EventEmitter<FMTree>();
-  @Output() newItemEventrefactor = new EventEmitter<Refactoring>();
+  @Output() newItemEventrefactor = new EventEmitter<Array<any>>();
 
   hasChild = (_: number, node: any) => !!node.children && node.children.length >= 0;
 
@@ -125,7 +125,7 @@ var refactor:Refactoring =new Refactoring()
   }
 
   SelectChipRefactor(ref:Refactoring){
-    this.newItemEventrefactor.emit(ref);
+    this.newItemEventrefactor.emit([ref,this.actual.name]);
   }
 
   ToolTipRefa(nodetooltiprefa:FMTree){

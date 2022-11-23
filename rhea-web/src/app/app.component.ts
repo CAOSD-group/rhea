@@ -1143,11 +1143,21 @@ SelectChipFeature(text:string){
   this.ListOfConstraint.push(aux)
 }
 
-SelectChipRefactor(ref:Refactoring,tipo:string){
-  this.loadingmodal=false
-  refactor=ref
+SelectChipRefactor(object:any,tipo:string){
+  let name=""
+  if(object[1]==undefined){
+    refactor=object
+  }
+  else{
+    refactor=object[0]
+    name=object[1]
+  }
   this.logselect=[]
-  this.loglist.unshift(ref.name+" was made for a "+tipo)
+  console.log(refactor)
+  console.log(object)
+  if(tipo == "all"){this.loglist.unshift(refactor.name+" was made for all instances")}
+  if(tipo == "node"){this.loglist.unshift(refactor.name+" was made for node: "+name)}
+  if(tipo == "cons"){this.loglist.unshift(refactor.name+" was made for a cross tree constraint")}
   try{
   this.Refactor(tipo)
 }
