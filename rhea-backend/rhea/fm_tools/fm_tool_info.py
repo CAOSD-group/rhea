@@ -30,7 +30,8 @@ def get_tools_info() -> list[FMToolInfo]:
                                     lc.LCExcludesConstraint,
                                     lc.LCPseudoComplexConstraint,
                                     lc.LCStrictComplexConstraint]))
-    tools.append(FMToolInfo('FeatureIDE', [lc.LCFeature,
+    tools.append(FMToolInfo('FeatureIDE', [lc.LCFeature
+                                           lc.LCAbstractFeature,
                                            lc.LCOptionalFeature,
                                            lc.LCMandatoryFeature,
                                            lc.LCOrGroupFeature,
