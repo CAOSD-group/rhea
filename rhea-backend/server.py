@@ -10,7 +10,14 @@ from werkzeug.utils import secure_filename
 from flask_caching import Cache
 
 from flamapy.metamodels.fm_metamodel.models import FeatureModel
-from flamapy.metamodels.fm_metamodel.transformations import UVLReader, UVLWriter, FeatureIDEReader, GlencoeReader
+from flamapy.metamodels.fm_metamodel.transformations import (
+    UVLReader, 
+    UVLWriter, 
+    FeatureIDEReader, 
+    GlencoeReader,
+    GlencoeWriter,
+    SPLOTWriter
+)
 
 from rhea.metamodels.fm_metamodel.transformations import JSONWriter, JSONReader
 from rhea.refactorings import utils
@@ -19,7 +26,7 @@ from rhea import refactorings
 
 FEATURE_MODEL_SESSION = 'FeatureModel'
 UPLOAD_FOLDER = '/tmp'
-ALLOWED_EXTENSIONS = {'uvl', 'xml', 'json', 'gfm.json'}
+ALLOWED_EXTENSIONS = {'uvl', 'xml', 'json', 'gfm.json', 'sxfm.xml'}
 EXAMPLE_MODELS_DIR = 'fm_models'
 
 static_url = ''
@@ -62,19 +69,37 @@ def allowed_file(filename):
 def read_fm_file(filename: str) -> Optional[FeatureModel]:
     """Read a feature model object from a file in the sopported formats."""
     if filename.endswith('.uvl'):
-        print("UVL file type (.uvl)")
         return UVLReader(filename).transform()
     elif filename.endswith('.xml') or filename.endswith('.fide'):
-        print("FeatureIDE file type (.xml, .fide).")
         return FeatureIDEReader(filename).transform()
     elif filename.endswith('.gfm.json'):
-        print("Glencoe file type (.gfm.json).")
         return GlencoeReader(filename).transform()
     elif filename.endswith('.json'):
         return JSONReader(filename).transform()
     else:
         return None
 
+
+def write_fm_file(fm: FeatureModel, format: str) -> str:
+    """Write a feature model object to a temporal file and returns its content.
+    
+    This is required because the current Writter always writes to file, and the front-end needs
+    the content directly.
+    """
+    result = None
+    temporal_filepath = f'FM_{fm.root.name}_temp.{format}'
+    if format == 'uvl':
+        uvl_writer = UVLWriter(source_model=fm, path=None)
+        result = uvl_writer.read_features(fm.root, "features", 0) + "\n" + uvl_writer.read_constraints()
+    elif format == 'gfm.json':
+        result = GlencoeWriter(source_model=fm, path=temporal_filepath).transform()
+        os.remove(temporal_filepath)
+    elif format == 'sxfm.xml':
+        result = SPLOTWriter(source_model=fm, path=temporal_filepath).transform()
+        os.remove(temporal_filepath)
+    elif format == 'json':
+        result = JSONWriter(source_model=fm, path=None).transform()
+    return result
 
 @app.route('/getExampleFMs', methods=['GET'])
 def get_example_feature_models():
@@ -93,7 +118,6 @@ def upload_example_feature_model():
     else:
         # Get parameters
         filename = request.form['filename']
-        print (filename)
         filepath = os.path.join(EXAMPLE_MODELS_DIR, filename)
         fm = read_fm_file(filepath)
         json_fm = JSONWriter(path=None, source_model=fm).transform()
@@ -198,102 +222,23 @@ def refactor():
     return None
 
     
-@app.route('/downloadFM2', methods=['POST'])
-def download2_feature_model():
-    if request.method == 'POST':
-        json_model = request.data.decode() 
-        if json_model:
-            print('Error en JSONReader ')
-            print('Error en JSONReader ')
-            print('Error en JSONReader ')
-            print('Error en JSONReader ')
-            print('Error en JSONReader ')
-            print('Error en JSONReader ')
-            print('Error en JSONReader ')
-            fm = JSONReader.parse_json(json_model)
-            print(fm)
-            UVLWriter(fm, path=fm.root.name).transform()
-            return send_from_directory('.', fm.root.name, as_attachment=True)
-
-
-@app.route('/saveFM', methods=['GET', 'POST'])
-def save_feature_model():
-    if request.method == 'GET':
-        texto=request.data.decode() 
-        return texto
-    if request.method == 'POST':
-        texto=request.data.decode() 
-        print(request.files.values())                    
-        fm_file = request.from_values(texto)
-        print("hola mundo")
-        fm = read_fm_file(texto)
-        print(fm)                          
-        if fm is not None:
-            json_fm = JSONWriter(path=None, source_model=fm).transform()
-            print("entrego json")
-            return json_fm
-        print(texto)
-        return "true"
-
-
-@app.route('/downloadFM', methods=['GET', 'POST'])
+@app.route('/downloadFM', methods=['POST'])
 def download_feature_model():
-    texto = None
-    #fm = read_fm_file(filepath)
-    #print(fm)
-    #texto = str(fm)
-    data = {}
-    if request.method == 'GET':
-        return texto
-    if request.method == 'POST': # enviar como texto
-        texto=request.data.decode()   #transforma el bytes a string
-        #print(texto)                          devuelve Pizzas.uvl         
-        #print(request)                        devuelve <Request 'http://172.16.51.94:5000/upload' [POST]>
-        fm_file = request.from_values(texto)  #devuelve <Request 'http://localhost/Pizzas.uvl' [GET]>
-        fm = read_fm_file(texto)              #devuelve el arbol en tipo relation R0: .. R1: ... CTC0:... CTC1: ...
-        if fm is not None:
-            json_fm = JSONWriter(path=None, source_model=fm).transform()
-            #print(json_fm)                    devuelve el arbol con formato "name": algo , "type": otro
-            print("devuelvo el json_fm")
-            return json_fm
-        print("devuelvo el texto")
-        return texto
-        if not fm_file:
-            # The file is required and this is controlled in the front-end.
-            data['file_error'] = 'Please upload a feature model or select one from the examples.'
-            return render_template('index.html', data=data)
-
-        if fm_file:
-            filename = fm_file.filename
-            fm_file.save(filename)
-       
-        try:
-            # Read the feature model
-            fm = read_fm_file(filename)
-            if fm is None:
-                data['file_error'] = 'Feature model format not supported.'
-                return render_template('index.html', data=data)
-
-        except Exception as e:
-            data = None
-            print(e)
-            raise e
-        
-        return render_template('index.html', data=data)
-
-@app.route('/deleteFM', methods=['GET', 'POST'])
-def delete_feature_model():
-    if request.method == 'GET':
-        return "texto"
-    if request.method == 'POST':
-        return "post delete"
-
-@app.route('/createFM', methods=['GET', 'POST'])
-def create_feature_model():
-    if request.method == 'GET':
-        return "texto"
-    if request.method == 'POST':
-        return "post create"
+    if request.method != 'POST':
+        return None
+    else:
+        # Get parameters
+        fm_hash = request.form['fm_hash']
+        fm_format = request.form['fm_format']  # 'uvl', 'xml', 'json', 'gfm.json', 'sxfm.xml'
+        fm = cache.get(fm_hash)
+        if fm is None:
+            print('FM expired.')
+            return None
+        fm_str = write_fm_file(fm, fm_format)
+        if fm_str is None:
+            return None
+        response = make_response(fm_str)
+        return response
 
 
 if __name__ == '__main__':
