@@ -4,6 +4,7 @@ import {FMTree } from './components/FMTree/FMTree';
 import {Refactoring } from './components/refactor/refactoring';
 import { Language } from './components/Language/Language';
 import { Semantics } from './components/Semantics/Semantics';
+import { ToolsExtension } from './components/ToolsExtension/ToolsExtension';
 
 import { globalhtml } from './components/globalhtml/globalhtml';
 import { about } from './components/about/about';
@@ -51,6 +52,7 @@ import { MatSortModule } from '@angular/material/sort';
     Refactoring, 
     Language,
     Semantics,
+    ToolsExtension,
 
     
     globalhtml,

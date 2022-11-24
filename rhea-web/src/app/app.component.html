@@ -110,6 +110,7 @@
           <div class="border">
             <card3   
             [ListLanguage]="ListLanguage" 
+            [jsonLanguageextension]="jsonLanguageextension" 
             (newItemEventSave)="Save($event)"  
             ></card3>
           </div>
@@ -203,7 +204,6 @@
             [loadingmodal]="loadingmodal"
             [ListLanguage]="ListLanguage" 
             (newItemEventrefactoingall)="SelectChipRefactor($event,'all')"
-            (newItemEventdownload)="SaveFile($event)"
              ></Information>
           </div>
           <div style="margin-top: 55px;"></div>
@@ -581,10 +581,10 @@
   <div class="modal-dialog modal-lg" >
     <div class="modal-content">
 		  <div class="modal-header"> 
-        <h4 class="modal-title" id="exampleModalLabel">Loading...</h4>
+        <h4>Loading...</h4>
       </div>
-      <h4>This could take some time </h4> 
-      
+      <h4 style="padding: 5px;"> This could take some time </h4> 
+      <h4 style="padding: 5px;"> {{loadingtext}}</h4>
       
 	    <div class="modal-body">
         <div class="row">

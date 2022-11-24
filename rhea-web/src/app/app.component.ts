@@ -9,6 +9,7 @@ import * as saveAs from 'file-saver';
 import { Refactoring } from './components/refactor/refactoring';
 import { Language } from './components/Language/Language';
 import { Semantics } from './components/Semantics/Semantics';
+import { ToolsExtension } from './components/ToolsExtension/ToolsExtension';
 
 
 
@@ -34,12 +35,10 @@ var refactor:Refactoring =new Refactoring()
 })
 
 export class AppComponent {
-
+  urldownload="http://127.0.0.1:5000/downloadFM"  
   urldocuments="http://127.0.0.1:5000/getExampleFMs"  
-  urldownload="http://127.0.0.1:5000/uploadExampleFM"  
+  urluploadExampleFM="http://127.0.0.1:5000/uploadExampleFM"  
   urlupload="http://127.0.0.1:5000/uploadFM"  
-  urldelete="http://127.0.0.1:5000deleteFM" 
-  urlcreate="http://127.0.0.1:5000createFM" 
   urlrefactor="http://127.0.0.1:5000/refactor" 
   urlupdate="http://127.0.0.1:5000/updateFM" 
 
@@ -93,6 +92,7 @@ export class AppComponent {
   ConstraintListautocomplete=""
   search_name=true 
   mattooltipconstraint=this.search_name?"Search by name":"Search by text";
+  loadingtext=""
 
 
   mainhidden=true
@@ -107,6 +107,9 @@ export class AppComponent {
   jsonconstraintextshort: Array<string>=[]
   listnamesconstraints:Array<string>=[]
   jsonlanguage:Array<Language>=[]
+  jsonLanguageextension:Array<ToolsExtension>=[]
+  toolsExtension=new ToolsExtension()
+
   ListLanguage:Array<string>=[]
   language:Language=new Language()
   ListOfConstraint:Array<Const>=[]
@@ -145,19 +148,42 @@ showRepository(){
 }
 
 
+Save(text:number){
+  if(this.jsonLanguageextension[text].extension=="xml"){
+    alert("This lengauge is not available yet")
+  }
+  else{
+  this.loglist.unshift("File "+this.title+" download as ."+this.jsonLanguageextension[text].extension)
+  this.loadingmodal=false
+  const formData: FormData = new FormData();
+  formData.append('fm_format', this.jsonLanguageextension[text].extension);
+  formData.append('fm_hash',this.my_session);
+  this.loadingtext="Sending file to the server"
+  this.http.post(this.urldownload,formData,{withCredentials:true,responseType:'text'}).subscribe(resultado => {  
+    this.loadingtext="Server responded"
+    let file = new Blob([resultado], { type: this.jsonLanguageextension[text].extension });
+    console.log(file)
+    console.log(resultado)
+    //saveAs(file, this.title+ " ."+this.jsonLanguageextension[text].extension)
+      }
+    )
+  }
+}
+
 sendUVL(uvl:any){
   const formData: FormData = new FormData();
   formData.append('file', uvl, uvl.name);
+  this.loadingtext="Sending file to the server"
   this.http.post(this.urlupload,formData,{withCredentials:true,responseType:'text'}).subscribe(resultado => {  
+    this.loadingtext="Server responded"
     this.CreateData(resultado)
-    this.loglist.unshift(uvl.name+" was loaded")
     json=resultado
       }
     )
 }
 
 getDocumentName(){
-this.http.get(this.urldocuments).subscribe(resultado => {
+    this.http.get(this.urldocuments).subscribe(resultado => {
     aux=resultado
     this.documents=aux 
     this.returnValues(this.documents[0])
@@ -169,12 +195,18 @@ this.http.get(this.urldocuments).subscribe(resultado => {
 
 sendUpdate(myjson?:any){
   if(myjson==undefined){
-  this.TransformJSON()}
+    setTimeout(() => {
+      this.TransformJSON()
+    }, 1);
+  }
   let file = new Blob([json], { type: 'json' });
   const formData: FormData = new FormData();
   formData.append('file', file,this.title+'.json')
   formData.append('fm_hash',this.my_session);
+  this.loadingtext="Sending information to the server"
+  this.loadingmodal=false
   this.http.post(this.urlupdate,formData,{withCredentials:true,responseType:'text'}).subscribe(resultado => {
+    this.loadingtext="Server responded"
     this.CreateData(resultado)
     json=resultado
       }
@@ -194,7 +226,9 @@ Refactor(typeref:string){
       
     formData.append('refactoring_id',refactor.id);
     formData.append('fm_hash',this.my_session);
+    this.loadingtext="Sending information to the server"
     this.http.post(this.urlrefactor,formData,{ withCredentials:true,responseType:'text'}).subscribe(resultado => {
+    this.loadingtext="Server responded"
     this.CreateData(resultado)
     json=resultado
     })
@@ -209,9 +243,10 @@ returnValues(text?:string){
   if(text==""|| text==undefined){text=this.item;this.loadingmodal=true}
   const formData: FormData = new FormData();
   formData.append('filename',text);
-  this.http.post(this.urldownload,formData,{ withCredentials:true,responseType:'text'}).subscribe(resultado => {
-     try{this.CreateData(resultado,text)
-      this.loglist.unshift(this.item+" was loaded")
+  this.loadingtext="Sending data to the server"
+  this.http.post(this.urluploadExampleFM,formData,{ withCredentials:true,responseType:'text'}).subscribe(resultado => {
+    this.loadingtext="Server responded"
+    try{this.CreateData(resultado,text)
     }
     catch{
     this.loadingmodal=true
@@ -222,8 +257,11 @@ returnValues(text?:string){
   
 }
 CreateData(object:any,name?:string){
+  this.treeControl.collapseAll()
+  this.loadingtext="Received a valid response from thee server"
   aux = object;
   this.item=name||"";
+  if(this.item!=""){this.loglist.unshift(this.item+" was loaded")}
   aux=JSON.parse(aux)
   this.title=aux.name
   jsonfeatures=aux.features,
@@ -231,6 +269,7 @@ CreateData(object:any,name?:string){
   jsonrefactors=aux.refactorings
   this.jsonsemantic=aux.semantics_metrics
   this.jsonlanguage=aux.language_constructs
+  this.jsonLanguageextension=aux.tools_info
   this.my_session=aux.hash
   aux2="" 
   try{
@@ -244,21 +283,30 @@ CreateData(object:any,name?:string){
   if(aux2=="" ){
   }
   this.CreateSemantics()
+  this.loadingtext="Semantics created"
   aux3=aux.constraints
   setTimeout(() => {
   this.CreateCons() 
   }, 10);
+  this.loadingtext="Constraints created"
   setTimeout(() => {
   this.CreateFMTree()  
   }, 10);
+  this.loadingtext="Features tree created"
   if(jsonrefactors!=undefined){
   this.CreateRefactor()}
+  this.loadingtext="Possibles Refactorings added"
   setTimeout(() => {
   this.CreateLanguage()  
   }, 10);
+  setTimeout(() => {
+  this.CreateToolsExtensions()  
+  }, 10);
+  this.loadingtext="Lenguages details loaded"
   this.mainhidden=false
   this.treeControl.expand(this.tree[0])
   this.OpenTree(this.tree[0])
+  this.loadingtext="Tree opening"
   setTimeout(() => {
     this.loadingmodal=true
     }, 10);
@@ -287,12 +335,6 @@ showModal(){
 web(Article:Data){
   if(Article.Ref!=undefined){
   window.open(Article.Ref);}
-}
-CreateFile(text:string){  
-  this.TransformJSON()
-  this.http.post(this.urlcreate,[text,jsonfeatures,jsonconstraint],{ withCredentials:true,responseType:'text'}).subscribe(resultado => {
-    
-  })
 }
 
 ChangeType(ty:string){
@@ -668,6 +710,10 @@ CreateSemantics(){
   this.jsonsemantic=this.semantic.CreateSemantics(this.jsonsemantic)
 }
 
+CreateToolsExtensions(){
+this.jsonLanguageextension=this.toolsExtension.CreateTools(this.jsonLanguageextension)
+}
+
 DeleteFMTree(){
   this.dataSource.data=[]
   this.constraindataSource.data=[]
@@ -800,7 +846,6 @@ readThis(inputValue: any): void {
     this.position=a
     this.npos=a
     this.consactual=this.cons[this.position]
-    console.log(this.consactual)
   }
   DeleteCons(){
     this.loadingmodal=false
@@ -1153,8 +1198,6 @@ SelectChipRefactor(object:any,tipo:string){
     name=object[1]
   }
   this.logselect=[]
-  console.log(refactor)
-  console.log(object)
   if(tipo == "all"){this.loglist.unshift(refactor.name+" was made for all instances")}
   if(tipo == "node"){this.loglist.unshift(refactor.name+" was made for node: "+name)}
   if(tipo == "cons"){this.loglist.unshift(refactor.name+" was made for a cross tree constraint")}
@@ -1173,6 +1216,7 @@ AutocompleteFeatureTermChip(name:string){
 
 
 TransformJSON(){
+  if(this.consactual==undefined){this.consactual =new Const()}
   aux=this.consactual.createListForFile(this.cons,this.typesofconsTerm)
   /*jsonfeatures=JSON.stringify(this.tree[0], (key, value) => {
       if(value!==undefined && value!==null) return value  
@@ -1242,32 +1286,9 @@ TransformJSON(){
 }
 
 
-SaveFile(language:string){
-  if(language.toLowerCase()=="uvl"){
-    this.SaveUVL()
-  }
-  if(language.toLowerCase()=="json"){
-    this.SaveJson()
-  }
-}
 
-Save(text:string){
-  this.SaveJson()
-  //should go to the server directly with the lenguage for it, and then here selec it for de type of blob
-}
 
-SaveJson() {
-  this.TransformJSON()
-  let file = new Blob([json], { type: 'json' });
-  saveAs(file, this.title+'.json')
-}
-SaveUVL() {
-  this.TransformJSON()
-  aux = new Blob([json], { type: 'json' });
-  alert("I should send the json file to the server,and then download the data as an UVL file")
-  let file2 = new Blob(["resultado"], { type: 'uvl' });
-  saveAs(file2, this.title+'.uvl') 
-}
+
  ShowPages(){
   let values
   values=this.jsonconstraintextshort.slice(this.page*this.range,(this.page+1)*this.range)

@@ -17,7 +17,6 @@ let aux=0
     @Input() jsonlanguage:Array<Language>=[]
     @Input() loadingmodal=false
     @Output() newItemEventrefactoingall= new EventEmitter<Refactoring>();
-    @Output() newItemEventdownload= new EventEmitter<string>();
     declare mychip:Language
 
     Refactor(){
@@ -25,25 +24,10 @@ let aux=0
       this.loadingmodal=false
         this.ListOfRefactorsInfo.forEach(element => {
         if(element.name==this.mychip.refactorings){
-        aux=this.ListOfRefactorsInfo.indexOf(element)
-        console.log(aux)}
+        aux=this.ListOfRefactorsInfo.indexOf(element)}
         });
         if(aux!=-1){
-      console.log(this.ListOfRefactorsInfo[aux])
       this.newItemEventrefactoingall.emit(this.ListOfRefactorsInfo[aux])}
-    }
-    download(chip:string){
-      let aux =true
-      if(chip!="Language constructs" && chip!="#"){
-        this.jsonlanguage.forEach(element => {
-          if(element.value!=0&&element.tools.indexOf(chip)==-1){
-            aux =false
-          }
-        })
-        if(aux){this.newItemEventdownload.emit(chip)}
-        else{console.log("not a valid language")
-        }
-        }
     }
     columns(){
       let columns=["Language constructs","#"]
@@ -55,6 +39,9 @@ let aux=0
     columnsclass(chip:string){
       if(chip=="Language constructs" || chip=="#"){
         return "colum-header-lang"
+      }
+      if(chip.length>6){
+        return "colum-header-longtext"
       }
       else{
       return "colum-header"}
