@@ -2,6 +2,7 @@ import os
 import inspect
 import importlib
 import json
+import tempfile
 from typing import Optional
 
 from flask import Flask, render_template, request, redirect, send_from_directory, make_response
@@ -87,16 +88,17 @@ def write_fm_file(fm: FeatureModel, format: str) -> str:
     the content directly.
     """
     result = None
-    temporal_filepath = f'FM_{fm.root.name}_temp.{format}'
+    #temporal_filepath = f'FM_{fm.root.name}_temp.{format}'
     if format == 'uvl':
         uvl_writer = UVLWriter(source_model=fm, path=None)
         result = uvl_writer.read_features(fm.root, "features", 0) + "\n" + uvl_writer.read_constraints()
     elif format == 'gfm.json':
+        temporal_filepath = tempfile.NamedTemporaryFile(mode='w', encoding='utf8').name
         result = GlencoeWriter(source_model=fm, path=temporal_filepath).transform()
-        os.remove(temporal_filepath)
+        print(result)
     elif format == 'sxfm.xml':
+        temporal_filepath = tempfile.NamedTemporaryFile(mode='w', encoding='utf8').name
         result = SPLOTWriter(source_model=fm, path=temporal_filepath).transform()
-        os.remove(temporal_filepath)
     elif format == 'json':
         result = JSONWriter(source_model=fm, path=None).transform()
     return result
