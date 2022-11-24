@@ -71,6 +71,8 @@ def read_fm_file(filename: str) -> Optional[FeatureModel]:
     """Read a feature model object from a file in the sopported formats."""
     if filename.endswith('.uvl'):
         return UVLReader(filename).transform()
+    elif filename.endswith('.sxfm.xml'):
+        return None
     elif filename.endswith('.xml') or filename.endswith('.fide'):
         return FeatureIDEReader(filename).transform()
     elif filename.endswith('.gfm.json'):
