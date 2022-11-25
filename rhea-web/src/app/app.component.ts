@@ -164,7 +164,7 @@ Save(text:number){
     let file = new Blob([resultado], { type: this.jsonLanguageextension[text].extension });
     console.log(file)
     console.log(resultado)
-    //saveAs(file, this.title+ " ."+this.jsonLanguageextension[text].extension)
+    saveAs(file, this.title+ " ."+this.jsonLanguageextension[text].extension)
       }
     )
   }
@@ -194,11 +194,7 @@ getDocumentName(){
 
 
 sendUpdate(myjson?:any){
-  if(myjson==undefined){
-    setTimeout(() => {
-      this.TransformJSON()
-    }, 1);
-  }
+  this.TransformJSON()
   let file = new Blob([json], { type: 'json' });
   const formData: FormData = new FormData();
   formData.append('file', file,this.title+'.json')
@@ -286,37 +282,34 @@ CreateData(object:any,name?:string){
   this.loadingtext="Semantics created"
   aux3=aux.constraints
   setTimeout(() => {
-  this.CreateCons() 
-  }, 10);
+  this.CreateCons() }, 1);
   this.loadingtext="Constraints created"
   setTimeout(() => {
-  this.CreateFMTree()  
-  }, 10);
+  this.CreateFMTree()  }, 1);
   this.loadingtext="Features tree created"
   if(jsonrefactors!=undefined){
-  this.CreateRefactor()}
+  setTimeout(() => {this.CreateRefactor()}, 1);}
+  setTimeout(() => {
   this.loadingtext="Possibles Refactorings added"
-  setTimeout(() => {
   this.CreateLanguage()  
-  }, 10);
+  this.CreateToolsExtensions()  }, 1);
   setTimeout(() => {
-  this.CreateToolsExtensions()  
-  }, 10);
+  this.mainhidden=false}, 1);
   this.loadingtext="Lenguages details loaded"
-  this.mainhidden=false
+  setTimeout(() => {
   this.treeControl.expand(this.tree[0])
   this.OpenTree(this.tree[0])
   this.loadingtext="Tree opening"
-  setTimeout(() => {
-    this.loadingmodal=true
-    }, 10);
-  
+  this.loadingmodal=true}, 1);
 }
 
 OpenTree(node:FMTree){
   let newnode
   if(this.logselect[0]!=undefined){
+    console.log("1")
+    console.log(node)
     if(node.children!=undefined){
+    console.log("2")
     newnode=node.children[this.logselect[0]]
     this.treeControl.expand(newnode)
     this.logselect.splice(0,1)
@@ -584,8 +577,12 @@ CreateChildren(){
 }
 CreateBrother(){
   this.loadingmodal=false
+  console.log(this.actualfather)
   if(this.actualfather==undefined){
+    this.loadingmodal=true
+    alert("you can not create a brother")
   }
+  else{
   if(this.actualfather.children!=undefined){
   if(!this.isFeature()){
     let relations = new FMTree()
@@ -639,7 +636,7 @@ CreateBrother(){
   try{
     this.sendUpdate()}
   catch{this.loadingmodal=true}
-  }
+  }}
   
 }
 

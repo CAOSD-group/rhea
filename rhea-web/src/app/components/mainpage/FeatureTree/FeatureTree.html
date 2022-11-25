@@ -15,13 +15,13 @@
         <div *ngIf="!treeHideen(node)">
           <button mat-icon-button matTreeNodeToggle
             [attr.aria-label]="'Toggle ' + node.name">
-            <mat-icon class="mat-icon-rtl-mirror">
+            <mat-icon >
               {{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
             </mat-icon>
           </button>
         </div>
         <div *ngIf="treeHideen(node)">
-          <button mat-icon-button >
+          <button mat-icon-button style="cursor: default;"   >
             <mat-icon >
             </mat-icon>
           </button>
@@ -35,7 +35,7 @@
           {{node.name}}{{node.symbol2}}
         </div>     
          <button mat-icon-button [matMenuTriggerFor]="menu" (click)="select(node)" >
-            <mat-icon class="mat-icon-rtl-mirror">
+            <mat-icon >
               more_vert
             </mat-icon>
           </button>                 
