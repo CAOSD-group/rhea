@@ -5,7 +5,7 @@ import json
 import tempfile
 from typing import Optional
 
-from flask import Flask, render_template, request, redirect, send_from_directory, make_response
+from flask import Flask, request, redirect, make_response
 from flask_cors import CORS
 from werkzeug.utils import secure_filename
 from flask_caching import Cache
@@ -144,7 +144,6 @@ def upload_feature_model():
         if file and allowed_file(file.filename):
             filename = secure_filename(file.filename)
             filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename) 
-            filepath = secure_filename(filepath)
             file.save(filepath)
             fm = read_fm_file(filepath)
             os.remove(filepath)
@@ -173,7 +172,6 @@ def updateFeature():
         if file.filename.endswith('.json'):
             filename = secure_filename(file.filename)
             filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename) 
-            filepath = secure_filename(filepath)
             file.save(filepath)
             fm = read_fm_file(filepath)
             os.remove(filepath)
