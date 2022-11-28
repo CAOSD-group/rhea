@@ -70,7 +70,6 @@ class EliminationAnyConstraints(FMRefactoring):
 
             new_ctcs = set(model.get_constraints()) - original_ctcs
 
-            UVLWriter(model, f"salida_{str(instance)}.uvl").transform()
             for ctc in new_ctcs:
                 if fm_utils.is_requires_constraint(ctc):
                     #print(f'Applying the refactoring {REFACTORING_REQUIRES.get_name()}...')

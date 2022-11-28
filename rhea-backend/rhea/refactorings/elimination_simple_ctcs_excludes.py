@@ -80,6 +80,5 @@ class EliminationSimpleConstraintsExcludes(FMRefactoring):
 
         model_copy = copy.deepcopy(model)
         model_copy = utils.to_unique_features(model_copy)
-        UVLWriter(model_copy, f"tests/excludes_output/excludes{instance}.uvl").transform()
 
         return model

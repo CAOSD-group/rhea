@@ -219,7 +219,9 @@ Refactor(typeref:string){
     if(typeref=="node"){object=this.actual.name;formData.append('instance_name',object);}
     if(typeref=="cons"){object=this.listnamesconstraints[this.npos];formData.append('instance_name',object);}
     if(typeref=="node"||typeref=="cons"||typeref=="all"){
-      
+    if(refactor.id=="CardinalityGroupRefactoring"|| (typeref=="all"&&( refactor.id=="EliminationSimpleConstraintsRequires"||refactor.id=="EliminationSimpleConstraintsExcludes"))){
+      console.log("1")
+    }
     formData.append('refactoring_id',refactor.id);
     formData.append('fm_hash',this.my_session);
     this.loadingtext="Sending information to the server"
@@ -263,6 +265,8 @@ CreateData(object:any,name?:string){
   jsonfeatures=aux.features,
   jsonconstraint=aux.constraints
   jsonrefactors=aux.refactorings
+  console.log(aux.refactorings)
+  console.log(aux.constraints)
   this.jsonsemantic=aux.semantics_metrics
   this.jsonlanguage=aux.language_constructs
   this.jsonLanguageextension=aux.tools_info
@@ -291,15 +295,15 @@ CreateData(object:any,name?:string){
   setTimeout(() => {this.CreateRefactor()}, 1);}
   setTimeout(() => {
   this.loadingtext="Possibles Refactorings added"
-  this.CreateLanguage()  
-  this.CreateToolsExtensions()  }, 1);
-  setTimeout(() => {
-  this.mainhidden=false}, 1);
+  this.CreateLanguage()    
   this.loadingtext="Lenguages details loaded"
+  this.CreateToolsExtensions()  }, 1);
+  this.mainhidden=false
+  this.loadingtext="Tree opening"
   setTimeout(() => {
+  this.loadingtext="Tree opening"
   this.treeControl.expand(this.tree[0])
   this.OpenTree(this.tree[0])
-  this.loadingtext="Tree opening"
   this.loadingmodal=true}, 1);
 }
 
