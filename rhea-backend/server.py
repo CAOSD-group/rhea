@@ -146,6 +146,7 @@ def upload_feature_model():
         if file and allowed_file(file.filename):
             filename = secure_filename(file.filename)
             filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename) 
+            filepath = secure_filename(filepath)
             file.save(filepath)
             fm = read_fm_file(filepath)
             os.remove(filepath)
@@ -174,6 +175,7 @@ def updateFeature():
         if file.filename.endswith('.json'):
             filename = secure_filename(file.filename)
             filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename) 
+            filepath = secure_filename(filepath)
             file.save(filepath)
             fm = read_fm_file(filepath)
             os.remove(filepath)
