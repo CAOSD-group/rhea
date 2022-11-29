@@ -40,6 +40,7 @@ var refactor:Refactoring =new Refactoring()
 
   @Output() newItemEventactual = new EventEmitter<FMTree>();
   @Output() newItemEventrefactor = new EventEmitter<Array<any>>();
+  @Output() newItemEventroot = new EventEmitter<FMTree>();
 
   hasChild = (_: number, node: any) => !!node.children && node.children.length >= 0;
 
@@ -169,5 +170,23 @@ RelationFeature(node:any){
         this.treeControl.expand(node)}
     return true}
     else{return false }
+}
+CreateRoot(){
+  let root =new FMTree()
+  let relation =new FMTree()
+  root.name="root"
+  root.abstract=true
+  root.children=[]
+  root.children.push(relation)
+  relation.type="MANDATORY"
+  relation.card_max=1
+  relation.card_min=1
+  relation.children=[]
+  relation.children.push(this.tree[0])
+  this.tree[0]=root
+  console.log(root)
+  console.log(relation)
+  console.log( this.tree)
+  this.newItemEventroot.emit();
 }
 }

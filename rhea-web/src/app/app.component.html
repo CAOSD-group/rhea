@@ -146,6 +146,7 @@
              [tree]="tree" 
              [treeControl]="treeControl"
              [dataSource]="dataSource"
+             (newItemEventroot)="sendUpdate()"
              (newItemEventactual)="select($event)"
              (newItemEventrefactor)="SelectChipRefactor($event,'node')"
             ></FeatureTree>
@@ -244,11 +245,22 @@
       <div class="modal-body">
         <div class="col-10">
           <div [hidden]="!isFeature()">
-          <h4>Name
-          <input  type="string" [(ngModel)]="name"></h4>
-          <h4  class="gray"> </h4>
-          <hr>
-          <h4>Attributes (name: value)
+          <h4> Properties
+            <div style="margin-left: 4px; margin-top: 10px;">
+          <h5>Name
+          <input  type="string" [(ngModel)]="name"></h5>
+          <h5>
+          <input id="mycheckbox" type="checkbox" [(ngModel)]="abstract" > Abstract</h5>
+          <hr></div>
+          </h4>
+
+          <h4 [hidden]="isRelationFeature()">Relations
+            <div style="margin-left: 4px; margin-top: 10px;">
+              <h5><input id="mycheckbox" type="checkbox" [(ngModel)]="optional" > Optional</h5>
+            </div><hr>
+          </h4>
+
+          <h4>Attributes <h5>(name: value)</h5>
           <button class="empty" (click)="CreateAttribtues()" >
             <mat-icon class="mat-icon-rtl-mirror">add</mat-icon>
           </button></h4>
@@ -260,33 +272,31 @@
             </button>
           </div>
           <hr>
-          <input id="mycheckbox" type="checkbox" [(ngModel)]="abstract" > abstract
-          <hr>
-          <input id="mycheckbox" type="checkbox" [(ngModel)]="optional" > Relation:optional
+          
           </div>
           
           <div [hidden]="isFeature()">
-          <h4>Type:
-            {{type}}
-            <button class="empty" (click)="visiblechipsfeatures=!visiblechipsfeatures">
-            <mat-icon class="mat-icon-rtl-mirror">
-              {{visiblechipsfeatures ? 'expand_more' : 'chevron_right'}}
-            </mat-icon></button>
-            <mat-list [hidden]="!visiblechipsfeatures">
-              <mat-option *ngFor="let chip of listOfTypes" (click)="visiblechipsfeatures=!visiblechipsfeatures" (click)="ChangeType(chip)">{{chip}}</mat-option>
-            </mat-list>
-          </h4>
-          <hr>
-          <h4 [hidden]="cardhidden()" >Card min 
-          <input  type="number" [(ngModel)]="card_min" (change)="checkcard_min_max()"><hr></h4>
-          <h4 [hidden]="cardhidden()">Card max
-          <input type="number" [(ngModel)]="card_max" (change)="checkcard_min_max()" >
-          <hr></h4>
-          <div [hidden]="checkcard_min_max() || cardhidden()"> Caution with the values <hr></div>
-          
-          <input id="mycheckbox" type="checkbox" [(ngModel)]="optional" > optional
+            <h4>Relations
+              <div style="margin-left: 4px;margin-top: 10px;">
+              <h5>Type:
+                {{type}}
+                <button class="empty" (click)="visiblechipsfeatures=!visiblechipsfeatures">
+                <mat-icon class="mat-icon-rtl-mirror">
+                  {{visiblechipsfeatures ? 'expand_more' : 'chevron_right'}}
+                </mat-icon></button>
+                <mat-list [hidden]="!visiblechipsfeatures">
+                  <mat-option *ngFor="let chip of listOfTypes" (click)="visiblechipsfeatures=!visiblechipsfeatures" (click)="ChangeType(chip)">{{chip}}</mat-option>
+                </mat-list>
+              </h5>
+              <hr>
+              <h5 [hidden]="cardhidden()" >Card min 
+              <input  type="number" [(ngModel)]="card_min" (change)="checkcard_min_max()"><hr></h5>
+              <h5 [hidden]="cardhidden()">Card max
+              <input type="number" [(ngModel)]="card_max" (change)="checkcard_min_max()" ><hr>
+              </h5>
+            </div>
+            </h4>
           </div>
-          <hr>
           <button (click)="ModifySelecction()"  data-bs-toggle="modal" href="#loading" class="buttonmodal">update</button>
 				</div>
 			</div>

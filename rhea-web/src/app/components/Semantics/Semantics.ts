@@ -15,6 +15,7 @@ export class Semantics  {
 
 
     CreateSemantics(list:Array<any>){
+        listsemantics=[]
         list.forEach(element => {
             aux=new Semantics
             aux.name=element.name

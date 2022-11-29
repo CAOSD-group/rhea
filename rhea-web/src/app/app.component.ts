@@ -263,6 +263,7 @@ CreateData(object:any,name?:string){
   jsonconstraint=aux.constraints
   jsonrefactors=aux.refactorings
   this.jsonsemantic=aux.semantics_metrics
+  console.log(aux.semantics_metrics)
   this.jsonlanguage=aux.language_constructs
   this.jsonLanguageextension=aux.tools_info
   this.my_session=aux.hash
@@ -411,6 +412,14 @@ else{
       this.actual.children.push(aux)
     }}
     if(this.type=="CARDINALITY"){
+      if(this.actual.children!=undefined){
+        if(this.card_max>this.actual.children.length){
+          this.card_max=this.actual.children.length
+          if(this.card_min>this.card_max){
+            this.card_min=this.card_max
+          }
+        }
+      }
       this.actual.card_max=this.card_max
       this.actual.card_min=this.card_min
     }
@@ -506,6 +515,16 @@ isFeature(){
   }
   
 }else{return true}
+}
+isRelationFeature(){
+  let bool=true
+  if(this.actualfather!=undefined){
+  if(this.actualfather.type!=undefined){
+    if(this.actualfather.type=="MANDATORY"||this.actualfather.type=="OPTIONAL"){
+      bool=false
+    }
+  }}
+  return bool
 }
 
 CreateChildren(){
@@ -701,6 +720,8 @@ CreateLanguage(){
 }
 CreateSemantics(){
   this.jsonsemantic=this.semantic.CreateSemantics(this.jsonsemantic)
+  console.log(this.jsonsemantic)
+  console.log("2")
 }
 
 CreateToolsExtensions(){

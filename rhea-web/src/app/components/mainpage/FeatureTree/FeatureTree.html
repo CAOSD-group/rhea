@@ -47,21 +47,28 @@
       <mat-menu #menu="matMenu">
         <a data-bs-toggle="modal" href="#sidebareditvalues">Edit</a>
         <hr>
-        <a data-bs-toggle="modal" href="#sidebarcreatechild" >Create a child</a>
-        <hr>
-        <a data-bs-toggle="modal" href="#sidebarcreatebrother">Create brother</a>
-        <hr>
-        <a data-bs-toggle="modal" href="#sidebardeletebranch">Delete branch</a>
-        <div *ngIf="ToolTipRefa(node)" style="overflow-x: hidden;">
-        <hr>
-        <button class="buttonmenu2" mat-icon-button [matMenuTriggerFor]="menurefactortree" (click) = "$event.stopPropagation()" >
-          Apply Refactor
+        <button class="buttonmenu2" mat-icon-button [matMenuTriggerFor]="menucreate" (click) = "$event.stopPropagation()" >
+          Create
           <mat-icon>chevron_right</mat-icon>
         </button>
+        <hr>
+        <a data-bs-toggle="modal" href="#sidebardeletebranch">Delete branch</a>
+        <div *ngIf="ToolTipRefa(node)">
+        <hr>
+        <a class="buttonmenu2" mat-icon-button [matMenuTriggerFor]="menurefactortree" (click) = "$event.stopPropagation()" >
+          Apply Refactor
+          <mat-icon>chevron_right</mat-icon>
+        </a>
         </div>
       </mat-menu>
 
-      
+      <mat-menu #menucreate="matMenu">
+        <a data-bs-toggle="modal" href="#sidebarcreatechild" >Child</a>
+        <hr>
+        <a data-bs-toggle="modal" href="#sidebarcreatebrother">Sibling</a>
+      </mat-menu>
+
+
       <mat-menu #menurefactortree="matMenu">
         <mat-list class="mat-chip-list-stacked">
           <mat-list-item *ngFor="let refac of ListOfRefactors" [hidden]='RefactorvisibleFeature(refac)' >
@@ -69,6 +76,8 @@
           </mat-list-item >
         </mat-list>
       </mat-menu>
+
+
     </mat-nested-tree-node>
   </mat-tree> 
   </div>
@@ -80,4 +89,6 @@
       <i class="bi bi-eye-slash-fill" [hidden]="!show_refacts_features_only"></i>  
     </button>
     <a (click)="show_refacts_features_only=!show_refacts_features_only" style="cursor: pointer;" (click) = "$event.stopPropagation()" >Highlight Refactorings</a>
+    <hr>
+    <a style="padding-left: 5px;" class ="empty" (click)="CreateRoot()">Create root of tree</a>
   </mat-menu>

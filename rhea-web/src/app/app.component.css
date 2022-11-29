@@ -423,7 +423,13 @@ h4 {
   font-weight: bold;
   margin-bottom: 5px;
 }
-
+h5 {
+  font-size: 15px;
+  color: #000000;
+  margin-left: 5px;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
 
 .hero h2 {
   margin-bottom: 20px;

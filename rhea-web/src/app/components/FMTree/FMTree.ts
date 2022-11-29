@@ -32,7 +32,6 @@ let listopen:Array<FMTree> =[]
             if(this.children.length>0){
                 this.children.forEach(element => {
                     element.Delete(this)
-                    console.log("1")
                 });
             }
         }
