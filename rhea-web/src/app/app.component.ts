@@ -300,6 +300,7 @@ CreateData(object:any,name?:string){
   this.treeControl.expand(this.tree[0])
   this.OpenTree(this.tree[0])
   this.loadingmodal=true}, 1);
+  this.loadingmodal=true
 }
 
 OpenTree(node:FMTree){
@@ -410,7 +411,8 @@ else{
       this.actual.children.push(aux)
     }}
     if(this.type=="CARDINALITY"){
-      this.actual.card_max=this.actual.children?.length
+      this.actual.card_max=this.card_max
+      this.actual.card_min=this.card_min
     }
   }
 }

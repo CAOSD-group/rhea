@@ -127,13 +127,13 @@ let listopen:Array<FMTree> =[]
         if(node.type!=undefined){
             if(node.type=="MUTEX"){
             node.symbol="../assets/img/mutex.gif"
-            node.symbol2=node.card_min+".."+node.card_max}
+            node.symbol2="<"+node.card_min+".."+node.card_max+">"}
             if(node.type=="OR"){
                 node.symbol="../assets/img/or.gif"
-                node.symbol2=node.card_min+".."+node.card_max}
+                node.symbol2="<"+node.card_min+".."+node.card_max+">"}
             if(node.type=="XOR"){
                 node.symbol="../assets/img/xor.gif"
-                node.symbol2=node.card_min+".."+node.card_max}
+                node.symbol2="<"+node.card_min+".."+node.card_max+">"}
             if(node.type=="CARDINALITY"){
                 node.symbol="../assets/img/cardinality.gif"
                 node.symbol2="<"+node.card_min+"..."+node.card_max+">"
@@ -146,8 +146,8 @@ let listopen:Array<FMTree> =[]
         if(node.children!=undefined){
             if(node.children.length>0){
                 node.children.forEach(element => {
-                    if(node.card_min==undefined){this.GiveSymbols(element,-1)}
-                    else{this.GiveSymbols(element,node.card_min)}
+                    if(node.type=="MANDATORY"){this.GiveSymbols(element,1)}
+                    else{this.GiveSymbols(element,0)}
                 });
             }
         }
