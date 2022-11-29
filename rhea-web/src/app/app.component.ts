@@ -190,8 +190,8 @@ getDocumentName(){
 }
 
 
-sendUpdate(myjson?:any){
-  this.TransformJSON()
+sendUpdate(myjson?:boolean){
+  if(myjson==undefined){ this.TransformJSON()}
   let file = new Blob([json], { type: 'json' });
   const formData: FormData = new FormData();
   formData.append('file', file,this.title+'.json')
@@ -428,8 +428,9 @@ DeleteNode(){
   this.actualfather=this.GetFather(this.actual,this.tree)
   if(this.actualfather==undefined){
     json='{"name":"Empty","features":{"name":"Empty","abstract":false,"attributes":[],"relations":[]},"constraints": []}'
+    console.log(json)
     try{
-      this.sendUpdate(json)}
+      this.sendUpdate(false)}
     catch{
       this.loadingmodal=true
       }
