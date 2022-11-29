@@ -11,7 +11,7 @@
   <mat-tree [dataSource]="dataSource" [treeControl]="treeControl" >
     <mat-nested-tree-node *matTreeNodeDef="let node; when: hasChild"  > 
 
-      <div class="mat-tree-node"  *ngIf="!RelationFeature(node)" [ngStyle]="{'margin-left':node.margin+'px'}">
+      <div class="mat-tree-node"  *ngIf="!RelationFeature(node)" style="position: relative;" [ngStyle]="{'margin-left':node.margin+'px'}">
         <div *ngIf="!treeHideen(node)">
           <button mat-icon-button matTreeNodeToggle
             [attr.aria-label]="'Toggle ' + node.name">

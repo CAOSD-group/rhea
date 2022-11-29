@@ -20,7 +20,6 @@ let aux4:any;
 var jsonconstraint: Array<Const>=[new Const()] 
 var jsonrefactors: Array<Refactoring>=[new Refactoring()] 
 var jsonfeatures:string
-let open:Array<number>=[]
 
 var listnamestext:Array<string>=[]
 var json:string
@@ -162,8 +161,6 @@ Save(text:number){
   this.http.post(this.urldownload,formData,{withCredentials:true,responseType:'text'}).subscribe(resultado => {  
     this.loadingtext="Server responded"
     let file = new Blob([resultado], { type: this.jsonLanguageextension[text].extension });
-    console.log(file)
-    console.log(resultado)
     saveAs(file, this.title+ " ."+this.jsonLanguageextension[text].extension)
       }
     )
@@ -265,8 +262,6 @@ CreateData(object:any,name?:string){
   jsonfeatures=aux.features,
   jsonconstraint=aux.constraints
   jsonrefactors=aux.refactorings
-  console.log(aux.refactorings)
-  console.log(aux.constraints)
   this.jsonsemantic=aux.semantics_metrics
   this.jsonlanguage=aux.language_constructs
   this.jsonLanguageextension=aux.tools_info
@@ -310,10 +305,7 @@ CreateData(object:any,name?:string){
 OpenTree(node:FMTree){
   let newnode
   if(this.logselect[0]!=undefined){
-    console.log("1")
-    console.log(node)
     if(node.children!=undefined){
-    console.log("2")
     newnode=node.children[this.logselect[0]]
     this.treeControl.expand(newnode)
     this.logselect.splice(0,1)
@@ -422,8 +414,6 @@ else{
     }
   }
 }
-open=[]
-console.log(this.actual)
 try{
   this.sendUpdate()}
 catch{
@@ -472,8 +462,8 @@ DeleteNode(){
     }
     else{aux2=false}
   }
-  if(this.actual.name!=""){aux3=this.actual.name}
-  this.loglist.unshift(aux3+" was deleted")
+  if(this.actual.name!=""){this.loglist.unshift(this.actual.name+" was deleted")}
+  else{this.loglist.unshift(this.actualfather.name+" deleted one of its relations")}
   this.logselect.splice(-1,1)
   try{
     this.sendUpdate()}
@@ -581,7 +571,6 @@ CreateChildren(){
 }
 CreateBrother(){
   this.loadingmodal=false
-  console.log(this.actualfather)
   if(this.actualfather==undefined){
     this.loadingmodal=true
     alert("you can not create a brother")

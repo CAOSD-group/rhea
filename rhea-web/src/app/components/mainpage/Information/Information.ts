@@ -57,18 +57,15 @@ let aux=0
     }
     IsValidLenguage(len:Language,chip:string){
       let icon="cancel"
-      let text=true
       let symbol=false
       let menu=true
       if(chip=="Language constructs"){
-        text=false
         symbol=true
         icon=len.name
         if(len.refactorings.length!=0&&len.value!=0){
         menu=false}
       }
       if(chip=="#"){
-        text=false
         symbol=true
         icon=len.value.toString()
       }
@@ -77,15 +74,17 @@ let aux=0
         icon="check_circle"
       }
       else{
-        if(len.refactorings.length>0){
-          icon="remove_circle"
-          if(len.value==0){
-            icon="remove_circle_valid"
+        if(len.value==0){
+          icon="remove_circle_valid"
+        }
+        else{
+          if(len.refactorings.length>0){
+            icon="remove_circle"
           }
         }
       }}
     
-      return [icon,symbol,text,menu]
+      return [icon,symbol,menu]
     }
     
   }

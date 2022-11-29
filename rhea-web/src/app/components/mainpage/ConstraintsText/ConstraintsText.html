@@ -46,7 +46,7 @@
 <mat-menu #menurefactorcons="matMenu">
   <mat-list class="mat-chip-list-stacked"  >
     <mat-list-item *ngFor="let refac of ListOfRefactors" [hidden]='RefactorvisibleCons(refac)'  >
-      <button class="buttonmenu2" (click)="SelectChipRefactor(refac)"style="text-align: left;" >{{refac.name}}</button>
+      <button class="buttonmenu2" data-bs-toggle="modal" href="#loading"  (click)="SelectChipRefactor(refac)"style="text-align: left;" >{{refac.name}}</button>
     </mat-list-item >
   </mat-list>
 </mat-menu>

@@ -1,18 +1,17 @@
 
 <ul class="sidebar-nav" >
-    <li class="nav-item">
-      <h4 >Upload feature model...</h4>
-      <div id="xslUpload">
-        <label for="file-input card1" style="margin-left: 1%;">
-          <button class="btn importar" type="button">Attach file</button>
-        </label>
+  <h4 >Upload feature model...</h4>
+    <button  class="buttonmodal" style="min-height: 35px;"  (click)="input_file.click()">
+      <img src="../assets/img/folder.png" >
+      Attach file
+    </button>
+    <input [hidden]="true" #input_file (change)="changeListener($event)" id="file-input card1" type="file"/>
 
-        <input class="file-input" (change)="changeListener($event)" id="file-input card1" type="file"/>
-        <label  id="xslSubmit" style="margin-left: 1%;">
-          <button class="btn importar" type="button" (click)="readThis()" data-bs-toggle="modal" href="#loading">Submit file </button>
-        </label>
-      </div>
-    </li>
+    <button class="buttonmodal" style="min-height: 35px; margin-left: 2px;" (click)="readThis()" data-bs-toggle="modal" href="#loading">
+      <img src="../assets/img/upload.png" style=" filter: invert(100%); margin-top: -3px;">
+      Submit file
+    </button>
+
     <input class="margin"  type="text" [(ngModel)]="myfile_name" disabled="true" style="border-radius:5px ;background-color: #f0ececaf ;margin-left: 1%;">
 </ul>
 

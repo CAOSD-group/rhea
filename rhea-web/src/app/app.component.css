@@ -60,7 +60,6 @@
     transform: rotate(-90deg);
     border:0px solid #00000060 ;
     height: 120px;
-    cursor: pointer;
   }
   .colum-header-lang{
     color: #012970;
@@ -81,7 +80,6 @@
     transform: rotate(-90deg);
     border:0px solid #00000060 ;
     height: 120px;
-    cursor: pointer;
   }
 
 
@@ -99,6 +97,9 @@
   }
   .cancel{
     color: #8f2222;
+  }
+  .cancel_valid{
+    color: #20a046;
   }
   .remove_circle{
     color: #ca862e;
@@ -367,7 +368,7 @@ h6 {
 }
 
 
-.sidebar-nav #xslUpload  > .file-input {
+.card1_icons  > .file-input {
   display: none;
 }
 
