@@ -248,7 +248,7 @@
           <h4> Properties
             <div style="margin-left: 4px; margin-top: 10px;">
           <h5>Name
-          <input  type="string" [(ngModel)]="name"></h5>
+          <input  type="string" style="min-width: 250px;" [(ngModel)]="name"></h5>
           <h5>
           <input id="mycheckbox" type="checkbox" [(ngModel)]="abstract" > Abstract</h5>
           <hr></div>
@@ -265,8 +265,8 @@
             <mat-icon class="mat-icon-rtl-mirror">add</mat-icon>
           </button></h4>
           <div *ngFor="let valor of attributes"  >
-            <input type="string" [(ngModel)]="valor.name">
-            <input type="string" [(ngModel)]="valor.value">
+            <input type="string" style="min-width: 150px;" [(ngModel)]="valor.name">
+            <input type="string" style="min-width: 150px;" [(ngModel)]="valor.value">
             <button class="empty" (click)="deleteAttributes(valor)">
               <mat-icon class="mat-icon-rtl-mirror">clear</mat-icon>
             </button>
@@ -319,7 +319,7 @@
 		    <div class="col-6">
           <h4 [hidden]="isFeature()">Name
             <div style="margin-top: 10px;"></div> 
-            <input matInput  type="string" class="input_modal" [(ngModel)]="name">
+            <input matInput  type="string" class="input_modal"  style="min-width: 250px;" [(ngModel)]="name">
             <div style="margin-top: 10px;"></div> </h4>
             <h4 [hidden]="!isFeature()">Type:
               {{type}}
@@ -357,7 +357,7 @@
 				<div class="col-6">
           <h4 [hidden]="!isFeature()">Name
           <div style="margin-top: 10px;"></div> 
-          <input matInput  type="string" class="input_modal" [(ngModel)]="name">
+          <input matInput  type="string" class="input_modal" style="min-width: 250px;" [(ngModel)]="name">
           <div style="margin-top: 10px;"></div> </h4>
           <h4 [hidden]="isFeature()">Type:
             {{type}}

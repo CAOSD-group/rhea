@@ -104,7 +104,6 @@ import { Const } from '../../constraint/const';
       }
       this.npos=this.position
       this.consactual=this.cons[this.position]
-      console.log(this.consactual)
       this.newItemEventposition.emit(this.position);
       this.constraindataSource.data=this.cons.filter(x=>this.cons.indexOf(x)==this.position)
     }

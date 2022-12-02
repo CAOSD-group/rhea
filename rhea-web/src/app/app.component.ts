@@ -169,6 +169,7 @@ Save(text:number){
 
 sendUVL(uvl:any){
   const formData: FormData = new FormData();
+  this.logselect=[]
   formData.append('file', uvl, uvl.name);
   this.loadingtext="Sending file to the server"
   this.http.post(this.urlupload,formData,{withCredentials:true,responseType:'text'}).subscribe(resultado => {  
@@ -234,6 +235,7 @@ Refactor(typeref:string){
 
 returnValues(text?:string){
   this.loglist=[]
+  this.logselect=[]
   this.loadingmodal=false
   if(text==""|| text==undefined){text=this.item;this.loadingmodal=true}
   const formData: FormData = new FormData();
@@ -263,7 +265,6 @@ CreateData(object:any,name?:string){
   jsonconstraint=aux.constraints
   jsonrefactors=aux.refactorings
   this.jsonsemantic=aux.semantics_metrics
-  console.log(aux.semantics_metrics)
   this.jsonlanguage=aux.language_constructs
   this.jsonLanguageextension=aux.tools_info
   this.my_session=aux.hash
@@ -720,8 +721,6 @@ CreateLanguage(){
 }
 CreateSemantics(){
   this.jsonsemantic=this.semantic.CreateSemantics(this.jsonsemantic)
-  console.log(this.jsonsemantic)
-  console.log("2")
 }
 
 CreateToolsExtensions(){
@@ -904,6 +903,7 @@ readThis(inputValue: any): void {
   }
 
   CreateListCons(){
+    if(this.consactual==undefined){this.consactual=new Const()}
     if(this.ListOfConstraint.length==2 && this.ListOfConstraint[0].type=="NotTerm"){
       this.ListOfConstraint[0].operands=[]
       this.ListOfConstraint[0].operands.push(this.ListOfConstraint[1]);
