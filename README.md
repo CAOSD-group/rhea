@@ -1,73 +1,137 @@
-# Rhea v. 2022
-Conectar git hub al sevidor
-# git clone https://github.com/CAOSD-group/rhea.git
-entrar desde la terminal en la carpeta del la web : rhea-web
-# cd rhea/rhea-web
-instalar y/o actualizar npm
-# npm install
-ejecutar el servidor 
-# ng serve
-Control+ C Salimos del servidor ,abrir nueva terminal y camos a la carpeta que contenga la carpeta rhea y los ficheros .bash
-cd .. para retroceder, dir para ver las carpetas y cd "nombre" para entrar en una carpeta
-comprobar que paython 3.10 o superior este instalado
-# sudo python3 -V
-si no esta instalado instalarlo con
-# sudo apt update && sudo apt upgrade
-# sudo apt install python3.10 
-Creamos un enviroment propio
-# python3 -m venv env
-Activamos el enviroment si no se ha activado automaticamente
-# source env/bin/activate
-Una vez activo entramos en la carpeta del la aplicacion e instalamos las dependencias
-# (env)'''' cd rhea  
-si no se ve (env) al principio de la linea es que el enviroment no esta activo
-# pip install -r requirements.txt
-Entramos en el server y lo ejecutamos
-# cd rhea-backend
-# python server.py
-Control+C para salir del servidor
-#
-Automatizacion del inicio de los servidores: Desde la terminal llegamos a la parte mas elevada del entorno
-# cd 
-# cd ..    
-repetir cd .. las veces que sea necesaria hasta que no cambie el directorio
-#
-creamos dos servicio en el sistema, uno para el server y otro para la web
-# cd /etc/systemd/system
-# sudo nano startweb.service  // deberia pedir la contraseña , y copiamos el contenido 
-[Unit]
-Description=My custom startup script
+# Rhea 
+  - [Description](#description)
+  - [Requirements and Installation](#requirements-and-installation)
+    - [Initialize the front-server](#initialize-the-backend-server)
+    - [Initialize the front-server](#initialize-the-backend-server)
+  - [Automatization](#automatizacion)
 
-[Service]
-ExecStart=/home/caosd/Escritorio/rhea-project/startWebApp.bash start
 
-[Install]
-WantedBy=multi-user.target
-#
-Donde pone Service modicifar los nombres de la carpeta para que coincida con la localizacion del proyecto 
-control+O para guardar -> enter /intro para guardarlo manteniendo el nombre
-#
-repetimos para el servidor
-# sudo nano startserver.service 
-[Unit]
-Description=My custom startup script
+## Description
 
-[Service]
-ExecStart=/home/caosd/Escritorio/rhea-project/startServerApp.bash start
+Rhea is a web page that allow the user to create, edit, and download diferent feature models from many diferents file format and that makes them able to be use for many others to, while you can check the parameters of the model and the prepositional constraints of the model.
 
-[Install]
-WantedBy=multi-user.target
-# 
-Modificamos de nuevo la direccion de la carpeta, notar que ya no se escribe el .service a partir de aqui.
-Para comprobar que funcionen podemos hacer 
-# systemctl start startserver
-# systemctl status startserver
-# systemctl start startweb
-# systemctl status startweb
-Si no cerramos antes los servidores no funcionara.
-Si todo ha funcionado correctamente ya se vera en el localhost:4200.
-#
-Para automatizar el proceso solo faltara hacer
-# systemctl enable startserver
-# systemctl enable startweb
-Si todo a salido bien ya deberiamos tener que el servidor y la pagina web se ejecuten automaticamente nada mas encender el ordenador
+<p align="center">
+  <img width="750" src="rhea-web/src/assets/mainpage.png">
+</p>
+
+## Requirements and Installation
+- Python 3.10
+To check if it is available.
+```
+sudo python3 -V
+```
+If it is not then
+```
+sudo apt update && sudo apt upgrade
+sudo apt install python3.10
+```
+- Install/update npm service
+```
+npm install
+```
+
+- Download proyect 
+```
+git clone https://github.com/CAOSD-group/rhea.git
+```
+- Create an enviroment
+
+
+```
+python3 -m venv env
+source env/bin/activate
+```
+If everthing goes right, you should see (env) at the beginning of the command line.
+
+- Other packages
+this should install all other requirements.
+```
+pip install -r requirements.txt
+```
+
+## Initialize the backend-server
+We enter in the folder while having (env) activete.
+```
+cd rhea-backend
+```
+To activate the server just run.
+```
+python server.py
+```
+to exit.
+```
+Control+c 
+```
+## Initialize the front-server
+We enter will need a diferent command console for having the two servers.
+Get to the folder of the proyect .
+```
+cd rhea-web
+ng serve
+```
+To exit.
+```
+Control+c 
+```
+
+## Automatization
+- From any of the command console we go to teh configuarion and create two services.
+```
+cd /
+sudo nano startweb.service
+```
+At this moment it should ask for a password.
+Onces in the services, copy and paste the current text.
+```
+[Unit] Description=My custom startup script
+
+[Service] ExecStart=/FOLDER_OF_PROYECT_WITH_FULL_PATH/startWebApp.bash start
+
+[Install] WantedBy=multi-user.target
+```
+Where the foler direction would depend on where you download the project.
+- Repet for the backend
+
+```
+cd /
+sudo nano startserver.service
+```
+```
+[Unit] Description=My custom startup script
+
+[Service] ExecStart=/FOLDER_OF_PROYECT_WITH_FULL_PATH/startServerApp.bash start
+
+[Install] WantedBy=multi-user.target
+```
+- To check that everything works,first close both the front-end and the back-end server if they where still running.
+```
+systemctl start startserver
+systemctl status startserver
+systemctl start startweb
+systemctl status startweb
+```
+If we go then to localhost:4200 in any browser we will see the web ready to be use.
+
+- To automate the proces.
+```
+systemctl enable startserver
+systemctl enable startweb
+```
+- To stop the proces at any given moment.
+
+```
+systemctl stop startserver
+systemctl stop startweb
+```
+- To stop the proces to start automaticly.
+```
+systemctl disable startserver
+systemctl disable startweb
+```
+
+## In progres
+We are yet developing the tool to incorporate new tools and features to work with the models.
+As examples we are progressing with:
+- Numerical Features
+- A Repository of models
+- New lengages constructs.
