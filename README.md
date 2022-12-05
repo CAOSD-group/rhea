@@ -11,7 +11,7 @@
 Rhea is a web page that allow the user to create, edit, and download diferent feature models from many diferents file format and that makes them able to be use for many others to, while you can check the parameters of the model and the prepositional constraints of the model.
 
 <p align="center">
-  <img width="750" src="rhea-web/src/assets/mainpage.png">
+  <img width="750" src="rhea-web/src/assets/img/mainpage.png">
 </p>
 
 ## Requirements and Installation
@@ -20,7 +20,7 @@ To check if it is available.
 ```
 sudo python3 -V
 ```
-If it is not then
+If it is not then.
 ```
 sudo apt update && sudo apt upgrade
 sudo apt install python3.10
@@ -58,7 +58,7 @@ To activate the server just run.
 ```
 python server.py
 ```
-to exit.
+To exit.
 ```
 Control+c 
 ```
