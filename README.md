@@ -2,7 +2,7 @@
   - [Description](#description)
   - [Requirements and Installation](#requirements-and-installation)
     - [Initialize the front-server](#initialize-the-backend-server)
-    - [Initialize the front-server](#initialize-the-backend-server)
+    - [Initialize the backend-server](#initialize-the-backend-server)
   - [Automatization](#automatizacion)
 
 
