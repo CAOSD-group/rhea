@@ -10,6 +10,7 @@ import { Refactoring } from './components/refactor/refactoring';
 import { Language } from './components/Language/Language';
 import { Semantics } from './components/Semantics/Semantics';
 import { ToolsExtension } from './components/ToolsExtension/ToolsExtension';
+import { TitleStrategy } from '@angular/router';
 
 
 
@@ -120,6 +121,9 @@ export class AppComponent {
   logselect: Array<number>=[];
   myArticle=new Data('','','',0,'',"",'',0,0,'','');
 
+  logposition=-1
+  loghash:Array<string>=[]
+
 constructor(private http: HttpClient ) { }  
 
 
@@ -128,7 +132,18 @@ ngOnInit() {
   this.getDocumentName()
 }
 
-
+Movehistory(reundo:number){
+  this.logposition=this.logposition+reundo
+  const formData: FormData = new FormData();
+  formData.append('fm_hash',this.loghash[this.logposition])
+  formData.append('fm_format', 'json');
+  this.loadingtext="Sending hash to server"
+  this.http.post(this.urldownload,formData,{withCredentials:true,responseType:'text'}).subscribe(resultado=>{
+    this.loadingtext="Server responded"
+    this.CreateData(resultado)
+    json=resultado
+  })
+}
   
 showFM_Editor(){
   this.windowFM_Editor=true
@@ -268,6 +283,24 @@ CreateData(object:any,name?:string){
   this.jsonlanguage=aux.language_constructs
   this.jsonLanguageextension=aux.tools_info
   this.my_session=aux.hash
+  if(this.my_session!=this.loghash[this.logposition]){
+    console.log("1")
+    if(this.loghash.indexOf(this.my_session)==-1){
+      console.log("2")
+      this.loghash.splice(this.logposition+1)
+      this.loghash.push(this.my_session)
+      this.logposition=this.loghash.length-1
+    }
+    else{
+      console.log("3")
+      this.logposition=this.loghash.indexOf(this.my_session)
+    }
+  }
+  console.log(this.loghash)
+  console.log(this.logposition)
+
+
+
   aux2="" 
   try{
   let dictionary = Object.assign({}, object);

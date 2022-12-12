@@ -8,3 +8,9 @@
       </mat-list-option>   
     </mat-selection-list>
   </cdk-virtual-scroll-viewport>
+      <button mat-icon-button (click)="Undo()" class=”buttonmodal” [disabled]=Disblebutton()[1]>
+        <mat-icon class="redo" >undo</mat-icon>
+      </button>
+      <button mat-icon-button (click)="Redo()" class=”buttonmodal” [disabled]=Disblebutton()[0]>
+        <mat-icon class="undo" >redo</mat-icon>
+      </button>

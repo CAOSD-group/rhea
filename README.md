@@ -1,9 +1,11 @@
 # Rhea 
+- [Rhea](#rhea)
   - [Description](#description)
   - [Requirements and Installation](#requirements-and-installation)
-    - [Initialize the front-server](#initialize-the-backend-server)
-    - [Initialize the backend-server](#initialize-the-backend-server)
-  - [Automatization](#automatizacion)
+  - [Initialize the backend-server](#initialize-the-backend-server)
+  - [Initialize the front-server](#initialize-the-front-server)
+  - [Automatization](#automatization)
+  - [In progres](#in-progres)
 
 
 ## Description
@@ -15,29 +17,34 @@ Rhea is a web page that allow the user to create, edit, and download diferent fe
 </p>
 
 ## Requirements and Installation
-- Python 3.10
+- Python 3.10+
 To check if it is available.
 ```
-sudo python3 -V
+sudo python --version
 ```
 If it is not then.
 ```
 sudo apt update && sudo apt upgrade
 sudo apt install python3.10
 ```
-- Install/update npm service
-```
-npm install
-```
+
+
 
 - Download proyect 
 ```
 git clone https://github.com/CAOSD-group/rhea.git
 ```
-- Create an enviroment
+- Install/update npm service
+From rhea-web folder
+```
+sudo apt install npm
+```
 
+- Create an enviroment
+from rhea folder
 
 ```
+sudo apt install python3.10-venv
 python3 -m venv env
 source env/bin/activate
 ```
@@ -47,6 +54,14 @@ If everthing goes right, you should see (env) at the beginning of the command li
 this should install all other requirements.
 ```
 pip install -r requirements.txt
+```
+If this fails installing the requirements due to an error with python-sat library, then you need to install the following dependencies:
+```
+sudo apt install python-dev
+```
+If it continues failing, then install also the following dependencies:
+```
+sudo apt install zlib1g zlib1g-dev libffi-dev
 ```
 
 ## Initialize the backend-server
@@ -73,7 +88,12 @@ To exit.
 ```
 Control+c 
 ```
-
+If somwthing goes wrong, try:
+```
+npm uninstall -g angular-cli
+npm cache clean
+npm install -g angular-cli@latest
+```
 ## Automatization
 - From any of the command console we go to teh configuarion and create two services.
 ```

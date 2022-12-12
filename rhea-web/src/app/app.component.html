@@ -122,6 +122,9 @@
           <div class="border">
             <card4  
             [loglist]="loglist" 
+            [loghash]="loghash"
+            [logposition]="logposition"
+            (newItemEventreundo)="Movehistory($event)"
             ></card4>
           </div>
         </div>
