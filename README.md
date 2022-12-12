@@ -95,19 +95,23 @@ npm cache clean
 npm install -g angular-cli@latest
 ```
 ## Automatization
-- From any of the command console we go to teh configuarion and create two services.
+- From any of the command console we go to the configuration and create two services.
 ```
 cd /
+cd /etc/systemd/system
 sudo nano startweb.service
 ```
 At this moment it should ask for a password.
 Onces in the services, copy and paste the current text.
 ```
-[Unit] Description=My custom startup script
+[Unit] 
+Description=My custom startup script
 
-[Service] ExecStart=/FOLDER_OF_PROYECT_WITH_FULL_PATH/startWebApp.bash start
+[Service] 
+ExecStart=/FOLDER_OF_PROYECT_WITH_FULL_PATH/startWebApp.bash start
 
-[Install] WantedBy=multi-user.target
+[Install] 
+WantedBy=multi-user.target
 ```
 Where the foler direction would depend on where you download the project.
 - Repet for the backend
@@ -148,7 +152,18 @@ systemctl stop startweb
 systemctl disable startserver
 systemctl disable startweb
 ```
+- Some considerations
+you may need to restart the daemon, if necesary it will tell you to execute 
+```
+systemctl daemon-reload
+```
+Other thing you may need is to give permision to the .bash files, for that you will need to go to the folder and give permision
+```
+sudo chmod 741 startServerApp.bash
+sudo chmod 741 startWebApp.bash
 
+```
+where 741 means that only the owner may write in the file, but the system can execute it
 ## In progres
 We are yet developing the tool to incorporate new tools and features to work with the models.
 As examples we are progressing with:
