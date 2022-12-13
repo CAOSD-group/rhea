@@ -44,7 +44,8 @@
         <ng-container matTreeNodeOutlet></ng-container> 
       </ul> 
       <!-- Menu Features Tree -->
-      <mat-menu #menu="matMenu">
+      <mat-menu #menu="matMenu" >
+        <div style="min-width: 90px; overflow: hidden;">
         <a data-bs-toggle="modal" href="#sidebareditvalues">Edit</a>
         <hr>
         <button class="buttonmenu2" mat-icon-button [matMenuTriggerFor]="menucreate" (click) = "$event.stopPropagation()" >
@@ -59,7 +60,7 @@
           Apply Refactor
           <mat-icon>chevron_right</mat-icon>
         </a>
-        </div>
+        </div></div>
       </mat-menu>
 
       <mat-menu #menucreate="matMenu">

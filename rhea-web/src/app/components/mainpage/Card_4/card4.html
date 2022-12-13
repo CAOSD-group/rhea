@@ -8,9 +8,11 @@
       </mat-list-option>   
     </mat-selection-list>
   </cdk-virtual-scroll-viewport>
-      <button mat-icon-button (click)="Undo()" class=”buttonmodal” [disabled]=Disblebutton()[1]>
+      <button mat-icon-button (click)="Undo()" class=”buttonmodal” (mouseenter)="tooltip='Undo'" (mouseleave)="tooltip=''"  [disabled]=Disblebutton()[1] style="position: relative;">
         <mat-icon class="redo" >undo</mat-icon>
+        <h6 *ngIf="ToolTipText()[1]" style="color: rgba(65, 65, 65, 0.75);font-size: 12px;position: absolute;z-index: 9;margin-top: -6px;">{{tooltip}}</h6>
       </button>
-      <button mat-icon-button (click)="Redo()" class=”buttonmodal” [disabled]=Disblebutton()[0]>
-        <mat-icon class="undo" >redo</mat-icon>
+      <button mat-icon-button (click)="Redo()" class=”buttonmodal” (mouseenter)="tooltip='Redo'" (mouseleave)="tooltip=''" [disabled]=Disblebutton()[0] style="position: relative;">
+        <mat-icon class="redo" >redo</mat-icon>
+        <h6 *ngIf="ToolTipText()[0]" style="color: rgba(65, 65, 65, 0.75);font-size: 12px;position: absolute;z-index: 9; margin-top: -6px;">{{tooltip}}</h6>
       </button>

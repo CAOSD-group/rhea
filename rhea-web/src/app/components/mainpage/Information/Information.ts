@@ -12,6 +12,7 @@ let aux=0
   })
 
   export class Information {
+    tooltip:any=""
     @Input() ListOfRefactorsInfo :Array<Refactoring>=[];
     @Input() ListLanguage:Array<string>=[]
     @Input() jsonlanguage:Array<Language>=[]
@@ -85,6 +86,14 @@ let aux=0
       }}
     
       return [icon,symbol,menu]
+    }
+
+    ToolTipText(a:any,chip:string){
+      if(a==this.tooltip && chip=="Language constructs"){
+        return[true,this.tooltip.id]
+      }
+      else{
+      return [false,""]}
     }
     
   }

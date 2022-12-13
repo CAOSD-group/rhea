@@ -13,6 +13,7 @@ export class Refactoring  {
     description:string=""
     type:string=""
     instances:Array<string> =[]
+    applicable:boolean=true;
     constructor(){}
 
     Delete(){
@@ -21,6 +22,7 @@ export class Refactoring  {
         this.description="";
         this.type="";
         this.instances=[];
+        this.applicable=false;
     }
     
 
@@ -34,6 +36,7 @@ export class Refactoring  {
         if(element.description!=undefined){aux.description=element.description}
         if(element.type!=undefined){aux.type=element.type}
         if(element.instances!=undefined){aux.instances=element.instances}
+        if(element.applicable!=undefined){this.applicable=element.applicable}
         ListOfRefactors.push(aux)
         });
         

@@ -6,32 +6,27 @@
 <mat-menu #legend="matMenu" >
   <button class="empty" style="cursor: default;text-align: left;font-size: smaller;">
     <mat-icon class="check_circle" mat-icon-button>check_circle</mat-icon>
-    The tool supports this characteristic
+    The tool supports this characteristic.
   </button> 
   <div></div>
   <button class="empty" style="cursor: default;text-align: left;font-size: smaller;"> 
     <mat-icon class="cancel" mat-icon-button>cancel</mat-icon>
-    The tool does not supports this characteristic
+    The tool does not support this characteristic.
   </button>
   <div></div>
   <button class="empty" style="cursor: default;text-align: left;font-size: smaller;">
     <mat-icon class="remove_circle" mat-icon-button>remove_circle</mat-icon>
-    The tool does not supports this characteristic but there is a refactor 
+    The tool does not supports this characteristic but there is a refactoring. 
   </button>
   <div></div>
   <button class="empty" style="cursor: default;text-align: left;font-size: smaller;">
     <mat-icon class="remove_circle_valid" mat-icon-button>remove_circle</mat-icon>
-    The tool does not supports this characteristic but there is not any instance
+    The tool does not supports this characteristic but there is not any instance.
   </button>
 </mat-menu>
 </h4>
 
 <table mat-table [dataSource]="jsonlanguage"  >
-
-    
-     
-  
-
           <mat-chip-list class="colum"  >
             <mat-chip *ngFor="let chip of columns()" >
                 <ng-container matColumnDef={{chip}} >
@@ -39,7 +34,9 @@
                     <td mat-cell *matCellDef="let element" class="colum-body" [ngStyle]="{'text-align':chip == 'Language constructs' ? 'left' : 'center' }"> 
 
                         <mat-icon [hidden]="IsValidLenguage(element,chip)[1]" class="{{IsValidLenguage(element,chip)[0]}}">{{IsValidLenguage(element,chip)[0]}}</mat-icon> 
-                        <label  [hidden]="!IsValidLenguage(element,chip)[1]" >{{IsValidLenguage(element,chip)[0]}}
+
+                        <label  [hidden]="!IsValidLenguage(element,chip)[1]" (mouseenter)="tooltip=element" (mouseleave)="tooltip=''" style="position: relative;">{{IsValidLenguage(element,chip)[0]}} 
+                          <h6 *ngIf="ToolTipText(element,chip)[0]" style="color: rgba(65, 65, 65, 0.75);font-size: 10px;position: absolute;z-index: 9;">{{ToolTipText(element,chip)[1]}}</h6>
                         <button class="empty">
                             <mat-icon  mat-icon-button [matMenuTriggerFor]="menuinfo" (click)="mychip=element" [hidden]="IsValidLenguage(element,chip)[2]">more_vert</mat-icon>
                         </button> </label> 
