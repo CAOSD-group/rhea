@@ -35,12 +35,12 @@ var refactor:Refactoring =new Refactoring()
 })
 
 export class AppComponent {
-  urldownload="http://192.168.222.13:5000/downloadFM"  
-  urldocuments="http://192.168.222.13:5000/getExampleFMs"  
-  urluploadExampleFM="http://192.168.222.13:5000/uploadExampleFM"  
-  urlupload="http://192.168.222.13:5000/uploadFM"  
-  urlrefactor="http://192.168.222.13:5000/refactor" 
-  urlupdate="http://192.168.222.13:5000/updateFM" 
+  urldownload="https://rhea.caosd.lcc.uma.es:5000/downloadFM"  
+  urldocuments="https://rhea.caosd.lcc.uma.es:5000/getExampleFMs"  
+  urluploadExampleFM="https://rhea.caosd.lcc.uma.es:5000/uploadExampleFM"  
+  urlupload="https://rhea.caosd.lcc.uma.es:5000/uploadFM"  
+  urlrefactor="https://rhea.caosd.lcc.uma.es:5000/refactor" 
+  urlupdate="https://rhea.caosd.lcc.uma.es:5000/updateFM" 
 
   declare actual:FMTree     
   declare actualfather:FMTree 
@@ -133,6 +133,7 @@ ngOnInit() {
 }
 
 Movehistory(reundo:number){
+  this.loadingmodal=false
   this.logposition=this.logposition+reundo
   const formData: FormData = new FormData();
   formData.append('fm_hash',this.loghash[this.logposition])
@@ -233,7 +234,6 @@ Refactor(typeref:string){
     if(typeref=="cons"){object=this.listnamesconstraints[this.npos];formData.append('instance_name',object);}
     if(typeref=="node"||typeref=="cons"||typeref=="all"){
     if(refactor.id=="CardinalityGroupRefactoring"|| (typeref=="all"&&( refactor.id=="EliminationSimpleConstraintsRequires"||refactor.id=="EliminationSimpleConstraintsExcludes"))){
-      console.log("1")
     }
     formData.append('refactoring_id',refactor.id);
     formData.append('fm_hash',this.my_session);
@@ -270,7 +270,6 @@ returnValues(text?:string){
 }
 CreateData(object:any,name?:string){
   this.treeControl.collapseAll()
-  this.loadingtext="Received a valid response from thee server"
   aux = object;
   this.item=name||"";
   if(this.item!=""){this.loglist.unshift(this.item+" was loaded")}
@@ -284,22 +283,15 @@ CreateData(object:any,name?:string){
   this.jsonLanguageextension=aux.tools_info
   this.my_session=aux.hash
   if(this.my_session!=this.loghash[this.logposition]){
-    console.log("1")
     if(this.loghash.indexOf(this.my_session)==-1){
-      console.log("2")
       this.loghash.splice(this.logposition+1)
       this.loghash.push(this.my_session)
       this.logposition=this.loghash.length-1
     }
     else{
-      console.log("3")
       this.logposition=this.loghash.indexOf(this.my_session)
     }
   }
-  console.log(this.loghash)
-  console.log(this.logposition)
-
-
 
   aux2="" 
   try{
@@ -310,17 +302,15 @@ CreateData(object:any,name?:string){
   aux=JSON.parse(aux2)
   }
   catch{}
-  if(aux2=="" ){
-  }
   this.CreateSemantics()
   this.loadingtext="Semantics created"
   aux3=aux.constraints
   setTimeout(() => {
-  this.CreateCons() }, 1);
-  this.loadingtext="Constraints created"
+  this.CreateCons() 
+  this.loadingtext="Constraints created" }, 1);
   setTimeout(() => {
-  this.CreateFMTree()  }, 1);
-  this.loadingtext="Features tree created"
+  this.CreateFMTree()  
+  this.loadingtext="Features tree created"}, 1);
   if(jsonrefactors!=undefined){
   setTimeout(() => {this.CreateRefactor()}, 1);}
   setTimeout(() => {
@@ -329,13 +319,12 @@ CreateData(object:any,name?:string){
   this.loadingtext="Lenguages details loaded"
   this.CreateToolsExtensions()  }, 1);
   this.mainhidden=false
-  this.loadingtext="Tree opening"
   setTimeout(() => {
   this.loadingtext="Tree opening"
   this.treeControl.expand(this.tree[0])
   this.OpenTree(this.tree[0])
   this.loadingmodal=true}, 1);
-  this.loadingmodal=true
+  this.loadingtext="Creating data"
 }
 
 OpenTree(node:FMTree){
@@ -473,7 +462,6 @@ DeleteNode(){
   this.actualfather=this.GetFather(this.actual,this.tree)
   if(this.actualfather==undefined){
     json='{"name":"Empty","features":{"name":"Empty","abstract":false,"attributes":[],"relations":[]},"constraints": []}'
-    console.log(json)
     try{
       this.sendUpdate(false)}
     catch{
