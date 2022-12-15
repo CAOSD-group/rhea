@@ -35,12 +35,12 @@ var refactor:Refactoring =new Refactoring()
 })
 
 export class AppComponent {
-  urldownload="http://192.168.222.13:5000/downloadFM"  
+  urldownload="http://127.0.0.1:5000/downloadFM"  
   urldocuments="http://127.0.0.1:5000/getExampleFMs"  
-  urluploadExampleFM="http://192.168.222.13:5000/uploadExampleFM"  
-  urlupload="http://192.168.222.13:5000/uploadFM"  
-  urlrefactor="http://192.168.222.13:5000/refactor" 
-  urlupdate="http://192.168.222.13:5000/updateFM" 
+  urluploadExampleFM="http://127.0.0.1:5000/uploadExampleFM"  
+  urlupload="http://127.0.0.1:5000/uploadFM"  
+  urlrefactor="http://127.0.0.1:5000/refactor" 
+  urlupdate="http://127.0.0.1:5000/updateFM" 
 
   declare actual:FMTree     
   declare actualfather:FMTree 
@@ -197,12 +197,10 @@ sendUVL(uvl:any){
 }
 
 getDocumentName(){
-  console.log("1")
     this.http.get(this.urldocuments).subscribe(resultado => {
-      console.log("2")
     aux=resultado
     this.documents=aux 
-    //this.returnValues(this.documents[0])
+    this.returnValues(this.documents[0])
       }
     )
 
