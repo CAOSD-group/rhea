@@ -197,10 +197,12 @@ sendUVL(uvl:any){
 }
 
 getDocumentName(){
+  console.log("1")
     this.http.get(this.urldocuments).subscribe(resultado => {
+      console.log("2")
     aux=resultado
     this.documents=aux 
-    this.returnValues(this.documents[0])
+    //this.returnValues(this.documents[0])
       }
     )
 
