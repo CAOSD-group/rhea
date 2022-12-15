@@ -36,7 +36,7 @@ var refactor:Refactoring =new Refactoring()
 
 export class AppComponent {
   urldownload="http://192.168.222.13:5000/downloadFM"  
-  urldocuments="http://192.168.222.13:5000/getExampleFMs"  
+  urldocuments="http://127.0.0.1:5000/getExampleFMs"  
   urluploadExampleFM="http://192.168.222.13:5000/uploadExampleFM"  
   urlupload="http://192.168.222.13:5000/uploadFM"  
   urlrefactor="http://192.168.222.13:5000/refactor" 
