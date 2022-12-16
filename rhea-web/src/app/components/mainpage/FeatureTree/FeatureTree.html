@@ -91,5 +91,7 @@
     </button>
     <a (click)="show_refacts_features_only=!show_refacts_features_only" style="cursor: pointer;" (click) = "$event.stopPropagation()" >Highlight Refactorings</a>
     <hr>
-    <a style="padding-left: 5px;" class ="empty" (click)="CreateRoot()">Create root of tree</a>
+    <a style="padding-left: 5px;" class ="empty" (click)="CreateRoot()">Create root for the tree</a>
+    <hr>
+    <a style="padding-left: 5px;" class ="empty"  data-bs-toggle="modal" href="#search">Search a feature</a>
   </mat-menu>

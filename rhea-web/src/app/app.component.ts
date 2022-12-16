@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component,ElementRef} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {NestedTreeControl} from '@angular/cdk/tree';
 import {MatTreeNestedDataSource} from '@angular/material/tree';
@@ -10,7 +10,6 @@ import { Refactoring } from './components/refactor/refactoring';
 import { Language } from './components/Language/Language';
 import { Semantics } from './components/Semantics/Semantics';
 import { ToolsExtension } from './components/ToolsExtension/ToolsExtension';
-import { TitleStrategy } from '@angular/router';
 
 
 
@@ -35,13 +34,14 @@ var refactor:Refactoring =new Refactoring()
 })
 
 export class AppComponent {
-  urldownload="http://192.168.222.13:5000/downloadFM"  
-  urldocuments="http://192.168.222.13:5000/getExampleFMs"
-  urluploadExampleFM="http://192.168.222.13:5000/uploadExampleFM"  
-  urlupload="http://192.168.222.13:5000/uploadFM"  
-  urlrefactor="http://192.168.222.13:5000/refactor" 
-  urlupdate="http://192.168.222.13:5000/updateFM" 
+  urldownload="http://127.0.0.1:5000/downloadFM"  
+  urldocuments="http://127.0.0.1:5000/getExampleFMs"
+  urluploadExampleFM="http://127.0.0.1:5000/uploadExampleFM"  
+  urlupload="http://127.0.0.1:5000/uploadFM"  
+  urlrefactor="http://127.0.0.1:5000/refactor" 
+  urlupdate="http://127.0.0.1:5000/updateFM" 
 
+  
   declare actual:FMTree     
   declare actualfather:FMTree 
   tree:Array<FMTree> =[new FMTree()]  
@@ -63,6 +63,7 @@ export class AppComponent {
   typesofcons:Array<string>=['NOT','OR','AND','IMPLIES','XOR','REQUIRES','EXCLUDES','EQUIVALENCE']
   typesofconsTerm:Array<string>=['NotTerm','OrTerm','AndTerm','ImpliesTerm','XorTerm','RequiresTerm','ExcludesTerm','EquivalenceTerm']
   namesFeatures:Array<string>=[]
+  listFeatures:Array<FMTree>=[]
   //otros
   title:string='';
   item:string ='';
@@ -129,7 +130,7 @@ constructor(private http: HttpClient ) { }
 
 
 ngOnInit() {
-  this.getDocumentName()
+this.getDocumentName()
 }
 
 Movehistory(reundo:number){
@@ -344,7 +345,7 @@ showModal(){
     return ["../assets/img/loading.gif",true]
   }
   else{
-  return ["a",false]}
+  return ["",false]}
 }
 web(Article:Data){
   if(Article.Ref!=undefined){
@@ -602,7 +603,7 @@ CreateChildren(){
     feature.children=[]
     this.actual.children.push(feature)
     this.loglist.unshift(this.actual.type+" insert "+feature.name+" as a child ")
-    this.tree[0].ExpandList(this.name)
+    this.tree[0].ExpandList(feature)
   }
   if(this.actualfather!=undefined){
     if(this.actualfather.children!=undefined){
@@ -668,7 +669,7 @@ CreateBrother(){
       feature.children=[]
       this.actualfather.children.push(feature)
       this.loglist.unshift(this.actual.name+" insert "+feature.name+" as a brother ")
-      this.tree[0].ExpandList(this.name)
+      this.tree[0].ExpandList(feature)
     }
   try{
     this.sendUpdate()}
@@ -802,7 +803,7 @@ readThis(inputValue: any): void {
 
 
   select(object:any){
-    this.actualfather=this.GetFather(this.actual,this.tree)
+   
     this.actual=object
     this.name=""
     this.abstract=false
@@ -814,19 +815,26 @@ readThis(inputValue: any): void {
     if(this.actual.name!=undefined){this.name=this.actual.name}
     if(this.actual.abstract!=undefined){this.abstract=this.actual.abstract}
     if(this.actual.type!=undefined && this.actual.type!=""){this.type=this.actual.type}
-    if(this.actualfather.type!=undefined && this.actualfather.type!=""){this.type=this.actualfather.type}
+
     if(this.actual.card_max!=undefined){this.card_max=this.actual.card_max}
     if(this.actual.card_min!=undefined){this.card_min=this.actual.card_min}
+    this.actualfather=this.GetFather(this.actual,this.tree)
+    setTimeout(() => {
+    if(this.actualfather!=undefined){
+    if(this.actualfather.type!=undefined && this.actualfather.type!=""){this.type=this.actualfather.type}}
     this.optional=true
+
     if(this.type=="MANDATORY"){
       this.optional=false
     }
     if(this.type=="CARDINALITY" && this.card_min!=0){
       this.optional=false
     }
+    if(this.actualfather!=undefined){
+    this.listOpen(this.actual,this.actualfather)}
+    }, 1);
     this.attributes=this.actual.attributes||[]
     this.logselect=[]
-    this.listOpen(this.actual,this.actualfather)
     console.log(this.actual)
   }
   listOpen(child:FMTree,father:FMTree){
@@ -1222,6 +1230,49 @@ SelectChipFeature(text:string){
   }
   this.ListOfConstraint.push(aux)
 }
+
+SearchFeature(text:string){
+  let feature
+  let father
+  this.listFeatures=this.tree[0].ListOfFeatures()
+  this.listFeatures.forEach(element => {
+    if(element.name==text){
+      feature=element
+    }
+  });
+  setTimeout(() => {
+    father=this.GetFather(feature,this.tree)
+    if(father!=undefined){
+    this.OpenToSearch(father)
+    this.ScrollIntoView(feature.name)
+    }
+  }, 1);
+}
+
+OpenToSearch(node:FMTree){
+  this.treeControl.expand(node)
+  let father 
+  father=this.GetFather(node,this.tree)
+  if(father!=undefined){
+    this.OpenToSearch(father)
+  }
+}
+ScrollIntoView(elem:string) {
+  let view
+  if(document!=null){
+    if(elem!=undefined && elem!= null){
+      //view=document.body.querySelector("#"+elem)
+      view=document.getElementById(elem)
+      if(view!=null){
+        console.log(view)
+        console.log(elem)
+        setTimeout(() => {
+         view.scrollIntoView() 
+        }, 1);
+        
+      }}}
+}
+
 
 SelectChipRefactor(object:any,tipo:string){
   let name=""

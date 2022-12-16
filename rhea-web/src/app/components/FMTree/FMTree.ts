@@ -37,6 +37,7 @@ let listopen:Array<FMTree> =[]
         }
         if(this.name!=undefined){
         aux=nlist.indexOf(this.name)
+        MyTree.splice(aux,1)
         nlist.splice(aux,1)}
         list.children=list.children?.filter(x=> x!=this)
         this.margin=-1
@@ -51,19 +52,22 @@ let listopen:Array<FMTree> =[]
         return nlist
     }
 
-    DeleteList(){nlist.splice(0,nlist.length)}
+    DeleteList(){nlist.splice(0,nlist.length);MyTree.splice(0,nlist.length)}
 
     ListOfNames(){return nlist}
+    ListOfFeatures(){return MyTree}
 
     ListOfNamesModified(newname:string,oldname:string){
         aux=nlist.indexOf(oldname)
-        if(newname==""){nlist.splice(aux,1)}
+        if(newname==""){nlist.splice(aux,1);MyTree.splice(aux,1)}
         else{
-        nlist[aux]=newname}
+        nlist[aux]=newname
+        MyTree[aux].name=newname}
         return nlist}
 
-    ExpandList(name:string){
-        nlist.push(name)
+    ExpandList(newfm:FMTree){
+        nlist.push(newfm.name||"")
+        MyTree.push(newfm)
         return nlist
     }
 
@@ -74,6 +78,7 @@ let listopen:Array<FMTree> =[]
         if(value.attributes!=undefined &&value.attributes.length>0){actualtree.attributes=value.attributes}
         actualtree.children=[]
         nlist.push(value.name)
+        MyTree.push(actualtree)
         if(value.relations!=undefined){
         if(value.relations.length>0){
             aux=0

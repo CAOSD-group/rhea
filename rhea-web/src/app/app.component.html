@@ -612,5 +612,35 @@
      
 	  </div>
   </div>
-</div>             
+</div>          
 
+
+<!-- Modal Search-->
+<div class="modal" #search id="search" data-bs-backdrop="static">
+  <div class="modal-dialog modal-lg" >
+    <div class="modal-content">
+		  <div class="modal-header"> 
+        <h4>Searching for a feature to open it in the tree </h4>
+      </div>
+	    <div class="modal-body">
+        <div class="row">
+          <div class="col-12">
+            <div class="bordermodal">
+              <h4 style="margin-top: -17px;">Features Term</h4>
+              <input style="margin-bottom: 5px;" type="text" [(ngModel)]="featureautocomplete">
+              <cdk-virtual-scroll-viewport [itemSize]="6 * 7" class="example-viewport" style="margin-bottom: -20px;">
+                <mat-chip-list class="mat-chip-list-stacked" >
+                  <mat-chip *ngFor="let chip of nameFeatures()" id="{{chip}}" (click)="SearchFeature(chip)"  data-bs-dismiss="modal" [hidden]="AutocompleteFeatureTermChip(chip)">
+                    {{chip}}
+                  </mat-chip>
+                </mat-chip-list>
+              </cdk-virtual-scroll-viewport>
+            </div>
+          </div>
+        </div>
+	    </div>
+      <button  class ="buttonmodal" style="height: 50px;" data-bs-dismiss="modal"> close </button>
+     
+	  </div>
+  </div>
+</div>

@@ -36,7 +36,7 @@ static_folder = 'web'
 
 
 config = {
-    "DEBUG": True,          # some Flask specific configs
+         # some Flask specific configs
     "CACHE_TYPE": "SimpleCache",  # Flask-Caching related configs
     "CACHE_DEFAULT_TIMEOUT": 300
 }
@@ -248,4 +248,4 @@ def download_feature_model():
 if __name__ == '__main__':
     # app.debug = True
     # app.run(host='0.0.0.0', port=5555)
-    app.run(host='0.0.0.0',debug=True)
+    app.run()

@@ -120,8 +120,6 @@ var refactor:Refactoring =new Refactoring()
     this.attributes=this.actual.attributes||[]
     this.actualfather=this.GetFather(this.actual,this.tree)
     console.log(this.actual)
-    
-    this.newItemEventactual.emit(this.actual);
     this.newItemEventactual.emit(this.actual);
   }
 
