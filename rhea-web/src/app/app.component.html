@@ -630,7 +630,7 @@
               <input style="margin-bottom: 5px;" type="text" [(ngModel)]="featureautocomplete">
               <cdk-virtual-scroll-viewport [itemSize]="6 * 7" class="example-viewport" style="margin-bottom: -20px;">
                 <mat-chip-list class="mat-chip-list-stacked" >
-                  <mat-chip *ngFor="let chip of nameFeatures()" id="{{chip}}" (click)="SearchFeature(chip)"  data-bs-dismiss="modal" [hidden]="AutocompleteFeatureTermChip(chip)">
+                  <mat-chip *ngFor="let chip of nameFeatures()"  (click)="SearchFeature(chip)"  data-bs-dismiss="modal" [hidden]="AutocompleteFeatureTermChip(chip)">
                     {{chip}}
                   </mat-chip>
                 </mat-chip-list>

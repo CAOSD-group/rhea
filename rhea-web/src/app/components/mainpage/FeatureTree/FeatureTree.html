@@ -31,7 +31,7 @@
           <h6 *ngIf="ToolTipText(node)[0]" style="color: rgba(65, 65, 65, 0.75);font-size: 10px;position: absolute;z-index: 9;">{{ToolTipText(node)[1]}}</h6>
         </div>
         <div class="margin" ></div>
-        <div  class={{HiddenRefacfeature(node)[1]}} [ngStyle]="{'font-style':node.abstract? 'italic':'normal'}" >
+        <div id={{node.name}} class={{HiddenRefacfeature(node)[1]}} [ngStyle]="{'font-style':node.abstract? 'italic':'normal'}" >
           {{node.name}}{{node.symbol2}}
         </div>     
          <button mat-icon-button [matMenuTriggerFor]="menu" (click)="select(node)" >

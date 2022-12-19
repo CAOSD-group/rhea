@@ -187,4 +187,20 @@ CreateRoot(){
   console.log( this.tree)
   this.newItemEventroot.emit();
 }
+
+ScrollIntoView(elem:string) {
+  let view
+  if(document!=null){
+    if(elem!=undefined && elem!= null){
+      view=document.body.querySelector("#"+elem)
+      if(view!=null){
+        setTimeout(() => {
+          console.log(view)
+         view.scrollIntoView({block: "center", behavior: "smooth"}) 
+        }, 1);
+        
+      }}}
+}
+
+
 }

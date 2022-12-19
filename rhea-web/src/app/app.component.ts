@@ -10,6 +10,7 @@ import { Refactoring } from './components/refactor/refactoring';
 import { Language } from './components/Language/Language';
 import { Semantics } from './components/Semantics/Semantics';
 import { ToolsExtension } from './components/ToolsExtension/ToolsExtension';
+import { FeatureTree } from './components/mainpage/FeatureTree/FeatureTree';
 
 
 
@@ -1244,7 +1245,10 @@ SearchFeature(text:string){
     father=this.GetFather(feature,this.tree)
     if(father!=undefined){
     this.OpenToSearch(father)
-    this.ScrollIntoView(feature.name)
+    let ft = new FeatureTree()
+    setTimeout(() => {
+    ft.ScrollIntoView(feature.name)  
+    }, 1);
     }
   }, 1);
 }
@@ -1254,25 +1258,10 @@ OpenToSearch(node:FMTree){
   let father 
   father=this.GetFather(node,this.tree)
   if(father!=undefined){
+    
     this.OpenToSearch(father)
   }
 }
-ScrollIntoView(elem:string) {
-  let view
-  if(document!=null){
-    if(elem!=undefined && elem!= null){
-      //view=document.body.querySelector("#"+elem)
-      view=document.getElementById(elem)
-      if(view!=null){
-        console.log(view)
-        console.log(elem)
-        setTimeout(() => {
-         view.scrollIntoView() 
-        }, 1);
-        
-      }}}
-}
-
 
 SelectChipRefactor(object:any,tipo:string){
   let name=""
