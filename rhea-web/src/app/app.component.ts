@@ -35,13 +35,19 @@ var refactor:Refactoring =new Refactoring()
 })
 
 export class AppComponent {
-  urldownload="http://127.0.0.1:5000/downloadFM"  
-  urldocuments="http://127.0.0.1:5000/getExampleFMs"
-  urluploadExampleFM="http://127.0.0.1:5000/uploadExampleFM"  
-  urlupload="http://127.0.0.1:5000/uploadFM"  
-  urlrefactor="http://127.0.0.1:5000/refactor" 
-  urlupdate="http://127.0.0.1:5000/updateFM" 
+  //urldownload="http://127.0.0.1:5000/downloadFM"  
+  //urldocuments="http://127.0.0.1:5000/getExampleFMs"
+  //urluploadExampleFM="http://127.0.0.1:5000/uploadExampleFM"  
+  //urlupload="http://127.0.0.1:5000/uploadFM"  
+  //urlrefactor="http://127.0.0.1:5000/refactor" 
+  //urlupdate="http://127.0.0.1:5000/updateFM" 
 
+  urldownload="https://rhea.caosd.lcc.uma.es/downloadFM"  
+  urldocuments="https://rhea.caosd.lcc.uma.es/getExampleFMs"
+  urluploadExampleFM="https://rhea.caosd.lcc.uma.es/uploadExampleFM"  
+  urlupload="https://rhea.caosd.lcc.uma.es/uploadFM"  
+  urlrefactor="https://rhea.caosd.lcc.uma.es/refactor" 
+  urlupdate="https://rhea.caosd.lcc.uma.es/updateFM" 
   
   declare actual:FMTree     
   declare actualfather:FMTree 
