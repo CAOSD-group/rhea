@@ -35,19 +35,21 @@ var refactor:Refactoring =new Refactoring()
 })
 
 export class AppComponent {
-  //urldownload="http://127.0.0.1:5000/downloadFM"  
-  //urldocuments="http://127.0.0.1:5000/getExampleFMs"
-  //urluploadExampleFM="http://127.0.0.1:5000/uploadExampleFM"  
-  //urlupload="http://127.0.0.1:5000/uploadFM"  
-  //urlrefactor="http://127.0.0.1:5000/refactor" 
-  //urlupdate="http://127.0.0.1:5000/updateFM" 
+  urldownload="http://127.0.0.1:5000/downloadFM"  
+  urldocuments="http://127.0.0.1:5000/getExampleFMs"
+  urluploadExampleFM="http://127.0.0.1:5000/uploadExampleFM"  
+  urlupload="http://127.0.0.1:5000/uploadFM"  
+  urlrefactor="http://127.0.0.1:5000/refactor" 
+  urlupdate="http://127.0.0.1:5000/updateFM" 
 
-  urldownload="https://rhea.caosd.lcc.uma.es/downloadFM"  
-  urldocuments="https://rhea.caosd.lcc.uma.es/getExampleFMs"
-  urluploadExampleFM="https://rhea.caosd.lcc.uma.es/uploadExampleFM"  
-  urlupload="https://rhea.caosd.lcc.uma.es/uploadFM"  
-  urlrefactor="https://rhea.caosd.lcc.uma.es/refactor" 
-  urlupdate="https://rhea.caosd.lcc.uma.es/updateFM" 
+ // FOR DEVELOPER: for any new url the backend get , it must be update in the apache2 file for the web to work in de sites-available domain.conf, then restart apache, and the frontend and backend"
+
+  //urldownload="https://rhea.caosd.lcc.uma.es/downloadFM"  
+  //urldocuments="https://rhea.caosd.lcc.uma.es/getExampleFMs"
+  //urluploadExampleFM="https://rhea.caosd.lcc.uma.es/uploadExampleFM"  
+  //urlupload="https://rhea.caosd.lcc.uma.es/uploadFM"  
+  //urlrefactor="https://rhea.caosd.lcc.uma.es/refactor" 
+  //urlupdate="https://rhea.caosd.lcc.uma.es/updateFM" 
   
   declare actual:FMTree     
   declare actualfather:FMTree 
@@ -170,13 +172,20 @@ showRepository(){
   this.windowRepository=true
 }
 
+Name(name:string){
+  this.myfile_name=name;
+}
 
 Save(text:number){
+  if(this.myfile_name==""){
+    this.myfile_name=this.title
+  }
   if(this.jsonLanguageextension[text].extension=="xml"){
-    alert("This lengauge is not available yet")
+    alert("This langauge is not available yet")
   }
   else{
-  this.loglist.unshift("File "+this.title+" download as ."+this.jsonLanguageextension[text].extension)
+  console.log(this.myfile_name)
+  this.loglist.unshift("File "+this.myfile_name+" download as ."+this.jsonLanguageextension[text].extension)
   this.loadingmodal=false
   const formData: FormData = new FormData();
   formData.append('fm_format', this.jsonLanguageextension[text].extension);
@@ -185,7 +194,7 @@ Save(text:number){
   this.http.post(this.urldownload,formData,{withCredentials:true,responseType:'text'}).subscribe(resultado => {  
     this.loadingtext="Server responded"
     let file = new Blob([resultado], { type: this.jsonLanguageextension[text].extension });
-    saveAs(file, this.title+ " ."+this.jsonLanguageextension[text].extension)
+    saveAs(file, this.myfile_name+ " ."+this.jsonLanguageextension[text].extension)
       }
     )
   }
@@ -214,6 +223,9 @@ getDocumentName(){
 
 }
 
+LogRoot(text:string){
+  this.loglist.unshift(text);
+}
 
 sendUpdate(myjson?:boolean){
   if(myjson==undefined){ this.TransformJSON()}
@@ -259,6 +271,8 @@ Refactor(typeref:string){
 returnValues(text?:string){
   this.loglist=[]
   this.logselect=[]
+  this.loglist=[]
+  this.loghash=[]
   this.loadingmodal=false
   if(text==""|| text==undefined){text=this.item;this.loadingmodal=true}
   const formData: FormData = new FormData();
@@ -290,6 +304,7 @@ CreateData(object:any,name?:string){
   this.jsonlanguage=aux.language_constructs
   this.jsonLanguageextension=aux.tools_info
   this.my_session=aux.hash
+  this.ListOfConstraint=[]
   if(this.my_session!=this.loghash[this.logposition]){
     if(this.loghash.indexOf(this.my_session)==-1){
       this.loghash.splice(this.logposition+1)
@@ -471,6 +486,7 @@ DeleteNode(){
   if(this.actualfather==undefined){
     json='{"name":"Empty","features":{"name":"Empty","abstract":false,"attributes":[],"relations":[]},"constraints": []}'
     try{
+      this.loglist.unshift("Empty tree was created")
       this.sendUpdate(false)}
     catch{
       this.loadingmodal=true
@@ -761,13 +777,6 @@ DeleteFMTree(){
   this.constraindataSource.data=[]
 }
 
-
-
-changeListener($event): void {
-  if($event.target.files[0].name!=undefined){
-  this.myfile_name=$event.target.files[0].name
-  this.myfile=$event.target}
-}
 
 readThis(inputValue: any): void { 
   this.loglist=[]
@@ -1226,6 +1235,9 @@ SelectChipLogic(text:string){
   }
   this.ListOfConstraint.push(aux)
 }
+setTimeout(() => {
+  this.checkListofconstraint(this.ListOfConstraint[0])
+}, 1);
 }
 
 SelectChipFeature(text:string){
@@ -1236,6 +1248,9 @@ SelectChipFeature(text:string){
     aux.operands=null
   }
   this.ListOfConstraint.push(aux)
+  setTimeout(() => {
+    this.checkListofconstraint(this.ListOfConstraint[0])
+  }, 1);
 }
 
 SearchFeature(text:string){

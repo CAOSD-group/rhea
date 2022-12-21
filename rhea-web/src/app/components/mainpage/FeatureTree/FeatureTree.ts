@@ -38,9 +38,11 @@ var refactor:Refactoring =new Refactoring()
   @Input() treeControl = new NestedTreeControl<FMTree>(node => node.children);
   @Input() dataSource = new MatTreeNestedDataSource<FMTree>();
 
+  @Output() newItemEventlogRoot = new EventEmitter<string>();
   @Output() newItemEventactual = new EventEmitter<FMTree>();
   @Output() newItemEventrefactor = new EventEmitter<Array<any>>();
   @Output() newItemEventroot = new EventEmitter<FMTree>();
+  @Output() newItemEventemptyTree = new EventEmitter<FMTree>();
 
   hasChild = (_: number, node: any) => !!node.children && node.children.length >= 0;
 
@@ -182,9 +184,7 @@ CreateRoot(){
   relation.children=[]
   relation.children.push(this.tree[0])
   this.tree[0]=root
-  console.log(root)
-  console.log(relation)
-  console.log( this.tree)
+  this.newItemEventlogRoot.emit("Created a root for all the tree");
   this.newItemEventroot.emit();
 }
 
@@ -201,6 +201,9 @@ ScrollIntoView(elem:string) {
         
       }}}
 }
-
+EmptyTree(){
+  this.actual=this.tree[0]
+  this.newItemEventemptyTree.emit();
+}
 
 }

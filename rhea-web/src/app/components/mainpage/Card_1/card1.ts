@@ -13,7 +13,7 @@ let aux:any
   export class card1 {
   
     @Input() documents:string[]= [];
-    myfile_name=""
+    @Input() myfile_name=""
     myfile:any
     @Output() newItemEventreadThis = new EventEmitter<any>(); 
     @Input() item:string ='GPL.xml';

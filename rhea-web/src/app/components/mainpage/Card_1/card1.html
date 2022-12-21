@@ -1,26 +1,24 @@
-
 <ul class="sidebar-nav" >
-  <h4 >Upload feature model...</h4>
-    <button  class="buttonmodal" style="min-height: 35px;"  (click)="input_file.click()">
+  <h4>Upload feature model...</h4>
+    <button  class="buttonmodal" style="min-height: 35px;margin-right: 10px;"  (click)="input_file.click()">
       <img src="../assets/img/folder.png" >
       Attach file
     </button>
-    <input [hidden]="true" #input_file (change)="changeListener($event)" id="file-input card1" type="file"/>
-
-    <button class="buttonmodal" style="min-height: 35px; margin-left: 2px;" (click)="readThis()" data-bs-toggle="modal" href="#loading">
-      <img src="../assets/img/upload.png" style=" filter: invert(100%); margin-top: -3px;">
-      Submit file
-    </button>
-
-    <input class="margin"  type="text" [(ngModel)]="myfile_name" disabled="true" style="border-radius:5px ;background-color: #f0ececaf ;margin-left: 1%;">
+    <button  class="buttonmodal" style="min-height: 35px;margin-right: 10px;" > Or Select One-></button>
+    <select class="btn-primary-select" style="min-height: 35px;"[(ngModel)]="item" (click)="select($event.target)">
+      <option value="tree name">Select an option</option>
+      <option *ngFor="let documento of documents">{{documento}}</option>
+    </select>
+  
+  <input class="margin"  type="text" [(ngModel)]="myfile_name" disabled="true" style="border-radius:5px ;background-color: #f0ececaf ;margin-left: 1%;">
+  <input [hidden]="true" #input_file (change)="changeListener($event)" id="file-input card1" type="file"/>
 </ul>
 
 <ul class="sidebar-nav" id="sidebar-nav">
-  <li class="nav-item">
-    <h4 style="margin-left: 1%;"> Or select one of our documents 
-      <select class="btn-primary-select" [(ngModel)]="item" (click)="select($event.target)">
-      <option value="tree name">Select an option</option>
-      <option *ngFor="let documento of documents">{{documento}}</option>
-    </select></h4>
-  </li>
+
+  <button class="buttonmodal" style="min-height: 35px; margin-left: 2px;" (click)="readThis()" data-bs-toggle="modal" href="#loading">
+    <img src="../assets/img/upload.png" style=" filter: invert(100%); margin-top: -3px;">
+    Upload file
+  </button>
+
 </ul>

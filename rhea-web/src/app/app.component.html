@@ -90,6 +90,7 @@
           <div class="border">
             <card1 
             [documents]="documents"  
+            [myfile_name]="myfile_name"  
             (newItemEventreadThis)="readThis($event)" 
             [item]="item"  
             (newItemEventreturnValues)="returnValues($event)"></card1>
@@ -108,9 +109,10 @@
       <div   class="col-4">
         <div class="card block">
           <div class="border">
-            <card3   
+            <card3  
             [ListLanguage]="ListLanguage" 
             [jsonLanguageextension]="jsonLanguageextension" 
+            (newItemEventName)="Name($event)"  
             (newItemEventSave)="Save($event)"  
             ></card3>
           </div>
@@ -149,9 +151,11 @@
              [tree]="tree" 
              [treeControl]="treeControl"
              [dataSource]="dataSource"
+             (newItemEventlogRoot)="LogRoot($event)"
              (newItemEventroot)="sendUpdate()"
              (newItemEventactual)="select($event)"
              (newItemEventrefactor)="SelectChipRefactor($event,'node')"
+             (newItemEventemptyTree)="DeleteNode()"
             ></FeatureTree>
           </div>
         </div>
@@ -413,7 +417,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <h4 class="modal-title" id="exampleModalLabel">Options</h4>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"  (click)="ListOfConstraint=[]"aria-label="Close"></button>
       </div>
       <label style="margin-left: 10px;margin-right: 5px;color:#012970"> Full text: </label>
       <label style="margin-left: 10px;margin-right: 5px;"> {{jsonconstraintTexto[npos]}}</label>
@@ -425,7 +429,7 @@
               <div class="bordermodal">
                 <h4 style="margin-bottom: 43px;margin-top: -17px;">Logic Term</h4>
                 <mat-chip-list class="mat-chip-list-stacked"  >
-                  <mat-chip *ngFor="let chip of typesofcons" (click)="SelectChipLogic(chip)" >
+                  <mat-chip *ngFor="let chip of typesofcons"  (click)="SelectChipLogic(chip)" (click)="CreateListCons()">
                     {{chip}}
                   </mat-chip>
                 </mat-chip-list>
@@ -439,7 +443,7 @@
                 <input style="margin-bottom: 5px;" type="text" [(ngModel)]="featureautocomplete">
                 <cdk-virtual-scroll-viewport [itemSize]="6 * 7" class="example-viewport" style="margin-bottom: -20px;">
                   <mat-chip-list class="mat-chip-list-stacked" >
-                    <mat-chip *ngFor="let chip of nameFeatures()" (click)="SelectChipFeature(chip)"  [hidden]="AutocompleteFeatureTermChip(chip)">
+                    <mat-chip *ngFor="let chip of nameFeatures()" (click)="SelectChipFeature(chip)" (click)="CreateListCons()" [hidden]="AutocompleteFeatureTermChip(chip)">
                       {{chip}}
                     </mat-chip>
                   </mat-chip-list>
@@ -487,7 +491,7 @@
         <div class="bordermodal">
           <p  >{{Writelist()}}</p>
           <button class="btn btn-secondary "  style="background-color: #636363bb;" (click)="DeleteList()">Delete List</button>
-          <button class="btn btn-secondary "  (click)="CreateListCons()" [ngStyle]="{'background-color':checkListofconstraint(ListOfConstraint[0])[1]}">Check List: {{checkListofconstraint(ListOfConstraint[0])[0]? "OK":"Not Ok"}}</button>
+          <button class="btn btn-secondary " (click)="CreateListCons()" [ngStyle]="{'background-color':checkListofconstraint(ListOfConstraint[0])[1]}">Check List: {{checkListofconstraint(ListOfConstraint[0])[0]? "OK":"Not Ok"}}</button>
         </div>
         <div class="col-12">
           <!--Buttons-->
@@ -500,7 +504,7 @@
         </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="buttonmodal" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="buttonmodal" data-bs-dismiss="modal" (click)="ListOfConstraint=[]">Close</button>
       </div>
     </div>
   </div>

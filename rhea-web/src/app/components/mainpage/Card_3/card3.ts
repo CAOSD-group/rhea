@@ -13,15 +13,17 @@ let aux
   export class card3 {
     language  =""
     list:Array<any>=[]
+    myfile_name=""
     @Input() ListLanguage:Array<string>=[]
     @Input() jsonLanguageextension:Array<ToolsExtension>=[]
     @Output() newItemEventSave= new EventEmitter<number>();
-    @Output() newItemEventSaveUVL = new EventEmitter<string>();
+    @Output() newItemEventName = new EventEmitter<string>();
 
     constructor(){}
     SaveJson(lang:string){
       if(lang!="" && lang!="tree name"){
       aux=this.list.indexOf(lang)
+      this.newItemEventName.emit(this.myfile_name);
       this.newItemEventSave.emit(aux);}
     }
 
