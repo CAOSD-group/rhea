@@ -101,12 +101,12 @@ import {SelectionModel} from '@angular/cdk/collections';
   
   export class Data {
     constructor(
-      public Name: string,
-      public Author: string,
-      public Owner: string,
-      public Year: number,
-      public Domain: string,
-      public Version: string,
+      public Name?: string,
+      public Author?: string,
+      public Owner?: string,
+      public Year?: number,
+      public Domain?: string,
+      public Version?: string,
       public Language_level?: string,
       public nFeatures?: number,
       public nConfigs?: number,
