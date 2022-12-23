@@ -3,6 +3,7 @@ import inspect
 import importlib
 import json
 import tempfile
+import subprocess
 from typing import Optional
 
 from flask import Flask, request, redirect, make_response
@@ -113,6 +114,14 @@ def get_example_feature_models():
         models = get_example_models()
         response = make_response(json.dumps(models))
         return response
+
+@app.route('/updateServer', methods=['POST'])
+def update_server():
+    if request.method != 'POST':
+        return None
+    else:
+        subprocess.call("./example.sh")
+        return "hello world"
 
 
 @app.route('/uploadExampleFM', methods=['POST'])
