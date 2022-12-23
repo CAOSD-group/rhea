@@ -120,7 +120,7 @@ def update_server():
     if request.method != 'POST':
         return None
     else:
-        subprocess.call("./example.sh")
+        subprocess.call("./example.bash")
         return "hello world"
 
 

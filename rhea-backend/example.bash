@@ -1,3 +1,3 @@
-#!/usr/bin/env python3
+#!/bin/bash
 cd /home/usuario/rhea
 sudo git pull
