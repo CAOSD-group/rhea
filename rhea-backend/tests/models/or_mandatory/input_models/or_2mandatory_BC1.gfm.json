@@ -1,0 +1,58 @@
+{
+  "id": "cl5tumegg003p306959e1jav5",
+  "name": "or_2mandatory_BC1",
+  "timestamp": "2022-07-20T17:02:45.104Z",
+  "features": {
+    "cl5tad7pc00003069gbxkxz71": {
+      "name": "or_mandatory_BC1",
+      "optional": false,
+      "type": "OR",
+      "note": ""
+    },
+    "cl5tghifc000b3069vyaaobkj": {
+      "name": "F1",
+      "optional": true,
+      "type": "FEATURE",
+      "note": ""
+    },
+    "cl5tghs7e000d3069o959s4su": {
+      "name": "F2",
+      "optional": false,
+      "type": "FEATURE",
+      "note": ""
+    },
+    "cl5tgi7js000h3069n2pgsgga": {
+      "name": "F3",
+      "optional": false,
+      "type": "FEATURE",
+      "note": ""
+    }
+  },
+  "tree": {
+    "id": "cl5tad7pc00003069gbxkxz71",
+    "children": [
+      {
+        "id": "cl5tghifc000b3069vyaaobkj"
+      },
+      {
+        "id": "cl5tghs7e000d3069o959s4su"
+      },
+      {
+        "id": "cl5tgi7js000h3069n2pgsgga"
+      }
+    ]
+  },
+  "constraints": {},
+  "conjectures": {},
+  "checks": {
+    "CONSISTENCY": null,
+    "CONJECTURES": null,
+    "COMMONFEATURES": null,
+    "UNIQUEFEATURES": null,
+    "DEADFEATURES": null,
+    "ATOMICSETS": null,
+    "POSSIBLECONFIGURATIONS": null,
+    "COMMONALITIES": null
+  },
+  "configurations": {}
+}

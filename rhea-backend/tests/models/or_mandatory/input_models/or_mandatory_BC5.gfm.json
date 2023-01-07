@@ -1,0 +1,116 @@
+{
+  "id": "cl5tk4ckv001u30694x8yup6z",
+  "name": "or_mandatory_BC5",
+  "timestamp": "2022-07-20T16:27:39.217Z",
+  "features": {
+    "cl5tad7pc00003069gbxkxz71": {
+      "name": "or_mandatory_BC5",
+      "optional": false,
+      "type": "FEATURE",
+      "note": ""
+    },
+    "cl5tghifc000b3069vyaaobkj": {
+      "name": "F1",
+      "optional": true,
+      "type": "OR",
+      "note": ""
+    },
+    "cl5tghs7e000d3069o959s4su": {
+      "name": "F2",
+      "optional": false,
+      "type": "XOR",
+      "note": ""
+    },
+    "cl5tgi7js000h3069n2pgsgga": {
+      "name": "F3",
+      "optional": false,
+      "type": "FEATURE",
+      "note": ""
+    },
+    "cl5tgp73f000230693bvv023w": {
+      "name": "F1a",
+      "optional": true,
+      "type": "FEATURE",
+      "note": ""
+    },
+    "cl5tgpfdu00043069ku1q6v67": {
+      "name": "F1b",
+      "optional": true,
+      "type": "OR",
+      "note": ""
+    },
+    "cl5tgpl99000630694cyzjj8k": {
+      "name": "F1c",
+      "optional": false,
+      "type": "FEATURE",
+      "note": ""
+    },
+    "cl5tgrknj000i3069nql5qjzb": {
+      "name": "F1b1",
+      "optional": true,
+      "type": "FEATURE",
+      "note": ""
+    },
+    "cl5tgrqwd000k30694di64sxz": {
+      "name": "F1b2",
+      "optional": true,
+      "type": "FEATURE",
+      "note": ""
+    },
+    "cl5tgrz3w000m306943avtxjg": {
+      "name": "F1b3",
+      "optional": false,
+      "type": "FEATURE",
+      "note": ""
+    }
+  },
+  "tree": {
+    "id": "cl5tad7pc00003069gbxkxz71",
+    "children": [
+      {
+        "id": "cl5tghifc000b3069vyaaobkj",
+        "children": [
+          {
+            "id": "cl5tgp73f000230693bvv023w"
+          },
+          {
+            "id": "cl5tgpfdu00043069ku1q6v67",
+            "children": [
+              {
+                "id": "cl5tgrknj000i3069nql5qjzb"
+              },
+              {
+                "id": "cl5tgrqwd000k30694di64sxz"
+              },
+              {
+                "id": "cl5tgrz3w000m306943avtxjg"
+              }
+            ]
+          },
+          {
+            "id": "cl5tgpl99000630694cyzjj8k"
+          }
+        ]
+      },
+      {
+        "id": "cl5tghs7e000d3069o959s4su"
+      },
+      {
+        "id": "cl5tgi7js000h3069n2pgsgga"
+      }
+    ]
+  },
+  "constraints": {},
+  "conjectures": {},
+  "checks": {
+    "CONSISTENCY": null,
+    "CONJECTURES": null,
+    "COMMONFEATURES": null,
+    "UNIQUEFEATURES": null,
+    "DEADFEATURES": null,
+    "ATOMICSETS": null,
+    "POSSIBLECONFIGURATIONS": null,
+    "COMMONALITIES": null
+  },
+  "configurations": {}
+}

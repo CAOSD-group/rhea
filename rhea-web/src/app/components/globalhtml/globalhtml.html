@@ -1,0 +1,61 @@
+<header id="header" class="header  d-flex align-items-center" style="background-image: linear-gradient(to right,#012970 12%,#b3cfff , #fff ) ">
+  <div class="d-flex align-items-center justify-content-between">
+    <a  class="logo d-flex align-items-center">
+      <div class="down">
+      <h3 class="white-text" >RheaWeb</h3></div>
+      <button mat-icon-button (click)="drawer.toggle()"  (click)="(bdrawer=!bdrawer)" >
+        <mat-icon class="white-text" >{{bdrawer? 'chevron_right' : 'chevron_left'}}</mat-icon>
+      </button>
+    </a>
+  </div>
+  <!-- End Logo -->
+  <nav class="header-nav " >
+    <div class="row justify-content-end">
+      <div class="col-lg-11">
+        <div class="left">
+        <div class="row justify-content-end">
+          
+          <div class="col-lg-3  d-md-flex ">
+            <img src="../assets/img/logorhea.png" class="img1" alt="Profile">
+          </div>
+          <div class="col-lg-3  d-md-flex " >
+            <a target="_blank" href="https://caosd.lcc.uma.es/" class=" img2 ">
+              <img src="../assets/img/caosd_use.png"  alt="Profile">
+            </a>
+          </div>
+          <div class="col-lg-3 d-md-flex ">
+            <a target="_blank" href="https://www.uma.es/" class="img3" style="margin-top: 10%;">
+              <img src="../assets/img/uma-logo-transparent.png" alt="Profile">
+            </a>
+          </div>
+        </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+</header>
+
+
+
+<mat-drawer-container class="example-container" autosize>
+
+  <mat-drawer #drawer  class="color" mode="side">
+    <button class="buttonmodal" style="background-color:#7c7c7c2f;margin-top: 3%; "(click)="showFM_Editor()">
+      <h3 class="">FM Editor</h3>
+    </button>  
+    <div style="margin-top: 5%;"></div>
+    <button  class="buttonmodal" style="background-color:#7c7c7c2f; margin-left: 15%;" (click)="showAbout()" >
+      <h3 class="">About</h3>
+    </button>
+    <div style="margin-top: 5%;"></div>
+    <button  class="buttonmodal" style="background-color:#7c7c7c2f;" (click)="showWindow3()" >
+      <h3 class="">Window 3</h3>
+    </button>
+  </mat-drawer>
+  
+  <div class="resize">
+    <div [hidden]="windowFM_Editor"><mainpage></mainpage></div>
+    <div [hidden]="windowAbout"><about></about></div>
+    <div [hidden]="window3"> empty</div>
+  </div>
+</mat-drawer-container>

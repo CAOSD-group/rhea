@@ -1,0 +1,18 @@
+features
+	A{abstract}
+		optional
+			B
+				optional
+					E
+				optional
+					F
+		optional
+			C
+				mandatory
+					G
+		optional
+			D
+				optional
+					H
+constraints
+	B => G

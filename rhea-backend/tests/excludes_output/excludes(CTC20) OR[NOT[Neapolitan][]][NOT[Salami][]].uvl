@@ -1,0 +1,156 @@
+features
+	root
+		alternative
+			Pizza
+				mandatory
+					Topping
+						optional
+							Ham{cost "1.25", price "2.5"}
+						optional
+							Mozzarella{price "1.75", cost "0"}
+				mandatory
+					Size
+						alternative
+							Normal{default}
+							Big
+				mandatory
+					Dough
+						alternative
+							Neapolitan{default}
+							Sicilian
+				optional
+					CheesyCrust
+				optional
+					Vegan
+						mandatory
+							Tomato
+						optional
+							Pepper
+						optional
+							Corn
+				optional
+					Spicy
+						optional
+							Spicy1
+								alternative
+									Cayenne
+									Jalapino
+			Pizza1
+				mandatory
+					Topping1
+						mandatory
+							Salami{cost "1.5", price "3"}
+						optional
+							Ham1{cost "1.25", price "2.5"}
+						optional
+							Mozzarella1{price "1.75", cost "0"}
+				mandatory
+					Size1
+						alternative
+							Normal1{default}
+							Big1
+				mandatory
+					Dough1
+						mandatory
+							Sicilian1
+				optional
+					CheesyCrust1
+				optional
+					Vegan1
+						mandatory
+							Tomato1
+						optional
+							Pepper1
+						optional
+							Corn1
+				optional
+					Spicy2
+						optional
+							Spicy11
+								alternative
+									Cayenne1
+									Jalapino1
+constraints
+	(CheesyCrust & Sicilian) => Big
+	!Neapolitan | !Ham
+	!Topping | (((Salami | Salami) | Ham) | Salami)
+	!Topping | (((Salami | Salami) | Ham) | Ham)
+	!Topping | (((Salami | Salami) | Ham) | Mozzarella)
+	!Topping | (((Salami | Salami) | Mozzarella) | Salami)
+	!Topping | (((Salami | Salami) | Mozzarella) | Ham)
+	!Topping | (((Salami | Salami) | Mozzarella) | Mozzarella)
+	!Topping | (((Salami | Salami) | !Salami) | Salami)
+	!Topping | (((Salami | Salami) | !Salami) | Ham)
+	!Topping | (((Salami | Salami) | !Salami) | Mozzarella)
+	!Topping | (((Salami | Mozzarella) | Ham) | Salami)
+	!Topping | (((Salami | Mozzarella) | Ham) | Ham)
+	!Topping | (((Salami | Mozzarella) | Ham) | Mozzarella)
+	!Topping | (((Salami | Mozzarella) | Mozzarella) | Salami)
+	!Topping | (((Salami | Mozzarella) | Mozzarella) | Ham)
+	!Topping | (((Salami | Mozzarella) | Mozzarella) | Mozzarella)
+	!Topping | (((Salami | Mozzarella) | !Salami) | Salami)
+	!Topping | (((Salami | Mozzarella) | !Salami) | Ham)
+	!Topping | (((Salami | Mozzarella) | !Salami) | Mozzarella)
+	!Topping | (((Salami | !Ham) | Ham) | Salami)
+	!Topping | (((Salami | !Ham) | Ham) | Ham)
+	!Topping | (((Salami | !Ham) | Ham) | Mozzarella)
+	!Topping | (((Salami | !Ham) | Mozzarella) | Salami)
+	!Topping | (((Salami | !Ham) | Mozzarella) | Ham)
+	!Topping | (((Salami | !Ham) | Mozzarella) | Mozzarella)
+	!Topping | (((Salami | !Ham) | !Salami) | Salami)
+	!Topping | (((Salami | !Ham) | !Salami) | Ham)
+	!Topping | (((Salami | !Ham) | !Salami) | Mozzarella)
+	!Topping | (((Ham | Salami) | Ham) | Salami)
+	!Topping | (((Ham | Salami) | Ham) | Ham)
+	!Topping | (((Ham | Salami) | Ham) | Mozzarella)
+	!Topping | (((Ham | Salami) | Mozzarella) | Salami)
+	!Topping | (((Ham | Salami) | Mozzarella) | Ham)
+	!Topping | (((Ham | Salami) | Mozzarella) | Mozzarella)
+	!Topping | (((Ham | Salami) | !Salami) | Salami)
+	!Topping | (((Ham | Salami) | !Salami) | Ham)
+	!Topping | (((Ham | Salami) | !Salami) | Mozzarella)
+	!Topping | (((Ham | Mozzarella) | Ham) | Salami)
+	!Topping | (((Ham | Mozzarella) | Ham) | Ham)
+	!Topping | (((Ham | Mozzarella) | Ham) | Mozzarella)
+	!Topping | (((Ham | Mozzarella) | Mozzarella) | Salami)
+	!Topping | (((Ham | Mozzarella) | Mozzarella) | Ham)
+	!Topping | (((Ham | Mozzarella) | Mozzarella) | Mozzarella)
+	!Topping | (((Ham | Mozzarella) | !Salami) | Salami)
+	!Topping | (((Ham | Mozzarella) | !Salami) | Ham)
+	!Topping | (((Ham | Mozzarella) | !Salami) | Mozzarella)
+	!Topping | (((Ham | !Ham) | Ham) | Salami)
+	!Topping | (((Ham | !Ham) | Ham) | Ham)
+	!Topping | (((Ham | !Ham) | Ham) | Mozzarella)
+	!Topping | (((Ham | !Ham) | Mozzarella) | Salami)
+	!Topping | (((Ham | !Ham) | Mozzarella) | Ham)
+	!Topping | (((Ham | !Ham) | Mozzarella) | Mozzarella)
+	!Topping | (((Ham | !Ham) | !Salami) | Salami)
+	!Topping | (((Ham | !Ham) | !Salami) | Ham)
+	!Topping | (((Ham | !Ham) | !Salami) | Mozzarella)
+	!Topping | (((!Mozzarella | Salami) | Ham) | Salami)
+	!Topping | (((!Mozzarella | Salami) | Ham) | Ham)
+	!Topping | (((!Mozzarella | Salami) | Ham) | Mozzarella)
+	!Topping | (((!Mozzarella | Salami) | Mozzarella) | Salami)
+	!Topping | (((!Mozzarella | Salami) | Mozzarella) | Ham)
+	!Topping | (((!Mozzarella | Salami) | Mozzarella) | Mozzarella)
+	!Topping | (((!Mozzarella | Salami) | !Salami) | Salami)
+	!Topping | (((!Mozzarella | Salami) | !Salami) | Ham)
+	!Topping | (((!Mozzarella | Salami) | !Salami) | Mozzarella)
+	!Topping | (((!Mozzarella | Mozzarella) | Ham) | Salami)
+	!Topping | (((!Mozzarella | Mozzarella) | Ham) | Ham)
+	!Topping | (((!Mozzarella | Mozzarella) | Ham) | Mozzarella)
+	!Topping | (((!Mozzarella | Mozzarella) | Mozzarella) | Salami)
+	!Topping | (((!Mozzarella | Mozzarella) | Mozzarella) | Ham)
+	!Topping | (((!Mozzarella | Mozzarella) | Mozzarella) | Mozzarella)
+	!Topping | (((!Mozzarella | Mozzarella) | !Salami) | Salami)
+	!Topping | (((!Mozzarella | Mozzarella) | !Salami) | Ham)
+	!Topping | (((!Mozzarella | Mozzarella) | !Salami) | Mozzarella)
+	!Topping | (((!Mozzarella | !Ham) | Ham) | Salami)
+	!Topping | (((!Mozzarella | !Ham) | Ham) | Ham)
+	!Topping | (((!Mozzarella | !Ham) | Ham) | Mozzarella)
+	!Topping | (((!Mozzarella | !Ham) | Mozzarella) | Salami)
+	!Topping | (((!Mozzarella | !Ham) | Mozzarella) | Ham)
+	!Topping | (((!Mozzarella | !Ham) | Mozzarella) | Mozzarella)
+	!Topping | (((!Mozzarella | !Ham) | !Salami) | Salami)
+	!Topping | (((!Mozzarella | !Ham) | !Salami) | Ham)
+	!Topping | (((!Mozzarella | !Ham) | !Salami) | Mozzarella)

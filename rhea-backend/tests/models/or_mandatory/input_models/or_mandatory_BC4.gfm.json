@@ -1,0 +1,127 @@
+{
+  "id": "cl5tk4bl3001t3069s8vzuew2",
+  "name": "or_mandatory_BC4",
+  "timestamp": "2022-07-20T16:27:41.359Z",
+  "features": {
+    "cl5tad7pc00003069gbxkxz71": {
+      "name": "or_mandatory_BC4",
+      "optional": false,
+      "type": "FEATURE",
+      "note": ""
+    },
+    "cl5tghifc000b3069vyaaobkj": {
+      "name": "F1",
+      "optional": true,
+      "type": "OR",
+      "note": ""
+    },
+    "cl5tghs7e000d3069o959s4su": {
+      "name": "F2",
+      "optional": false,
+      "type": "XOR",
+      "note": ""
+    },
+    "cl5tgi7js000h3069n2pgsgga": {
+      "name": "F3",
+      "optional": false,
+      "type": "FEATURE",
+      "note": ""
+    },
+    "cl5tgp73f000230693bvv023w": {
+      "name": "F1a",
+      "optional": true,
+      "type": "FEATURE",
+      "note": ""
+    },
+    "cl5tgpfdu00043069ku1q6v67": {
+      "name": "F1b",
+      "optional": true,
+      "type": "FEATURE",
+      "note": ""
+    },
+    "cl5tgpl99000630694cyzjj8k": {
+      "name": "F1c",
+      "optional": false,
+      "type": "FEATURE",
+      "note": ""
+    },
+    "cl5tglrso000x3069k71cgtrp": {
+      "name": "F2a",
+      "optional": false,
+      "type": "OR",
+      "note": ""
+    },
+    "cl5tgpr4g00083069y2hk5h9d": {
+      "name": "F2a1",
+      "optional": true,
+      "type": "FEATURE",
+      "note": ""
+    },
+    "cl5tgpw55000a3069nx3afzju": {
+      "name": "F2a2",
+      "optional": true,
+      "type": "FEATURE",
+      "note": ""
+    },
+    "cl5tgq0gm000c3069uz78dwct": {
+      "name": "F2a3",
+      "optional": false,
+      "type": "FEATURE",
+      "note": ""
+    }
+  },
+  "tree": {
+    "id": "cl5tad7pc00003069gbxkxz71",
+    "children": [
+      {
+        "id": "cl5tghifc000b3069vyaaobkj",
+        "children": [
+          {
+            "id": "cl5tgp73f000230693bvv023w"
+          },
+          {
+            "id": "cl5tgpfdu00043069ku1q6v67"
+          },
+          {
+            "id": "cl5tgpl99000630694cyzjj8k"
+          }
+        ]
+      },
+      {
+        "id": "cl5tghs7e000d3069o959s4su",
+        "children": [
+          {
+            "id": "cl5tglrso000x3069k71cgtrp",
+            "children": [
+              {
+                "id": "cl5tgpr4g00083069y2hk5h9d"
+              },
+              {
+                "id": "cl5tgpw55000a3069nx3afzju"
+              },
+              {
+                "id": "cl5tgq0gm000c3069uz78dwct"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "cl5tgi7js000h3069n2pgsgga"
+      }
+    ]
+  },
+  "constraints": {},
+  "conjectures": {},
+  "checks": {
+    "CONSISTENCY": null,
+    "CONJECTURES": null,
+    "COMMONFEATURES": null,
+    "UNIQUEFEATURES": null,
+    "DEADFEATURES": null,
+    "ATOMICSETS": null,
+    "POSSIBLECONFIGURATIONS": null,
+    "COMMONALITIES": null
+  },
+  "configurations": {}
+}

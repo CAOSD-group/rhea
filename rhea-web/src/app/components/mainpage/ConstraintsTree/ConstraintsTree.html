@@ -1,0 +1,35 @@
+<h4>Constraint Tree</h4>
+<mat-tree [hidden]="!visible_Constraint_list"  [dataSource]="constraindataSource" [treeControl]="constraintreeControl" class="example-tree">
+  <mat-nested-tree-node  *matTreeNodeDef="let constrainnode; when: hasChild2">
+    <div class="mat-tree-node">
+      <div [hidden]="!treeConsHideen2(constrainnode)">
+        <button mat-icon-button matTreeNodeToggle [attr.aria-label]="'Toggle ' + constrainnode.name">
+          <mat-icon class="mat-icon-rtl-mirror">
+            remove
+          </mat-icon>
+        </button>
+      </div>
+      <div [hidden]="treeConsHideen2(constrainnode)">
+        <button mat-icon-button matTreeNodeToggle [attr.aria-label]="'Toggle ' + constrainnode.name">
+          <mat-icon class="mat-icon-rtl-mirror">
+            {{constraintreeControl.isExpanded(constrainnode) ? 'expand_more' : 'chevron_right'}}
+          </mat-icon>
+        </button>
+      </div>
+      {{constrainnode.type}} 
+      <button mat-menu-item [matMenuTriggerFor]="menuoptionsconstraintree" (click)= 'SelectCons2(constrainnode)'>
+        <mat-icon>more_vert</mat-icon>
+      </button> 
+    </div>
+    <ul *ngIf="constraintreeControl.isExpanded(constrainnode)">  
+      <ng-container matTreeNodeOutlet></ng-container> 
+    </ul>                
+  </mat-nested-tree-node>
+</mat-tree>
+
+<!--Menu Constraints options-->
+<mat-menu #menuoptionsconstraintree="matMenu">
+    <button class="empty"  style="color: #012970 "   data-bs-toggle="modal" href="#sidebaroptionsconstraintree">Options</button>
+  </mat-menu> 
+
+  

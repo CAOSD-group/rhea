@@ -1,53 +1,172 @@
-# Generación de modelos de variabilidad con diferente expresividad mediante transformación de modelos - Proyecto Rhea
+# Rhea 
+- [Rhea](#rhea)
+  - [Description](#description)
+  - [Requirements and Installation](#requirements-and-installation)
+  - [Initialize the backend-server](#initialize-the-backend-server)
+  - [Initialize the front-server](#initialize-the-front-server)
+  - [Automatization](#automatization)
+  - [In progres](#in-progres)
 
-## Requisitos
-- [Java JDK 11+](https://www.oracle.com/java/)
-- [Git](https://git-scm.com/)
-- [Eclipse for Java & DSL](https://www.eclipse.org/):
-  - [Henshin]( http://download.eclipse.org/modeling/emft/henshin/updates/nightly)
-  - Ecore Tools (from the Marketplace)
+
+## Description
+
+Rhea is a web page that allow the user to create, edit, and download diferent feature models from many diferents file format and that makes them able to be use for many others to, while you can check the parameters of the model and the prepositional constraints of the model.
+
+<p align="center">
+  <img width="750" src="rhea-web/src/assets/img/mainpage.png">
+</p>
+
+## Requirements and Installation
+- Python 3.10+
+To check if it is available.
+```
+sudo python --version
+```
+If it is not then.
+```
+sudo apt update && sudo apt upgrade
+sudo apt install python3.10
+```
 
 
-### Instalación
-1. Instalar Java JDK 11 o superior (recomendamos 13.0.2).
-1. Descargar e instalar Eclipse for Java & DSL.
-1. Instalar Ecore Tools, desde el marketplace de Eclipse.
-1. Instalar Henshin.
-1. Clonar este repositorio en un espacio de trabajo de Eclipse.
-1. Importar el proyecto a Eclipse.
-1. Modificar las rutas absolutas del proyecto "rhea", para adaptarlas a las propias.
 
-## Estructura del proyecto
-* [rhea](https://github.com/CAOSD-group/rhea/tree/main/rhea). El proyecto principal. Es donde se encuentran ubicadas las rutas relativas y absolutas de ficheros, carpetas, modelos etc.
+- Download proyect 
+```
+git clone https://github.com/CAOSD-group/rhea.git
+```
+- Install/update npm service
+From rhea-web folder
+```
+sudo apt install npm
+```
 
-* [rhea.aafm](https://github.com/CAOSD-group/rhea/tree/main/rhea.aafm). Contiene un modulo que permite analizar los modelos de características de manera automática (obteniendo productos, configuraciones etc.).
+- Create an enviroment
+from rhea folder
 
-* [rhea.evaluation](https://github.com/CAOSD-group/rhea/tree/main/rhea.evaluation). Contiene las pruebas y los ficheros que usan las transformaciones. Es donde debemos acudir para probarlas y generar los datos de los modelos (más en detalle, en siguientes secciones).
+```
+sudo apt install python3.10-venv
+python3 -m venv env
+source env/bin/activate
+```
+If everthing goes right, you should see (env) at the beginning of the command line.
 
-* [rhea.metamodels](https://github.com/CAOSD-group/rhea/tree/main/rhea.metamodels). Contiene todos los metamodelos de la sintaxsis abstracta necesarios para el funcionamiento de la aplicación, así como las clases generadas a partir de los mismos.
+- Other packages
+this should install all other requirements.
+```
+pip install -r requirements.txt
+```
+If this fails installing the requirements due to an error with python-sat library, then you need to install the following dependencies:
+```
+sudo apt install python-dev
+```
+If it continues failing, then install also the following dependencies:
+```
+sudo apt install zlib1g zlib1g-dev libffi-dev
+```
 
-* [rhea.transformations](https://github.com/CAOSD-group/rhea/tree/main/rhea.transformations). Contiene las transformaciones de modelos, tanto mediante Henshin como mediante Java.
+## Initialize the backend-server
+We enter in the folder while having (env) activete.
+```
+cd rhea-backend
+```
+To activate the server just run.
+```
+python server.py
+```
+To exit.
+```
+Control+c 
+```
+## Initialize the front-server
+We enter will need a diferent command console for having the two servers.
+Get to the folder of the proyect .
+```
+cd rhea-web
+ng serve
+```
+To exit.
+```
+Control+c 
+```
+If somwthing goes wrong, try:
+```
+npm uninstall -g angular-cli
+npm cache clean
+npm install -g angular-cli@latest
+```
+## Automatization
+- From any of the command console we go to the configuration and create two services.
+```
+cd /
+cd /etc/systemd/system
+sudo nano startweb.service
+```
+At this moment it should ask for a password.
+Onces in the services, copy and paste the current text.
+```
+[Unit] 
+Description=My custom startup script
 
-* [rhea.parsers](https://github.com/CAOSD-group/rhea/tree/main/rhea.parsers). Contiene los parsers y en definitiva, las herramientas necesarias para poder traducir los modelos desde un lenguaje externo a nuestra sintaxis abstracta.
+[Service] 
+ExecStart=/FOLDER_OF_PROYECT_WITH_FULL_PATH/startWebApp.bash start
 
-* [rhea.generators](https://github.com/CAOSD-group/rhea/tree/main/rhea.generators). Similar al proyecto rhea.parsers, pero en su lugar, es el necesario para poder traducir modelos desde nuestra sintaxis a un lenguaje externo.
+[Install] 
+WantedBy=multi-user.target
+```
+Where the foler direction would depend on where you download the project.
+- Repet for the backend
 
-* [rhea.languageanalysis](https://github.com/CAOSD-group/rhea/tree/main/rhea.languageanalysis). Contiene un modulo para analizar la expresividad de los lenguajes.
+```
+cd /
+sudo nano startserver.service
+```
+```
+[Unit] Description=My custom startup script
 
-* [rhea.thirdpartyplugins](https://github.com/CAOSD-group/rhea/tree/main/rhea.thirdpartyplugins). Contiene un conjunto de utilidades y librerías externas necesarias para el funcionamiento del proyecto.
+[Service] ExecStart=/FOLDER_OF_PROYECT_WITH_FULL_PATH/startServerApp.bash start
 
-## Artefactos
-* Un conjunto de [metamodelos](https://github.com/CAOSD-group/rhea/tree/main/rhea.metamodels/metamodels) (.ecore) que especifican los constructores del lenguaje para el modelado de características.
-* [Código Java](https://github.com/CAOSD-group/rhea/tree/main/rhea.metamodels/src/rhea/metamodels) generado con la implementación de las clases de los metamodelos.
-* Transformaciones de modelo en Henshin (archivos .henshin y .henshin_diagram) que implementan los [generadores](https://github.com/CAOSD-group/rhea/tree/main/rhea.transformations/languagegenerators) para los constructores del lenguaje, así como [refactorizaciones](https://github.com/CAOSD-group/rhea/tree/main/rhea.transformations/refactorings).
-* Traductor de modelos para el lenguaje Clafer, de [clafer a nuestra sintaxis](https://github.com/CAOSD-group/rhea/tree/main/rhea.parsers/src/rhea/parsers/clafer) y de [nuestra sintaxis a clafer](https://github.com/CAOSD-group/rhea/tree/main/rhea.generators/src/rhea/generators).
-* Transformaciones de modelos que permiten llevar los contructores del lenguaje de MutexGroup y GroupCardinality, a constructores más simples, en [Java](https://github.com/CAOSD-group/rhea/tree/main/rhea.transformations/src/rhea/transformations/refactoringJava) y [Henshin](https://github.com/CAOSD-group/rhea/tree/main/rhea.transformations/src/rhea/transformations/refactoringHenshin).
+[Install] WantedBy=multi-user.target
+```
+- To check that everything works,first close both the front-end and the back-end server if they where still running.
+```
+systemctl start startserver
+systemctl status startserver
+systemctl start startweb
+systemctl status startweb
+```
+If we go then to localhost:4200 in any browser we will see the web ready to be use.
 
-## Ejecución
-Para poder ejecutar alguna transformación, debemos acudir al proyecto *rhea.evaluation->src*. Allí, encontraremos varios paquetes, pero el que nos interesa es refactorings. Dentro podremos encontrar las clases MainJava y MainHenshin, para poder ejecutar las transformaciones. En la carpeta *inputs->clafer* del mismo proyecto, podemos encontrar modelos clasificados en carpetas. En la carpeta *outputs*, es donde encontraremos los modelos ya transformados en una clasificación identica a la carpeta *inputs*. Por último, los resultados de las transformaciones, podemos encontrarlos en el directorio raíz *temp->Evaluation*.
+- To automate the proces.
+```
+systemctl enable startserver
+systemctl enable startweb
+```
+- To stop the proces at any given moment.
 
-La configuración actual permite realizar transformaciones en GroupCardinalities mediante Java, y MutexGroup mediante Henshin, ambos sobre un subconjunto de pruebas, para evitar que el tiempo de ejecución pueda ser excesivo. En caso de querer probar otras transformaciones, solo hay que cambiar la variable *modelType* por el nombre de la carpeta contenedora de otros feature models, y cambiar la regla que se está ejecutando (cambiar el código de la línea 41 por el de la línea 42, tan solo comentando el que no lo este y descomentando el otro) acorde a la carpeta (es decir, si ejecutamos la regla para MutexGroup, la carpeta deberá ser una que contenga FM solo con MutexGroup).
+```
+systemctl stop startserver
+systemctl stop startweb
+```
+- To stop the proces to start automaticly.
+```
+systemctl disable startserver
+systemctl disable startweb
+```
+- Some considerations
+you may need to restart the daemon, if necesary it will tell you to execute 
+```
+systemctl daemon-reload
+```
+Other thing you may need is to give permision to the .bash files, for that you will need to go to the folder and give permision
+```
+sudo chmod 741 startServerApp.bash
+sudo chmod 741 startWebApp.bash
 
-En nuestro equipo, las pruebas que hemos dejado preparadas no han tardado apenas unos segundos. Rogamos que si pasa dicho límite, tenga paciencia y espere a que finalice. Por el contrario, es posible eliminar modelos de las carpetas para aligerar el proceso de transformación.
-
-Por último, en caso de querer replicar las pruebas, los conjuntos seleccionados son las carpetas *MutexGroup* y *GroupCardinality*, pero desaconsejamos su uso como prueba debido al alto coste computacional.
+```
+where 741 means that only the owner may write in the file, but the system can execute it
+## In progres
+We are yet developing the tool to incorporate new tools and features to work with the models.
+As examples we are progressing with:
+- Numerical Features
+- A Repository of models
+- New lengages constructs.

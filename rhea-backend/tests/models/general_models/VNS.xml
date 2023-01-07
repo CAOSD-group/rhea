@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!--
+File name: VNS.xml
+(Copyright) Author: Daniel-Jesus Munoz
+Date created: 12/06/2022
+Version: AAFM Python Framwork 6/2022 + Python 3.9.13
+Description: Virtual Network System SPL modelled in XML
+-->
+<featureModel>
+	<properties>
+		<graphics key="autolayoutconstraints" value="false"/>
+		<graphics key="legendautolayout" value="true"/>
+		<graphics key="showshortnames" value="false"/>
+		<graphics key="layout" value="horizontal"/>
+		<graphics key="showcollapsedconstraints" value="true"/>
+		<graphics key="legendhidden" value="false"/>
+		<graphics key="layoutalgorithm" value="1"/>
+	</properties>
+	<struct>
+		<and abstract="true" mandatory="true" name="VNS">
+			<alt mandatory="true" name="Manager">
+				<alt name="ONAP_Istanbul_Mbps">
+					<feature name="ONAP_Istanbul_1"/>
+					<feature name="ONAP_Istanbul_2"/>
+					<feature name="ONAP_Istanbul_3"/>
+				</alt>
+				<alt name="Wireless">
+					<alt name="OpenSourceMANO">
+						<feature name="Azure"/>
+						<feature name="OpenVIM"/>
+						<feature name="OpenStack"/>
+						<feature name="AWS"/>
+					</alt>
+					<alt name="OPNFV_Jerma">
+						<feature name="Main"/>
+						<feature name="Testnet"/>
+					</alt>
+				</alt>
+			</alt>
+			<alt name="Kubernetes">
+				<feature name="HyperV"/>
+				<feature name="Vanilla"/>
+				<feature name="Docker"/>
+			</alt>
+			<alt mandatory="true" name="VNFs">
+				<feature name="Monitor"/>
+				<feature name="Firewall"/>
+				<feature name="Gateway"/>
+			</alt>
+		</and>
+	</struct>
+	<constraints>
+		<rule>
+			<imp>
+				<var>Wireless</var>
+				<var>Kubernetes</var>
+			</imp>
+		</rule>
+		<rule>
+			<imp>
+				<var>ONAP_Istanbul_Mbps</var>
+				<not>
+					<var>Kubernetes</var>
+				</not>
+			</imp>
+		</rule>
+	</constraints>
+</featureModel>

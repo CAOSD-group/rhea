@@ -1,0 +1,33 @@
+features
+	Hamburguesa
+		alternative
+			Vaca y Buey
+			Ternera
+			Pollo
+			Pollo Krispy
+		[0..2]
+			Lechuga
+			Canónigos
+			Rúcula
+			Espinaca
+			Pepinillo
+			Tomate
+			Aguacate
+			Cebolla
+			Cebolla caramelizada
+			Verdura grill
+			Tomate seco
+			Pimiento  Morron
+			Jalapeño
+			Quesos
+				[0..2]
+					Cabra
+					Azul
+					Mozzarella
+					Parmesano
+					Camembert
+					Cheddar
+					Edam
+			Bacon
+			Huevo
+			Huevo Cocido

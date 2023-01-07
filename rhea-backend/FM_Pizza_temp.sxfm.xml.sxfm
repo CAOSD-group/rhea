@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<feature_model name="Pizza">
+<feature_tree>
+:r Pizza (Pizza)
+	:m Topping (Topping)
+	:m Size (Size)
+		:g [1,1]
+			: Normal (Normal)
+			: Big (Big)
+	:m Dough (Dough)
+		:g [1,1]
+			: Neapolitan (Neapolitan)
+			: Sicilian (Sicilian)
+	:o CheesyCrust (CheesyCrust)
+	:o Vegan (Vegan)
+		:g [1,3]
+			: Tomato (Tomato)
+			: Pepper (Pepper)
+			: Corn (Corn)
+		:m Tomato (Tomato)
+	:o Spicy (Spicy)
+</feature_tree>
+<constraints>
+	C1: ~CheesyCrust or ~Sicilian or Big
+	C2: ~Neapolitan or ~Salami
+	C3: ~Neapolitan or ~Ham
+</constraints>
+</feature_model>

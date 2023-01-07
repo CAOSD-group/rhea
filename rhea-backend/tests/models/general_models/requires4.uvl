@@ -1,0 +1,18 @@
+namespace Root
+
+features
+	root {abstract, extended__}	
+		optional
+			A	
+				or
+					D
+					E
+			B	
+				optional
+					F
+			C	
+				optional
+					G
+
+constraints
+	E => D

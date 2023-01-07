@@ -1,0 +1,99 @@
+<div>
+  <h4 style=" display: flex; justify-content: space-between;">Features
+    <button class="empty" [matMenuTriggerFor]="menumodel" >
+      <mat-icon style="color: #012970;"class="empty">more_vert</mat-icon> 
+    </button>
+  </h4> 
+</div>
+  <div  class="d-flex flex-row flex-nowrap overflow-auto">
+
+    
+  <mat-tree [dataSource]="dataSource" [treeControl]="treeControl" >
+    <mat-nested-tree-node *matTreeNodeDef="let node; when: hasChild"  > 
+
+      <div class="mat-tree-node"  *ngIf="!RelationFeature(node)" style="position: relative;" [ngStyle]="{'margin-left':node.margin+'px'}">
+        <div *ngIf="!treeHideen(node)">
+          <button mat-icon-button matTreeNodeToggle
+            [attr.aria-label]="'Toggle ' + node.name">
+            <mat-icon >
+              {{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
+            </mat-icon>
+          </button>
+        </div>
+        <div *ngIf="treeHideen(node)">
+          <button mat-icon-button style="cursor: default;"   >
+            <mat-icon >
+            </mat-icon>
+          </button>
+        </div>
+        <div class="symbols" (mouseenter)="ToolTip(node)" (mouseleave)="ToolTip()" >
+          <img src={{node.symbol}}>  
+          <h6 *ngIf="ToolTipText(node)[0]" style="color: rgba(65, 65, 65, 0.75);font-size: 10px;position: absolute;z-index: 9;">{{ToolTipText(node)[1]}}</h6>
+        </div>
+        <div class="margin" ></div>
+        <div id={{node.name}} class={{HiddenRefacfeature(node)[1]}} [ngStyle]="{'font-style':node.abstract? 'italic':'normal'}" >
+          {{node.name}}{{node.symbol2}}
+        </div>     
+         <button mat-icon-button [matMenuTriggerFor]="menu" (click)="select(node)" >
+            <mat-icon >
+              more_vert
+            </mat-icon>
+          </button>                 
+      </div>   
+      <ul *ngIf="treeControl.isExpanded(node)">  
+        <ng-container matTreeNodeOutlet></ng-container> 
+      </ul> 
+      <!-- Menu Features Tree -->
+      <mat-menu #menu="matMenu" >
+        <div style="min-width: 90px; overflow: hidden;">
+        <a data-bs-toggle="modal" href="#sidebareditvalues">Edit</a>
+        <hr>
+        <button class="buttonmenu2" mat-icon-button [matMenuTriggerFor]="menucreate" (click) = "$event.stopPropagation()" >
+          Create
+          <mat-icon>chevron_right</mat-icon>
+        </button>
+        <hr>
+        <a data-bs-toggle="modal" href="#sidebardeletebranch">Delete branch</a>
+        <div *ngIf="ToolTipRefa(node)">
+        <hr>
+        <a class="buttonmenu2" mat-icon-button [matMenuTriggerFor]="menurefactortree" (click) = "$event.stopPropagation()" >
+          Apply Refactor
+          <mat-icon>chevron_right</mat-icon>
+        </a>
+        </div></div>
+      </mat-menu>
+
+      <mat-menu #menucreate="matMenu">
+        <a data-bs-toggle="modal" href="#sidebarcreatechild" >Child</a>
+        <hr>
+        <a data-bs-toggle="modal" href="#sidebarcreatebrother">Sibling</a>
+      </mat-menu>
+
+
+      <mat-menu #menurefactortree="matMenu">
+        <mat-list class="mat-chip-list-stacked">
+          <mat-list-item *ngFor="let refac of ListOfRefactors" [hidden]='RefactorvisibleFeature(refac)' >
+            <button class="buttonmenu2"  data-bs-toggle="modal" href="#loading" (click)="SelectChipRefactor(refac)" style="text-align: left;">{{refac.name}}</button>
+          </mat-list-item >
+        </mat-list>
+      </mat-menu>
+
+
+    </mat-nested-tree-node>
+  </mat-tree> 
+  </div>
+
+  <!--Menu options-->
+<mat-menu #menumodel="matMenu" >
+    <button  style="padding-left: 5px;" class ="empty" (click) = "$event.stopPropagation()" (click)="show_refacts_features_only=!show_refacts_features_only" >
+      <i class="bi bi-eye-fill" [hidden]="show_refacts_features_only"></i>
+      <i class="bi bi-eye-slash-fill" [hidden]="!show_refacts_features_only"></i>  
+    </button>
+    <a (click)="show_refacts_features_only=!show_refacts_features_only" style="cursor: pointer;" (click) = "$event.stopPropagation()" >Highlight Refactorings</a>
+    <hr>
+    <a style="padding-left: 5px;" class ="empty"  data-bs-toggle="modal" href="#loading" (click)="CreateRoot()">Create root for the tree</a>
+    <hr>
+    <a style="padding-left: 5px;" class ="empty"  data-bs-toggle="modal" href="#search">Search a feature</a>
+    <hr>
+    <a style="padding-left: 5px;" class ="empty"  data-bs-toggle="modal" href="#loading" (click)="EmptyTree()">Create empty tree</a>
+  </mat-menu>
