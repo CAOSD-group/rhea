@@ -413,3 +413,23 @@ def remove_leaf_abstract_features(model: FeatureModel) -> FeatureModel:
     if abstract_features > 0:
         model = remove_leaf_abstract_features(model)
     return model
+
+def spl(fm: FeatureModel, f: Feature) -> list[list[Feature]]:  # feature or f.name?????
+    c_f = None # constraints that affects feature f
+    for child in f.get_children():
+        spl(child)
+        # c_f = constraints_with_node(fm, f) | constraints_with_node(fm, child)
+    
+    
+
+def constraints_with_node(fm: FeatureModel, f: Feature) -> list[Constraint]:
+    c_list = []
+    for ctc in fm.get_constraints():
+        if f in ctc:  # REVISAR
+            c_list.append(ctc)
+    return c_list
+
+def configurations_commitment_feature(fm: FeatureModel, f_name: str) -> FeatureModel:
+    fm_copy = copy.deepcopy(fm)
+    fm_copy = commitment_feature(fm_copy, f_name)
+    return fm_copy

@@ -6,7 +6,7 @@ from rhea.refactorings import FMRefactoring
 from rhea.refactorings import utils
 
 
-class MultipleGroupDecompositionRefactoring(FMRefactoring):
+class PullingUpRefactoring(FMRefactoring):
 
     @staticmethod
     def get_name() -> str:
@@ -22,7 +22,7 @@ class MultipleGroupDecompositionRefactoring(FMRefactoring):
     
     @staticmethod
     def get_instances(model: FeatureModel) -> list[Any]:
-        return [f for f in model.get_features() if f.]
+        return [f for f in model.get_features() if f.name]
 
     @staticmethod
     def transform(model: FeatureModel, instance: Feature) -> FeatureModel:

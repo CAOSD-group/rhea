@@ -1,6 +1,7 @@
 from email.base64mime import body_decode
 import os
 from typing import Any 
+import copy
 
 from flamapy.metamodels.fm_metamodel.transformations import UVLReader, UVLWriter, FeatureIDEReader, GlencoeReader
 from flamapy.metamodels.pysat_metamodel.transformations import FmToPysat
@@ -18,6 +19,7 @@ from flamapy.metamodels.fm_metamodel.models import FeatureModel
 
 from rhea.metamodels.fm_metamodel.models import fm_utils
 from rhea.refactorings import utils
+from rhea.metamodels.fm_metamodel.models import fm_operations
 
 from rhea.metamodels.fm_metamodel.models import FM, ConstraintHelper
 from rhea.refactorings import FMRefactoring
@@ -105,36 +107,43 @@ def print_statistics(fm: FeatureModel, model_name: str) -> None:
 def main():
     fm = UVLReader(INPUT_PATH).transform()
     print_statistics(fm, 'INPUT MODEL')
+
+    ctc_list = fm_operations.constraints_with_node(fm, 'Big')
+    print(f'C(n): {[str(ctc) for ctc in ctc_list]}')
     
     print('==================================================')
-    # print(f'Applying the refactoring {REFACTORING_SPLIT.get_name()}...')
-    # print(f'  |-> refactorings: {len(REFACTORING_SPLIT.get_instances(fm))}')
-    # fm = apply_refactoring(fm, REFACTORING_SPLIT)
+    print(f'Applying the refactoring {REFACTORING_SPLIT.get_name()}...')
+    print(f'  |-> refactorings: {len(REFACTORING_SPLIT.get_instances(fm))}')
+    fm = apply_refactoring(fm, REFACTORING_SPLIT)
     print(f'Applying the refactoring {REFACTORING_COMPLEX.get_name()}...')
     print(f'  |-> refactorings: {len(REFACTORING_COMPLEX.get_instances(fm))}')
     fm = apply_refactoring(fm, REFACTORING_COMPLEX)
-    # print(f'Applying the refactoring {REFACTORING_REQUIRES.get_name()}...')
-    # print(f'  |-> refactorings: {len(REFACTORING_REQUIRES.get_instances(fm))}')
-    # fm = apply_refactoring(fm, REFACTORING_REQUIRES)
-    # print(f'Applying the refactoring {REFACTORING_EXCLUDES.get_name()}...')
-    # print(f'  |-> refactorings: {len(REFACTORING_EXCLUDES.get_instances(fm))}')
-    # fm = apply_refactoring(fm, REFACTORING_EXCLUDES)
+    print(f'Applying the refactoring {REFACTORING_REQUIRES.get_name()}...')
+    print(f'  |-> refactorings: {len(REFACTORING_REQUIRES.get_instances(fm))}')
+    fm = apply_refactoring(fm, REFACTORING_REQUIRES)
+    print(f'Applying the refactoring {REFACTORING_EXCLUDES.get_name()}...')
+    print(f'  |-> refactorings: {len(REFACTORING_EXCLUDES.get_instances(fm))}')
+    fm = apply_refactoring(fm, REFACTORING_EXCLUDES)
     print('==================================================')
 
-    # Remove leaf abstract features
-    fm = fm_utils.remove_leaf_abstract_features(fm)
+    # # Remove leaf abstract features
+    # fm = fm_utils.remove_leaf_abstract_features(fm)
 
-    # Print output model
-    print_statistics(fm, 'OUTPUT MODEL')
-    UVLWriter(fm, OUTPUT_PATH).transform()
+    # # Print output model
+    # print_statistics(fm, 'OUTPUT MODEL')
+    # UVLWriter(fm, OUTPUT_PATH).transform()
 
-    # Print output model with unique features
-    fm = utils.to_unique_features(fm)
-    print_statistics(fm, 'UNIQUE NAMES MODEL')
-    UVLWriter(fm, UNIQUE_PATH).transform()
+    # # Print output model with unique features
+    # fm = utils.to_unique_features(fm)
+    # print_statistics(fm, 'UNIQUE NAMES MODEL')
+    # UVLWriter(fm, UNIQUE_PATH).transform()
 
-    fm = fm_utils.commitment_feature(fm, 'Ham');
-    print_statistics(fm, 'FM_ham')
+    # fm_copy = copy.deepcopy(fm)
+    # fm_copy = fm_operations.configurations_feature(fm_copy, 'Ham')
+    # print_statistics(fm, 'FM_ham')
+
+    # ctc_list = fm_operations.constraints_with_node(fm, 'CheesyCrust')
+    # print(ctc_list)
 
 
 if __name__ == '__main__':
