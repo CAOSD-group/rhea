@@ -13,7 +13,6 @@ import { ToolsExtension } from './components/ToolsExtension/ToolsExtension';
 import { FeatureTree } from './components/mainpage/FeatureTree/FeatureTree';
 
 
-
 var aux:any;
 var aux2:any=""
 var aux3: any;
@@ -200,7 +199,7 @@ Save(text:number){
   }
 }
 
-sendUVL(uvl:any){
+sendFile(uvl:any){
   const formData: FormData = new FormData();
   this.logselect=[]
   formData.append('file', uvl, uvl.name);
@@ -452,7 +451,7 @@ else{
     if(this.actual.children!=undefined){
     if(this.actual.children.length<2){
       aux=new FMTree()
-      aux.name="auto_child"
+      aux.name="AutoChild"
       aux.abstract=false;
       aux.children=[]
       this.actual.children.push(aux)
@@ -481,6 +480,7 @@ catch{
 
 
 DeleteNode(){
+  console.log(this.actual)
   this.loadingmodal=false
   this.actualfather=this.GetFather(this.actual,this.tree)
   if(this.actualfather==undefined){
@@ -597,7 +597,7 @@ CreateChildren(){
       relations.card_min=1
     }
     aux=new FMTree()
-    aux.name="auto_child"
+    aux.name="AutoChild"
     aux.abstract=false;
     aux.children=[]
     relations.card_max=0
@@ -611,8 +611,8 @@ CreateChildren(){
     aux2=new FMTree()
     aux2.abstract=false;
     aux2.children=[]
-    aux.name="auto_child1"
-    aux2.name="auto_child2"
+    aux.name="AutoChild1"
+    aux2.name="AutoChild2"
     relations.children.push(aux)
     relations.children.push(aux2)
   }
@@ -690,7 +690,25 @@ CreateBrother(){
       feature.name=this.name
       feature.abstract=false;
       feature.children=[]
-      this.actualfather.children.push(feature)
+      if(this.actualfather.type=="MANDATORY"||this.actualfather.type=="OPTIONAL"){
+        let relation=new FMTree()
+        relation.margin=this.actualfather.margin
+        relation.symbol=this.actualfather.symbol
+        relation.symbol2=this.actualfather.symbol2
+        relation.abstract=this.actualfather.abstract
+        relation.optional=this.actualfather.optional
+        relation.relations=this.actualfather.relations
+        relation.type=this.actualfather.type
+        relation.card_max=this.actualfather.card_max
+        relation.card_min=this.actualfather.card_min
+        relation.children=[]
+        relation.children.push(feature)
+        aux=this.actualfather.GetFather(this.actualfather,this.tree)
+        aux.children.push(relation)
+      }
+      else{
+        this.actualfather.children.push(feature)
+      }
       this.loglist.unshift(this.actual.name+" insert "+feature.name+" as a brother ")
       this.tree[0].ExpandList(feature)
     }
@@ -796,17 +814,17 @@ readThis(inputValue: any): void {
     aux=myReader.result;}
     if(file.name.endsWith('.json')){
       setTimeout(() => {
-      this.sendUVL(file)
+      this.sendFile(file)
       },100)
     }
     if(file.name.endsWith('.uvl')){
       setTimeout(() => {
-        this.sendUVL(file)
+        this.sendFile(file)
         },100)
     }
     if(file.name.endsWith('.xml')){
       setTimeout(() => {
-        this.sendUVL(file)
+        this.sendFile(file)
         },100)
     }
     if(!(file.name.endsWith('.xml')||file.name.endsWith('.uvl')||file.name.endsWith('.json'))){

@@ -53,7 +53,7 @@
           <mat-icon>chevron_right</mat-icon>
         </button>
         <hr>
-        <a data-bs-toggle="modal" href="#sidebardeletebranch">Delete branch</a>
+        <a data-bs-toggle="modal" href="#loading"(click)="Delete()" > Delete branch</a>
         <div *ngIf="ToolTipRefa(node)">
         <hr>
         <a class="buttonmenu2" mat-icon-button [matMenuTriggerFor]="menurefactortree" (click) = "$event.stopPropagation()" >
@@ -64,9 +64,10 @@
       </mat-menu>
 
       <mat-menu #menucreate="matMenu">
-        <a data-bs-toggle="modal" href="#sidebarcreatechild" >Child</a>
+        <a data-bs-toggle="modal" href="#sidebarcreatechild" >Child feature</a>
+        <div [hidden]="actual==tree[0]">
         <hr>
-        <a data-bs-toggle="modal" href="#sidebarcreatebrother">Sibling</a>
+        <a data-bs-toggle="modal"  href="#sidebarcreatebrother">Sibling feature</a></div>
       </mat-menu>
 
 

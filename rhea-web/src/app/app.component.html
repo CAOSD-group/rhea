@@ -155,7 +155,7 @@
              (newItemEventroot)="sendUpdate()"
              (newItemEventactual)="select($event)"
              (newItemEventrefactor)="SelectChipRefactor($event,'node')"
-             (newItemEventemptyTree)="DeleteNode()"
+             (newItemEventDelete)="DeleteNode()"
             ></FeatureTree>
           </div>
         </div>
@@ -246,7 +246,7 @@
 	<div class="modal-dialog modal-lg">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h4 class="modal-title" id="exampleModalLabel">Modify features</h4>
+				<h4 class="modal-title" id="exampleModalLabel">{{isFeature()? "Modify feature":"Edit relation"}}</h4>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
@@ -256,8 +256,8 @@
             <div style="margin-left: 4px; margin-top: 10px;">
           <h5>Name
           <input  type="string" style="min-width: 250px;" [(ngModel)]="name"></h5>
-          <h5>
-          <input id="mycheckbox" type="checkbox" [(ngModel)]="abstract" > Abstract</h5>
+          <h5>Abstract
+          <input id="mycheckbox" type="checkbox" [(ngModel)]="abstract" > </h5>
           <hr></div>
           </h4>
 
@@ -278,7 +278,7 @@
               <mat-icon class="mat-icon-rtl-mirror">clear</mat-icon>
             </button>
           </div>
-          <hr>
+          
           
           </div>
           
@@ -299,16 +299,16 @@
               <h5 [hidden]="cardhidden()" >Card min 
               <input  type="number" [(ngModel)]="card_min" (change)="checkcard_min_max()"><hr></h5>
               <h5 [hidden]="cardhidden()">Card max
-              <input type="number" [(ngModel)]="card_max" (change)="checkcard_min_max()" ><hr>
+              <input type="number" [(ngModel)]="card_max" (change)="checkcard_min_max()" >
               </h5>
             </div>
             </h4>
           </div>
-          <button (click)="ModifySelecction()"  data-bs-toggle="modal" href="#loading" class="buttonmodal">update</button>
+
 				</div>
 			</div>
 			<div class="modal-footer">
-				<button type="button" class="buttonmodal"  data-bs-dismiss="modal">Close</button>
+		    <button (click)="ModifySelecction()"  data-bs-toggle="modal" href="#loading" class="buttonmodal">update</button>
 			</div>
 		</div>
 	</div>
@@ -318,7 +318,7 @@
   <div class="modal-dialog modal-lg">
 	  <div class="modal-content">
 	    <div class="modal-header">
-		    <h4 class="modal-title" id="exampleModalLabel">Create a child</h4>
+		    <h4 class="modal-title" id="exampleModalLabel">Create feature</h4>
  		    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
 	    <div class="modal-body">
@@ -329,24 +329,21 @@
             <input matInput  type="string" class="input_modal"  style="min-width: 250px;" [(ngModel)]="name">
             <div style="margin-top: 10px;"></div> </h4>
             <h4 [hidden]="!isFeature()">Type:
-              {{type}}
+              {{type==""?"FEATURE":type}}
               <button class="empty" (click)="visiblechipsfeatures=!visiblechipsfeatures">
               <mat-icon class="mat-icon-rtl-mirror">
                 {{visiblechipsfeatures ? 'expand_more' : 'chevron_right'}}
               </mat-icon></button>
               <mat-list [hidden]="!visiblechipsfeatures">
-                <mat-option *ngFor="let chip of listOfTypes" (click)="visiblechipsfeatures=!visiblechipsfeatures" (click)="ChangeType(chip)">{{chip}}</mat-option>
+                <mat-option *ngFor="let chip of listOfTypes"  (click)="visiblechipsfeatures=!visiblechipsfeatures" (click)="ChangeType(chip)">{{chip}}</mat-option>
               </mat-list>  
             </h4>
-            <h4 [hidden]="!isFeature() || type!='FEATURE'"><input id="mycheckbox" type="checkbox" style="margin-top: 15px;margin-bottom: 15px;" [(ngModel)]="optional" > optional</h4>
-          <button (click)="CreateChildren()" data-bs-toggle="modal" href="#loading" c class="bottom-style" style="width: 70px; margin-left: auto; ">Create</button>
+            <h4 [hidden]="!isFeature() || type!='FEATURE'">optional <input id="mycheckbox" type="checkbox" style="margin-top: 15px;margin-bottom: 15px;" [(ngModel)]="optional" > </h4>
 				</div>
-        <div class="col-6">
-        </div>
       </div>
 	 	  </div>
 	    <div class="modal-footer">
-	      <button type="button" class="bottom-style" style="width: 9%; margin-left: auto; margin-right: auto;" data-bs-dismiss="modal">Close</button>
+	      <button (click)="CreateChildren()" data-bs-toggle="modal" href="#loading" c class="bottom-style" style="width: 70px; margin-left: auto;margin-right: auto; ">Create</button>
       </div>
 	  </div>
 	</div>
@@ -356,7 +353,7 @@
   <div class="modal-dialog modal-lg">
 	  <div class="modal-content">
 		  <div class="modal-header">
-			  <h4 class="modal-title" id="exampleModalLabel">Create brother</h4>
+			  <h4 class="modal-title" id="exampleModalLabel">Create feature</h4>
 				  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 			</div>
 			<div class="modal-body">
@@ -376,19 +373,16 @@
               <mat-option *ngFor="let chip of listOfTypes" (click)="visiblechipsfeatures=!visiblechipsfeatures" (click)="ChangeType(chip)">{{chip}}</mat-option>
             </mat-list>  
           </h4>
-          <h4 [hidden]="isFeature()|| type!='FEATURE'"><input id="mycheckbox" type="checkbox" style="margin-top: 15px;margin-bottom: 15px;" [(ngModel)]="optional" > optional</h4>
-          <button (click)="CreateBrother()" data-bs-toggle="modal" href="#loading" class="bottom-style" style="width: 70px; margin-left: auto; " >Create</button>
+          <h4 [hidden]="isFeature()|| type!='FEATURE'">optional <input id="mycheckbox" type="checkbox" style="margin-top: 15px;margin-bottom: 15px;" [(ngModel)]="optional" ></h4>
 		  	</div>
-        <div class="col-6">
-        </div>
 			</div></div>
 			<div class="modal-footer">
-				<button type="button" class="bottom-style" style="width: 9%;  margin-left: auto; margin-right: auto;"  data-bs-dismiss="modal">Close</button>
+				<button (click)="CreateBrother()" data-bs-toggle="modal" href="#loading" class="bottom-style" style="width: 70px; margin-left: auto; margin-right: auto;" >Create</button>
 			</div>
 	  </div>
 	</div>
 </div>
-<!-- Modal Delete-->
+<!-- Modal Delete
 <div class="modal fade" id="sidebardeletebranch" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
@@ -410,13 +404,15 @@
 	  </div>
   </div>
 </div>
+-->
+
 
 <!--Modal Constraint-->
 <div class="modal fade" id="sidebaroptionsconstraintree" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">
-        <h4 class="modal-title" id="exampleModalLabel">Options</h4>
+        <h4 class="modal-title" id="exampleModalLabel">Edit constraint</h4>
         <button type="button" class="btn-close" data-bs-dismiss="modal"  (click)="ListOfConstraint=[]"aria-label="Close"></button>
       </div>
       <label style="margin-left: 10px;margin-right: 5px;color:#012970"> Full text: </label>
@@ -610,7 +606,6 @@
           <div class="col-1">{{showModal()[1]? '': buttonloadingclose.click()}}</div>
         </div>
 	    </div>
-      <h4>this will close automatically when ready </h4> 
       <button  class ="buttonmodal" style="height: 50px;" (click)="loadingmodal=!loadingmodal"> close </button>
       <button [hidden]="true" #buttonloadingclose data-bs-dismiss="modal" data-bs-backdrop="static"></button>
      

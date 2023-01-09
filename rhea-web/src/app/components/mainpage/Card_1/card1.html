@@ -4,7 +4,7 @@
       <img src="../assets/img/folder.png" >
       Attach file
     </button>
-    <button  class="buttonmodal" style="min-height: 35px;margin-right: 10px;" > Or Select One:</button>
+    <label style="min-height: 35px;margin-right: 10px;  color: #012970;" > Or select one:</label>
     <select class="btn-primary-select" style="min-height: 35px;"[(ngModel)]="item" (click)="select($event.target)">
       <option value="tree name">Select an option</option>
       <option *ngFor="let documento of documents">{{documento}}</option>
