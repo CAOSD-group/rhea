@@ -8,7 +8,6 @@ import { Refactoring } from '../../refactor/refactoring';
 
 
 let aux:any
-var refactor:Refactoring =new Refactoring()
 
 @Component({
 
@@ -195,10 +194,8 @@ ScrollIntoView(elem:string) {
       view=document.body.querySelector("#"+elem)
       if(view!=null){
         setTimeout(() => {
-          console.log(view)
-         view.scrollIntoView({block: "center", behavior: "smooth"}) 
+          view.scrollIntoView({block: "center", behavior: "auto"}) 
         }, 1);
-        
       }}}
 }
 EmptyTree(){

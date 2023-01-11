@@ -7,7 +7,8 @@ import { Semantics } from './components/Semantics/Semantics';
 import { ToolsExtension } from './components/ToolsExtension/ToolsExtension';
 
 import { globalhtml } from './components/globalhtml/globalhtml';
-import { about } from './components/about/about';
+import { About } from './components/about/about';
+import { Guide } from './components/Guide/Guide';
 import { Repository } from './components/Repository/Repository';
 import { mainpage } from './components/mainpage/mainpage';
 import { card1 } from './components/mainpage/Card_1/card1';
@@ -42,6 +43,7 @@ import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatTableModule} from '@angular/material/table';
 import { MatSortModule } from '@angular/material/sort';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
 
 @NgModule({
   declarations: [
@@ -55,7 +57,8 @@ import { MatSortModule } from '@angular/material/sort';
 
     
     globalhtml,
-    about,
+    About,
+    Guide,
     Repository,
     mainpage,
     card1,
@@ -92,6 +95,7 @@ import { MatSortModule } from '@angular/material/sort';
     BrowserAnimationsModule,
     MatTableModule,
     MatSortModule,
+    MatSnackBarModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

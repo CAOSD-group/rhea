@@ -35,6 +35,9 @@
     padding: 2px 2px 2px 5px;
   }
  
+  .trasnparent-snackbar{
+    background-color: #00000000;
+  }
   
   .example-viewport {
     height: 350px;

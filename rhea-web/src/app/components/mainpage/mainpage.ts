@@ -4,7 +4,7 @@ import {Component} from '@angular/core';
 @Component({
 
   selector: 'mainpage',
-    templateUrl: './mainpage.html',
+    templateUrl: 'mainpage.html',
     styleUrls: ['../../app.component.css' ]
   })
   

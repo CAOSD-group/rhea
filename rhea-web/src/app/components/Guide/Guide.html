@@ -1,0 +1,65 @@
+<div class="col-12 pe-3">
+    <div class="card" style="min-width:400px;">
+        <div class="hero">
+            <div class="row d-flex justify-content-between">
+                <div class="col-lg-12  d-flex flex-column justify-content-center" style="padding: 50px;">
+                    <h2 data-aos="fade-up">Welcome to RheaWeb</h2>
+                    <h4>Index</h4>
+                    <ul style="cursor: pointer;">
+                        <h5 (click)="ScrollToElement(tools)" ><li>Tools structure</li></h5>
+                        <h6 style="margin-left: 3%;" (click)="ScrollToElement(mainpage)" ><li>Mainpage</li></h6>
+                        <h6 style="margin-left: 3%;" (click)="ScrollToElement(card)" ><li>Cards</li></h6>
+                        <h6 style="margin-left: 3%;" (click)="ScrollToElement(features)" ><li>Features</li></h6>
+                        <h6 style="margin-left: 3%;" (click)="ScrollToElement(constraint)" ><li>Constraint</li></h6>
+                        <h6 style="margin-left: 3%;" (click)="ScrollToElement(info)" ><li>Information</li></h6>
+                        <h5 (click)="ScrollToElement(example)" ><li>Example of use</li></h5>
+                        <h5 (click)="ScrollToElement(glosary)" ><li>Glosary</li></h5>
+                    
+                    </ul>
+                    <h4 #tools >Tools structure</h4>
+                    <h4 #mainpage >Mainpage</h4>
+                    <img src="./assets/img/capture_mainpage.png" style="max-width: 1000px; margin-left: auto;margin-right: auto;">
+                    <p></p>
+                    <p>Lorem ipsum </p>
+                    <p>Lorem ipsum</p>
+                    
+                    <h4 #card >Cards</h4>
+                    <img  src="./assets/img/capture_card.png" style="max-width: 1200px; margin-left: auto;margin-right: auto;">
+                    <p></p>
+                    <p>Lorem ipsum </p>
+                    <p>Lorem ipsum</p>
+
+                    <h4 #features >Features</h4>
+                    <img  src="./assets/img/capture_features.png" style="max-width: 1000px; margin-left: auto;margin-right: auto;">
+                    <p></p>
+                    <p>Lorem ipsum </p>
+                    <p>Lorem ipsum</p>                    
+                    
+                    <h4 #constraint >Constraint</h4>
+                    <img src="./assets/img/capture_constraint.png" style="max-width: 1000px; margin-left: auto;margin-right: auto;">
+                    <p></p>
+                    <p>Lorem ipsum </p>
+                    <p>Lorem ipsum</p>
+
+                    <h4 #info >Information</h4>
+                    <img src="./assets/img/capture_info.png" style="max-width: 800px;min-height:900px ; margin-left: auto;margin-right: auto;">
+                    <p></p>
+                    <p>Lorem ipsum </p>
+                    <p>Lorem ipsum</p>
+                   
+                    <h4 #example >Example of use</h4>
+                    <h4 #glosary >Glosary</h4>
+                    <p>
+                        <li #Feature >Feature</li>
+                        <li #Realtion >Realtion</li>
+                        <li #FM >Feature Model (FM)</li>
+                        <li #Cons >Constraint</li>
+                        <li #Preplog >Prepositional logic</li>
+                        <li #Refac >Refactoring</li>
+                    </p>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

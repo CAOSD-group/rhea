@@ -1,4 +1,4 @@
-import {Component,ElementRef} from '@angular/core';
+import {Component,ElementRef,inject} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {NestedTreeControl} from '@angular/cdk/tree';
 import {MatTreeNestedDataSource} from '@angular/material/tree';
@@ -11,7 +11,7 @@ import { Language } from './components/Language/Language';
 import { Semantics } from './components/Semantics/Semantics';
 import { ToolsExtension } from './components/ToolsExtension/ToolsExtension';
 import { FeatureTree } from './components/mainpage/FeatureTree/FeatureTree';
-
+import {MatSnackBar, MatSnackBarRef} from '@angular/material/snack-bar';
 
 var aux:any;
 var aux2:any=""
@@ -24,6 +24,15 @@ var jsonfeatures:string
 var listnamestext:Array<string>=[]
 var json:string
 var refactor:Refactoring =new Refactoring()
+
+@Component({
+  selector: 'snack-bar-annotated-component-example-snack',
+  templateUrl: './components/snackbar.html',
+  styleUrls: ['./app.component.css']
+})
+export class PizzaPartyAnnotatedComponent {
+  snackBarRef = inject(MatSnackBarRef);
+}
 
 
 
@@ -108,6 +117,7 @@ export class AppComponent {
   windowFM_Editor=true
   windowAbout=false
   windowRepository=false
+  windowGuide=false
 
   updatable=false
   page=0;
@@ -133,13 +143,16 @@ export class AppComponent {
   logposition=-1
   loghash:Array<string>=[]
 
-constructor(private http: HttpClient ) { }  
+
+constructor(private http: HttpClient,private _snackBar: MatSnackBar ) { }  
 
 
 
 ngOnInit() {
 this.getDocumentName()
 }
+
+
 
 Movehistory(reundo:number){
   this.loadingmodal=false
@@ -159,16 +172,25 @@ showFM_Editor(){
   this.windowFM_Editor=true
   this.windowAbout=false
   this.windowRepository=false
+  this.windowGuide=false
 }
 showAbout(){
   this.windowFM_Editor=false
   this.windowAbout=true
   this.windowRepository=false
+  this.windowGuide=false
 }
 showRepository(){
   this.windowFM_Editor=false
   this.windowAbout=false
   this.windowRepository=true
+  this.windowGuide=false
+}
+showGuide(){
+  this.windowFM_Editor=false
+  this.windowAbout=false
+  this.windowRepository=false
+  this.windowGuide=true
 }
 
 Name(name:string){
@@ -575,7 +597,7 @@ isRelationFeature(){
 
 CreateChildren(){
   this.loadingmodal=false
-  if(this.type==undefined||this.type==""){
+  if(this.type==undefined||this.type==""||this.type=="MANDATORY"||this.type=="OPTIONAL"){
     this.type="FEATURE"
   }
   if(this.actual.children==undefined){this.actual.children=[]}
@@ -1287,6 +1309,12 @@ SearchFeature(text:string){
     let ft = new FeatureTree()
     setTimeout(() => {
     ft.ScrollIntoView(feature.name)  
+    this._snackBar.openFromComponent(PizzaPartyAnnotatedComponent, {
+      duration: 1500,
+      horizontalPosition: 'center',
+      verticalPosition: 'top',
+      panelClass: ['trasnparent-snackbar']
+    });
     }, 1);
     }
   }, 1);
