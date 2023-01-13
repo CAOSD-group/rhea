@@ -2,7 +2,7 @@
 <div class="card">{{bool&&bool2? Button():""}}
     <h4 class="title">Feature Models Repository</h4>
     <div style="margin: 40px; margin-top: -80px;">
-        <button class="buttonmodal">Upload FM </button>
+        <button class="buttonmodal" data-bs-toggle="modal" href="#modalInsertData">Upload FM </button>
         <mat-form-field style="width: 75%;"> 
             <mat-label style="margin-left: 20px;" >Search</mat-label>
             <input matInput (keyup)="filter($event)" style="margin-left: 20px;"   placeholder="Search">
@@ -50,8 +50,8 @@
                     <td mat-cell *matCellDef="let articulo"> {{articulo.Version}} </td>
                   </ng-container>
     
-                  <ng-container matColumnDef="Language_level">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Language_level </th>
+                  <ng-container matColumnDef="Languagelevel">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Language level </th>
                     <td mat-cell *matCellDef="let articulo"> {{articulo.Language_level}} </td>
                   </ng-container>
     

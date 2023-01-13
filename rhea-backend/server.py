@@ -82,18 +82,21 @@ def insert_repository():
         return None
     else:
         # Get parameters
-        Name="Name"
-        Author="Author"
-        Owner="Owner"
-        Ref="Ref"
-        Year=2022
-        Domain="Domain"
-        Version="Version"
-        Language_level="Language_level"
+        Name=request.form['Name']
+        Author=request.form['Author']
+        Owner=request.form['Owner']
+        Ref=request.form['Ref']
+        Year=request.form['Year']
+        Domain=request.form['Domain']
+        Version=request.form['Version']
+        Language_level=request.form['Language_level']
+        File=request.form['File']
         nFeatures=6
         nConfigs=6
-        Rating="Rating"
+        Rating=request.form['Rating']
         Format="Format"
+        print("hola")
+        print(Name,Author,Owner,Ref,Year,Domain,Version,Language_level,nFeatures,nConfigs,Rating,Format)
         cur.execute("INSERT INTO repository (Name,Author,Owner,Ref,Year,Domain,Version,Language_level,nFeatures,nConfigs,Rating,Format) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)",(Name,Author,Owner,Ref,Year,Domain,Version,Language_level,nFeatures,nConfigs,Rating,Format))
         cur.execute("SELECT * FROM repository") 
         for Name,Author,Owner,Ref,Year,Domain,Version,Language_level,nFeatures,nConfigs,Rating,Format in cur:

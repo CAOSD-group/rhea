@@ -27,7 +27,7 @@ let aux:any
   @ViewChild(MatSort, {static: true}) sort!: MatSort;
   @Output() newItemEventopendModal = new EventEmitter<Data>(); 
   @Output() newItemEventreadThis = new EventEmitter<any>(); 
-  @Input() myArticle=new Data('','','',0,'',"",'',0,0,'','');
+  @Input() myArticle=new Data('','','','',0,'',"",'',0,0,'','');
   data  
   @Input() bool
   bool2=true
@@ -39,7 +39,7 @@ let aux:any
     "Year",
     "Domain",
     "Version",
-    "Language_level",
+    "Languagelevel",
     "nFeatures",
     "nConfigs",
     "Rating",
@@ -135,6 +135,7 @@ let aux:any
       public Name?: string,
       public Author?: string,
       public Owner?: string,
+      public Ref?: string,
       public Year?: number,
       public Domain?: string,
       public Version?: string,
@@ -143,6 +144,6 @@ let aux:any
       public nConfigs?: number,
       public Rating?: string,
       public Format?: string,
-      public Ref?: string,
+  
       ) {}
   }

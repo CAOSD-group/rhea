@@ -571,6 +571,63 @@
 </div>
 
 
+<!-- Modal Data-->
+<div class="modal fade" id="modalInsertData" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+		  <div class="modal-header">
+        <h4 class="modal-title" id="exampleModalLabel">Model Information</h4>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+	    </div>
+	    <div class="modal-body">
+        <div class="row">
+          <div class="col-6">
+            <label><label class="modal_repository">Name:</label>
+            <input type="string" style="min-width: 150px;" [(ngModel)]="Namerepo">
+            </label>
+            <div></div>
+            <label><label class="modal_repository">Author:</label>
+            <input type="string" style="min-width: 150px;" [(ngModel)]="Author">
+            </label>
+            <div></div>
+            <label><label class="modal_repository">Owner:</label>
+            <input type="string" style="min-width: 150px;" [(ngModel)]="Owner">
+            </label>
+            <div></div>
+            <label class="modal_repository"(click)="web(myArticle)">Ref:
+            <input type="string" style="min-width: 150px;" [(ngModel)]="Ref">
+            </label>
+            <div></div>
+            <label><label class="modal_repository">Year: </label>
+            <input type="number" style="min-width: 150px;" [(ngModel)]="Year"></label>
+            <div></div>
+            <label><label class="modal_repository">Domain: </label>
+            <input type="string" style="min-width: 150px;" [(ngModel)]="Domain"></label>
+            <div></div>
+            <label><label class="modal_repository">Version: </label>
+            <input type="string" style="min-width: 150px;" [(ngModel)]="Version"></label>
+          </div>
+          <div class="col-6">
+            <label><label class="modal_repository">Language_level:</label>
+            <input type="string" style="min-width: 150px;" [(ngModel)]="Language_level"></label>
+            <div></div>
+            <label><label class="modal_repository">Rating: </label>
+            <input type="string" style="min-width: 150px;" [(ngModel)]="Rating">
+            </label>
+          </div>
+        </div>
+	    </div>
+      <div class="modal-footer">
+	      <button type="button" class="buttonmodal" data-bs-dismiss="modal" (click)="InsertIntoRepo()">Upload</button>
+	    </div>
+	  </div>
+  </div>
+</div>
+
+
+
+
+
 
 <!--Menu options-->
 <mat-menu #menumdel="matMenu">

@@ -143,11 +143,23 @@ export class AppComponent {
   semantic:Semantics=new Semantics()
   loglist: Array<string>=[];
   logselect: Array<number>=[];
-  myArticle=new Data('','','',0,'',"",'',0,0,'','');
+  myArticle=new Data('','','','',0,"",'','',0,0,'','');
 
   logposition=-1
   loghash:Array<string>=[]
   data
+
+
+  Namerepo=""
+  Author=""
+  Owner=""
+  Ref=""
+  Year=""
+  Domain=""
+  Version=""
+  Language_level=""
+  File=""
+  Rating=""
 
 
 constructor(private http: HttpClient,private _snackBar: MatSnackBar ) { }  
@@ -158,6 +170,22 @@ ngOnInit() {
 this.getDocumentName()
 }
 
+InsertIntoRepo(){
+  const formData: FormData = new FormData();
+  formData.append('Name', this.Namerepo);
+  formData.append('Author', this.Author);
+  formData.append('Owner', this.Owner);
+  formData.append('Ref', this.Ref);
+  formData.append('Year', this.Year);
+  formData.append('Domain', this.Domain);
+  formData.append('Version', this.Version);
+  formData.append('Language_level', this.Language_level);
+  formData.append('File', this.File);
+  formData.append('Rating', this.Rating);
+  this.http.post(this.urlinsertcur,formData,{withCredentials:true,responseType:'text'}).subscribe(resultado=>{
+    console.log(resultado)
+  })
+}
 
 Movehistory(reundo:number){
   this.loadingmodal=false
