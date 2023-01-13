@@ -13,8 +13,11 @@ let aux:any
     styleUrls: ['../../app.component.css' ]
   })
   export class Repository {
-  urlcur="http://127.0.0.1:5000/getCur" 
-  urlinsertcur="http://127.0.0.1:5000/insertIntoRepository" 
+  urlcur="https://rhea.caosd.lcc.uma.es/getCur" 
+  urlinsertcur="https://rhea.caosd.lcc.uma.es/insertIntoRepository" 
+  //urlcur="http://127.0.0.1:5000/getCur" 
+  //urlinsertcur="http://127.0.0.1:5000/insertIntoRepository" 
+
   selection = new SelectionModel<Data>(true, []);
   myfile:any
   dataSourcerepo:MatTableDataSource<Data>=new MatTableDataSource<Data>
