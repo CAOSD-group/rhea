@@ -4,7 +4,7 @@ import {NestedTreeControl} from '@angular/cdk/tree';
 import {MatTreeNestedDataSource} from '@angular/material/tree';
 import {FMTree} from './components/FMTree/FMTree';
 import{Const} from './components/constraint/const';
-import{Data} from './components/Repository/Repository';
+import{Data, Repository} from './components/Repository/Repository';
 import * as saveAs from 'file-saver';
 import { Refactoring } from './components/refactor/refactoring';
 import { Language } from './components/Language/Language';
@@ -12,6 +12,7 @@ import { Semantics } from './components/Semantics/Semantics';
 import { ToolsExtension } from './components/ToolsExtension/ToolsExtension';
 import { FeatureTree } from './components/mainpage/FeatureTree/FeatureTree';
 import {MatSnackBar, MatSnackBarRef} from '@angular/material/snack-bar';
+import * as restData from 'restData';
 
 var aux:any;
 var aux2:any=""
@@ -49,6 +50,8 @@ export class AppComponent {
   //urlupload="http://127.0.0.1:5000/uploadFM"  
   //urlrefactor="http://127.0.0.1:5000/refactor" 
   //urlupdate="http://127.0.0.1:5000/updateFM" 
+  //urlcur="http://127.0.0.1:5000/getCur" 
+  //urlinsertcur="http://127.0.0.1:5000/insertIntoRepository" 
 
  // FOR DEVELOPER: for any new url the backend get , it must be update in the apache2 file for the web to work in de sites-available domain.conf, then restart apache, and the frontend and backend"
 
@@ -58,6 +61,8 @@ export class AppComponent {
   urlupload="https://rhea.caosd.lcc.uma.es/uploadFM"  
   urlrefactor="https://rhea.caosd.lcc.uma.es/refactor" 
   urlupdate="https://rhea.caosd.lcc.uma.es/updateFM" 
+  urlcur="https://rhea.caosd.lcc.uma.es/getCur" 
+  urlinsertcur="https://rhea.caosd.lcc.uma.es/insertIntoRepository" 
   
   declare actual:FMTree     
   declare actualfather:FMTree 
@@ -142,6 +147,7 @@ export class AppComponent {
 
   logposition=-1
   loghash:Array<string>=[]
+  data
 
 
 constructor(private http: HttpClient,private _snackBar: MatSnackBar ) { }  
@@ -151,7 +157,6 @@ constructor(private http: HttpClient,private _snackBar: MatSnackBar ) { }
 ngOnInit() {
 this.getDocumentName()
 }
-
 
 
 Movehistory(reundo:number){

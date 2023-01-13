@@ -4,6 +4,8 @@ import importlib
 import json
 import tempfile
 import subprocess
+import mariadb
+import sys
 from typing import Optional
 
 from flask import Flask, request, redirect, make_response
@@ -48,6 +50,62 @@ cache = Cache(app)
 #app = Flask(__name__,static_url_path=static_url,static_folder=static_folder,template_folder=static_dir)
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 CORS(app, supports_credentials=True)
+
+
+conn = mariadb.connect(
+    user="caosd",
+    password="password",
+    host="localhost",
+    database="rhea")
+cur = conn.cursor() 
+
+
+@app.route('/getCur', methods=['GET'])
+def get_Cur():
+    if request.method != 'GET':
+        print (cur)
+        return None
+    else:
+        cur.execute("SELECT * FROM repository") 
+        a=[]
+        for Name,Author,Owner,Ref,Year,Domain,Version,Language_level,nFeatures,nConfigs,Rating,Format in cur:
+            b=[Name,Author,Owner,Ref,Year,Domain,Version,Language_level,nFeatures,nConfigs,Rating,Format]
+            a.insert(len(a),b)
+        a=make_response(json.dumps(a))
+        conn.commit()
+        print(a)
+        return a
+
+@app.route('/insertIntoRepository', methods=['POST'])
+def insert_repository():
+    if request.method != 'POST':
+        return None
+    else:
+        # Get parameters
+        Name="Name"
+        Author="Author"
+        Owner="Owner"
+        Ref="Ref"
+        Year=2022
+        Domain="Domain"
+        Version="Version"
+        Language_level="Language_level"
+        nFeatures=6
+        nConfigs=6
+        Rating="Rating"
+        Format="Format"
+        cur.execute("INSERT INTO repository (Name,Author,Owner,Ref,Year,Domain,Version,Language_level,nFeatures,nConfigs,Rating,Format) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)",(Name,Author,Owner,Ref,Year,Domain,Version,Language_level,nFeatures,nConfigs,Rating,Format))
+        cur.execute("SELECT * FROM repository") 
+        for Name,Author,Owner,Ref,Year,Domain,Version,Language_level,nFeatures,nConfigs,Rating,Format in cur:
+            b=[Name,Author,Owner,Ref,Year,Domain,Version,Language_level,nFeatures,nConfigs,Rating,Format]
+        a=make_response(json.dumps(b))
+        print(b)
+        conn.commit()
+        return a
+
+
+
+
 
 
 def get_example_models() -> list[str]:

@@ -2,10 +2,10 @@ import { Component, ViewChild ,Input,Output,EventEmitter} from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import {MatSort} from '@angular/material/sort';
 import {SelectionModel} from '@angular/cdk/collections';
+import {HttpClient} from '@angular/common/http';
 
 
-
-
+let aux:any
 @Component({
 
   selector: 'Repository',
@@ -13,16 +13,21 @@ import {SelectionModel} from '@angular/cdk/collections';
     styleUrls: ['../../app.component.css' ]
   })
   export class Repository {
-
+  urlcur="http://127.0.0.1:5000/getCur" 
+  urlinsertcur="http://127.0.0.1:5000/insertIntoRepository" 
   selection = new SelectionModel<Data>(true, []);
   myfile:any
-  dataSource:MatTableDataSource<Data>=new MatTableDataSource<Data>
+  dataSourcerepo:MatTableDataSource<Data>=new MatTableDataSource<Data>
+
+
   
   @ViewChild(MatSort, {static: true}) sort!: MatSort;
   @Output() newItemEventopendModal = new EventEmitter<Data>(); 
   @Output() newItemEventreadThis = new EventEmitter<any>(); 
   @Input() myArticle=new Data('','','',0,'',"",'',0,0,'','');
-
+  data  
+  @Input() bool
+  bool2=true
   columns: string[] = [       
     "Name",
     "Author",
@@ -38,23 +43,46 @@ import {SelectionModel} from '@angular/cdk/collections';
     "Format",
     "Select"
   ]
-  data: Data[] = [
-  new Data('Pizzas','Horcas','Horcas',3322,'Food',"1.2",'professional',5,2,'easy','text',"https://www.uma.es/"),
-  new Data('JHipster','Horcas','Acebal',1960,'party',"5.9.3",'numericalfm',10,8,'hard','party',"https://www.uma.es/"),
-  new Data('AAAA','Acebal','Acebal',2002,'something',"Original",'radiofm'),  
-  ];
 
 
+  constructor(private http?: HttpClient ) { }  
   
     ngOnInit() {
-      this.dataSource = new MatTableDataSource<Data>(this.data);
-      this.dataSource.sort = this.sort;
+      this.getCur()
     }
+
+    getCur(){
+      this.data=[]
+      this.dataSourcerepo = new MatTableDataSource<Data>(this.data);
+      if(this.http!=undefined){
+      this.http.get(this.urlcur).subscribe(resultado => {
+        aux=resultado
+        console.log(aux)
+        aux.forEach(element => {
+          let doc=new Data(element[0],element[1],element[2],element[3],element[4],element[5],element[6],element[7],element[8],element[9],element[10],element[11])
+          this.data.push(doc)
+        });
+        }
+      )}
+    }
+
+    Button(){
+      this.dataSourcerepo.data=this.data
+    }
+
+    Insertrepository(){
+      const formData: FormData = new FormData();
+      formData.append('file',"hola");
+      if(this.http!=undefined){
+      this.http.post(this.urlinsertcur,formData,{withCredentials:true,responseType:'text'}).subscribe(resultado => {  
+          console.log(resultado)
+          }
+        )}
+    }
+
     filter(event: Event) {
       const filtro = (event.target as HTMLInputElement).value;
-      this.dataSource.filter = filtro.trim().toLowerCase();
-      console.log(this.dataSource.data)
-      console.log(this.dataSource)
+      this.dataSourcerepo.filter = filtro.trim().toLowerCase();
     } 
     modal(Article:Data){
       this.newItemEventopendModal.emit(Article);
@@ -70,15 +98,15 @@ import {SelectionModel} from '@angular/cdk/collections';
         this.selection.clear();
         return;
       }
-      this.dataSource.data.forEach(element => {
-        if(this.dataSource.filteredData.indexOf(element)!=-1){
+      this.dataSourcerepo.data.forEach(element => {
+        if(this.dataSourcerepo.filteredData.indexOf(element)!=-1){
           this.selection.select(element)
         }
       });
     }
 
     isAllSelected() {
-      if(this.dataSource.filteredData.length<=this.selection.selected.length){
+      if(this.dataSourcerepo.filteredData.length<=this.selection.selected.length){
         return true
       }
       else{

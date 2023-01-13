@@ -1,23 +1,15 @@
-<!--?php
-// Incluimos el fichero para la conexion
-include 'DBController.php';
-$db_handle = new DBController();
-$CategoryResult = $db_handle->runQuery("SELECT Name FROM rhea");
-?>-->
 
-
-
-<div class="card">
+<div class="card">{{bool&&bool2? Button():""}}
     <h4 class="title">Feature Models Repository</h4>
     <div style="margin: 40px; margin-top: -80px;">
-        <button class="buttonmodal">Upload FM</button>
+        <button class="buttonmodal">Upload FM </button>
         <mat-form-field style="width: 75%;"> 
             <mat-label style="margin-left: 20px;" >Search</mat-label>
             <input matInput (keyup)="filter($event)" style="margin-left: 20px;"   placeholder="Search">
         </mat-form-field>
         <button class="buttonmodal">Download FM</button>
         <div class="mat-elevation-z8">
-            <table style="width: 100%;" mat-table [dataSource]="dataSource"  matSort>
+            <table style="width: 100%;" #repositorytable mat-table [dataSource]="dataSourcerepo"  matSort>
           
               
                 <ng-container matColumnDef="Name">
