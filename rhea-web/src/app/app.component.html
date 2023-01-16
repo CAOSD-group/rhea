@@ -594,7 +594,7 @@
             <input type="string" style="min-width: 150px;" [(ngModel)]="Owner">
             </label>
             <div></div>
-            <label class="modal_repository"(click)="web(myArticle)">Ref:
+            <label class="modal_repository">Ref:
             <input type="string" style="min-width: 150px;" [(ngModel)]="Ref">
             </label>
             <div></div>
@@ -614,6 +614,17 @@
             <label><label class="modal_repository">Rating: </label>
             <input type="string" style="min-width: 150px;" [(ngModel)]="Rating">
             </label>
+            <label><label class="modal_repository">Description: </label>
+            <input type="string" style="min-width: 150px;" [(ngModel)]="Description">
+            </label>
+            <label><label class="modal_repository">Organization: </label>
+            <input type="string" style="min-width: 150px;" [(ngModel)]="Organization">
+            </label>
+            <button  class="buttonmodal" style="min-height: 35px;margin-right: 10px;"  (click)="input_file_repo.click()">
+              <img src="../assets/img/folder.png" >
+              Attach file
+            </button>
+            <input [hidden]="true" #input_file_repo (change)="SelectFilerepo($event)" id="file-input card1" type="file"/>
           </div>
         </div>
 	    </div>

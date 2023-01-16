@@ -66,11 +66,12 @@ def get_Cur():
         print (cur)
         return None
     else:
-        cur.execute("SELECT * FROM repository") 
+        cur.execute("SELECT * FROM Repository") 
         a=[]
-        for Name,Author,Owner,Ref,Year,Domain,Version,Language_level,nFeatures,nConfigs,Rating,Format in cur:
-            b=[Name,Author,Owner,Ref,Year,Domain,Version,Language_level,nFeatures,nConfigs,Rating,Format]
+        for Name,Author,Owner,Ref,Year,Domain,Version,Languagelevel,Rating,File2,Id,Description,Organization in cur:
+            b=[Name,Author,Owner,Ref,Year,Domain,Version,Languagelevel,Rating,Id,Description,Organization ]
             a.insert(len(a),b)
+            print(File2)
         a=make_response(json.dumps(a))
         conn.commit()
         print(a)
@@ -89,18 +90,24 @@ def insert_repository():
         Year=request.form['Year']
         Domain=request.form['Domain']
         Version=request.form['Version']
-        Language_level=request.form['Language_level']
-        File=request.form['File']
-        nFeatures=6
-        nConfigs=6
+        Languagelevel=request.form['Language_level']
         Rating=request.form['Rating']
-        Format="Format"
-        print("hola")
-        print(Name,Author,Owner,Ref,Year,Domain,Version,Language_level,nFeatures,nConfigs,Rating,Format)
-        cur.execute("INSERT INTO repository (Name,Author,Owner,Ref,Year,Domain,Version,Language_level,nFeatures,nConfigs,Rating,Format) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)",(Name,Author,Owner,Ref,Year,Domain,Version,Language_level,nFeatures,nConfigs,Rating,Format))
-        cur.execute("SELECT * FROM repository") 
-        for Name,Author,Owner,Ref,Year,Domain,Version,Language_level,nFeatures,nConfigs,Rating,Format in cur:
-            b=[Name,Author,Owner,Ref,Year,Domain,Version,Language_level,nFeatures,nConfigs,Rating,Format]
+        Id=request.form['Id']
+        Description=request.form['Description']
+        Organization =request.form['Organization']
+        File=request.files['File']
+        if File and allowed_file(File.filename):
+            filename = secure_filename(File.filename)
+            filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename) 
+            filepath = secure_filename(filepath)
+            File.save(filepath)
+            fm = read_fm_file(filepath)
+            os.remove(filepath)
+        cur.execute("INSERT INTO Repository (Name,Author,Owner,Ref,Year,Domain,Version,Languagelevel,Rating,File,Id,Description,Organization) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)",(Name,Author,Owner,Ref,Year,Domain,Version,Languagelevel,Rating,fm,Id,Description,Organization))
+        cur.execute("SELECT * FROM Repository") 
+        for Name,Author,Owner,Ref,Year,Domain,Version,Languagelevel,Rating,File2,Id,Description,Organization in cur:
+            b=[Name,Author,Owner,Ref,Year,Domain,Version,Languagelevel,Rating,Id,Description,Organization]
+            print(File2)
         a=make_response(json.dumps(b))
         print(b)
         conn.commit()

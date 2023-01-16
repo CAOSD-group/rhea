@@ -50,8 +50,8 @@ export class AppComponent {
   //urlupload="http://127.0.0.1:5000/uploadFM"  
   //urlrefactor="http://127.0.0.1:5000/refactor" 
   //urlupdate="http://127.0.0.1:5000/updateFM" 
-  //urlcur="http://127.0.0.1:5000/getCur" 
-  //urlinsertcur="http://127.0.0.1:5000/insertIntoRepository" 
+  urlcur="http://127.0.0.1:5000/getCur" 
+  urlinsertcur="http://127.0.0.1:5000/insertIntoRepository" 
 
  // FOR DEVELOPER: for any new url the backend get , it must be update in the apache2 file for the web to work in de sites-available domain.conf, then restart apache, and the frontend and backend"
 
@@ -61,8 +61,8 @@ export class AppComponent {
   urlupload="https://rhea.caosd.lcc.uma.es/uploadFM"  
   urlrefactor="https://rhea.caosd.lcc.uma.es/refactor" 
   urlupdate="https://rhea.caosd.lcc.uma.es/updateFM" 
-  urlcur="https://rhea.caosd.lcc.uma.es/getCur" 
-  urlinsertcur="https://rhea.caosd.lcc.uma.es/insertIntoRepository" 
+  //urlcur="https://rhea.caosd.lcc.uma.es/getCur" 
+  //urlinsertcur="https://rhea.caosd.lcc.uma.es/insertIntoRepository" 
   
   declare actual:FMTree     
   declare actualfather:FMTree 
@@ -158,8 +158,10 @@ export class AppComponent {
   Domain=""
   Version=""
   Language_level=""
-  File=""
+  declare Filerepo:File
   Rating=""
+  Description=""
+  Organization=""
 
 
 constructor(private http: HttpClient,private _snackBar: MatSnackBar ) { }  
@@ -169,8 +171,17 @@ constructor(private http: HttpClient,private _snackBar: MatSnackBar ) { }
 ngOnInit() {
 this.getDocumentName()
 }
+SelectFilerepo($event){
+  this.Filerepo=$event.target.files[0];
+  var myReader: FileReader = new FileReader();
+  myReader.readAsText(this.Filerepo);
+  myReader.onloadend = function (e) {
+  aux=myReader.result;}
+  console.log(this.Filerepo)
+}
 
 InsertIntoRepo(){
+  if(this.Filerepo!=undefined){
   const formData: FormData = new FormData();
   formData.append('Name', this.Namerepo);
   formData.append('Author', this.Author);
@@ -180,12 +191,14 @@ InsertIntoRepo(){
   formData.append('Domain', this.Domain);
   formData.append('Version', this.Version);
   formData.append('Language_level', this.Language_level);
-  formData.append('File', this.File);
+  formData.append('File', this.Filerepo);
+  formData.append('Id', this.my_session);
   formData.append('Rating', this.Rating);
-  this.http.post(this.urlinsertcur,formData,{withCredentials:true,responseType:'text'}).subscribe(resultado=>{
-    console.log(resultado)
-  })
-}
+  formData.append('Description', this.Description);
+  formData.append('Organization', this.Organization);
+
+  this.http.post(this.urlinsertcur,formData,{withCredentials:true,responseType:'text'}).subscribe(resultado=>{console.log(resultado)})
+}}
 
 Movehistory(reundo:number){
   this.loadingmodal=false

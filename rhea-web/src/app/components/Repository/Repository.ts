@@ -13,9 +13,9 @@ let aux:any
     styleUrls: ['../../app.component.css' ]
   })
   export class Repository {
-  urlcur="https://rhea.caosd.lcc.uma.es/getCur" 
-  urlinsertcur="https://rhea.caosd.lcc.uma.es/insertIntoRepository" 
-  //urlcur="http://127.0.0.1:5000/getCur" 
+  //urlcur="https://rhea.caosd.lcc.uma.es/getCur" 
+  //urlinsertcur="https://rhea.caosd.lcc.uma.es/insertIntoRepository" 
+  urlcur="http://127.0.0.1:5000/getCur" 
   //urlinsertcur="http://127.0.0.1:5000/insertIntoRepository" 
 
   selection = new SelectionModel<Data>(true, []);
@@ -62,7 +62,16 @@ let aux:any
         aux=resultado
         console.log(aux)
         aux.forEach(element => {
-          let doc=new Data(element[0],element[1],element[2],element[3],element[4],element[5],element[6],element[7],element[8],element[9],element[10],element[11])
+          let doc=new Data()
+          doc.Name=element[0]||""
+          doc.Author=element[1]||""
+          doc.Owner=element[2]||""
+          doc.Ref=element[3]||""
+          doc.Year=element[4]||0
+          doc.Domain=element[5]||""
+          doc.Version=element[6]||""
+          doc.Language_level=element[7]||""
+          doc.Rating=element[8]||""
           this.data.push(doc)
         });
         }
@@ -71,16 +80,6 @@ let aux:any
 
     Button(){
       this.dataSourcerepo.data=this.data
-    }
-
-    Insertrepository(){
-      const formData: FormData = new FormData();
-      formData.append('file',"hola");
-      if(this.http!=undefined){
-      this.http.post(this.urlinsertcur,formData,{withCredentials:true,responseType:'text'}).subscribe(resultado => {  
-          console.log(resultado)
-          }
-        )}
     }
 
     filter(event: Event) {
