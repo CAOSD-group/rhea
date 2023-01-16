@@ -88,6 +88,8 @@ def insert_repository():
         Owner=request.form['Owner']
         Ref=request.form['Ref']
         Year=request.form['Year']
+        if Year=="":
+            Year=0
         Domain=request.form['Domain']
         Version=request.form['Version']
         Languagelevel=request.form['Language_level']
@@ -96,13 +98,16 @@ def insert_repository():
         Description=request.form['Description']
         Organization =request.form['Organization']
         File=request.files['File']
-        if File and allowed_file(File.filename):
-            filename = secure_filename(File.filename)
-            filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename) 
-            filepath = secure_filename(filepath)
-            File.save(filepath)
-            fm = read_fm_file(filepath)
-            os.remove(filepath)
+        fm=File.read()
+        print(fm)
+        #if File and allowed_file(File.filename):
+        #    filename = secure_filename(File.filename)
+        #    filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename) 
+        #    filepath = secure_filename(filepath)
+        #    File.save(filepath)
+        #    fm = read_fm_file(filepath)
+        #    os.remove(filepath)
+        #print(fm)
         cur.execute("INSERT INTO Repository (Name,Author,Owner,Ref,Year,Domain,Version,Languagelevel,Rating,File,Id,Description,Organization) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)",(Name,Author,Owner,Ref,Year,Domain,Version,Languagelevel,Rating,fm,Id,Description,Organization))
         cur.execute("SELECT * FROM Repository") 
         for Name,Author,Owner,Ref,Year,Domain,Version,Languagelevel,Rating,File2,Id,Description,Organization in cur:

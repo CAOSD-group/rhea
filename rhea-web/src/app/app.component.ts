@@ -50,8 +50,8 @@ export class AppComponent {
   //urlupload="http://127.0.0.1:5000/uploadFM"  
   //urlrefactor="http://127.0.0.1:5000/refactor" 
   //urlupdate="http://127.0.0.1:5000/updateFM" 
-  urlcur="http://127.0.0.1:5000/getCur" 
-  urlinsertcur="http://127.0.0.1:5000/insertIntoRepository" 
+  //urlcur="http://127.0.0.1:5000/getCur" 
+  //urlinsertcur="http://127.0.0.1:5000/insertIntoRepository" 
 
  // FOR DEVELOPER: for any new url the backend get , it must be update in the apache2 file for the web to work in de sites-available domain.conf, then restart apache, and the frontend and backend"
 
@@ -61,8 +61,8 @@ export class AppComponent {
   urlupload="https://rhea.caosd.lcc.uma.es/uploadFM"  
   urlrefactor="https://rhea.caosd.lcc.uma.es/refactor" 
   urlupdate="https://rhea.caosd.lcc.uma.es/updateFM" 
-  //urlcur="https://rhea.caosd.lcc.uma.es/getCur" 
-  //urlinsertcur="https://rhea.caosd.lcc.uma.es/insertIntoRepository" 
+  urlcur="https://rhea.caosd.lcc.uma.es/getCur" 
+  urlinsertcur="https://rhea.caosd.lcc.uma.es/insertIntoRepository" 
   
   declare actual:FMTree     
   declare actualfather:FMTree 
@@ -181,7 +181,7 @@ SelectFilerepo($event){
 }
 
 InsertIntoRepo(){
-  if(this.Filerepo!=undefined){
+
   const formData: FormData = new FormData();
   formData.append('Name', this.Namerepo);
   formData.append('Author', this.Author);
@@ -198,7 +198,7 @@ InsertIntoRepo(){
   formData.append('Organization', this.Organization);
 
   this.http.post(this.urlinsertcur,formData,{withCredentials:true,responseType:'text'}).subscribe(resultado=>{console.log(resultado)})
-}}
+}
 
 Movehistory(reundo:number){
   this.loadingmodal=false
