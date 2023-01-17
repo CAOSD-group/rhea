@@ -69,12 +69,11 @@ def get_Cur():
         cur.execute("SELECT * FROM Repository") 
         a=[]
         for Name,Author,Owner,Ref,Year,Domain,Version,Languagelevel,Rating,File2,Id,Description,Organization in cur:
-            b=[Name,Author,Owner,Ref,Year,Domain,Version,Languagelevel,Rating,Id,Description,Organization ]
+            Id=str(Id)
+            b=[Name,Author,Owner,Ref,Year,Domain,Version,Languagelevel,Rating,Id,Description,Organization]
             a.insert(len(a),b)
-            print(File2)
         a=make_response(json.dumps(a))
         conn.commit()
-        print(a)
         return a
 
 @app.route('/insertIntoRepository', methods=['POST'])
@@ -97,26 +96,30 @@ def insert_repository():
         Id=request.form['Id']
         Description=request.form['Description']
         Organization =request.form['Organization']
-        File=request.files['File']
-        fm=File.read()
-        print(fm)
-        #if File and allowed_file(File.filename):
-        #    filename = secure_filename(File.filename)
-        #    filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename) 
-        #    filepath = secure_filename(filepath)
-        #    File.save(filepath)
-        #    fm = read_fm_file(filepath)
-        #    os.remove(filepath)
-        #print(fm)
-        cur.execute("INSERT INTO Repository (Name,Author,Owner,Ref,Year,Domain,Version,Languagelevel,Rating,File,Id,Description,Organization) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)",(Name,Author,Owner,Ref,Year,Domain,Version,Languagelevel,Rating,fm,Id,Description,Organization))
+        #File=request.files['File']
+        #File=File.read()
+        cur.execute("INSERT INTO Repository (Name,Author,Owner,Ref,Year,Domain,Version,Languagelevel,Rating,Hash,Id,Description,Organization) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)",(Name,Author,Owner,Ref,Year,Domain,Version,Languagelevel,Rating,Id,Id,Description,Organization))
         cur.execute("SELECT * FROM Repository") 
-        for Name,Author,Owner,Ref,Year,Domain,Version,Languagelevel,Rating,File2,Id,Description,Organization in cur:
+        for Name,Author,Owner,Ref,Year,Domain,Version,Languagelevel,Rating,File,Id,Description,Organization in cur:
             b=[Name,Author,Owner,Ref,Year,Domain,Version,Languagelevel,Rating,Id,Description,Organization]
-            print(File2)
         a=make_response(json.dumps(b))
-        print(b)
         conn.commit()
         return a
+
+@app.route('/getFile', methods=['POST'])
+def get_File():
+    if request.method != 'POST':
+        return None
+    else:
+        # Get parameters
+        Id=request.form['Id']
+        Id=int(Id)
+        cur.execute("SELECT File FROM Repository WHERE Id=?",(Id,)) 
+        for File in cur:
+            f=File[0]
+            #fm=read_fm_file(File)
+        print(read_fm_file(f))
+        return "a"
 
 
 
@@ -328,6 +331,6 @@ def download_feature_model():
 
 
 if __name__ == '__main__':
-    # app.debug = True
+    #app.debug = True
     # app.run(host='0.0.0.0', port=5555)
     app.run()

@@ -525,7 +525,7 @@
 </div>
 
 
-<!-- Modal Data-->
+<!-- Modal Selected Data-->
 <div class="modal fade" id="modalData" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
@@ -560,18 +560,21 @@
             <label><label class="modal_repository">Rating: </label>          {{myArticle.Rating}}</label>
             <div></div>
             <label><label class="modal_repository">Format:</label>           {{myArticle.Format}}</label>
+            <div></div>
+            <label><label class="modal_repository">Hash:</label>           {{myArticle.Id}}</label>
           </div>
         </div>
 	    </div>
       <div class="modal-footer">
 	      <button type="button" class="buttonmodal" data-bs-dismiss="modal">Go back</button>
+        <button type="button" class="buttonmodal" data-bs-dismiss="modal" (click)="getFile()" >Get File</button>
 	    </div>
 	  </div>
   </div>
 </div>
 
 
-<!-- Modal Data-->
+<!-- Modal Upload Data-->
 <div class="modal fade" id="modalInsertData" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">

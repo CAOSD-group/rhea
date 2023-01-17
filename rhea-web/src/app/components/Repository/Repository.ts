@@ -72,6 +72,7 @@ let aux:any
           doc.Version=element[6]||""
           doc.Language_level=element[7]||""
           doc.Rating=element[8]||""
+          doc.Id=element[9]
           this.data.push(doc)
         });
         }
@@ -143,6 +144,7 @@ let aux:any
       public nConfigs?: number,
       public Rating?: string,
       public Format?: string,
+      public Id?: string,
   
       ) {}
   }
