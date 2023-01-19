@@ -1,0 +1,177 @@
+features
+	root {abstract}
+		alternative
+			JHipster {abstract, extended__}
+				mandatory
+					Generator {abstract}
+						alternative
+							Server {abstract}
+								alternative
+									MicroserviceApplication 
+									UaaServer 
+							Application {abstract}
+								alternative
+									MicroserviceGateway 
+									Monolithic 
+				mandatory
+					Authentication {abstract}
+						mandatory
+							Uaa 
+				optional
+					SocialLogin 
+				optional
+					Database {abstract}
+						alternative
+							SQL {abstract}
+								optional
+									Hibernate2ndLvlCache {abstract}
+										alternative
+											HazelCast 
+											EhCache 
+								mandatory
+									Development {abstract}
+										alternative
+											H2 {abstract}
+												alternative
+													DiskBased 
+													InMemory 
+											PostgreSQLDev 
+											MariaDBDev 
+											MySql 
+								mandatory
+									Production {abstract}
+										alternative
+											MySQL 
+											MariaDB 
+											PostgreSQL 
+								optional
+									ElasticSearch 
+							Cassandra 
+							MongoDB 
+				optional
+					SpringWebSockets 
+				optional
+					Libsass 
+				optional
+					ClusteredSession 
+				mandatory
+					BackEnd {abstract}
+						alternative
+							Gradle 
+							Maven 
+				optional
+					InternationalizationSupport 
+				optional
+					Docker 
+				mandatory
+					TestingFrameworks {abstract}
+						optional
+							Protractor 
+						mandatory
+							Gatling 
+						mandatory
+							Cucumber 
+				mandatory
+					OR {abstract}
+						or
+							OAuth2_1 {abstract}
+							SocialLogin_1 {abstract}
+							MicroserviceApplication_1 {abstract}
+							SQL_1 {abstract}
+							MongoDB_1 {abstract}
+			JHipster1 {abstract, extended__}
+				mandatory
+					Generator1 {abstract}
+						alternative
+							Server1 {abstract}
+								mandatory
+									MicroserviceApplication1 
+							Application1 {abstract}
+								alternative
+									MicroserviceGateway1 
+									Monolithic1 
+				mandatory
+					Authentication1 {abstract}
+						alternative
+							HTTPSession 
+							OAuth2 
+							JWT 
+				optional
+					SocialLogin1 
+				optional
+					Database1 {abstract}
+						alternative
+							SQL1 {abstract}
+								optional
+									Hibernate2ndLvlCache1 {abstract}
+										alternative
+											HazelCast1 
+											EhCache1 
+								mandatory
+									Development1 {abstract}
+										alternative
+											H21 {abstract}
+												alternative
+													DiskBased1 
+													InMemory1 
+											PostgreSQLDev1 
+											MariaDBDev1 
+											MySql1 
+								mandatory
+									Production1 {abstract}
+										alternative
+											MySQL1 
+											MariaDB1 
+											PostgreSQL1 
+								optional
+									ElasticSearch1 
+							Cassandra1 
+							MongoDB1 
+				optional
+					SpringWebSockets1 
+				optional
+					Libsass1 
+				optional
+					ClusteredSession1 
+				mandatory
+					BackEnd1 {abstract}
+						alternative
+							Gradle1 
+							Maven1 
+				optional
+					InternationalizationSupport1 
+				optional
+					Docker1 
+				mandatory
+					TestingFrameworks1 {abstract}
+						optional
+							Protractor1 
+						mandatory
+							Gatling1 
+						mandatory
+							Cucumber1 
+				mandatory
+					OR1 {abstract}
+						or
+							OAuth2_11 {abstract}
+							SocialLogin_11 {abstract}
+							MicroserviceApplication_11 {abstract}
+							SQL_11 {abstract}
+							MongoDB_11 {abstract}
+constraints
+	SocialLogin => (((HTTPSession | JWT) & Monolithic) & (SQL | MongoDB))
+	((!OAuth2 & !SocialLogin) & !MicroserviceApplication) => ((SQL | MongoDB) | Cassandra)
+	Server => !Protractor
+	!Server => Protractor
+	MySQL => (H2 | MySql)
+	(MicroserviceApplication | MicroserviceGateway) => (JWT | Uaa)
+	Monolithic => ((JWT | HTTPSession) | OAuth2)
+	MariaDB => (H2 | MariaDBDev)
+	PostgreSQL => (H2 | PostgreSQLDev)
+	(SpringWebSockets | ClusteredSession) => Application
+	Libsass => Application
+	OAuth2_1 excludes OAuth2
+	SocialLogin_1 requires SocialLogin
+	MicroserviceApplication_1 requires MicroserviceApplication
+	SQL_1 requires SQL
+	MongoDB_1 requires MongoDB

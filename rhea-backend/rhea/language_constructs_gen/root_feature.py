@@ -1,6 +1,6 @@
-from rhea import LanguageConstruct 
+from rhea.language_constructs_gen import LanguageConstruct 
 
-from famapy.metamodels.fm_metamodel.models import FeatureModel, Feature
+from flamapy.metamodels.fm_metamodel.models import FeatureModel, Feature
 
 
 class RootFeature(LanguageConstruct):
@@ -29,7 +29,7 @@ class RootFeature(LanguageConstruct):
         return fm is not None and fm.root is None
 
     @staticmethod
-    def get_applicable_instances(fm: FeatureModel, features_names: list[str]) -> list['LanguageConstruct']:
+    def get_applicable_instances(fm: FeatureModel, features_names: list[str] = []) -> list['LanguageConstruct']:
         lcs = []
         for f_name in features_names:
             lc = RootFeature(f_name)

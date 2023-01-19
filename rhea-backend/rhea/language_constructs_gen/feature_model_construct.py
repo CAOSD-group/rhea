@@ -1,6 +1,6 @@
-from rhea import LanguageConstruct 
+from rhea.language_constructs_gen import LanguageConstruct 
 
-from famapy.metamodels.fm_metamodel.models import FeatureModel, Feature
+from flamapy.metamodels.fm_metamodel.models import FeatureModel
 
 
 class FeatureModelConstruct(LanguageConstruct):
@@ -28,6 +28,6 @@ class FeatureModelConstruct(LanguageConstruct):
         return fm is None
 
     @staticmethod
-    def get_applicable_instances(fm: FeatureModel, features_names: list[str]) -> list['LanguageConstruct']:
+    def get_applicable_instances(fm: FeatureModel, features_names: list[str] = []) -> list['LanguageConstruct']:
         lc = FeatureModelConstruct()
         return [lc] if lc.is_applicable(fm) else []

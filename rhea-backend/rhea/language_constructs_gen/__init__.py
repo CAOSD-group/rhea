@@ -7,6 +7,8 @@ from .xor_group import XorGroup
 from .or_group import OrGroup
 from .xor_child_feature import XorChildFeature
 from .or_child_feature import OrChildFeature
+from .requires_constraint import RequiresConstraint
+from .excludes_constraint import ExcludesConstraint
 
 
 __all__ = ['LanguageConstruct',
@@ -17,4 +19,6 @@ __all__ = ['LanguageConstruct',
            'XorGroup',
            'OrGroup',
            'XorChildFeature',
-           'OrChildFeature']
+           'OrChildFeature',
+           'RequiresConstraint',
+           'ExcludesConstraint']

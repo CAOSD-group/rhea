@@ -64,6 +64,7 @@ def is_complex_constraint(constraint: Constraint) -> bool:
 
 
 def is_requires_constraint(constraint: Constraint) -> bool:
+    """Return true if the constraint is a requires constraint."""
     root_op = constraint.ast.root
     if root_op.is_binary_op():
         if root_op.data in [ASTOperation.REQUIRES, ASTOperation.IMPLIES]:
@@ -76,6 +77,7 @@ def is_requires_constraint(constraint: Constraint) -> bool:
 
 
 def is_excludes_constraint(constraint: Constraint) -> bool:
+    """Return true if the constraint is an excludes constraint."""
     root_op = constraint.ast.root
     if root_op.is_binary_op():
         if root_op.data in [ASTOperation.EXCLUDES, ASTOperation.XOR]:

@@ -1,0 +1,3339 @@
+features
+	root5 {abstract}
+		alternative
+			root4 {abstract}
+				alternative
+					root3 {abstract}
+						alternative
+							root2 {abstract}
+								alternative
+									root1 {abstract}
+										alternative
+											root {abstract}
+												alternative
+													JHipster {abstract, extended__}
+														mandatory
+															Generator {abstract}
+																mandatory
+																	Application {abstract}
+																		alternative
+																			MicroserviceGateway 
+																			Monolithic 
+														mandatory
+															Authentication {abstract}
+																mandatory
+																	Uaa 
+														mandatory
+															SocialLogin 
+														mandatory
+															Database {abstract}
+																mandatory
+																	SQL {abstract}
+																		optional
+																			Hibernate2ndLvlCache {abstract}
+																				alternative
+																					HazelCast 
+																					EhCache 
+																		mandatory
+																			Development {abstract}
+																				alternative
+																					H2 {abstract}
+																						alternative
+																							DiskBased 
+																							InMemory 
+																					PostgreSQLDev 
+																					MariaDBDev 
+																					MySql 
+																		mandatory
+																			Production {abstract}
+																				alternative
+																					MySQL 
+																					MariaDB 
+																					PostgreSQL 
+																		optional
+																			ElasticSearch 
+														optional
+															SpringWebSockets 
+														optional
+															Libsass 
+														optional
+															ClusteredSession 
+														mandatory
+															BackEnd {abstract}
+																alternative
+																	Gradle 
+																	Maven 
+														optional
+															InternationalizationSupport 
+														optional
+															Docker 
+														mandatory
+															TestingFrameworks {abstract}
+																optional
+																	Protractor 
+																mandatory
+																	Gatling 
+																mandatory
+																	Cucumber 
+														mandatory
+															OR {abstract}
+																or
+																	OAuth2_1 {abstract}
+																	SocialLogin_1 {abstract}
+																	MicroserviceApplication_1 {abstract}
+																	SQL_1 {abstract}
+																	MongoDB_1 {abstract}
+													JHipster1 {abstract, extended__}
+														mandatory
+															Generator1 {abstract}
+																mandatory
+																	Application1 {abstract}
+																		alternative
+																			MicroserviceGateway1 
+																			Monolithic1 
+														mandatory
+															Authentication1 {abstract}
+																alternative
+																	HTTPSession 
+																	OAuth2 
+																	JWT 
+														mandatory
+															SocialLogin1 
+														mandatory
+															Database1 {abstract}
+																mandatory
+																	SQL1 {abstract}
+																		optional
+																			Hibernate2ndLvlCache1 {abstract}
+																				alternative
+																					HazelCast1 
+																					EhCache1 
+																		mandatory
+																			Development1 {abstract}
+																				alternative
+																					H21 {abstract}
+																						alternative
+																							DiskBased1 
+																							InMemory1 
+																					PostgreSQLDev1 
+																					MariaDBDev1 
+																					MySql1 
+																		mandatory
+																			Production1 {abstract}
+																				alternative
+																					MySQL1 
+																					MariaDB1 
+																					PostgreSQL1 
+																		optional
+																			ElasticSearch1 
+														optional
+															SpringWebSockets1 
+														optional
+															Libsass1 
+														optional
+															ClusteredSession1 
+														mandatory
+															BackEnd1 {abstract}
+																alternative
+																	Gradle1 
+																	Maven1 
+														optional
+															InternationalizationSupport1 
+														optional
+															Docker1 
+														mandatory
+															TestingFrameworks1 {abstract}
+																optional
+																	Protractor1 
+																mandatory
+																	Gatling1 
+																mandatory
+																	Cucumber1 
+														mandatory
+															OR1 {abstract}
+																or
+																	OAuth2_11 {abstract}
+																	SocialLogin_11 {abstract}
+																	MicroserviceApplication_11 {abstract}
+																	SQL_11 {abstract}
+																	MongoDB_11 {abstract}
+											root6 {abstract}
+												alternative
+													JHipster2 {abstract, extended__}
+														mandatory
+															Generator2 {abstract}
+																mandatory
+																	Server {abstract}
+																		mandatory
+																			MicroserviceApplication 
+														mandatory
+															Authentication2 {abstract}
+																mandatory
+																	Uaa1 
+														mandatory
+															SocialLogin2 
+														mandatory
+															Database2 {abstract}
+																mandatory
+																	SQL2 {abstract}
+																		optional
+																			Hibernate2ndLvlCache2 {abstract}
+																				alternative
+																					HazelCast2 
+																					EhCache2 
+																		mandatory
+																			Development2 {abstract}
+																				alternative
+																					H22 {abstract}
+																						alternative
+																							DiskBased2 
+																							InMemory2 
+																					PostgreSQLDev2 
+																					MariaDBDev2 
+																					MySql2 
+																		mandatory
+																			Production2 {abstract}
+																				alternative
+																					MySQL2 
+																					MariaDB2 
+																					PostgreSQL2 
+																		optional
+																			ElasticSearch2 
+														optional
+															SpringWebSockets2 
+														optional
+															ClusteredSession2 
+														mandatory
+															BackEnd2 {abstract}
+																alternative
+																	Gradle2 
+																	Maven2 
+														optional
+															InternationalizationSupport2 
+														optional
+															Docker2 
+														mandatory
+															TestingFrameworks2 {abstract}
+																optional
+																	Protractor2 
+																mandatory
+																	Gatling2 
+																mandatory
+																	Cucumber2 
+														mandatory
+															OR2 {abstract}
+																or
+																	OAuth2_12 {abstract}
+																	SocialLogin_12 {abstract}
+																	MicroserviceApplication_12 {abstract}
+																	SQL_12 {abstract}
+																	MongoDB_12 {abstract}
+													JHipster3 {abstract, extended__}
+														mandatory
+															Generator3 {abstract}
+																mandatory
+																	Server1 {abstract}
+																		mandatory
+																			MicroserviceApplication1 
+														mandatory
+															Authentication3 {abstract}
+																alternative
+																	HTTPSession1 
+																	OAuth21 
+																	JWT1 
+														mandatory
+															SocialLogin3 
+														mandatory
+															Database3 {abstract}
+																mandatory
+																	SQL3 {abstract}
+																		optional
+																			Hibernate2ndLvlCache3 {abstract}
+																				alternative
+																					HazelCast3 
+																					EhCache3 
+																		mandatory
+																			Development3 {abstract}
+																				alternative
+																					H23 {abstract}
+																						alternative
+																							DiskBased3 
+																							InMemory3 
+																					PostgreSQLDev3 
+																					MariaDBDev3 
+																					MySql3 
+																		mandatory
+																			Production3 {abstract}
+																				alternative
+																					MySQL3 
+																					MariaDB3 
+																					PostgreSQL3 
+																		optional
+																			ElasticSearch3 
+														optional
+															SpringWebSockets3 
+														optional
+															ClusteredSession3 
+														mandatory
+															BackEnd3 {abstract}
+																alternative
+																	Gradle3 
+																	Maven3 
+														optional
+															InternationalizationSupport3 
+														optional
+															Docker3 
+														mandatory
+															TestingFrameworks3 {abstract}
+																optional
+																	Protractor3 
+																mandatory
+																	Gatling3 
+																mandatory
+																	Cucumber3 
+														mandatory
+															OR3 {abstract}
+																or
+																	OAuth2_13 {abstract}
+																	SocialLogin_13 {abstract}
+																	MicroserviceApplication_13 {abstract}
+																	SQL_13 {abstract}
+																	MongoDB_13 {abstract}
+									root11 {abstract}
+										alternative
+											root7 {abstract}
+												alternative
+													JHipster4 {abstract, extended__}
+														mandatory
+															Generator4 {abstract}
+																mandatory
+																	Application2 {abstract}
+																		alternative
+																			MicroserviceGateway2 
+																			Monolithic2 
+														mandatory
+															Authentication4 {abstract}
+																mandatory
+																	Uaa2 
+														mandatory
+															Database4 {abstract}
+																mandatory
+																	SQL4 {abstract}
+																		optional
+																			Hibernate2ndLvlCache4 {abstract}
+																				alternative
+																					HazelCast4 
+																					EhCache4 
+																		mandatory
+																			Development4 {abstract}
+																				alternative
+																					H24 {abstract}
+																						alternative
+																							DiskBased4 
+																							InMemory4 
+																					PostgreSQLDev4 
+																					MariaDBDev4 
+																					MySql4 
+																		mandatory
+																			Production4 {abstract}
+																				alternative
+																					MySQL4 
+																					MariaDB4 
+																					PostgreSQL4 
+																		optional
+																			ElasticSearch4 
+														optional
+															SpringWebSockets4 
+														optional
+															Libsass2 
+														optional
+															ClusteredSession4 
+														mandatory
+															BackEnd4 {abstract}
+																alternative
+																	Gradle4 
+																	Maven4 
+														optional
+															InternationalizationSupport4 
+														optional
+															Docker4 
+														mandatory
+															TestingFrameworks4 {abstract}
+																optional
+																	Protractor4 
+																mandatory
+																	Gatling4 
+																mandatory
+																	Cucumber4 
+														mandatory
+															OR4 {abstract}
+																or
+																	OAuth2_14 {abstract}
+																	MicroserviceApplication_14 {abstract}
+																	SQL_14 {abstract}
+																	MongoDB_14 {abstract}
+													JHipster5 {abstract, extended__}
+														mandatory
+															Generator5 {abstract}
+																mandatory
+																	Application3 {abstract}
+																		alternative
+																			MicroserviceGateway3 
+																			Monolithic3 
+														mandatory
+															Authentication5 {abstract}
+																alternative
+																	HTTPSession2 
+																	OAuth22 
+																	JWT2 
+														mandatory
+															Database5 {abstract}
+																mandatory
+																	SQL5 {abstract}
+																		optional
+																			Hibernate2ndLvlCache5 {abstract}
+																				alternative
+																					HazelCast5 
+																					EhCache5 
+																		mandatory
+																			Development5 {abstract}
+																				alternative
+																					H25 {abstract}
+																						alternative
+																							DiskBased5 
+																							InMemory5 
+																					PostgreSQLDev5 
+																					MariaDBDev5 
+																					MySql5 
+																		mandatory
+																			Production5 {abstract}
+																				alternative
+																					MySQL5 
+																					MariaDB5 
+																					PostgreSQL5 
+																		optional
+																			ElasticSearch5 
+														optional
+															SpringWebSockets5 
+														optional
+															Libsass3 
+														optional
+															ClusteredSession5 
+														mandatory
+															BackEnd5 {abstract}
+																alternative
+																	Gradle5 
+																	Maven5 
+														optional
+															InternationalizationSupport5 
+														optional
+															Docker5 
+														mandatory
+															TestingFrameworks5 {abstract}
+																optional
+																	Protractor5 
+																mandatory
+																	Gatling5 
+																mandatory
+																	Cucumber5 
+														mandatory
+															OR5 {abstract}
+																or
+																	OAuth2_15 {abstract}
+																	MicroserviceApplication_15 {abstract}
+																	SQL_15 {abstract}
+																	MongoDB_15 {abstract}
+											root8 {abstract}
+												alternative
+													JHipster6 {abstract, extended__}
+														mandatory
+															Generator6 {abstract}
+																mandatory
+																	Server2 {abstract}
+																		mandatory
+																			MicroserviceApplication2 
+														mandatory
+															Authentication6 {abstract}
+																mandatory
+																	Uaa3 
+														mandatory
+															Database6 {abstract}
+																mandatory
+																	SQL6 {abstract}
+																		optional
+																			Hibernate2ndLvlCache6 {abstract}
+																				alternative
+																					HazelCast6 
+																					EhCache6 
+																		mandatory
+																			Development6 {abstract}
+																				alternative
+																					H26 {abstract}
+																						alternative
+																							DiskBased6 
+																							InMemory6 
+																					PostgreSQLDev6 
+																					MariaDBDev6 
+																					MySql6 
+																		mandatory
+																			Production6 {abstract}
+																				alternative
+																					MySQL6 
+																					MariaDB6 
+																					PostgreSQL6 
+																		optional
+																			ElasticSearch6 
+														optional
+															SpringWebSockets6 
+														optional
+															ClusteredSession6 
+														mandatory
+															BackEnd6 {abstract}
+																alternative
+																	Gradle6 
+																	Maven6 
+														optional
+															InternationalizationSupport6 
+														optional
+															Docker6 
+														mandatory
+															TestingFrameworks6 {abstract}
+																optional
+																	Protractor6 
+																mandatory
+																	Gatling6 
+																mandatory
+																	Cucumber6 
+														mandatory
+															OR6 {abstract}
+																or
+																	OAuth2_16 {abstract}
+																	MicroserviceApplication_16 {abstract}
+																	SQL_16 {abstract}
+																	MongoDB_16 {abstract}
+													JHipster7 {abstract, extended__}
+														mandatory
+															Generator7 {abstract}
+																mandatory
+																	Server3 {abstract}
+																		mandatory
+																			MicroserviceApplication3 
+														mandatory
+															Authentication7 {abstract}
+																alternative
+																	HTTPSession3 
+																	OAuth23 
+																	JWT3 
+														mandatory
+															Database7 {abstract}
+																mandatory
+																	SQL7 {abstract}
+																		optional
+																			Hibernate2ndLvlCache7 {abstract}
+																				alternative
+																					HazelCast7 
+																					EhCache7 
+																		mandatory
+																			Development7 {abstract}
+																				alternative
+																					H27 {abstract}
+																						alternative
+																							DiskBased7 
+																							InMemory7 
+																					PostgreSQLDev7 
+																					MariaDBDev7 
+																					MySql7 
+																		mandatory
+																			Production7 {abstract}
+																				alternative
+																					MySQL7 
+																					MariaDB7 
+																					PostgreSQL7 
+																		optional
+																			ElasticSearch7 
+														optional
+															SpringWebSockets7 
+														optional
+															ClusteredSession7 
+														mandatory
+															BackEnd7 {abstract}
+																alternative
+																	Gradle7 
+																	Maven7 
+														optional
+															InternationalizationSupport7 
+														optional
+															Docker7 
+														mandatory
+															TestingFrameworks7 {abstract}
+																optional
+																	Protractor7 
+																mandatory
+																	Gatling7 
+																mandatory
+																	Cucumber7 
+														mandatory
+															OR7 {abstract}
+																or
+																	OAuth2_17 {abstract}
+																	MicroserviceApplication_17 {abstract}
+																	SQL_17 {abstract}
+																	MongoDB_17 {abstract}
+							root21 {abstract}
+								alternative
+									root12 {abstract}
+										alternative
+											root9 {abstract}
+												alternative
+													JHipster8 {abstract, extended__}
+														mandatory
+															Generator8 {abstract}
+																mandatory
+																	Application4 {abstract}
+																		alternative
+																			MicroserviceGateway4 
+																			Monolithic4 
+														mandatory
+															Authentication8 {abstract}
+																mandatory
+																	Uaa4 
+														mandatory
+															SocialLogin4 
+														mandatory
+															Database8 {abstract}
+																mandatory
+																	SQL8 {abstract}
+																		optional
+																			Hibernate2ndLvlCache8 {abstract}
+																				alternative
+																					HazelCast8 
+																					EhCache8 
+																		mandatory
+																			Development8 {abstract}
+																				alternative
+																					H28 {abstract}
+																						alternative
+																							DiskBased8 
+																							InMemory8 
+																					PostgreSQLDev8 
+																					MariaDBDev8 
+																					MySql8 
+																		mandatory
+																			Production8 {abstract}
+																				alternative
+																					MySQL8 
+																					MariaDB8 
+																					PostgreSQL8 
+																		optional
+																			ElasticSearch8 
+														optional
+															SpringWebSockets8 
+														optional
+															Libsass4 
+														optional
+															ClusteredSession8 
+														mandatory
+															BackEnd8 {abstract}
+																alternative
+																	Gradle8 
+																	Maven8 
+														optional
+															InternationalizationSupport8 
+														optional
+															Docker8 
+														mandatory
+															TestingFrameworks8 {abstract}
+																optional
+																	Protractor8 
+																mandatory
+																	Gatling8 
+																mandatory
+																	Cucumber8 
+														mandatory
+															OR8 {abstract}
+																or
+																	OAuth2_18 {abstract}
+																	SocialLogin_14 {abstract}
+																	SQL_18 {abstract}
+																	MongoDB_18 {abstract}
+													JHipster9 {abstract, extended__}
+														mandatory
+															Generator9 {abstract}
+																mandatory
+																	Application5 {abstract}
+																		alternative
+																			MicroserviceGateway5 
+																			Monolithic5 
+														mandatory
+															Authentication9 {abstract}
+																alternative
+																	HTTPSession4 
+																	OAuth24 
+																	JWT4 
+														mandatory
+															SocialLogin5 
+														mandatory
+															Database9 {abstract}
+																mandatory
+																	SQL9 {abstract}
+																		optional
+																			Hibernate2ndLvlCache9 {abstract}
+																				alternative
+																					HazelCast9 
+																					EhCache9 
+																		mandatory
+																			Development9 {abstract}
+																				alternative
+																					H29 {abstract}
+																						alternative
+																							DiskBased9 
+																							InMemory9 
+																					PostgreSQLDev9 
+																					MariaDBDev9 
+																					MySql9 
+																		mandatory
+																			Production9 {abstract}
+																				alternative
+																					MySQL9 
+																					MariaDB9 
+																					PostgreSQL9 
+																		optional
+																			ElasticSearch9 
+														optional
+															SpringWebSockets9 
+														optional
+															Libsass5 
+														optional
+															ClusteredSession9 
+														mandatory
+															BackEnd9 {abstract}
+																alternative
+																	Gradle9 
+																	Maven9 
+														optional
+															InternationalizationSupport9 
+														optional
+															Docker9 
+														mandatory
+															TestingFrameworks9 {abstract}
+																optional
+																	Protractor9 
+																mandatory
+																	Gatling9 
+																mandatory
+																	Cucumber9 
+														mandatory
+															OR9 {abstract}
+																or
+																	OAuth2_19 {abstract}
+																	SocialLogin_15 {abstract}
+																	SQL_19 {abstract}
+																	MongoDB_19 {abstract}
+											root10 {abstract}
+												mandatory
+													JHipster10 {abstract, extended__}
+														mandatory
+															Generator10 {abstract}
+																mandatory
+																	Server4 {abstract}
+																		mandatory
+																			UaaServer 
+														mandatory
+															Authentication10 {abstract}
+																mandatory
+																	Uaa5 
+														mandatory
+															SocialLogin6 
+														mandatory
+															Database10 {abstract}
+																mandatory
+																	SQL10 {abstract}
+																		optional
+																			Hibernate2ndLvlCache10 {abstract}
+																				alternative
+																					HazelCast10 
+																					EhCache10 
+																		mandatory
+																			Development10 {abstract}
+																				alternative
+																					H210 {abstract}
+																						alternative
+																							DiskBased10 
+																							InMemory10 
+																					PostgreSQLDev10 
+																					MariaDBDev10 
+																					MySql10 
+																		mandatory
+																			Production10 {abstract}
+																				alternative
+																					MySQL10 
+																					MariaDB10 
+																					PostgreSQL10 
+																		optional
+																			ElasticSearch10 
+														optional
+															SpringWebSockets10 
+														optional
+															ClusteredSession10 
+														mandatory
+															BackEnd10 {abstract}
+																alternative
+																	Gradle10 
+																	Maven10 
+														optional
+															InternationalizationSupport10 
+														optional
+															Docker10 
+														mandatory
+															TestingFrameworks10 {abstract}
+																optional
+																	Protractor10 
+																mandatory
+																	Gatling10 
+																mandatory
+																	Cucumber10 
+														mandatory
+															OR10 {abstract}
+																or
+																	OAuth2_110 {abstract}
+																	SocialLogin_16 {abstract}
+																	SQL_110 {abstract}
+																	MongoDB_110 {abstract}
+									root13 {abstract}
+										alternative
+											root14 {abstract}
+												alternative
+													JHipster11 {abstract, extended__}
+														mandatory
+															Generator11 {abstract}
+																mandatory
+																	Application6 {abstract}
+																		alternative
+																			MicroserviceGateway6 
+																			Monolithic6 
+														mandatory
+															Authentication11 {abstract}
+																mandatory
+																	Uaa6 
+														mandatory
+															Database11 {abstract}
+																mandatory
+																	SQL11 {abstract}
+																		optional
+																			Hibernate2ndLvlCache11 {abstract}
+																				alternative
+																					HazelCast11 
+																					EhCache11 
+																		mandatory
+																			Development11 {abstract}
+																				alternative
+																					H211 {abstract}
+																						alternative
+																							DiskBased11 
+																							InMemory11 
+																					PostgreSQLDev11 
+																					MariaDBDev11 
+																					MySql11 
+																		mandatory
+																			Production11 {abstract}
+																				alternative
+																					MySQL11 
+																					MariaDB11 
+																					PostgreSQL11 
+																		optional
+																			ElasticSearch11 
+														optional
+															SpringWebSockets11 
+														optional
+															Libsass6 
+														optional
+															ClusteredSession11 
+														mandatory
+															BackEnd11 {abstract}
+																alternative
+																	Gradle11 
+																	Maven11 
+														optional
+															InternationalizationSupport11 
+														optional
+															Docker11 
+														mandatory
+															TestingFrameworks11 {abstract}
+																optional
+																	Protractor11 
+																mandatory
+																	Gatling11 
+																mandatory
+																	Cucumber11 
+														mandatory
+															OR11 {abstract}
+																or
+																	OAuth2_111 {abstract}
+																	SQL_111 {abstract}
+																	MongoDB_111 {abstract}
+													JHipster12 {abstract, extended__}
+														mandatory
+															Generator12 {abstract}
+																mandatory
+																	Application7 {abstract}
+																		alternative
+																			MicroserviceGateway7 
+																			Monolithic7 
+														mandatory
+															Authentication12 {abstract}
+																alternative
+																	HTTPSession5 
+																	OAuth25 
+																	JWT5 
+														mandatory
+															Database12 {abstract}
+																mandatory
+																	SQL12 {abstract}
+																		optional
+																			Hibernate2ndLvlCache12 {abstract}
+																				alternative
+																					HazelCast12 
+																					EhCache12 
+																		mandatory
+																			Development12 {abstract}
+																				alternative
+																					H212 {abstract}
+																						alternative
+																							DiskBased12 
+																							InMemory12 
+																					PostgreSQLDev12 
+																					MariaDBDev12 
+																					MySql12 
+																		mandatory
+																			Production12 {abstract}
+																				alternative
+																					MySQL12 
+																					MariaDB12 
+																					PostgreSQL12 
+																		optional
+																			ElasticSearch12 
+														optional
+															SpringWebSockets12 
+														optional
+															Libsass7 
+														optional
+															ClusteredSession12 
+														mandatory
+															BackEnd12 {abstract}
+																alternative
+																	Gradle12 
+																	Maven12 
+														optional
+															InternationalizationSupport12 
+														optional
+															Docker12 
+														mandatory
+															TestingFrameworks12 {abstract}
+																optional
+																	Protractor12 
+																mandatory
+																	Gatling12 
+																mandatory
+																	Cucumber12 
+														mandatory
+															OR12 {abstract}
+																or
+																	OAuth2_112 {abstract}
+																	SQL_112 {abstract}
+																	MongoDB_112 {abstract}
+											root15 {abstract}
+												mandatory
+													JHipster13 {abstract, extended__}
+														mandatory
+															Generator13 {abstract}
+																mandatory
+																	Server5 {abstract}
+																		mandatory
+																			UaaServer1 
+														mandatory
+															Authentication13 {abstract}
+																mandatory
+																	Uaa7 
+														mandatory
+															Database13 {abstract}
+																mandatory
+																	SQL13 {abstract}
+																		optional
+																			Hibernate2ndLvlCache13 {abstract}
+																				alternative
+																					HazelCast13 
+																					EhCache13 
+																		mandatory
+																			Development13 {abstract}
+																				alternative
+																					H213 {abstract}
+																						alternative
+																							DiskBased13 
+																							InMemory13 
+																					PostgreSQLDev13 
+																					MariaDBDev13 
+																					MySql13 
+																		mandatory
+																			Production13 {abstract}
+																				alternative
+																					MySQL13 
+																					MariaDB13 
+																					PostgreSQL13 
+																		optional
+																			ElasticSearch13 
+														optional
+															SpringWebSockets13 
+														optional
+															ClusteredSession13 
+														mandatory
+															BackEnd13 {abstract}
+																alternative
+																	Gradle13 
+																	Maven13 
+														optional
+															InternationalizationSupport13 
+														optional
+															Docker13 
+														mandatory
+															TestingFrameworks13 {abstract}
+																optional
+																	Protractor13 
+																mandatory
+																	Gatling13 
+																mandatory
+																	Cucumber13 
+														mandatory
+															OR13 {abstract}
+																or
+																	OAuth2_113 {abstract}
+																	SQL_113 {abstract}
+																	MongoDB_113 {abstract}
+					root31 {abstract}
+						alternative
+							root22 {abstract}
+								alternative
+									root16 {abstract}
+										alternative
+											root18 {abstract}
+												alternative
+													JHipster14 {abstract, extended__}
+														mandatory
+															Generator14 {abstract}
+																mandatory
+																	Application8 {abstract}
+																		alternative
+																			MicroserviceGateway8 
+																			Monolithic8 
+														mandatory
+															Authentication14 {abstract}
+																mandatory
+																	Uaa8 
+														mandatory
+															SocialLogin7 
+														mandatory
+															Database14 {abstract}
+																mandatory
+																	MongoDB 
+														optional
+															SpringWebSockets14 
+														optional
+															Libsass8 
+														optional
+															ClusteredSession14 
+														mandatory
+															BackEnd14 {abstract}
+																alternative
+																	Gradle14 
+																	Maven14 
+														optional
+															InternationalizationSupport14 
+														optional
+															Docker14 
+														mandatory
+															TestingFrameworks14 {abstract}
+																optional
+																	Protractor14 
+																mandatory
+																	Gatling14 
+																mandatory
+																	Cucumber14 
+														mandatory
+															OR14 {abstract}
+																or
+																	OAuth2_114 {abstract}
+																	SocialLogin_17 {abstract}
+																	MicroserviceApplication_18 {abstract}
+																	MongoDB_114 {abstract}
+													JHipster15 {abstract, extended__}
+														mandatory
+															Generator15 {abstract}
+																mandatory
+																	Application9 {abstract}
+																		alternative
+																			MicroserviceGateway9 
+																			Monolithic9 
+														mandatory
+															Authentication15 {abstract}
+																alternative
+																	HTTPSession6 
+																	OAuth26 
+																	JWT6 
+														mandatory
+															SocialLogin8 
+														mandatory
+															Database15 {abstract}
+																mandatory
+																	MongoDB1 
+														optional
+															SpringWebSockets15 
+														optional
+															Libsass9 
+														optional
+															ClusteredSession15 
+														mandatory
+															BackEnd15 {abstract}
+																alternative
+																	Gradle15 
+																	Maven15 
+														optional
+															InternationalizationSupport15 
+														optional
+															Docker15 
+														mandatory
+															TestingFrameworks15 {abstract}
+																optional
+																	Protractor15 
+																mandatory
+																	Gatling15 
+																mandatory
+																	Cucumber15 
+														mandatory
+															OR15 {abstract}
+																or
+																	OAuth2_115 {abstract}
+																	SocialLogin_18 {abstract}
+																	MicroserviceApplication_19 {abstract}
+																	MongoDB_115 {abstract}
+											root19 {abstract}
+												alternative
+													JHipster16 {abstract, extended__}
+														mandatory
+															Generator16 {abstract}
+																mandatory
+																	Server6 {abstract}
+																		mandatory
+																			MicroserviceApplication4 
+														mandatory
+															Authentication16 {abstract}
+																mandatory
+																	Uaa9 
+														mandatory
+															SocialLogin9 
+														mandatory
+															Database16 {abstract}
+																mandatory
+																	MongoDB2 
+														optional
+															SpringWebSockets16 
+														optional
+															ClusteredSession16 
+														mandatory
+															BackEnd16 {abstract}
+																alternative
+																	Gradle16 
+																	Maven16 
+														optional
+															InternationalizationSupport16 
+														optional
+															Docker16 
+														mandatory
+															TestingFrameworks16 {abstract}
+																optional
+																	Protractor16 
+																mandatory
+																	Gatling16 
+																mandatory
+																	Cucumber16 
+														mandatory
+															OR16 {abstract}
+																or
+																	OAuth2_116 {abstract}
+																	SocialLogin_19 {abstract}
+																	MicroserviceApplication_110 {abstract}
+																	MongoDB_116 {abstract}
+													JHipster17 {abstract, extended__}
+														mandatory
+															Generator17 {abstract}
+																mandatory
+																	Server7 {abstract}
+																		mandatory
+																			MicroserviceApplication5 
+														mandatory
+															Authentication17 {abstract}
+																alternative
+																	HTTPSession7 
+																	OAuth27 
+																	JWT7 
+														mandatory
+															SocialLogin10 
+														mandatory
+															Database17 {abstract}
+																mandatory
+																	MongoDB3 
+														optional
+															SpringWebSockets17 
+														optional
+															ClusteredSession17 
+														mandatory
+															BackEnd17 {abstract}
+																alternative
+																	Gradle17 
+																	Maven17 
+														optional
+															InternationalizationSupport17 
+														optional
+															Docker17 
+														mandatory
+															TestingFrameworks17 {abstract}
+																optional
+																	Protractor17 
+																mandatory
+																	Gatling17 
+																mandatory
+																	Cucumber17 
+														mandatory
+															OR17 {abstract}
+																or
+																	OAuth2_117 {abstract}
+																	SocialLogin_110 {abstract}
+																	MicroserviceApplication_111 {abstract}
+																	MongoDB_117 {abstract}
+									root17 {abstract}
+										alternative
+											root20 {abstract}
+												alternative
+													JHipster18 {abstract, extended__}
+														mandatory
+															Generator18 {abstract}
+																mandatory
+																	Application10 {abstract}
+																		alternative
+																			MicroserviceGateway10 
+																			Monolithic10 
+														mandatory
+															Authentication18 {abstract}
+																mandatory
+																	Uaa10 
+														mandatory
+															Database18 {abstract}
+																mandatory
+																	MongoDB4 
+														optional
+															SpringWebSockets18 
+														optional
+															Libsass10 
+														optional
+															ClusteredSession18 
+														mandatory
+															BackEnd18 {abstract}
+																alternative
+																	Gradle18 
+																	Maven18 
+														optional
+															InternationalizationSupport18 
+														optional
+															Docker18 
+														mandatory
+															TestingFrameworks18 {abstract}
+																optional
+																	Protractor18 
+																mandatory
+																	Gatling18 
+																mandatory
+																	Cucumber18 
+														mandatory
+															OR18 {abstract}
+																or
+																	OAuth2_118 {abstract}
+																	MicroserviceApplication_112 {abstract}
+																	MongoDB_118 {abstract}
+													JHipster19 {abstract, extended__}
+														mandatory
+															Generator19 {abstract}
+																mandatory
+																	Application11 {abstract}
+																		alternative
+																			MicroserviceGateway11 
+																			Monolithic11 
+														mandatory
+															Authentication19 {abstract}
+																alternative
+																	HTTPSession8 
+																	OAuth28 
+																	JWT8 
+														mandatory
+															Database19 {abstract}
+																mandatory
+																	MongoDB5 
+														optional
+															SpringWebSockets19 
+														optional
+															Libsass11 
+														optional
+															ClusteredSession19 
+														mandatory
+															BackEnd19 {abstract}
+																alternative
+																	Gradle19 
+																	Maven19 
+														optional
+															InternationalizationSupport19 
+														optional
+															Docker19 
+														mandatory
+															TestingFrameworks19 {abstract}
+																optional
+																	Protractor19 
+																mandatory
+																	Gatling19 
+																mandatory
+																	Cucumber19 
+														mandatory
+															OR19 {abstract}
+																or
+																	OAuth2_119 {abstract}
+																	MicroserviceApplication_113 {abstract}
+																	MongoDB_119 {abstract}
+											root24 {abstract}
+												alternative
+													JHipster20 {abstract, extended__}
+														mandatory
+															Generator20 {abstract}
+																mandatory
+																	Server8 {abstract}
+																		mandatory
+																			MicroserviceApplication6 
+														mandatory
+															Authentication20 {abstract}
+																mandatory
+																	Uaa11 
+														mandatory
+															Database20 {abstract}
+																mandatory
+																	MongoDB6 
+														optional
+															SpringWebSockets20 
+														optional
+															ClusteredSession20 
+														mandatory
+															BackEnd20 {abstract}
+																alternative
+																	Gradle20 
+																	Maven20 
+														optional
+															InternationalizationSupport20 
+														optional
+															Docker20 
+														mandatory
+															TestingFrameworks20 {abstract}
+																optional
+																	Protractor20 
+																mandatory
+																	Gatling20 
+																mandatory
+																	Cucumber20 
+														mandatory
+															OR20 {abstract}
+																or
+																	OAuth2_120 {abstract}
+																	MicroserviceApplication_114 {abstract}
+																	MongoDB_120 {abstract}
+													JHipster21 {abstract, extended__}
+														mandatory
+															Generator21 {abstract}
+																mandatory
+																	Server9 {abstract}
+																		mandatory
+																			MicroserviceApplication7 
+														mandatory
+															Authentication21 {abstract}
+																alternative
+																	HTTPSession9 
+																	OAuth29 
+																	JWT9 
+														mandatory
+															Database21 {abstract}
+																mandatory
+																	MongoDB7 
+														optional
+															SpringWebSockets21 
+														optional
+															ClusteredSession21 
+														mandatory
+															BackEnd21 {abstract}
+																alternative
+																	Gradle21 
+																	Maven21 
+														optional
+															InternationalizationSupport21 
+														optional
+															Docker21 
+														mandatory
+															TestingFrameworks21 {abstract}
+																optional
+																	Protractor21 
+																mandatory
+																	Gatling21 
+																mandatory
+																	Cucumber21 
+														mandatory
+															OR21 {abstract}
+																or
+																	OAuth2_121 {abstract}
+																	MicroserviceApplication_115 {abstract}
+																	MongoDB_121 {abstract}
+							root23 {abstract}
+								alternative
+									root110 {abstract}
+										alternative
+											root25 {abstract}
+												alternative
+													JHipster22 {abstract, extended__}
+														mandatory
+															Generator22 {abstract}
+																mandatory
+																	Application12 {abstract}
+																		alternative
+																			MicroserviceGateway12 
+																			Monolithic12 
+														mandatory
+															Authentication22 {abstract}
+																mandatory
+																	Uaa12 
+														mandatory
+															SocialLogin11 
+														mandatory
+															Database22 {abstract}
+																mandatory
+																	MongoDB8 
+														optional
+															SpringWebSockets22 
+														optional
+															Libsass12 
+														optional
+															ClusteredSession22 
+														mandatory
+															BackEnd22 {abstract}
+																alternative
+																	Gradle22 
+																	Maven22 
+														optional
+															InternationalizationSupport22 
+														optional
+															Docker22 
+														mandatory
+															TestingFrameworks22 {abstract}
+																optional
+																	Protractor22 
+																mandatory
+																	Gatling22 
+																mandatory
+																	Cucumber22 
+														mandatory
+															OR22 {abstract}
+																or
+																	OAuth2_122 {abstract}
+																	SocialLogin_111 {abstract}
+																	MongoDB_122 {abstract}
+													JHipster23 {abstract, extended__}
+														mandatory
+															Generator23 {abstract}
+																mandatory
+																	Application13 {abstract}
+																		alternative
+																			MicroserviceGateway13 
+																			Monolithic13 
+														mandatory
+															Authentication23 {abstract}
+																alternative
+																	HTTPSession10 
+																	OAuth210 
+																	JWT10 
+														mandatory
+															SocialLogin12 
+														mandatory
+															Database23 {abstract}
+																mandatory
+																	MongoDB9 
+														optional
+															SpringWebSockets23 
+														optional
+															Libsass13 
+														optional
+															ClusteredSession23 
+														mandatory
+															BackEnd23 {abstract}
+																alternative
+																	Gradle23 
+																	Maven23 
+														optional
+															InternationalizationSupport23 
+														optional
+															Docker23 
+														mandatory
+															TestingFrameworks23 {abstract}
+																optional
+																	Protractor23 
+																mandatory
+																	Gatling23 
+																mandatory
+																	Cucumber23 
+														mandatory
+															OR23 {abstract}
+																or
+																	OAuth2_123 {abstract}
+																	SocialLogin_112 {abstract}
+																	MongoDB_123 {abstract}
+											root26 {abstract}
+												mandatory
+													JHipster24 {abstract, extended__}
+														mandatory
+															Generator24 {abstract}
+																mandatory
+																	Server10 {abstract}
+																		mandatory
+																			UaaServer2 
+														mandatory
+															Authentication24 {abstract}
+																mandatory
+																	Uaa13 
+														mandatory
+															SocialLogin13 
+														mandatory
+															Database24 {abstract}
+																mandatory
+																	MongoDB10 
+														optional
+															SpringWebSockets24 
+														optional
+															ClusteredSession24 
+														mandatory
+															BackEnd24 {abstract}
+																alternative
+																	Gradle24 
+																	Maven24 
+														optional
+															InternationalizationSupport24 
+														optional
+															Docker24 
+														mandatory
+															TestingFrameworks24 {abstract}
+																optional
+																	Protractor24 
+																mandatory
+																	Gatling24 
+																mandatory
+																	Cucumber24 
+														mandatory
+															OR24 {abstract}
+																or
+																	OAuth2_124 {abstract}
+																	SocialLogin_113 {abstract}
+																	MongoDB_124 {abstract}
+									root111 {abstract}
+										alternative
+											root27 {abstract}
+												alternative
+													JHipster25 {abstract, extended__}
+														mandatory
+															Generator25 {abstract}
+																mandatory
+																	Application14 {abstract}
+																		alternative
+																			MicroserviceGateway14 
+																			Monolithic14 
+														mandatory
+															Authentication25 {abstract}
+																mandatory
+																	Uaa14 
+														mandatory
+															Database25 {abstract}
+																mandatory
+																	MongoDB11 
+														optional
+															SpringWebSockets25 
+														optional
+															Libsass14 
+														optional
+															ClusteredSession25 
+														mandatory
+															BackEnd25 {abstract}
+																alternative
+																	Gradle25 
+																	Maven25 
+														optional
+															InternationalizationSupport25 
+														optional
+															Docker25 
+														mandatory
+															TestingFrameworks25 {abstract}
+																optional
+																	Protractor25 
+																mandatory
+																	Gatling25 
+																mandatory
+																	Cucumber25 
+														mandatory
+															OR25 {abstract}
+																or
+																	OAuth2_125 {abstract}
+																	MongoDB_125 {abstract}
+													JHipster26 {abstract, extended__}
+														mandatory
+															Generator26 {abstract}
+																mandatory
+																	Application15 {abstract}
+																		alternative
+																			MicroserviceGateway15 
+																			Monolithic15 
+														mandatory
+															Authentication26 {abstract}
+																alternative
+																	HTTPSession11 
+																	OAuth211 
+																	JWT11 
+														mandatory
+															Database26 {abstract}
+																mandatory
+																	MongoDB12 
+														optional
+															SpringWebSockets26 
+														optional
+															Libsass15 
+														optional
+															ClusteredSession26 
+														mandatory
+															BackEnd26 {abstract}
+																alternative
+																	Gradle26 
+																	Maven26 
+														optional
+															InternationalizationSupport26 
+														optional
+															Docker26 
+														mandatory
+															TestingFrameworks26 {abstract}
+																optional
+																	Protractor26 
+																mandatory
+																	Gatling26 
+																mandatory
+																	Cucumber26 
+														mandatory
+															OR26 {abstract}
+																or
+																	OAuth2_126 {abstract}
+																	MongoDB_126 {abstract}
+											root28 {abstract}
+												mandatory
+													JHipster27 {abstract, extended__}
+														mandatory
+															Generator27 {abstract}
+																mandatory
+																	Server11 {abstract}
+																		mandatory
+																			UaaServer3 
+														mandatory
+															Authentication27 {abstract}
+																mandatory
+																	Uaa15 
+														mandatory
+															Database27 {abstract}
+																mandatory
+																	MongoDB13 
+														optional
+															SpringWebSockets27 
+														optional
+															ClusteredSession27 
+														mandatory
+															BackEnd27 {abstract}
+																alternative
+																	Gradle27 
+																	Maven27 
+														optional
+															InternationalizationSupport27 
+														optional
+															Docker27 
+														mandatory
+															TestingFrameworks27 {abstract}
+																optional
+																	Protractor27 
+																mandatory
+																	Gatling27 
+																mandatory
+																	Cucumber27 
+														mandatory
+															OR27 {abstract}
+																or
+																	OAuth2_127 {abstract}
+																	MongoDB_127 {abstract}
+			root41 {abstract}
+				alternative
+					root32 {abstract}
+						alternative
+							root29 {abstract}
+								alternative
+									root112 {abstract}
+										alternative
+											root30 {abstract}
+												alternative
+													JHipster28 {abstract, extended__}
+														mandatory
+															Generator28 {abstract}
+																mandatory
+																	Application16 {abstract}
+																		alternative
+																			MicroserviceGateway16 
+																			Monolithic16 
+														mandatory
+															Authentication28 {abstract}
+																mandatory
+																	Uaa16 
+														mandatory
+															SocialLogin14 
+														mandatory
+															Database28 {abstract}
+																mandatory
+																	SQL14 {abstract}
+																		optional
+																			Hibernate2ndLvlCache14 {abstract}
+																				alternative
+																					HazelCast14 
+																					EhCache14 
+																		mandatory
+																			Development14 {abstract}
+																				alternative
+																					H214 {abstract}
+																						alternative
+																							DiskBased14 
+																							InMemory14 
+																					PostgreSQLDev14 
+																					MariaDBDev14 
+																					MySql14 
+																		mandatory
+																			Production14 {abstract}
+																				alternative
+																					MySQL14 
+																					MariaDB14 
+																					PostgreSQL14 
+																		optional
+																			ElasticSearch14 
+														optional
+															SpringWebSockets28 
+														optional
+															Libsass16 
+														optional
+															ClusteredSession28 
+														mandatory
+															BackEnd28 {abstract}
+																alternative
+																	Gradle28 
+																	Maven28 
+														optional
+															InternationalizationSupport28 
+														optional
+															Docker28 
+														mandatory
+															TestingFrameworks28 {abstract}
+																optional
+																	Protractor28 
+																mandatory
+																	Gatling28 
+																mandatory
+																	Cucumber28 
+														mandatory
+															OR28 {abstract}
+																or
+																	OAuth2_128 {abstract}
+																	SocialLogin_114 {abstract}
+																	MicroserviceApplication_116 {abstract}
+																	SQL_114 {abstract}
+													JHipster29 {abstract, extended__}
+														mandatory
+															Generator29 {abstract}
+																mandatory
+																	Application17 {abstract}
+																		alternative
+																			MicroserviceGateway17 
+																			Monolithic17 
+														mandatory
+															Authentication29 {abstract}
+																alternative
+																	HTTPSession12 
+																	OAuth212 
+																	JWT12 
+														mandatory
+															SocialLogin15 
+														mandatory
+															Database29 {abstract}
+																mandatory
+																	SQL15 {abstract}
+																		optional
+																			Hibernate2ndLvlCache15 {abstract}
+																				alternative
+																					HazelCast15 
+																					EhCache15 
+																		mandatory
+																			Development15 {abstract}
+																				alternative
+																					H215 {abstract}
+																						alternative
+																							DiskBased15 
+																							InMemory15 
+																					PostgreSQLDev15 
+																					MariaDBDev15 
+																					MySql15 
+																		mandatory
+																			Production15 {abstract}
+																				alternative
+																					MySQL15 
+																					MariaDB15 
+																					PostgreSQL15 
+																		optional
+																			ElasticSearch15 
+														optional
+															SpringWebSockets29 
+														optional
+															Libsass17 
+														optional
+															ClusteredSession29 
+														mandatory
+															BackEnd29 {abstract}
+																alternative
+																	Gradle29 
+																	Maven29 
+														optional
+															InternationalizationSupport29 
+														optional
+															Docker29 
+														mandatory
+															TestingFrameworks29 {abstract}
+																optional
+																	Protractor29 
+																mandatory
+																	Gatling29 
+																mandatory
+																	Cucumber29 
+														mandatory
+															OR29 {abstract}
+																or
+																	OAuth2_129 {abstract}
+																	SocialLogin_115 {abstract}
+																	MicroserviceApplication_117 {abstract}
+																	SQL_115 {abstract}
+											root34 {abstract}
+												alternative
+													JHipster30 {abstract, extended__}
+														mandatory
+															Generator30 {abstract}
+																mandatory
+																	Server12 {abstract}
+																		mandatory
+																			MicroserviceApplication8 
+														mandatory
+															Authentication30 {abstract}
+																mandatory
+																	Uaa17 
+														mandatory
+															SocialLogin16 
+														mandatory
+															Database30 {abstract}
+																mandatory
+																	SQL16 {abstract}
+																		optional
+																			Hibernate2ndLvlCache16 {abstract}
+																				alternative
+																					HazelCast16 
+																					EhCache16 
+																		mandatory
+																			Development16 {abstract}
+																				alternative
+																					H216 {abstract}
+																						alternative
+																							DiskBased16 
+																							InMemory16 
+																					PostgreSQLDev16 
+																					MariaDBDev16 
+																					MySql16 
+																		mandatory
+																			Production16 {abstract}
+																				alternative
+																					MySQL16 
+																					MariaDB16 
+																					PostgreSQL16 
+																		optional
+																			ElasticSearch16 
+														optional
+															SpringWebSockets30 
+														optional
+															ClusteredSession30 
+														mandatory
+															BackEnd30 {abstract}
+																alternative
+																	Gradle30 
+																	Maven30 
+														optional
+															InternationalizationSupport30 
+														optional
+															Docker30 
+														mandatory
+															TestingFrameworks30 {abstract}
+																optional
+																	Protractor30 
+																mandatory
+																	Gatling30 
+																mandatory
+																	Cucumber30 
+														mandatory
+															OR30 {abstract}
+																or
+																	OAuth2_130 {abstract}
+																	SocialLogin_116 {abstract}
+																	MicroserviceApplication_118 {abstract}
+																	SQL_116 {abstract}
+													JHipster31 {abstract, extended__}
+														mandatory
+															Generator31 {abstract}
+																mandatory
+																	Server13 {abstract}
+																		mandatory
+																			MicroserviceApplication9 
+														mandatory
+															Authentication31 {abstract}
+																alternative
+																	HTTPSession13 
+																	OAuth213 
+																	JWT13 
+														mandatory
+															SocialLogin17 
+														mandatory
+															Database31 {abstract}
+																mandatory
+																	SQL17 {abstract}
+																		optional
+																			Hibernate2ndLvlCache17 {abstract}
+																				alternative
+																					HazelCast17 
+																					EhCache17 
+																		mandatory
+																			Development17 {abstract}
+																				alternative
+																					H217 {abstract}
+																						alternative
+																							DiskBased17 
+																							InMemory17 
+																					PostgreSQLDev17 
+																					MariaDBDev17 
+																					MySql17 
+																		mandatory
+																			Production17 {abstract}
+																				alternative
+																					MySQL17 
+																					MariaDB17 
+																					PostgreSQL17 
+																		optional
+																			ElasticSearch17 
+														optional
+															SpringWebSockets31 
+														optional
+															ClusteredSession31 
+														mandatory
+															BackEnd31 {abstract}
+																alternative
+																	Gradle31 
+																	Maven31 
+														optional
+															InternationalizationSupport31 
+														optional
+															Docker31 
+														mandatory
+															TestingFrameworks31 {abstract}
+																optional
+																	Protractor31 
+																mandatory
+																	Gatling31 
+																mandatory
+																	Cucumber31 
+														mandatory
+															OR31 {abstract}
+																or
+																	OAuth2_131 {abstract}
+																	SocialLogin_117 {abstract}
+																	MicroserviceApplication_119 {abstract}
+																	SQL_117 {abstract}
+									root113 {abstract}
+										alternative
+											root35 {abstract}
+												alternative
+													JHipster32 {abstract, extended__}
+														mandatory
+															Generator32 {abstract}
+																mandatory
+																	Application18 {abstract}
+																		alternative
+																			MicroserviceGateway18 
+																			Monolithic18 
+														mandatory
+															Authentication32 {abstract}
+																mandatory
+																	Uaa18 
+														mandatory
+															Database32 {abstract}
+																mandatory
+																	SQL18 {abstract}
+																		optional
+																			Hibernate2ndLvlCache18 {abstract}
+																				alternative
+																					HazelCast18 
+																					EhCache18 
+																		mandatory
+																			Development18 {abstract}
+																				alternative
+																					H218 {abstract}
+																						alternative
+																							DiskBased18 
+																							InMemory18 
+																					PostgreSQLDev18 
+																					MariaDBDev18 
+																					MySql18 
+																		mandatory
+																			Production18 {abstract}
+																				alternative
+																					MySQL18 
+																					MariaDB18 
+																					PostgreSQL18 
+																		optional
+																			ElasticSearch18 
+														optional
+															SpringWebSockets32 
+														optional
+															Libsass18 
+														optional
+															ClusteredSession32 
+														mandatory
+															BackEnd32 {abstract}
+																alternative
+																	Gradle32 
+																	Maven32 
+														optional
+															InternationalizationSupport32 
+														optional
+															Docker32 
+														mandatory
+															TestingFrameworks32 {abstract}
+																optional
+																	Protractor32 
+																mandatory
+																	Gatling32 
+																mandatory
+																	Cucumber32 
+														mandatory
+															OR32 {abstract}
+																or
+																	OAuth2_132 {abstract}
+																	MicroserviceApplication_120 {abstract}
+																	SQL_118 {abstract}
+													JHipster33 {abstract, extended__}
+														mandatory
+															Generator33 {abstract}
+																mandatory
+																	Application19 {abstract}
+																		alternative
+																			MicroserviceGateway19 
+																			Monolithic19 
+														mandatory
+															Authentication33 {abstract}
+																alternative
+																	HTTPSession14 
+																	OAuth214 
+																	JWT14 
+														mandatory
+															Database33 {abstract}
+																mandatory
+																	SQL19 {abstract}
+																		optional
+																			Hibernate2ndLvlCache19 {abstract}
+																				alternative
+																					HazelCast19 
+																					EhCache19 
+																		mandatory
+																			Development19 {abstract}
+																				alternative
+																					H219 {abstract}
+																						alternative
+																							DiskBased19 
+																							InMemory19 
+																					PostgreSQLDev19 
+																					MariaDBDev19 
+																					MySql19 
+																		mandatory
+																			Production19 {abstract}
+																				alternative
+																					MySQL19 
+																					MariaDB19 
+																					PostgreSQL19 
+																		optional
+																			ElasticSearch19 
+														optional
+															SpringWebSockets33 
+														optional
+															Libsass19 
+														optional
+															ClusteredSession33 
+														mandatory
+															BackEnd33 {abstract}
+																alternative
+																	Gradle33 
+																	Maven33 
+														optional
+															InternationalizationSupport33 
+														optional
+															Docker33 
+														mandatory
+															TestingFrameworks33 {abstract}
+																optional
+																	Protractor33 
+																mandatory
+																	Gatling33 
+																mandatory
+																	Cucumber33 
+														mandatory
+															OR33 {abstract}
+																or
+																	OAuth2_133 {abstract}
+																	MicroserviceApplication_121 {abstract}
+																	SQL_119 {abstract}
+											root36 {abstract}
+												alternative
+													JHipster34 {abstract, extended__}
+														mandatory
+															Generator34 {abstract}
+																mandatory
+																	Server14 {abstract}
+																		mandatory
+																			MicroserviceApplication10 
+														mandatory
+															Authentication34 {abstract}
+																mandatory
+																	Uaa19 
+														mandatory
+															Database34 {abstract}
+																mandatory
+																	SQL20 {abstract}
+																		optional
+																			Hibernate2ndLvlCache20 {abstract}
+																				alternative
+																					HazelCast20 
+																					EhCache20 
+																		mandatory
+																			Development20 {abstract}
+																				alternative
+																					H220 {abstract}
+																						alternative
+																							DiskBased20 
+																							InMemory20 
+																					PostgreSQLDev20 
+																					MariaDBDev20 
+																					MySql20 
+																		mandatory
+																			Production20 {abstract}
+																				alternative
+																					MySQL20 
+																					MariaDB20 
+																					PostgreSQL20 
+																		optional
+																			ElasticSearch20 
+														optional
+															SpringWebSockets34 
+														optional
+															ClusteredSession34 
+														mandatory
+															BackEnd34 {abstract}
+																alternative
+																	Gradle34 
+																	Maven34 
+														optional
+															InternationalizationSupport34 
+														optional
+															Docker34 
+														mandatory
+															TestingFrameworks34 {abstract}
+																optional
+																	Protractor34 
+																mandatory
+																	Gatling34 
+																mandatory
+																	Cucumber34 
+														mandatory
+															OR34 {abstract}
+																or
+																	OAuth2_134 {abstract}
+																	MicroserviceApplication_122 {abstract}
+																	SQL_120 {abstract}
+													JHipster35 {abstract, extended__}
+														mandatory
+															Generator35 {abstract}
+																mandatory
+																	Server15 {abstract}
+																		mandatory
+																			MicroserviceApplication11 
+														mandatory
+															Authentication35 {abstract}
+																alternative
+																	HTTPSession15 
+																	OAuth215 
+																	JWT15 
+														mandatory
+															Database35 {abstract}
+																mandatory
+																	SQL21 {abstract}
+																		optional
+																			Hibernate2ndLvlCache21 {abstract}
+																				alternative
+																					HazelCast21 
+																					EhCache21 
+																		mandatory
+																			Development21 {abstract}
+																				alternative
+																					H221 {abstract}
+																						alternative
+																							DiskBased21 
+																							InMemory21 
+																					PostgreSQLDev21 
+																					MariaDBDev21 
+																					MySql21 
+																		mandatory
+																			Production21 {abstract}
+																				alternative
+																					MySQL21 
+																					MariaDB21 
+																					PostgreSQL21 
+																		optional
+																			ElasticSearch21 
+														optional
+															SpringWebSockets35 
+														optional
+															ClusteredSession35 
+														mandatory
+															BackEnd35 {abstract}
+																alternative
+																	Gradle35 
+																	Maven35 
+														optional
+															InternationalizationSupport35 
+														optional
+															Docker35 
+														mandatory
+															TestingFrameworks35 {abstract}
+																optional
+																	Protractor35 
+																mandatory
+																	Gatling35 
+																mandatory
+																	Cucumber35 
+														mandatory
+															OR35 {abstract}
+																or
+																	OAuth2_135 {abstract}
+																	MicroserviceApplication_123 {abstract}
+																	SQL_121 {abstract}
+							root210 {abstract}
+								alternative
+									root114 {abstract}
+										alternative
+											root37 {abstract}
+												alternative
+													JHipster36 {abstract, extended__}
+														mandatory
+															Generator36 {abstract}
+																mandatory
+																	Application20 {abstract}
+																		alternative
+																			MicroserviceGateway20 
+																			Monolithic20 
+														mandatory
+															Authentication36 {abstract}
+																mandatory
+																	Uaa20 
+														mandatory
+															SocialLogin18 
+														mandatory
+															Database36 {abstract}
+																mandatory
+																	SQL22 {abstract}
+																		optional
+																			Hibernate2ndLvlCache22 {abstract}
+																				alternative
+																					HazelCast22 
+																					EhCache22 
+																		mandatory
+																			Development22 {abstract}
+																				alternative
+																					H222 {abstract}
+																						alternative
+																							DiskBased22 
+																							InMemory22 
+																					PostgreSQLDev22 
+																					MariaDBDev22 
+																					MySql22 
+																		mandatory
+																			Production22 {abstract}
+																				alternative
+																					MySQL22 
+																					MariaDB22 
+																					PostgreSQL22 
+																		optional
+																			ElasticSearch22 
+														optional
+															SpringWebSockets36 
+														optional
+															Libsass20 
+														optional
+															ClusteredSession36 
+														mandatory
+															BackEnd36 {abstract}
+																alternative
+																	Gradle36 
+																	Maven36 
+														optional
+															InternationalizationSupport36 
+														optional
+															Docker36 
+														mandatory
+															TestingFrameworks36 {abstract}
+																optional
+																	Protractor36 
+																mandatory
+																	Gatling36 
+																mandatory
+																	Cucumber36 
+														mandatory
+															OR36 {abstract}
+																or
+																	OAuth2_136 {abstract}
+																	SocialLogin_118 {abstract}
+																	SQL_122 {abstract}
+													JHipster37 {abstract, extended__}
+														mandatory
+															Generator37 {abstract}
+																mandatory
+																	Application21 {abstract}
+																		alternative
+																			MicroserviceGateway21 
+																			Monolithic21 
+														mandatory
+															Authentication37 {abstract}
+																alternative
+																	HTTPSession16 
+																	OAuth216 
+																	JWT16 
+														mandatory
+															SocialLogin19 
+														mandatory
+															Database37 {abstract}
+																mandatory
+																	SQL23 {abstract}
+																		optional
+																			Hibernate2ndLvlCache23 {abstract}
+																				alternative
+																					HazelCast23 
+																					EhCache23 
+																		mandatory
+																			Development23 {abstract}
+																				alternative
+																					H223 {abstract}
+																						alternative
+																							DiskBased23 
+																							InMemory23 
+																					PostgreSQLDev23 
+																					MariaDBDev23 
+																					MySql23 
+																		mandatory
+																			Production23 {abstract}
+																				alternative
+																					MySQL23 
+																					MariaDB23 
+																					PostgreSQL23 
+																		optional
+																			ElasticSearch23 
+														optional
+															SpringWebSockets37 
+														optional
+															Libsass21 
+														optional
+															ClusteredSession37 
+														mandatory
+															BackEnd37 {abstract}
+																alternative
+																	Gradle37 
+																	Maven37 
+														optional
+															InternationalizationSupport37 
+														optional
+															Docker37 
+														mandatory
+															TestingFrameworks37 {abstract}
+																optional
+																	Protractor37 
+																mandatory
+																	Gatling37 
+																mandatory
+																	Cucumber37 
+														mandatory
+															OR37 {abstract}
+																or
+																	OAuth2_137 {abstract}
+																	SocialLogin_119 {abstract}
+																	SQL_123 {abstract}
+											root38 {abstract}
+												mandatory
+													JHipster38 {abstract, extended__}
+														mandatory
+															Generator38 {abstract}
+																mandatory
+																	Server16 {abstract}
+																		mandatory
+																			UaaServer4 
+														mandatory
+															Authentication38 {abstract}
+																mandatory
+																	Uaa21 
+														mandatory
+															SocialLogin20 
+														mandatory
+															Database38 {abstract}
+																mandatory
+																	SQL24 {abstract}
+																		optional
+																			Hibernate2ndLvlCache24 {abstract}
+																				alternative
+																					HazelCast24 
+																					EhCache24 
+																		mandatory
+																			Development24 {abstract}
+																				alternative
+																					H224 {abstract}
+																						alternative
+																							DiskBased24 
+																							InMemory24 
+																					PostgreSQLDev24 
+																					MariaDBDev24 
+																					MySql24 
+																		mandatory
+																			Production24 {abstract}
+																				alternative
+																					MySQL24 
+																					MariaDB24 
+																					PostgreSQL24 
+																		optional
+																			ElasticSearch24 
+														optional
+															SpringWebSockets38 
+														optional
+															ClusteredSession38 
+														mandatory
+															BackEnd38 {abstract}
+																alternative
+																	Gradle38 
+																	Maven38 
+														optional
+															InternationalizationSupport38 
+														optional
+															Docker38 
+														mandatory
+															TestingFrameworks38 {abstract}
+																optional
+																	Protractor38 
+																mandatory
+																	Gatling38 
+																mandatory
+																	Cucumber38 
+														mandatory
+															OR38 {abstract}
+																or
+																	OAuth2_138 {abstract}
+																	SocialLogin_120 {abstract}
+																	SQL_124 {abstract}
+									root115 {abstract}
+										alternative
+											root39 {abstract}
+												alternative
+													JHipster39 {abstract, extended__}
+														mandatory
+															Generator39 {abstract}
+																mandatory
+																	Application22 {abstract}
+																		alternative
+																			MicroserviceGateway22 
+																			Monolithic22 
+														mandatory
+															Authentication39 {abstract}
+																mandatory
+																	Uaa22 
+														mandatory
+															Database39 {abstract}
+																mandatory
+																	SQL25 {abstract}
+																		optional
+																			Hibernate2ndLvlCache25 {abstract}
+																				alternative
+																					HazelCast25 
+																					EhCache25 
+																		mandatory
+																			Development25 {abstract}
+																				alternative
+																					H225 {abstract}
+																						alternative
+																							DiskBased25 
+																							InMemory25 
+																					PostgreSQLDev25 
+																					MariaDBDev25 
+																					MySql25 
+																		mandatory
+																			Production25 {abstract}
+																				alternative
+																					MySQL25 
+																					MariaDB25 
+																					PostgreSQL25 
+																		optional
+																			ElasticSearch25 
+														optional
+															SpringWebSockets39 
+														optional
+															Libsass22 
+														optional
+															ClusteredSession39 
+														mandatory
+															BackEnd39 {abstract}
+																alternative
+																	Gradle39 
+																	Maven39 
+														optional
+															InternationalizationSupport39 
+														optional
+															Docker39 
+														mandatory
+															TestingFrameworks39 {abstract}
+																optional
+																	Protractor39 
+																mandatory
+																	Gatling39 
+																mandatory
+																	Cucumber39 
+														mandatory
+															OR39 {abstract}
+																or
+																	OAuth2_139 {abstract}
+																	SQL_125 {abstract}
+													JHipster40 {abstract, extended__}
+														mandatory
+															Generator40 {abstract}
+																mandatory
+																	Application23 {abstract}
+																		alternative
+																			MicroserviceGateway23 
+																			Monolithic23 
+														mandatory
+															Authentication40 {abstract}
+																alternative
+																	HTTPSession17 
+																	OAuth217 
+																	JWT17 
+														mandatory
+															Database40 {abstract}
+																mandatory
+																	SQL26 {abstract}
+																		optional
+																			Hibernate2ndLvlCache26 {abstract}
+																				alternative
+																					HazelCast26 
+																					EhCache26 
+																		mandatory
+																			Development26 {abstract}
+																				alternative
+																					H226 {abstract}
+																						alternative
+																							DiskBased26 
+																							InMemory26 
+																					PostgreSQLDev26 
+																					MariaDBDev26 
+																					MySql26 
+																		mandatory
+																			Production26 {abstract}
+																				alternative
+																					MySQL26 
+																					MariaDB26 
+																					PostgreSQL26 
+																		optional
+																			ElasticSearch26 
+														optional
+															SpringWebSockets40 
+														optional
+															Libsass23 
+														optional
+															ClusteredSession40 
+														mandatory
+															BackEnd40 {abstract}
+																alternative
+																	Gradle40 
+																	Maven40 
+														optional
+															InternationalizationSupport40 
+														optional
+															Docker40 
+														mandatory
+															TestingFrameworks40 {abstract}
+																optional
+																	Protractor40 
+																mandatory
+																	Gatling40 
+																mandatory
+																	Cucumber40 
+														mandatory
+															OR40 {abstract}
+																or
+																	OAuth2_140 {abstract}
+																	SQL_126 {abstract}
+											root40 {abstract}
+												mandatory
+													JHipster41 {abstract, extended__}
+														mandatory
+															Generator41 {abstract}
+																mandatory
+																	Server17 {abstract}
+																		mandatory
+																			UaaServer5 
+														mandatory
+															Authentication41 {abstract}
+																mandatory
+																	Uaa23 
+														mandatory
+															Database41 {abstract}
+																mandatory
+																	SQL27 {abstract}
+																		optional
+																			Hibernate2ndLvlCache27 {abstract}
+																				alternative
+																					HazelCast27 
+																					EhCache27 
+																		mandatory
+																			Development27 {abstract}
+																				alternative
+																					H227 {abstract}
+																						alternative
+																							DiskBased27 
+																							InMemory27 
+																					PostgreSQLDev27 
+																					MariaDBDev27 
+																					MySql27 
+																		mandatory
+																			Production27 {abstract}
+																				alternative
+																					MySQL27 
+																					MariaDB27 
+																					PostgreSQL27 
+																		optional
+																			ElasticSearch27 
+														optional
+															SpringWebSockets41 
+														optional
+															ClusteredSession41 
+														mandatory
+															BackEnd41 {abstract}
+																alternative
+																	Gradle41 
+																	Maven41 
+														optional
+															InternationalizationSupport41 
+														optional
+															Docker41 
+														mandatory
+															TestingFrameworks41 {abstract}
+																optional
+																	Protractor41 
+																mandatory
+																	Gatling41 
+																mandatory
+																	Cucumber41 
+														mandatory
+															OR41 {abstract}
+																or
+																	OAuth2_141 {abstract}
+																	SQL_127 {abstract}
+					root33 {abstract}
+						alternative
+							root211 {abstract}
+								alternative
+									root116 {abstract}
+										alternative
+											root42 {abstract}
+												alternative
+													JHipster42 {abstract, extended__}
+														mandatory
+															Generator42 {abstract}
+																mandatory
+																	Application24 {abstract}
+																		alternative
+																			MicroserviceGateway24 
+																			Monolithic24 
+														mandatory
+															Authentication42 {abstract}
+																mandatory
+																	Uaa24 
+														mandatory
+															SocialLogin21 
+														optional
+															Database42 {abstract}
+																mandatory
+																	Cassandra 
+														optional
+															SpringWebSockets42 
+														optional
+															Libsass24 
+														optional
+															ClusteredSession42 
+														mandatory
+															BackEnd42 {abstract}
+																alternative
+																	Gradle42 
+																	Maven42 
+														optional
+															InternationalizationSupport42 
+														optional
+															Docker42 
+														mandatory
+															TestingFrameworks42 {abstract}
+																optional
+																	Protractor42 
+																mandatory
+																	Gatling42 
+																mandatory
+																	Cucumber42 
+														mandatory
+															OR42 {abstract}
+																or
+																	OAuth2_142 {abstract}
+																	SocialLogin_121 {abstract}
+																	MicroserviceApplication_124 {abstract}
+													JHipster43 {abstract, extended__}
+														mandatory
+															Generator43 {abstract}
+																mandatory
+																	Application25 {abstract}
+																		alternative
+																			MicroserviceGateway25 
+																			Monolithic25 
+														mandatory
+															Authentication43 {abstract}
+																alternative
+																	HTTPSession18 
+																	OAuth218 
+																	JWT18 
+														mandatory
+															SocialLogin22 
+														optional
+															Database43 {abstract}
+																mandatory
+																	Cassandra1 
+														optional
+															SpringWebSockets43 
+														optional
+															Libsass25 
+														optional
+															ClusteredSession43 
+														mandatory
+															BackEnd43 {abstract}
+																alternative
+																	Gradle43 
+																	Maven43 
+														optional
+															InternationalizationSupport43 
+														optional
+															Docker43 
+														mandatory
+															TestingFrameworks43 {abstract}
+																optional
+																	Protractor43 
+																mandatory
+																	Gatling43 
+																mandatory
+																	Cucumber43 
+														mandatory
+															OR43 {abstract}
+																or
+																	OAuth2_143 {abstract}
+																	SocialLogin_122 {abstract}
+																	MicroserviceApplication_125 {abstract}
+											root43 {abstract}
+												alternative
+													JHipster44 {abstract, extended__}
+														mandatory
+															Generator44 {abstract}
+																mandatory
+																	Server18 {abstract}
+																		mandatory
+																			MicroserviceApplication12 
+														mandatory
+															Authentication44 {abstract}
+																mandatory
+																	Uaa25 
+														mandatory
+															SocialLogin23 
+														optional
+															Database44 {abstract}
+																mandatory
+																	Cassandra2 
+														optional
+															SpringWebSockets44 
+														optional
+															ClusteredSession44 
+														mandatory
+															BackEnd44 {abstract}
+																alternative
+																	Gradle44 
+																	Maven44 
+														optional
+															InternationalizationSupport44 
+														optional
+															Docker44 
+														mandatory
+															TestingFrameworks44 {abstract}
+																optional
+																	Protractor44 
+																mandatory
+																	Gatling44 
+																mandatory
+																	Cucumber44 
+														mandatory
+															OR44 {abstract}
+																or
+																	OAuth2_144 {abstract}
+																	SocialLogin_123 {abstract}
+																	MicroserviceApplication_126 {abstract}
+													JHipster45 {abstract, extended__}
+														mandatory
+															Generator45 {abstract}
+																mandatory
+																	Server19 {abstract}
+																		mandatory
+																			MicroserviceApplication13 
+														mandatory
+															Authentication45 {abstract}
+																alternative
+																	HTTPSession19 
+																	OAuth219 
+																	JWT19 
+														mandatory
+															SocialLogin24 
+														optional
+															Database45 {abstract}
+																mandatory
+																	Cassandra3 
+														optional
+															SpringWebSockets45 
+														optional
+															ClusteredSession45 
+														mandatory
+															BackEnd45 {abstract}
+																alternative
+																	Gradle45 
+																	Maven45 
+														optional
+															InternationalizationSupport45 
+														optional
+															Docker45 
+														mandatory
+															TestingFrameworks45 {abstract}
+																optional
+																	Protractor45 
+																mandatory
+																	Gatling45 
+																mandatory
+																	Cucumber45 
+														mandatory
+															OR45 {abstract}
+																or
+																	OAuth2_145 {abstract}
+																	SocialLogin_124 {abstract}
+																	MicroserviceApplication_127 {abstract}
+									root117 {abstract}
+										alternative
+											root44 {abstract}
+												alternative
+													JHipster46 {abstract, extended__}
+														mandatory
+															Generator46 {abstract}
+																mandatory
+																	Application26 {abstract}
+																		alternative
+																			MicroserviceGateway26 
+																			Monolithic26 
+														mandatory
+															Authentication46 {abstract}
+																mandatory
+																	Uaa26 
+														optional
+															Database46 {abstract}
+																mandatory
+																	Cassandra4 
+														optional
+															SpringWebSockets46 
+														optional
+															Libsass26 
+														optional
+															ClusteredSession46 
+														mandatory
+															BackEnd46 {abstract}
+																alternative
+																	Gradle46 
+																	Maven46 
+														optional
+															InternationalizationSupport46 
+														optional
+															Docker46 
+														mandatory
+															TestingFrameworks46 {abstract}
+																optional
+																	Protractor46 
+																mandatory
+																	Gatling46 
+																mandatory
+																	Cucumber46 
+														mandatory
+															OR46 {abstract}
+																or
+																	OAuth2_146 {abstract}
+																	MicroserviceApplication_128 {abstract}
+													JHipster47 {abstract, extended__}
+														mandatory
+															Generator47 {abstract}
+																mandatory
+																	Application27 {abstract}
+																		alternative
+																			MicroserviceGateway27 
+																			Monolithic27 
+														mandatory
+															Authentication47 {abstract}
+																alternative
+																	HTTPSession20 
+																	OAuth220 
+																	JWT20 
+														optional
+															Database47 {abstract}
+																mandatory
+																	Cassandra5 
+														optional
+															SpringWebSockets47 
+														optional
+															Libsass27 
+														optional
+															ClusteredSession47 
+														mandatory
+															BackEnd47 {abstract}
+																alternative
+																	Gradle47 
+																	Maven47 
+														optional
+															InternationalizationSupport47 
+														optional
+															Docker47 
+														mandatory
+															TestingFrameworks47 {abstract}
+																optional
+																	Protractor47 
+																mandatory
+																	Gatling47 
+																mandatory
+																	Cucumber47 
+														mandatory
+															OR47 {abstract}
+																or
+																	OAuth2_147 {abstract}
+																	MicroserviceApplication_129 {abstract}
+											root45 {abstract}
+												alternative
+													JHipster48 {abstract, extended__}
+														mandatory
+															Generator48 {abstract}
+																mandatory
+																	Server20 {abstract}
+																		mandatory
+																			MicroserviceApplication14 
+														mandatory
+															Authentication48 {abstract}
+																mandatory
+																	Uaa27 
+														optional
+															Database48 {abstract}
+																mandatory
+																	Cassandra6 
+														optional
+															SpringWebSockets48 
+														optional
+															ClusteredSession48 
+														mandatory
+															BackEnd48 {abstract}
+																alternative
+																	Gradle48 
+																	Maven48 
+														optional
+															InternationalizationSupport48 
+														optional
+															Docker48 
+														mandatory
+															TestingFrameworks48 {abstract}
+																optional
+																	Protractor48 
+																mandatory
+																	Gatling48 
+																mandatory
+																	Cucumber48 
+														mandatory
+															OR48 {abstract}
+																or
+																	OAuth2_148 {abstract}
+																	MicroserviceApplication_130 {abstract}
+													JHipster49 {abstract, extended__}
+														mandatory
+															Generator49 {abstract}
+																mandatory
+																	Server21 {abstract}
+																		mandatory
+																			MicroserviceApplication15 
+														mandatory
+															Authentication49 {abstract}
+																alternative
+																	HTTPSession21 
+																	OAuth221 
+																	JWT21 
+														optional
+															Database49 {abstract}
+																mandatory
+																	Cassandra7 
+														optional
+															SpringWebSockets49 
+														optional
+															ClusteredSession49 
+														mandatory
+															BackEnd49 {abstract}
+																alternative
+																	Gradle49 
+																	Maven49 
+														optional
+															InternationalizationSupport49 
+														optional
+															Docker49 
+														mandatory
+															TestingFrameworks49 {abstract}
+																optional
+																	Protractor49 
+																mandatory
+																	Gatling49 
+																mandatory
+																	Cucumber49 
+														mandatory
+															OR49 {abstract}
+																or
+																	OAuth2_149 {abstract}
+																	MicroserviceApplication_131 {abstract}
+							root212 {abstract}
+								alternative
+									root118 {abstract}
+										alternative
+											root46 {abstract}
+												alternative
+													JHipster50 {abstract, extended__}
+														mandatory
+															Generator50 {abstract}
+																mandatory
+																	Application28 {abstract}
+																		alternative
+																			MicroserviceGateway28 
+																			Monolithic28 
+														mandatory
+															Authentication50 {abstract}
+																mandatory
+																	Uaa28 
+														mandatory
+															SocialLogin25 
+														optional
+															Database50 {abstract}
+																mandatory
+																	Cassandra8 
+														optional
+															SpringWebSockets50 
+														optional
+															Libsass28 
+														optional
+															ClusteredSession50 
+														mandatory
+															BackEnd50 {abstract}
+																alternative
+																	Gradle50 
+																	Maven50 
+														optional
+															InternationalizationSupport50 
+														optional
+															Docker50 
+														mandatory
+															TestingFrameworks50 {abstract}
+																optional
+																	Protractor50 
+																mandatory
+																	Gatling50 
+																mandatory
+																	Cucumber50 
+														mandatory
+															OR50 {abstract}
+																or
+																	OAuth2_150 {abstract}
+																	SocialLogin_125 {abstract}
+													JHipster51 {abstract, extended__}
+														mandatory
+															Generator51 {abstract}
+																mandatory
+																	Application29 {abstract}
+																		alternative
+																			MicroserviceGateway29 
+																			Monolithic29 
+														mandatory
+															Authentication51 {abstract}
+																alternative
+																	HTTPSession22 
+																	OAuth222 
+																	JWT22 
+														mandatory
+															SocialLogin26 
+														optional
+															Database51 {abstract}
+																mandatory
+																	Cassandra9 
+														optional
+															SpringWebSockets51 
+														optional
+															Libsass29 
+														optional
+															ClusteredSession51 
+														mandatory
+															BackEnd51 {abstract}
+																alternative
+																	Gradle51 
+																	Maven51 
+														optional
+															InternationalizationSupport51 
+														optional
+															Docker51 
+														mandatory
+															TestingFrameworks51 {abstract}
+																optional
+																	Protractor51 
+																mandatory
+																	Gatling51 
+																mandatory
+																	Cucumber51 
+														mandatory
+															OR51 {abstract}
+																or
+																	OAuth2_151 {abstract}
+																	SocialLogin_126 {abstract}
+											root47 {abstract}
+												mandatory
+													JHipster52 {abstract, extended__}
+														mandatory
+															Generator52 {abstract}
+																mandatory
+																	Server22 {abstract}
+																		mandatory
+																			UaaServer6 
+														mandatory
+															Authentication52 {abstract}
+																mandatory
+																	Uaa29 
+														mandatory
+															SocialLogin27 
+														optional
+															Database52 {abstract}
+																mandatory
+																	Cassandra10 
+														optional
+															SpringWebSockets52 
+														optional
+															ClusteredSession52 
+														mandatory
+															BackEnd52 {abstract}
+																alternative
+																	Gradle52 
+																	Maven52 
+														optional
+															InternationalizationSupport52 
+														optional
+															Docker52 
+														mandatory
+															TestingFrameworks52 {abstract}
+																optional
+																	Protractor52 
+																mandatory
+																	Gatling52 
+																mandatory
+																	Cucumber52 
+														mandatory
+															OR52 {abstract}
+																or
+																	OAuth2_152 {abstract}
+																	SocialLogin_127 {abstract}
+									root119 {abstract}
+										alternative
+											root48 {abstract}
+												alternative
+													JHipster53 {abstract, extended__}
+														mandatory
+															Generator53 {abstract}
+																mandatory
+																	Application30 {abstract}
+																		alternative
+																			MicroserviceGateway30 
+																			Monolithic30 
+														mandatory
+															Authentication53 {abstract}
+																mandatory
+																	Uaa30 
+														optional
+															Database53 {abstract}
+																mandatory
+																	Cassandra11 
+														optional
+															SpringWebSockets53 
+														optional
+															Libsass30 
+														optional
+															ClusteredSession53 
+														mandatory
+															BackEnd53 {abstract}
+																alternative
+																	Gradle53 
+																	Maven53 
+														optional
+															InternationalizationSupport53 
+														optional
+															Docker53 
+														mandatory
+															TestingFrameworks53 {abstract}
+																optional
+																	Protractor53 
+																mandatory
+																	Gatling53 
+																mandatory
+																	Cucumber53 
+														mandatory
+															OR53 {abstract}
+																mandatory
+																	OAuth2_153 {abstract}
+													JHipster54 {abstract, extended__}
+														mandatory
+															Generator54 {abstract}
+																mandatory
+																	Application31 {abstract}
+																		alternative
+																			MicroserviceGateway31 
+																			Monolithic31 
+														mandatory
+															Authentication54 {abstract}
+																alternative
+																	HTTPSession23 
+																	OAuth223 
+																	JWT23 
+														optional
+															Database54 {abstract}
+																mandatory
+																	Cassandra12 
+														optional
+															SpringWebSockets54 
+														optional
+															Libsass31 
+														optional
+															ClusteredSession54 
+														mandatory
+															BackEnd54 {abstract}
+																alternative
+																	Gradle54 
+																	Maven54 
+														optional
+															InternationalizationSupport54 
+														optional
+															Docker54 
+														mandatory
+															TestingFrameworks54 {abstract}
+																optional
+																	Protractor54 
+																mandatory
+																	Gatling54 
+																mandatory
+																	Cucumber54 
+														mandatory
+															OR54 {abstract}
+																mandatory
+																	OAuth2_154 {abstract}
+											root49 {abstract}
+												mandatory
+													JHipster55 {abstract, extended__}
+														mandatory
+															Generator55 {abstract}
+																mandatory
+																	Server23 {abstract}
+																		mandatory
+																			UaaServer7 
+														mandatory
+															Authentication55 {abstract}
+																mandatory
+																	Uaa31 
+														optional
+															Database55 {abstract}
+																mandatory
+																	Cassandra13 
+														optional
+															SpringWebSockets55 
+														optional
+															ClusteredSession55 
+														mandatory
+															BackEnd55 {abstract}
+																alternative
+																	Gradle55 
+																	Maven55 
+														optional
+															InternationalizationSupport55 
+														optional
+															Docker55 
+														mandatory
+															TestingFrameworks55 {abstract}
+																optional
+																	Protractor55 
+																mandatory
+																	Gatling55 
+																mandatory
+																	Cucumber55 
+														mandatory
+															OR55 {abstract}
+																mandatory
+																	OAuth2_155 {abstract}
+constraints
+	SocialLogin => (((HTTPSession | JWT) & Monolithic) & (SQL | MongoDB))
+	((!OAuth2 & !SocialLogin) & !MicroserviceApplication) => ((SQL | MongoDB) | Cassandra)
+	Server => !Protractor
+	!Server => Protractor
+	MySQL => (H2 | MySql)
+	(MicroserviceApplication | MicroserviceGateway) => (JWT | Uaa)
+	Monolithic => ((JWT | HTTPSession) | OAuth2)
+	MariaDB => (H2 | MariaDBDev)
+	PostgreSQL => (H2 | PostgreSQLDev)
+	(SpringWebSockets | ClusteredSession) => Application
+	OAuth2_1 excludes OAuth2

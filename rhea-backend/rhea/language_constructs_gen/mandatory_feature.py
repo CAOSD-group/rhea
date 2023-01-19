@@ -1,9 +1,9 @@
-from rhea import LanguageConstruct 
+from rhea.language_constructs_gen import LanguageConstruct 
 
-from famapy.metamodels.fm_metamodel.models import FeatureModel, Feature, Relation
+from flamapy.metamodels.fm_metamodel.models import FeatureModel, Feature, Relation
 
 
-class OptionalFeature(LanguageConstruct):
+class MandatoryFeature(LanguageConstruct):
 
     def __init__(self, name: str, parent_name: str) -> None:
         self.name = name
@@ -12,11 +12,11 @@ class OptionalFeature(LanguageConstruct):
 
     @staticmethod
     def name() -> str:
-        return 'Optional Feature'
+        return 'Mandatory Feature'
 
     @staticmethod
     def count(fm: FeatureModel) -> int:
-        return len(fm.get_optional_features())
+        return len(fm.get_mandatory_features())
 
     def get(self) -> Feature:
         return self.feature
@@ -24,7 +24,7 @@ class OptionalFeature(LanguageConstruct):
     def apply(self, fm: FeatureModel) -> FeatureModel:
         parent = fm.get_feature_by_name(self.parent_name)
         self.feature = Feature(name=self.name, parent=parent)
-        relation = Relation(parent=parent, children=[self.feature], card_min=0, card_max=1)
+        relation = Relation(parent=parent, children=[self.feature], card_min=1, card_max=1)
         parent.add_relation(relation)
         return fm
 
@@ -36,14 +36,14 @@ class OptionalFeature(LanguageConstruct):
         return feature is None and parent is not None and any(not f.is_group() for f in fm.get_features())
 
     @staticmethod
-    def get_applicable_instances(fm: FeatureModel, features_names: list[str]) -> list['LanguageConstruct']:
+    def get_applicable_instances(fm: FeatureModel, features_names: list[str] = []) -> list['LanguageConstruct']:
         if fm is None:
             return []
         lcs = []
         parents = [f for f in fm.get_features() if not f.is_group()]
         for f_name in features_names:
             for p in parents:
-                lc = OptionalFeature(f_name, p.name)
+                lc = MandatoryFeature(f_name, p.name)
                 if lc.is_applicable(fm):
                     lcs.append(lc)
         return lcs
