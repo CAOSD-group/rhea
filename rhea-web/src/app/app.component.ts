@@ -85,7 +85,9 @@ export class AppComponent {
     
   //list de constraints y nombres de las features
   typesofcons:Array<string>=['NOT','OR','AND','IMPLIES','XOR','REQUIRES','EXCLUDES','EQUIVALENCE']
+  typesofconsparan:Array<string>=['NOT','OR','AND','IMPLIES','XOR','REQUIRES','EXCLUDES','EQUIVALENCE','(',')']
   typesofconsTerm:Array<string>=['NotTerm','OrTerm','AndTerm','ImpliesTerm','XorTerm','RequiresTerm','ExcludesTerm','EquivalenceTerm']
+  textnewcons=""
   namesFeatures:Array<string>=[]
   listFeatures:Array<FMTree>=[]
   //otros
@@ -121,9 +123,9 @@ export class AppComponent {
 
 
   mainhidden=true
-  windowFM_Editor=false
+  windowFM_Editor=true
   windowAbout=false
-  windowRepository=true
+  windowRepository=false
   windowGuide=false
 
   updatable=false
@@ -1056,23 +1058,7 @@ readThis(inputValue: any): void {
     }
     aux4=true
     this.checkListofconstraint(this.ListOfConstraint[0])
-    aux3=[]
-    this.checkListofconstraint2(this.ListOfConstraint[0])
-    if(aux3.length<this.ListOfConstraint.length){
-      aux4=false
-    }
     return this.ListOfConstraint[0]
-  }
-  checkListofconstraint2(list:Const){
-    if(list!=undefined){
-    if(list.type!=""){
-      aux3.push(list)
-      if(list.operands!=null &&list.operands!= undefined ){
-        list.operands.forEach(element => {
-          this.checkListofconstraint2(element)
-        });
-      }
-    }}
   }
 
   checkListofconstraint(list:Const){
@@ -1136,6 +1122,80 @@ readThis(inputValue: any): void {
       this.loadingmodal=true
       }
   }
+
+
+chechCons(){
+  let listName=this.nameFeatures()
+  let newcons=new Const()
+  let listcons:Array<Const>=[]
+  let listtextcons:Array<any>=this.textnewcons.split(/\s+/)
+  listtextcons.forEach((element,index) => {
+    if(element[0]==undefined){ listtextcons.splice(index,1)}
+  });
+  console.log(listtextcons)
+  listtextcons.forEach((element,index) => {
+    if(this.typesofcons.indexOf(element)!=-1){
+      newcons=new Const()
+      console.log(element+"cons")
+      newcons.type=element
+      newcons.operands=[new Const()]
+      if(element!="NOT"){newcons.operands.push(new Const())}
+      listtextcons[index]=newcons
+      listcons.push(newcons)
+    }
+    if(listName.indexOf(element)!=-1){
+      newcons=new Const()
+      console.log(element+"feature")
+      newcons.operands.splice(0,newcons.operands.length-1)
+      newcons.type=element
+      listtextcons[index]=newcons
+      listcons.push(newcons)
+    }
+
+  });
+  console.log(listtextcons)
+  console.log(listcons)
+}
+
+
+Resolvecons(){
+  return new Const()
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 cardhidden(){
   let bool =true
@@ -1260,49 +1320,9 @@ DeleteList(){
   this.ListOfConstraint=[]
 }
 
-CreateConsBrother(){
+CreateConsNew(){
   this.loadingmodal=false
-  if(this.consactualfather!=undefined && this.consactualfather.type!=""){
-  if(this.ListOfConstraint!=undefined && this.ListOfConstraint.length!=0){
-    this.CreateListCons()
-    if(this.consactualfather.type.toLowerCase().startsWith("feature")){}
-    else{
-    if(this.consactualfather.type.toLowerCase().startsWith("not") && this.consactualfather.operands.length==1){}
-    else{
-    if(this.consactualfather.operands.length==2){}
-    else{this.consactualfather.operands.push(this.ListOfConstraint[0])
-    }}}
-  }}
-  else{
   this.CreateConsList(); 
-}
-  this.ListOfConstraint=[]
-  try{
-    this.sendUpdate()}
-  catch{
-    this.loadingmodal=true
-    }
-}
-
-CreateConsSon(){
-  this.loadingmodal=false
-  if(this.ListOfConstraint!=undefined && this.ListOfConstraint.length!=0){this.CreateListCons()}
-  if(this.consactual!=undefined){
-  if(this.consactual.operands!=null||this.consactual.operands!=undefined){
-  if(this.consactual.operands.length!=0 ){
-    if(this.consactual.operands[0].type==""){this.consactual.operands.slice(0,1)}}
-
-  if(this.typesofconsTerm.indexOf(this.consactual.type)==-1){}
-    else{
-      if(this.consactual.type.toLowerCase().startsWith("not") && this.consactual.operands.length==1){}
-        else{
-          if(this.consactual.operands.length==2){}
-          else{this.consactual.operands.push(this.ListOfConstraint[0])
-          }
-      }
-    }
-  }
-}
   this.ListOfConstraint=[]
   try{
     this.sendUpdate()}
@@ -1321,6 +1341,7 @@ DeleteConsText(){
 
 SelectChipLogic(text:string){
   aux=this.typesofcons.indexOf(text)
+  this.textnewcons=this.textnewcons+" "+text
   if(aux!=-1){
     text=this.typesofconsTerm[aux]
   aux=new Const()
@@ -1340,6 +1361,7 @@ setTimeout(() => {
 
 SelectChipFeature(text:string){
   aux=new Const()
+  this.textnewcons=this.textnewcons+" "+text
   aux.type=text
   aux.operands=[]
   if(this.typesofconsTerm.indexOf(text)==-1){

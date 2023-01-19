@@ -1,19 +1,20 @@
-
-
-<ul class="sidebar-nav" id="sidebar-nav">
-  <li class="nav-item">
-      <h4 style="margin-left: 4%; margin-top: 4%;"> Select language to download</h4>
-  </li>
-  <li class="nav-item" style="margin-left: 4%;">
-    <select class="btn-primary-select" [(ngModel)]="language" style="margin-left: 2%; width: 200px;"  >
-        <option value="tree name">Select an option</option>
-        <option *ngFor="let documento of ListLanguageFormat()">{{documento}}</option>
-    </select>
-    
-    <input class="margin"  type="text" [(ngModel)]="myfile_name" placeholder="Name to download" style="border-radius:5px ;background-color: #f0ececaf ;margin-left: 2%;margin-bottom: 3%;">
-   <button class="btn-primary-search" (click)="SaveJson(language)" style="margin-left: 2%;" >
-      <i class="fa fa-download"> </i>Download
-    </button>
-
-  </li>
-</ul>
+<h4>Log</h4>
+<cdk-virtual-scroll-viewport   [itemSize]="6 * 7" class="example-viewport" style="height: 175px;">
+    <mat-selection-list #constraints [multiple]="false">
+      <mat-list-option *ngFor="let constrainTexto of loglist" [ngStyle]="{'background-color': selectfirst(constrainTexto)}" >
+          <div class="text"> 
+            {{constrainTexto}}
+          </div>
+      </mat-list-option>   
+    </mat-selection-list>
+  </cdk-virtual-scroll-viewport>
+      <button mat-icon-button (click)="Undo()" class=”buttonmodal” (mouseenter)="tooltip='Undo'" (mouseleave)="tooltip=''"  [disabled]=Disblebutton()[1] style="position: relative;">
+        <mat-icon *ngIf="Disblebutton()[1]">undo</mat-icon>
+        <mat-icon *ngIf="!Disblebutton()[1]" data-bs-toggle="modal" href="#loading">undo</mat-icon>
+        <h6 *ngIf="ToolTipText()[1]" style="color: rgba(65, 65, 65, 0.75);font-size: 12px;position: absolute;z-index: 9;margin-top: -6px;">{{tooltip}}</h6>
+      </button>
+      <button mat-icon-button (click)="Redo()" class=”buttonmodal” (mouseenter)="tooltip='Redo'" (mouseleave)="tooltip=''"  [disabled]=Disblebutton()[0] style="position: relative;">
+        <mat-icon *ngIf="Disblebutton()[0]">redo</mat-icon>
+        <mat-icon *ngIf="!Disblebutton()[0]" data-bs-toggle="modal" href="#loading">redo</mat-icon>
+        <h6 *ngIf="ToolTipText()[0]" style="color: rgba(65, 65, 65, 0.75);font-size: 12px;position: absolute;z-index: 9; margin-top: -6px;">{{tooltip}}</h6>
+      </button>

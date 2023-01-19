@@ -3,7 +3,7 @@
   <div class="d-flex align-items-center justify-content-between">
     <a  class="logo d-flex align-items-center">
       <div class="down">
-      <h2 class="white-text" >RheaWeb</h2></div>
+      <h2 class="white-text" (click)="drawer.toggle()" style="cursor: pointer;">RheaWeb</h2></div>
       <button mat-icon-button (click)="drawer.toggle()"  (click)="(bdrawer=!bdrawer)" >
         <mat-icon class="white-text" >{{bdrawer? 'chevron_right' : 'chevron_left'}}</mat-icon>
       </button>
@@ -45,12 +45,12 @@
       <mat-icon>account_tree</mat-icon>
     </h4>
   </button>  
- <!----> <div style="margin-top: 5%;"></div>
+ <!-- <div style="margin-top: 5%;"></div>
   <button  class="empty" style="margin-top: 3%;"(click)="showRepository()">
     <h4 class="white-text">Repository
       <img src="../assets/img/icons8-base-de-datos-20.png" style="size: 1px;" >
     </h4>
-  </button>
+  </button>-->
 
   <div style="margin-top: 5%;"></div>
   <button  class="empty" style="margin-top: 3%;"(click)="showGuide()" >
@@ -118,16 +118,16 @@
           </div>
         </div>
       </div>-->
-      <!-- Card 3-->
+      <!-- Card 2-->
       <div   class="col-4">
         <div class="card block">
           <div class="border">
-            <card3  
+            <card2  
             [ListLanguage]="ListLanguage" 
             [jsonLanguageextension]="jsonLanguageextension" 
             (newItemEventName)="Name($event)"  
             (newItemEventSave)="Save($event)"  
-            ></card3>
+            ></card2>
           </div>
         </div>
       </div> 
@@ -135,12 +135,12 @@
       <div   class="col-4">
         <div class="card block">
           <div class="border">
-            <card4  
+            <card3  
             [loglist]="loglist" 
             [loghash]="loghash"
             [logposition]="logposition"
             (newItemEventreundo)="Movehistory($event)"
-            ></card4>
+            ></card3>
           </div>
         </div>
       </div> 
@@ -433,19 +433,19 @@
         <h4 class="modal-title" id="exampleModalLabel">Edit constraint</h4>
         <button type="button" class="btn-close" data-bs-dismiss="modal"  (click)="ListOfConstraint=[]"aria-label="Close"></button>
       </div>
-      <label style="margin-left: 10px;margin-right: 5px;color:#012970"> Full text: </label>
-      <label style="margin-left: 10px;margin-right: 5px;"> {{jsonconstraintTexto[npos]}}</label>
+       <!--<label style="margin-left: 10px;margin-right: 5px;color:#012970"> Full text: </label>
+      <label style="margin-left: 10px;margin-right: 5px;"> {{jsonconstraintTexto[npos]}}</label> -->
       <div class="modal-body">
         <div class="col-12">
           <div class="row">
             <!-- Features Chip -->
             <div class="col-6">
               <div class="bordermodal">
-                <h4 style="margin-top: -17px;">Features Term</h4>
-                <input style="margin-bottom: 5px;" type="text" [(ngModel)]="featureautocomplete">
-                <cdk-virtual-scroll-viewport [itemSize]="6 * 7" class="example-viewport" style="margin-bottom: -20px;">
+                <h4 style=" margin-top: -17px;">Features Term</h4>
+                <input style="margin-bottom: 5px;" type="text" placeholder="Search a feature" [(ngModel)]="featureautocomplete">
+                <cdk-virtual-scroll-viewport [itemSize]="6 * 7" class="example-viewport" style="height: 395px;">
                   <mat-chip-list class="mat-chip-list-stacked" >
-                    <mat-chip *ngFor="let chip of nameFeatures()" (click)="SelectChipFeature(chip)" (click)="CreateListCons()" [hidden]="AutocompleteFeatureTermChip(chip)">
+                    <mat-chip *ngFor="let chip of nameFeatures()" (click)="SelectChipFeature(chip)"  [hidden]="AutocompleteFeatureTermChip(chip)">
                       {{chip}}
                     </mat-chip>
                   </mat-chip-list>
@@ -457,11 +457,10 @@
               <div class="bordermodal">
                 <h4 style="margin-bottom: 43px;margin-top: -17px;">Logic Term</h4>
                 <mat-chip-list class="mat-chip-list-stacked"  >
-                  <mat-chip *ngFor="let chip of typesofcons"  (click)="SelectChipLogic(chip)" (click)="CreateListCons()">
+                  <mat-chip *ngFor="let chip of typesofconsparan"  (click)="SelectChipLogic(chip)" >
                     {{chip}}
                   </mat-chip>
                 </mat-chip-list>
-                <div style="margin-bottom: 15px;"> </div>
               </div>
             </div>
          <!-- Constraint Tree 
@@ -502,19 +501,24 @@
         </div>
         <!--Write list-->
         <div style="margin-top: 10px;"></div>
+          <textarea style="width: 766px;height: 90px;border:3px solid #88888888; font-size: 20px;" type="text" [(ngModel)]="textnewcons"></textarea>
+          <button class="btn btn-secondary "  style="background-color: #636363bb;" (click)="chechCons()">text cons</button>
+        <div class="col-12">
+
+ <!--
+        <div style="margin-top: 10px;"></div>
         <div class="bordermodal">
           <p  >{{Writelist()}}</p>
           <button class="btn btn-secondary "  style="background-color: #636363bb;" (click)="DeleteList()">Delete List</button>
-          <button class="btn btn-secondary " (click)="CreateListCons()" [ngStyle]="{'background-color':checkListofconstraint(ListOfConstraint[0])[1]}">Check List: {{checkListofconstraint(ListOfConstraint[0])[0]? "OK":"Not Ok"}}</button>
+          <button class="btn btn-secondary " [ngStyle]="{'background-color':checkListofconstraint(ListOfConstraint[0])[1]}">Check List: {{checkListofconstraint(ListOfConstraint[0])[0]? "OK":"Not Ok"}}</button>
         </div>
         <div class="col-12">
-          <!--Buttons-->
+         Buttons
           <div class="row" style="margin-top: 10px;">
-            <div class="col-3"><button class="buttonmodal " data-bs-toggle="modal" href="#loading" (click)="CreateConsBrother()"> Create New</button></div>
-            <div class="col-3"><button class="buttonmodal " data-bs-toggle="modal" href="#loading" *ngIf="consactual!=undefined" (click)="CreateConsSon()"> Insert child </button></div>
+            <div class="col-3"><button class="buttonmodal " data-bs-toggle="modal" href="#loading" (click)="CreateConsNew()"> Create New</button></div>
             <div class="col-3"><button class="buttonmodal " data-bs-toggle="modal" href="#loading" *ngIf="consactual!=undefined" (click)="ModifyCons()"> Edit Constrain </button></div>
             <div class="col-3"><button class="buttonmodal " data-bs-toggle="modal" href="#loading" *ngIf="consactual!=undefined" (click)="DeleteCons()"> Delete Constrain </button></div>
-          </div>
+          </div>-->
         </div>
       </div>
       <div class="modal-footer">

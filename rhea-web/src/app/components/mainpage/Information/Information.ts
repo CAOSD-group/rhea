@@ -95,5 +95,14 @@ let aux=0
       else{
       return [false,""]}
     }
+    Hiddenrow(){
+      let rows:Array<Language>=[]
+      this.jsonlanguage.forEach(element => {
+        if(element.value!=0){
+          rows.push(element)
+        }
+      });
+      return rows
+    }
     
   }

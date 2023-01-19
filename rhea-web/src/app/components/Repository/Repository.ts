@@ -13,9 +13,9 @@ let aux:any
     styleUrls: ['../../app.component.css' ]
   })
   export class Repository {
-  urlcur="https://rhea.caosd.lcc.uma.es/getCur" 
+  //urlcur="https://rhea.caosd.lcc.uma.es/getCur" 
   //urlinsertcur="https://rhea.caosd.lcc.uma.es/insertIntoRepository" 
-  //urlcur="http://127.0.0.1:5000/getCur" 
+  urlcur="http://127.0.0.1:5000/getCur" 
   //urlinsertcur="http://127.0.0.1:5000/insertIntoRepository" 
 
   selection = new SelectionModel<Data>(true, []);
