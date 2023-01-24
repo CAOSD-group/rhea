@@ -6,7 +6,7 @@ import { Language } from './components/Language/Language';
 import { Semantics } from './components/Semantics/Semantics';
 import { ToolsExtension } from './components/ToolsExtension/ToolsExtension';
 
-import { globalhtml } from './components/globalhtml/globalhtml';
+
 import { About } from './components/about/about';
 import { Guide } from './components/Guide/Guide';
 import { Repository } from './components/Repository/Repository';
@@ -56,7 +56,7 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
     ToolsExtension,
 
     
-    globalhtml,
+
     About,
     Guide,
     Repository,

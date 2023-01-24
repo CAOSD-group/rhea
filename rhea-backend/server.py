@@ -122,7 +122,23 @@ def get_File():
         return "a"
 
 
-
+@app.route('/checktextcons', methods=['POST'])
+def check_text_cons():
+    if request.method != 'POST':
+        return None
+    else:
+        text=request.form['text']
+        print(text)
+        return "true"
+    
+@app.route('/createcons', methods=['POST'])
+def create_new_cons():
+    if request.method != 'POST':
+        return None
+    else:
+        text=request.form['text']
+        print(text)
+        return "true"
 
 
 

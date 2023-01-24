@@ -26,7 +26,7 @@
 </mat-menu>
 </h4>
 
-<table mat-table [dataSource]="Hiddenrow()"  >
+<table mat-table [dataSource]="jsonlanguage"  >
           <mat-chip-list class="colum"  >
             <mat-chip *ngFor="let chip of columns()" >
                 <ng-container matColumnDef={{chip}} >

@@ -50,9 +50,11 @@ export class AppComponent {
   //urlupload="http://127.0.0.1:5000/uploadFM"  
   //urlrefactor="http://127.0.0.1:5000/refactor" 
   //urlupdate="http://127.0.0.1:5000/updateFM" 
-  //urlcur="http://127.0.0.1:5000/getCur" 
-  //urlinsertcur="http://127.0.0.1:5000/insertIntoRepository" 
-  //urlgetfile="http://127.0.0.1:5000/getFile" 
+  urlcur="http://127.0.0.1:5000/getCur" 
+  urlinsertcur="http://127.0.0.1:5000/insertIntoRepository" 
+  urlgetfile="http://127.0.0.1:5000/getFile" 
+  urltextcons="http://127.0.0.1:5000/checktextcons" 
+  urlnewcons="http://127.0.0.1:5000/createcons" 
 
  // FOR DEVELOPER: for any new url the backend get , it must be update in the apache2 file for the web to work in de sites-available domain.conf, then restart apache, and the frontend and backend"
 
@@ -62,9 +64,11 @@ export class AppComponent {
   urlupload="https://rhea.caosd.lcc.uma.es/uploadFM"  
   urlrefactor="https://rhea.caosd.lcc.uma.es/refactor" 
   urlupdate="https://rhea.caosd.lcc.uma.es/updateFM" 
-  urlcur="https://rhea.caosd.lcc.uma.es/getCur" 
-  urlinsertcur="https://rhea.caosd.lcc.uma.es/insertIntoRepository" 
-  urlgetfile="https://rhea.caosd.lcc.uma.es/getFile" 
+  //urlcur="https://rhea.caosd.lcc.uma.es/getCur" 
+  //urlinsertcur="https://rhea.caosd.lcc.uma.es/insertIntoRepository" 
+  //urlgetfile="https://rhea.caosd.lcc.uma.es/getFile" 
+  //urltextcons="https://rhea.caosd.lcc.uma.es/checktextcons" 
+  //urlnewcons="https://rhea.caosd.lcc.uma.es/createcons" 
   
   declare actual:FMTree     
   declare actualfather:FMTree 
@@ -166,6 +170,8 @@ export class AppComponent {
   Rating=""
   Description=""
   Organization=""
+
+  textconsvalid=false
 
 
 constructor(private http: HttpClient,private _snackBar: MatSnackBar ) { }  
@@ -385,6 +391,7 @@ CreateData(object:any,name?:string){
   this.jsonlanguage=aux.language_constructs
   this.jsonLanguageextension=aux.tools_info
   this.my_session=aux.hash
+  this.textnewcons=""
   this.ListOfConstraint=[]
   if(this.my_session!=this.loghash[this.logposition]){
     if(this.loghash.indexOf(this.my_session)==-1){
@@ -802,9 +809,6 @@ CreateBrother(){
 }
 
 
-
-
-
 constrainthasChild = (_: number, constrainnode: Const) => !!constrainnode.operands && constrainnode.operands.length >= 0;
 hasChild = (_: number, node: any) => !!node.children && node.children.length >= 0;
 
@@ -1153,8 +1157,23 @@ chechCons(){
     }
 
   });
-  console.log(listtextcons)
-  console.log(listcons)
+  const formData: FormData = new FormData();
+  formData.append('text', this.textnewcons);
+  this.http.post(this.urltextcons,formData,{withCredentials:true,responseType:'text'}).subscribe(resultado=>{
+    console.log(resultado)
+    this.textconsvalid=(resultado=="true")
+    return this.textconsvalid
+  })
+}
+
+CreateNewCons(){
+  const formData: FormData = new FormData();
+  formData.append('text', this.textnewcons);
+  formData.append('hash', this.my_session);
+  this.http.post(this.urlnewcons,formData,{withCredentials:true,responseType:'text'}).subscribe(resultado=>{
+    console.log(resultado)
+    //this.CreateData(resultado)
+  })
 }
 
 
