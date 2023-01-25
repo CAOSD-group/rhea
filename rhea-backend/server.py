@@ -129,6 +129,7 @@ def check_text_cons():
     else:
         text=request.form['text']
         print(text)
+        print("Debo devolver true o false, donde true es que la constraint es valida, y false es donde no esta bien redactada o existen otros problemas")
         return "true"
     
 @app.route('/createcons', methods=['POST'])
@@ -137,7 +138,10 @@ def create_new_cons():
         return None
     else:
         text=request.form['text']
-        print(text)
+        hash=request.form['hash']
+        name=request.form['name']
+        print(text,hash,name)
+        print("Devolver el nuevo modelo, y quitar la linea comentada del metodo CreateNewCons() en app.component.ts")
         return "true"
 
 

@@ -432,11 +432,11 @@
     <div class="modal-content">
       <div class="modal-header">
         <h4 class="modal-title" id="exampleModalLabel">Edit constraint</h4>
-        <button type="button" class="btn-close" data-bs-dismiss="modal"  (click)="ListOfConstraint=[]"aria-label="Close"></button>
       </div>
        <!--<label style="margin-left: 10px;margin-right: 5px;color:#012970"> Full text: </label>
       <label style="margin-left: 10px;margin-right: 5px;"> {{jsonconstraintTexto[npos]}}</label> -->
       <div class="modal-body">
+        <h4> <mat-icon style="margin-bottom: -5px;" [ngStyle]="{'color': textconsvalid? 'green' : 'red' }">{{textconsvalid? "check_circle_outline":"warning"}}</mat-icon> {{textconsvalid? "Everything is correct":"Something is wrong"}}</h4>
         <div class="col-12">
           <div class="row">
             <!-- Features Chip -->

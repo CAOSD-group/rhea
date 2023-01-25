@@ -50,11 +50,11 @@ export class AppComponent {
   //urlupload="http://127.0.0.1:5000/uploadFM"  
   //urlrefactor="http://127.0.0.1:5000/refactor" 
   //urlupdate="http://127.0.0.1:5000/updateFM" 
-  urlcur="http://127.0.0.1:5000/getCur" 
-  urlinsertcur="http://127.0.0.1:5000/insertIntoRepository" 
-  urlgetfile="http://127.0.0.1:5000/getFile" 
-  urltextcons="http://127.0.0.1:5000/checktextcons" 
-  urlnewcons="http://127.0.0.1:5000/createcons" 
+  //urlcur="http://127.0.0.1:5000/getCur" 
+  //urlinsertcur="http://127.0.0.1:5000/insertIntoRepository" 
+  //urlgetfile="http://127.0.0.1:5000/getFile" 
+  //urltextcons="http://127.0.0.1:5000/checktextcons" 
+  //urlnewcons="http://127.0.0.1:5000/createcons" 
 
  // FOR DEVELOPER: for any new url the backend get , it must be update in the apache2 file for the web to work in de sites-available domain.conf, then restart apache, and the frontend and backend"
 
@@ -64,11 +64,11 @@ export class AppComponent {
   urlupload="https://rhea.caosd.lcc.uma.es/uploadFM"  
   urlrefactor="https://rhea.caosd.lcc.uma.es/refactor" 
   urlupdate="https://rhea.caosd.lcc.uma.es/updateFM" 
-  //urlcur="https://rhea.caosd.lcc.uma.es/getCur" 
-  //urlinsertcur="https://rhea.caosd.lcc.uma.es/insertIntoRepository" 
-  //urlgetfile="https://rhea.caosd.lcc.uma.es/getFile" 
-  //urltextcons="https://rhea.caosd.lcc.uma.es/checktextcons" 
-  //urlnewcons="https://rhea.caosd.lcc.uma.es/createcons" 
+  urlcur="https://rhea.caosd.lcc.uma.es/getCur" 
+  urlinsertcur="https://rhea.caosd.lcc.uma.es/insertIntoRepository" 
+  urlgetfile="https://rhea.caosd.lcc.uma.es/getFile" 
+  urltextcons="https://rhea.caosd.lcc.uma.es/checktextcons" 
+  urlnewcons="https://rhea.caosd.lcc.uma.es/createcons" 
   
   declare actual:FMTree     
   declare actualfather:FMTree 
@@ -1127,94 +1127,30 @@ readThis(inputValue: any): void {
       }
   }
 
-
 chechCons(){
-  let listName=this.nameFeatures()
-  let newcons=new Const()
-  let listcons:Array<Const>=[]
-  let listtextcons:Array<any>=this.textnewcons.split(/\s+/)
-  listtextcons.forEach((element,index) => {
-    if(element[0]==undefined){ listtextcons.splice(index,1)}
-  });
-  console.log(listtextcons)
-  listtextcons.forEach((element,index) => {
-    if(this.typesofcons.indexOf(element)!=-1){
-      newcons=new Const()
-      console.log(element+"cons")
-      newcons.type=element
-      newcons.operands=[new Const()]
-      if(element!="NOT"){newcons.operands.push(new Const())}
-      listtextcons[index]=newcons
-      listcons.push(newcons)
-    }
-    if(listName.indexOf(element)!=-1){
-      newcons=new Const()
-      console.log(element+"feature")
-      newcons.operands.splice(0,newcons.operands.length-1)
-      newcons.type=element
-      listtextcons[index]=newcons
-      listcons.push(newcons)
-    }
-
-  });
   const formData: FormData = new FormData();
   formData.append('text', this.textnewcons);
   this.http.post(this.urltextcons,formData,{withCredentials:true,responseType:'text'}).subscribe(resultado=>{
-    console.log(resultado)
     this.textconsvalid=(resultado=="true")
     return this.textconsvalid
   })
+  return false
 }
 
 CreateNewCons(){
+  
   const formData: FormData = new FormData();
   formData.append('text', this.textnewcons);
   formData.append('hash', this.my_session);
+  if(this.listnamesconstraints[this.position]!=undefined){formData.append('name', this.listnamesconstraints[this.position]);}
+  else{
+    formData.append('name',"");
+  }
   this.http.post(this.urlnewcons,formData,{withCredentials:true,responseType:'text'}).subscribe(resultado=>{
     console.log(resultado)
     //this.CreateData(resultado)
   })
 }
-
-
-Resolvecons(){
-  return new Const()
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 cardhidden(){
   let bool =true
