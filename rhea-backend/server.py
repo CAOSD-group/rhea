@@ -13,7 +13,7 @@ from flask_cors import CORS
 from werkzeug.utils import secure_filename
 from flask_caching import Cache
 
-from flamapy.metamodels.fm_metamodel.models import FeatureModel
+from flamapy.metamodels.fm_metamodel.models import FeatureModel, Constraint
 from flamapy.metamodels.fm_metamodel.transformations import (
     UVLReader, 
     UVLWriter, 
@@ -52,28 +52,28 @@ app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 CORS(app, supports_credentials=True)
 
 
-conn = mariadb.connect(
+connection = mariadb.connect(
     user="caosd",
     password="password",
     host="localhost",
     database="rhea")
-cur = conn.cursor() 
+cursor = connection.cursor() 
 
 
 @app.route('/getCur', methods=['GET'])
 def get_Cur():
     if request.method != 'GET':
-        print (cur)
+        print (cursor)
         return None
     else:
-        cur.execute("SELECT * FROM Repository") 
+        cursor.execute("SELECT * FROM Repository") 
         a=[]
-        for Name,Author,Owner,Ref,Year,Domain,Version,Languagelevel,Rating,File2,Id,Description,Organization in cur:
+        for Name,Author,Owner,Ref,Year,Domain,Version,Languagelevel,Rating,File2,Id,Description,Organization in cursor:
             Id=str(Id)
             b=[Name,Author,Owner,Ref,Year,Domain,Version,Languagelevel,Rating,Id,Description,Organization]
             a.insert(len(a),b)
         a=make_response(json.dumps(a))
-        conn.commit()
+        connection.commit()
         return a
 
 @app.route('/insertIntoRepository', methods=['POST'])
@@ -98,12 +98,12 @@ def insert_repository():
         Organization =request.form['Organization']
         #File=request.files['File']
         #File=File.read()
-        cur.execute("INSERT INTO Repository (Name,Author,Owner,Ref,Year,Domain,Version,Languagelevel,Rating,Hash,Id,Description,Organization) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)",(Name,Author,Owner,Ref,Year,Domain,Version,Languagelevel,Rating,Id,Id,Description,Organization))
-        cur.execute("SELECT * FROM Repository") 
-        for Name,Author,Owner,Ref,Year,Domain,Version,Languagelevel,Rating,File,Id,Description,Organization in cur:
+        cursor.execute("INSERT INTO Repository (Name,Author,Owner,Ref,Year,Domain,Version,Languagelevel,Rating,Hash,Id,Description,Organization) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)",(Name,Author,Owner,Ref,Year,Domain,Version,Languagelevel,Rating,Id,Id,Description,Organization))
+        cursor.execute("SELECT * FROM Repository") 
+        for Name,Author,Owner,Ref,Year,Domain,Version,Languagelevel,Rating,File,Id,Description,Organization in cursor:
             b=[Name,Author,Owner,Ref,Year,Domain,Version,Languagelevel,Rating,Id,Description,Organization]
         a=make_response(json.dumps(b))
-        conn.commit()
+        connection.commit()
         return a
 
 @app.route('/getFile', methods=['POST'])
@@ -114,8 +114,8 @@ def get_File():
         # Get parameters
         Id=request.form['Id']
         Id=int(Id)
-        cur.execute("SELECT File FROM Repository WHERE Id=?",(Id,)) 
-        for File in cur:
+        cursor.execute("SELECT File FROM Repository WHERE Id=?",(Id,)) 
+        for File in cursor:
             f=File[0]
             #fm=read_fm_file(File)
         print(read_fm_file(f))
@@ -137,11 +137,35 @@ def create_new_cons():
     if request.method != 'POST':
         return None
     else:
-        text=request.form['text']
-        hash=request.form['hash']
+
+        text=request.form['text'] #regla
+        fm_hash=request.form['fm_hash']
         name=request.form['name']
-        print(text,hash,name)
-        print("Devolver el nuevo modelo, y quitar la linea comentada del metodo CreateNewCons() en app.component.ts")
+
+        #cache.set(str(hash_fm), fm)
+        print("hash: ",fm_hash, " - ", type(fm_hash))
+        fm = cache.get(fm_hash)
+        print("hash: ",fm, " - ", type(fm_hash))
+
+        #fm = UVLReader(None).transform()
+        ctc: Constraint = check_text_cons()
+        fm.ctcs.append(ctc)
+        return fm
+        
+
+
+        
+
+
+
+        #-. Comprobar que "text" está bien (no prioritario?)
+        #1. Rescatar el FM con el que estoy trabajando
+        #2. Hacer que sea constraint
+        #3.  
+        #print("Devolver el nuevo modelo, y quitar la linea comentada del metodo CreateNewCons() en app.component.ts")
+
+
+       
         return "true"
 
 
@@ -326,6 +350,10 @@ def refactor():
         json_fm = JSONWriter(path=None, source_model=fm).transform()
         response = make_response(json_fm)
         fm_hash = hash(fm)
+
+        #ctcs_list = fm.get_constraints()
+        #ctcs_list[0].ast.pretty_str()
+
         cache.set(str(fm_hash), fm)
         return response
     return None

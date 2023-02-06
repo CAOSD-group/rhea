@@ -176,7 +176,7 @@
         </div>
 
         <div class="card block">
-          <div class="border">  
+          <div class="border">   
             <ConstraintsText 
             [visible_Constraint_list]="visible_Constraint_list" 
             [show_refacts_cons_only]="show_refacts_cons_only"
@@ -323,7 +323,7 @@
 				</div>
 			</div>
 			<div class="modal-footer">
-		    <button (click)="ModifySelecction()"  data-bs-toggle="modal" href="#loading" class="buttonmodal">update</button>
+		    <button (click)="ModifySelection()"  data-bs-toggle="modal" href="#loading" class="buttonmodal">update</button>
 			</div>
 		</div>
 	</div>
@@ -503,7 +503,7 @@
         <!--Write list-->
         <div style="margin-top: 10px;"></div>
         <textarea style="width: 766px;height: 90px;border:3px solid #88888888; font-size: 20px;" type="text" [(ngModel)]="textnewcons"></textarea>
-        <button class="buttonmodal"  style="background-color: #636363bb;" (click)="chechCons()">check cons</button>
+        <button class="buttonmodal"  style="background-color: #636363bb;" (click)="checkCons()">check cons</button>
         <div class="col-12">
 
  <!--
@@ -523,7 +523,9 @@
         </div>
       </div>
       <div class="modal-footer">
-       <button class="buttonmodal " data-bs-toggle="modal" (click)="CreateNewCons()" [disabled]="!textconsvalid" href="#loading"> Create</button>
+       <!--LÍNEA ANTIGUA: <button class="buttonmodal " data-bs-toggle="modal" (click)="CreateNewCons()" [disabled]="!textconsvalid" href="#loading"> Create</button>-->
+       <button class="buttonmodal " data-bs-toggle="modal" (click)="CreateNewCons()" [disabled]="textconsvalid" href="#loading"> Create</button>
+
       </div>
     </div>
   </div>
