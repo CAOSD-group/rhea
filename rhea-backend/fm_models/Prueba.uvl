@@ -1,0 +1,7 @@
+namespace Prueba
+
+features
+
+constraints
+	CheesyCrust & Sicilian => Big
+	Neapolitan => !Salami & !Ham

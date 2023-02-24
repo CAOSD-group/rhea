@@ -25,10 +25,11 @@ let aux:any
   @ViewChild(MatSort, {static: true}) sort!: MatSort;
   @Output() newItemEventopendModal = new EventEmitter<Data>(); 
   @Output() newItemEventreadThis = new EventEmitter<any>(); 
-  @Input() myArticle=new Data('','','','',0,'',"",'',0,0,'','');
+  @Input() myArticle=new Data(0,'','','','',0,'','','',0,0,'','','','','')
   data  
   @Input() bool
   bool2=true
+
   columns: string[] = [       
     "Name",
     "Author",
@@ -55,26 +56,35 @@ let aux:any
     getCur(){
       this.data=[]
       this.dataSourcerepo = new MatTableDataSource<Data>(this.data);
+      
       if(this.http!=undefined){
       this.http.get(this.urlcur).subscribe(resultado => {
         aux=resultado
-        console.log(aux)
+        console.log(aux) 
+
         aux.forEach(element => {
           let doc=new Data()
-          doc.Name=element[0]||""
-          doc.Author=element[1]||""
-          doc.Owner=element[2]||""
-          doc.Ref=element[3]||""
-          doc.Year=element[4]||0
-          doc.Domain=element[5]||""
-          doc.Version=element[6]||""
-          doc.Language_level=element[7]||""
-          doc.Rating=element[8]||""
-          doc.Id=element[9]
+          
+          doc.Id=element["ID_Model"]||""
+          doc.Name=element["Name"]||""
+          doc.Author=element["Author"]||""
+          doc.Owner=element["Owner"]||""
+          doc.Ref=element["Ref"]||""
+          doc.Year=element["Year"]||0
+          doc.Domain=element["Domain"]||""
+          doc.Version=element["Version"]||""
+          doc.Language_level=element["Languagelevel"]||""
+          doc.Rating=element["Rating"]||0
+          doc.Hash=element["Hash"]||""
+          doc.Description=element["Description"]||""
+          doc.Organization=element["Organization"]||""
+          doc.Format=element["Format"]||""
+
           this.data.push(doc)
         });
         }
       )}
+
     }
 
     Button(){
@@ -130,6 +140,7 @@ let aux:any
   
   export class Data {
     constructor(
+      public Id?: number,
       public Name?: string,
       public Author?: string,
       public Owner?: string,
@@ -142,7 +153,8 @@ let aux:any
       public nConfigs?: number,
       public Rating?: string,
       public Format?: string,
-      public Id?: string,
-  
+      public Hash?: string,
+      public Description?: string,
+      public Organization?: string
       ) {}
   }

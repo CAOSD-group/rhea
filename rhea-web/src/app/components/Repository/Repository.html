@@ -2,15 +2,18 @@
 <div class="card">{{bool&&bool2? Button():""}}
     <h4 class="title">Feature Models Repository</h4>
     <div style="margin: 40px; margin-top: -80px;">
+
         <button class="buttonmodal" data-bs-toggle="modal" href="#modalInsertData">Upload FM </button>
+        
         <mat-form-field style="width: 75%;"> 
             <mat-label style="margin-left: 20px;" >Search</mat-label>
             <input matInput (keyup)="filter($event)" style="margin-left: 20px;"   placeholder="Search">
         </mat-form-field>
+
         <button class="buttonmodal">Download FM</button>
+      
         <div class="mat-elevation-z8">
             <table style="width: 100%;" #repositorytable mat-table [dataSource]="dataSourcerepo"  matSort>
-          
               
                 <ng-container matColumnDef="Name">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
@@ -91,6 +94,6 @@
               <tr mat-header-row *matHeaderRowDef="columns"></tr>
               <tr mat-row *matRowDef="let row; columns: columns;"></tr>
             </table>
-          </div>
+        </div>
     </div>
 </div>

@@ -44,6 +44,7 @@ import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatTableModule} from '@angular/material/table';
 import { MatSortModule } from '@angular/material/sort';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
+import { DrawerComponent } from './components/drawer/drawer.component';
 
 @NgModule({
   declarations: [
@@ -69,6 +70,7 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
     semantics_metrics,
     ConstraintsText,
     ConstraintsTree,
+    DrawerComponent,
   ],
 
 

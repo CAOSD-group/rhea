@@ -38,221 +38,201 @@
 <!-- End Header -->
 <!-- ======= Sidebar ======= -->
 <mat-drawer-container class="example-container" autosize>
-  
-<mat-drawer #drawer  class="color" mode="side">
-  <button class="empty" style="margin-top: 3%;" (click)="showFM_Editor()">
-    <h4 class="white-text">FM Editor
-      <mat-icon>account_tree</mat-icon>
-    </h4>
-  </button>  
- <!-- <div style="margin-top: 5%;"></div>
-  <button  class="empty" style="margin-top: 3%;"(click)="showRepository()">
-    <h4 class="white-text">Repository
-      <img src="../assets/img/icons8-base-de-datos-20.png" style="size: 1px;" >
-    </h4>
-  </button>-->
 
-  <div style="margin-top: 5%;"></div>
-  <button  class="empty" style="margin-top: 3%;"(click)="showGuide()" >
-    <h4 class="white-text">Guide
-    <mat-icon> help_outline</mat-icon></h4>
-  </button>
+  <!-- Drawer --> 
+  <mat-drawer #drawer  class="color" mode="side">
+    <app-drawer 
+      (showFM_Editor_drawer_event)="showFM_Editor()" 
+      (showAbout_drawer_event)="showAbout()" 
+      (showRepository_drawer_event)="showRepository()"
+      (showGuide_drawer_event)="showGuide()">
+    </app-drawer><br/>
+  </mat-drawer>
 
-  <div style="margin-top: 5%;"></div>
-  <button  class="empty" style="margin-top: 3%;"(click)="showAbout()" >
-    <h4 class="white-text">About us
-    <mat-icon> account_circle</mat-icon></h4>
-  </button>
+  <!-- Main Page Repository --> 
+  <div [hidden]="!windowRepository">
+    <Repository
+    [urlcur]="urlcur"
+    [myArticle]="myArticle"
+    [bool]="windowRepository"
+    (newItemEventopendModal)="myArticle=$event"
+    ></Repository>
+  </div>
+  <div class="resize">
+    
+  <!-- Main Page Guide --> 
+  <div [hidden]="!windowGuide">
+    <guide
+    ></guide>
+  </div>
 
-</mat-drawer>
-
-
-<!-- Main Page Repository --> 
-<div [hidden]="!windowRepository">
-  <Repository
-  [urlcur]="urlcur"
-  [myArticle]="myArticle"
-  [bool]="windowRepository"
-  (newItemEventopendModal)="myArticle=$event"
-  ></Repository>
-</div>
-<div class="resize">
-  
-<!-- Main Page Guide --> 
-<div [hidden]="!windowGuide">
-  <guide
-  ></guide>
-</div>
-
-<!-- Main Page About --> 
-<div [hidden]="!windowAbout">
-  <about
-  ></about>
-</div>
+  <!-- Main Page About --> 
+  <div [hidden]="!windowAbout">
+    <about
+    ></about>
+  </div>
 
 
-
-<!-- Main Page FM_editor -->
-<div [hidden]="!windowFM_Editor">
-<main >
-  <section class="section dashboard">
-    <div class="row">
-      <div style="margin-top: 2%; "></div>
-      <!-- Card 1 -->
-      <div   class="col-4">
-        <div class="card block">
-          <div class="border">
-            <card1 
-            [documents]="documents"  
-            [myfile_name]="myfile_name"  
-            (newItemEventreadThis)="readThis($event)" 
-            [item]="item"  
-            (newItemEventreturnValues)="returnValues($event)"></card1>
+  <!-- Main Page FM_editor -->
+  <div [hidden]="!windowFM_Editor">
+  <main >
+    <section class="section dashboard">
+      <div class="row">
+        <div style="margin-top: 2%; "></div>
+        <!-- Card 1 -->
+        <div   class="col-4">
+          <div class="card block">
+            <div class="border">
+              <card1 
+              [documents]="documents"  
+              [myfile_name]="myfile_name"  
+              (newItemEventreadThis)="readThis($event)" 
+              [item]="item"  
+              (newItemEventreturnValues)="returnValues($event)"></card1>
+            </div>
           </div>
         </div>
-      </div>
-      <!-- Card 2 
-      <div   class="col-4">
-        <div class="card block">
-          <div class="border">
-            <card2 [item]="item"  (newItemEventreturnValues)="returnValues($event)"></card2>
+        <!-- Card 2 
+        <div   class="col-4">
+          <div class="card block">
+            <div class="border">
+              <card2 [item]="item"  (newItemEventreturnValues)="returnValues($event)"></card2>
+            </div>
           </div>
-        </div>
-      </div>-->
-      <!-- Card 2-->
-      <div   class="col-4">
-        <div class="card block">
-          <div class="border">
-            <card2  
-            [ListLanguage]="ListLanguage" 
-            [jsonLanguageextension]="jsonLanguageextension" 
-            (newItemEventName)="Name($event)"  
-            (newItemEventSave)="Save($event)"  
-            ></card2>
+        </div>-->
+        <!-- Card 2-->
+        <div   class="col-4">
+          <div class="card block">
+            <div class="border">
+              <card2  
+              [ListLanguage]="ListLanguage" 
+              [jsonLanguageextension]="jsonLanguageextension" 
+              (newItemEventName)="Name($event)"  
+              (newItemEventSave)="Save($event)"  
+              ></card2>
+            </div>
           </div>
-        </div>
-      </div> 
-      <!-- Card 4-->
-      <div   class="col-4">
-        <div class="card block">
-          <div class="border">
-            <card3  
-            [loglist]="loglist" 
-            [loghash]="loghash"
-            [logposition]="logposition"
-            (newItemEventreundo)="Movehistory($event)"
-            ></card3>
+        </div> 
+        <!-- Card 4-->
+        <div   class="col-4">
+          <div class="card block">
+            <div class="border">
+              <card3  
+              [loglist]="loglist" 
+              [loghash]="loghash"
+              [logposition]="logposition"
+              (newItemEventreundo)="Movehistory($event)"
+              ></card3>
+            </div>
           </div>
-        </div>
-      </div> 
-      
+        </div> 
+        
 
-      <!-- Features Tree -->  
-      <div   class="col-6" [hidden]="mainhidden">
-        <div class="card block">
-          <div class="border">
-            <FeatureTree
-             [my_session]="my_session"
-             [name]="name"
-             [type]="type"
-             [optional]="optional"
-             [abstract]="abstract"
-             [card_max]="card_max"
-             [card_min]="card_min"
-             [attributes]="attributes"
-             [actualfather]="actualfather"
-             [ListOfRefactors]="ListOfRefactors"
-             [actual]="actual"  
-             [tree]="tree" 
-             [treeControl]="treeControl"
-             [dataSource]="dataSource"
-             (newItemEventlogRoot)="LogRoot($event)"
-             (newItemEventroot)="sendUpdate()"
-             (newItemEventactual)="select($event)"
-             (newItemEventrefactor)="SelectChipRefactor($event,'node')"
-             (newItemEventDelete)="DeleteNode()"
-            ></FeatureTree>
+        <!-- Features Tree -->  
+        <div   class="col-6" [hidden]="mainhidden">
+          <div class="card block">
+            <div class="border">
+              <FeatureTree
+              [my_session]="my_session"
+              [name]="name"
+              [type]="type"
+              [optional]="optional"
+              [abstract]="abstract"
+              [card_max]="card_max"
+              [card_min]="card_min"
+              [attributes]="attributes"
+              [actualfather]="actualfather"
+              [ListOfRefactors]="ListOfRefactors"
+              [actual]="actual"  
+              [tree]="tree" 
+              [treeControl]="treeControl"
+              [dataSource]="dataSource"
+              (newItemEventlogRoot)="LogRoot($event)"
+              (newItemEventroot)="sendUpdate()"
+              (newItemEventactual)="select($event)"
+              (newItemEventrefactor)="SelectChipRefactor($event,'node')"
+              (newItemEventDelete)="DeleteNode()"
+              ></FeatureTree>
+            </div>
           </div>
-        </div>
 
-        <div class="card block">
-          <div class="border">   
-            <ConstraintsText 
-            [visible_Constraint_list]="visible_Constraint_list" 
-            [show_refacts_cons_only]="show_refacts_cons_only"
-            [listnamesconstraints]="listnamesconstraints"
-            [jsonconstraintTexto]="jsonconstraintTexto"
-            [cons]="cons"
-            [constraindataSource]="constraindataSource"
-            [ListOfRefactors]="ListOfRefactors"
-            [consactual]="consactual"
-            [jsonconstraintextshort]="jsonconstraintextshort"
-            (newItemEventposition)="updatePosition($event)"
-            (newItemEventrefactor)="SelectChipRefactor($event,'cons')"
-            ></ConstraintsText>  
-          </div>
-        </div>
-<!-- 
-        <div class="card block">
-          <div class="border">
-            <ConstraintsTree
-              [visible_Constraint_list]="visible_Constraint_list"
-              [ListOfConstraint]="ListOfConstraint"
-              [position]="position"
-              [featureautocomplete]="featureautocomplete"
-              [namesFeatures]="namesFeatures"
+          <div class="card block">
+            <div class="border">   
+              <ConstraintsText 
+              [visible_Constraint_list]="visible_Constraint_list" 
+              [show_refacts_cons_only]="show_refacts_cons_only"
               [listnamesconstraints]="listnamesconstraints"
-              [npos]="npos"
-              [ncons]="ncons"
               [jsonconstraintTexto]="jsonconstraintTexto"
-              [constraintreeControl]="constraintreeControl"
-              [constraindataSource]="constraindataSource"
-              [consactual]="consactual"
-              [consactualfather]="consactualfather"
               [cons]="cons"
-            ></ConstraintsTree>
+              [constraindataSource]="constraindataSource"
+              [ListOfRefactors]="ListOfRefactors"
+              [consactual]="consactual"
+              [jsonconstraintextshort]="jsonconstraintextshort"
+              (newItemEventposition)="updatePosition($event)"
+              (newItemEventrefactor)="SelectChipRefactor($event,'cons')"
+              ></ConstraintsText>  
+            </div>
+          </div>
+  <!-- 
+          <div class="card block">
+            <div class="border">
+              <ConstraintsTree
+                [visible_Constraint_list]="visible_Constraint_list"
+                [ListOfConstraint]="ListOfConstraint"
+                [position]="position"
+                [featureautocomplete]="featureautocomplete"
+                [namesFeatures]="namesFeatures"
+                [listnamesconstraints]="listnamesconstraints"
+                [npos]="npos"
+                [ncons]="ncons"
+                [jsonconstraintTexto]="jsonconstraintTexto"
+                [constraintreeControl]="constraintreeControl"
+                [constraindataSource]="constraindataSource"
+                [consactual]="consactual"
+                [consactualfather]="consactualfather"
+                [cons]="cons"
+              ></ConstraintsTree>
+            </div>
+          </div>
+  -->
+
+        </div>
+                  
+        <!-- Info -->
+        <div   class="col-6 " [hidden]="mainhidden">
+          <div class="card block">
+            <div class="border">
+              <Information 
+              [ListOfRefactorsInfo]="ListOfRefactors"
+              [jsonlanguage]="jsonlanguage"
+              [loadingmodal]="loadingmodal"
+              [ListLanguage]="ListLanguage" 
+              (newItemEventrefactoingall)="SelectChipRefactor($event,'all')"
+              ></Information>
+            </div>
+            <div style="margin-top: 55px;"></div>
+            <div class="border">
+              <Semantics_metrics
+              [jsonsemantic]="jsonsemantic"
+              ></Semantics_metrics>
+            </div>
           </div>
         </div>
--->
 
-      </div>
-                
-      <!-- Info -->
-      <div   class="col-6 " [hidden]="mainhidden">
-        <div class="card block">
-          <div class="border">
-            <Information 
-            [ListOfRefactorsInfo]="ListOfRefactors"
-            [jsonlanguage]="jsonlanguage"
-            [loadingmodal]="loadingmodal"
-            [ListLanguage]="ListLanguage" 
-            (newItemEventrefactoingall)="SelectChipRefactor($event,'all')"
-             ></Information>
-          </div>
-          <div style="margin-top: 55px;"></div>
-          <div class="border">
-            <Semantics_metrics
-            [jsonsemantic]="jsonsemantic"
-            ></Semantics_metrics>
+        <!-- Pruebas constraint -->
+        <div   class="container" [hidden]="mainhidden">
+          <div class="row">
           </div>
         </div>
-      </div>
 
-      <!-- Pruebas constraint -->
-      <div   class="container" [hidden]="mainhidden">
-        <div class="row">
-        </div>
       </div>
-
-    </div>
-  </section>
-</main>
-</div>
-</div>
+    </section>
+  </main>
+  </div>
+  </div>
 </mat-drawer-container>
 
-
-
+<!--------------------------------------------------------------------------------------------------------------------------->
 
 
 <!--Modal Tree-->
@@ -436,7 +416,7 @@
        <!--<label style="margin-left: 10px;margin-right: 5px;color:#012970"> Full text: </label>
       <label style="margin-left: 10px;margin-right: 5px;"> {{jsonconstraintTexto[npos]}}</label> -->
       <div class="modal-body">
-        <h4> <mat-icon style="margin-bottom: -5px;" [ngStyle]="{'color': textconsvalid? 'green' : 'red' }">{{textconsvalid? "check_circle_outline":"warning"}}</mat-icon> {{textconsvalid? "Everything is correct":"Something is wrong"}}</h4>
+        <h4> <mat-icon style="margin-bottom: -5px;" [ngStyle]="{'color': textconsvalid? 'green' : 'red' }">{{textconsvalid? "check_circle_outline":"warning"}}</mat-icon> {{textconsvalid? "Everything is correct":"Incorrect constraint"}}</h4>
         <div class="col-12">
           <div class="row">
             <!-- Features Chip -->
@@ -503,7 +483,7 @@
         <!--Write list-->
         <div style="margin-top: 10px;"></div>
         <textarea style="width: 766px;height: 90px;border:3px solid #88888888; font-size: 20px;" type="text" [(ngModel)]="textnewcons"></textarea>
-        <button class="buttonmodal"  style="background-color: #636363bb;" (click)="checkCons()">check cons</button>
+        <button class="buttonmodal"  style="background-color: #012970;" (click)="checkCons()">check cons</button>
         <div class="col-12">
 
  <!--
@@ -523,9 +503,7 @@
         </div>
       </div>
       <div class="modal-footer">
-       <!--LÍNEA ANTIGUA: <button class="buttonmodal " data-bs-toggle="modal" (click)="CreateNewCons()" [disabled]="!textconsvalid" href="#loading"> Create</button>-->
-       <button class="buttonmodal " data-bs-toggle="modal" (click)="CreateNewCons()" [disabled]="textconsvalid" href="#loading"> Create</button>
-
+      <button class="buttonmodal " data-bs-toggle="modal" (click)="CreateNewCons()" [disabled]="!textconsvalid" href="#loading"> Create</button>
       </div>
     </div>
   </div>
@@ -568,7 +546,7 @@
             <div></div>
             <label><label class="modal_repository">Format:</label>           {{myArticle.Format}}</label>
             <div></div>
-            <label><label class="modal_repository">Hash:</label>           {{myArticle.Id}}</label>
+            <label><label class="modal_repository">Hash:</label>           {{myArticle.Hash}}</label>
           </div>
         </div>
 	    </div>
@@ -585,61 +563,71 @@
 <div class="modal fade" id="modalInsertData" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
+
 		  <div class="modal-header">
         <h4 class="modal-title" id="exampleModalLabel">Model Information</h4>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 	    </div>
+
 	    <div class="modal-body">
-        <div class="row">
-          <div class="col-6">
-            <label><label class="modal_repository">Name:</label>
-            <input type="string" style="min-width: 150px;" [(ngModel)]="Namerepo">
-            </label>
-            <div></div>
-            <label><label class="modal_repository">Author:</label>
-            <input type="string" style="min-width: 150px;" [(ngModel)]="Author">
-            </label>
-            <div></div>
-            <label><label class="modal_repository">Owner:</label>
-            <input type="string" style="min-width: 150px;" [(ngModel)]="Owner">
-            </label>
-            <div></div>
-            <label class="modal_repository">Ref:
-            <input type="string" style="min-width: 150px;" [(ngModel)]="Ref">
-            </label>
-            <div></div>
-            <label><label class="modal_repository">Year: </label>
-            <input type="number" style="min-width: 150px;" [(ngModel)]="Year"></label>
-            <div></div>
-            <label><label class="modal_repository">Domain: </label>
-            <input type="string" style="min-width: 150px;" [(ngModel)]="Domain"></label>
-            <div></div>
-            <label><label class="modal_repository">Version: </label>
-            <input type="string" style="min-width: 150px;" [(ngModel)]="Version"></label>
-          </div>
-          <div class="col-6">
-            <label><label class="modal_repository">Language_level:</label>
-            <input type="string" style="min-width: 150px;" [(ngModel)]="Language_level"></label>
-            <div></div>
-            <label><label class="modal_repository">Rating: </label>
-            <input type="string" style="min-width: 150px;" [(ngModel)]="Rating">
-            </label>
-            <label><label class="modal_repository">Description: </label>
-            <input type="string" style="min-width: 150px;" [(ngModel)]="Description">
-            </label>
-            <label><label class="modal_repository">Organization: </label>
-            <input type="string" style="min-width: 150px;" [(ngModel)]="Organization">
-            </label>
-            <button  class="buttonmodal" style="min-height: 35px;margin-right: 10px;"  (click)="input_file_repo.click()">
-              <img src="../assets/img/folder.png" >
-              Attach file
-            </button>
-            <input [hidden]="true" #input_file_repo (change)="SelectFilerepo($event)" id="file-input card1" type="file"/>
-          </div>
+        <div class="container">
+          <form class="form-group row">
+
+            <div class="form-group col-md-3">
+
+              <label for="name" class="modal_repository">Name: </label>
+              <input type="string" style="min-width: 150px;" [(ngModel)]="Namerepo" name="name">
+
+                            
+              <label for="author" class="modal_repository">Author: </label>
+              <input type="string" style="min-width: 150px;" [(ngModel)]="Author" name="author">
+
+              <label for="owner" class="modal_repository">Owner: </label>
+              <input type="string" style="min-width: 150px;" [(ngModel)]="Owner" name="owner">
+
+              <label for="ref" class="modal_repository">Ref: </label>
+              <input type="string" style="min-width: 150px;" [(ngModel)]="Ref" name="ref">
+
+              <label for="year" class="modal_repository">Year: </label>
+              <input type="number" style="min-width: 150px;" [(ngModel)]="Year" name="year">
+
+              <label class="modal_repository">Domain:</label>
+              <input type="string" style="min-width: 150px;" [(ngModel)]="Domain" name="domain">
+
+            </div>
+
+            <div class="form-group col-md-3">
+
+              <label class="modal_repository">Version:</label>
+              <input type="string" style="min-width: 150px;" [(ngModel)]="Version" name="version">
+
+              <label class="modal_repository">Language level:</label>
+              <input type="string" style="min-width: 150px;" [(ngModel)]="Language_level" name="languageLevel">
+              
+              <label class="modal_repository">Rating: </label>
+              <input type="number" style="min-width: 150px;" [(ngModel)]="Rating" name="rating">
+
+              <label class="modal_repository">Description: </label>
+              <input type="string" style="min-width: 150px;" [(ngModel)]="Description" name="description">
+
+              <label class="modal_repository">Organization: </label>
+              <input type="string" style="min-width: 150px;" [(ngModel)]="Organization" name="organization">
+
+              <label class="modal_repository">File: </label>
+              <button  class="buttonmodal" style="min-width: 150px; margin-inline: 20px"  (click)="input_file_repo.click()">
+                <img src="../assets/img/folder.png" >                Attach file {{input_file_repo.value}}
+              </button>
+
+              <input [hidden]="true" #input_file_repo type="file"(change)="SelectFilerepo($event)" id="file-input card1" type="file"/>
+
+            </div>
+
+          </form>
         </div>
 	    </div>
+
       <div class="modal-footer">
-	      <button type="button" class="buttonmodal" data-bs-dismiss="modal" (click)="InsertIntoRepo()">Upload</button>
+	      <button type="button" class="buttonmodal" data-bs-dismiss="modal" [disabled]="input_file_repo.value.length == 0" (click)="InsertIntoRepo()" >Upload</button>
 	    </div>
 	  </div>
   </div>

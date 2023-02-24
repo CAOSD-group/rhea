@@ -13,7 +13,10 @@ from flask_cors import CORS
 from werkzeug.utils import secure_filename
 from flask_caching import Cache
 
+from afmparser import main as aux_parser
+
 from flamapy.metamodels.fm_metamodel.models import FeatureModel, Constraint
+from flamapy.core.models.ast import AST, Node
 from flamapy.metamodels.fm_metamodel.transformations import (
     UVLReader, 
     UVLWriter, 
@@ -51,86 +54,156 @@ cache = Cache(app)
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 CORS(app, supports_credentials=True)
 
-
-connection = mariadb.connect(
-    user="caosd",
-    password="password",
-    host="localhost",
-    database="rhea")
+try:
+    connection = mariadb.connect(
+        user="caosd",
+        password="password",
+        host="localhost",
+        database="rhea")
+except mariadb.Error as e:
+    print(f"Error connecting to MariaDB Platform: {e}")
+    sys.exit(1)
 cursor = connection.cursor() 
-
 
 @app.route('/getCur', methods=['GET'])
 def get_Cur():
     if request.method != 'GET':
-        print (cursor)
         return None
     else:
-        cursor.execute("SELECT * FROM Repository") 
+        cursor.execute("SELECT * FROM Feature_Model_Info") 
         a=[]
-        for Name,Author,Owner,Ref,Year,Domain,Version,Languagelevel,Rating,File2,Id,Description,Organization in cursor:
-            Id=str(Id)
-            b=[Name,Author,Owner,Ref,Year,Domain,Version,Languagelevel,Rating,Id,Description,Organization]
+        b:dict={}
+        cursor.execute("SELECT * FROM Feature_Model_Info")
+        for ID_Model, Name,Author,Owner,Ref,Year,Domain,Version,Languagelevel,Rating,Hash,Description,Organization,Format in cursor:
+            b={"ID_Model":str(ID_Model),
+               "Name": Name,
+               "Author":Author,
+               "Owner":Owner,
+               "Ref":Ref,
+               "Year":str(Year),
+               "Domain":Domain,
+               "Version":Version,
+               "Languagelevel":Languagelevel,
+               "Rating":str(Rating),
+               "Hash":Hash,
+               "Description":Description,
+               "Organization":Organization,
+               "Format":Format}
             a.insert(len(a),b)
         a=make_response(json.dumps(a))
         connection.commit()
         return a
+
 
 @app.route('/insertIntoRepository', methods=['POST'])
 def insert_repository():
     if request.method != 'POST':
         return None
     else:
+        
         # Get parameters
         Name=request.form['Name']
         Author=request.form['Author']
         Owner=request.form['Owner']
         Ref=request.form['Ref']
-        Year=request.form['Year']
-        if Year=="":
-            Year=0
-        Domain=request.form['Domain']
+        Year=int(request.form['Year'] or 0)
+        Domain:str=request.form['Domain']
         Version=request.form['Version']
         Languagelevel=request.form['Language_level']
-        Rating=request.form['Rating']
-        Id=request.form['Id']
+        Rating=int(request.form['Rating'] or 0)
+        Hash=request.form['Hash']
         Description=request.form['Description']
         Organization =request.form['Organization']
-        #File=request.files['File']
-        #File=File.read()
-        cursor.execute("INSERT INTO Repository (Name,Author,Owner,Ref,Year,Domain,Version,Languagelevel,Rating,Hash,Id,Description,Organization) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)",(Name,Author,Owner,Ref,Year,Domain,Version,Languagelevel,Rating,Id,Id,Description,Organization))
-        cursor.execute("SELECT * FROM Repository") 
-        for Name,Author,Owner,Ref,Year,Domain,Version,Languagelevel,Rating,File,Id,Description,Organization in cursor:
-            b=[Name,Author,Owner,Ref,Year,Domain,Version,Languagelevel,Rating,Id,Description,Organization]
-        a=make_response(json.dumps(b))
+        File=request.files['File']
+        ID = sqlInsert(Name,Author,Owner,Ref,Year,Domain,Version,Languagelevel,Rating,Hash,Description,Organization, File)
+        
+        # Makes response + JSON
+        a=[]
+        b=[]
+        cursor.execute("SELECT r.Name, CONCAT(pa.Name , ' ' , pa.Lastname) as Author, CONCAT(po.Name , ' ' , po.Lastname) as Owner, r.Ref, r.Year, r.Domain, r.Version, r.Languagelevel, r.Rating, r.Hash, r.Description, r.Organization FROM Repository r LEFT JOIN Author a ON a.id_model = r.ID_Model LEFT JOIN Owner o ON o.id_model = r.ID_Model LEFT JOIN Person pa ON a.id_person = pa.id_person LEFT JOIN Person po ON o.id_person = po.id_person")
+        for Name,Author,Owner,Ref,Year,Domain,Version,Languagelevel,Rating,Hash,Description,Organization in cursor:
+            b=[Name,Author,Owner,Ref,Year,Domain,Version,Languagelevel,Rating,Hash,Description,Organization]
+            a=make_response(json.dumps(b))
+                    
+        # Response
         connection.commit()
         return a
 
+def sqlInsert(name,author,owner,ref,year,domain,version,languagelevel,rating,hash,description,organization, file):
+    
+    #Insert values
+    cursor.execute("INSERT INTO Repository (Name,Ref,Year,Domain,Version,Languagelevel,Rating,Hash,Description,Organization) VALUES (?,?,?,?,?,?,?,?,?,?)", 
+                (name,ref,year,domain,version,languagelevel,rating,hash,description,organization))
+    
+    #Get row ID
+    cursor.execute("SELECT ID_Model FROM Repository ORDER BY ID_Model DESC LIMIT 1")
+    idmodel = cursor.fetchone()[0]
+    
+    #Insert author and owner
+    ID_person=sqlInsertPerson(author,idmodel)
+    if ID_person is not None: cursor.execute("INSERT INTO Author (id_model,id_person) VALUES (?,?)", (idmodel,ID_person))
+    ID_person=sqlInsertPerson(owner,idmodel)
+    if ID_person is not None:cursor.execute("INSERT INTO Owner (id_model,id_person) VALUES (?,?)", (idmodel,ID_person))
+    
+    #insert file
+    file_name = file.filename
+    file_format = file.filename.split('.')[-1]
+    FileContent=file.read()
+    cursor.execute("INSERT INTO File (File,Format,filename,Id_model) VALUES (?,?,?,?)", (FileContent, file_format,file_name,idmodel))
+    
+    return idmodel
+
+
+def splitName(Name):
+    fullName=Name.split(" ")
+    Name=fullName.pop(0)
+    LastName = ' '.join(fullName)
+    return Name, LastName
+
+def sqlInsertPerson(Name,ID):
+    Name, LastName = splitName(Name)
+    if(Name!=""): 
+        cursor.execute("REPLACE INTO Person (Name, LastName) VALUES (?,?)", (Name,LastName))
+        ID_person = cursor.execute("SELECT id_person FROM Person ORDER BY id_person DESC LIMIT 1")
+        return cursor.fetchone()[0]
+
+
+#Not finished - intended to be attached to a button in the web that deletes a model
+# def deleteFile():
+#     if request.method != 'POST':
+#         return None
+#     else:
+#         hash = request.form['Hash']
+#         cursor.execute("DELETE FROM Repository WHERE Name=''")
+
+    
 @app.route('/getFile', methods=['POST'])
 def get_File():
     if request.method != 'POST':
         return None
     else:
-        # Get parameters
-        Id=request.form['Id']
-        Id=int(Id)
-        cursor.execute("SELECT File FROM Repository WHERE Id=?",(Id,)) 
-        for File in cursor:
-            f=File[0]
-            #fm=read_fm_file(File)
-        print(read_fm_file(f))
-        return "a"
+        id=int(request.form["Id"])
+        fm_format=request.form["Format"]
+        
+        cursor.execute("SELECT File FROM File WHERE Id_model=? AND Format=?",(id,fm_format))
+        currentFile = cursor.fetchone()[0]
 
+        if currentFile is None:
+            return None
+        else:
+            response = make_response(currentFile)
+            return response
+    
 
-@app.route('/checktextcons', methods=['POST'])
+@app.route('/checktextcons', methods=['POST']) #Check cons button method
 def check_text_cons():
     if request.method != 'POST':
         return None
     else:
         text=request.form['text']
-        print(text)
-        print("Debo devolver true o false, donde true es que la constraint es valida, y false es donde no esta bien redactada o existen otros problemas")
-        return "true"
+        result=str(True)
+        #result=str(checkGoodConstraints())  #Replace checkGoodConstraints() by method that checks constraints and delete line avobe
+        return result           #the receiving method needs a string
     
 @app.route('/createcons', methods=['POST'])
 def create_new_cons():
@@ -138,37 +211,55 @@ def create_new_cons():
         return None
     else:
 
-        text=request.form['text'] #regla
+        ctc_string=request.form['text'] #string to parse
         fm_hash=request.form['fm_hash']
         name=request.form['name']
+        fm:FeatureModel = cache.get(fm_hash)
 
-        #cache.set(str(hash_fm), fm)
-        print("hash: ",fm_hash, " - ", type(fm_hash))
-        fm = cache.get(fm_hash)
-        print("hash: ",fm, " - ", type(fm_hash))
-
-        #fm = UVLReader(None).transform()
-        ctc: Constraint = check_text_cons()
-        fm.ctcs.append(ctc)
-        return fm
+        #auxCreateConsMain(fm, ctc_string)
         
+        #ctc: Constraint = parse_text_cons(ctc_string)
+        #fm.ctcs.append(ctc)
+   
+        return "true" #fm #returns arraybufer, blob, document or json - also text, etc (no boolean values accepted)
+
+#AUX createcons    
+def auxCreateConsMain(fm, ctc_string):
+
+    #JUST FOR TESTING
+    #checkFMConstraints(fm)
+    
+    #OPTION 1: NODE->AST->CONSTRAINT - Problem: Needs UVL reader
+    fromNodeToConstraint(ctc_string)
+
+    #OPTION 2: Write file, then parse
+    #fm_string = write_fm_file(fm, "uvl")            
+
+    #OPTION 3: AFM PARSER (Still receives path and not FM Tree)
+    #aux_tree = aux_parser.get_tree(ctc_string)
+    
+#AUX createcons 
+def checkFMConstraints(fm):
+    constr_list:list[Constraint] = fm.get_constraints() 
+    #for ct in constr_list: print(ct.ast, type(ct.ast)) #Each constraint has a name/identifier and an AST - Class 'flamapy.core.models.ast.AST' 
+
+#1-AUX createcons 
+def fromNodeToConstraint(ctc_string):
+    uvl_reader=UVLReader("")
+    expression = uvl_reader._parse_expression(ctc_string)
+    print(expression)
+    #node_aux = Node(ctc_string)                 # n has the attribute n.data
+    #ast_aux = AST(node_aux)                     # EXAMPLE AST: IMPLIES[AND[CheesyCrust][Sicilian]][Big] # Retuns string equals to prettyfied string; needs fixing
 
 
-        
-
-
-
-        #-. Comprobar que "text" está bien (no prioritario?)
-        #1. Rescatar el FM con el que estoy trabajando
-        #2. Hacer que sea constraint
-        #3.  
-        #print("Devolver el nuevo modelo, y quitar la linea comentada del metodo CreateNewCons() en app.component.ts")
-
-
-       
-        return "true"
-
-
+#AUX createcons - NOTES
+def parse_text_cons(ctc_string):
+    #uvl_reader = UVLReader(None)               # uvl_fm = UVLReader(filename).transform() # This does not seem to work for this case - unless a new method is based in the methods of the existing readers
+    #print(uvl_reader)  
+    fm = UVLReader(None).transform()
+    print(ctc_string)
+    return True
+    
 
 def get_example_models() -> list[str]:
     models = []
@@ -191,7 +282,7 @@ def allowed_file(filename):
 def read_fm_file(filename: str) -> Optional[FeatureModel]:
     """Read a feature model object from a file in the sopported formats."""
     if filename.endswith('.uvl'):
-        return UVLReader(filename).transform()
+        return UVLWriter
     elif filename.endswith('.sxfm.xml'):
         return None
     elif filename.endswith('.xml') or filename.endswith('.fide'):

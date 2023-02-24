@@ -1,4 +1,4 @@
-import {Component,ElementRef,inject} from '@angular/core';
+import {Component,ElementRef,inject, ViewChild} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {NestedTreeControl} from '@angular/cdk/tree';
 import {MatTreeNestedDataSource} from '@angular/material/tree';
@@ -12,7 +12,9 @@ import { Semantics } from './components/Semantics/Semantics';
 import { ToolsExtension } from './components/ToolsExtension/ToolsExtension';
 import { FeatureTree } from './components/mainpage/FeatureTree/FeatureTree';
 import {MatSnackBar, MatSnackBarRef} from '@angular/material/snack-bar';
+import { DrawerComponent } from './components/drawer/drawer.component';
 import * as restData from 'restData';
+
 
 var aux:any;
 var aux2:any=""
@@ -44,6 +46,7 @@ export class PizzaPartyAnnotatedComponent {
 })
 
 export class AppComponent {
+  
   urldownload="http://127.0.0.1:5000/downloadFM"  
   urldocuments="http://127.0.0.1:5000/getExampleFMs"
   urluploadExampleFM="http://127.0.0.1:5000/uploadExampleFM"  
@@ -87,18 +90,20 @@ export class AppComponent {
   constraintreeControl = new NestedTreeControl<Const>(node => node.operands);
   constraindataSource = new MatTreeNestedDataSource<Const>();
     
-  //list de constraints y nombres de las features
+  //list of constraints and feature names
   typesofcons:Array<string>=['NOT','OR','AND','IMPLIES','XOR','REQUIRES','EXCLUDES','EQUIVALENCE']
   typesofconsparan:Array<string>=['NOT','OR','AND','IMPLIES','XOR','REQUIRES','EXCLUDES','EQUIVALENCE','(',')']
   typesofconsTerm:Array<string>=['NotTerm','OrTerm','AndTerm','ImpliesTerm','XorTerm','RequiresTerm','ExcludesTerm','EquivalenceTerm']
   textnewcons=""
   namesFeatures:Array<string>=[]
   listFeatures:Array<FMTree>=[]
-  //otros
+ 
+  //other
   title:string='';
   item:string ='';
   jsonconstraintTexto: Array<string>=[]
-  // modificar o crear FMTree
+
+  // modify or create FMTree
   name:string="";
   optional:boolean=false;
   abstract:boolean=false;
@@ -125,12 +130,13 @@ export class AppComponent {
   mattooltipconstraint=this.search_name?"Search by name":"Search by text";
   loadingtext=""
 
-
-  mainhidden=true
+  mainhidden=true//(mainhidden)="windowFM_Editor_drawer($event)"
   windowFM_Editor=true
   windowAbout=false
   windowRepository=false
   windowGuide=false
+
+  @ViewChild(DrawerComponent) drawer;
 
   updatable=false
   page=0;
@@ -151,12 +157,11 @@ export class AppComponent {
   semantic:Semantics=new Semantics()
   loglist: Array<string>=[];
   logselect: Array<number>=[];
-  myArticle=new Data('','','','',0,"",'','',0,0,'','');
+  myArticle=new Data(0,'','','','',0,'','','',0,0,'','','','','')
 
   logposition=-1
   loghash:Array<string>=[]
   data
-
 
   Namerepo=""
   Author=""
@@ -171,7 +176,9 @@ export class AppComponent {
   Description=""
   Organization=""
 
+
   textconsvalid=false
+  url_src:any
 
 
 constructor(private http: HttpClient,private _snackBar: MatSnackBar ) { }  
@@ -180,8 +187,11 @@ constructor(private http: HttpClient,private _snackBar: MatSnackBar ) { }
 
 ngOnInit() {
 this.getDocumentName()
+
 }
+
 SelectFilerepo($event){
+
   this.Filerepo=$event.target.files[0];
   var myReader: FileReader = new FileReader();
   myReader.readAsText(this.Filerepo);
@@ -190,8 +200,9 @@ SelectFilerepo($event){
   console.log(this.Filerepo)
 }
 
-InsertIntoRepo(){
+InsertIntoRepo(){ //Request not posted when File is empty
 
+  //console.log(this.Filerepo)
   const formData: FormData = new FormData();
   formData.append('Name', this.Namerepo);
   formData.append('Author', this.Author);
@@ -202,7 +213,7 @@ InsertIntoRepo(){
   formData.append('Version', this.Version);
   formData.append('Language_level', this.Language_level);
   formData.append('File', this.Filerepo);
-  formData.append('Id', this.my_session);
+  formData.append('Hash', this.my_session);
   formData.append('Rating', this.Rating);
   formData.append('Description', this.Description);
   formData.append('Organization', this.Organization);
@@ -210,12 +221,20 @@ InsertIntoRepo(){
   this.http.post(this.urlinsertcur,formData,{withCredentials:true,responseType:'text'}).subscribe(resultado=>{console.log(resultado)})
 }
 
-getFile(){
-  console.log(this.myArticle.Id)
+getFile(){ 
+  
   if(this.myArticle.Id!=undefined){
+
     const formData: FormData = new FormData();
-    formData.append('Id', this.myArticle.Id);
-    this.http.post(this.urlgetfile,formData,{withCredentials:true,responseType:'text'}).subscribe(resultado=>{console.log(resultado)})
+    
+    formData.append('Id', this.myArticle.Id.toString());
+    formData.append('Format', this.myArticle.Format || "");
+    
+    this.http.post(this.urlgetfile,formData,{withCredentials:true,responseType:'text'}).subscribe(resultado=>{
+      this.loadingtext="Server responded"
+      let file = new Blob([resultado], { type: this.myArticle.Format });
+      saveAs(file, this.myArticle.Name + "."+ this.myArticle.Format)
+    })
   }
 }
 
@@ -482,7 +501,7 @@ this.loadingmodal=false
 if(this.isFeature()){
   aux=this.actual.name
   if(this.actual.name!=this.name){
-    this.loglist.unshift(this.actual.name+" was modify and its new name is: "+this.name)
+    this.loglist.unshift(this.actual.name+" was modify and its new name is: "+ this.name)
   }
   else{
     this.loglist.unshift(this.actual.name+" was modify ")
@@ -1127,16 +1146,20 @@ readThis(inputValue: any): void {
       }
   }
 
+
+
 checkCons(){
   const formData: FormData = new FormData();
   formData.append('text', this.textnewcons);
 
   this.http.post(this.urltextcons,formData,{withCredentials:true,responseType:'text'}).subscribe(resultado=>{
-    this.textconsvalid=(resultado=="true")
+    this.textconsvalid=(resultado.toLowerCase()=="true")
+
     return this.textconsvalid
-  })
-  return false
+  })  
+  //return false
 }
+
 
 CreateNewCons(){
 
@@ -1463,9 +1486,6 @@ TransformJSON(){
   json=json+','+aux2+'}'*/
   this.cons=this.consactual.createListForTree(this.cons)
 }
-
-
-
 
 
  ShowPages(){
