@@ -45,6 +45,7 @@ import {MatTableModule} from '@angular/material/table';
 import { MatSortModule } from '@angular/material/sort';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import { DrawerComponent } from './components/drawer/drawer.component';
+import { DataServices } from 'src/data.services';
 
 @NgModule({
   declarations: [
@@ -98,8 +99,9 @@ import { DrawerComponent } from './components/drawer/drawer.component';
     MatTableModule,
     MatSortModule,
     MatSnackBarModule,
+    HttpClientModule
   ],
-  providers: [],
+  providers: [DataServices],
   bootstrap: [AppComponent]
  
 })

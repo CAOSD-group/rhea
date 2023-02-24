@@ -13,8 +13,25 @@ import { ToolsExtension } from './components/ToolsExtension/ToolsExtension';
 import { FeatureTree } from './components/mainpage/FeatureTree/FeatureTree';
 import {MatSnackBar, MatSnackBarRef} from '@angular/material/snack-bar';
 import { DrawerComponent } from './components/drawer/drawer.component';
-import * as restData from 'restData';
+import { DataServices } from 'src/data.services';
 
+//const mariadb = require('mariadb');
+// const pool = mariadb.createPool({
+//   host: "localhost", 
+//   user: "caosd", 
+//   password: "password",
+//   database:"rhea"});
+
+//   async function sendQuery() {
+//     let conn;
+//     try { 
+//       conn = await pool.getConnection();
+//       const rows = await conn.query("SELECT * FROM Repository");       // rows: [ {val: 1}, meta: ... ]
+//       //const res = await conn.query("INSERT INTO myTable value (?, ?)", [1, "mariadb"]);       // res: { affectedRows: 1, insertId: 1, warningStatus: 0 }
+//     } finally {
+//       if (conn) conn.release(); //release to pool
+//     }
+//   }
 
 var aux:any;
 var aux2:any=""
@@ -27,6 +44,7 @@ var jsonfeatures:string
 var listnamestext:Array<string>=[]
 var json:string
 var refactor:Refactoring =new Refactoring()
+
 
 @Component({
   selector: 'snack-bar-annotated-component-example-snack',
@@ -45,7 +63,11 @@ export class PizzaPartyAnnotatedComponent {
   styleUrls: ['./app.component.css']
 })
 
+
+
 export class AppComponent {
+
+  
   
   urldownload="http://127.0.0.1:5000/downloadFM"  
   urldocuments="http://127.0.0.1:5000/getExampleFMs"
@@ -181,14 +203,16 @@ export class AppComponent {
   url_src:any
 
 
-constructor(private http: HttpClient,private _snackBar: MatSnackBar ) { }  
+constructor(private http: HttpClient,private _snackBar: MatSnackBar, private dataService:DataServices) { }  
 
 
 
 ngOnInit() {
 this.getDocumentName()
-
+this.dataService.querySQL()
+//sendQuery()
 }
+
 
 SelectFilerepo($event){
 
@@ -199,6 +223,7 @@ SelectFilerepo($event){
   aux=myReader.result;}
   console.log(this.Filerepo)
 }
+
 
 InsertIntoRepo(){ //Request not posted when File is empty
 
@@ -1254,7 +1279,7 @@ SymbolPerType(nodechild:FMTree){
   let symbol2=""
   let text2=""
 
-  if(this.GetFather(nodechild,this.tree)==undefined){symbol="../assets/img/featuretree.ico";text="root"}
+  if(this.GetFather(nodechild,this.tree)==undefined){symbol="./assets/img/featuretree.ico";text="root"}
   else{
 
   }

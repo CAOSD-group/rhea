@@ -4,7 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve ",
-    "build": "ng build",
+    "build": "ng build --base-href='./rheaweb'",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "serverAPI": "json-server --port 5000 --watch restData.js"

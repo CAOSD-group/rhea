@@ -13,6 +13,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
+            "baseHref": "/rheaweb/",
             "outputPath": "dist/rhea-web",
             "index": "src/index.html",
             "main": "src/main.ts",
@@ -20,7 +21,8 @@
             "tsConfig": "tsconfig.app.json",
             "assets": [
               "src/favicon.ico",
-              "src/assets"
+              "src/assets",
+              "src/.htaccess"
             ],
             "styles": [
               "src/styles.css"
@@ -29,6 +31,7 @@
           },
           "configurations": {
             "production": {
+              "baseHref": "/rheaweb/",
               "budgets": [
                 {
                   "type": "initial",
@@ -38,7 +41,7 @@
                 {
                   "type": "anyComponentStyle",
                   "maximumWarning": "2kb",
-                  "maximumError": "4kb"
+                  "maximumError": "6kb"
                 }
               ],
               "fileReplacements": [
