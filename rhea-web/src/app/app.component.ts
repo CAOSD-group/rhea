@@ -69,31 +69,31 @@ export class AppComponent {
 
   
   
-  urldownload="http://127.0.0.1:5000/downloadFM"  
-  urldocuments="http://127.0.0.1:5000/getExampleFMs"
-  urluploadExampleFM="http://127.0.0.1:5000/uploadExampleFM"  
-  urlupload="http://127.0.0.1:5000/uploadFM"  
-  urlrefactor="http://127.0.0.1:5000/refactor" 
-  urlupdate="http://127.0.0.1:5000/updateFM" 
-  urlcur="http://127.0.0.1:5000/getCur"                     //<---"https://rhea.caosd.lcc.uma.es/getCur"     
-  urlinsertcur="http://127.0.0.1:5000/insertIntoRepository" //<---"https://rhea.caosd.lcc.uma.es/insertIntoRepository"
-  urlgetfile="http://127.0.0.1:5000/getFile" 
-  urltextcons="http://127.0.0.1:5000/checktextcons"         //<--- "https://rhea.caosd.lcc.uma.es/checktextcons" 
-  urlnewcons="http://127.0.0.1:5000/createcons"             //<--- https://rhea.caosd.lcc.uma.es/
+  // urldownload="http://127.0.0.1:5000/downloadFM"  
+  // urldocuments="http://127.0.0.1:5000/getExampleFMs"
+  // urluploadExampleFM="http://127.0.0.1:5000/uploadExampleFM"  
+  // urlupload="http://127.0.0.1:5000/uploadFM"  
+  // urlrefactor="http://127.0.0.1:5000/refactor" 
+  // urlupdate="http://127.0.0.1:5000/updateFM" 
+  // urlcur="http://127.0.0.1:5000/getCur"                     //<---"https://rhea.caosd.lcc.uma.es/getCur"     
+  // urlinsertcur="http://127.0.0.1:5000/insertIntoRepository" //<---"https://rhea.caosd.lcc.uma.es/insertIntoRepository"
+  // urlgetfile="http://127.0.0.1:5000/getFile" 
+  // urltextcons="http://127.0.0.1:5000/checktextcons"         //<--- "https://rhea.caosd.lcc.uma.es/checktextcons" 
+  // urlnewcons="http://127.0.0.1:5000/createcons"             //<--- https://rhea.caosd.lcc.uma.es/
 
  // FOR DEVELOPER: for any new url the backend get , it must be update in the apache2 file for the web to work in de sites-available domain.conf, then restart apache, and the frontend and backend"
 
-  // urldownload="https://rhea.caosd.lcc.uma.es/downloadFM"  
-  // urldocuments="https://rhea.caosd.lcc.uma.es/getExampleFMs"
-  // urluploadExampleFM="https://rhea.caosd.lcc.uma.es/uploadExampleFM"  
-  // urlupload="https://rhea.caosd.lcc.uma.es/uploadFM"  
-  // urlrefactor="https://rhea.caosd.lcc.uma.es/refactor" 
-  // urlupdate="https://rhea.caosd.lcc.uma.es/updateFM" 
-  // urlcur="http://127.0.0.1:5000/getCur"                             //404
-  // urlinsertcur="http://127.0.0.1:5000/insertIntoRepository"         //404 
-  // urlgetfile="https://rhea.caosd.lcc.uma.es/getFile" 
-  // urltextcons="http://127.0.0.1:5000/checktextcons"                 //404
-  // urlnewcons="http://127.0.0.1:5000/createcons"                     //404
+  urldownload="https://rhea.caosd.lcc.uma.es/downloadFM"  
+  urldocuments="https://rhea.caosd.lcc.uma.es/getExampleFMs"
+  urluploadExampleFM="https://rhea.caosd.lcc.uma.es/uploadExampleFM"  
+  urlupload="https://rhea.caosd.lcc.uma.es/uploadFM"  
+  urlrefactor="https://rhea.caosd.lcc.uma.es/refactor" 
+  urlupdate="https://rhea.caosd.lcc.uma.es/updateFM" 
+  urlcur="https://rhea.caosd.lcc.uma.es/getCur"                             //404
+  urlinsertcur="https://rhea.caosd.lcc.uma.es/insertIntoRepository"         //404 
+  urlgetfile="https://rhea.caosd.lcc.uma.es/getFile" 
+  urltextcons="https://rhea.caosd.lcc.uma.es/checktextcons"                 //404
+  urlnewcons="https://rhea.caosd.lcc.uma.es/createcons"                     //404
   
   declare actual:FMTree     
   declare actualfather:FMTree 

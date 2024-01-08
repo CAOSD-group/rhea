@@ -1,0 +1,708 @@
+<!-- ======= Header ======= -->
+<header id="header" class="header  d-flex align-items-center" style="background-image: linear-gradient(to right,#012970 12%,#b3cfff , #fff ) ">
+  <div class="d-flex align-items-center justify-content-between">
+    <a  class="logo d-flex align-items-center">
+      <div class="down">
+      <h2 class="white-text" (click)="drawer.toggle()" style="cursor: pointer;">RheaWeb</h2></div>
+      <button mat-icon-button (click)="drawer.toggle()"  (click)="(bdrawer=!bdrawer)" >
+        <mat-icon class="white-text" >{{bdrawer? 'chevron_right' : 'chevron_left'}}</mat-icon>
+      </button>
+    </a>
+  </div>
+  <!-- End Logo -->
+  <nav class="header-nav " >
+    <div class="row justify-content-end">
+      <div class="col-lg-11">
+        <div class="left">
+        <div class="row justify-content-end">
+          
+          <div class="col-lg-3  d-md-flex ">
+            <img src="./assets/img/rhea.svg" class="img1" >
+          </div>
+          <div class="col-lg-3  d-md-flex " >
+            <a target="_blank" href="https://caosd.lcc.uma.es/" class=" img2 "style="vertical-align: middle">
+              <img src="./assets/img/caosd.svg" >
+            </a>
+          </div>
+          <div class="col-lg-3 d-md-flex ">
+            <a target="_blank" href="https://www.uma.es/" class="img3" style="margin-top: 2%;">
+              <img src="./assets/img/uma.svg" >
+            </a>
+          </div>
+        </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+</header>
+<!-- End Header -->
+<!-- ======= Sidebar ======= -->
+<mat-drawer-container class="example-container" autosize>
+
+  <!-- Drawer --> 
+  <mat-drawer #drawer  class="color" mode="side">
+    <app-drawer 
+      (showFM_Editor_drawer_event)="showFM_Editor()" 
+      (showAbout_drawer_event)="showAbout()" 
+      (showRepository_drawer_event)="showRepository()"
+      (showGuide_drawer_event)="showGuide()">
+    </app-drawer><br/>
+  </mat-drawer>
+
+  <!-- Main Page Repository --> 
+  <div [hidden]="!windowRepository">
+    <Repository
+    [urlcur]="urlcur"
+    [myArticle]="myArticle"
+    [bool]="windowRepository"
+    (newItemEventopendModal)="myArticle=$event"
+    ></Repository>
+  </div>
+  <div class="resize">
+    
+  <!-- Main Page Guide --> 
+  <div [hidden]="!windowGuide">
+    <guide
+    ></guide>
+  </div>
+
+  <!-- Main Page About --> 
+  <div [hidden]="!windowAbout">
+    <about
+    ></about>
+  </div>
+
+
+  <!-- Main Page FM_editor -->
+  <div [hidden]="!windowFM_Editor">
+  <main >
+    <section class="section dashboard">
+      <div class="row">
+        <div style="margin-top: 2%; "></div>
+        <!-- Card 1 -->
+        <div   class="col-4">
+          <div class="card block">
+            <div class="border">
+              <card1 
+              [documents]="documents"  
+              [myfile_name]="myfile_name"  
+              (newItemEventreadThis)="readThis($event)" 
+              [item]="item"  
+              (newItemEventreturnValues)="returnValues($event)"></card1>
+            </div>
+          </div>
+        </div>
+        <!-- Card 2 
+        <div   class="col-4">
+          <div class="card block">
+            <div class="border">
+              <card2 [item]="item"  (newItemEventreturnValues)="returnValues($event)"></card2>
+            </div>
+          </div>
+        </div>-->
+        <!-- Card 2-->
+        <div   class="col-4">
+          <div class="card block">
+            <div class="border">
+              <card2  
+              [ListLanguage]="ListLanguage" 
+              [jsonLanguageextension]="jsonLanguageextension" 
+              (newItemEventName)="Name($event)"  
+              (newItemEventSave)="Save($event)"  
+              ></card2>
+            </div>
+          </div>
+        </div> 
+        <!-- Card 4-->
+        <div   class="col-4">
+          <div class="card block">
+            <div class="border">
+              <card3  
+              [loglist]="loglist" 
+              [loghash]="loghash"
+              [logposition]="logposition"
+              (newItemEventreundo)="Movehistory($event)"
+              ></card3>
+            </div>
+          </div>
+        </div> 
+        
+
+        <!-- Features Tree -->  
+        <div   class="col-6" [hidden]="mainhidden">
+          <div class="card block">
+            <div class="border">
+              <FeatureTree
+              [my_session]="my_session"
+              [name]="name"
+              [type]="type"
+              [optional]="optional"
+              [abstract]="abstract"
+              [card_max]="card_max"
+              [card_min]="card_min"
+              [attributes]="attributes"
+              [actualfather]="actualfather"
+              [ListOfRefactors]="ListOfRefactors"
+              [actual]="actual"  
+              [tree]="tree" 
+              [treeControl]="treeControl"
+              [dataSource]="dataSource"
+              (newItemEventlogRoot)="LogRoot($event)"
+              (newItemEventroot)="sendUpdate()"
+              (newItemEventactual)="select($event)"
+              (newItemEventrefactor)="SelectChipRefactor($event,'node')"
+              (newItemEventDelete)="DeleteNode()"
+              ></FeatureTree>
+            </div>
+          </div>
+
+          <div class="card block">
+            <div class="border">   
+              <ConstraintsText 
+              [visible_Constraint_list]="visible_Constraint_list" 
+              [show_refacts_cons_only]="show_refacts_cons_only"
+              [listnamesconstraints]="listnamesconstraints"
+              [jsonconstraintTexto]="jsonconstraintTexto"
+              [cons]="cons"
+              [constraindataSource]="constraindataSource"
+              [ListOfRefactors]="ListOfRefactors"
+              [consactual]="consactual"
+              [jsonconstraintextshort]="jsonconstraintextshort"
+              (newItemEventposition)="updatePosition($event)"
+              (newItemEventrefactor)="SelectChipRefactor($event,'cons')"
+              ></ConstraintsText>  
+            </div>
+          </div>
+  <!-- 
+          <div class="card block">
+            <div class="border">
+              <ConstraintsTree
+                [visible_Constraint_list]="visible_Constraint_list"
+                [ListOfConstraint]="ListOfConstraint"
+                [position]="position"
+                [featureautocomplete]="featureautocomplete"
+                [namesFeatures]="namesFeatures"
+                [listnamesconstraints]="listnamesconstraints"
+                [npos]="npos"
+                [ncons]="ncons"
+                [jsonconstraintTexto]="jsonconstraintTexto"
+                [constraintreeControl]="constraintreeControl"
+                [constraindataSource]="constraindataSource"
+                [consactual]="consactual"
+                [consactualfather]="consactualfather"
+                [cons]="cons"
+              ></ConstraintsTree>
+            </div>
+          </div>
+  -->
+
+        </div>
+                  
+        <!-- Info -->
+        <div   class="col-6 " [hidden]="mainhidden">
+          <div class="card block">
+            <div class="border">
+              <Information 
+              [ListOfRefactorsInfo]="ListOfRefactors"
+              [jsonlanguage]="jsonlanguage"
+              [loadingmodal]="loadingmodal"
+              [ListLanguage]="ListLanguage" 
+              (newItemEventrefactoingall)="SelectChipRefactor($event,'all')"
+              ></Information>
+            </div>
+            <div style="margin-top: 55px;"></div>
+            <div class="border">
+              <Semantics_metrics
+              [jsonsemantic]="jsonsemantic"
+              ></Semantics_metrics>
+            </div>
+          </div>
+        </div>
+
+        <!-- Pruebas constraint -->
+        <div   class="container" [hidden]="mainhidden">
+          <div class="row">
+          </div>
+        </div>
+
+      </div>
+    </section>
+  </main>
+  </div>
+  </div>
+</mat-drawer-container>
+
+<!--------------------------------------------------------------------------------------------------------------------------->
+
+
+<!--Modal Tree-->
+<!-- Modal Modify values-->
+<div class="modal fade" id="sidebareditvalues" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title" id="exampleModalLabel">{{isFeature()? "Modify feature":"Edit relation"}}</h4>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="col-10">
+          <div [hidden]="!isFeature()">
+          <h4> Properties
+            <div style="margin-left: 4px; margin-top: 10px;">
+          <h5>Name
+          <input  type="string" style="min-width: 250px;" [(ngModel)]="name"></h5>
+          <h5>Abstract
+          <input id="mycheckbox" type="checkbox" [(ngModel)]="abstract" > </h5>
+          <hr></div>
+          </h4>
+
+          <h4 [hidden]="isRelationFeature()">Relations
+            <div style="margin-left: 4px; margin-top: 10px;">
+              <h5><input id="mycheckbox" type="checkbox" [(ngModel)]="optional" > Optional</h5>
+            </div><hr>
+          </h4>
+
+          <h4>Attributes <h5>(name: value)</h5>
+          <button class="empty" (click)="CreateAttribtues()" >
+            <mat-icon class="mat-icon-rtl-mirror">add</mat-icon>
+          </button></h4>
+          <div *ngFor="let valor of attributes"  >
+            <input type="string" style="min-width: 150px;" [(ngModel)]="valor.name">
+            <input type="string" style="min-width: 150px;" [(ngModel)]="valor.value">
+            <button class="empty" (click)="deleteAttributes(valor)">
+              <mat-icon class="mat-icon-rtl-mirror">clear</mat-icon>
+            </button>
+          </div>
+          
+          
+          </div>
+          
+          <div [hidden]="isFeature()">
+            <h4>Relations
+              <div style="margin-left: 4px;margin-top: 10px;">
+              <h5>Type:
+                {{type}}
+                <button class="empty" (click)="visiblechipsfeatures=!visiblechipsfeatures">
+                <mat-icon class="mat-icon-rtl-mirror">
+                  {{visiblechipsfeatures ? 'expand_more' : 'chevron_right'}}
+                </mat-icon></button>
+                <mat-list [hidden]="!visiblechipsfeatures">
+                  <mat-option *ngFor="let chip of listOfTypes" (click)="visiblechipsfeatures=!visiblechipsfeatures" (click)="ChangeType(chip)">{{chip}}</mat-option>
+                </mat-list>
+              </h5>
+              <hr>
+              <h5 [hidden]="cardhidden()" >Card min 
+              <input  type="number" [(ngModel)]="card_min" (change)="checkcard_min_max()"><hr></h5>
+              <h5 [hidden]="cardhidden()">Card max
+              <input type="number" [(ngModel)]="card_max" (change)="checkcard_min_max()" >
+              </h5>
+            </div>
+            </h4>
+          </div>
+
+				</div>
+			</div>
+			<div class="modal-footer">
+		    <button (click)="ModifySelection()"  data-bs-toggle="modal" href="#loading" class="buttonmodal">update</button>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- Modal Create children-->
+<div class="modal fade" id="sidebarcreatechild" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+	  <div class="modal-content">
+	    <div class="modal-header">
+		    <h4 class="modal-title" id="exampleModalLabel">Create child</h4>
+ 		    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+	    <div class="modal-body">
+        <div class="row">
+		    <div class="col-6">
+          <h4 [hidden]="isFeature()">Name
+            <div style="margin-top: 10px;"></div> 
+            <input matInput  type="string" class="input_modal"  style="min-width: 250px;" [(ngModel)]="name">
+            <div style="margin-top: 10px;"></div> </h4>
+            <h4 [hidden]="!isFeature()">Type:
+
+              <!-- Deberia ser el 4 de la lista de manera predeterminada-->
+              {{type==""||type=="MANDATORY"||type=="OPTIONAL"? listOfTypes[4]:type}}
+
+
+              <button class="empty" (click)="visiblechipsfeatures=!visiblechipsfeatures">
+              <mat-icon class="mat-icon-rtl-mirror">
+                {{visiblechipsfeatures ? 'expand_more' : 'chevron_right'}}
+              </mat-icon></button>
+              <mat-list [hidden]="!visiblechipsfeatures">
+                <mat-option *ngFor="let chip of listOfTypes"  (click)="visiblechipsfeatures=!visiblechipsfeatures" (click)="ChangeType(chip)">{{chip}}</mat-option>
+              </mat-list>  
+            </h4>
+            <h4 [hidden]="!isFeature() || (type!='FEATURE' && type!='' && type!='MANDATORY' && type!='OPTIONAL')  ">optional <input id="mycheckbox" type="checkbox" style="margin-top: 15px;margin-bottom: 15px;" [(ngModel)]="optional" > </h4>
+				</div>
+      </div>
+	 	  </div>
+	    <div class="modal-footer">
+	      <button (click)="CreateChildren()" data-bs-toggle="modal" href="#loading" c class="bottom-style" style="width: 70px; margin-left: auto;margin-right: auto; ">Create</button>
+      </div>
+	  </div>
+	</div>
+</div>
+<!-- Modal Create brother -->
+<div class="modal fade" id="sidebarcreatebrother" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+	  <div class="modal-content">
+		  <div class="modal-header">
+			  <h4 class="modal-title" id="exampleModalLabel">Create sibling</h4>
+				  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body">
+        <div class="row">
+				<div class="col-6">
+          <h4 [hidden]="!isFeature()">Name
+          <div style="margin-top: 10px;"></div> 
+          <input matInput  type="string" class="input_modal" style="min-width: 250px;" [(ngModel)]="name">
+          <div style="margin-top: 10px;"></div> </h4>
+          <h4 [hidden]="isFeature()">Type:
+            {{type}}
+            <button class="empty" (click)="visiblechipsfeatures=!visiblechipsfeatures">
+            <mat-icon class="mat-icon-rtl-mirror">
+              {{visiblechipsfeatures ? 'expand_more' : 'chevron_right'}}
+            </mat-icon></button>
+            <mat-list [hidden]="!visiblechipsfeatures">
+              <mat-option *ngFor="let chip of listOfTypes" (click)="visiblechipsfeatures=!visiblechipsfeatures" (click)="ChangeType(chip)">{{chip}}</mat-option>
+            </mat-list>  
+          </h4>
+          <h4 [hidden]="isFeature()|| type!='FEATURE'">optional <input id="mycheckbox" type="checkbox" style="margin-top: 15px;margin-bottom: 15px;" [(ngModel)]="optional" ></h4>
+		  	</div>
+			</div></div>
+			<div class="modal-footer">
+				<button (click)="CreateBrother()" data-bs-toggle="modal" href="#loading" class="bottom-style" style="width: 70px; margin-left: auto; margin-right: auto;" >Create</button>
+			</div>
+	  </div>
+	</div>
+</div>
+<!-- Modal Delete
+<div class="modal fade" id="sidebardeletebranch" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+		  <div class="modal-header">
+        <h4 class="modal-title" id="exampleModalLabel">Delete node</h4>
+		    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+	    </div>
+	    <div class="modal-body">
+	      <div class="col-10">
+          <h4 *ngIf="actualfather==undefined" style="color: rgb(180, 36, 36);margin-bottom: 500px;">This is the root and this action will delete everything from this model</h4>
+          <h4>Are you sure?
+          <button style="margin-left: 20px;" (click)="DeleteNode()" data-bs-toggle="modal" href="#loading" class="buttonmodal" >Proceed</button></h4>
+			  </div>
+        
+	    </div>
+      <div class="modal-footer">
+	      <button type="button" class="buttonmodal" data-bs-dismiss="modal">Go back</button>
+	    </div>
+	  </div>
+  </div>
+</div>
+-->
+
+
+<!--Modal Constraint-->
+<div class="modal fade" id="sidebaroptionsconstraintree" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" id="exampleModalLabel">Edit constraint</h4>
+      </div>
+       <!--<label style="margin-left: 10px;margin-right: 5px;color:#012970"> Full text: </label>
+      <label style="margin-left: 10px;margin-right: 5px;"> {{jsonconstraintTexto[npos]}}</label> -->
+      <div class="modal-body">
+        <h4> <mat-icon style="margin-bottom: -5px;" [ngStyle]="{'color': textconsvalid? 'green' : 'red' }">{{textconsvalid? "check_circle_outline":"warning"}}</mat-icon> {{textconsvalid? "Everything is correct":"Incorrect constraint"}}</h4>
+        <div class="col-12">
+          <div class="row">
+            <!-- Features Chip -->
+            <div class="col-6">
+              <div class="bordermodal">
+                <h4 style=" margin-top: -17px;">Features Term</h4>
+                <input style="margin-bottom: 5px;" type="text" placeholder="Search a feature" [(ngModel)]="featureautocomplete">
+                <cdk-virtual-scroll-viewport [itemSize]="6 * 7" class="example-viewport" style="height: 395px;">
+                  <mat-chip-list class="mat-chip-list-stacked" >
+                    <mat-chip *ngFor="let chip of nameFeatures()" (click)="SelectChipFeature(chip)"  [hidden]="AutocompleteFeatureTermChip(chip)">
+                      {{chip}}
+                    </mat-chip>
+                  </mat-chip-list>
+                </cdk-virtual-scroll-viewport>
+              </div>
+            </div>
+          <!-- Logic Chip -->
+            <div class="col-6">
+              <div class="bordermodal">
+                <h4 style="margin-bottom: 43px;margin-top: -17px;">Logic Term</h4>
+                <mat-chip-list class="mat-chip-list-stacked"  >
+                  <mat-chip *ngFor="let chip of typesofconsparan"  (click)="SelectChipLogic(chip)" >
+                    {{chip}}
+                  </mat-chip>
+                </mat-chip-list>
+              </div>
+            </div>
+         <!-- Constraint Tree 
+            <div class="col-4">
+              <div class="bordermodal">
+                <h4 style="margin-bottom: 43px;margin-top: -17px;">Constraint Tree</h4>
+                <cdk-virtual-scroll-viewport [itemSize]="6 * 7" class="example-viewport" style="margin-bottom: -20px;">
+                  <mat-tree [hidden]="!visible_Constraint_list"  [dataSource]="constraindataSource" [treeControl]="constraintreeControl" class="example-tree">
+                    <mat-nested-tree-node  *matTreeNodeDef="let constrainnode; when: constrainthasChild">
+                      <div class="mat-tree-node">
+                        <div [hidden]="!treeConsHideen(constrainnode)">
+                          <button mat-icon-button matTreeNodeToggle [attr.aria-label]="'Toggle ' + constrainnode.name">
+                            <mat-icon class="mat-icon-rtl-mirror">
+                              remove
+                            </mat-icon>
+                          </button>
+                        </div>
+                        <div [hidden]="treeConsHideen(constrainnode)">
+                          <button mat-icon-button matTreeNodeToggle [attr.aria-label]="'Toggle ' + constrainnode.name">
+                            <mat-icon class="mat-icon-rtl-mirror">
+                              {{constraintreeControl.isExpanded(constrainnode) ? 'expand_more' : 'chevron_right'}}
+                            </mat-icon>
+                          </button>
+                        </div>
+                        {{constrainnode.type}} 
+                      </div>
+                      <ul *ngIf="constraintreeControl.isExpanded(constrainnode)">  
+                        <ng-container matTreeNodeOutlet></ng-container> 
+                      </ul>                
+                    </mat-nested-tree-node>
+                  </mat-tree>
+              </cdk-virtual-scroll-viewport>
+              </div>
+            </div>-->
+
+
+          </div>
+        </div>
+        <!--Write list-->
+        <div style="margin-top: 10px;"></div>
+        <textarea style="width: 766px;height: 90px;border:3px solid #88888888; font-size: 20px;" type="text" [(ngModel)]="textnewcons"></textarea>
+        <button class="buttonmodal"  style="background-color: #012970;" (click)="checkCons()">check cons</button>
+        <div class="col-12">
+
+ <!--
+        <div style="margin-top: 10px;"></div>
+        <div class="bordermodal">
+          <p  >{{Writelist()}}</p>
+          <button class="btn btn-secondary "  style="background-color: #636363bb;" (click)="DeleteList()">Delete List</button>
+          <button class="btn btn-secondary " [ngStyle]="{'background-color':checkListofconstraint(ListOfConstraint[0])[1]}">Check List: {{checkListofconstraint(ListOfConstraint[0])[0]? "OK":"Not Ok"}}</button>
+        </div>
+        <div class="col-12">
+         Buttons
+          <div class="row" style="margin-top: 10px;">
+            <div class="col-3"><button class="buttonmodal " data-bs-toggle="modal" href="#loading" (click)="CreateConsNew()"> Create New</button></div>
+            <div class="col-3"><button class="buttonmodal " data-bs-toggle="modal" href="#loading" *ngIf="consactual!=undefined" (click)="ModifyCons()"> Edit Constrain </button></div>
+            <div class="col-3"><button class="buttonmodal " data-bs-toggle="modal" href="#loading" *ngIf="consactual!=undefined" (click)="DeleteCons()"> Delete Constrain </button></div>
+          </div>-->
+        </div>
+      </div>
+      <div class="modal-footer">
+      <button class="buttonmodal " data-bs-toggle="modal" (click)="CreateNewCons()" [disabled]="!textconsvalid" href="#loading"> Create</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- Modal Selected Data-->
+<div class="modal fade" id="modalData" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+		  <div class="modal-header">
+        <h4 class="modal-title" id="exampleModalLabel">Feature Model</h4>
+	    </div>
+	    <div class="modal-body">
+        <div class="row">
+          <div class="col-6">
+            <h4>Information</h4>
+            <label><label class="modal_repository">Name:</label>            {{myArticle.Name}}</label>
+            <div></div>
+            <label><label class="modal_repository">Author:</label>          {{myArticle.Author}}</label>
+            <div></div>
+            <label><label class="modal_repository">Owner:</label>           {{myArticle.Owner}}</label>
+            <div></div>
+            <label class="modal_repository"(click)="web(myArticle)">Ref: <a class="modal_repository">{{myArticle.Ref}}</a></label>
+            <div></div>
+            <label><label class="modal_repository">Year: </label>           {{myArticle.Year}}</label>
+            <div></div>
+            <label><label class="modal_repository">Domain: </label>         {{myArticle.Domain}}</label>
+            <div></div>
+            <label><label class="modal_repository">Version: </label>        {{myArticle.Version}}</label>
+          </div>
+          <div class="col-6">
+            <label><label class="modal_repository">Language_level:</label>   {{myArticle.Language_level}}</label>
+            <div></div>
+            <label><label class="modal_repository"> nFeatures:</label>       {{myArticle.nFeatures}}</label>
+            <div></div>
+            <label><label class="modal_repository">nConfigs:</label>         {{myArticle.nConfigs}}</label>
+            <div></div>
+            <label><label class="modal_repository">Rating: </label>          {{myArticle.Rating}}</label>
+            <div></div>
+            <label><label class="modal_repository">Format:</label>           {{myArticle.Format}}</label>
+            <div></div>
+            <label><label class="modal_repository">Hash:</label>           {{myArticle.Hash}}</label>
+          </div>
+        </div>
+	    </div>
+      <div class="modal-footer">
+	      <button type="button" class="buttonmodal" data-bs-dismiss="modal">Go back</button>
+        <button type="button" class="buttonmodal" data-bs-dismiss="modal" (click)="getFile()" >Get File</button>
+	    </div>
+	  </div>
+  </div>
+</div>
+
+
+<!-- Modal Upload Data-->
+<div class="modal fade" id="modalInsertData" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+
+		  <div class="modal-header">
+        <h4 class="modal-title" id="exampleModalLabel">Model Information</h4>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+	    </div>
+
+	    <div class="modal-body">
+        <div class="container">
+          <form class="form-group row">
+
+            <div class="form-group col-md-3">
+
+              <label for="name" class="modal_repository">Name: </label>
+              <input type="string" style="min-width: 150px;" [(ngModel)]="Namerepo" name="name">
+
+                            
+              <label for="author" class="modal_repository">Author: </label>
+              <input type="string" style="min-width: 150px;" [(ngModel)]="Author" name="author">
+
+              <label for="owner" class="modal_repository">Owner: </label>
+              <input type="string" style="min-width: 150px;" [(ngModel)]="Owner" name="owner">
+
+              <label for="ref" class="modal_repository">Ref: </label>
+              <input type="string" style="min-width: 150px;" [(ngModel)]="Ref" name="ref">
+
+              <label for="year" class="modal_repository">Year: </label>
+              <input type="number" style="min-width: 150px;" [(ngModel)]="Year" name="year">
+
+              <label class="modal_repository">Domain:</label>
+              <input type="string" style="min-width: 150px;" [(ngModel)]="Domain" name="domain">
+
+            </div>
+
+            <div class="form-group col-md-3">
+
+              <label class="modal_repository">Version:</label>
+              <input type="string" style="min-width: 150px;" [(ngModel)]="Version" name="version">
+
+              <label class="modal_repository">Language level:</label>
+              <input type="string" style="min-width: 150px;" [(ngModel)]="Language_level" name="languageLevel">
+              
+              <label class="modal_repository">Rating: </label>
+              <input type="number" style="min-width: 150px;" [(ngModel)]="Rating" name="rating">
+
+              <label class="modal_repository">Description: </label>
+              <input type="string" style="min-width: 150px;" [(ngModel)]="Description" name="description">
+
+              <label class="modal_repository">Organization: </label>
+              <input type="string" style="min-width: 150px;" [(ngModel)]="Organization" name="organization">
+
+              <label class="modal_repository">File: </label>
+              <button  class="buttonmodal" style="min-width: 150px; margin-inline: 20px"  (click)="input_file_repo.click()">
+                <img src="./assets/img/folder.png" >                Attach file {{input_file_repo.value}}
+              </button>
+
+              <input [hidden]="true" #input_file_repo type="file"(change)="SelectFilerepo($event)" id="file-input card1" type="file"/>
+
+            </div>
+
+          </form>
+        </div>
+	    </div>
+
+      <div class="modal-footer">
+	      <button type="button" class="buttonmodal" data-bs-dismiss="modal" [disabled]="input_file_repo.value.length == 0" (click)="InsertIntoRepo()" >Upload</button>
+	    </div>
+	  </div>
+  </div>
+</div>
+
+<!--Menu options-->
+<mat-menu #menumdel="matMenu">
+  <button  class ="empty" (click) = "$event.stopPropagation()" (click)="show_refacts_features_only=!show_refacts_features_only" matTooltip="Highlight Refactorings"  >
+    <i class="bi bi-eye-fill" [hidden]="show_refacts_features_only"></i>
+    <i class="bi bi-eye-slash-fill" [hidden]="!show_refacts_features_only"></i>  
+    </button>
+  <a (click)="show_refacts_features_only=!show_refacts_features_only" style="cursor: pointer;" (click) = "$event.stopPropagation()" >Highlight Refactorings</a>
+</mat-menu>
+
+<!--Menu Constraints options-->
+<mat-menu #menumodelcons="matMenu" >
+  <button  class ="empty" (click) = "$event.stopPropagation()" (click)="show_refacts_cons_only=!show_refacts_cons_only" matTooltip="Highlight Refactorings"  >
+  <i class="bi bi-eye-fill" [hidden]="show_refacts_cons_only"></i>
+  <i class="bi bi-eye-slash-fill" [hidden]="!show_refacts_cons_only"></i>  
+  </button>
+  <a (click)="show_refacts_cons_only=!show_refacts_cons_only" (click) = "$event.stopPropagation()"  >Highlight Refactorings</a>
+  <hr>
+</mat-menu>
+
+<!-- Modal loading-->
+<div class="modal" #loading id="loading" data-bs-backdrop="static">
+  <div class="modal-dialog modal-lg" >
+    <div class="modal-content">
+		  <div class="modal-header"> 
+        <h4>Loading...</h4>
+      </div>
+      <h4 style="padding: 5px;"> This could take some time </h4> 
+      <h4 style="padding: 5px;"> {{loadingtext}}</h4>
+      
+	    <div class="modal-body">
+        <div class="row">
+          <div class="col-2"></div>
+          <img class="col-8"src={{showModal()[0]}} >
+          <div class="col-1">{{showModal()[1]? '': buttonloadingclose.click()}}</div>
+        </div>
+	    </div>
+      <button  class ="buttonmodal" style="height: 50px;" (click)="loadingmodal=!loadingmodal"> close </button>
+      <button [hidden]="true" #buttonloadingclose data-bs-dismiss="modal" data-bs-backdrop="static"></button>
+     
+	  </div>
+  </div>
+</div>          
+
+
+<!-- Modal Search-->
+<div class="modal" #search id="search" data-bs-backdrop="static">
+  <div class="modal-dialog modal-lg" >
+    <div class="modal-content">
+		  <div class="modal-header"> 
+        <h4>Searching for a feature to open it in the tree </h4>
+      </div>
+	    <div class="modal-body">
+        <div class="row">
+          <div class="col-12">
+            <div class="bordermodal">
+              <h4 style="margin-top: -17px;">Features Term</h4>
+              <input style="margin-bottom: 5px;" type="text" [(ngModel)]="featureautocomplete">
+              <cdk-virtual-scroll-viewport [itemSize]="6 * 7" class="example-viewport" style="margin-bottom: -20px;">
+                <mat-chip-list class="mat-chip-list-stacked" >
+                  <mat-chip *ngFor="let chip of nameFeatures()"  (click)="SearchFeature(chip)"  data-bs-dismiss="modal" [hidden]="AutocompleteFeatureTermChip(chip)">
+                    {{chip}}
+                  </mat-chip>
+                </mat-chip-list>
+              </cdk-virtual-scroll-viewport>
+            </div>
+          </div>
+        </div>
+	    </div>
+      <button  class ="buttonmodal" style="height: 50px;" data-bs-dismiss="modal"> close </button>
+     
+	  </div>
+  </div>
+</div>
