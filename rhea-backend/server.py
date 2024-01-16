@@ -53,7 +53,7 @@ cache = Cache(app)
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 CORS(app, supports_credentials=True)    
 
-@app.route('/checktextcons', methods=['POST']) #Check cons button method
+@app.route('/api/checktextcons', methods=['POST']) #Check cons button method
 def check_text_cons():
     if request.method != 'POST':
         return None
@@ -63,7 +63,7 @@ def check_text_cons():
         #result=str(checkGoodConstraints())  #Replace checkGoodConstraints() by method that checks constraints and delete line avobe
         return result           #the receiving method needs a string
     
-@app.route('/createcons', methods=['POST'])
+@app.route('/api/createcons', methods=['POST'])
 def create_new_cons():
     if request.method != 'POST':
         return None
@@ -175,7 +175,7 @@ def write_fm_file(fm: FeatureModel, format: str) -> str:
         result = JSONWriter(source_model=fm, path=None).transform()
     return result
 
-@app.route('/getExampleFMs', methods=['GET'])
+@app.route('/api/getExampleFMs', methods=['GET'])
 def get_example_feature_models():
     if request.method != 'GET':
         return None
@@ -184,7 +184,7 @@ def get_example_feature_models():
         response = make_response(json.dumps(models))
         return response
 
-@app.route('/updateServer', methods=['POST'])
+@app.route('/api/updateServer', methods=['POST'])
 def update_server():
     if request.method != 'POST':
         return None
@@ -193,7 +193,7 @@ def update_server():
         return "hello world"
 
 
-@app.route('/uploadExampleFM', methods=['POST'])
+@app.route('/api/uploadExampleFM', methods=['POST'])
 def upload_example_feature_model():
     if request.method != 'POST':
         return None
@@ -209,7 +209,7 @@ def upload_example_feature_model():
         return response
 
 
-@app.route('/uploadFM', methods=['POST'])
+@app.route('/api/uploadFM', methods=['POST'])
 def upload_feature_model():
     if request.method == 'POST':
         # check if the post request has the file part
@@ -242,7 +242,7 @@ def upload_feature_model():
     return None
 
 
-@app.route('/updateFM', methods=['POST'])
+@app.route('/api/updateFM', methods=['POST'])
 def updateFeature():
     if request.method == 'POST':
         # Get parameters
@@ -265,7 +265,7 @@ def updateFeature():
     return None
 
 
-@app.route('/refactor', methods=['POST'])
+@app.route('/api/refactor', methods=['POST'])
 def refactor():
     if request.method == 'POST':
         # Get parameters
@@ -308,7 +308,7 @@ def refactor():
     return None
 
     
-@app.route('/downloadFM', methods=['POST'])
+@app.route('/api/downloadFM', methods=['POST'])
 def download_feature_model():
     if request.method != 'POST':
         return None
@@ -329,5 +329,5 @@ def download_feature_model():
 
 if __name__ == '__main__':
     #app.debug = True
-    # app.run(host='0.0.0.0', port=5555)
-    app.run()
+    app.run(host='0.0.0.0', port=5000) #5555
+    # app.run()

@@ -83,17 +83,17 @@ export class AppComponent {
 
  // FOR DEVELOPER: for any new url the backend get , it must be update in the apache2 file for the web to work in de sites-available domain.conf, then restart apache, and the frontend and backend"
 
-  urldownload="https://rhea.caosd.lcc.uma.es/downloadFM"  
-  urldocuments="https://rhea.caosd.lcc.uma.es/getExampleFMs"
-  urluploadExampleFM="https://rhea.caosd.lcc.uma.es/uploadExampleFM"  
-  urlupload="https://rhea.caosd.lcc.uma.es/uploadFM"  
-  urlrefactor="https://rhea.caosd.lcc.uma.es/refactor" 
-  urlupdate="https://rhea.caosd.lcc.uma.es/updateFM" 
-  urlcur="https://rhea.caosd.lcc.uma.es/getCur"                             //404
-  urlinsertcur="https://rhea.caosd.lcc.uma.es/insertIntoRepository"         //404 
-  urlgetfile="https://rhea.caosd.lcc.uma.es/getFile" 
-  urltextcons="https://rhea.caosd.lcc.uma.es/checktextcons"                 //404
-  urlnewcons="https://rhea.caosd.lcc.uma.es/createcons"                     //404
+  urldownload="https://rhea.caosd.lcc.uma.es/api/downloadFM"  
+  urldocuments="https://rhea.caosd.lcc.uma.es/api/getExampleFMs"
+  urluploadExampleFM="https://rhea.caosd.lcc.uma.es/api/uploadExampleFM"  
+  urlupload="https://rhea.caosd.lcc.uma.es/api/uploadFM"  
+  urlrefactor="https://rhea.caosd.lcc.uma.es/api/refactor" 
+  urlupdate="https://rhea.caosd.lcc.uma.es/api/updateFM" 
+  urlcur="https://rhea.caosd.lcc.uma.es/api/getCur"                             //404
+  urlinsertcur="https://rhea.caosd.lcc.uma.es/api/insertIntoRepository"         //404 
+  urlgetfile="https://rhea.caosd.lcc.uma.es/api/getFile" 
+  urltextcons="https://rhea.caosd.lcc.uma.es/api/checktextcons"                 //404
+  urlnewcons="https://rhea.caosd.lcc.uma.es/api/createcons"                     //404
   
   declare actual:FMTree     
   declare actualfather:FMTree 
