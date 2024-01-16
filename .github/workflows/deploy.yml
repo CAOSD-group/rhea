@@ -1,0 +1,34 @@
+# Este script hay que modificarlo cuando se consiga montar el servidor de produccion. Ahora mismo está para desarrollo
+
+on:
+    push:
+        branches:
+            - origin/maria  #Cuando se terminen las pruebas hay que pasarlo a la rama main
+    workflow_dispatch:
+jobs: 
+    run_pull:
+        name: run pull
+        runs-on: ubuntu-latest
+
+        steps:
+            -   name: Execiting remote ssh commands using ssh key
+                uses: appleboy/ssh-action@v1.0.3
+                with:
+                    host: ${{secrets.SSH_HOST}}
+                    username: ${{secrets.SSH_USER}}
+                    key: ${{secrets.SSH_PRIVATE_KEY}}
+                    port: ${{secrets.SSH_PORT}}
+                    script: |
+                        
+                        
+                        cd ${{secrets.WORK_DIR}}                    
+                        git switch maria                            
+                        git pull                                    
+                        cd /home/usuario/rhea/rhea-web/
+                        ng build --configuration production --base-href ""
+                        echo ${{secrets.USERPWD}} | sudo cp -r /home/usuario/rhea/rhea-web/dist/ /var/www/
+                        echo ${{secrets.USERPWD}} | sudo systemctl restart server
+                        echo ${{secrets.USERPWD}} | sudo systemctl restart nginx
+                        exit                                        
+                    
+
