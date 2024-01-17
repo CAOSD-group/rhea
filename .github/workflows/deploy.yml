@@ -16,14 +16,5 @@ jobs:
                     username: ${{secrets.SSH_USER}}
                     # key: ${{secrets.SSH_PRIVATE_KEY}}
                     password: ${{secrets.USERPWD}}
-                    port: ${{secrets.SSH_PORT}}
                     script: |
-                        cd ${{secrets.WORK_DIR}}                    
-                        git switch maria                            
-                        git pull                                    
-                        cd /home/usuario/rhea/rhea-web/
-                        ng build --configuration production --base-href ""
-                        echo ${{secrets.USERPWD}} | sudo cp -r /home/usuario/rhea/rhea-web/dist/ /var/www/
-                        echo ${{secrets.USERPWD}} | sudo systemctl restart server
-                        echo ${{secrets.USERPWD}} | sudo systemctl restart nginx
-                        exit    
+                        echo Funciona!
