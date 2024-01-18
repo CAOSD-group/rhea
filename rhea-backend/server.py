@@ -43,7 +43,7 @@ static_folder = 'web'
 config = {
          # some Flask specific configs
     "CACHE_TYPE": "SimpleCache",  # Flask-Caching related configs
-    "CACHE_DEFAULT_TIMEOUT": 300
+    "CACHE_DEFAULT_TIMEOUT": 3000  # 50 minutes
 }
 app = Flask(__name__)
 app.config.from_mapping(config)
@@ -140,7 +140,7 @@ def allowed_file(filename):
 def read_fm_file(filename: str) -> Optional[FeatureModel]:
     """Read a feature model object from a file in the sopported formats."""
     if filename.endswith('.uvl'):
-        return UVLWriter
+        return UVLReader(filename).transform()
     elif filename.endswith('.sxfm.xml'):
         return None
     elif filename.endswith('.xml') or filename.endswith('.fide'):
@@ -196,7 +196,7 @@ def update_server():
 @app.route('/api/uploadExampleFM', methods=['POST'])
 def upload_example_feature_model():
     if request.method != 'POST':
-        return None
+        jsonify({'error': 'Not a POST methos'}), 404
     else:
         # Get parameters
         filename = request.form['filename']
@@ -319,7 +319,7 @@ def download_feature_model():
         fm = cache.get(fm_hash)
         if fm is None:
             print('FM expired.')
-            return jsonify({'error': 'FM expired'}), 404
+            return jsonify({'error': f'FM expired for hash "{fm_hash}"'}), 404
         fm_str = write_fm_file(fm, fm_format)
         if fm_str is None:
             return jsonify({'error': 'Object not found'}), 404
