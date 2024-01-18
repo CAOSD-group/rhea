@@ -69,17 +69,17 @@ export class AppComponent {
 
   
   
-  // urldownload="http://127.0.0.1:5000/downloadFM"  
-  // urldocuments="http://127.0.0.1:5000/getExampleFMs"
-  // urluploadExampleFM="http://127.0.0.1:5000/uploadExampleFM"  
-  // urlupload="http://127.0.0.1:5000/uploadFM"  
-  // urlrefactor="http://127.0.0.1:5000/refactor" 
-  // urlupdate="http://127.0.0.1:5000/updateFM" 
-  // urlcur="http://127.0.0.1:5000/getCur"                     //<---"https://rhea.caosd.lcc.uma.es/getCur"     
-  // urlinsertcur="http://127.0.0.1:5000/insertIntoRepository" //<---"https://rhea.caosd.lcc.uma.es/insertIntoRepository"
-  // urlgetfile="http://127.0.0.1:5000/getFile" 
-  // urltextcons="http://127.0.0.1:5000/checktextcons"         //<--- "https://rhea.caosd.lcc.uma.es/checktextcons" 
-  // urlnewcons="http://127.0.0.1:5000/createcons"             //<--- https://rhea.caosd.lcc.uma.es/
+  // urldownload="http://127.0.0.1:5000/api/downloadFM"  
+  // urldocuments="http://127.0.0.1:5000/api/getExampleFMs"
+  // urluploadExampleFM="http://127.0.0.1:5000/api/uploadExampleFM"  
+  // urlupload="http://127.0.0.1:5000/api/uploadFM"  
+  // urlrefactor="http://127.0.0.1:5000/api/refactor" 
+  // urlupdate="http://127.0.0.1:5000/api/updateFM" 
+  // urlcur="http://127.0.0.1:5000/api/getCur"                     //<---"https://rhea.caosd.lcc.uma.es/getCur"     
+  // urlinsertcur="http://127.0.0.1:5000/api/insertIntoRepository" //<---"https://rhea.caosd.lcc.uma.es/insertIntoRepository"
+  // urlgetfile="http://127.0.0.1:5000/api/getFile" 
+  // urltextcons="http://127.0.0.1:5000/api/checktextcons"         //<--- "https://rhea.caosd.lcc.uma.es/checktextcons" 
+  // urlnewcons="http://127.0.0.1:5000/api/createcons"             //<--- https://rhea.caosd.lcc.uma.es/
 
  // FOR DEVELOPER: for any new url the backend get , it must be update in the apache2 file for the web to work in de sites-available domain.conf, then restart apache, and the frontend and backend"
 

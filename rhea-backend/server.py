@@ -7,7 +7,7 @@ import subprocess
 import sys
 from typing import Optional
 
-from flask import Flask, request, redirect, make_response
+from flask import Flask, request, redirect, make_response, jsonify
 from flask_cors import CORS
 from werkzeug.utils import secure_filename
 from flask_caching import Cache
@@ -311,7 +311,7 @@ def refactor():
 @app.route('/api/downloadFM', methods=['POST'])
 def download_feature_model():
     if request.method != 'POST':
-        return None
+        return jsonify({'error': 'Not a POST method'}), 404
     else:
         # Get parameters
         fm_hash = request.form['fm_hash']
@@ -319,10 +319,10 @@ def download_feature_model():
         fm = cache.get(fm_hash)
         if fm is None:
             print('FM expired.')
-            return None
+            return jsonify({'error': 'FM expired'}), 404
         fm_str = write_fm_file(fm, fm_format)
         if fm_str is None:
-            return None
+            return jsonify({'error': 'Object not found'}), 404
         response = make_response(fm_str)
         return response
 
