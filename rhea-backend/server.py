@@ -42,7 +42,8 @@ static_folder = 'web'
 
 config = {
          # some Flask specific configs
-    "CACHE_TYPE": "SimpleCache",  # Flask-Caching related configs
+    "CACHE_TYPE": "filesystem",  # Flask-Caching related configs
+    "CACHE_DIR": '/tmp', 
     "CACHE_DEFAULT_TIMEOUT": 3000  # 50 minutes
 }
 app = Flask(__name__)

@@ -50,7 +50,7 @@ let aux:any
   constructor(private http?: HttpClient ) { }  
   
     ngOnInit() {
-      this.getCur()
+      //this.getCur()
     }
 
     getCur(){
