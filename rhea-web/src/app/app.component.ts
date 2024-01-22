@@ -325,7 +325,7 @@ Save(text:number){
   this.http.post(this.urldownload,formData,{withCredentials:true,responseType:'text'}).subscribe(resultado => {  
     this.loadingtext="Server responded"
     let file = new Blob([resultado], { type: this.jsonLanguageextension[text].extension });
-    saveAs(file, this.myfile_name+ " ."+this.jsonLanguageextension[text].extension)
+    saveAs(file, this.myfile_name+ "."+this.jsonLanguageextension[text].extension)
       }
     )
   }
