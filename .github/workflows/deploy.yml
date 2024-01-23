@@ -22,7 +22,7 @@ jobs:
                         git pull                                    
                         cd /home/usuario/rhea/rhea-web/
                         ng build --configuration production --base-href ""
-                        sudo cp -r /home/usuario/rhea/rhea-web/dist/ /var/www/
+                        echo ${{secrets.USERPWD}} | sudo cp -r /home/usuario/rhea/rhea-web/dist/ /var/www/
                         sudo systemctl restart server
                         sudo systemctl restart nginx
                         exit   
