@@ -16,5 +16,6 @@ jobs:
                     username: ${{secrets.SSH_USER}}
                     # key: ${{secrets.SSH_PRIVATE_KEY}}
                     password: ${{secrets.USERPWD}}
+                    port: ${{secrets.SSH_PORT}}
                     script: |
                         echo Funciona!
