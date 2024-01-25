@@ -1,7 +1,7 @@
 on:
     push:
         branches:
-            - origin/maria  #Cuando se terminen las pruebas hay que pasarlo a la rama main
+            - maria  
     workflow_dispatch:
 jobs: 
     run_pull:
@@ -14,7 +14,12 @@ jobs:
                 with:
                     host: ${{secrets.SSH_HOST}}
                     username: ${{secrets.SSH_USER}}
-                    # key: ${{secrets.SSH_PRIVATE_KEY}}
-                    password: ${{secrets.USERPWD}}
+                    key: ${{secrets.SSH_PRIVATE_KEY}}
+                    port: ${{secrets.SSH_PORT}}
                     script: |
-                        echo Funciona!
+                        cd ${{secrets.WORK_DIR}}                    
+                        git switch maria                            
+                        git pull                                    
+                        cd /home/usuario/rhea/rhea-web/
+                        ng build --configuration production --base-href ""
+                        exit   
