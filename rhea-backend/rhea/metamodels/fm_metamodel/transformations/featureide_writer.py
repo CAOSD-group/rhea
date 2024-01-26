@@ -68,7 +68,7 @@ def _create_tree(parentElement: Element, relations: list[Relation]):
 
 def _get_attributes(feature: Feature):
     atributes = {}
-    if feature.is_mandatory and not feature.is_leaf(): atributes['mandatory'] ='true'
+    if feature.is_mandatory(): atributes['mandatory'] ='true'
     atributes['name'] = feature.name
     return atributes
  
@@ -125,7 +125,6 @@ def _get_ctc_info(ast_node: Node) -> dict[str, Any]:
         ctc_info['operands'] = [ast_node.data]
     else:
         ctc_info['type'] = FeatureIDEWriter.CTC_TYPES[ast_node.data]
-        # if ast_node.data si es EXCLUDES entonces hay que crear dos nodos, un impl y un negado en la derecha.
         operands = []
         left = _get_ctc_info(ast_node.left)
         operands.append(left)
