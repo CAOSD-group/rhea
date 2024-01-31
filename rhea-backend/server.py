@@ -25,7 +25,7 @@ from flamapy.metamodels.fm_metamodel.transformations import (
     SPLOTWriter
 )
 
-from rhea.metamodels.fm_metamodel.transformations import JSONWriter, JSONReader
+from rhea.metamodels.fm_metamodel.transformations import JSONWriter, JSONReader, FeatureIDEWriter
 from rhea.refactorings import utils
 from rhea import refactorings
 
@@ -174,6 +174,9 @@ def write_fm_file(fm: FeatureModel, format: str) -> str:
         result = SPLOTWriter(source_model=fm, path=temporal_filepath).transform()
     elif format == 'json':
         result = JSONWriter(source_model=fm, path=None).transform()
+    elif format == 'xml':
+        temporal_filepath = tempfile.NamedTemporaryFile(mode='w', encoding='utf8').name
+        result = FeatureIDEWriter(source_model=fm, path=temporal_filepath).transform()
     return result
 
 @app.route('/api/getExampleFMs', methods=['GET'])
@@ -322,9 +325,11 @@ def download_feature_model():
             print('FM expired.')
             return jsonify({'error': f'FM expired for hash "{fm_hash}"'}), 404
         fm_str = write_fm_file(fm, fm_format)
+        # print(fm_str)
         if fm_str is None:
             return jsonify({'error': 'Object not found'}), 404
         response = make_response(fm_str)
+        print(response.data)
         return response
 
 
