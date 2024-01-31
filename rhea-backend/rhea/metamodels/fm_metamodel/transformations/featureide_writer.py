@@ -39,13 +39,16 @@ class FeatureIDEWriter(ModelToText):
         self.source_model = source_model
 
     def transform(self) -> str:
-        return _to_featureidexml(self.source_model).write(self.path)
-        # xml_str = _to_featureidexml(self.source_model).__str__()
-        # print(xml_str)
-        # if self.path is not None:
-        #     with open(self.path, 'w', encoding='utf8') as file:
-        #         file.write(xml_str,indent=4)
-        # return xml_str
+        # return _to_featureidexml(self.source_model).write(self.path)
+
+
+        if self.path is not None:
+            et = _to_featureidexml(self.source_model).getroot()
+            xml_str = ET.tostring(et, encoding='unicode', method='xml')
+            # with open(self.path, 'w', encoding='utf8') as file:
+            #     file.write(xml_str)
+
+        return xml_str
 
 
 def _to_featureidexml(feature_model: FeatureModel):

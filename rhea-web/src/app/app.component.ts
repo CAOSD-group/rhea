@@ -69,31 +69,31 @@ export class AppComponent {
 
   
   
-  // urldownload="http://127.0.0.1:5000/api/downloadFM"  
-  // urldocuments="http://127.0.0.1:5000/api/getExampleFMs"
-  // urluploadExampleFM="http://127.0.0.1:5000/api/uploadExampleFM"  
-  // urlupload="http://127.0.0.1:5000/api/uploadFM"  
-  // urlrefactor="http://127.0.0.1:5000/api/refactor" 
-  // urlupdate="http://127.0.0.1:5000/api/updateFM" 
-  // urlcur="http://127.0.0.1:5000/api/getCur"                     //<---"https://rhea.caosd.lcc.uma.es/getCur"     
-  // urlinsertcur="http://127.0.0.1:5000/api/insertIntoRepository" //<---"https://rhea.caosd.lcc.uma.es/insertIntoRepository"
-  // urlgetfile="http://127.0.0.1:5000/api/getFile" 
-  // urltextcons="http://127.0.0.1:5000/api/checktextcons"         //<--- "https://rhea.caosd.lcc.uma.es/checktextcons" 
-  // urlnewcons="http://127.0.0.1:5000/api/createcons"             //<--- https://rhea.caosd.lcc.uma.es/
+  urldownload="http://127.0.0.1:5000/api/downloadFM"  
+  urldocuments="http://127.0.0.1:5000/api/getExampleFMs"
+  urluploadExampleFM="http://127.0.0.1:5000/api/uploadExampleFM"  
+  urlupload="http://127.0.0.1:5000/api/uploadFM"  
+  urlrefactor="http://127.0.0.1:5000/api/refactor" 
+  urlupdate="http://127.0.0.1:5000/api/updateFM" 
+  urlcur="http://127.0.0.1:5000/api/getCur"                     //<---"https://rhea.caosd.lcc.uma.es/getCur"     
+  urlinsertcur="http://127.0.0.1:5000/api/insertIntoRepository" //<---"https://rhea.caosd.lcc.uma.es/insertIntoRepository"
+  urlgetfile="http://127.0.0.1:5000/api/getFile" 
+  urltextcons="http://127.0.0.1:5000/api/checktextcons"         //<--- "https://rhea.caosd.lcc.uma.es/checktextcons" 
+  urlnewcons="http://127.0.0.1:5000/api/createcons"             //<--- https://rhea.caosd.lcc.uma.es/
 
  // FOR DEVELOPER: for any new url the backend get , it must be update in the apache2 file for the web to work in de sites-available domain.conf, then restart apache, and the frontend and backend"
 
-  urldownload="https://rhea.caosd.lcc.uma.es/api/downloadFM"  
-  urldocuments="https://rhea.caosd.lcc.uma.es/api/getExampleFMs"
-  urluploadExampleFM="https://rhea.caosd.lcc.uma.es/api/uploadExampleFM"  
-  urlupload="https://rhea.caosd.lcc.uma.es/api/uploadFM"  
-  urlrefactor="https://rhea.caosd.lcc.uma.es/api/refactor" 
-  urlupdate="https://rhea.caosd.lcc.uma.es/api/updateFM" 
-  urlcur="https://rhea.caosd.lcc.uma.es/api/getCur"                             //404
-  urlinsertcur="https://rhea.caosd.lcc.uma.es/api/insertIntoRepository"         //404 
-  urlgetfile="https://rhea.caosd.lcc.uma.es/api/getFile" 
-  urltextcons="https://rhea.caosd.lcc.uma.es/api/checktextcons"                 //404
-  urlnewcons="https://rhea.caosd.lcc.uma.es/api/createcons"                     //404
+  // urldownload="https://rhea.caosd.lcc.uma.es/api/downloadFM"  
+  // urldocuments="https://rhea.caosd.lcc.uma.es/api/getExampleFMs"
+  // urluploadExampleFM="https://rhea.caosd.lcc.uma.es/api/uploadExampleFM"  
+  // urlupload="https://rhea.caosd.lcc.uma.es/api/uploadFM"  
+  // urlrefactor="https://rhea.caosd.lcc.uma.es/api/refactor" 
+  // urlupdate="https://rhea.caosd.lcc.uma.es/api/updateFM" 
+  // urlcur="https://rhea.caosd.lcc.uma.es/api/getCur"                             //404
+  // urlinsertcur="https://rhea.caosd.lcc.uma.es/api/insertIntoRepository"         //404 
+  // urlgetfile="https://rhea.caosd.lcc.uma.es/api/getFile" 
+  // urltextcons="https://rhea.caosd.lcc.uma.es/api/checktextcons"                 //404
+  // urlnewcons="https://rhea.caosd.lcc.uma.es/api/createcons"                     //404
   
   declare actual:FMTree     
   declare actualfather:FMTree 
@@ -311,10 +311,6 @@ Save(text:number){
   if(this.myfile_name==""){
     this.myfile_name=this.title
   }
-  if(this.jsonLanguageextension[text].extension=="xml"){
-    alert("This langauge is not available yet")
-  }
-  else{
   console.log(this.myfile_name)
   this.loglist.unshift("File "+this.myfile_name+" download as ."+this.jsonLanguageextension[text].extension)
   this.loadingmodal=false
@@ -328,7 +324,7 @@ Save(text:number){
     saveAs(file, this.myfile_name+ "."+this.jsonLanguageextension[text].extension)
       }
     )
-  }
+  
 }
 
 sendFile(uvl:any){
