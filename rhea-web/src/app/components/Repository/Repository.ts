@@ -2,10 +2,10 @@ import { Component, ViewChild ,Input,Output,EventEmitter} from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import {MatSort} from '@angular/material/sort';
 import {SelectionModel} from '@angular/cdk/collections';
+import {HttpClient} from '@angular/common/http';
 
 
-
-
+let aux:any
 @Component({
 
   selector: 'Repository',
@@ -14,14 +14,21 @@ import {SelectionModel} from '@angular/cdk/collections';
   })
   export class Repository {
 
+
+
   selection = new SelectionModel<Data>(true, []);
   myfile:any
-  dataSource:MatTableDataSource<Data>=new MatTableDataSource<Data>
-  
+  dataSourcerepo:MatTableDataSource<Data>=new MatTableDataSource<Data>
+
+
+  @Input() urlcur="" 
   @ViewChild(MatSort, {static: true}) sort!: MatSort;
   @Output() newItemEventopendModal = new EventEmitter<Data>(); 
   @Output() newItemEventreadThis = new EventEmitter<any>(); 
-  @Input() myArticle=new Data('','','',0,'',"",'',0,0,'','');
+  @Input() myArticle=new Data(0,'','','','',0,'','','',0,0,'','','','','')
+  data  
+  @Input() bool
+  bool2=true
 
   columns: string[] = [       
     "Name",
@@ -31,30 +38,62 @@ import {SelectionModel} from '@angular/cdk/collections';
     "Year",
     "Domain",
     "Version",
-    "Language_level",
+    "Languagelevel",
     "nFeatures",
     "nConfigs",
     "Rating",
     "Format",
     "Select"
   ]
-  data: Data[] = [
-  new Data('Pizzas','Horcas','Horcas',3322,'Food',"1.2",'professional',5,2,'easy','text',"https://www.uma.es/"),
-  new Data('JHipster','Horcas','Acebal',1960,'party',"5.9.3",'numericalfm',10,8,'hard','party',"https://www.uma.es/"),
-  new Data('AAAA','Acebal','Acebal',2002,'something',"Original",'radiofm'),  
-  ];
 
 
+  constructor(private http?: HttpClient ) { }  
   
     ngOnInit() {
-      this.dataSource = new MatTableDataSource<Data>(this.data);
-      this.dataSource.sort = this.sort;
+      //this.getCur()
     }
+
+    getCur(){
+      this.data=[]
+      this.dataSourcerepo = new MatTableDataSource<Data>(this.data);
+      
+      if(this.http!=undefined){
+      this.http.get(this.urlcur).subscribe(resultado => {
+        aux=resultado
+        console.log(aux) 
+
+        aux.forEach(element => {
+          let doc=new Data()
+          
+          doc.Id=element["ID_Model"]||""
+          doc.Name=element["Name"]||""
+          doc.Author=element["Author"]||""
+          doc.Owner=element["Owner"]||""
+          doc.Ref=element["Ref"]||""
+          doc.Year=element["Year"]||0
+          doc.Domain=element["Domain"]||""
+          doc.Version=element["Version"]||""
+          doc.Language_level=element["Languagelevel"]||""
+          doc.Rating=element["Rating"]||0
+          doc.Hash=element["Hash"]||""
+          doc.Description=element["Description"]||""
+          doc.Organization=element["Organization"]||""
+          doc.Format=element["Format"]||""
+
+          this.data.push(doc)
+        });
+        }
+      )}
+
+    }
+
+    Button(){
+      this.dataSourcerepo.data=this.data
+    }
+
     filter(event: Event) {
       const filtro = (event.target as HTMLInputElement).value;
-      this.dataSource.filter = filtro.trim().toLowerCase();
-      console.log(this.dataSource.data)
-      console.log(this.dataSource)
+      this.dataSourcerepo.filter = filtro.trim().toLowerCase();
     } 
     modal(Article:Data){
       this.newItemEventopendModal.emit(Article);
@@ -70,15 +109,15 @@ import {SelectionModel} from '@angular/cdk/collections';
         this.selection.clear();
         return;
       }
-      this.dataSource.data.forEach(element => {
-        if(this.dataSource.filteredData.indexOf(element)!=-1){
+      this.dataSourcerepo.data.forEach(element => {
+        if(this.dataSourcerepo.filteredData.indexOf(element)!=-1){
           this.selection.select(element)
         }
       });
     }
 
     isAllSelected() {
-      if(this.dataSource.filteredData.length<=this.selection.selected.length){
+      if(this.dataSourcerepo.filteredData.length<=this.selection.selected.length){
         return true
       }
       else{
@@ -101,9 +140,11 @@ import {SelectionModel} from '@angular/cdk/collections';
   
   export class Data {
     constructor(
+      public Id?: number,
       public Name?: string,
       public Author?: string,
       public Owner?: string,
+      public Ref?: string,
       public Year?: number,
       public Domain?: string,
       public Version?: string,
@@ -112,6 +153,8 @@ import {SelectionModel} from '@angular/cdk/collections';
       public nConfigs?: number,
       public Rating?: string,
       public Format?: string,
-      public Ref?: string,
+      public Hash?: string,
+      public Description?: string,
+      public Organization?: string
       ) {}
   }

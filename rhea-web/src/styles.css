@@ -18,6 +18,12 @@
     max-height: 26px;
     margin-right: 6px;
   }
+  .trasnparent-snackbar{
+    visibility: hidden;
+    position: absolute;
+    z-index: -100;
+    margin-top: -400px;
+  }
   
   .logo span {
     font-size: 26px;

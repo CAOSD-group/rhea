@@ -35,6 +35,9 @@
     padding: 2px 2px 2px 5px;
   }
  
+  .trasnparent-snackbar{
+    background-color: #00000000;
+  }
   
   .example-viewport {
     height: 350px;
@@ -116,6 +119,16 @@
     margin-right: auto;
     border-radius: 5px;
   }
+  .buttonmodal[disabled]{
+    color: #ffffff;
+    background-color: #636363bb;
+    border-color: white;
+    border: white;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 5px;
+  }
+ 
   .resize{
     max-width: 80%;
     margin-left: 10%;
@@ -415,7 +428,6 @@ h6 {
   background-color: #fff;
 }
 
-
 h4 {
   font-size: 20px;
   color: #012970;
@@ -423,6 +435,7 @@ h4 {
   font-weight: bold;
   margin-bottom: 5px;
 }
+
 h5 {
   font-size: 15px;
   color: #000000;

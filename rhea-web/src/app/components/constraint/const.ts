@@ -101,22 +101,23 @@ let constraintName :Array<any> =[]
         aux2=0
         aux3=true
         aux4=0
+        console.log(list)
         while(aux<list.length){
             console.log(list[aux])
-        if(list[aux].operands!=null){
+        if(list[aux].operands!=null || list[aux].operands!=undefined){
             if(list[aux].operands.length==0){ 
                 console.log("1")
                 list[aux].operands.push(list[aux+1]);
                 aux++}
         }
-        if(list[aux].operands!=null){
+        if(list[aux].operands!=null|| list[aux].operands!=undefined){
             if(list[aux].operands.length>=2){
                 console.log("2")
                 list[aux].operands.push(list[aux+1]);
                 aux4=aux+1
                 aux2=aux+1
                 while(aux3){
-                    if(list[aux2].operands!=null){
+                    if(list[aux2].operands!=null|| list[aux].operands!=undefined){
                         if(list[aux2].operands.length==0){aux4=aux4+1}
                         else{aux4=aux4+list[aux2].operands.length}
                     }

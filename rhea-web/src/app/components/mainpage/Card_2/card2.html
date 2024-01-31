@@ -1,0 +1,19 @@
+
+
+<ul class="sidebar-nav" id="sidebar-nav">
+  <li class="nav-item">
+      <h4 style="margin-left: 4%; margin-top: 4%;"> Select language to download</h4>
+  </li>
+  <li class="nav-item" style="margin-left: 4%;">
+    <select class="btn-primary-select" [(ngModel)]="language" style="margin-left: 2%; width: 205px; height: 30px;"  >
+        <option value="tree name">Select an option</option>
+        <option *ngFor="let documento of ListLanguageFormat()">{{documento}}</option>
+    </select>
+    
+    <input class="margin"  type="text" [(ngModel)]="myfile_name" placeholder="Name to download" style="border-radius:5px ;background-color: #f0ececaf ;margin-left: 2%;margin-bottom: 3%;">
+   <button class="btn-primary-search" (click)="SaveJson(language)" style="margin-left: 2%;" >
+      <i class="fa fa-download"> </i>Download
+    </button>
+
+  </li> 
+</ul>

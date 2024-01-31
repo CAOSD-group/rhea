@@ -31,8 +31,7 @@
             <mat-chip *ngFor="let chip of columns()" >
                 <ng-container matColumnDef={{chip}} >
                     <th  mat-header-cell *matHeaderCellDef style="cursor: default;" class="{{columnsclass(chip)}}" > {{chip}} </th>
-                    <td mat-cell *matCellDef="let element" class="colum-body" [ngStyle]="{'text-align':chip == 'Language constructs' ? 'left' : 'center' }"> 
-
+                    <td mat-cell *matCellDef="let element" class="colum-body"  [ngStyle]="{'text-align':chip == 'Language constructs' ? 'left' : 'center' }"> 
                         <mat-icon [hidden]="IsValidLenguage(element,chip)[1]" class="{{IsValidLenguage(element,chip)[0]}}">{{IsValidLenguage(element,chip)[0]}}</mat-icon> 
 
                         <label  [hidden]="!IsValidLenguage(element,chip)[1]" (mouseenter)="tooltip=element" (mouseleave)="tooltip=''" style="position: relative;">{{IsValidLenguage(element,chip)[0]}} 

@@ -108,7 +108,7 @@ let listopen:Array<FMTree> =[]
     GiveValues(node:FMTree){
         this.GiveMargin(node,node.margin) 
         this.GiveSymbols(node,-1)
-        node.symbol="../assets/img/featuretree.ico";
+        node.symbol="./assets/img/featuretree.ico";
         listopen.push(node)
         return listopen
     }
@@ -130,22 +130,22 @@ let listopen:Array<FMTree> =[]
     GiveSymbols(node:FMTree,cardmin:number){
         if(node.type!=undefined){
             if(node.type=="MUTEX"){
-            node.symbol="../assets/img/mutex.gif"
+            node.symbol="./assets/img/mutex.gif"
             node.symbol2="<"+node.card_min+".."+node.card_max+">"}
             if(node.type=="OR"){
-                node.symbol="../assets/img/or.gif"
+                node.symbol="./assets/img/or.gif"
                 node.symbol2="<"+node.card_min+".."+node.card_max+">"}
             if(node.type=="XOR"){
-                node.symbol="../assets/img/xor.gif"
+                node.symbol="./assets/img/xor.gif"
                 node.symbol2="<"+node.card_min+".."+node.card_max+">"}
             if(node.type=="CARDINALITY"){
-                node.symbol="../assets/img/cardinality.gif"
+                node.symbol="./assets/img/cardinality.gif"
                 node.symbol2="<"+node.card_min+"..."+node.card_max+">"
             }
         }
         else{
-            if(cardmin==1){node.symbol="../assets/img/mandatory.gif"}
-            else{node.symbol="../assets/img/optional.gif"}
+            if(cardmin==1){node.symbol="./assets/img/mandatory.gif"}
+            else{node.symbol="./assets/img/optional.gif"}
         }
         if(node.children!=undefined){
             if(node.children.length>0){

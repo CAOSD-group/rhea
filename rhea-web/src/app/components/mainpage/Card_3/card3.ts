@@ -1,8 +1,6 @@
 import {Component,Input,Output,EventEmitter} from '@angular/core';
-import { ToolsExtension } from '../../ToolsExtension/ToolsExtension'
 
 
-let aux
 @Component({
 
   selector: 'card3',
@@ -11,31 +9,53 @@ let aux
   })
   
   export class card3 {
-    language  =""
-    list:Array<any>=[]
-    myfile_name=""
-    @Input() ListLanguage:Array<string>=[]
-    @Input() jsonLanguageextension:Array<ToolsExtension>=[]
-    @Output() newItemEventSave= new EventEmitter<number>();
-    @Output() newItemEventName = new EventEmitter<string>();
-
-    constructor(){}
-    SaveJson(lang:string){
-      if(lang!="" && lang!="tree name"){
-      aux=this.list.indexOf(lang)
-      this.newItemEventName.emit(this.myfile_name);
-      this.newItemEventSave.emit(aux);}
+    tooltip:any=""
+    @Input() loglist:string[] =[]
+    @Input() loghash:Array<string>=[]
+    @Input() logposition:number=-1
+    @Output() newItemEventreundo = new EventEmitter<number>();
+    selectfirst(a:any){
+      if(this.loglist.indexOf(a)==0){
+      return "rgba(85, 85, 85, 0.295)"}
+      else{
+        return "rgba(0, 0, 0, 0)"
+      }
     }
-
-    ListLanguageFormat(){
-      this.list=[]
-      this.ListLanguage.forEach(element => {
-        this.jsonLanguageextension.forEach(tool => {
-          if(element==tool.name){
-            element=element+" (."+tool.extension+")"
-            this.list.push(element)}
-        });
-      });
-      return this.list
+  Redo(){
+  this.loglist.unshift("Redo")
+  this.tooltip=""
+  this.newItemEventreundo.emit(1);
+  }
+  Undo(){
+  this.loglist.unshift("Undo")
+  this.tooltip=""
+  this.newItemEventreundo.emit(-1);
+  }
+  Disblebutton(){
+    let boolredo=false
+    let boolundo=false
+    if(this.loghash.length-1==this.logposition){
+      boolredo=true
     }
-}
+    if(this.logposition==0){
+      boolundo=true
+    }
+    return [boolredo,boolundo]
+  }
+
+  ToolTipText(){
+    let bool_re=false
+    let bool_un=false
+    if(this.tooltip=="Undo"){
+      bool_un=true
+    }
+    if(this.tooltip=="Redo"){
+      bool_re=true
+    }
+    return [bool_re,bool_un]
+  }
+
+
+  }
+
+  

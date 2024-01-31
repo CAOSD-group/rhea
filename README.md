@@ -150,7 +150,7 @@ systemctl stop startweb
 - To stop the proces to start automaticly.
 ```
 systemctl disable startserver
-systemctl disable startweb
+systemctl disable startweb 
 ```
 - Some considerations
 you may need to restart the daemon, if necesary it will tell you to execute 

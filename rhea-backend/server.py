@@ -4,14 +4,18 @@ import importlib
 import json
 import tempfile
 import subprocess
+import sys
 from typing import Optional
 
-from flask import Flask, request, redirect, make_response
+from flask import Flask, request, redirect, make_response, jsonify
 from flask_cors import CORS
 from werkzeug.utils import secure_filename
 from flask_caching import Cache
 
-from flamapy.metamodels.fm_metamodel.models import FeatureModel
+from afmparser import main as aux_parser
+
+from flamapy.metamodels.fm_metamodel.models import FeatureModel, Constraint
+from flamapy.core.models.ast import AST, Node
 from flamapy.metamodels.fm_metamodel.transformations import (
     UVLReader, 
     UVLWriter, 
@@ -38,8 +42,9 @@ static_folder = 'web'
 
 config = {
          # some Flask specific configs
-    "CACHE_TYPE": "SimpleCache",  # Flask-Caching related configs
-    "CACHE_DEFAULT_TIMEOUT": 300
+    "CACHE_TYPE": "filesystem",  # Flask-Caching related configs
+    "CACHE_DIR": '/tmp', 
+    "CACHE_DEFAULT_TIMEOUT": 3000  # 50 minutes
 }
 app = Flask(__name__)
 app.config.from_mapping(config)
@@ -47,8 +52,73 @@ cache = Cache(app)
 
 #app = Flask(__name__,static_url_path=static_url,static_folder=static_folder,template_folder=static_dir)
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
-CORS(app, supports_credentials=True)
+CORS(app, supports_credentials=True)    
 
+@app.route('/api/checktextcons', methods=['POST']) #Check cons button method
+def check_text_cons():
+    if request.method != 'POST':
+        return None
+    else:
+        text=request.form['text']
+        result=str(True)
+        #result=str(checkGoodConstraints())  #Replace checkGoodConstraints() by method that checks constraints and delete line avobe
+        return result           #the receiving method needs a string
+    
+@app.route('/api/createcons', methods=['POST'])
+def create_new_cons():
+    if request.method != 'POST':
+        return None
+    else:
+
+        ctc_string=request.form['text'] #string to parse
+        fm_hash=request.form['fm_hash']
+        name=request.form['name']
+        fm:FeatureModel = cache.get(fm_hash)
+
+        #auxCreateConsMain(fm, ctc_string)
+        
+        #ctc: Constraint = parse_text_cons(ctc_string)
+        #fm.ctcs.append(ctc)
+   
+        return "true" #fm #returns arraybufer, blob, document or json - also text, etc (no boolean values accepted)
+
+#AUX createcons    
+def auxCreateConsMain(fm, ctc_string):
+
+    #JUST FOR TESTING
+    #checkFMConstraints(fm)
+    
+    #OPTION 1: NODE->AST->CONSTRAINT - Problem: Needs UVL reader
+    fromNodeToConstraint(ctc_string)
+
+    #OPTION 2: Write file, then parse
+    #fm_string = write_fm_file(fm, "uvl")            
+
+    #OPTION 3: AFM PARSER (Still receives path and not FM Tree)
+    #aux_tree = aux_parser.get_tree(ctc_string)
+    
+#AUX createcons 
+def checkFMConstraints(fm):
+    constr_list:list[Constraint] = fm.get_constraints() 
+    #for ct in constr_list: print(ct.ast, type(ct.ast)) #Each constraint has a name/identifier and an AST - Class 'flamapy.core.models.ast.AST' 
+
+#1-AUX createcons 
+def fromNodeToConstraint(ctc_string):
+    uvl_reader=UVLReader("")
+    expression = uvl_reader._parse_expression(ctc_string)
+    print(expression)
+    #node_aux = Node(ctc_string)                 # n has the attribute n.data
+    #ast_aux = AST(node_aux)                     # EXAMPLE AST: IMPLIES[AND[CheesyCrust][Sicilian]][Big] # Retuns string equals to prettyfied string; needs fixing
+
+
+#AUX createcons - NOTES
+def parse_text_cons(ctc_string):
+    #uvl_reader = UVLReader(None)               # uvl_fm = UVLReader(filename).transform() # This does not seem to work for this case - unless a new method is based in the methods of the existing readers
+    #print(uvl_reader)  
+    fm = UVLReader(None).transform()
+    print(ctc_string)
+    return True
+    
 
 def get_example_models() -> list[str]:
     models = []
@@ -106,7 +176,7 @@ def write_fm_file(fm: FeatureModel, format: str) -> str:
         result = JSONWriter(source_model=fm, path=None).transform()
     return result
 
-@app.route('/getExampleFMs', methods=['GET'])
+@app.route('/api/getExampleFMs', methods=['GET'])
 def get_example_feature_models():
     if request.method != 'GET':
         return None
@@ -115,7 +185,7 @@ def get_example_feature_models():
         response = make_response(json.dumps(models))
         return response
 
-@app.route('/updateServer', methods=['POST'])
+@app.route('/api/updateServer', methods=['POST'])
 def update_server():
     if request.method != 'POST':
         return None
@@ -124,10 +194,10 @@ def update_server():
         return "hello world"
 
 
-@app.route('/uploadExampleFM', methods=['POST'])
+@app.route('/api/uploadExampleFM', methods=['POST'])
 def upload_example_feature_model():
     if request.method != 'POST':
-        return None
+        jsonify({'error': 'Not a POST methos'}), 404
     else:
         # Get parameters
         filename = request.form['filename']
@@ -140,7 +210,7 @@ def upload_example_feature_model():
         return response
 
 
-@app.route('/uploadFM', methods=['POST'])
+@app.route('/api/uploadFM', methods=['POST'])
 def upload_feature_model():
     if request.method == 'POST':
         # check if the post request has the file part
@@ -173,7 +243,7 @@ def upload_feature_model():
     return None
 
 
-@app.route('/updateFM', methods=['POST'])
+@app.route('/api/updateFM', methods=['POST'])
 def updateFeature():
     if request.method == 'POST':
         # Get parameters
@@ -196,7 +266,7 @@ def updateFeature():
     return None
 
 
-@app.route('/refactor', methods=['POST'])
+@app.route('/api/refactor', methods=['POST'])
 def refactor():
     if request.method == 'POST':
         # Get parameters
@@ -230,15 +300,19 @@ def refactor():
         json_fm = JSONWriter(path=None, source_model=fm).transform()
         response = make_response(json_fm)
         fm_hash = hash(fm)
+
+        #ctcs_list = fm.get_constraints()
+        #ctcs_list[0].ast.pretty_str()
+
         cache.set(str(fm_hash), fm)
         return response
     return None
 
     
-@app.route('/downloadFM', methods=['POST'])
+@app.route('/api/downloadFM', methods=['POST'])
 def download_feature_model():
     if request.method != 'POST':
-        return None
+        return jsonify({'error': 'Not a POST method'}), 404
     else:
         # Get parameters
         fm_hash = request.form['fm_hash']
@@ -246,15 +320,14 @@ def download_feature_model():
         fm = cache.get(fm_hash)
         if fm is None:
             print('FM expired.')
-            return None
+            return jsonify({'error': f'FM expired for hash "{fm_hash}"'}), 404
         fm_str = write_fm_file(fm, fm_format)
         if fm_str is None:
-            return None
+            return jsonify({'error': 'Object not found'}), 404
         response = make_response(fm_str)
         return response
 
 
 if __name__ == '__main__':
-    # app.debug = True
-    # app.run(host='0.0.0.0', port=5555)
-    app.run()
+    app.run(host='0.0.0.0', port=5000) #5555
+

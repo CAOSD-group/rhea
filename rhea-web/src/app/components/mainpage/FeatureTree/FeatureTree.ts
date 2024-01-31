@@ -8,7 +8,6 @@ import { Refactoring } from '../../refactor/refactoring';
 
 
 let aux:any
-var refactor:Refactoring =new Refactoring()
 
 @Component({
 
@@ -20,7 +19,6 @@ var refactor:Refactoring =new Refactoring()
   export class FeatureTree {
   
   node:FMTree=new FMTree()
-
   show_refacts_features_only=false 
 
   @Input() my_session=""
@@ -42,7 +40,7 @@ var refactor:Refactoring =new Refactoring()
   @Output() newItemEventactual = new EventEmitter<FMTree>();
   @Output() newItemEventrefactor = new EventEmitter<Array<any>>();
   @Output() newItemEventroot = new EventEmitter<FMTree>();
-  @Output() newItemEventemptyTree = new EventEmitter<FMTree>();
+  @Output() newItemEventDelete = new EventEmitter<FMTree>();
 
   hasChild = (_: number, node: any) => !!node.children && node.children.length >= 0;
 
@@ -123,6 +121,7 @@ var refactor:Refactoring =new Refactoring()
     this.actualfather=this.GetFather(this.actual,this.tree)
     console.log(this.actual)
     this.newItemEventactual.emit(this.actual);
+    return this.actual==this.tree[0]
   }
 
   SelectChipRefactor(ref:Refactoring){
@@ -195,15 +194,18 @@ ScrollIntoView(elem:string) {
       view=document.body.querySelector("#"+elem)
       if(view!=null){
         setTimeout(() => {
-          console.log(view)
-         view.scrollIntoView({block: "center", behavior: "smooth"}) 
+          view.scrollIntoView({block: "center", behavior: "auto"}) 
         }, 1);
-        
       }}}
 }
 EmptyTree(){
   this.actual=this.tree[0]
-  this.newItemEventemptyTree.emit();
+  console.log(this.actual)
+  if(this.actual!=this.tree[0]){ this.actual=this.tree[0];this.newItemEventDelete.emit()}
+  if(this.actual==this.tree[0]){ this.newItemEventDelete.emit()}
+}
+Delete(){
+  this.newItemEventDelete.emit()
 }
 
 }

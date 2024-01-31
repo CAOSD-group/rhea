@@ -6,13 +6,14 @@ import { Language } from './components/Language/Language';
 import { Semantics } from './components/Semantics/Semantics';
 import { ToolsExtension } from './components/ToolsExtension/ToolsExtension';
 
-import { globalhtml } from './components/globalhtml/globalhtml';
-import { about } from './components/about/about';
+
+import { About } from './components/about/about';
+import { Guide } from './components/Guide/Guide';
 import { Repository } from './components/Repository/Repository';
 import { mainpage } from './components/mainpage/mainpage';
 import { card1 } from './components/mainpage/Card_1/card1';
+import { card2 } from './components/mainpage/Card_2/card2';
 import { card3 } from './components/mainpage/Card_3/card3';
-import { card4 } from './components/mainpage/Card_4/card4';
 import { FeatureTree } from './components/mainpage/FeatureTree/FeatureTree';
 import { Information } from './components/mainpage/Information/Information';
 import { semantics_metrics } from './components/mainpage/Semantics metrics/Semantics metrics';
@@ -42,7 +43,10 @@ import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatTableModule} from '@angular/material/table';
 import { MatSortModule } from '@angular/material/sort';
-
+import {MatSnackBarModule} from '@angular/material/snack-bar';
+import { DrawerComponent } from './components/drawer/drawer.component';
+import { DataServices } from 'src/data.services';
+import {MatDividerModule} from '@angular/material/divider'
 
 @NgModule({
   declarations: [
@@ -55,18 +59,20 @@ import { MatSortModule } from '@angular/material/sort';
     ToolsExtension,
 
     
-    globalhtml,
-    about,
+
+    About,
+    Guide,
     Repository,
     mainpage,
     card1,
+    card2,
     card3,
-    card4,
     FeatureTree,   
     Information,
     semantics_metrics,
     ConstraintsText,
     ConstraintsTree,
+    DrawerComponent,
   ],
 
 
@@ -93,8 +99,11 @@ import { MatSortModule } from '@angular/material/sort';
     BrowserAnimationsModule,
     MatTableModule,
     MatSortModule,
+    MatSnackBarModule,
+    HttpClientModule,
+    MatDividerModule
   ],
-  providers: [],
+  providers: [DataServices],
   bootstrap: [AppComponent]
  
 })

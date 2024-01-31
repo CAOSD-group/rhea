@@ -1,18 +1,37 @@
-import {Component,ElementRef} from '@angular/core';
+import {Component,ElementRef,inject, ViewChild} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {NestedTreeControl} from '@angular/cdk/tree';
 import {MatTreeNestedDataSource} from '@angular/material/tree';
 import {FMTree} from './components/FMTree/FMTree';
 import{Const} from './components/constraint/const';
-import{Data} from './components/Repository/Repository';
+import{Data, Repository} from './components/Repository/Repository';
 import * as saveAs from 'file-saver';
 import { Refactoring } from './components/refactor/refactoring';
 import { Language } from './components/Language/Language';
 import { Semantics } from './components/Semantics/Semantics';
 import { ToolsExtension } from './components/ToolsExtension/ToolsExtension';
 import { FeatureTree } from './components/mainpage/FeatureTree/FeatureTree';
+import {MatSnackBar, MatSnackBarRef} from '@angular/material/snack-bar';
+import { DrawerComponent } from './components/drawer/drawer.component';
+import { DataServices } from 'src/data.services';
 
+//const mariadb = require('mariadb');
+// const pool = mariadb.createPool({
+//   host: "localhost", 
+//   user: "caosd", 
+//   password: "password",
+//   database:"rhea"});
 
+//   async function sendQuery() {
+//     let conn;
+//     try { 
+//       conn = await pool.getConnection();
+//       const rows = await conn.query("SELECT * FROM Repository");       // rows: [ {val: 1}, meta: ... ]
+//       //const res = await conn.query("INSERT INTO myTable value (?, ?)", [1, "mariadb"]);       // res: { affectedRows: 1, insertId: 1, warningStatus: 0 }
+//     } finally {
+//       if (conn) conn.release(); //release to pool
+//     }
+//   }
 
 var aux:any;
 var aux2:any=""
@@ -27,6 +46,16 @@ var json:string
 var refactor:Refactoring =new Refactoring()
 
 
+@Component({
+  selector: 'snack-bar-annotated-component-example-snack',
+  templateUrl: './components/snackbar.html',
+  styleUrls: ['./app.component.css']
+})
+export class PizzaPartyAnnotatedComponent {
+  snackBarRef = inject(MatSnackBarRef);
+}
+
+
 
 @Component({
   selector: 'app-root',
@@ -34,22 +63,37 @@ var refactor:Refactoring =new Refactoring()
   styleUrls: ['./app.component.css']
 })
 
+
+
 export class AppComponent {
-  //urldownload="http://127.0.0.1:5000/downloadFM"  
-  //urldocuments="http://127.0.0.1:5000/getExampleFMs"
-  //urluploadExampleFM="http://127.0.0.1:5000/uploadExampleFM"  
-  //urlupload="http://127.0.0.1:5000/uploadFM"  
-  //urlrefactor="http://127.0.0.1:5000/refactor" 
-  //urlupdate="http://127.0.0.1:5000/updateFM" 
+
+  
+  
+  // urldownload="http://127.0.0.1:5000/api/downloadFM"  
+  // urldocuments="http://127.0.0.1:5000/api/getExampleFMs"
+  // urluploadExampleFM="http://127.0.0.1:5000/api/uploadExampleFM"  
+  // urlupload="http://127.0.0.1:5000/api/uploadFM"  
+  // urlrefactor="http://127.0.0.1:5000/api/refactor" 
+  // urlupdate="http://127.0.0.1:5000/api/updateFM" 
+  // urlcur="http://127.0.0.1:5000/api/getCur"                     //<---"https://rhea.caosd.lcc.uma.es/getCur"     
+  // urlinsertcur="http://127.0.0.1:5000/api/insertIntoRepository" //<---"https://rhea.caosd.lcc.uma.es/insertIntoRepository"
+  // urlgetfile="http://127.0.0.1:5000/api/getFile" 
+  // urltextcons="http://127.0.0.1:5000/api/checktextcons"         //<--- "https://rhea.caosd.lcc.uma.es/checktextcons" 
+  // urlnewcons="http://127.0.0.1:5000/api/createcons"             //<--- https://rhea.caosd.lcc.uma.es/
 
  // FOR DEVELOPER: for any new url the backend get , it must be update in the apache2 file for the web to work in de sites-available domain.conf, then restart apache, and the frontend and backend"
 
-  urldownload="https://rhea.caosd.lcc.uma.es/downloadFM"  
-  urldocuments="https://rhea.caosd.lcc.uma.es/getExampleFMs"
-  urluploadExampleFM="https://rhea.caosd.lcc.uma.es/uploadExampleFM"  
-  urlupload="https://rhea.caosd.lcc.uma.es/uploadFM"  
-  urlrefactor="https://rhea.caosd.lcc.uma.es/refactor" 
-  urlupdate="https://rhea.caosd.lcc.uma.es/updateFM" 
+  urldownload="https://rhea.caosd.lcc.uma.es/api/downloadFM"  
+  urldocuments="https://rhea.caosd.lcc.uma.es/api/getExampleFMs"
+  urluploadExampleFM="https://rhea.caosd.lcc.uma.es/api/uploadExampleFM"  
+  urlupload="https://rhea.caosd.lcc.uma.es/api/uploadFM"  
+  urlrefactor="https://rhea.caosd.lcc.uma.es/api/refactor" 
+  urlupdate="https://rhea.caosd.lcc.uma.es/api/updateFM" 
+  urlcur="https://rhea.caosd.lcc.uma.es/api/getCur"                             //404
+  urlinsertcur="https://rhea.caosd.lcc.uma.es/api/insertIntoRepository"         //404 
+  urlgetfile="https://rhea.caosd.lcc.uma.es/api/getFile" 
+  urltextcons="https://rhea.caosd.lcc.uma.es/api/checktextcons"                 //404
+  urlnewcons="https://rhea.caosd.lcc.uma.es/api/createcons"                     //404
   
   declare actual:FMTree     
   declare actualfather:FMTree 
@@ -68,16 +112,20 @@ export class AppComponent {
   constraintreeControl = new NestedTreeControl<Const>(node => node.operands);
   constraindataSource = new MatTreeNestedDataSource<Const>();
     
-  //list de constraints y nombres de las features
+  //list of constraints and feature names
   typesofcons:Array<string>=['NOT','OR','AND','IMPLIES','XOR','REQUIRES','EXCLUDES','EQUIVALENCE']
+  typesofconsparan:Array<string>=['NOT','OR','AND','IMPLIES','XOR','REQUIRES','EXCLUDES','EQUIVALENCE','(',')']
   typesofconsTerm:Array<string>=['NotTerm','OrTerm','AndTerm','ImpliesTerm','XorTerm','RequiresTerm','ExcludesTerm','EquivalenceTerm']
+  textnewcons=""
   namesFeatures:Array<string>=[]
   listFeatures:Array<FMTree>=[]
-  //otros
+ 
+  //other
   title:string='';
   item:string ='';
   jsonconstraintTexto: Array<string>=[]
-  // modificar o crear FMTree
+
+  // modify or create FMTree
   name:string="";
   optional:boolean=false;
   abstract:boolean=false;
@@ -104,11 +152,13 @@ export class AppComponent {
   mattooltipconstraint=this.search_name?"Search by name":"Search by text";
   loadingtext=""
 
-
-  mainhidden=true
+  mainhidden=true//(mainhidden)="windowFM_Editor_drawer($event)"
   windowFM_Editor=true
   windowAbout=false
   windowRepository=false
+  windowGuide=false
+
+  @ViewChild(DrawerComponent) drawer;
 
   updatable=false
   page=0;
@@ -129,18 +179,90 @@ export class AppComponent {
   semantic:Semantics=new Semantics()
   loglist: Array<string>=[];
   logselect: Array<number>=[];
-  myArticle=new Data('','','',0,'',"",'',0,0,'','');
+  myArticle=new Data(0,'','','','',0,'','','',0,0,'','','','','')
 
   logposition=-1
   loghash:Array<string>=[]
+  data
 
-constructor(private http: HttpClient ) { }  
+  Namerepo=""
+  Author=""
+  Owner=""
+  Ref=""
+  Year=""
+  Domain=""
+  Version=""
+  Language_level=""
+  declare Filerepo:File
+  Rating=""
+  Description=""
+  Organization=""
+
+
+  textconsvalid=false
+  url_src:any
+
+
+constructor(private http: HttpClient,private _snackBar: MatSnackBar, private dataService:DataServices) { }  
 
 
 
 ngOnInit() {
 this.getDocumentName()
+this.dataService.querySQL()
+//sendQuery()
 }
+
+
+SelectFilerepo($event){
+
+  this.Filerepo=$event.target.files[0];
+  var myReader: FileReader = new FileReader();
+  myReader.readAsText(this.Filerepo);
+  myReader.onloadend = function (e) {
+  aux=myReader.result;}
+  console.log(this.Filerepo)
+}
+
+
+InsertIntoRepo(){ //Request not posted when File is empty
+
+  //console.log(this.Filerepo)
+  const formData: FormData = new FormData();
+  formData.append('Name', this.Namerepo);
+  formData.append('Author', this.Author);
+  formData.append('Owner', this.Owner);
+  formData.append('Ref', this.Ref);
+  formData.append('Year', this.Year);
+  formData.append('Domain', this.Domain);
+  formData.append('Version', this.Version);
+  formData.append('Language_level', this.Language_level);
+  formData.append('File', this.Filerepo);
+  formData.append('Hash', this.my_session);
+  formData.append('Rating', this.Rating);
+  formData.append('Description', this.Description);
+  formData.append('Organization', this.Organization);
+
+  this.http.post(this.urlinsertcur,formData,{withCredentials:true,responseType:'text'}).subscribe(resultado=>{console.log(resultado)})
+}
+
+getFile(){ 
+  
+  if(this.myArticle.Id!=undefined){
+
+    const formData: FormData = new FormData();
+    
+    formData.append('Id', this.myArticle.Id.toString());
+    formData.append('Format', this.myArticle.Format || "");
+    
+    this.http.post(this.urlgetfile,formData,{withCredentials:true,responseType:'text'}).subscribe(resultado=>{
+      this.loadingtext="Server responded"
+      let file = new Blob([resultado], { type: this.myArticle.Format });
+      saveAs(file, this.myArticle.Name + "."+ this.myArticle.Format)
+    })
+  }
+}
+
 
 Movehistory(reundo:number){
   this.loadingmodal=false
@@ -160,16 +282,25 @@ showFM_Editor(){
   this.windowFM_Editor=true
   this.windowAbout=false
   this.windowRepository=false
+  this.windowGuide=false
 }
 showAbout(){
   this.windowFM_Editor=false
   this.windowAbout=true
   this.windowRepository=false
+  this.windowGuide=false
 }
 showRepository(){
   this.windowFM_Editor=false
   this.windowAbout=false
   this.windowRepository=true
+  this.windowGuide=false
+}
+showGuide(){
+  this.windowFM_Editor=false
+  this.windowAbout=false
+  this.windowRepository=false
+  this.windowGuide=true
 }
 
 Name(name:string){
@@ -194,13 +325,13 @@ Save(text:number){
   this.http.post(this.urldownload,formData,{withCredentials:true,responseType:'text'}).subscribe(resultado => {  
     this.loadingtext="Server responded"
     let file = new Blob([resultado], { type: this.jsonLanguageextension[text].extension });
-    saveAs(file, this.myfile_name+ " ."+this.jsonLanguageextension[text].extension)
+    saveAs(file, this.myfile_name+ "."+this.jsonLanguageextension[text].extension)
       }
     )
   }
 }
 
-sendUVL(uvl:any){
+sendFile(uvl:any){
   const formData: FormData = new FormData();
   this.logselect=[]
   formData.append('file', uvl, uvl.name);
@@ -304,6 +435,7 @@ CreateData(object:any,name?:string){
   this.jsonlanguage=aux.language_constructs
   this.jsonLanguageextension=aux.tools_info
   this.my_session=aux.hash
+  this.textnewcons=""
   this.ListOfConstraint=[]
   if(this.my_session!=this.loghash[this.logposition]){
     if(this.loghash.indexOf(this.my_session)==-1){
@@ -389,12 +521,12 @@ checkcard_min_max(){
   return true
 }
 
-ModifySelecction(){
+ModifySelection(){
 this.loadingmodal=false
 if(this.isFeature()){
   aux=this.actual.name
   if(this.actual.name!=this.name){
-    this.loglist.unshift(this.actual.name+" was modify and its new name is: "+this.name)
+    this.loglist.unshift(this.actual.name+" was modify and its new name is: "+ this.name)
   }
   else{
     this.loglist.unshift(this.actual.name+" was modify ")
@@ -452,7 +584,7 @@ else{
     if(this.actual.children!=undefined){
     if(this.actual.children.length<2){
       aux=new FMTree()
-      aux.name="auto_child"
+      aux.name="AutoChild"
       aux.abstract=false;
       aux.children=[]
       this.actual.children.push(aux)
@@ -481,6 +613,7 @@ catch{
 
 
 DeleteNode(){
+  console.log(this.actual)
   this.loadingmodal=false
   this.actualfather=this.GetFather(this.actual,this.tree)
   if(this.actualfather==undefined){
@@ -575,7 +708,7 @@ isRelationFeature(){
 
 CreateChildren(){
   this.loadingmodal=false
-  if(this.type==undefined||this.type==""){
+  if(this.type==undefined||this.type==""||this.type=="MANDATORY"||this.type=="OPTIONAL"){
     this.type="FEATURE"
   }
   if(this.actual.children==undefined){this.actual.children=[]}
@@ -597,7 +730,7 @@ CreateChildren(){
       relations.card_min=1
     }
     aux=new FMTree()
-    aux.name="auto_child"
+    aux.name="AutoChild"
     aux.abstract=false;
     aux.children=[]
     relations.card_max=0
@@ -611,8 +744,8 @@ CreateChildren(){
     aux2=new FMTree()
     aux2.abstract=false;
     aux2.children=[]
-    aux.name="auto_child1"
-    aux2.name="auto_child2"
+    aux.name="AutoChild1"
+    aux2.name="AutoChild2"
     relations.children.push(aux)
     relations.children.push(aux2)
   }
@@ -690,7 +823,25 @@ CreateBrother(){
       feature.name=this.name
       feature.abstract=false;
       feature.children=[]
-      this.actualfather.children.push(feature)
+      if(this.actualfather.type=="MANDATORY"||this.actualfather.type=="OPTIONAL"){
+        let relation=new FMTree()
+        relation.margin=this.actualfather.margin
+        relation.symbol=this.actualfather.symbol
+        relation.symbol2=this.actualfather.symbol2
+        relation.abstract=this.actualfather.abstract
+        relation.optional=this.actualfather.optional
+        relation.relations=this.actualfather.relations
+        relation.type=this.actualfather.type
+        relation.card_max=this.actualfather.card_max
+        relation.card_min=this.actualfather.card_min
+        relation.children=[]
+        relation.children.push(feature)
+        aux=this.actualfather.GetFather(this.actualfather,this.tree)
+        aux.children.push(relation)
+      }
+      else{
+        this.actualfather.children.push(feature)
+      }
       this.loglist.unshift(this.actual.name+" insert "+feature.name+" as a brother ")
       this.tree[0].ExpandList(feature)
     }
@@ -700,9 +851,6 @@ CreateBrother(){
   }}
   
 }
-
-
-
 
 
 constrainthasChild = (_: number, constrainnode: Const) => !!constrainnode.operands && constrainnode.operands.length >= 0;
@@ -796,17 +944,17 @@ readThis(inputValue: any): void {
     aux=myReader.result;}
     if(file.name.endsWith('.json')){
       setTimeout(() => {
-      this.sendUVL(file)
+      this.sendFile(file)
       },100)
     }
     if(file.name.endsWith('.uvl')){
       setTimeout(() => {
-        this.sendUVL(file)
+        this.sendFile(file)
         },100)
     }
     if(file.name.endsWith('.xml')){
       setTimeout(() => {
-        this.sendUVL(file)
+        this.sendFile(file)
         },100)
     }
     if(!(file.name.endsWith('.xml')||file.name.endsWith('.uvl')||file.name.endsWith('.json'))){
@@ -958,23 +1106,7 @@ readThis(inputValue: any): void {
     }
     aux4=true
     this.checkListofconstraint(this.ListOfConstraint[0])
-    aux3=[]
-    this.checkListofconstraint2(this.ListOfConstraint[0])
-    if(aux3.length<this.ListOfConstraint.length){
-      aux4=false
-    }
     return this.ListOfConstraint[0]
-  }
-  checkListofconstraint2(list:Const){
-    if(list!=undefined){
-    if(list.type!=""){
-      aux3.push(list)
-      if(list.operands!=null &&list.operands!= undefined ){
-        list.operands.forEach(element => {
-          this.checkListofconstraint2(element)
-        });
-      }
-    }}
   }
 
   checkListofconstraint(list:Const){
@@ -1038,6 +1170,37 @@ readThis(inputValue: any): void {
       this.loadingmodal=true
       }
   }
+
+
+
+checkCons(){
+  const formData: FormData = new FormData();
+  formData.append('text', this.textnewcons);
+
+  this.http.post(this.urltextcons,formData,{withCredentials:true,responseType:'text'}).subscribe(resultado=>{
+    this.textconsvalid=(resultado.toLowerCase()=="true")
+
+    return this.textconsvalid
+  })  
+  //return false
+}
+
+
+CreateNewCons(){
+
+  const formData: FormData = new FormData();
+  formData.append('text', this.textnewcons);
+  formData.append('fm_hash', this.my_session);
+
+  if(this.listnamesconstraints[this.position]!=undefined){formData.append('name', this.listnamesconstraints[this.position]);}
+  else{    formData.append('name',"");  }
+
+  /**AQUÍ */
+  this.http.post(this.urlnewcons,formData,{withCredentials:true,responseType:'text'}).subscribe(resultado=>{
+    console.log("resultado: "+resultado)
+    //this.CreateData(resultado)
+  })
+}
 
 cardhidden(){
   let bool =true
@@ -1116,7 +1279,7 @@ SymbolPerType(nodechild:FMTree){
   let symbol2=""
   let text2=""
 
-  if(this.GetFather(nodechild,this.tree)==undefined){symbol="../assets/img/featuretree.ico";text="root"}
+  if(this.GetFather(nodechild,this.tree)==undefined){symbol="./assets/img/featuretree.ico";text="root"}
   else{
 
   }
@@ -1162,49 +1325,9 @@ DeleteList(){
   this.ListOfConstraint=[]
 }
 
-CreateConsBrother(){
+CreateConsNew(){
   this.loadingmodal=false
-  if(this.consactualfather!=undefined && this.consactualfather.type!=""){
-  if(this.ListOfConstraint!=undefined && this.ListOfConstraint.length!=0){
-    this.CreateListCons()
-    if(this.consactualfather.type.toLowerCase().startsWith("feature")){}
-    else{
-    if(this.consactualfather.type.toLowerCase().startsWith("not") && this.consactualfather.operands.length==1){}
-    else{
-    if(this.consactualfather.operands.length==2){}
-    else{this.consactualfather.operands.push(this.ListOfConstraint[0])
-    }}}
-  }}
-  else{
   this.CreateConsList(); 
-}
-  this.ListOfConstraint=[]
-  try{
-    this.sendUpdate()}
-  catch{
-    this.loadingmodal=true
-    }
-}
-
-CreateConsSon(){
-  this.loadingmodal=false
-  if(this.ListOfConstraint!=undefined && this.ListOfConstraint.length!=0){this.CreateListCons()}
-  if(this.consactual!=undefined){
-  if(this.consactual.operands!=null||this.consactual.operands!=undefined){
-  if(this.consactual.operands.length!=0 ){
-    if(this.consactual.operands[0].type==""){this.consactual.operands.slice(0,1)}}
-
-  if(this.typesofconsTerm.indexOf(this.consactual.type)==-1){}
-    else{
-      if(this.consactual.type.toLowerCase().startsWith("not") && this.consactual.operands.length==1){}
-        else{
-          if(this.consactual.operands.length==2){}
-          else{this.consactual.operands.push(this.ListOfConstraint[0])
-          }
-      }
-    }
-  }
-}
   this.ListOfConstraint=[]
   try{
     this.sendUpdate()}
@@ -1223,6 +1346,7 @@ DeleteConsText(){
 
 SelectChipLogic(text:string){
   aux=this.typesofcons.indexOf(text)
+  this.textnewcons=this.textnewcons+" "+text
   if(aux!=-1){
     text=this.typesofconsTerm[aux]
   aux=new Const()
@@ -1242,6 +1366,7 @@ setTimeout(() => {
 
 SelectChipFeature(text:string){
   aux=new Const()
+  this.textnewcons=this.textnewcons+" "+text
   aux.type=text
   aux.operands=[]
   if(this.typesofconsTerm.indexOf(text)==-1){
@@ -1269,6 +1394,12 @@ SearchFeature(text:string){
     let ft = new FeatureTree()
     setTimeout(() => {
     ft.ScrollIntoView(feature.name)  
+    this._snackBar.openFromComponent(PizzaPartyAnnotatedComponent, {
+      duration: 1500,
+      horizontalPosition: 'center',
+      verticalPosition: 'top',
+      panelClass: ['trasnparent-snackbar']
+    });
     }, 1);
     }
   }, 1);
@@ -1380,9 +1511,6 @@ TransformJSON(){
   json=json+','+aux2+'}'*/
   this.cons=this.consactual.createListForTree(this.cons)
 }
-
-
-
 
 
  ShowPages(){
