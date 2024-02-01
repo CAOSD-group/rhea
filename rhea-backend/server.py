@@ -25,14 +25,14 @@ from flamapy.metamodels.fm_metamodel.transformations import (
     SPLOTWriter
 )
 
-from rhea.metamodels.fm_metamodel.transformations import JSONWriter, JSONReader, FeatureIDEWriter
+from rhea.metamodels.fm_metamodel.transformations import JSONWriter, JSONReader, FeatureIDEWriter, ClaferWriter
 from rhea.refactorings import utils
 from rhea import refactorings
 
 
 FEATURE_MODEL_SESSION = 'FeatureModel'
 UPLOAD_FOLDER = 'tmp'
-ALLOWED_EXTENSIONS = {'uvl', 'xml', 'json', 'gfm.json', 'sxfm.xml'}
+ALLOWED_EXTENSIONS = {'uvl', 'xml', 'json', 'gfm.json', 'sxfm.xml', 'txt'}
 EXAMPLE_MODELS_DIR = 'fm_models'
 
 static_url = ''
@@ -177,6 +177,9 @@ def write_fm_file(fm: FeatureModel, format: str) -> str:
     elif format == 'xml':
         temporal_filepath = tempfile.NamedTemporaryFile(mode='w', encoding='utf8').name
         result = FeatureIDEWriter(source_model=fm, path=temporal_filepath).transform()
+    elif format == 'txt':
+        temporal_filepath = tempfile.NamedTemporaryFile(mode='w', encoding='utf8').name
+        result = ClaferWriter(source_model=fm, path=temporal_filepath).transform()
     return result
 
 @app.route('/api/getExampleFMs', methods=['GET'])
