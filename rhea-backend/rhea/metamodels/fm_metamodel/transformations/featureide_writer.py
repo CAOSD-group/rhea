@@ -39,16 +39,10 @@ class FeatureIDEWriter(ModelToText):
         self.source_model = source_model
 
     def transform(self) -> str:
-        # return _to_featureidexml(self.source_model).write(self.path)
+        et = _to_featureidexml(self.source_model).getroot()
+        xml_str = ET.tostring(et, encoding='unicode', method='xml')
+        return pretty_print_xml_elementtree(xml_str)
 
-
-        if self.path is not None:
-            et = _to_featureidexml(self.source_model).getroot()
-            xml_str = ET.tostring(et, encoding='unicode', method='xml')
-            # with open(self.path, 'w', encoding='utf8') as file:
-            #     file.write(xml_str)
-
-        return xml_str
 
 
 def _to_featureidexml(feature_model: FeatureModel):
@@ -136,3 +130,33 @@ def _get_ctc_info(ast_node: Node) -> dict[str, Any]:
             operands.append(right)
         ctc_info['operands'] = operands
     return ctc_info
+
+def pretty_print_xml_elementtree(xml_string):
+   # Parse the XML string
+   root = ET.fromstring(xml_string)
+
+   # Indent the XML
+   indent(root)
+
+   # Convert the XML element back to a string
+   pretty_xml = ET.tostring(root, encoding="unicode")
+
+   # Print the pretty XML
+   return pretty_xml
+
+def indent(elem, level=0):
+   # Add indentation
+   indent_size = "  "
+   i = "\n" + level * indent_size
+   if len(elem):
+      if not elem.text or not elem.text.strip():
+         elem.text = i + indent_size
+      if not elem.tail or not elem.tail.strip():
+         elem.tail = i
+      for elem in elem:
+         indent(elem, level + 1)
+      if not elem.tail or not elem.tail.strip():
+         elem.tail = i
+   else:
+      if level and (not elem.tail or not elem.tail.strip()):
+         elem.tail = i

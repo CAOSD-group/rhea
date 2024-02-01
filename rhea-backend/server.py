@@ -325,11 +325,9 @@ def download_feature_model():
             print('FM expired.')
             return jsonify({'error': f'FM expired for hash "{fm_hash}"'}), 404
         fm_str = write_fm_file(fm, fm_format)
-        # print(fm_str)
         if fm_str is None:
             return jsonify({'error': 'Object not found'}), 404
         response = make_response(fm_str)
-        print(response.data)
         return response
 
 
