@@ -66,6 +66,7 @@ def _create_tree(parentElement: Element, relations: list[Relation]):
 def _get_attributes(feature: Feature):
     atributes = {}
     if feature.is_mandatory(): atributes['mandatory'] ='true'
+    if feature.is_abstract: atributes['abstract'] ='true'
     atributes['name'] = feature.name
     return atributes
  

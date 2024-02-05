@@ -8,5 +8,5 @@ from .clafer_writter import ClaferWriter
 __all__ = ['GlencoeReader',
            'JSONReader',
            'JSONWriter',
-           'FeatureIDEWriter'
+           'FeatureIDEWriter',
            'ClaferWriter']
