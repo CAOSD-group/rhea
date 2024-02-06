@@ -245,7 +245,7 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <div class="col-10">
+        <div class="col-16">
           <div [hidden]="!isFeature()">
           <h4> Properties
             <div style="margin-left: 4px; margin-top: 10px;">
@@ -267,16 +267,28 @@
             <mat-icon class="mat-icon-rtl-mirror">add</mat-icon>
           </button></h4>
           <div *ngFor="let valor of attributes"  >
-            <input type="string" style="min-width: 150px;" [(ngModel)]="valor.name">
-            <input type="string" style="min-width: 150px;" [(ngModel)]="valor.value">
-            <button class="empty" (click)="deleteAttributes(valor)">
-              <mat-icon class="mat-icon-rtl-mirror">clear</mat-icon>
-            </button>
+            <div class="newAttributeInput grid gap-3 mb-2 d-flex ">
+              <input type="string" style="width: 120px;" [(ngModel)]="valor.name">
+              <input type="string" style="width: 120px;" [(ngModel)]="valor.value">
+              <select [(ngModel)]="valor.selectedOption" style="width: 110px;">
+                <option value="" selected style="font-size: 10px" >Not random</option>
+                <option value="int">Int</option>
+                <option value="double">Double</option>
+                <option value="boolean">Boolean</option>
+              </select>
+              <div *ngIf="valor.selectedOption !== 'boolean' && valor.selectedOption !== ''" >
+                min: <input type="number" [(ngModel)]="valor.minRandomize" style="width: 70px;">
+                max: <input type="number" [(ngModel)]="valor.maxRandomize" style="width: 70px;">
+              </div>
+              <button class="empty" (click)="deleteAttributes(valor)">
+                <mat-icon class="mat-icon-rtl-mirror">clear</mat-icon>
+              </button>
+            </div>
           </div>
+          <button (click)="Randomize()" style="font-size: 10px;">Randomize</button>
           
           
-          </div>
-          
+        </div>
           <div [hidden]="isFeature()">
             <h4>Relations
               <div style="margin-left: 4px;margin-top: 10px;">

@@ -517,6 +517,32 @@ checkcard_min_max(){
   return true
 }
 
+/* ====== Modal de Features (edit)  ====== */ 
+
+selectedOption = ''
+minRandomize!: number
+maxRandomize!: number
+randomValue: number = 0
+
+Randomize_attributes(attr, option){
+  this.randomValue = Math.random() * (attr.maxRandomize - attr.minRandomize) + attr.minRandomize 
+  
+  if(option == 'boolean') { attr.value = Math.random() < 0.5 ? 'true' : 'false'}
+  else if((attr.minRandomize <= attr.maxRandomize) && (attr.minRandomize != null) && (attr.maxRandomize != null)){
+    if(option == 'int'){
+      attr.value = Math.floor(this.randomValue).toString()
+    }else if(option == 'double'){
+      attr.value = this.randomValue.toFixed(2).toString()
+    }
+  }
+}
+
+Randomize(){
+  for (let attr of this.attributes){
+    this.Randomize_attributes(attr, attr.selectedOption)
+  }
+}
+
 ModifySelection(){
 this.loadingmodal=false
 if(this.isFeature()){
@@ -606,6 +632,13 @@ catch{
   }
 }
 
+CreateAttribtues(){
+  let newvalue={name:"new name",value:"new value", selectedOption:'', minRandomize: 0, maxRandomize: 0}
+  if(this.attributes==undefined){this.attributes=[]}
+  this.attributes.push(newvalue)
+}
+
+/* ====== fin de Modal de Features (edit)  ====== */ 
 
 
 DeleteNode(){
@@ -1015,11 +1048,7 @@ readThis(inputValue: any): void {
       });
       },1)
   }
-  CreateAttribtues(){
-    let newvalue={name:"new name",value:"new value"}
-    if(this.attributes==undefined){this.attributes=[]}
-    this.attributes.push(newvalue)
-  }
+ 
 
   SelectCons(object:any){
     this.GetFatherCons(object)
