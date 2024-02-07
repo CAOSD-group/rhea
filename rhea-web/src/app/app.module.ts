@@ -46,7 +46,7 @@ import { MatSortModule } from '@angular/material/sort';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import { DrawerComponent } from './components/drawer/drawer.component';
 import { DataServices } from 'src/data.services';
-import {MatDividerModule} from '@angular/material/divider'
+import {MatDividerModule} from '@angular/material/divider';
 
 @NgModule({
   declarations: [

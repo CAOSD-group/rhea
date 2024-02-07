@@ -14,7 +14,7 @@ from flask_caching import Cache
 
 from afmparser import main as aux_parser
 
-from flamapy.metamodels.fm_metamodel.models import FeatureModel, Constraint
+from flamapy.metamodels.fm_metamodel.models import FeatureModel, Constraint, Range, Domain
 from flamapy.core.models.ast import AST, Node
 from flamapy.metamodels.fm_metamodel.transformations import (
     UVLReader, 
@@ -26,6 +26,7 @@ from flamapy.metamodels.fm_metamodel.transformations import (
 )
 
 from rhea.metamodels.fm_metamodel.transformations import JSONWriter, JSONReader, FeatureIDEWriter, ClaferWriter
+from rhea.metamodels.fm_metamodel.operations.fm_generate_random_attribute import GenerateRandomAttribute
 from rhea.refactorings import utils
 from rhea import refactorings
 
@@ -270,6 +271,46 @@ def updateFeature():
             cache.set(str(hash_fm), fm)
             return response
     return None
+
+
+@app.route('/api/generateRandomAttribute', methods=['POST'])
+def generateRandomAttribute():
+    if request.method == 'POST':
+        # Get parameters
+        fm_hash = request.form['fm_hash']
+        attribute_name = request.form['attribute_name']
+        attribute_type = request.form['attribute_type'].lower()
+        min_value = request.form['min_value']
+        max_value = request.form['max_value']
+
+        # Get FM
+        fm = cache.get(fm_hash)
+        if fm is None:
+            print('FM expired.')
+            return None
+        gra_op = GenerateRandomAttribute()
+        gra_op.set_name(attribute_name)
+        if attribute_type == 'float':
+            range = Range(float(min_value), float(max_value))
+            domain = Domain([range], None)
+        elif attribute_type == 'int':
+            range = Range(int(min_value), int(max_value))
+            domain = Domain([range], None)
+        elif attribute_type == 'boolean':
+            domain = Domain(None, [True, False])
+        else:
+            raise Exception(f'Invalid attribute type "{attribute_type}"')
+        gra_op.set_domain(domain)
+        new_fm_model = gra_op.execute(fm).get_result()
+        
+        # Build response
+        json_fm = JSONWriter(path=None, source_model=new_fm_model).transform()
+        response = make_response(json_fm)
+        fm_hash = hash(new_fm_model)
+        cache.set(str(fm_hash), new_fm_model)
+        print(response)
+        return response
+    return jsonify({'error': 'Not a POST method'}), 404
 
 
 @app.route('/api/refactor', methods=['POST'])

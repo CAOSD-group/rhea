@@ -80,6 +80,7 @@ export class AppComponent {
   // urlgetfile="http://127.0.0.1:5000/api/getFile" 
   // urltextcons="http://127.0.0.1:5000/api/checktextcons"         //<--- "https://rhea.caosd.lcc.uma.es/checktextcons" 
   // urlnewcons="http://127.0.0.1:5000/api/createcons"             //<--- https://rhea.caosd.lcc.uma.es/
+  // urlgenerateRandomAttribute="http://127.0.0.1:5000/api/generateRandomAttribute"
 
  // FOR DEVELOPER: for any new url the backend get , it must be update in the apache2 file for the web to work in de sites-available domain.conf, then restart apache, and the frontend and backend"
 
@@ -94,6 +95,7 @@ export class AppComponent {
   urlgetfile="https://rhea.caosd.lcc.uma.es/api/getFile" 
   urltextcons="https://rhea.caosd.lcc.uma.es/api/checktextcons"                 //404
   urlnewcons="https://rhea.caosd.lcc.uma.es/api/createcons"                     //404
+  urlgenerateRandomAttribute="https://rhea.caosd.lcc.uma.es/api/generateRandomAttribute"
   
   declare actual:FMTree     
   declare actualfather:FMTree 
@@ -517,11 +519,8 @@ checkcard_min_max(){
   return true
 }
 
-/* ====== Modal de Features (edit)  ====== */ 
+/* ====== Modal de Modify feature  ====== */ 
 
-selectedOption = ''
-minRandomize!: number
-maxRandomize!: number
 randomValue: number = 0
 
 Randomize_attributes(attr, option){
@@ -531,7 +530,7 @@ Randomize_attributes(attr, option){
   else if((attr.minRandomize <= attr.maxRandomize) && (attr.minRandomize != null) && (attr.maxRandomize != null)){
     if(option == 'int'){
       attr.value = Math.floor(this.randomValue).toString()
-    }else if(option == 'double'){
+    }else if(option == 'float'){
       attr.value = this.randomValue.toFixed(2).toString()
     }
   }
@@ -638,7 +637,44 @@ CreateAttribtues(){
   this.attributes.push(newvalue)
 }
 
-/* ====== fin de Modal de Features (edit)  ====== */ 
+/* ====== fin de Modal de Modify feature  ====== */ 
+
+/* ====== Modal de MODAL de Generate Features' attribute  ====== */ 
+
+attributeName!: string
+selectedOption!: string
+minValue: number = 0
+maxValue: number = 0
+checkleafFeatures: boolean = false
+checkConcreteFeatures: boolean = false
+
+GenerateRandomAttribute(){
+  if(this.attributeName != undefined && this.attributeName != ''){
+    if((this.selectedOption != 'boolean' && (this.minValue != null && this.maxValue != null && this.minValue < this.maxValue)
+    || this.selectedOption == 'boolean')){
+
+      const formData: FormData = new FormData()
+      formData.append('fm_hash', this.my_session)
+      formData.append('attribute_name', this.attributeName)
+      formData.append('attribute_type', this.selectedOption)
+      formData.append('min_value', this.minValue.toString())
+      formData.append('max_value', this.maxValue.toString())
+      formData.append('only_leaf', this.checkleafFeatures ? 'true' : 'false')
+      formData.append('only_concrete', this.checkConcreteFeatures ? 'true' : 'false')
+
+      console.log(formData)
+      
+      this.http.post(this.urlgenerateRandomAttribute, formData, { withCredentials: true, responseType: 'text' })
+        .subscribe(resultado => { this.CreateData(resultado) })
+    }else{
+      console.log('Error: min value is greater than max value or one of them is not a number')
+    }
+  }else{
+    console.log('Error: name is not defined')
+  }
+}
+
+/* ====== Modal de MODAL de Generate Features' attribute  ====== */ 
 
 
 DeleteNode(){
