@@ -307,6 +307,14 @@ def generateRandomAttribute():
             raise Exception(f'Invalid attribute type "{attribute_type}"')
         gra_op.set_domain(domain)
         new_fm_model = gra_op.execute(fm).get_result()
+
+        # Filter attributes
+        if only_leaf or only_concrete:
+            for feature in new_fm_model.get_features():
+                if only_leaf and not feature.is_leaf():
+                    feature.set_attributes(filter(lambda att: att.name != attribute_name, feature.get_attributes()))
+                if only_concrete and feature.is_abstract:
+                    feature.set_attributes(filter(lambda att: att.name != attribute_name, feature.get_attributes()))
         
         # Build response
         json_fm = JSONWriter(path=None, source_model=new_fm_model).transform()
