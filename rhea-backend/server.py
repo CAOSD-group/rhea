@@ -285,8 +285,8 @@ def generateRandomAttribute():
         attribute_type = request.form['attribute_type'].lower()
         min_value = request.form['min_value']
         max_value = request.form['max_value']
-        only_leaf = request.form['only_leaf']
-        only_concrete = request.form['only_concrete'] 
+        only_leaf = request.form['only_leaf'] == 'true'
+        only_concrete = request.form['only_concrete'] == 'true'
 
         # Get FM
         fm = cache.get(fm_hash)
