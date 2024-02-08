@@ -181,6 +181,9 @@ def write_fm_file(fm: FeatureModel, format: str) -> str:
     elif format == 'txt':
         temporal_filepath = tempfile.NamedTemporaryFile(mode='w', encoding='utf8').name
         result = ClaferWriter(source_model=fm, path=temporal_filepath).transform()
+    elif format == 'cql':
+        temporal_filepath = tempfile.NamedTemporaryFile(mode='w', encoding='utf8').name
+        # TODO: Implement CQL writer
     return result
 
 @app.route('/api/getExampleFMs', methods=['GET'])
@@ -282,6 +285,8 @@ def generateRandomAttribute():
         attribute_type = request.form['attribute_type'].lower()
         min_value = request.form['min_value']
         max_value = request.form['max_value']
+        only_leaf = request.form['only_leaf']
+        only_concrete = request.form['only_concrete'] 
 
         # Get FM
         fm = cache.get(fm_hash)
