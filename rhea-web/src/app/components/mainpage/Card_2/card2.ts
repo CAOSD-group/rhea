@@ -18,13 +18,14 @@ let aux
     @Input() jsonLanguageextension:Array<ToolsExtension>=[]
     @Output() newItemEventSave= new EventEmitter<number>();
     @Output() newItemEventName = new EventEmitter<string>();
-
+    
     constructor(){}
     SaveJson(lang:string){
       if(lang!="" && lang!="tree name"){
-      aux=this.list.indexOf(lang)
-      this.newItemEventName.emit(this.myfile_name);
-      this.newItemEventSave.emit(aux);}
+        aux=this.list.indexOf(lang)
+        this.newItemEventName.emit(this.myfile_name);
+        this.newItemEventSave.emit(aux);    
+      }else{console.error("No language selected")}
     }
 
     ListLanguageFormat(){

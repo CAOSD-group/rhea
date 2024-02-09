@@ -1,4 +1,4 @@
-import {Component,ElementRef,inject, ViewChild} from '@angular/core';
+import {Component,Input,ElementRef,inject, ViewChild} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {NestedTreeControl} from '@angular/cdk/tree';
 import {MatTreeNestedDataSource} from '@angular/material/tree';
@@ -313,7 +313,6 @@ Save(text:number){
   if(this.myfile_name==""){
     this.myfile_name=this.title
   }
-  console.log(this.myfile_name)
   this.loglist.unshift("File "+this.myfile_name+" download as ."+this.jsonLanguageextension[text].extension)
   this.loadingmodal=false
   const formData: FormData = new FormData();
@@ -538,7 +537,7 @@ Randomize_attributes(attr, option){
 
 Randomize(){
   for (let attr of this.attributes){
-    this.Randomize_attributes(attr, attr.selectedOption)
+    this.Randomize_attributes(attr, attr.attribute_type)
   }
 }
 
@@ -632,17 +631,17 @@ catch{
 }
 
 CreateAttribtues(){
-  let newvalue={name:"new name",value:"new value", selectedOption:'', minRandomize: 0, maxRandomize: 0}
+  let newvalue={name:"new name",value:"new value", attribute_type:'', minRandomize: 0, maxRandomize: 0}
   if(this.attributes==undefined){this.attributes=[]}
   this.attributes.push(newvalue)
 }
 
-/* ====== fin de Modal de Modify feature  ====== */ 
+/* ====== Fin de Modal de Modify feature  ====== */ 
 
 /* ====== Modal de MODAL de Generate Features' attribute  ====== */ 
 
 attributeName!: string
-selectedOption!: string
+attribute_type!: string
 minValue: number = 0
 maxValue: number = 0
 checkleafFeatures: boolean = false
@@ -650,31 +649,102 @@ checkConcreteFeatures: boolean = false
 
 GenerateRandomAttribute(){
   if(this.attributeName != undefined && this.attributeName != ''){
-    if((this.selectedOption != 'boolean' && (this.minValue != null && this.maxValue != null && this.minValue < this.maxValue)
-    || this.selectedOption == 'boolean')){
+    if((this.attribute_type != 'boolean' && (this.minValue != null && this.maxValue != null && this.minValue < this.maxValue)
+    || this.attribute_type == 'boolean')){
 
       const formData: FormData = new FormData()
       formData.append('fm_hash', this.my_session)
       formData.append('attribute_name', this.attributeName)
-      formData.append('attribute_type', this.selectedOption)
+      formData.append('attribute_type', this.attribute_type)
       formData.append('min_value', this.minValue.toString())
       formData.append('max_value', this.maxValue.toString())
       formData.append('only_leaf', this.checkleafFeatures ? 'true' : 'false')
       formData.append('only_concrete', this.checkConcreteFeatures ? 'true' : 'false')
-
-      console.log(formData)
       
       this.http.post(this.urlgenerateRandomAttribute, formData, { withCredentials: true, responseType: 'text' })
         .subscribe(resultado => { this.CreateData(resultado) })
     }else{
-      console.log('Error: min value is greater than max value or one of them is not a number')
+      console.error('Error: min value is greater than max value or one of them is not a number')
     }
   }else{
-    console.log('Error: name is not defined')
+    console.error('Error: name is not defined')
   }
 }
+/* ====== Fin de modal Generate Features' attribute  ====== */ 
 
-/* ====== Modal de MODAL de Generate Features' attribute  ====== */ 
+/* ====== Modal de Variant Wise QA ====== */
+qualityAttributes:Array<any>=[];
+numConfigs: number = 0
+attribute_assignment_method: string = 'none'
+csv_name = ""
+csv!: File
+list:Array<any>=[]
+
+downloadCQL(){
+  this.Name(this.csv_name)
+  aux=this.ListLanguage.indexOf('Category Theory')
+  const formData: FormData = new FormData();
+  formData.append('fm_format', this.jsonLanguageextension[aux].extension);
+  formData.append('fm_hash',this.my_session);
+  formData.append('method', this.attribute_assignment_method)
+  if (this.attribute_assignment_method == 'none'){
+    this.loglist.unshift("File "+this.myfile_name+" download as ."+this.jsonLanguageextension[aux].extension + ' without any attribute assignment method')
+
+  } else if(this.attribute_assignment_method == 'userList'){
+    this.loglist.unshift("File "+this.myfile_name+" download as ."+this.jsonLanguageextension[aux].extension + ' using a list of attributes')
+    formData.append('quality_attributes', JSON.stringify(this.qualityAttributes))
+    formData.append('num_configs', this.numConfigs.toString())
+  }else if(this.attribute_assignment_method == 'csv'){
+    formData.append('csv', this.csv) 
+    this.loglist.unshift("File "+this.myfile_name+" download as ."+this.jsonLanguageextension[aux].extension + ' using csv file')
+  }
+  this.loadingmodal=false
+  this.loadingtext="Sending file to the server"
+  this.http.post(this.urldownload,formData,{withCredentials:true,responseType:'text'}).subscribe(resultado => {  
+    this.loadingtext="Server responded"
+    let file = new Blob([resultado], { type: this.jsonLanguageextension[aux].extension });
+    saveAs(file, this.myfile_name+ "."+this.jsonLanguageextension[aux].extension)
+  })
+  
+}
+
+csvListener($event){
+  this.csv = $event.target.files[0]
+  if(this.csv.name!=undefined){
+      this.csv_name=this.csv.name
+    }
+}
+
+deleteQA(value:any){
+  setTimeout(() => {
+    this.qualityAttributes?.forEach(element => {
+      if(element.name==value.name && element.value==value.value){
+        this.qualityAttributes?.splice(this.qualityAttributes?.indexOf(element),1)
+      }
+    });
+    },1)
+}
+
+CreateQualityAttribtues(){
+  let newvalue={name:"new name", attribute_type:'', minRandomize: 0, maxRandomize: 0}
+  if(this.qualityAttributes==undefined){this.qualityAttributes=[]}
+  this.qualityAttributes.push(newvalue)
+}
+
+ListLanguageFormat(){
+  this.list=[]
+  this.ListLanguage.forEach(element => {
+    this.jsonLanguageextension.forEach(tool => {
+      if(element==tool.name){
+        element=element+" (."+tool.extension+")"
+        this.list.push(element)}
+    });
+  });
+  return this.list
+}
+
+
+/* ====== Fin de modal de Variant Wise QA ====== */
 
 
 DeleteNode(){

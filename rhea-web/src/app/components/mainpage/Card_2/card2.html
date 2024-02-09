@@ -1,5 +1,3 @@
-
-
 <ul class="sidebar-nav" id="sidebar-nav">
   <li class="nav-item">
       <h4 style="margin-left: 4%; margin-top: 4%;"> Select language to download</h4>
@@ -9,11 +7,18 @@
         <option value="tree name">Select an option</option>
         <option *ngFor="let documento of ListLanguageFormat()">{{documento}}</option>
     </select>
-    
-    <input class="margin"  type="text" [(ngModel)]="myfile_name" placeholder="Name to download" style="border-radius:5px ;background-color: #f0ececaf ;margin-left: 2%;margin-bottom: 3%;">
-   <button class="btn-primary-search" (click)="SaveJson(language)" style="margin-left: 2%;" >
-      <i class="fa fa-download"> </i>Download
-    </button>
-
+    <input class="margin"  type="text" [(ngModel)]="myfile_name" placeholder="Name to download" style="border-radius:5px ;background-color: #f0ececaf ;margin-left: 2%;margin-bottom: 3%;">   
+    <div *ngIf="language == 'Category Theory (.cql)'">
+      <button class="btn-primary-search" style="margin-left: 2%;">
+        <a [ngStyle]="{'color': 'inherit', 'text-decoration': 'none'}" class="empty" data-bs-toggle="modal" href="#variantWQA">
+          <i class="fa fa-download"></i>Download
+        </a>
+      </button>
+    </div>
+    <div *ngIf="language != 'Category Theory (.cql)'">
+      <button class="btn-primary-search" (click)="SaveJson(language)" style="margin-left: 2%;" >
+        <i class="fa fa-download"> </i>Download
+      </button>
+    </div>
   </li> 
 </ul>

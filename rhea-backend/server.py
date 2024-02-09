@@ -183,7 +183,24 @@ def write_fm_file(fm: FeatureModel, format: str) -> str:
         result = ClaferWriter(source_model=fm, path=temporal_filepath).transform()
     elif format == 'cql':
         temporal_filepath = tempfile.NamedTemporaryFile(mode='w', encoding='utf8').name
-        # TODO: Implement CQL writer
+
+        method = request.form['method']
+        print(method)
+
+        if method == 'csv':
+            csv = request.form['csv']
+            print('CQL writer with csv not implemented yet.')
+        elif method == 'userList':
+            attr_list = request.form['quality_attributes'] # list of attributes [name, attribute_type, , minRandomize, maxRandomize]
+            num_configs = request.form['num_configs']
+            print('CQL writer with list of attributes not implemented yet.')
+        elif method == 'none': 
+            print('CQL writer not implemented yet.')    
+
+    
+
+        
+        
     return result
 
 @app.route('/api/getExampleFMs', methods=['GET'])

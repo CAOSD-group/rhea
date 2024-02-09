@@ -270,13 +270,13 @@
             <div class="newAttributeInput grid gap-3 mb-2 d-flex ">
               <input type="string" style="width: 120px;" [(ngModel)]="valor.name">
               <input type="string" style="width: 120px;" [(ngModel)]="valor.value">
-              <select [(ngModel)]="valor.selectedOption" style="width: 110px;">
+              <select [(ngModel)]="valor.attribute_type" style="width: 110px;">
                 <option value="" selected style="font-size: 10px" >Not random</option>
                 <option value="int">Int</option>
                 <option value="float">Float</option>
                 <option value="boolean">Boolean</option>
               </select>
-              <div *ngIf="valor.selectedOption == 'int' || valor.selectedOption == 'float' ">
+              <div *ngIf="valor.attribute_type == 'int' || valor.attribute_type == 'float' ">
                 min: <input type="number" [(ngModel)]="valor.minRandomize" style="width: 70px;">
                 max: <input type="number" [(ngModel)]="valor.maxRandomize" style="width: 70px;">
               </div>
@@ -719,6 +719,81 @@
   </div>
 </div>
 
+<!-- MODAL de Variant Wise QA -->
+<div class="modal fade" id="variantWQA" tabindex="-1" data-bs-backdrop="static">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+
+      <div class="modal-header">
+        <h4>Variant wise QA</h4>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+
+
+
+      <div class="modal-body">
+
+        <div class="d-flex justify-content-evenly my-2">
+          <input type="radio" class="btn-check" value="none" id="option1" autocomplete="off" checked [(ngModel)]="attribute_assignment_method">
+          <label class="btn btn-primary" for="option1">Not specify attributes</label>
+          <input type="radio" class="btn-check" value="csv" id="option2" autocomplete="off" [(ngModel)]="attribute_assignment_method">
+          <label class="btn btn-primary" for="option2">Upload csv</label>
+          <input type="radio" class="btn-check" value="userList" id="option3" autocomplete="off" [(ngModel)]="attribute_assignment_method">
+          <label class="btn btn-primary" for="option3">Create attributes</label>
+        </div>
+
+        <mat-divider class="my-4"></mat-divider>
+        
+        <div *ngIf="attribute_assignment_method == 'csv'" class="">
+          <button  class="buttonmodal" (click)="csv_file.click()">
+            <img src="./assets/img/folder.png" >
+            Attach csv
+          </button>
+          <input class="margin"  type="text" [(ngModel)]="csv_name" disabled="true" style="border-radius:5px ;background-color: #f0ececaf ;margin-left: 1%;">
+          <input [hidden]="true" #csv_file (change)="csvListener($event)" id="csv-input" type="file"/>
+          <p class="d-inline">Upload a .csv with attributes</p>
+        </div>
+
+        <div *ngIf="attribute_assignment_method == 'userList'" class="col-16">
+          <h5 class="d-flex align-items-center">Generate attributes 
+            <button class="empty" (click)="CreateQualityAttribtues()" >
+              <mat-icon class="mat-icon-rtl-mirror">add</mat-icon>
+            </button></h5>
+            <div *ngFor="let valor of qualityAttributes"  >
+              <div class="newAttributeInput grid gap-3 mb-2 d-flex ">
+                <div> Name: <input type="string" style="width: 120px;" [(ngModel)]="valor.name"> </div>
+                <div> Type:
+                  <select [(ngModel)]="valor.attribute_type" style="width: 110px;">
+                    <option value="string" selected>String</option>
+                    <option value="int">Int</option>
+                    <option value="nat">Natural</option>
+                    <option value="float">Float</option>
+                    <option value="boolean">Boolean</option>
+                  </select>
+                </div>
+                <div *ngIf="valor.attribute_type == 'int' || valor.attribute_type == 'float' ">
+                  min: <input type="number" [(ngModel)]="valor.minRandomize" style="width: 70px;">
+                  max: <input type="number" [(ngModel)]="valor.maxRandomize" style="width: 70px;">
+                </div>
+                <button class="empty" (click)="deleteQA(valor)">
+                  <mat-icon class="mat-icon-rtl-mirror">clear</mat-icon>
+                </button>
+              </div>
+            </div>
+            <p>Number of configs: 
+            <input type="number" [(ngModel)]="numConfigs" style="width: 70px; margin-left: 5px;">
+            (0 for all configs)
+        </div>
+      </div>
+      
+      <div class="modal-footer">
+        <button class="buttonmodal" style="height: 40px;" data-bs-dismiss="modal" (click)="downloadCQL()">Download</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
 <!-- MODAL de Generate Features' attribute -->
 <div class="modal fade" id="genFeatsAttr" tabindex="-1" data-bs-backdrop="static">
   <div class="modal-dialog">
@@ -731,15 +806,16 @@
         <div class="grid gap-3 mb-2 d-flex justify-content-evenly align-items-center">
           <div> Name: <input type="string" style="width: 120px;" [(ngModel)]="attributeName"> </div>
           <div> Type:
-            <select [(ngModel)]="selectedOption" style="width: 110px;">
+            <select [(ngModel)]="attribute_type" style="width: 110px;">
               <option value="" selected style="font-size: 15px" >Select type</option>
               <option value="int">Int</option>
+              <option value="nat">Natural</option>
               <option value="float">Float</option>
               <option value="boolean">Boolean</option>
             </select>
           </div>
         </div>
-        <div *ngIf="selectedOption == 'int' || selectedOption == 'float'" class="grid gap-2 mb-2 d-flex justify-content-evenly align-items-center">
+        <div *ngIf="attribute_type == 'int' || attribute_type == 'float'" class="grid gap-2 mb-2 d-flex justify-content-evenly align-items-center">
           <div> min: <input type="number" [(ngModel)]="minValue" style="width: 70px;"> </div>
           <div> max: <input type="number" [(ngModel)]="maxValue" style="width: 70px;"> </div>
         </div>
