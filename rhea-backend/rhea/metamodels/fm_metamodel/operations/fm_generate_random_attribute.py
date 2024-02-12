@@ -51,6 +51,7 @@ def generate_random_attribute_values(feature_model: FeatureModel,
         if not any(name == attr.name for attr in feature.get_attributes()):
             random_value = get_random_value_from_domain(domain)
             new_attribute = Attribute(name, domain, random_value, None)
+            new_attribute.set_parent(feature)
             feature.add_attribute(new_attribute)
     return feature_model
 

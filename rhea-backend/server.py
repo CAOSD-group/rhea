@@ -329,15 +329,16 @@ def generateRandomAttribute():
         if only_leaf or only_concrete:
             for feature in new_fm_model.get_features():
                 if only_leaf and not feature.is_leaf():
-                    feature.set_attributes(filter(lambda att: att.name != attribute_name, feature.get_attributes()))
+                    feature.set_attributes([att for att in feature.get_attributes() if att.name != attribute_name])
                 if only_concrete and feature.is_abstract:
-                    feature.set_attributes(filter(lambda att: att.name != attribute_name, feature.get_attributes()))
+                    feature.set_attributes([att for att in feature.get_attributes() if att.name != attribute_name])
         
         # Build response
         json_fm = JSONWriter(path=None, source_model=new_fm_model).transform()
         response = make_response(json_fm)
         fm_hash = hash(new_fm_model)
-        cache.set(str(fm_hash), new_fm_model)
+        str_fm_hash = str(fm_hash)
+        cache.set(str_fm_hash, new_fm_model)
         print(response)
         return response
     return jsonify({'error': 'Not a POST method'}), 404
