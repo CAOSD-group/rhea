@@ -537,7 +537,10 @@ Randomize_attributes(attr, option){
 
 Randomize(){
   for (let attr of this.attributes){
-    this.Randomize_attributes(attr, attr.attribute_type)
+    if((this.attribute_type != 'boolean' && (this.minValue != null && this.maxValue != null && this.minValue <= this.maxValue)
+    || this.attribute_type == 'boolean')){
+      this.Randomize_attributes(attr, attr.attribute_type)
+    }
   }
 }
 
@@ -649,7 +652,7 @@ checkConcreteFeatures: boolean = false
 
 GenerateRandomAttribute(){
   if(this.attributeName != undefined && this.attributeName != ''){
-    if((this.attribute_type != 'boolean' && (this.minValue != null && this.maxValue != null && this.minValue < this.maxValue)
+    if((this.attribute_type != 'boolean' && (this.minValue != null && this.maxValue != null && this.minValue <= this.maxValue)
     || this.attribute_type == 'boolean')){
 
       const formData: FormData = new FormData()
@@ -663,6 +666,8 @@ GenerateRandomAttribute(){
       
       this.http.post(this.urlgenerateRandomAttribute, formData, { withCredentials: true, responseType: 'text' })
         .subscribe(resultado => { this.CreateData(resultado) })
+
+      this.loglist.unshift("Added randomized attribute '" + this.attributeName + "' to the features")
     }else{
       console.error('Error: min value is greater than max value or one of them is not a number')
     }
@@ -687,6 +692,9 @@ downloadCQL(){
   formData.append('fm_format', this.jsonLanguageextension[aux].extension);
   formData.append('fm_hash',this.my_session);
   formData.append('method', this.attribute_assignment_method)
+  if(this.myfile_name==""){
+    this.myfile_name=this.title
+  }
   if (this.attribute_assignment_method == 'none'){
     this.loglist.unshift("File "+this.myfile_name+" download as ."+this.jsonLanguageextension[aux].extension + ' without any attribute assignment method')
 
