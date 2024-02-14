@@ -25,7 +25,10 @@ from flamapy.metamodels.fm_metamodel.transformations import (
     SPLOTWriter
 )
 
-from rhea.metamodels.fm_metamodel.transformations import JSONWriter, JSONReader, FeatureIDEWriter, ClaferWriter
+from flamapy.metamodels.bdd_metamodel.transformations import FmToBDD
+from flamapy.metamodels.bdd_metamodel.operations import BDDProducts, BDDSampling
+
+from rhea.metamodels.fm_metamodel.transformations import JSONWriter, JSONReader, FeatureIDEWriter, ClaferWriter, ConfigurationsAttributesReader, ConfigurationsAttributesWriter, CategoryTheoryWriter
 from rhea.metamodels.fm_metamodel.operations.fm_generate_random_attribute import GenerateRandomAttribute
 from rhea.refactorings import utils
 from rhea import refactorings
@@ -183,24 +186,45 @@ def write_fm_file(fm: FeatureModel, format: str) -> str:
         result = ClaferWriter(source_model=fm, path=temporal_filepath).transform()
     elif format == 'cql':
         temporal_filepath = tempfile.NamedTemporaryFile(mode='w', encoding='utf8').name
-
         method = request.form['method']
-        print(method)
-
         if method == 'csv':
-            csv = request.form['csv']
-            print('CQL writer with csv not implemented yet.')
+            # check if the post request has the file part
+            if 'file' not in request.files:
+                print('No file part')
+                return redirect(request.url)
+            file = request.files['file']
+            # If the user does not select a file, the browser submits an empty file without a filename.
+            if file.filename == '':
+                print('No selected file')
+                return redirect(request.url)
+            if file and '.' in file.filename and file.filename.rsplit('.', 1)[1].lower() == 'csv':
+                filename = secure_filename(file.filename)
+                filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename) 
+                filepath = secure_filename(filepath)
+                file.save(filepath)
+                configs = ConfigurationsAttributesReader(path=filepath, source_model=fm).transform()
+                os.remove(filepath)
+                result = CategoryTheoryWriter(path=temporal_filepath, source_model=fm, configurations_attr=configs).transform()
         elif method == 'userList':
             attr_list = request.form['quality_attributes'] # list of attributes [name, attribute_type, , minRandomize, maxRandomize]
             num_configs = request.form['num_configs']
-            print('CQL writer with list of attributes not implemented yet.')
+
+            # Obtain the sample using the BDD
+            bdd_model = FmToBDD(fm).transform()
+            if num_configs is None:
+                products = BDDProducts().execute(bdd_model).get_result()
+            else:
+                products = BDDSampling(size=num_configs).execute(bdd_model).get_result()
+
+            temporal_csvfilepath = tempfile.NamedTemporaryFile(mode='w', encoding='utf8').name
+            configs_attrs_writter = ConfigurationsAttributesWriter(temporal_csvfilepath, fm)
+            configs_attrs_writter.set_configurations(products)
+            configs_attrs_writter.set_attributes_types(attr_list)
+            configs_attrs_writter.transform()
+            configs = ConfigurationsAttributesReader(path=temporal_csvfilepath, source_model=fm).transform()
+            result = CategoryTheoryWriter(path=temporal_filepath, source_model=fm, configurations_attr=configs).transform()
         elif method == 'none': 
-            print('CQL writer not implemented yet.')    
-
-    
-
-        
-        
+            result = CategoryTheoryWriter(path=temporal_filepath, source_model=fm).transform()
     return result
 
 @app.route('/api/getExampleFMs', methods=['GET'])
