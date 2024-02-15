@@ -18,7 +18,7 @@ jobs:
                     port: ${{secrets.SSH_PORT}}
                     script: |
                         cd ${{secrets.WORK_DIR}}                    
-                        git switch maria                            
+                        git switch main                            
                         git pull                                    
                         cd /home/usuario/rhea/rhea-web/
                         ng build --configuration production --base-href ""
