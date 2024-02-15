@@ -3,8 +3,8 @@ from typing import Any
 
 from flamapy.core.transformations import TextToModel
 from flamapy.metamodels.configuration_metamodel.models import Configuration
-from flamapy.metamodels.fm_metamodel.models import FeatureModel, Feature
-from utils import utils
+from flamapy.metamodels.fm_metamodel.models import FeatureModel
+import rhea.metamodels.fm_metamodel.models.utils as utils
 
 
 CSV_SEPARATOR = ','
@@ -67,5 +67,3 @@ def from_csv_to_configurations(fm: FeatureModel, content: dict[str, str], index:
 
     configurations_tuple = [f.name for f in configuration_list], index_attributes_dict
     return configuration_list, index_attributes_dict
-
-

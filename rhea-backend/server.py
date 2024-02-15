@@ -206,12 +206,12 @@ def write_fm_file(fm: FeatureModel, format: str) -> str:
                 os.remove(filepath)
                 result = CategoryTheoryWriter(path=temporal_filepath, source_model=fm, configurations_attr=configs).transform()
         elif method == 'userList':
-            attr_list = request.form['quality_attributes'] # list of attributes [name, attribute_type, , minRandomize, maxRandomize]
-            num_configs = request.form['num_configs']
+            attr_list = eval(request.form['quality_attributes']) # list of attributes [name, attribute_type, , minRandomize, maxRandomize]
+            num_configs = int(request.form['num_configs'])
 
             # Obtain the sample using the BDD
             bdd_model = FmToBDD(fm).transform()
-            if num_configs is None:
+            if num_configs is None or num_configs == 0:
                 products = BDDProducts().execute(bdd_model).get_result()
             else:
                 products = BDDSampling(size=num_configs).execute(bdd_model).get_result()
@@ -223,7 +223,7 @@ def write_fm_file(fm: FeatureModel, format: str) -> str:
             configs_attrs_writter.transform()
             configs = ConfigurationsAttributesReader(path=temporal_csvfilepath, source_model=fm).transform()
             result = CategoryTheoryWriter(path=temporal_filepath, source_model=fm, configurations_attr=configs).transform()
-        elif method == 'none': 
+        elif method == 'none':
             result = CategoryTheoryWriter(path=temporal_filepath, source_model=fm).transform()
     return result
 

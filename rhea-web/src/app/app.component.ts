@@ -703,7 +703,7 @@ downloadCQL(){
     formData.append('quality_attributes', JSON.stringify(this.qualityAttributes))
     formData.append('num_configs', this.numConfigs.toString())
   }else if(this.attribute_assignment_method == 'csv'){
-    formData.append('csv', this.csv) 
+    formData.append('file', this.csv, this.csv.name) 
     this.loglist.unshift("File "+this.myfile_name+" download as ."+this.jsonLanguageextension[aux].extension + ' using csv file')
   }
   this.loadingmodal=false
@@ -718,9 +718,7 @@ downloadCQL(){
 
 csvListener($event){
   this.csv = $event.target.files[0]
-  if(this.csv.name!=undefined){
-      this.csv_name=this.csv.name
-    }
+  this.csv_name=this.csv.name
 }
 
 deleteQA(value:any){

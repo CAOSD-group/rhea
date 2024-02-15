@@ -723,27 +723,26 @@
 <div class="modal fade" id="variantWQA" tabindex="-1" data-bs-backdrop="static">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
-
       <div class="modal-header">
         <h4>Variant wise QA</h4>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
-
-
-
       <div class="modal-body">
-
-        <div class="d-flex justify-content-evenly my-2">
-          <input type="radio" class="btn-check" value="none" id="option1" autocomplete="off" checked [(ngModel)]="attribute_assignment_method">
-          <label class="btn btn-primary" for="option1">Not specify attributes</label>
-          <input type="radio" class="btn-check" value="csv" id="option2" autocomplete="off" [(ngModel)]="attribute_assignment_method">
-          <label class="btn btn-primary" for="option2">Upload csv</label>
-          <input type="radio" class="btn-check" value="userList" id="option3" autocomplete="off" [(ngModel)]="attribute_assignment_method">
-          <label class="btn btn-primary" for="option3">Create attributes</label>
+        <div class="d-flex justify-content-evenly">
+          <div class="form-check form-check-inline">
+            <input type="radio" class="form-check-input" value="none" id="option1" autocomplete="off" checked [(ngModel)]="attribute_assignment_method">
+            <label class="form-check-label" for="option1">Without attributes</label>
+          </div>
+          <div class="form-check form-check-inline">
+            <input type="radio" class="form-check-input" value="csv" id="option2" autocomplete="off" [(ngModel)]="attribute_assignment_method">
+            <label class="form-check-label" for="option2">Upload csv</label>
+          </div>
+          <div class="form-check form-check-inline">
+            <input type="radio" class="form-check-input" value="userList" id="option3" autocomplete="off" [(ngModel)]="attribute_assignment_method">
+            <label class="form-check-label" for="option3">Create attributes</label>
+          </div>
         </div>
-
         <mat-divider class="my-4"></mat-divider>
-        
         <div *ngIf="attribute_assignment_method == 'csv'" class="">
           <button  class="buttonmodal" (click)="csv_file.click()">
             <img src="./assets/img/folder.png" >
@@ -753,7 +752,6 @@
           <input [hidden]="true" #csv_file (change)="csvListener($event)" id="csv-input" type="file"/>
           <p class="d-inline">Upload a .csv with attributes</p>
         </div>
-
         <div *ngIf="attribute_assignment_method == 'userList'" class="col-16">
           <h5 class="d-flex align-items-center">Generate attributes 
             <button class="empty" (click)="CreateQualityAttribtues()" >
@@ -785,11 +783,9 @@
             (0 for all configs)
         </div>
       </div>
-      
       <div class="modal-footer">
         <button class="buttonmodal" style="height: 40px;" data-bs-dismiss="modal" (click)="downloadCQL()">Download</button>
       </div>
-
     </div>
   </div>
 </div>

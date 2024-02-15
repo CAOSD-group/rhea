@@ -4,7 +4,7 @@ import jinja2
 
 from flamapy.core.transformations import ModelToText
 from flamapy.metamodels.fm_metamodel.models import FeatureModel, Feature
-from utils import utils
+import rhea.metamodels.fm_metamodel.models.utils as utils
 
 
 CATEGORY_THEORY_TEMPLATE = 'category_theory_template_config_attr.cql'

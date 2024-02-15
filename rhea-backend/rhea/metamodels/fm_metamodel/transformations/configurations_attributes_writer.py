@@ -62,14 +62,16 @@ def configurations_to_csv(fm: FeatureModel, configurations: list[Configuration],
 def generate_attributes(attributes_info: list[dict[str, str]]) -> str:
     result = []
     for attribute in attributes_info:
-        if attribute['type'] == 'int':
-            int_value = random.randint(attribute['minRandomize'], attribute['maxRandomize'])
+        if attribute['attribute_type'] == 'int':
+            int_value = random.randint(int(attribute['minRandomize']), int(attribute['maxRandomize']))
             result.append(str(int_value))
-        elif attribute['type'] == 'bool':
+        elif attribute['attribute_type'] == 'bool':
             bool_value = 'false' if random.randint(0, 1) == 0 else 'true'
             result.append(bool_value)
-        elif attribute['type'] == 'double':
-            digits = max(attribute['minRandomize'], attribute['maxRandomize'])
-            double_value = round(random.uniform(attribute['minRandomize'], attribute['maxRandomize']), digits)
+        elif attribute['attribute_type'] == 'float':
+            min_digits = str(float(attribute['minRandomize']))[::-1].find('.')
+            max_digits = str(float(attribute['maxRandomize']))[::-1].find('.')
+            digits = max(min_digits, max_digits)
+            double_value = round(random.uniform(float(attribute['minRandomize']), float(attribute['maxRandomize'])), digits)
             result.append(str(double_value))
     return CSV_SEPARATOR.join(result)

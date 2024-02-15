@@ -99,13 +99,10 @@ def get_tools_info() -> list[FMToolInfo]:
                                     lc.LCPseudoComplexConstraint,
                                     lc.LCStrictComplexConstraint]))
     tools.append(FMToolInfo('Category Theory', 'cql', [lc.LCFeature,
-                                    lc.LCAbstractFeature,
                                     lc.LCOptionalFeature,
                                     lc.LCMandatoryFeature,
                                     lc.LCOrGroupFeature,
                                     lc.LCXorGroupFeature,
-                                    lc.LCMutexGroupFeature,
-                                    lc.LCCardinalityGroupFeature,
                                     lc.LCConstraint,
                                     lc.LCRequiresConstraint,
                                     lc.LCExcludesConstraint,
