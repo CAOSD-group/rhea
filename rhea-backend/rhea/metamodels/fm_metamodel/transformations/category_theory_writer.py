@@ -323,6 +323,8 @@ def id_dict(c_attr: list[tuple[list, dict[int, dict[str, Any]]]]) -> dict[int, d
         attributes_tuple = tup[1]
         attributes_dict = next((attr for attr in attributes_tuple.values()), None)
         qn_count = 0
+        if attributes_dict is None:
+            return id_dict
         for attribute, values in attributes_dict.items():
             qn_dict = {}
             qn_dict['name'] = attribute
